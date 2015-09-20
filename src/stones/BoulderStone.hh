@@ -21,14 +21,10 @@
 #define BOULDERSTONE_HH
 
 #include "stones.hh"
-
 #include "stones_internal.hh"
 
 namespace enigma {
 
-    /** 
-     * 
-     */
     class BoulderStone : public Stone {
         CLONEOBJ(BoulderStone);
         DECL_TRAITS;
@@ -47,7 +43,7 @@ namespace enigma {
         BoulderStone(Direction dir = NORTH);
         
         // Object interface
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value message(const Message &m);
         
         // StateObject interface

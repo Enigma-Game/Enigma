@@ -19,7 +19,6 @@
 
 #include "stones/ShogunStone.hh"
 #include "errors.hh"
-//#include "main.hh"
 #include "server.hh"
 #include "world.hh"
 
@@ -46,7 +45,7 @@ namespace enigma {
         return "st_shogun";
     }
 
-    void ShogunStone::setAttr(const string& key, const Value &val) {
+void ShogunStone::setAttr(const std::string& key, const Value &val) {
         if (key == "flavor") {
             ASSERT(!isDisplayable(), XLevelRuntime, "ShogunStone: attempt to reflavor an existing shogun");
             std::string flavor = val.to_string();
@@ -66,7 +65,7 @@ namespace enigma {
         Stone::setAttr(key, val);
     }
 
-    Value ShogunStone::getAttr(const string &key) const {
+Value ShogunStone::getAttr(const std::string &key) const {
         if (key == "flavor") {
             std::string result;
             int holes = getHoles();

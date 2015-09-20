@@ -26,9 +26,6 @@
 
 namespace enigma {
 
-    /** 
-     * 
-     */
     class VolcanoStone : public Stone {
         CLONEOBJ(VolcanoStone);
         DECL_TRAITS;
@@ -52,7 +49,7 @@ namespace enigma {
         
         // Object interface
         virtual std::string getClass() const;        
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
         

@@ -19,7 +19,6 @@
  */
 
 #include "stones/Switch.hh"
-//#include "main.hh"
 #include "server.hh"
 
 namespace enigma {
@@ -35,7 +34,7 @@ namespace enigma {
         return "st_switch";
     }
     
-    void Switch::setAttr(const string& key, const Value &val) {
+void Switch::setAttr(const std::string& key, const Value &val) {
         if (isDisplayable())
             if (key == "color" && state <= ON) {   // recoloring of a switch
                 Stone::setAttr(key, val);

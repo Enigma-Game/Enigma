@@ -18,12 +18,6 @@
 #ifndef FWD_HH
 #define FWD_HH
 
-namespace enigma_levels
-{
-    class Level;
-    class LevelPack;
-}
-
 namespace tools
 {
     class Value;

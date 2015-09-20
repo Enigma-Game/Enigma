@@ -35,7 +35,7 @@ namespace enigma {
         return "fl_slope";
     }
         
-    void SlopeFloor::setAttr(const string& key, const Value &val) {
+    void SlopeFloor::setAttr(const std::string& key, const Value &val) {
         if (key == "shape") {
             std::string shape = val.to_string();
             if (shape == "" || shape == "pw" || shape == "ps" || shape == "pe" || shape == "pn" ||

@@ -16,19 +16,18 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
-
 #include "stones/KeySwitch.hh"
 #include "server.hh"
 #include "Inventory.hh"
 #include "player.hh"
 
 namespace enigma {
+
     KeySwitch::KeySwitch() : Stone () {
     }
 
-    void KeySwitch::setAttr(const string& key, const Value &val) {
+    void KeySwitch::setAttr(const std::string& key, const Value &val) {
         if (key == "target") {
             Stone::setAttr("destination", val);
         } else if (key == "invisible") {

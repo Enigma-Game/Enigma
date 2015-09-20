@@ -51,7 +51,7 @@ namespace enigma {
         delete this;
     }
 
-    void LaserStone::setAttr(const string& key, const Value &val) {
+    void LaserStone::setAttr(const std::string& key, const Value &val) {
         if (isDisplayable())
             if (key == "orientation") {
                 Stone::setAttr(key, val);
@@ -122,7 +122,7 @@ namespace enigma {
     }
 
     void LaserStone::init_model()  {
-        string mname = externalState() == 1 ? "st-laseron" : "st-laser";
+        std::string mname = externalState() == 1 ? "st-laseron" : "st-laser";
         mname += to_suffix(getOrientation());
         set_model(mname);
     }

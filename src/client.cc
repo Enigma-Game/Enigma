@@ -73,19 +73,19 @@ std::string displayedLevelInfo(lev::Proxy *level) {
     tmp = level->getLocalizedString("title");
     if (tmp.empty())
         tmp = _("Another nameless level");
-    text = string("\"") + tmp + "\"";
+    text = std::string("\"") + tmp + "\"";
     tmp = level->getAuthor();
     if (!tmp.empty())
         text += _(" by ") + tmp;
     tmp = level->getLocalizedString("subtitle");
     if (!tmp.empty() && tmp != "subtitle")
-        text += string(" - \"") + tmp + "\"";
+        text += std::string(" - \"") + tmp + "\"";
     tmp = level->getCredits(false);
     if (!tmp.empty())
-        text += string(" - Credits: ") + tmp;
+        text += std::string(" - Credits: ") + tmp;
     tmp = level->getDedication(false);
     if (!tmp.empty())
-        text += string(" - Dedication: ") + tmp;
+        text += std::string(" - Dedication: ") + tmp;
     return text;
 }
 
@@ -642,14 +642,14 @@ void Client::tick(double dtime) {
                     int difficulty = app.state->getInt("Difficulty");
                     int wr_time = ratingMgr->getBestScore(curProxy, difficulty);
                     int best_user_time = scm->getBestUserScore(curProxy, difficulty);
-                    string message;
+                    std::string message;
 
                     if (wr_time > 0 && (best_user_time < 0 || best_user_time > wr_time)) {
-                        message = string(_("Too slow for ")) +
+                        message = std::string(_("Too slow for ")) +
                                   ratingMgr->getBestScoreHolder(curProxy, difficulty) +
                                   "... Ctrl-A";
                     } else {
-                        message = string(_("You are slow today ... Ctrl-A"));
+                        message = std::string(_("You are slow today ... Ctrl-A"));
                     }
 
                     client::Msg_PlaySound("shatter", 1.0);
@@ -708,7 +708,7 @@ void Client::level_finished() {
 
     int level_time = ecl::round_nearest<int>(m_total_game_time);
 
-    string text;
+    std::string text;
     bool timehunt_restart = false;
 
     std::string par_name = ratingMgr->getBestScoreHolder(curProxy, difficulty);
@@ -718,7 +718,7 @@ void Client::level_finished() {
     if (wr_time > 0) {
         if (best_user_time < 0 || best_user_time > wr_time) {
             if (level_time == wr_time)
-                text = string(_("Exactly the world record of ")) + par_name + "!";
+                text = std::string(_("Exactly the world record of ")) + par_name + "!";
             else if (level_time < wr_time)
                 text = _("Great! A new world record!");
         }
@@ -837,7 +837,7 @@ void Client::handle_message(Message *m) {  // @@@ unused
     }
 }
 
-void Client::error(const string &text) {
+void Client::error(const std::string &text) {
     m_error_message = text;
     m_state = cls_error;
     draw_screen();
@@ -901,7 +901,7 @@ bool AbortGameP() {
     return client_instance.abort_p();
 }
 
-void Msg_Command(const string &cmd) {
+void Msg_Command(const std::string &cmd) {
     if (cmd == "abort") {
         client_instance.abort();
     } else if (cmd == "level_finished") {

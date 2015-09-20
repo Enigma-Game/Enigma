@@ -10,8 +10,6 @@
 
 namespace display {
 
-using ecl::V2;
-
 class DisplayLayer;
 class Model;
 

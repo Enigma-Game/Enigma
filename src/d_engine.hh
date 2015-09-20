@@ -191,14 +191,14 @@ private:
 class Sprite : public ecl::Nocopy {
 public:
     Model *model;
-    V2 pos;
+    ecl::V2 pos;
     int screenpos[2];
     SpriteLayer layer;
     bool visible;
     Sprite *above[3];
     Sprite *beneath[3];
 
-    Sprite(const V2 &p, SpriteLayer l, Model *m) : model(m), pos(p), layer(l), visible(true) {
+    Sprite(const ecl::V2 &p, SpriteLayer l, Model *m) : model(m), pos(p), layer(l), visible(true) {
         screenpos[0] = screenpos[1] = 0;
         above[0] = above[1] = above[2] = NULL;
         beneath[0] = beneath[1] = beneath[2] = NULL;
@@ -290,13 +290,13 @@ private:
 /* -------------------- Lines -------------------- */
 
 struct Line {
-    V2 start, end;
-    V2 oldstart, oldend;
+    ecl::V2 start, end;
+    ecl::V2 oldstart, oldend;
     unsigned short r, g, b;
     bool thick;
 
-    Line(const V2 &s, const V2 &e, unsigned short rc, unsigned short gc, unsigned short bc,
-         bool isThick)
+    Line(const ecl::V2 &s, const ecl::V2 &e, unsigned short rc, unsigned short gc,
+         unsigned short bc, bool isThick)
     : start(s), end(e), r(rc), g(gc), b(bc), thick(isThick) {}
     Line() {}
 };
@@ -310,10 +310,10 @@ public:
     void draw(ecl::GC & /*gc*/, const WorldArea & /*a*/, int /*x*/, int /*y*/) {}
     void draw_onepass(ecl::GC &gc);
 
-    RubberHandle add_line(const V2 &p1, const V2 &p2, unsigned short rc, unsigned short gc,
-                          unsigned short bc, bool isThick);
-    void set_startpoint(unsigned id, const V2 &p1);
-    void set_endpoint(unsigned id, const V2 &p2);
+    RubberHandle add_line(const ecl::V2 &p1, const ecl::V2 &p2, unsigned short rc,
+                          unsigned short gc, unsigned short bc, bool isThick);
+    void set_startpoint(unsigned id, const ecl::V2 &p1);
+    void set_endpoint(unsigned id, const ecl::V2 &p2);
     void kill_line(unsigned id);
     void new_world(int w, int h);
 
@@ -345,11 +345,11 @@ public:
 
     DisplayEngine *get_engine() const { return m_engine; }
 
-    SpriteHandle add_effect(const V2 &pos, Model *m, bool isDispensible = false);
-    SpriteHandle add_sprite(const V2 &pos, Model *m);
+    SpriteHandle add_effect(const ecl::V2 &pos, Model *m, bool isDispensible = false);
+    SpriteHandle add_sprite(const ecl::V2 &pos, Model *m);
 
-    RubberHandle add_line(V2 p1, V2 p2, unsigned short rc, unsigned short gc, unsigned short bc,
-                          bool isThick);
+    RubberHandle add_line(ecl::V2 p1, ecl::V2 p2, unsigned short rc, unsigned short gc,
+                          unsigned short bc, bool isThick);
 
     void new_world(int w, int h);
     void redraw();
@@ -408,7 +408,7 @@ private:
     bool redraw_everything;
     StatusBarImpl *status_bar;
 
-    V2 m_reference_point;
+    ecl::V2 m_reference_point;
     Follower *m_follower;
 
     ScreenArea inventoryarea;

@@ -15,14 +15,12 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
-
 #include "stones/OneWayStone.hh"
-//#include "main.hh"
 #include "player.hh"
 
 namespace enigma {
+
     OneWayStone::OneWayStone(Value color, Direction dir) : Stone () {
         state = dir;
         setAttr("color", color);
@@ -32,7 +30,7 @@ namespace enigma {
         return "st_oneway";
     }
         
-    void OneWayStone::setAttr(const string& key, const Value &val) {
+    void OneWayStone::setAttr(const std::string& key, const Value &val) {
         if (key == "color" && isDisplayable()) {
             Stone::setAttr(key, val);
             init_model();    // need to redisplay after attribute set

@@ -32,7 +32,7 @@ namespace enigma {
         return "st_magic";
     }
     
-    void MagicStone::setAttr(const string& key, const Value &val) {
+    void MagicStone::setAttr(const std::string& key, const Value &val) {
         if (key == "flavor") {
             std::string fl = val.to_string();
             if (fl == "brick") state = BRICK;

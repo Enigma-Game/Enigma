@@ -40,7 +40,7 @@ namespace enigma {
         return "st_chess";
     }
     
-    void ChessStone::setAttr(const string& key, const Value &val) {
+    void ChessStone::setAttr(const std::string& key, const Value &val) {
         if (key == "color") {
             set_color(to_int(val));
         } else

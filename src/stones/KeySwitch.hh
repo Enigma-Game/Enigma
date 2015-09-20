@@ -47,7 +47,7 @@ namespace enigma {
         KeySwitch();
 
         // Object interface
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
 
         // StateObject interface
         virtual void setState(int extState);

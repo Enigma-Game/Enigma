@@ -79,7 +79,7 @@ namespace enigma {
         
         // Object interface
         virtual std::string getClass() const;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value message(const Message &m);
         
         // StateObject interface
@@ -106,7 +106,7 @@ namespace enigma {
         static const int max_capture_retry = 20; // note definition of OBJBIT_CAPTURE_RETRY
 
         // Methods
-        string get_model_name();
+        std::string get_model_name();
         Value maybe_move_to(Direction dir1, Direction dir2);
         Value message_move(Value moveDir);
         bool try_state(State newstate);

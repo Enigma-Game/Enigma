@@ -15,13 +15,9 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
-
 #include "stones/DeathStone.hh"
-
 #include "items/GlassesItem.hh"
-//#include "main.hh"
 
 namespace enigma {
     DeathStone::DeathStone(bool isInvisible, bool isMovable) : Stone () {
@@ -41,7 +37,7 @@ namespace enigma {
         return "st_death";
     }
         
-    void DeathStone::setAttr(const string& key, const Value &val) {
+    void DeathStone::setAttr(const std::string& key, const Value &val) {
         if (key == "invisible") {
             if (val.to_bool() != ((objFlags & OBJBIT_INVISIBLE) != 0)) {
                 // change of visibility

@@ -14,13 +14,11 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
-
 #include "stones/ClusterStone.hh"
-//#include "main.hh"
 
 namespace enigma {
+
     ClusterStone::ClusterStone(std::string classname, std::string connections) : Stone() {
         setAttr("connections", connections);
         setAttr("$class", classname);
@@ -30,7 +28,7 @@ namespace enigma {
         return getAttr("$class").to_string();
     }
     
-    void ClusterStone::setAttr(const string& key, const Value &val) {
+    void ClusterStone::setAttr(const std::string& key, const Value &val) {
         if (key == "connections" || key == "faces" || key == "cluster") {
             Stone::setAttr(key, val);
             if (isDisplayable()) {

@@ -38,7 +38,7 @@ namespace enigma {
         return "st_turnstile";
     }
 
-    void TurnstilePivot::setAttr(const string& key, const Value &val) {
+void TurnstilePivot::setAttr(const std::string& key, const Value &val) {
         if (key == "flavor") {
             ASSERT((val.to_string() == "red" || val.to_string() == "green"), XLevelRuntime,
                     ("Turnstile unknown flavor: " + val.to_string()).c_str());
@@ -361,7 +361,7 @@ namespace enigma {
         return "st_turnstilearm";
     }
 
-    void TurnstileArm::setAttr(const string& key, const Value &val) {
+void TurnstileArm::setAttr(const std::string& key, const Value &val) {
         if (key == "orientation") {                // TODO connections support
             setState(val);
         } else if (key == "connections") {

@@ -44,7 +44,7 @@ namespace enigma {
         return "st_mirror";
     }
     
-    void MirrorStone::setAttr(const string& key, const Value &val) {
+    void MirrorStone::setAttr(const std::string& key, const Value &val) {
         bool newModel = false;
         bool lightChange = false;
         bool handled = false;

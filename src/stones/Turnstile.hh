@@ -21,16 +21,12 @@
 #define TURNSTILE_HH
 
 #include "stones.hh"
-
 #include "stones_internal.hh"
 
 namespace enigma {
 
     class TurnstileArm;
 
-    /**
-     *
-     */
     class TurnstilePivot : public Stone {
         CLONEOBJ(TurnstilePivot);
         DECL_TRAITS_ARRAY(2, traitsIdx());
@@ -45,7 +41,7 @@ namespace enigma {
 
         // Object interface
         virtual std::string getClass() const;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value message(const Message &m);
 
         // StateObject interface
@@ -72,10 +68,6 @@ namespace enigma {
         void handleActorsAndItems(bool clockwise, Object *impulse_sender);
     };
 
-
-    /**
-     *
-     */
     class TurnstileArm : public Stone {
         CLONEOBJ(TurnstileArm);
         DECL_TRAITS_ARRAY(4, state);
@@ -85,7 +77,7 @@ namespace enigma {
 
         // Object interface
         virtual std::string getClass() const;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
 

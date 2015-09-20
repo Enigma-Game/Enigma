@@ -15,23 +15,21 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
-
 #include "stones/BoulderStone.hh"
 #include "laser.hh"
 #include "player.hh"
 #include "world.hh"
-//#include "main.hh"
 
 namespace enigma {
+
     BoulderStone::BoulderStone(Direction dir) {
         state = INIT;
         // do not use set_dir, because this will set the state to ACTIVE
         Object::setAttr("orientation", dir);
     }
     
-    void BoulderStone::setAttr(const string& key, const Value &val) {
+    void BoulderStone::setAttr(const std::string& key, const Value &val) {
         if (key == "orientation") {
             if (isDisplayable())
                 setDir(to_direction(val));

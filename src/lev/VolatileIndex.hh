@@ -25,9 +25,7 @@
 #include <vector>
 
 namespace enigma { namespace lev {    
-    /**
-     * 
-     */
+
     class VolatileIndex : public Index  {
     public:
         /**

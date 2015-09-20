@@ -24,9 +24,6 @@
 namespace enigma {
 namespace game {
 
-using enigma_levels::LevelPack;
-using enigma_levels::Level;
-
 void ResetGameTimer();
 
 void StartGame();

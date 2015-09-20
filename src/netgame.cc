@@ -119,7 +119,7 @@ void server_loop(Peer *m_peer) {
             client::Tick(dtime);
             server::Tick(dtime);
         } catch (XLevelRuntime &err) {
-            client::Msg_Error(string("Server Error: level runtime error:\n") + err.what());
+            client::Msg_Error(std::string("Server Error: level runtime error:\n") + err.what());
             server::Msg_Panic(true);
         }
 
@@ -226,7 +226,7 @@ void handle_server_packet(ecl::Buffer &buf) {
     ecl::Buffer obuf;
     obuf << Uint8(server::SVMSG_LOADLEVEL);
     obuf << Uint16(84);
-    obuf << string("Enigma");
+    obuf << std::string("Enigma");
     server_peer->send_reliable(obuf, 1);
     printf("CL: sending message %u\n", (unsigned)obuf.size());
 }

@@ -905,7 +905,7 @@ namespace enigma {
         return Stone::message(m);
     }
     
-    void OxydStone::setAttr(const string& key, const Value &val) {
+    void OxydStone::setAttr(const std::string& key, const Value &val) {
         if (key == "oxydcolor") 
             ASSERT(state == CLOSED, XLevelRuntime, "OxydStone error - recoloring of a not closed stone");
         else if (key == "flavor") {
@@ -1100,8 +1100,8 @@ namespace enigma {
         std::string flavor(getDefaultedAttr("flavor","a"));
         std::string color = ecl::strf("%d", (int)getDefaultedAttr("oxydcolor", 0));
     
-        string basemodelname = string("st_oxyd") + flavor;
-        string modelname = basemodelname + color;
+        std::string basemodelname = std::string("st_oxyd") + flavor;
+        std::string modelname = basemodelname + color;
     
         iState oldState = (iState)state;
         int oldExtState = externalState();

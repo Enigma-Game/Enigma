@@ -35,7 +35,7 @@ void Follower::center(const ecl::V2 &point) {
     double hoff = get_hoff();
     double voff = get_voff();
 
-    V2 off = point;
+    ecl::V2 off = point;
     off[0] = floor((off[0] - borderh) / hoff) * hoff;
     off[1] = floor((off[1] - borderv) / voff) * voff;
 
@@ -58,7 +58,7 @@ double Follower::get_voff() const {
     return result;
 }
 
-bool Follower::set_offset(V2 offs) {
+bool Follower::set_offset(ecl::V2 offs) {
     DisplayEngine *e = get_engine();
     offs[0] = std::max(offs[0], 0.0);
     offs[1] = std::max(offs[1], 0.0);
@@ -77,7 +77,7 @@ bool Follower::set_offset(V2 offs) {
 // coordinate origin of the screen accordingly.
 void Follower_Screen::tick(double, const ecl::V2 &point) {
     DisplayEngine *engine = get_engine();
-    V2 oldoff = engine->get_offset();
+    ecl::V2 oldoff = engine->get_offset();
     Follower::center(point);
     if (oldoff != engine->get_offset())
         engine->mark_redraw_screen();
@@ -120,8 +120,8 @@ void Follower_Scrolling::tick(double dtime, const ecl::V2 &point) {
                          (sy >= gamearea.y + gamearea.h - m_boundary_y * tileh);
 
         if (scrollx_p || scrolly_p) {
-            V2 olddest = destpos;
-            V2 scrollpos = engine->get_offset();
+            ecl::V2 olddest = destpos;
+            ecl::V2 scrollpos = engine->get_offset();
 
             currently_scrolling = true;
 
@@ -134,7 +134,7 @@ void Follower_Scrolling::tick(double dtime, const ecl::V2 &point) {
                 destpos[0] = floor((point[0] - m_boundary_x) / hoff) * hoff;
                 destpos[1] = floor((point[1] - m_boundary_y) / voff) * voff;
             } else {
-                destpos = point - V2(gamearea.w / tilew, gamearea.h / tileh) / 2;
+                destpos = point - ecl::V2(gamearea.w / tilew, gamearea.h / tileh) / 2;
                 // round to grid - a hack just for 20x13 screen TODO rewrite for Enigma 1.2
                 // x scroll of "alternating" 10 and 9 grids, try to join this grid after warps
                 double xmod = std::fmod(destpos[0], 19);
@@ -185,7 +185,7 @@ ecl::V2 Follower_Smooth::calc_offset(const ecl::V2 &point) {
     int tilew = engine->get_tilew();
     int tileh = engine->get_tileh();
 
-    V2 destpos = point - V2(double(gamearea.w) / tilew, double(gamearea.h) / tileh) / 2;
+    ecl::V2 destpos = point - ecl::V2(double(gamearea.w) / tilew, double(gamearea.h) / tileh) / 2;
     // Round to integer pixel offset
     destpos[0] = ecl::round_nearest<int>(destpos[0] * tilew) / double(tilew);
     destpos[1] = ecl::round_nearest<int>(destpos[1] * tileh) / double(tileh);

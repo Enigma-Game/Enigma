@@ -21,7 +21,6 @@
 #include "stones/VolcanoStone.hh"
 #include "player.hh"
 #include "world.hh"
-//#include "main.hh"
 
 namespace enigma {
     VolcanoStone::VolcanoStone(int initState) {
@@ -32,7 +31,7 @@ namespace enigma {
         return "st_volcano";
     }
 
-    void VolcanoStone::setAttr(const string& key, const Value &val) {
+void VolcanoStone::setAttr(const std::string& key, const Value &val) {
         if (key == "secure") {
             if (val.to_bool())
                 objFlags |= OBJBIT_SECURE;
@@ -43,7 +42,7 @@ namespace enigma {
         Stone::setAttr(key, val);
     }
     
-    Value VolcanoStone::getAttr(const string &key) const {
+Value VolcanoStone::getAttr(const std::string &key) const {
         if (key == "secure") {
             return (objFlags & OBJBIT_SECURE) != 0;
         } else

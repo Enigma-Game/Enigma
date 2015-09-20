@@ -110,14 +110,14 @@ namespace enigma { namespace lua {
     Error DoSysFile (lua_State *L, const std::string & filename);
 
     /*! Find a Lua script in given filesystem using enigma::FindFile and run it. */
-    Error DoGeneralFile(lua_State *L, GameFS * fs, const string &filename);
+    Error DoGeneralFile(lua_State *L, GameFS * fs, const std::string &filename);
 
     /*! Run the Lua code contained in `luacode'. */
     Error Dobuffer (lua_State *L, const ByteVec &luacode);
 
     /*! Try to run given file on given filesystem.  If something
       fails, provide generic error message and exit enigma.*/
-    void CheckedDoFile (lua_State *L, GameFS * fs, const string &filename);
+    void CheckedDoFile (lua_State *L, GameFS * fs, const std::string &filename);
 
     /*! Return the text of the last error message. */
     std::string LastError(lua_State *L);

@@ -36,7 +36,7 @@ namespace enigma {
         return "fl_bridge";
     }
         
-    void BridgeFloor::setAttr(const string& key, const Value &val) {
+    void BridgeFloor::setAttr(const std::string& key, const Value &val) {
         if (key == "flavor") {
             std::string flavor = val.to_string();
             ASSERT(flavor == "gc" || flavor == "bw" || flavor == "bs"|| flavor == "be" || flavor == "bn", XLevelRuntime, "BridgeFloor illegal flavor value");

@@ -22,7 +22,6 @@
 #include "stones/SimpleStones.hh"
 #include "client.hh"
 #include "errors.hh"
-//#include "Inventory.hh"
 #include "main.hh"
 #include "player.hh"
 #include "server.hh"
@@ -40,7 +39,7 @@ namespace enigma {
         return "st_blur";
     }
 
-    void BlurStone::setAttr(const string& key, const Value &val) {
+void BlurStone::setAttr(const std::string& key, const Value &val) {
         if (key == "flavor") {
             std::string fs = val.to_string();
             if (fs == "straight") state = STRAIGHT;
@@ -113,7 +112,7 @@ namespace enigma {
         return "st_charge";
     }
 
-    void ChargeStone::setAttr(const string& key, const Value &val) {
+void ChargeStone::setAttr(const std::string& key, const Value &val) {
         Stone::setAttr(key, val);
         if (key == "charge" && isDisplayable()) 
             init_model();
@@ -184,7 +183,7 @@ namespace enigma {
         return "st_grate";
     }
 
-    void GrateStone::setAttr(const string& key, const Value &val) {
+void GrateStone::setAttr(const std::string& key, const Value &val) {
         if (key == "flavor") {
             std::string fs = val.to_string();
             if (fs == "cross") state = CROSS;

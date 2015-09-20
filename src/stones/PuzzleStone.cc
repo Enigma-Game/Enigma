@@ -42,7 +42,7 @@ namespace enigma {
         return "st_puzzle";
     }
 
-    void PuzzleStone::setAttr(const string& key, const Value &val) {
+    void PuzzleStone::setAttr(const std::string& key, const Value &val) {
         if (key == "hollow") {
             if (val.to_bool() != (bool)(objFlags & OBJBIT_HOLLOW)) {
                 objFlags ^= OBJBIT_HOLLOW;

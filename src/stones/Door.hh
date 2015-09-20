@@ -15,20 +15,15 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 #ifndef DOOR_HH
 #define DOOR_HH
 
 #include "stones.hh"
-
 #include "stones_internal.hh"
 
 namespace enigma {
 
-    /** 
-     * 
-     */
     class Door : public Stone {
         CLONEOBJ(Door);
         DECL_TRAITS;
@@ -46,7 +41,7 @@ namespace enigma {
         
         // Object interface
         virtual std::string getClass() const;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value message(const Message &m);
         
         // StateObject interface

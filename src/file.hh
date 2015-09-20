@@ -31,7 +31,6 @@ namespace enigma
 {
     typedef std::vector<char> ByteVec;
     typedef std::string FileName;
-    using std::string;
 
     enum FSType {
         FS_DIRECTORY,
@@ -85,11 +84,11 @@ namespace enigma
 
         void clear() { entries.clear(); }
                 
-        void append_dir (const string &path);
-        void prepend_dir (const string &path);
+        void append_dir (const std::string &path);
+        void prepend_dir (const std::string &path);
 
-        void prepend_zip (const string &filename);
-        void setDataPath (const string &p);
+        void prepend_zip (const std::string &filename);
+        void setDataPath (const std::string &p);
         std::string getDataPath();
         std::vector<std::string> getPaths();
 
@@ -100,7 +99,7 @@ namespace enigma
          * @param dest     the expanded full path of the first occurence.
          * @return  has a file been found.
          */
-        bool findFile(const string &filename, string &dest) const;
+        bool findFile(const std::string &filename, std::string &dest) const;
                 
         /**
          * Search first occurence of a file on the GameFS. The file can be
@@ -114,7 +113,7 @@ namespace enigma
          *                 the file is zipped
          * @return  has a file been found.
          */
-        bool findFile(const string &filename, string &dest, 
+        bool findFile(const std::string &filename, std::string &dest, 
                 std::auto_ptr<std::istream> &isptr) const;
                 
         /**
@@ -125,7 +124,7 @@ namespace enigma
          * @param filename the searched filename
          * @return  the expanded full path of the first occurence or ""
          */
-        std::string findFile(const string &filename);
+        std::string findFile(const std::string &filename);
         
         /**
          * Lists the paths of all files with a given name that reside in
@@ -137,8 +136,8 @@ namespace enigma
          * @param filename  the searched filename, f.e. "index.lua"
          * @return  a list of fully expanded paths to matching files
          */
-        std::list <string> findSubfolderFiles (const string &folder,
-                                       const string &filename) const;
+        std::list <std::string> findSubfolderFiles (const std::string &folder,
+                const std::string &filename) const;
                 
         /** Find an image file named `f' in the resolution-dependent
          * graphics directories "gfx??" or in "gfx" and store the
@@ -163,7 +162,7 @@ namespace enigma
     
     // banned code to file_zip.cc due to macro clashes
     bool findInZip(std::string zipPath, std::string zippedFilename1,
-        std::string zippedFilename2, string &dest, 
+            std::string zippedFilename2, std::string &dest, 
         std::auto_ptr<std::istream> &isresult);
     
     bool writeToZip(std::ostream &zipStream, std::string filename, unsigned size, std::istream &contents);

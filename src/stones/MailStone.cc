@@ -15,15 +15,12 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
-
 #include "stones/MailStone.hh"
 #include "Inventory.hh"
 #include "player.hh"
 #include "world.hh"
 #include "items/PipeItem.hh"
-//#include "main.hh"
 
 namespace enigma {
     MailStone::MailStone(Direction dir) {
@@ -34,7 +31,7 @@ namespace enigma {
         return "st_mail";
     }
     
-    void MailStone::setAttr(const string& key, const Value &val) {
+    void MailStone::setAttr(const std::string& key, const Value &val) {
         if (isDisplayable())
             if (key == "orientation") {
                 Stone::setAttr(key, val);
@@ -45,7 +42,7 @@ namespace enigma {
     }
 
     void MailStone::init_model() {
-        string mname = "st_mail" ;
+        std::string mname = "st_mail" ;
         set_model(mname + toSuffix(getOrientation()));
     }
     

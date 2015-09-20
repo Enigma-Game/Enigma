@@ -37,7 +37,7 @@ namespace enigma {
         return "fl_scales";
     }
         
-    void ScalesFloor::setAttr(const string& key, const Value &val) {
+    void ScalesFloor::setAttr(const std::string& key, const Value &val) {
         if (key == "flavor") {
             std::string flavor = val.to_string();
             ASSERT(flavor == "brick" || flavor == "bridgewood" || flavor == "concrete" || flavor == "darkgray" || flavor == "gray" || flavor == "platinum", XLevelRuntime, "ScalesFloor illegal flavor value");

@@ -24,10 +24,6 @@
 
 namespace enigma {
 
-    /** 
-     * 
-     * 
-     */
     class MirrorStone : public Stone {
          CLONEOBJ(MirrorStone);
          DECL_TRAITS_ARRAY(2, traitsIdx());
@@ -47,7 +43,7 @@ namespace enigma {
 
         // Object interface
         virtual std::string getClass() const;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
         

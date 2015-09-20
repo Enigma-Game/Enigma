@@ -38,7 +38,7 @@ namespace enigma {
         return "st_rotator";
     }
 
-    void RotatorStone::setAttr(const string& key, const Value &val) {
+void RotatorStone::setAttr(const std::string& key, const Value &val) {
         if (key == "counterclock") {
             int newstate = val.to_bool() ? CCW : CW;
             if (newstate != state) {

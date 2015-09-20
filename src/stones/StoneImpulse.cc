@@ -39,7 +39,7 @@ namespace enigma {
         return "st_stoneimpulse";
     }
 
-    void StoneImpulse::setAttr(const string& key, const Value &val) {
+void StoneImpulse::setAttr(const std::string& key, const Value &val) {
         if (key == "hollow") {
             if (!isDisplayable()) {
                 if (val.to_bool()) {

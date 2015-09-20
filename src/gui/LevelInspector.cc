@@ -48,7 +48,7 @@ namespace enigma { namespace gui {
             theRatingMgr->setIntelligence(theLevel, value);
         }
     
-        string get_text(int value) const  {
+        std::string get_text(int value) const  {
             return strf("%d", value);
         }
     public:
@@ -70,7 +70,7 @@ namespace enigma { namespace gui {
             theRatingMgr->setDexterity(theLevel, value);
         }
     
-        string get_text(int value) const  {
+        std::string get_text(int value) const  {
             return strf("%d", value);
         }
     public:
@@ -92,7 +92,7 @@ namespace enigma { namespace gui {
             theRatingMgr->setPatience(theLevel, value);
         }
     
-        string get_text(int value) const  {
+        std::string get_text(int value) const  {
             return strf("%d", value);
         }
     public:
@@ -114,7 +114,7 @@ namespace enigma { namespace gui {
             theRatingMgr->setKnowledge(theLevel, value);
         }
     
-        string get_text(int value) const  {
+        std::string get_text(int value) const  {
             return strf("%d", value);
         }
     public:
@@ -136,7 +136,7 @@ namespace enigma { namespace gui {
             theRatingMgr->setSpeed(theLevel, value);
         }
     
-        string get_text(int value) const  {
+        std::string get_text(int value) const  {
             return strf("%d", value);
         }
     public:
@@ -161,7 +161,7 @@ namespace enigma { namespace gui {
              }
          }
      
-         string get_text(int value) const  {
+         std::string get_text(int value) const  {
              return (value == -1) ? "-" : ecl::strf("%d", value);
          }
      public:
@@ -201,7 +201,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
             aLevel->loadMetadata(true);
         }
         catch (XLevelLoading &err) {
-            std::vector<string> lines;
+            std::vector<std::string> lines;
             std::string errmsg = _("Server Error: could not load level '")
                                    + aLevel->getNormFilePath() + "'\n"
                                    + err.what();

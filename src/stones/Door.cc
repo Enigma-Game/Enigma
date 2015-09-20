@@ -15,15 +15,13 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
-
 #include "stones/Door.hh"
 #include "errors.hh"
-//#include "main.hh"
 #include "laser.hh"
 
 namespace enigma {
+
     Door::Door(std::string flavor, int initState, std::string faces) : Stone () {
         state = initState;
         setAttr("flavor", flavor);
@@ -34,7 +32,7 @@ namespace enigma {
         return "st_door";
     }
         
-    void Door::setAttr(const string& key, const Value &val) {
+    void Door::setAttr(const std::string& key, const Value &val) {
         if (key == "flavor") { 
             Stone::setAttr(key, val);
             if (val.to_string() != "d")
@@ -78,7 +76,7 @@ namespace enigma {
     }
         
     void Door::init_model() {
-        string mname = model_basename();
+        std::string mname = model_basename();
         if (state == CLOSED)
             mname += "_closed";
         else if (state==OPEN)

@@ -14,13 +14,10 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
-
 #include "items/ShogunDot.hh"
 #include "stones/ShogunStone.hh"
 #include "errors.hh"
-//#include "main.hh"
 #include "world.hh"
 
 namespace enigma {
@@ -33,7 +30,7 @@ namespace enigma {
         return "it_shogun";
     }
     
-    void ShogunDot::setAttr(const string& key, const Value &val) {
+    void ShogunDot::setAttr(const std::string& key, const Value &val) {
         if (key == "flavor") {
             std::string flavor = val.to_string();
             int holes = 0;
@@ -44,7 +41,8 @@ namespace enigma {
             else if (flavor == "l")
                 holes = ShogunStone::L;
             else
-                ASSERT(false, XLevelRuntime, ecl::strf("ShogunDot: illegal 'flavor' of '%s'", flavor.c_str()).c_str());
+                ASSERT(false, XLevelRuntime,
+                       ecl::strf("ShogunDot: illegal 'flavor' of '%s'", flavor.c_str()).c_str());
             objFlags &= ~OBJBIT_HOLES;
             objFlags |= holes << 24;
             if (isDisplayable()) {
@@ -57,7 +55,7 @@ namespace enigma {
         Item::setAttr(key, val);
     }
     
-    Value ShogunDot::getAttr(const string &key) const {
+    Value ShogunDot::getAttr(const std::string &key) const {
         if (key == "flavor") {
             int holes = getHoles();
             return holes == ShogunStone::L ? "l" : (state == ShogunStone::M ? "m" : "s");

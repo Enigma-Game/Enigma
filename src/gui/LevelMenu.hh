@@ -35,7 +35,7 @@ namespace enigma { namespace gui {
         // Rotate through levels and packs
         void next_levelpack();
         void previous_levelpack();
-        void show_text(const string& text);
+        void show_text(const std::string& text);
         bool isMainQuit();
 
     private:
@@ -69,7 +69,7 @@ namespace enigma { namespace gui {
         Label       *lbl_levelname;
         Label       *lbl_levelinfo;
         LevelWidget *levelwidget;
-        string       shown_text;        // info text (disappears automatically)
+        std::string  shown_text;        // info text (disappears automatically)
         double       shown_text_ttl;    // rest duration for shown_text
         bool         main_quit;
     };

@@ -34,7 +34,7 @@ namespace enigma {
         return "it_meditation";
     }
 
-    void Meditation::setAttr(const string& key, const Value &val) {
+    void Meditation::setAttr(const std::string& key, const Value &val) {
         if (key == "essential") {
             bool essential = (val == 1);
             if (essential != (bool)(objFlags & OBJBIT_INDISPENSIBLE)) {
