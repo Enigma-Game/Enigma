@@ -33,8 +33,7 @@ namespace enigma {
         RotorBase(const ActorTraits &tr);
 
         // Object interface.
-        virtual void setAttr(const string& key, const Value &val);
-//        virtual Value getAttr(const std::string &key) const;
+        virtual void setAttr(const std::string& key, const Value &val);
         
         // Actor interface
         virtual bool is_dead() const;

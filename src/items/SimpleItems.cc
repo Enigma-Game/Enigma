@@ -21,7 +21,6 @@
 #include "items/SimpleItems.hh"
 #include "errors.hh"
 #include "Inventory.hh"
-//#include "main.hh"
 #include "player.hh"
 #include "SoundEffectManager.hh"
 #include "world.hh"

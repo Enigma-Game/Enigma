@@ -45,7 +45,7 @@ namespace enigma {
 
         // Object interface
         virtual std::string getClass() const;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value message(const Message &m);
         
         // StateObject interface

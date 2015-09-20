@@ -156,7 +156,7 @@ namespace enigma {
         
         // Object interface
         virtual std::string getClass() const;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         
         // Item interface
         virtual void on_drop(Actor *a);
@@ -182,7 +182,7 @@ namespace enigma {
         Key();
         
         // Object interface
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         
         // Item interface
         virtual std::string get_inventory_model();
@@ -332,7 +332,7 @@ namespace enigma {
         Weight();
         
         // Object interface
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         
         // GridObject interface
         virtual void setOwner(int player);

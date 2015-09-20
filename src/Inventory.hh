@@ -72,6 +72,6 @@ namespace enigma
         std::vector<Item*> m_items;
         int ownerId;
     };
-}
+}  // namespace enigma
 
 #endif

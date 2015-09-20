@@ -95,7 +95,7 @@ namespace enigma {
 
         // Model management
         void update_model();
-        void set_sink_model(const string &m);
+        void set_sink_model(const std::string &m);
         void set_shine_model (bool shinep);
         void update_halo();
 

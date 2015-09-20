@@ -15,12 +15,8 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
-
 #include "items/Bomb.hh"
-//#include "errors.hh"
-//#include "main.hh"
 #include "server.hh"
 #include "world.hh"
 
@@ -40,7 +36,7 @@ namespace enigma {
         return "it_bomb";
     }
     
-    void Bomb::setAttr(const string& key, const Value &val) {
+    void Bomb::setAttr(const std::string& key, const Value &val) {
         if (key == "color") {
             Item::setAttr("color", val);
             if (isDisplayable())

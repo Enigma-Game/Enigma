@@ -55,7 +55,7 @@ namespace enigma {
         virtual std::string getClass() const;
         virtual LaserStone *clone();
         virtual void dispose();
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value message(const Message &m);
         
         // StateObject interface

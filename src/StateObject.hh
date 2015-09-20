@@ -70,14 +70,14 @@ namespace enigma {
          * shall not interfere with this attribute but override the method
          * "externalState()" on demand.
          */
-        virtual Value getAttr(const string &key) const;
+        virtual Value getAttr(const std::string &key) const;
         
         /**
          * Handle the attribute "state" by a pseudo implementation. Subclasses
          * shall not interfere with this attribute but override the method
          * "setState()". New state values are checked against min and max. 
          */
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         
     protected:
         /**

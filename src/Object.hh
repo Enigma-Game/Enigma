@@ -19,16 +19,14 @@
 #ifndef ENIGMA_OBJECT_HH
 #define ENIGMA_OBJECT_HH
 
-#include "display.hh"
 #include "ecl_alist.hh"
 #include "ecl_math.hh"
+#include "enigma.hh"
 #include "Value.hh"
 #include <map>
 #include <stdint.h>
 
 namespace enigma {
-
-using std::string;
 
 struct Message;
 
@@ -184,7 +182,7 @@ public:
      * returns the given default value instead of a DEFAULT value if
      * no explicit attribute exists.
      */
-    Value getDefaultedAttr(const string &key, Value defaultValue) const;
+    Value getDefaultedAttr(const std::string &key, Value defaultValue) const;
 
     virtual Object *clone() = 0;
     virtual void dispose() = 0;

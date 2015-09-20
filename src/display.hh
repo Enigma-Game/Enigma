@@ -20,6 +20,7 @@
 
 #include "enigma.hh"
 #include "ecl_geom.hh"
+#include "ecl_math.hh"
 #include "ecl_video.hh"
 
 namespace display {
@@ -175,8 +176,6 @@ RubberHandle AddRubber(const ecl::V2 &p1, const ecl::V2 &p2, unsigned short rc, 
                        unsigned short bc, bool isThick);
 
 /* -------------------- Status bar -------------------- */
-
-using enigma_player::Inventory;
 
 class StatusBar {
 public:

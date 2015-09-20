@@ -20,7 +20,6 @@
 
 #include "actors/Balls.hh"
 #include "errors.hh"
-//#include "main.hh"
 #include "world.hh"
 
 namespace enigma {

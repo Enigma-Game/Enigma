@@ -28,13 +28,13 @@ namespace enigma {
         static WorldProxy *instance();
         static void shutdown();
         virtual std::string getClass() const;
-        virtual Value getAttr(const string& key) const;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string& key) const;
+        virtual void setAttr(const std::string& key, const Value &val);
         
     protected:
         WorldProxy();
-        virtual Object *clone() {return this;}; // dummy implementation
-        virtual void dispose() {};             // dummy implementation
+        virtual Object *clone() {return this;} // dummy implementation
+        virtual void dispose() {}             // dummy implementation
     private:
         static WorldProxy *theSingleton;
     };

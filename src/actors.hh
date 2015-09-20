@@ -21,6 +21,8 @@
 #define ACTORS_HH_INCLUDED
 
 #include "StateObject.hh"
+#include "display.hh"
+#include "Value.hh"
 
 namespace enigma {
 
@@ -124,7 +126,7 @@ namespace enigma {
 
         /* ---------- Object interface ---------- */
         Actor *clone() = 0;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
  
@@ -202,8 +204,8 @@ namespace enigma {
         virtual Object::ObjectType getObjectType() const {return Object::ACTOR;}
         
         Actor(const ActorTraits &tr);
-        void set_model (const string &modelname);
-        void set_anim (const string &modelname);
+        void set_model (const std::string &modelname);
+        void set_anim (const std::string &modelname);
 
         display::SpriteHandle &get_sprite() { return m_sprite; }
 

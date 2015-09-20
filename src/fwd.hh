@@ -18,11 +18,6 @@
 #ifndef FWD_HH
 #define FWD_HH
 
-namespace enigma_player
-{
-    class Inventory;
-}
-
 namespace enigma_levels
 {
     class Level;

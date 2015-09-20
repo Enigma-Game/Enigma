@@ -19,8 +19,6 @@
  */
 
 #include "items/PullerItem.hh"
-//#include "errors.hh"
-//#include "main.hh"
 #include "world.hh"
 
 namespace enigma {

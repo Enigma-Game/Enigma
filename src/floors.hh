@@ -58,11 +58,11 @@ namespace enigma {
 
     struct FloorTraits {
         // Variables
-        string         name;
+        std::string         name;
         FloorFlags     flags;
         FloorFireType  firetype;
-        string         firetransform;  // fire on the same tile
-        string         heattransform;  // fire on neighboring tile
+        std::string         firetransform;  // fire on the same tile
+        std::string         heattransform;  // fire on neighboring tile
 
         // Constructor
         FloorTraits (const char *n, FloorFlags flags_, FloorFireType flft = flft_default,
@@ -89,7 +89,7 @@ namespace enigma {
 
         // Object interface
         virtual Value message(const Message &m);
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
 
         // Floor interface
@@ -123,8 +123,8 @@ namespace enigma {
         
         // Fire interface
         virtual bool has_firetype(FloorFireType selector);
-        virtual string get_firetransform();
-        virtual string get_heattransform(bool override_mode);
+        virtual std::string get_firetransform();
+        virtual std::string get_heattransform(bool override_mode);
         void heat_neighbor(Direction dir, FloorHeatFlags flhf);        
         int get_fire_countdown();
         virtual bool on_heattransform(Direction sourcedir, FloorHeatFlags flhf);

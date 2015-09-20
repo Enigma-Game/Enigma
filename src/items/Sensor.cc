@@ -20,8 +20,6 @@
 
 #include "items/Sensor.hh"
 #include "actors.hh"
-//#include "errors.hh"
-//#include "main.hh"
 #include "server.hh"
 #include "world.hh"
 #include "items/GlassesItem.hh"

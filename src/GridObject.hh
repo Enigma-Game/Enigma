@@ -15,21 +15,17 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 #ifndef GRIDOBJECT_HH
 #define GRIDOBJECT_HH
 
 #include "StateObject.hh"
-
 #include "display.hh"
 #include "ecl_alist.hh"
 #include <list>
+#include <string>
 
 namespace enigma { 
-
-    using std::string;
-    
 
 /* -------------------- GridObject -------------------- */
     class Actor;
@@ -45,8 +41,8 @@ namespace enigma {
         GridObject(const char * kind) : StateObject(kind), pos (GridPos(-1, -1)) {}
 
         // Object interface
-        virtual void setAttr(const string& key, const Value &val);
-        virtual Value getAttr(const string &key) const;
+        virtual void setAttr(const std::string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
 
         // StateObject interface
         virtual void setState(int extState);

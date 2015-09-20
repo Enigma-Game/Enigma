@@ -42,7 +42,7 @@ namespace enigma {
         virtual Value message(const Message &m);
         
         // StateObject interface
-        virtual void setAttr(const string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
         
         // GridObject interface
