@@ -18,6 +18,7 @@
 #ifndef D_ENGINE_HH
 #define D_ENGINE_HH
 
+#include "d_follower.hh"
 #include "display_internal.hh"
 #include "display.hh"
 #include "ecl_geom.hh"
@@ -366,71 +367,6 @@ protected:
 
 private:
     DisplayEngine *m_engine;
-};
-
-/* -------------------- Scrolling -------------------- */
-
-class Follower {
-public:
-    Follower(DisplayEngine *e);
-    virtual ~Follower() {}
-    virtual void tick(double dtime, const ecl::V2 &point) = 0;
-    virtual void center(const ecl::V2 &point);
-
-    void set_boundary(double b) {
-        m_boundary_x = b;
-        m_boundary_y = b;
-    }
-
-protected:
-    DisplayEngine *get_engine() const { return m_engine; }
-    bool set_offset(V2 offs);
-    double get_hoff() const;
-    double get_voff() const;
-    ecl::V2 get_scrollpos(const ecl::V2 &point);
-
-    double m_boundary_x;
-    double m_boundary_y;
-
-private:
-    DisplayEngine *m_engine;
-};
-
-/*! Follows a sprite by flipping to the next screen as soon as the
-  sprite reaches the border of the current screen. */
-class Follower_Screen : public Follower {
-public:
-    Follower_Screen(DisplayEngine *e, double borderx = 0.5, double bordery = 0.5);
-    void tick(double dtime, const ecl::V2 &point);
-};
-
-/*! Follows a sprite by softly scrolling the visible area of the
-  screen as soon as the sprite reaches the border of the current
-  screen. */
-class Follower_Scrolling : public Follower {
-public:
-    Follower_Scrolling(DisplayEngine *e, bool screenwise, double borderx = 0.5,
-                       double bordery = 0.5);
-    void tick(double dtime, const ecl::V2 &point);
-    void center(const ecl::V2 &point);
-
-private:
-    bool currently_scrolling;
-    V2 curpos, destpos;
-    V2 dir;
-    double scrollspeed;
-    double resttime;
-    bool screenwise;
-};
-
-class Follower_Smooth : public Follower {
-public:
-    Follower_Smooth(DisplayEngine *e);
-    void tick(double time, const ecl::V2 &point);
-    void center(const ecl::V2 &point);
-    virtual void set_boundary(double /*b*/) {}
-
-    ecl::V2 calc_offset(const ecl::V2 &point);
 };
 
 /* -------------------- GameDisplay -------------------- */

@@ -41,6 +41,8 @@ enigma_SOURCES = 		\
 	DOMErrorReporter.cc     \
 	DOMSchemaResolver.cc	\
 	DOMSchemaResolver.hh	\
+	d_follower.cc		\
+	d_follower.hh		\
 	d_models.cc 		\
 	d_models.hh		\
 	display.hh 		\
