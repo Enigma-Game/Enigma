@@ -20,12 +20,10 @@
 #define EXTRALIFEITEM_HH
 
 #include "items.hh"
-
-#include "enigma.hh"
+#include "timer.hh"
 
 namespace enigma {
-    /**
-     */
+
     class ExtraLife : public Item, public TimeHandler {
         CLONEOBJ(ExtraLife);
         DECL_ITEMTRAITS;

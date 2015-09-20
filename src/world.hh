@@ -27,7 +27,7 @@
 #include "items.hh"
 #include "server.hh"
 #include "stones.hh"
-#include "util.hh"
+#include "timer.hh"
 #include "others/Other.hh"
 #include "others/Rubberband.hh"
 

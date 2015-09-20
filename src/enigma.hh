@@ -172,16 +172,6 @@ struct GridLoc {
   structures. */
 bool to_gridloc(const char *str, GridLoc &loc);
 
-/* -------------------- Timers -------------------- */
-
-/* Interface for time event handlers. */
-class TimeHandler {
-public:
-    virtual ~TimeHandler() {}
-    virtual void tick(double /*dtime*/) {}
-    virtual void alarm() {}
-};
-
 /* -------------------- Random Numbers -------------------- */
 
 /**

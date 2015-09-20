@@ -20,8 +20,7 @@
 #define VORTEXITEM_HH
 
 #include "items.hh"
-
-#include "enigma.hh"
+#include "timer.hh"
 
 namespace enigma {
     class Vortex : public Item, public TimeHandler {

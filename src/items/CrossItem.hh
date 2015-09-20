@@ -20,12 +20,10 @@
 #define CROSSITEM_HH
 
 #include "items.hh"
-
-#include "util.hh"
+#include "timer.hh"
 
 namespace enigma {
-    /**
-     */
+
     class CrossItem : public Item, public TimeHandler {
         CLONEOBJ(CrossItem);
         DECL_ITEMTRAITS;

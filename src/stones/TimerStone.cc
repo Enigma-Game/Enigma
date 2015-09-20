@@ -20,8 +20,7 @@
 
 #include "stones/TimerStone.hh"
 
-//#include "main.hh"
-#include "util.hh"
+#include "timer.hh"
 #include "world.hh"
 
 namespace enigma {

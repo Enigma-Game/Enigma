@@ -19,9 +19,6 @@
  */
 
 #include "items/CrossItem.hh"
-//#include "errors.hh"
-//#include "main.hh"
-//#include "player.hh"
 #include "server.hh"
 #include "world.hh"
 

@@ -20,13 +20,9 @@
 #define BOMBITEM_HH
 
 #include "items.hh"
-
-//#include "enigma.hh"
+#include "timer.hh"
 
 namespace enigma {
-    /**
-     * 
-     */
 
     class Bomb : public Item, public TimeHandler {
         CLONEOBJ(Bomb);

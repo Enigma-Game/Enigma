@@ -20,6 +20,7 @@
 #define FLOODSTREAM_HH
 
 #include "floors.hh"
+#include "timer.hh"
 
 namespace enigma {
 

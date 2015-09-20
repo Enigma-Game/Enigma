@@ -127,10 +127,10 @@ enigma_SOURCES = 		\
 	stones.cc 		\
 	stones.hh 		\
 	stones_internal.hh 	\
+	timer.cc 		\
+	timer.hh		\
 	Utf8ToXML.cc		\
 	Utf8ToXML.hh		\
-	util.cc 		\
-	util.hh			\
 	utilXML.cc		\
 	utilXML.hh		\
 	Value.cc		\

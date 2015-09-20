@@ -20,12 +20,10 @@
 #define HAMMERITEM_HH
 
 #include "items.hh"
-
-#include "enigma.hh"
+#include "timer.hh"
 
 namespace enigma {
-    /**
-     */
+
     class Hammer : public Item, public TimeHandler {
         CLONEOBJ(Hammer);
         DECL_ITEMTRAITS;
