@@ -25,7 +25,7 @@
 // resource management.
 
 #include "fwd.hh"
-#include "ecl_fwd.hh"
+#include "ecl_font.hh"
 #include "ecl_math.hh"
 #include <stdint.h>
 

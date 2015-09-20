@@ -833,8 +833,8 @@ BoolOptionButton::BoolOptionButton(const char    *option_name,
 }
 
 bool BoolOptionButton::toggle() {
-    bool newval = !enigma_options::GetBool(optionName);
-    enigma_options::SetOption(optionName, newval);
+    bool newval = !options::GetBool(optionName);
+    options::SetOption(optionName, newval);
     invalidate();
     return newval;
 }
@@ -844,7 +844,7 @@ void BoolOptionButton::on_action(Widget *) {
 }
 
 string BoolOptionButton::get_text() const {
-    return enigma_options::GetBool(optionName) ? _(trueText.c_str()) : _(falseText.c_str());
+    return options::GetBool(optionName) ? _(trueText.c_str()) : _(falseText.c_str());
 }
 
 /* -------------------- ValueButton -------------------- */

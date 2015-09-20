@@ -19,7 +19,7 @@
 #ifndef WIDGETS_HH_INCLUDED
 #define WIDGETS_HH_INCLUDED
 
-#include "ecl_fwd.hh"
+#include "ecl_font.hh"
 #include "ecl_geom.hh"
 #include "SDL.h"
 

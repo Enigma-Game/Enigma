@@ -20,9 +20,8 @@
 #ifndef NETWORK_HH_INCLUDED
 #define NETWORK_HH_INCLUDED
 
-#include "ecl_fwd.hh"
-
 #include "SDL_types.h"
+#include "ecl_buffer.hh"
 #include "enet/enet.h"
 #include <list>
 #include <iosfwd>

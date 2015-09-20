@@ -19,7 +19,6 @@
 #ifndef ECL_VIDEO_HH_INCLUDED
 #define ECL_VIDEO_HH_INCLUDED
 
-#include "ecl_fwd.hh"
 #include "ecl_geom.hh"
 
 #include "SDL.h"
@@ -63,6 +62,8 @@ struct GraphicsState {
 typedef GraphicsState GS;
 
 /* -------------------- Drawable -------------------- */
+
+class Surface;
 
 class Drawable {
 public:

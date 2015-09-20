@@ -19,17 +19,15 @@
 #ifndef SERVER_INTERNAL_HH_INCLUDED
 #define SERVER_INTERNAL_HH_INCLUDED
 
-namespace enigma_server 
-{
+namespace enigma {
+namespace server {
     enum ServerMessageTypes {
         SVMSG_NOOP,
         SVMSG_LOADLEVEL,
         SVMSG_MOUSEFORCE,
         SVMSG_ACTIVATEITEM,
     };
-
-}
-
-
+}  // namespace server
+} // namespace enigma
 
 #endif

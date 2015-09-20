@@ -22,8 +22,9 @@
 #include "ecl_buffer.hh"
 #include <vector>
 
-namespace
-{
+namespace enigma {
+namespace client {
+
     using ecl::Buffer;
     using std::string;
 
@@ -60,7 +61,8 @@ namespace
         Cl_LevelLoaded() : Message (CLMSG_LEVEL_LOADED) {
         }
     };
-    Buffer &operator << (Buffer &b, const Cl_LevelLoaded &m) {
+
+    inline Buffer &operator<< (Buffer &b, const Cl_LevelLoaded &m) {
         return b << Uint8 (CLMSG_LEVEL_LOADED);
     }
 
@@ -200,5 +202,6 @@ namespace
         Client (const Client&);
         Client &operator = (const Client &);
     };
-}
+}  // namespace client
+}  // namespace enigma
 

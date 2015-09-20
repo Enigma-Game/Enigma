@@ -21,7 +21,6 @@
 
 #include "gui/widgets.hh"
 #include "gui/Menu.hh"
-#include "ecl_fwd.hh"
 #include "ecl_geom.hh"
 #include "SDL.h"
 #include <cmath>

@@ -35,18 +35,16 @@ using namespace enigma;
 #include "client_internal.hh"
 #include "server_internal.hh"
 
-
 //======================================================================
 // SERVER
 //======================================================================
 
-void handle_client_packet (Buffer &b, int player_no)
+void handle_client_packet (ecl::Buffer &b, int player_no)
 {
-    using namespace enigma_server;
     Uint8 code; 
     while (b >> code) {
         switch (code) {
-        case SVMSG_NOOP:
+        case server::SVMSG_NOOP:
             break;              // no nothing
 
 // not yet used -- rewrite to index/proxy usage
@@ -63,7 +61,7 @@ void handle_client_packet (Buffer &b, int player_no)
 //            break;
 //        }
 
-        case SVMSG_MOUSEFORCE: {
+        case server::SVMSG_MOUSEFORCE: {
             printf ("mouse force\n");
             float dx, dy;
             if (b >> dx >> dy) {
@@ -73,7 +71,7 @@ void handle_client_packet (Buffer &b, int player_no)
             break;
         }
 
-        case SVMSG_ACTIVATEITEM: {
+        case server::SVMSG_ACTIVATEITEM: {
             server::Msg_ActivateItem ();
             break;
         }
@@ -94,8 +92,8 @@ void server_loop (Peer *m_peer)
 {
     printf ("SV: Entered server loop\n");
     server::InitNewGame();
-    Buffer buf;
-    buf << Cl_LevelLoaded ();
+    ecl::Buffer buf;
+    buf << client::Cl_LevelLoaded ();
     m_peer->send_reliable (buf, 1);
 
     double dtime = 0;
@@ -119,7 +117,7 @@ void server_loop (Peer *m_peer)
             server::Msg_Panic(true);
         }
 
-        Buffer buf;
+        ecl::Buffer buf;
         int player_no;
         while (m_peer->poll_message (buf, player_no)) {
             printf ("SV: Received message from client %d\n", player_no);
@@ -214,21 +212,21 @@ namespace
     Peer *server_peer;
 }
 
-void handle_server_packet (Buffer &buf)
+void handle_server_packet (ecl::Buffer &buf)
 {
     if (buf.size() > 0) {
         Uint8 code;
         buf >> code;
         switch (code) {
-        case CLMSG_LEVEL_LOADED:
+        case client::CLMSG_LEVEL_LOADED:
             printf ("cl_level_loaded\n");
             break;
 
         }
     }
             
-    Buffer obuf;
-    obuf << Uint8(enigma_server::SVMSG_LOADLEVEL);
+    ecl::Buffer obuf;
+    obuf << Uint8(server::SVMSG_LOADLEVEL);
     obuf << Uint16(84);
     obuf << string("Enigma");
     server_peer->send_reliable (obuf, 1);
@@ -301,16 +299,16 @@ void netgame::Join (std::string hostname, int port)
             if (e.type && e.key.keysym.sym == SDLK_ESCAPE)
                 goto done;
             else if (e.type ==SDL_MOUSEMOTION) {
-                Buffer buf;
+                ecl::Buffer buf;
                 float mouseforce = options::GetDouble("MouseSpeed");
-                buf << Uint8 (enigma_server::SVMSG_MOUSEFORCE)
+                buf << Uint8 (server::SVMSG_MOUSEFORCE)
                     << float (e.motion.xrel * mouseforce)
                     << float (e.motion.yrel * mouseforce);
                 server_peer->send_reliable (buf,1);
             }
         }
 
-        Buffer buf;
+        ecl::Buffer buf;
         int peerno;
         while (server_peer->poll_message (buf, peerno)) {
             handle_server_packet (buf);

@@ -52,11 +52,13 @@
 #include <algorithm>
 #include <iostream>
 
-using namespace enigma::client;
 using namespace ecl;
 using namespace std;
 
 #include "client_internal.hh"
+
+namespace enigma {
+namespace client {
 
 /* -------------------- Auxiliary functions -------------------- */
 
@@ -94,7 +96,7 @@ namespace
             text += string(" - Dedication: ")+ tmp;
         return text;
     }
-}
+} // namespace
 
 
 /* -------------------- Variables -------------------- */
@@ -103,7 +105,7 @@ namespace
 {
     Client     client_instance;
     const char HSEP = '^'; // history separator (use character that user cannot use)
-}
+} // namespace 
 
 /* -------------------- Client class -------------------- */
 
@@ -937,34 +939,34 @@ void Client::finishedText() {
 
 /* -------------------- Functions -------------------- */
 
-void client::ClientInit() {
+void ClientInit() {
     client_instance.init();
 }
 
-void client::ClientShutdown() {
+void ClientShutdown() {
     client_instance.shutdown();
 }
 
-bool client::NetworkStart()
+bool NetworkStart()
 {
     return client_instance.network_start();
 }
 
-void client::Msg_LevelLoaded(bool isRestart)
+void Msg_LevelLoaded(bool isRestart)
 {
     client_instance.level_loaded(isRestart);
 }
 
-void client::Tick (double dtime) {
+void Tick (double dtime) {
     client_instance.tick (dtime);
     sound::Tick (dtime);
 }
 
-void client::Stop() {
+void Stop() {
     client_instance.stop ();
 }
 
-void client::Msg_AdvanceLevel (lev::LevelAdvanceMode mode) {
+void Msg_AdvanceLevel (lev::LevelAdvanceMode mode) {
 
     lev::Index *ind = lev::Index::getCurrentIndex();
     // log last played level
@@ -978,17 +980,17 @@ void client::Msg_AdvanceLevel (lev::LevelAdvanceMode mode) {
         client::Msg_Command("abort");
 }
 
-void client::Msg_JumpBack() {
+void Msg_JumpBack() {
     // log last played level
     lev::PersistentIndex::addCurrentToHistory();
     server::Msg_JumpBack();
 }
 
-bool client::AbortGameP() {
+bool AbortGameP() {
     return client_instance.abort_p();
 }
 
-void client::Msg_Command(const string& cmd) {
+void Msg_Command(const string& cmd) {
     if (cmd == "abort") {
         client_instance.abort();
     }
@@ -1007,7 +1009,7 @@ void client::Msg_Command(const string& cmd) {
     }
 }
 
-void client::Msg_PlayerPosition (unsigned iplayer, const V2 &pos)
+void Msg_PlayerPosition (unsigned iplayer, const V2 &pos)
 {
     if (iplayer == (unsigned)player::CurrentPlayer()) {
         sound::SetListenerPosition (pos);
@@ -1015,37 +1017,40 @@ void client::Msg_PlayerPosition (unsigned iplayer, const V2 &pos)
     }
 }
 
-void client::Msg_PlaySound (const std::string &wavfile,
+void Msg_PlaySound (const std::string &wavfile,
                             const ecl::V2 &pos,
                             double relative_volume)
 {
     sound::EmitSoundEvent (wavfile.c_str(), pos, relative_volume);
 }
 
-void client::Msg_PlaySound (const std::string &wavfile, double relative_volume)
+void Msg_PlaySound (const std::string &wavfile, double relative_volume)
 {
     sound::EmitSoundEvent (wavfile.c_str(), V2(), relative_volume);
 }
 
-void client::Msg_Sparkle (const ecl::V2 &pos) {
+void Msg_Sparkle (const ecl::V2 &pos) {
     display::AddEffect (pos, "ring-anim", true);
 }
 
 
-void client::Msg_ShowText(const std::string &text, bool scrolling, double duration) {
+void Msg_ShowText(const std::string &text, bool scrolling, double duration) {
     display::GetStatusBar()->show_text (text, scrolling, duration);
 }
 
-void client::Msg_ShowDocument(const std::string &text, bool scrolling, double duration) {
+void Msg_ShowDocument(const std::string &text, bool scrolling, double duration) {
     client_instance.registerDocument(text);
     Msg_ShowText(text, scrolling, duration);
 }
 
-void client::Msg_FinishedText() {
+void Msg_FinishedText() {
     client_instance.finishedText();
 }
 
-void client::Msg_Error (const std::string &text)
+void Msg_Error (const std::string &text)
 {
     client_instance.error (text);
 }
+
+} // namespace client
+} // namespace enigma

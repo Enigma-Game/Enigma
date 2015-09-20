@@ -38,7 +38,7 @@ namespace enigma {
                 performAction(!m.value.to_bool()); // convert 1/0 values to true/false
                 return Value();
             }
-        } else if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
+        } else if (server::GameCompatibility == GAMET_ENIGMA) {
             if (m.message == "_brush") {
                 KillItem(this->get_pos());
                 return Value();

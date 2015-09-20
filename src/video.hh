@@ -23,8 +23,8 @@
 
 #include <memory>
 #include "SDL.h"
-#include "ecl_fwd.hh"
 #include "ecl_geom.hh"
+#include "ecl_video.hh"
 
 namespace video
 {

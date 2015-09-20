@@ -19,15 +19,13 @@
 #define D_MODELS_HH
 
 #include "display_internal.hh"
-#include "ecl_fwd.hh"
+#include "display.hh"
+#include "ecl_video.hh"
+#include "ecl_geom.hh"
 #include <vector>
 #include <string>
 
 namespace display {
-
-using std::string;
-using std::vector;
-using ecl::Surface;
 
 /* -------------------- Image -------------------- */
 
@@ -54,8 +52,8 @@ class ImageModel : public Model {
 public:
     // Constructors
     ImageModel(Image *i, int xo, int yo);
-    ImageModel(Surface *s, int xo, int yo);
-    ImageModel(Surface *s, const ecl::Rect &r, int xo, int yo);
+    ImageModel(ecl::Surface *s, int xo, int yo);
+    ImageModel(ecl::Surface *s, const ecl::Rect &r, int xo, int yo);
     ~ImageModel();
 
     // Model interface
@@ -148,10 +146,10 @@ public:
 /* -------------------- AliasModel -------------------- */
 
 class AliasModel : public Model {
-    string name;
+    std::string name;
 
 public:
-    AliasModel(const string &modelname) : name(modelname) {}
+    AliasModel(const std::string &modelname) : name(modelname) {}
     Model *clone();
 };
 
@@ -170,7 +168,7 @@ struct AnimFrame : public ecl::Nocopy {
 
 struct AnimRep {
     // Variables
-    vector<AnimFrame *> frames;
+    std::vector<AnimFrame *> frames;
     bool loop;
     int refcount;
 

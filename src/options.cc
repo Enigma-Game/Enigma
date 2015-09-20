@@ -45,13 +45,11 @@ extern "C" {
 #       include <windows.h>
 #endif
 
-using namespace enigma;
+namespace enigma {
+namespace options {
 
-
 /* -------------------- LevelStatus implementation -------------------- */
 
-namespace enigma_options
-{
     LevelStatus::LevelStatus(int easy, int hard, int finished_, int solved_rev)
         : time_easy (easy),
           time_hard (hard),
@@ -65,21 +63,14 @@ namespace enigma_options
                 finished == other.finished &&
                 solved_revision == other.solved_revision);
     }
-}
-
+
 /* -------------------- Variables -------------------- */
 
-namespace enigma_options
-{
     bool LevelStatusChanged = false;
-//    bool MustRestart        = false;
-//    bool MustRestartLevel   = false;
-}
 
-
 /* -------------------- Functions -------------------- */
 
-bool options::HasOption (const char *name, std::string &value) {
+bool HasOption (const char *name, std::string &value) {
     bool hasOption;
     const char * result;
     lua_State *L = lua::GlobalState();
@@ -97,45 +88,44 @@ bool options::HasOption (const char *name, std::string &value) {
     return hasOption;
 } 
 
-void options::SetOption (const char *name, double value)
+void SetOption (const char *name, double value)
 {
     app.prefs->setProperty(name, value);
 }
 
-void options::SetOption (const char *name, const std::string &value)
+void SetOption (const char *name, const std::string &value)
 {
     app.prefs->setProperty(name, value);
 }
 
-void options::GetOption (const char *name, double &value)
+void GetOption (const char *name, double &value)
 {
     app.prefs->getProperty(name, value);
 }
 
-void options::GetOption (const char *name, std::string &value) {
+void GetOption (const char *name, std::string &value) {
     app.prefs->getProperty(name, value);
 } 
 
-bool options::GetBool (const char *name) {
+bool GetBool (const char *name) {
     double val = 0;
     GetOption (name, val);
     return val != 0;
 }
 
-double options::GetDouble (const char *name) {
+double GetDouble (const char *name) {
     double val = 0;
     GetOption (name, val);
     return val;
 }
 
-int options::GetInt (const char *name) {
+int GetInt (const char *name) {
     double val = 0;
     GetOption (name, val);
     return static_cast<int>(val);
 }
 
-
-double options::SetMouseSpeed (double speed) 
+double SetMouseSpeed (double speed) 
 {
     double oldspeed = GetMouseSpeed();
     double newspeed = ecl::Clamp<double>(speed, MIN_MouseSpeed, MAX_MouseSpeed);
@@ -143,12 +133,12 @@ double options::SetMouseSpeed (double speed)
     return oldspeed;
 }
 
-double options::GetMouseSpeed () 
+double GetMouseSpeed () 
 {
     return GetDouble ("MouseSpeed");
 }
 
-std::string options::GetString (const char *name) 
+std::string GetString (const char *name) 
 {
     std::string val;
     GetOption (name, val);
@@ -174,8 +164,8 @@ static void UpdateLevelStatus(const std::string &levelname,
     lua_settop(L, oldtop);
 }
 
-bool options::GetLevelStatus (const std::string &levelname,
-                              LevelStatus &stat)
+bool GetLevelStatus (const std::string &levelname,
+        LevelStatus &stat)
 {
     lua_State *L = lua::GlobalState();
 
@@ -262,7 +252,7 @@ load_options (const std::string &fname)
 }
 
 
-bool options::Load ()
+bool Load ()
 {
     std::string fname;
     bool success = true;
@@ -284,3 +274,5 @@ bool options::Load ()
     return success;
 }
 
+} // namespace options
+} // namespace enigma

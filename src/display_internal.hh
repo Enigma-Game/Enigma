@@ -2,6 +2,7 @@
 #define DISPLAY_INTERNAL_HH
 
 #include "display.hh"
+#include "ecl_video.hh"
 #include "enigma.hh"
 
 #include <list>
@@ -12,7 +13,6 @@ namespace display {
 using ecl::V2;
 
 class DisplayLayer;
-class StatusBarImpl;
 class Model;
 
 typedef ecl::Rect ScreenArea;

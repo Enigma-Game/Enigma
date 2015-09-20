@@ -27,9 +27,8 @@
 
 #include <ctime>
 
-namespace enigma_options
-{
-    using namespace enigma;
+namespace enigma {
+namespace options {
 
 /* -------------------- LevelStatus -------------------- */
 
@@ -94,10 +93,7 @@ namespace enigma_options
     /*! Try to load the user's configuration file.  Returns true if
       successful. */
     bool Load ();
-}
+}  // namespace options
+}  // namespace enigma
 
-namespace enigma
-{
-    namespace options = enigma_options;
-}
 #endif

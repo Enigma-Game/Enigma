@@ -45,12 +45,12 @@
 
 #include <cctype>
 
-using namespace enigma::server;
 using namespace world;
 using namespace std;
 
-namespace enigma_server
-{
+namespace enigma {
+namespace server {
+
     enum ServerState {
         sv_idle,
         sv_waiting_for_clients,
@@ -73,67 +73,65 @@ namespace enigma_server
 
     void PrepareLevel();
 
-}
-
 /* -------------------- Global variables -------------------- */
 
-double   server::LastMenuTime;
-int      server::MenuCount;
-lev::Proxy * server::LoadedProxy;
-unsigned server::SublevelNumber;
-std::string server::SublevelTitle;
+double   LastMenuTime;
+int      MenuCount;
+lev::Proxy * LoadedProxy;
+unsigned SublevelNumber;
+std::string SublevelTitle;
 
-bool     server::NoCollisions = false;
+bool     NoCollisions = false;
 
-bool     server::AllowSingleOxyds;
-bool     server::AllowSuicide;
-bool     server::AllowTogglePlayer;
-bool     server::AutoRespawn;
-bool     server::CreatingPreview = false;   // read only for Lua
-bool     server::ConserveLevel;
-bool     server::IsDifficult;               // read only for Lua
-bool     server::IsLevelRestart;            // no Lua access
-bool     server::ProvideExtralifes;
-bool     server::InfiniteReincarnation;
-bool     server::SurviveFinish;
+bool     AllowSingleOxyds;
+bool     AllowSuicide;
+bool     AllowTogglePlayer;
+bool     AutoRespawn;
+bool     CreatingPreview = false;   // read only for Lua
+bool     ConserveLevel;
+bool     IsDifficult;               // read only for Lua
+bool     IsLevelRestart;            // no Lua access
+bool     ProvideExtralifes;
+bool     InfiniteReincarnation;
+bool     SurviveFinish;
 
-Value    server::FollowAction;
-bool     server::FollowGrid;
-int      server::FollowMethod;
-Value    server::FollowThreshold;
+Value    FollowAction;
+bool     FollowGrid;
+int      FollowMethod;
+Value    FollowThreshold;
 
-double   server::LevelTime;                 // read only for Lua (> 1.10)
-bool     server::ShowMoves;
-bool     server::SingleComputerGame;        // no Lua access
-bool     server::TwoPlayerGame;             // no Lua access
-GameType server::GameCompatibility;         // no Lua access
-bool     server::WorldSized;                // no Lua access
-bool     server::WorldInitialized;          // no Lua access
-double   server::Brittleness;
-double   server::Fragility;
-double   server::CrackSpreading;
-ecl::V2  server::ConstantForce;
-double   server::BumperForce;
-double   server::ElectricForce;
-double   server::EnigmaCompatibility;       // no Lua access
-double   server::FlatForce;
-double   server::FrictionFactor;
-int      server::GlassesVisibility;         // no Lua access
-int      server::ExtralifeGlasses;
-std::string server::FallenPuzzle;
-double   server::HoleForce;
-lev::levelStatusType   server::LevelStatus; // no Lua access
-double   server::MagnetForce;
-double   server::MagnetRange;
-int      server::MaxOxydColor;
-int32_t  server::RandomState;               // no Lua access
-double   server::RubberViolationStrength;
-double   server::SlopeForce;
-int      server::SubSoil;
-double   server::SwampSinkSpeed;
-double   server::WaterSinkSpeed;
-double   server::WormholeForce;
-double   server::WormholeRange;
+double   LevelTime;                 // read only for Lua (> 1.10)
+bool     ShowMoves;
+bool     SingleComputerGame;        // no Lua access
+bool     TwoPlayerGame;             // no Lua access
+GameType GameCompatibility;         // no Lua access
+bool     WorldSized;                // no Lua access
+bool     WorldInitialized;          // no Lua access
+double   Brittleness;
+double   Fragility;
+double   CrackSpreading;
+ecl::V2  ConstantForce;
+double   BumperForce;
+double   ElectricForce;
+double   EnigmaCompatibility;       // no Lua access
+double   FlatForce;
+double   FrictionFactor;
+int      GlassesVisibility;         // no Lua access
+int      ExtralifeGlasses;
+std::string FallenPuzzle;
+double   HoleForce;
+lev::levelStatusType   LevelStatus; // no Lua access
+double   MagnetForce;
+double   MagnetRange;
+int      MaxOxydColor;
+int32_t  RandomState;               // no Lua access
+double   RubberViolationStrength;
+double   SlopeForce;
+int      SubSoil;
+double   SwampSinkSpeed;
+double   WaterSinkSpeed;
+double   WormholeForce;
+double   WormholeRange;
 
 /* -------------------- Local variables -------------------- */
 
@@ -158,9 +156,9 @@ void load_level(lev::Proxy *levelProxy, bool isRestart)
         if (!CreatingPreview)
             sound::StartLevelLoadMusic();
             
-        server::LoadedProxy = levelProxy;
+        LoadedProxy = levelProxy;
         IsLevelRestart = isRestart;
-        server::PrepareLevel();
+        PrepareLevel();
 
         // clear inventory before level load and give us 2 extralives
         player::NewGame();
@@ -208,7 +206,7 @@ void load_level(lev::Proxy *levelProxy, bool isRestart)
 }
 
 
-void server::RaiseError (const std::string &msg)
+void RaiseError (const std::string &msg)
 {
     throw XLevelLoading (msg);
 }
@@ -225,7 +223,7 @@ void gametick(double dtime)
     }
     player::Tick (time_accu);
     for (;time_accu >= timestep; time_accu -= timestep, count++) {
-        server::LevelTime += timestep;
+        LevelTime += timestep;
         WorldTick(timestep);
 //        if (lua::CallFunc (lua::LevelState(), "Tick", timestep, NULL) != 0) {
 //            throw XLevelRuntime (string("Calling 'Tick' failed:\n")
@@ -238,11 +236,11 @@ void gametick(double dtime)
 
 /* -------------------- Functions -------------------- */
 
-void server::Init()
+void Init()
 {
 }
 
-void server::Shutdown()
+void Shutdown()
 {
     lua::ShutdownLevel();
     if (network_host != 0)
@@ -250,83 +248,83 @@ void server::Shutdown()
 }
 
 
-void server::InitNewGame()
+void InitNewGame()
 {
     PrepareLevel();
 }
 
-bool server::NetworkStart()
+bool NetworkStart()
 {
     return true;
 }
 
 
 
-void server::PrepareLevel()
+void PrepareLevel()
 {
     state = sv_waiting_for_clients;
     
-    server::SublevelNumber    = 1;
-    server::SublevelTitle     = "";
-    server::LastMenuTime      = 0.0;
-    server::MenuCount         = 0;
-    server::NoCollisions      = false;
-    server::WorldInitialized  = false;
-    server::LevelTime         = 0.0;
-    server::ConserveLevel     = true;
-    server::ProvideExtralifes = true;
-    server::InfiniteReincarnation = false;
-    server::SurviveFinish     = true;
-    server::TwoPlayerGame     = false;
-    server::SingleComputerGame= true;
-    server::AllowSingleOxyds  = false;
-    server::AllowSuicide      = true;
-    server::AllowTogglePlayer = true;
-    server::AutoRespawn       = false;
-    server::FollowAction      = GridPos(19, 12);   // inner space of a room
-    server::FollowGrid        = true;
-    server::FollowMethod      = display::FOLLOW_FLIP;      // FLIP
-    server::FollowThreshold   = 0.5;
-    server::ShowMoves         = false;
+    SublevelNumber    = 1;
+    SublevelTitle     = "";
+    LastMenuTime      = 0.0;
+    MenuCount         = 0;
+    NoCollisions      = false;
+    WorldInitialized  = false;
+    LevelTime         = 0.0;
+    ConserveLevel     = true;
+    ProvideExtralifes = true;
+    InfiniteReincarnation = false;
+    SurviveFinish     = true;
+    TwoPlayerGame     = false;
+    SingleComputerGame= true;
+    AllowSingleOxyds  = false;
+    AllowSuicide      = true;
+    AllowTogglePlayer = true;
+    AutoRespawn       = false;
+    FollowAction      = GridPos(19, 12);   // inner space of a room
+    FollowGrid        = true;
+    FollowMethod      = display::FOLLOW_FLIP;      // FLIP
+    FollowThreshold   = 0.5;
+    ShowMoves         = false;
 
-    server::GlassesVisibility = 0;     // nothing
-    server::FlatForce         = 0.0;
-    server::ConstantForce     = ecl::V2(0, 0);
+    GlassesVisibility = 0;     // nothing
+    FlatForce         = 0.0;
+    ConstantForce     = ecl::V2(0, 0);
     
     // object class specific with Lua access 
-    server::Brittleness       = 0.5;
-    server::BumperForce       = 200.0;
-    server::CrackSpreading    = 0.5;
-    server::ElectricForce     = 15.0;
-    server::ExtralifeGlasses  = 19;  // death + hollow + lightpassenger
-    server::FallenPuzzle      = "fl_gray";
-    server::Fragility         = 1.0;
-    server::FrictionFactor    = 1.0;
-    server::HoleForce         = 1.0;
-    server::MagnetForce       = 30;
-    server::MagnetRange       = 10;
-    server::MaxOxydColor      = 7;    // for compatibility
-    server::RubberViolationStrength = 50;
-    server::SlopeForce        = 25.0;
-    server::SubSoil           = 0;
-    server::SwampSinkSpeed    = 4;
-    server::WaterSinkSpeed    = 10000;
-    server::WormholeForce     = 30;
-    server::WormholeRange     = 10;
+    Brittleness       = 0.5;
+    BumperForce       = 200.0;
+    CrackSpreading    = 0.5;
+    ElectricForce     = 15.0;
+    ExtralifeGlasses  = 19;  // death + hollow + lightpassenger
+    FallenPuzzle      = "fl_gray";
+    Fragility         = 1.0;
+    FrictionFactor    = 1.0;
+    HoleForce         = 1.0;
+    MagnetForce       = 30;
+    MagnetRange       = 10;
+    MaxOxydColor      = 7;    // for compatibility
+    RubberViolationStrength = 50;
+    SlopeForce        = 25.0;
+    SubSoil           = 0;
+    SwampSinkSpeed    = 4;
+    WaterSinkSpeed    = 10000;
+    WormholeForce     = 30;
+    WormholeRange     = 10;
 
     move_counter = 0;
 
     enigma::WorldPrepareLevel();
-    server::WorldSized = false;
+    WorldSized = false;
 
     player::PrepareLevel();
 }
 
-void server::PrepareLua() {
-    server::IsDifficult = (GetDifficulty() == DIFFICULTY_HARD);
+void PrepareLua() {
+    IsDifficult = (GetDifficulty() == DIFFICULTY_HARD);
     // Restart the Lua environment so symbol definitions from
     // different levels do not get in each other's way.
-    int api = (server::EnigmaCompatibility < 1.10) ? 1 : 2;
+    int api = (EnigmaCompatibility < 1.10) ? 1 : 2;
     lua::ShutdownLevel();
     lua_State *L = lua::InitLevel(api);
     if (api == 1 && lua::DoSysFile(L, "compat.lua") != lua::NO_LUAERROR) {
@@ -340,7 +338,7 @@ void server::PrepareLua() {
     }
 }
 
-void server::RestartLevel() 
+void RestartLevel() 
 {
     if (state == sv_running || state == sv_finished || state == sv_finishing) {
         state = sv_restart_level;
@@ -348,11 +346,11 @@ void server::RestartLevel()
     }
 }
 
-bool server::IsRestartingLevel() {
+bool IsRestartingLevel() {
     return state == sv_restart_level;
 }
 
-void server::Msg_RestartGame() 
+void Msg_RestartGame() 
 {
     if (state == sv_running || state == sv_finished || state == sv_finishing) {
         state = sv_restart_game;
@@ -360,13 +358,13 @@ void server::Msg_RestartGame()
     }
 }
 
-void server::FinishLevel() {
+void FinishLevel() {
     if (state == sv_running) {
         state = sv_finishing;
     }
 }
 
-void server::Tick (double dtime) {
+void Tick (double dtime) {
     switch (state) {
         case sv_idle:
             break;
@@ -388,7 +386,7 @@ void server::Tick (double dtime) {
             }
             break;
         case sv_finishing:
-            if (server::SurviveFinish) {
+            if (SurviveFinish) {
                 player::LevelFinished(0);     // mark all shattered actors as dead
                 player::CheckDeadActors();    // restart level or game if actors are dead!
             }
@@ -411,12 +409,12 @@ void server::Tick (double dtime) {
     }
 }
 
-void server::Msg_SetLevelPack (const std::string &name) {
+void Msg_SetLevelPack (const std::string &name) {
     lev::Index::setCurrentIndex(name);
 }
 
-void server::Msg_LoadLevel (lev::Proxy *levelProxy, bool isPreview) {
-    server::CreatingPreview = isPreview;
+void Msg_LoadLevel (lev::Proxy *levelProxy, bool isPreview) {
+    CreatingPreview = isPreview;
     if (!isPreview) {
         // update F6 jump back history
         if (currentIndex != lev::Index::getCurrentIndex() ||
@@ -430,7 +428,7 @@ void server::Msg_LoadLevel (lev::Proxy *levelProxy, bool isPreview) {
     load_level(levelProxy, false);
 }
 
-void server::Msg_JumpBack() {
+void Msg_JumpBack() {
     if (previousIndex != NULL) {
 	lev::Index::setCurrentIndex(previousIndex->getName());
 	previousIndex->setCurrentPosition(previousLevel);
@@ -442,7 +440,7 @@ void server::Msg_JumpBack() {
 }
 
 
-void server::Msg_StartGame()
+void Msg_StartGame()
 {
     if (state == sv_waiting_for_clients) {
         time_accu = 0;
@@ -453,8 +451,6 @@ void server::Msg_StartGame()
         // XXX discard message if not waiting for it?
     }
 }
-
-namespace enigma_server {
 
     void Msg_Command_jumpto(const string& dest) {
         // global level jump
@@ -510,9 +506,8 @@ namespace enigma_server {
             client::Msg_ShowText(string("Couldn't find '")+text+'\'', false, 2);
         }
     }
-};
 
-void server::Msg_Command (const string &cmd)
+void Msg_Command (const string &cmd)
 {
     lev::Index *ind = lev::Index::getCurrentIndex();
     lev::Proxy *curProxy = ind->getCurrent();
@@ -524,11 +519,11 @@ void server::Msg_Command (const string &cmd)
     else if (cmd == "suicide") {
         player::Suicide();
         if (!AllowSuicide)
-            server::Msg_RestartGame();
+            Msg_RestartGame();
     }
     else if (cmd == "restart") {
         player::Suicide();
-        server::Msg_RestartGame();
+        Msg_RestartGame();
     }
     else if (cmd == "abort") {
         client::Msg_Command(cmd);
@@ -540,13 +535,13 @@ void server::Msg_Command (const string &cmd)
         client::Msg_Command("cheater");
     }
     else if (cmd == "collision") {
-        server::NoCollisions = !server::NoCollisions;
-        if (server::NoCollisions)
+        NoCollisions = !NoCollisions;
+        if (NoCollisions)
             client::Msg_ShowText ("collision handling disabled", false, 2);
         else
             client::Msg_ShowText ("collision handling enabled", false, 2);
         client::Msg_Command("cheater");
-        display::GetStatusBar()->setCMode(server::NoCollisions);
+        display::GetStatusBar()->setCMode(NoCollisions);
     }
 
     // ------------------------------ quick options
@@ -555,7 +550,7 @@ void server::Msg_Command (const string &cmd)
             if (curProxy->hasEasyMode()) {
                 client::Msg_ShowText("Restarting in easy mode", false, 2);
                 app.state->setProperty("Difficulty", DIFFICULTY_EASY);
-                server::Msg_Command("restart");
+                Msg_Command("restart");
             }
             else
                 client::Msg_ShowText("No easy mode available.", false, 2);
@@ -568,7 +563,7 @@ void server::Msg_Command (const string &cmd)
             app.state->setProperty("Difficulty", DIFFICULTY_HARD);
             if (curProxy->hasEasyMode()) {
                 client::Msg_ShowText("Restarting in regular difficulty mode", false, 2);
-                server::Msg_Command("restart");
+                Msg_Command("restart");
             }
             else {
                 client::Msg_ShowText("No difference between easy and regular difficulty.", false, 2);
@@ -581,7 +576,7 @@ void server::Msg_Command (const string &cmd)
         if (app.state->getInt("NextLevelMode") != lev::NEXT_LEVEL_NOT_BEST) {
             client::Msg_ShowText("Restarting in world record hunt mode", false, 2);
             app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_NOT_BEST);
-            server::Msg_Command("restart");
+            Msg_Command("restart");
         }
         else
             client::Msg_ShowText("Already in world record hunt mode.", false, 2);
@@ -607,11 +602,11 @@ void server::Msg_Command (const string &cmd)
     }
     else if (cmd.substr(0, 5) == "find ") { // global level-jump
         string args = cmd.substr(5);
-        server::Msg_Command_find(args);
+        Msg_Command_find(args);
     }
     else if (cmd.substr(0, 7) == "jumpto ") { // global level-jump
         string args = cmd.substr(7);
-        server::Msg_Command_jumpto(args);
+        Msg_Command_jumpto(args);
     }
     else if (cmd == "help") {
         client::Msg_ShowText("suicide, restart, abort, easy, regular, hunt, nohunt, jumpto, find, info", true);
@@ -629,26 +624,26 @@ void server::Msg_Command (const string &cmd)
 }
 
 
-void server::Msg_Pause (bool onoff) {
+void Msg_Pause (bool onoff) {
     if (onoff && state == sv_running)
         state = sv_paused;
     else if (!onoff && state == sv_paused)
         state = sv_running;
 }
 
-void server::Msg_Panic (bool onoff) {
+void Msg_Panic (bool onoff) {
     if (onoff && state == sv_running)
         state = sv_idle;
     else if (!onoff && state == sv_idle)
         state = sv_running;
 }
 
-void server::Msg_MouseForce (const ecl::V2 &f) {
+void Msg_MouseForce (const ecl::V2 &f) {
     SetMouseForce (f);
 }
 
 
-void server::SetCompatibility(const char *version) {
+void SetCompatibility(const char *version) {
     GameType type = GetGameType(version);
 
     if (type == GAMET_UNKNOWN) {
@@ -663,15 +658,15 @@ void server::SetCompatibility(const char *version) {
     GameCompatibility = type;
 }
 
-void server::SetCompatibility(lev::Proxy *levelProxy) {
-    server::GameCompatibility = levelProxy->getEngineCompatibility();
-    if (server::GameCompatibility == GAMET_UNKNOWN)
+void SetCompatibility(lev::Proxy *levelProxy) {
+    GameCompatibility = levelProxy->getEngineCompatibility();
+    if (GameCompatibility == GAMET_UNKNOWN)
         throw XLevelLoading("unknown engine compatibility");
 }
 
-enigma::Difficulty server::GetDifficulty()
+enigma::Difficulty GetDifficulty()
 {
-    if (server::CreatingPreview)
+    if (CreatingPreview)
         return DIFFICULTY_HARD;    // we may not access the current index!
         
     lev::Index *ind = lev::Index::getCurrentIndex();
@@ -683,23 +678,26 @@ enigma::Difficulty server::GetDifficulty()
         return DIFFICULTY_HARD;
 }
 
-void server::InitMoveCounter() 
+void InitMoveCounter() 
 {
     move_counter = 0;
 }
 
-int server::IncMoveCounter(int increment) 
+int IncMoveCounter(int increment) 
 {
     move_counter += increment; 
     return move_counter;
 }
 
-int server::GetMoveCounter() 
+int GetMoveCounter() 
 {
     return move_counter;
 }
 
-void server::Msg_ActivateItem()
+void Msg_ActivateItem()
 {
     player::ActivateFirstItem();
 }
+
+}  // namespace server
+}  // namespace enigma

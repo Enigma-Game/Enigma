@@ -30,9 +30,8 @@
 
 #include <stdint.h>
 
-namespace enigma_server 
-{
-    using namespace enigma;
+namespace enigma {
+namespace server {
 
 /* -------------------- Global variables -------------------- */
 
@@ -215,11 +214,8 @@ namespace enigma_server
 
 
     void Msg_ActivateItem();
-}
 
-namespace enigma
-{
-    namespace server = enigma_server;
-}
+} // namespace server
+} // namespace enigma
 
 #endif

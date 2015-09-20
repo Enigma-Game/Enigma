@@ -38,7 +38,7 @@ namespace enigma {
     }
     
     Value Bottle::message(const Message &m) {
-        if (state == BROKEN && m.message == "_brush" && enigma_server::GameCompatibility == GAMET_ENIGMA) {
+        if (state == BROKEN && m.message == "_brush" && server::GameCompatibility == GAMET_ENIGMA) {
             if (isDisplayable()) {
                 KillItem(this->get_pos());
                 return Value();

@@ -264,7 +264,7 @@ namespace enigma {
     }
 
     ItemAction Pencil::activate(Actor *a, GridPos p) {
-        if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
+        if (server::GameCompatibility == GAMET_ENIGMA) {
             if (GetItem(p))
                 return ITEM_KEEP;
             // If the actor is flying and tries to make a cross, drop the it-pencil
@@ -425,7 +425,7 @@ namespace enigma {
     }
 
     Value Squashed::message (const Message &m) {
-        if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
+        if (server::GameCompatibility == GAMET_ENIGMA) {
             if (m.message == "_brush" || m.message == "_freeze") {
                 KillItem(this->get_pos());
                 return Value();

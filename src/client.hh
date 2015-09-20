@@ -21,10 +21,8 @@
 
 #include "lev/Index.hh"
 
-namespace enigma_client 
-{
-    using namespace enigma;
-
+namespace enigma {
+namespace client {
 /* -------------------- Functions -------------------- */
 
     void ClientInit();
@@ -66,11 +64,7 @@ namespace enigma_client
 
     //! Stop the game and display an error message instead
     void Msg_Error(const std::string &text);
-}
-
-namespace enigma
-{
-    namespace client = enigma_client;
-}
+} // namespace client
+} // namespace enigma
 
 #endif

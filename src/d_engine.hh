@@ -18,14 +18,18 @@
 #ifndef D_ENGINE_HH
 #define D_ENGINE_HH
 
+#include "display_internal.hh"
+#include "display.hh"
 #include "ecl_geom.hh"
+#include "ecl_math.hh"
 #include "ecl_array2.hh"
 #include "ecl_alist.hh"
-#include "ecl_fwd.hh"
 
 #include "SDL.h"
 
 namespace display {
+
+class DisplayLayer;
 
 /* -------------------- DisplayEngine -------------------- */
 
@@ -66,7 +70,7 @@ public:
     void video_to_screen(int x, int y, int *xx, int *yy);
     void video_to_world(const ecl::Rect &r, ecl::Rect &s);
 
-    V2 to_world(const V2 &pos);
+    ecl::V2 to_world(const ecl::V2 &pos);
 
     /* ---------- Screen upates ---------- */
 
@@ -424,7 +428,7 @@ public:
     Follower_Smooth(DisplayEngine *e);
     void tick(double time, const ecl::V2 &point);
     void center(const ecl::V2 &point);
-    virtual void set_boundary(double b) {}
+    virtual void set_boundary(double /*b*/) {}
 
     ecl::V2 calc_offset(const ecl::V2 &point);
 };
@@ -474,10 +478,6 @@ private:
     ScreenArea inventoryarea;
 };
 
-class ModelHandle {
-public:
-    ModelHandle();
-};
-}
+}  // namespace display
 
 #endif

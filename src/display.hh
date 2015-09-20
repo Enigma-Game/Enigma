@@ -20,6 +20,7 @@
 
 #include "enigma.hh"
 #include "ecl_geom.hh"
+#include "ecl_video.hh"
 
 namespace display {
 
