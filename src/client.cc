@@ -29,6 +29,7 @@
 #include "SoundEffectManager.hh"
 #include "MusicManager.hh"
 #include "player.hh"
+#include "resource_cache.hh"
 #include "world.hh"
 #include "nls.hh"
 #include "StateManager.hh"

@@ -23,7 +23,6 @@
 #include "ecl_font.hh"
 #include "ecl_video.hh"
 #include "main.hh"
-#include "ImageCache.hh"
 #include "Object.hh"
 #include "server.hh"
 #include "world.hh"
@@ -239,124 +238,6 @@ const char *date(const char *format) {  // format see 'man strftime'
     result = strdup(buffer);
 
     return result;
-}
-
-/* -------------------- Resource management -------------------- */
-
-namespace {
-
-struct FontDescr {
-    // Variables
-    string name;
-    string ttf_name;
-    int ttf_size;
-    string bitmap_name;
-    int r, g, b;
-
-    // Constructor
-    FontDescr(const string &name_, const string &ttf_name_, int ttf_size_,
-              const string &bitmap_name_, int r_, int g_, int b_)
-    : name(name_),
-      ttf_name(ttf_name_),
-      ttf_size(ttf_size_),
-      bitmap_name(bitmap_name_),
-      r(r_),
-      g(g_),
-      b(b_) {}
-};
-
-class FontCache : public PtrCache<Font> {
-public:
-    Font *acquire(const std::string &name) {
-        Font *f = 0;
-        if (m_fonts.has_key(name)) {
-            const FontDescr &fd = m_fonts[name];
-            f = load_ttf(fd.ttf_name, fd.ttf_size, fd.r, fd.g, fd.b);
-            if (f == 0) {
-                std::cerr << "Could not load .ttf file " << fd.ttf_name << "\n";
-                f = load_bmf(fd.bitmap_name);
-            }
-        } else {
-            f = load_bmf(name);
-        }
-        return f;
-    }
-
-    void define_font(const FontDescr &descr) {
-        remove(descr.name);  // remove entry in cache (if any)
-        if (m_fonts.has_key(descr.name))
-            m_fonts[descr.name] = descr;
-        else
-            m_fonts.insert(descr.name, descr);
-    }
-
-    void clear() {
-        PtrCache<Font>::clear();  // crazy double cache - TODO cleanup
-        m_fonts.clear();
-    }
-
-private:
-    Font *load_bmf(const string &name) {
-        string png, bmf;
-        if (app.resourceFS->findFile(string("fonts/") + name + ".png", png) &&
-            app.resourceFS->findFile(string("fonts/") + name + ".bmf", bmf)) {
-            return ecl::LoadBitmapFont(png.c_str(), bmf.c_str());
-        }
-        return 0;
-    }
-
-    Font *load_ttf(const string &name, int ptsize, int r, int g, int b) {
-        string ttf;
-        if (app.resourceFS->findFile(string("fonts/") + name, ttf))
-            return ecl::LoadTTF(ttf.c_str(), ptsize, r, g, b);
-        return 0;
-    }
-
-    // Variables
-    ecl::Dict<FontDescr> m_fonts;
-};
-
-// ---------- Variables ----------
-
-FontCache font_cache;
-ImageCache image_cache;
-
-}  // namespace
-
-void DefineFont(const char *name, const char *ttf_name, int ttf_size, const char *bmf_name, int r,
-                int g, int b) {
-    font_cache.define_font(FontDescr(name, ttf_name, ttf_size, bmf_name, r, g, b));
-}
-
-ecl::Font *GetFont(const char *name) {
-    return font_cache.get(name);
-}
-
-void ClearFontCache() {
-    font_cache.clear();
-}
-
-ecl::Surface *LoadImage(const char *name) {
-    string filename;
-    if (app.resourceFS->findImageFile(string(name) + ".png", filename))
-        return ecl::LoadImage(filename.c_str());
-    return 0;
-}
-
-ecl::Surface *GetImage(const char *name, const char *ext) {
-    string filename;
-    if (app.resourceFS->findImageFile(string(name) + ext, filename))
-        return image_cache.get(filename);
-    return 0;
-}
-
-ecl::Surface *RegisterImage(const char *name, ecl::Surface *s) {
-    image_cache.store(name, s);
-    return s;
-}
-
-void ClearImageCache() {
-    image_cache.clear();
 }
 
 }  // namespace enigma

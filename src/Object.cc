@@ -19,24 +19,13 @@
 #include "Object.hh"
 
 #include "errors.hh"
-#include "game.hh"
-#include "main.hh"
 #include "lua.hh"
 #include "ObjectValidator.hh"
-#include "server.hh"
 #include "world.hh"
 
 #include "ecl_util.hh"
-#include "ecl_dict.hh"
 
 #include <algorithm>
-#include <string>
-#include <cstdlib>
-#include <cstdarg>
-#include <iostream>
-#include <iomanip>
-
-using namespace std;
 
 namespace enigma {
 
@@ -242,7 +231,7 @@ Value Object::getAttrChecked(const std::string &key) const {
     return Value();
 }
 
-Value Object::getAttr(const string &key) const {
+Value Object::getAttr(const std::string &key) const {
     if (key == "inverse") {
         return (objFlags & OBJBIT_INVERSE) != 0;
     } else if (key == "nopaction") {
@@ -265,7 +254,7 @@ Value Object::getAttr(const string &key) const {
     }
 }
 
-Value Object::getDefaultedAttr(const string &key, Value defaultValue) const {
+Value Object::getDefaultedAttr(const std::string &key, Value defaultValue) const {
     if (Value v = getAttr(key))
         return v;
     else

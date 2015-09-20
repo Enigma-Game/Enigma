@@ -20,11 +20,11 @@
 #include "gui/SearchMenu.hh"
 #include "ecl_font.hh"
 #include "ecl_video.hh"
-#include "enigma.hh"
 #include "errors.hh"
 #include "lev/Index.hh"
 #include "lev/Proxy.hh"
 #include "nls.hh"
+#include "resource_cache.hh"
 #include "video.hh"
 
 #include "main.hh"

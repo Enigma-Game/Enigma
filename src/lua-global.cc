@@ -1,6 +1,6 @@
 /*
 ** Lua binding: global
-** Generated automatically by tolua++-1.0.93 on Sun Sep 20 15:50:47 2015.
+** Generated automatically by tolua++-1.0.93 on Sun Sep 20 23:57:23 2015.
 */
 
 #ifndef __cplusplus
@@ -13,7 +13,7 @@
 /* Exported function */
 TOLUA_API int  tolua_global_open (lua_State* tolua_S);
 
-#include "enigma.hh"
+#include "resource_cache.hh"
 using namespace enigma;
 
 /* function to register type */

@@ -21,10 +21,8 @@
 #define ENIGMA_HH
 
 // This file contains declarations for facilities used by several different
-// parts of the program, like common types and constants, and routines for
-// resource management.
+// parts of the program, like common types and constants.
 
-#include "ecl_font.hh"
 #include "ecl_math.hh"
 #include <stdint.h>
 
@@ -59,22 +57,6 @@ enum GameType {
 
 GameType GetGameType(std::string name);
 std::string GetGameTypeName(GameType type);
-
-/* -------------------- Resource Management -------------------- */
-
-/* The `Get...' functions return a pointer to a cached copy of the
-   font or image.  The `Load...' functions load a new copy which
-   you must deallocate yourself.  */
-
-void DefineFont(const char *name, const char *ttf_name, int ttf_size, const char *bmf_name, int r,
-                int g, int b);
-ecl::Font *GetFont(const char *name);
-void ClearFontCache();
-
-ecl::Surface *LoadImage(const char *name);
-ecl::Surface *GetImage(const char *name, const char *ext = ".png");
-ecl::Surface *RegisterImage(const char *name, ecl::Surface *s);
-void ClearImageCache();
 
 /* -------------------- Direction, DirectionBits -------------------- */
 

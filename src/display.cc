@@ -24,6 +24,7 @@
 #include "client.hh"
 #include "errors.hh"
 #include "main.hh"
+#include "resource_cache.hh"
 #include "server.hh"
 #include "video.hh"
 

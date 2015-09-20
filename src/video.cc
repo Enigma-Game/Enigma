@@ -28,16 +28,16 @@
 // The code in this file is independent of the game. For game-specific display
 // code, refer to file display.cc
 
-#include "enigma.hh"
 #include "video.hh"
-#include "lua.hh"
-#include "options.hh"
-#include "main.hh"
+
 #include "ecl_video.hh"
 #include "ecl_system.hh"
+#include "lua.hh"
+#include "main.hh"
+#include "options.hh"
+#include "resource_cache.hh"
 #include <cassert>
 #include <cstdio>
-#include <fstream>
 #include <sstream>
 #include "config.h"
 

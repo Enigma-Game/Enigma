@@ -23,6 +23,8 @@
 
 $#include "server.hh"
 $#include "world.hh"
+$#include "resource_cache.hh"
+$#include "ecl_font.hh"
 $#include "lev/PersistentIndex.hh"
 
 $using namespace enigma;

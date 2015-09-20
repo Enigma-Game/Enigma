@@ -19,8 +19,8 @@
 #include "errors.hh"
 #include "gui/LevelInspector.hh"
 #include "main.hh"
-#include "enigma.hh"
 #include "nls.hh"
+#include "resource_cache.hh"
 #include "video.hh"
 #include "ecl_font.hh"
 #include "ecl_system.hh"
@@ -31,7 +31,6 @@
 #include "lev/RatingManager.hh"
 #include "lev/ScoreManager.hh"
 #include "StateManager.hh"
-
 
 #include <vector>
 

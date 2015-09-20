@@ -28,12 +28,12 @@
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
+#include "resource_cache.hh"
 #include "MusicManager.hh"
 #include "video.hh"
 #include "world.hh"
 
 #include "netgame.hh"
-
 
 using namespace ecl;
 using namespace std;

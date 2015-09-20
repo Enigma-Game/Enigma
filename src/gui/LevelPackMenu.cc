@@ -25,6 +25,7 @@
 #include "gui/HelpMenu.hh"
 #include "errors.hh"
 #include "nls.hh"
+#include "resource_cache.hh"
 #include "video.hh"
 #include "lev/Index.hh"
 #include "lev/PersistentIndex.hh"

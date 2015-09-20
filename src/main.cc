@@ -24,6 +24,7 @@
 #include "gui/ErrorMenu.hh"
 #include "gui/LevelPreviewCache.hh"
 #include "options.hh"
+#include "resource_cache.hh"
 #include "oxyd.hh"
 #include "SoundEngine.hh"
 #include "SoundEffectManager.hh"

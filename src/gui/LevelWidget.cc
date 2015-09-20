@@ -26,10 +26,10 @@
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
+#include "resource_cache.hh"
 #include "SoundEffectManager.hh"
 #include "StateManager.hh"
 #include "video.hh"
-#include "file.hh"
 #include "lev/Proxy.hh"
 #include <cassert>
 

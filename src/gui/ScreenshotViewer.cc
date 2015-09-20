@@ -21,9 +21,9 @@
 #include "gui/HelpMenu.hh"
 #include "ecl_font.hh"
 #include "ecl_video.hh"
-#include "enigma.hh"
 #include "main.hh"
 #include "nls.hh"
+#include "resource_cache.hh"
 #include "video.hh"
 
 using namespace ecl;

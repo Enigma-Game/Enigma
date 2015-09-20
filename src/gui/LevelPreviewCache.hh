@@ -19,7 +19,7 @@
 #ifndef GUI_LEVELPREVIEWCACHE_HH_INCLUDED
 #define GUI_LEVELPREVIEWCACHE_HH_INCLUDED
 
-#include "ImageCache.hh"
+#include "resource_cache.hh"
 #include "lev/Index.hh"
 #include "lev/Proxy.hh"
 #include <map>

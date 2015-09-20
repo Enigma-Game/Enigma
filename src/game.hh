@@ -18,6 +18,7 @@
 #ifndef ENIGMA_GAME_HH
 #define ENIGMA_GAME_HH
 
+#include "ecl_video.hh"
 #include "lev/Proxy.hh"
 
 namespace enigma {

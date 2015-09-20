@@ -22,6 +22,7 @@
 #include "SoundEffectManager.hh"
 #include "video.hh"
 #include "options.hh"
+#include "resource_cache.hh"
 #include "nls.hh"
 #include "ecl_font.hh"
 #include "ecl_video.hh"

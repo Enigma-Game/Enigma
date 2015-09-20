@@ -2,6 +2,7 @@
 #define DISPLAY_INTERNAL_HH
 
 #include "display.hh"
+#include "ecl_font.hh"
 #include "ecl_video.hh"
 #include "enigma.hh"
 

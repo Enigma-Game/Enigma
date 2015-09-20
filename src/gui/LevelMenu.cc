@@ -27,6 +27,7 @@
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
+#include "resource_cache.hh"
 #include "server.hh"
 #include "MusicManager.hh"
 #include "StateManager.hh"

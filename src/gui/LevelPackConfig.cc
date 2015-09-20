@@ -21,6 +21,7 @@
 #include "gui/LevelPackComposer.hh"
 #include "errors.hh"
 #include "nls.hh"
+#include "resource_cache.hh"
 #include "video.hh"
 #include "lev/Index.hh"
 

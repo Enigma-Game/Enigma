@@ -22,6 +22,7 @@
 #include "file.hh"
 #include "game.hh"
 #include "main.hh"
+#include "resource_cache.hh"
 #include "video.hh"
 #include "lev/Proxy.hh"
 

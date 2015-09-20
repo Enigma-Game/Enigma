@@ -40,9 +40,9 @@ public:
     virtual void animcb() = 0;
 };
 
-class Animation {
+class Model {
 public:
-    virtual ~Animation() {}
+    virtual ~Model() {}
     virtual void set_callback(ModelCallback *) {}
     virtual void reverse() {}
     virtual void restart() {}
@@ -50,10 +50,7 @@ public:
     virtual bool is_garbage() const { return false; }
     virtual void tick(double /*dtime*/) {}
     virtual bool has_changed(ecl::Rect & /*changed_region*/) { return false; }
-};
 
-class Model : public Animation {
-public:
     virtual void draw(ecl::GC & /*gc*/, int /*x*/, int /*y*/) {}
     virtual void draw_shadow(ecl::GC & /*gc*/, int /*x*/, int /*y*/) {}
 

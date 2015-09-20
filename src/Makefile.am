@@ -62,7 +62,6 @@ enigma_SOURCES = 		\
 	game.hh			\
 	GridObject.cc 		\
 	GridObject.hh 		\
-	ImageCache.hh		\
 	Inventory.cc		\
 	Inventory.hh		\
 	ItemHolder.hh		\
@@ -113,6 +112,8 @@ enigma_SOURCES = 		\
 	PreferenceManager.hh	\
 	PropertyManager.cc	\
 	PropertyManager.hh	\
+	resource_cache.cc	\
+	resource_cache.hh	\
 	server.cc 		\
 	server.hh		\
 	SoundEffectManager.cc   \

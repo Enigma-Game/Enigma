@@ -18,7 +18,7 @@
 #include "gui/InfoMenu.hh"
 #include "ecl_font.hh"
 #include "ecl_video.hh"
-#include "enigma.hh"
+#include "resource_cache.hh"
 #include "video.hh"
 #include "nls.hh"
 

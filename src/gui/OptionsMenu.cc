@@ -19,7 +19,6 @@
  
 #include "gui/OptionsMenu.hh"
 #include "ecl_video.hh"
-#include "enigma.hh"
 #include "lev/ScoreManager.hh"
 #include "LocalToXML.hh"
 #include "main.hh"
@@ -27,6 +26,7 @@
 #include "options.hh"
 #include "display.hh"
 #include "oxyd.hh"
+#include "resource_cache.hh"
 #include "SoundEngine.hh"
 #include "SoundEffectManager.hh"
 #include "MusicManager.hh"
