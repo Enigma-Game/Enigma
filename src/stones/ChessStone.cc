@@ -124,7 +124,7 @@ namespace enigma {
              set_color(1 - (int)getAttr("color"));
              // If not IDLE, color will be set next time IDLE is set.
          } else if (accolor && getAttr("color") == accolor) {
-            V2 v = sc.actor->get_vel();
+             ecl::V2 v = sc.actor->get_vel();
             Direction dir1 = get_push_direction(sc);
             if(dir1 == NODIR)  return;
             Direction dir2 = NODIR;

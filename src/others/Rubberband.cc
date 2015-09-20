@@ -153,7 +153,7 @@ namespace enigma {
         if (minLength + eps <= len && (len <= maxLength -eps || maxLength == 0)) {
             // length within the purly force controlled min/max limited region
             if (len == 0) {
-                force = V2(0, 0);
+                force = ecl::V2();
             } else if (len > outerThreshold) {
                 force = v * strength * (len - outerThreshold)/len;
             } else if (len < innerThreshold) {

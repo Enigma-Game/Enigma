@@ -248,7 +248,7 @@ namespace enigma {
             if (Value g = getAttr("gradient")) {
                 Direction skateDir = (Direction)((int)((objFlags & OBJBIT_SKATEDIR) >> 24) - 1);
                 if (skateDir != NODIR) {
-                    V2 vec = V2(0.0,0.0);
+                    ecl::V2 vec;
                     double quot = 0;
                     floor->add_force(0, vec);
                     quot = skateDir == NORTH ? -vec[1] : skateDir == SOUTH ? vec[1] :

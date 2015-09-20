@@ -189,7 +189,7 @@ namespace enigma {
     void Vortex::emit_actor(Vortex *destVortex) {
         if (destVortex == NULL)   // destination vortex got killed in meantime
             destVortex = this;    // reemit from source vortex
-        V2 v(destVortex->get_pos().center());
+        ecl::V2 v(destVortex->get_pos().center());
         if (Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"))) {
             WarpActor(actor, v[0], v[1], false);
             SendMessage(actor, "_rise");
@@ -234,7 +234,7 @@ namespace enigma {
 
         ASSERT (state == WARPING, XLevelRuntime, "Vortex: perform_warp called with inconsistent state");
 
-        V2 v_target;
+        ecl::V2 v_target;
 
         // is another target position defined?
         int dest_idx = getAttr("$dest_idx");

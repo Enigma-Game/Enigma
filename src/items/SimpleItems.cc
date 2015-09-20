@@ -210,7 +210,7 @@ namespace enigma {
         return "it_flag";
     }
 
-    void FlagItem::setAttr(const string& key, const Value &val) {
+    void FlagItem::setAttr(const std::string& key, const Value &val) {
         if (key == "color") {
             if ((int)val < 0 || (int)val > 1)
                 return;
@@ -239,7 +239,7 @@ namespace enigma {
     Key::Key() {
     }
 
-    void Key::setAttr(const string& key, const Value &val) {
+    void Key::setAttr(const std::string& key, const Value &val) {
         Item::setAttr(key, val);
         if (key == "invisible" || key == "code") {
             player::RedrawInventory();
@@ -439,7 +439,7 @@ namespace enigma {
     Weight::Weight() {
     }
 
-    void Weight::setAttr(const string& key, const Value &val) {
+    void Weight::setAttr(const std::string& key, const Value &val) {
         if (key == "mass") {
             double oldMass = getAttr("mass");
             double newMass = val;

@@ -54,7 +54,7 @@ namespace enigma {
         return Item::message(m);
     }
     
-    void Sensor::setAttr(const string& key, const Value &val) {
+    void Sensor::setAttr(const std::string& key, const Value &val) {
         if (key == "invisible") {
             objFlags = (objFlags & ~OBJBIT_INVISIBLE) | (val.to_bool() ? OBJBIT_INVISIBLE : 0);
             if (isDisplayable())

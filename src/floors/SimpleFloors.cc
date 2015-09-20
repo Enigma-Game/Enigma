@@ -107,7 +107,7 @@ namespace enigma {
         return "fl_space";
     }
     
-    void Space::add_force (Actor *a, V2 &f) {
+    void Space::add_force (Actor *a, ecl::V2 &f) {
         if (objFlags & OBJBIT_FORCETYP)
             f[1] -= server::FlatForce;
         Floor::add_force(a, f);

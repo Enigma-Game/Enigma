@@ -18,9 +18,7 @@
  */
 
 #include "StateObject.hh"
-
 #include "world.hh"
-//#include "main.hh"
 
 namespace enigma {
 
@@ -53,7 +51,7 @@ namespace enigma {
         return Object::message(m);
     }
     
-    Value StateObject::getAttr(const string &key) const {
+    Value StateObject::getAttr(const std::string &key) const {
         if (key == "state")
             return externalState();
         else if (key == "$maxState")
@@ -63,7 +61,7 @@ namespace enigma {
         return Object::getAttr(key);
     }
     
-    void StateObject::setAttr(const string& key, const Value &val) {
+    void StateObject::setAttr(const std::string& key, const Value &val) {
         if (key == "state") {
             if (val >= minState() && val <= maxState())
                 setState(val);

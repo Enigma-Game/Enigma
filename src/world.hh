@@ -35,9 +35,6 @@ namespace enigma {
 
 /* -------------------- Types -------------------- */
 
-using ecl::V2;
-using std::string;
-
 /*!
  * Impulse is used to transfer force from one Object to another
  * Object.  Currently only Stones can be the destination of
@@ -96,14 +93,14 @@ struct StoneContact {
     StoneID stoneid;
     StoneResponse response;
 
-    V2 contact_point;     // Where do the shapes meet? (world coordinates)
-    V2 normal;            // The surface normal at the contact point
-    DirectionBits faces;  // Faces hit on contact - may be two on edge contact
-    bool outerCorner;     // Did actor hit an outer corner of the stone
-    bool is_collision;    // Actor moves towards the stone, not away
-    bool ignore;          // Ignore this contact
-    bool new_collision;   // True if actor did not touch the stone before
-    bool is_contact;      // if false, contact_point is closest feature
+    ecl::V2 contact_point;  // Where do the shapes meet? (world coordinates)
+    ecl::V2 normal;         // The surface normal at the contact point
+    DirectionBits faces;    // Faces hit on contact - may be two on edge contact
+    bool outerCorner;       // Did actor hit an outer corner of the stone
+    bool is_collision;      // Actor moves towards the stone, not away
+    bool ignore;            // Ignore this contact
+    bool new_collision;     // True if actor did not touch the stone before
+    bool is_contact;        // if false, contact_point is closest feature
     std::string sound;
 
     // Constructor.
@@ -166,24 +163,24 @@ Object *GetObject(const GridLoc &l);
 
 /* -------------------- Named Objects -------------------- */
 
-void NameObject(Object *obj, const string &name);
+void NameObject(Object *obj, const std::string &name);
 void UnnameObject(Object *obj);
-Object *GetNamedObject(const string &name);
+Object *GetNamedObject(const std::string &name);
 std::list<Object *> GetNamedGroup(const std::string &templ, Object *reference = NULL);
 
 /* -------------------- Named Positions -------------------- */
 
-void NamePosition(Value po, const string &name);
-Value GetNamedPosition(const string &name);
+void NamePosition(Value po, const std::string &name);
+Value GetNamedPosition(const std::string &name);
 PositionList GetNamedPositionList(const std::string &templ, Object *reference = NULL);
 
 /* -------------------- Force Fields -------------------- */
 
 void AddForceField(ForceField *ff);
 void RemoveForceField(ForceField *ff);
-void SetMouseForce(V2 f);
+void SetMouseForce(ecl::V2 f);
 
-void SetGlobalForce(V2 force);
+void SetGlobalForce(ecl::V2 force);
 ecl::V2 GetGlobalForce();
 
 /* -------------------- Other Objects -------------------- */
@@ -204,12 +201,12 @@ void AddScramble(GridPos p, Direction d);
 /* -------------------- Signals & Messages -------------------- */
 
 // just for Oxyd and old API compatibility
-void AddSignal(const GridLoc &src, const GridLoc &dst, const string &msg);
+void AddSignal(const GridLoc &src, const GridLoc &dst, const std::string &msg);
 
 void BroadcastMessage(const std::string &msg, const Value &value, GridLayerBits grids,
                       bool actors = false, bool others = false);
 
-Value SendMessage(Object *obj, const string &msg, const Value &value = Value(),
+Value SendMessage(Object *obj, const std::string &msg, const Value &value = Value(),
                   Object *sender = NULL);
 Value SendMessage(Object *obj, const Message &m);
 
@@ -325,12 +322,12 @@ void DisposeObject(Object *o);
 
 /* Register a new object. */
 void BootRegister(Object *obj, const char *kind = NULL, bool isRegistration = true);
-void Register(const string &kind, Object *obj);
+void Register(const std::string &kind, Object *obj);
 
 /* Shutdown object repository */
 void Repos_Shutdown();
 
-Object *GetObjectTemplate(const string &kind);
+Object *GetObjectTemplate(const std::string &kind);
 
 /* Print information about all registered objects to stdout. */
 void DumpObjectInfo();

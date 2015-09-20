@@ -28,6 +28,7 @@ $#include "lev/PersistentIndex.hh"
 $using namespace enigma;
 $using ecl::Surface;
 $using ecl::Font;
+$using std::string;
 
 module enigma
 {

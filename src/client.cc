@@ -201,7 +201,7 @@ void Client::handle_events() {
                 fprintf(stderr, "mouse event with %i, %i\n", e.motion.xrel, e.motion.yrel);
             } else
                 server::Msg_MouseForce(options::GetDouble("MouseSpeed") *
-                                       V2(e.motion.xrel, e.motion.yrel));
+                        ecl::V2(e.motion.xrel, e.motion.yrel));
             break;
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP: on_mousebutton(e); break;
@@ -916,7 +916,7 @@ void Msg_Command(const string &cmd) {
     }
 }
 
-void Msg_PlayerPosition(unsigned iplayer, const V2 &pos) {
+void Msg_PlayerPosition(unsigned iplayer, const ecl::V2 &pos) {
     if (iplayer == (unsigned)player::CurrentPlayer()) {
         sound::SetListenerPosition(pos);
         display::SetReferencePoint(pos);
@@ -928,7 +928,7 @@ void Msg_PlaySound(const std::string &wavfile, const ecl::V2 &pos, double relati
 }
 
 void Msg_PlaySound(const std::string &wavfile, double relative_volume) {
-    sound::EmitSoundEvent(wavfile.c_str(), V2(), relative_volume);
+    sound::EmitSoundEvent(wavfile.c_str(), ecl::V2(), relative_volume);
 }
 
 void Msg_Sparkle(const ecl::V2 &pos) {

@@ -155,7 +155,7 @@ void Floor::kill_model (GridPos p)
     display::KillModel (GridLoc (GRID_FLOOR, p));
 }
 
-void Floor::add_force (Actor *, V2 &f)
+void Floor::add_force (Actor *, ecl::V2 &f)
 {
     // Note that actor == 0 is possible from lightpassenger-calculation.
     f += var_floorforce;

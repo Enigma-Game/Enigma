@@ -14,12 +14,10 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 
 #include "items/SeedItem.hh"
 #include "errors.hh"
-//#include "main.hh"
 #include "server.hh"
 #include "stones.hh"
 #include "world.hh"
@@ -34,7 +32,7 @@ namespace enigma {
         return "it_seed";
     }
     
-    void SeedItem::setAttr(const string& key, const Value &val) {
+    void SeedItem::setAttr(const std::string& key, const Value &val) {
         if (key == "flavor") {
             std::string flavor = val.to_string();
             int code = 0;
@@ -54,7 +52,7 @@ namespace enigma {
         Item::setAttr(key, val);
     }
     
-    Value SeedItem::getAttr(const string &key) const {
+    Value SeedItem::getAttr(const std::string &key) const {
         if (key == "flavor") {
             int flavor = (objFlags & OBJBIT_FLAVOR) >> 24;
             switch (flavor) {

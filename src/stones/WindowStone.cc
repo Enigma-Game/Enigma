@@ -257,7 +257,7 @@ namespace enigma {
                 for (std::vector<Actor*>::iterator i = found_actors.begin(); i != e; ++i) {
                     Actor *a = *i;
                     if (a != initiator) {
-                        V2 dest = a->get_pos();
+                        ecl::V2 dest = a->get_pos();
                         GridPos a_pos(dest);
                         double r = get_radius(a);
                         if ((a_pos == w_pos)  // if the actor is in the field

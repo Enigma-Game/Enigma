@@ -32,7 +32,7 @@ namespace enigma {
         return "it_crack";
     }
 
-    void Crack::setAttr(const string& key, const Value &val) {
+    void Crack::setAttr(const std::string& key, const Value &val) {
         if (key == "flavor") {
             std::string flavor = val.to_string();
             ASSERT(flavor == "abyss" || flavor == "water", XLevelRuntime, "Crack illegal flavor value");

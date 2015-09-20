@@ -325,7 +325,7 @@ namespace enigma {
 
             if (sinkDepth >= maxSinkDepth) {
                 set_model(getModelBaseName() + "-sunk");
-                ai->vel = V2();     // stop!
+                ai->vel = ecl::V2();     // stop!
                 sound_event ("swamp");
                 change_state(BUBBLING);
             }
@@ -372,7 +372,7 @@ namespace enigma {
             case NORMAL:
                 if (oldstate == APPEARING) {
                     ActorInfo *ai = get_actorinfo();
-                    ai->forceacc = V2();
+                    ai->forceacc = ecl::V2();
                 }
                 ReleaseActor(this);
                 break;
@@ -465,14 +465,14 @@ namespace enigma {
         }
     }
 
-    void BasicBall::set_sink_model(const string &m) {
+    void BasicBall::set_sink_model(const std::string &m) {
         int modelnum = ecl::round_down<int>(sinkDepth);
 
         if (!has_shield() && modelnum != sinkModel) {
             ASSERT(modelnum >= minSinkDepth && modelnum < maxSinkDepth, XLevelRuntime,
                 "BasicBall: set_sink_model called though modelnum incorrect");
 
-            string img = m+"-sink";
+            std::string img = m+"-sink";
             img.append(1, static_cast<char>('0'+modelnum));
             set_model(img);
 
@@ -504,7 +504,7 @@ namespace enigma {
 
         if (newstate != m_halostate) {
             double radius = get_actorinfo()->radius;
-            string halokind;
+            std::string halokind;
 
             // Determine which halomodel has to be used:
             if (radius == 19.0/64) { // Halo for normal balls

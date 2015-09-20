@@ -164,7 +164,7 @@ namespace enigma {
         return false;  // do not pick up
     }
 
-    void Meditation::add_force(Actor *a, V2 &f) {
+    void Meditation::add_force(Actor *a, ecl::V2 &f) {
         ecl::V2 v = a->get_pos() - get_pos().center();
         double dist = ecl::length(v);
 

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: enigma
-** Generated automatically by tolua++-1.0.93 on Wed Sep  9 01:10:11 2009.
+** Generated automatically by tolua++-1.0.93 on Sun Sep 20 15:50:47 2015.
 */
 
 #ifndef __cplusplus
@@ -19,6 +19,7 @@ TOLUA_API int  tolua_enigma_open (lua_State* tolua_S);
 using namespace enigma;
 using ecl::Surface;
 using ecl::Font;
+using std::string;
 using namespace server;
 using namespace lev;
 using namespace enigma;

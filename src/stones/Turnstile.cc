@@ -258,7 +258,7 @@ namespace enigma {
             if (ac->isMoribund())
                 continue;
 
-            const V2 &ac_center = ac->get_pos();
+            const ecl::V2 &ac_center = ac->get_pos();
             GridPos   ac_pos(ac_center);
             int dx  = ac_pos.x-pv_pos.x;
             int dy  = ac_pos.y-pv_pos.y;

@@ -20,7 +20,6 @@
 
 #include "actors/Rotors.hh"
 #include "errors.hh"
-//#include "main.hh"
 #include "player.hh"
 #include "world.hh"
 
@@ -37,7 +36,7 @@ namespace enigma {
         setAttr("prefercurrent", 0.0);
     }
 
-    void RotorBase::setAttr(const string& key, const Value &val) {
+    void RotorBase::setAttr(const std::string& key, const Value &val) {
         if (key == "range")
             range = val;
         else if (key == "strength") 
@@ -59,7 +58,7 @@ namespace enigma {
         double cforce = force/6;
     
         Actor *target = 0;
-        V2     target_vec;
+        ecl::V2 target_vec;
         timeKeepAttackStrategy  -= dtime;
         if (timeKeepAttackStrategy < 0) {
             timeKeepAttackStrategy = enigma::DoubleRand(0.8, 1.6);
@@ -71,7 +70,7 @@ namespace enigma {
         Actor *a;
         while((a = air_it.next()) != NULL) {
             if (a->is_movable() && !a->is_invisible()) {
-                V2 v = a->get_pos() - get_pos();
+                ecl::V2 v = a->get_pos() - get_pos();
                 if ((attacknearest && !attackCurrentOnly) ||
                     (attackCurrentOnly && a == player::GetMainActor(
                      player::CurrentPlayer()))) {

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: enigma
-** Generated automatically by tolua++-1.0.93 on Wed Sep  9 01:10:11 2009.
+** Generated automatically by tolua++-1.0.93 on Sun Sep 20 15:50:47 2015.
 */
 
 /* Exported function */
