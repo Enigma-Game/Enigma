@@ -44,51 +44,6 @@ private:
     Nocopy &operator=(const Nocopy &);
 };
 
-// A simple smart pointer. Almost verbatim from tc++pl3.
-template <class X>
-class Handle {
-public:
-    X *operator->() { return rep; }
-    X *get() const { return rep; }
-    X &operator*() { return *rep; }
-
-    explicit Handle(X *p = 0) : rep(p), cnt(new int(1)) {}
-    Handle(const Handle<X> &a) : rep(a.rep), cnt(a.cnt) { ++(*cnt); }
-    Handle<X> &operator=(const Handle<X> &a) {
-        if (cnt == a.cnt)
-            return *this;
-        if (--(*cnt) == 0) {
-            delete rep;
-            delete cnt;
-        }
-        rep = a.rep;
-        cnt = a.cnt;
-        (*cnt)++;
-        return *this;
-    }
-    ~Handle() {
-        if (--(*cnt) == 0) {
-            delete rep;
-            delete cnt;
-        }
-    }
-
-private:
-    X *rep;
-    int *cnt;
-};
-
-template <class Iter>
-inline Iter next(const Iter i) {
-    Iter j = i;
-    return ++j;
-}
-template <class Iter>
-inline Iter prev(const Iter i) {
-    Iter j = i;
-    return --j;
-}
-
 template <class For>
 inline void delete_sequence(For begin, For end) {
     while (begin != end)

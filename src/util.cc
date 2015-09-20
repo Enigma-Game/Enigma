@@ -163,9 +163,10 @@ void Timer::tick (double dtime)
 
     // Explicit loop to allow remove_alarm() to be called from inside alarm()
     for (list<Alarm>::iterator i=self.alarms.begin(); i != self.alarms.end(); ) {
-        list<Alarm>::iterator n = ecl::next(i);
+        list<Alarm>::iterator next = i;
+        ++next;
         i->tick(dtime);
-        i = n;
+        i = next;
     }
     self.alarms.remove_if (mem_fun_ref(&Alarm::expired));
 }

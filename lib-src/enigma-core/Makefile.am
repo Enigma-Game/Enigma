@@ -17,7 +17,6 @@ libecl_a_SOURCES = \
 	ecl_buffer.cc 			\
 	ecl_buffer.hh			\
 	ecl_cache.hh			\
-	ecl_callback.hh			\
 	ecl_dict.cc 			\
 	ecl_dict.hh			\
 	ecl_error.hh			\
