@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 
 #ifndef NETGAME_HH_INCLUDED
@@ -22,11 +21,11 @@
 
 #include <string>
 
-namespace netgame
-{
-    void Start ();
+namespace netgame {
 
-    void Join (std::string hostname, int port);
-}
+void Start();
+void Join(std::string hostname, int port);
+
+}  // namespace netgame
 
 #endif

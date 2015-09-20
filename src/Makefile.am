@@ -114,7 +114,6 @@ enigma_SOURCES = 		\
 	PropertyManager.hh	\
 	server.cc 		\
 	server.hh		\
-	server_internal.hh	\
 	SoundEffectManager.cc   \
 	SoundEffectManager.hh   \
 	SoundEngine.cc          \
