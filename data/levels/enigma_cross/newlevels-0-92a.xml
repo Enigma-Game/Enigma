@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="56" title="Enigma 0.92 - 1"/>
+  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="57" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
   <levels>
     <level _seq="1" _title="Welcome" _xpath="enigma_i/welcometopack1_3" author="Daniel Heck" ctrl="force" easy="true" id="welcome" rel="3" rev="5" score="2" target="time" unit="duration"/>
-    <level _seq="2" _title="Is It Easy?" _xpath="enigma_i/martin06_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin06" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="2" _title="Is It Easy?" _xpath="enigma_i/martin06_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin06" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="3" _title="Pharaoh's Tomb" _xpath="enigma_ii/siegfried13_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level4d" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Feel Your Way" _xpath="enigma_i/siegfried06_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level3a" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Sokoban Revival" _xpath="enigma_i/martin04_4" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="4" rev="5" score="3" target="time" unit="duration"/>
