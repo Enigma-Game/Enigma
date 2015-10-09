@@ -104,14 +104,13 @@ stamp-po: $(srcdir)/$(DOMAIN).pot
 # Note that $(DOMAIN).pot is not touched if it doesn't need to be changed.
 $(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in remove-potcdate.sed
 	rm -f $(builddir)/level_i18n.cc
-	find $(top_srcdir)/data/levels -name '.svn' -prune -o -type d -exec cp $(top_srcdir)/data/schemas/level.xsd '{}' \;
-	find $(top_srcdir)/data/levels -name '.svn' -prune -o -name 'enigma_cross' -prune -o -name '*.xml' -type f ! -name 'index.xml' -exec Xalan -v -e UTF-8 '{}' $(top_srcdir)/tools/i18n.xsl \; >> $(builddir)/level_i18n.tmp
-	find $(top_srcdir)/data/levels -name '.svn' -prune -o -name level.xsd  -exec rm '{}' \;
+	find $(top_srcdir)/data/levels -name '.svn' -prune -o -name 'enigma_cross' -prune -o -name '*.xml' -type f ! -name 'index.xml' -exec xsltproc --path $(top_srcdir)/data/schemas --encoding UTF-8 $(top_srcdir)/tools/i18n.xsl '{}' \; >> $(builddir)/level_i18n.tmp
 	lua $(top_srcdir)/tools/sub_quote_gettext.lua $(builddir)/level_i18n.tmp > $(builddir)/level_i18n.cc
 	rm -f $(builddir)/level_i18n.tmp
-	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
+	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) --directory=$(builddir) \
 	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
-	  --files-from=$(srcdir)/POTFILES.in \
+	  `cat $(srcdir)/POTFILES.in` \
+	  level_i18n.cc \
 	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
 	  --from-code='utf-8' \
 	  --msgid-bugs-address='$(MSGID_BUGS_ADDRESS)'
@@ -129,9 +128,6 @@ $(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in remove-potcdate.sed
 	    mv $(DOMAIN).po $(srcdir)/$(DOMAIN).pot; \
 	  fi; \
 	}
-
-../po/level_i18n.cc: 
-	touch $@
 
 # This rule has no dependencies: we don't need to update $(DOMAIN).pot at
 # every "make" invocation, only create it when it is missing.
@@ -298,7 +294,7 @@ mostlyclean:
 clean: mostlyclean
 
 distclean: clean
-	rm -f Makefile Makefile.in POTFILES *.mo
+	rm -f Makefile Makefile.in POTFILES *.mo level_i18n.cc
 
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"
@@ -358,10 +354,10 @@ update-po: Makefile
 	  if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
 	    rm -f $$tmpdir/$$lang.new.po; \
 	  else \
-	    if mv -f $$tmpdir/$$lang.new.po $$lang.po; then \
+	    if mv -f $$tmpdir/$$lang.new.po $$tmpdir/$$lang.po; then \
 	      :; \
-	      (cd $(srcdir); \
-		lua $(top_srcdir)/tools/merge_level_i18n.lua $${lang}); \
+	      ( cd $(builddir) \
+		lua $(top_srcdir)/tools/merge_level_i18n.lua $${lang} $(top_srcdir) ); \
 	    else \
 	      echo "msgmerge for $$lang.po failed: cannot move $$tmpdir/$$lang.new.po to $$lang.po" 1>&2; \
 	      exit 1; \

@@ -1,7 +1,7 @@
 # Build font converter only if SDL_ttf library is present
 # and developer tools were explicitly requested (cf. configure.ac).
 
-EXTRA_DIST = merge_level_i18n.lua sub_quote_gettext.lua 
+EXTRA_DIST = merge_level_i18n.lua sub_quote_gettext.lua i18n.xsl
 
 if BUILDTTF2BMF
 TTFTOOL = ttf2bmf

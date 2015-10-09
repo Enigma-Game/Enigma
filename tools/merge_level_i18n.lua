@@ -7,6 +7,7 @@
 
 level_i18n = "level_i18n.cc"
 lang = arg[1]
+top_srcdir = arg[2] or ""
 
 stdout = io.output()
 stdout:write("lua-merge " .. lang .. " end\n")
@@ -40,7 +41,7 @@ for line_i18n in io.lines(level_i18n) do
         check = string.sub(line_i18n, 5)
     end
     if (string.find(line_i18n,"gettext",1,true) == 1) then
-        local search_path = "po/" .. level_i18n
+        local search_path = top_srcdir .. "/po/" .. level_i18n
         local search_ref = search_path .. ":" .. li
         local search = "#: " .. search_ref
         local found = false
