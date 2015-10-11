@@ -30,6 +30,7 @@
 
 #include <cassert>
 #include <cstdio>
+#include <memory>
 #include <sstream>
 
 #include "ecl_system.hh"
@@ -111,12 +112,11 @@ bool Video_SDL::is_fullscreen() const {
 }
 
 void Video_SDL::set_fullscreen(bool on_off) {
-    if (on_off != is_fullscreen())
-        toggle_fullscreen();
+    SDL_SetWindowFullscreen(screen->window(), on_off ? SDL_WINDOW_FULLSCREEN : 0);
 }
 
 void Video_SDL::toggle_fullscreen() {
-    SDL_SetWindowFullscreen(screen->window(), is_fullscreen() ? 0 : SDL_WINDOW_FULLSCREEN);
+    set_fullscreen(!is_fullscreen());
 }
 
 }  // namespace
