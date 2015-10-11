@@ -1,13 +1,12 @@
 #
 # Makefile prototype for Enigma.
 #
+AUTOMAKE_OPTIONS = subdir-objects
 bin_PROGRAMS = enigma
-
 
 EXTRA_DIST = \
 	enigma.ico \
 	enigma.rc
-
 
 CXXFLAGS = @CXXFLAGS@\
 	-DSYSTEM_DATA_DIR=\"$(datadir)/enigma\" \
