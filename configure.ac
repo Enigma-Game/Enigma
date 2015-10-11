@@ -156,9 +156,9 @@ dnl Add special hack for Mac framework SDL after all other SDL stuff has been do
 dnl Note that SDL development environment must be installed for the build but SDL frameworks must also be installed for the build
 dnl If we had libSDLmain.a, which is not included in the framework, we should be able to get away with only installing framework
 if test "x$MACOSX" = xyes; then
- SDL_STATIC_PREFIX=`$SDL_CONFIG $sdl_config_args --prefix`
- SDL_LIBS="-Wl,-rpath,@loader_path/../Frameworks -framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL -framework SDL2 -framework SDL2_mixer -framework SDL2_image -framework SDL2_ttf $SDL_STATIC_PREFIX/lib/libSDLmain.a"
-AC_SUBST(SDL_STATIC_PREFIX)
+ SDL_STATIC_PREFIX=`$SDL2_CONFIG $sdl2_config_args --prefix`
+ SDL_LIBS="-Wl,-rpath,@loader_path/../Frameworks -framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL -framework SDL2 -framework SDL2_mixer -framework SDL2_image -framework SDL2_ttf $SDL2_STATIC_PREFIX/lib/libSDL2main.a"
+AC_SUBST(SDL2_STATIC_PREFIX)
 fi
 
 dnl ---------------------------------------
@@ -260,7 +260,7 @@ AC_ARG_ENABLE(tools,
 )
 
 AM_CONDITIONAL(BUILDTOOLS, [test "$enable_tools" = yes])
-AM_CONDITIONAL(BUILDTTF2BMF, [test "$have_sdlttf" = yes -a "$enable_tools" = yes])
+AM_CONDITIONAL(BUILDTTF2BMF, [test "$have_sdl2ttf" = yes -a "$enable_tools" = yes])
 
 dnl ----------------------------------------
 dnl Include experimental features?
