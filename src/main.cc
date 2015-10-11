@@ -388,10 +388,13 @@ void Application::init(int argc, char **argv)
         exit(1);
     }
     std::atexit(SDL_Quit);
-    SDL_EnableUNICODE(1);
-    const SDL_version* vi = SDL_Linked_Version();
-    Log << ecl::strf("SDL Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
 
+    SDL_version sdl_version;
+    SDL_GetVersion(&sdl_version);
+    Log << ecl::strf("SDL Version: %u.%u.%u\n", sdl_version.major, sdl_version.minor,
+                     sdl_version.patch);
+
+    const SDL_version *vi;
     vi = TTF_Linked_Version();
     Log <<  ecl::strf("SDL_ttf Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
     if(TTF_Init() == -1) {

@@ -174,8 +174,7 @@ private:
 
 class Screen {
 public:
-    Screen(Surface *s);
-    Screen(SDL_Surface *s);
+    Screen(SDL_Window *window);
     ~Screen();
 
     void update_all();
@@ -185,6 +184,7 @@ public:
 
     /* ---------- Accessors ---------- */
 
+    SDL_Window *window() const { return m_window; }
     Surface *get_surface() const { return m_surface; }
 
     Rect size() const;
@@ -199,6 +199,7 @@ private:
     // Variables.
     static Screen *m_instance;
 
+    SDL_Window *m_window;
     Surface *m_surface;
     SDL_Surface *m_sdlsurface;
     RectList m_dirtyrects;
@@ -285,11 +286,8 @@ inline void frame(const GC &gc, const Rect &r) {
 
 /* -------------------- Functions -------------------- */
 
-Screen *OpenScreen(int w, int h, int bipp);
-Screen *DisplayFormat(Screen *s);
-
 // Create a new surface.
-Surface *MakeSurface(int w, int h, int bipp, const RGBA_Mask &mask = RGBA_Mask());
+Surface *MakeSurface(int w, int h);
 
 // Create a surface from image data that is already somewhere in memory.
 Surface *MakeSurface(void *data, int w, int h, int bipp, int pitch,
@@ -317,7 +315,6 @@ Surface *DisplayFormat(Surface *s);
 // Load an image using SDL_image and convert it to an optimized format.
 Surface *LoadImage(const char *filename);
 Surface *LoadImage(SDL_RWops *src, int freesrc);
-Surface *LoadImage(SDL_Surface *tmpImage);
 
 // Overlay a rectangle `rect' in `s' with a transparent colored box.
 void TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);

@@ -138,7 +138,7 @@ namespace enigma { namespace gui {
         // Boss quit key Shift && ESC or Mac OS X application quit sequence
         if (e.type == SDL_KEYDOWN && ((e.key.keysym.sym == SDLK_ESCAPE && 
                 (e.key.keysym.mod & KMOD_SHIFT)) || (e.key.keysym.sym == SDLK_q && 
-                (e.key.keysym.mod & KMOD_META)))) {
+                        (e.key.keysym.mod & (KMOD_LGUI | KMOD_RGUI))))) {
             abort();
             app.bossKeyPressed = true;
             return;
@@ -188,9 +188,10 @@ namespace enigma { namespace gui {
                 track_active_widget( e.button.x, e.button.y );
                 if (active_widget) active_widget->on_event(e);
                 break;
-            case SDL_VIDEOEXPOSE:
-                draw_all();
-                break;
+            // TODO(SDL2)
+            // case SDL_VIDEOEXPOSE:
+            //     draw_all();
+            //     break;
             default:
                 if (active_widget) active_widget->on_event(e);
         }

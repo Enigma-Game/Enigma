@@ -53,11 +53,6 @@ using namespace enigma;
 namespace {
 
 class Video_SDL {
-    SDL_Surface *sdlScreen;
-    string caption;
-    ecl::Screen *screen;
-    bool initialized;
-
 public:
     Video_SDL();
     ~Video_SDL();
@@ -69,78 +64,53 @@ public:
     void set_caption(const char *str);
     const string &get_caption() const { return caption; }
     ecl::Screen *get_screen() { return screen; }
+
+private:
+    SDL_Surface *sdlScreen;
+    SDL_Renderer *renderer;
+    string caption;
+    ecl::Screen *screen;
+    bool initialized;
 };
 
 Video_SDL::Video_SDL() : sdlScreen(0), screen(0), initialized(false) {
 }
 
 Video_SDL::~Video_SDL() {
-    SDL_WM_GrabInput(SDL_GRAB_OFF);
+    SDL_SetWindowGrab(screen->window(), SDL_FALSE);
     delete screen;
 }
 
 void Video_SDL::set_caption(const char *str) {
     caption = str;
     if (initialized)
-        SDL_WM_SetCaption(str, 0);
+        SDL_SetWindowTitle(screen->window(), str);
 }
 
 bool Video_SDL::init(int w, int h, int bpp, bool fullscreen) {
-#ifndef MACOSX
-    static bool firstInit = true;
-    if (firstInit) {
-        // Set the caption icon -- due to SDL doc it has to be set before first SDL_SetVideoMode()
-        // !!
-        // In praxis this SetIcon does not work for Linux, nor is it necessary for OSX.
-        // Just XP with selected "WindowsXP Design" needs this SetIcon.
-        // See video::Init() for icon set for Linux and other Windows versions
-        // Mac icon is set via Makefile
-        firstInit = false;
-        std::string iconpath;
-        ecl::Surface *es = NULL;
-        if (app.resourceFS->findFile("gfx/enigma_marble.png",
-                                     iconpath)) {  // cannot use ecl::findImageFile !
-            es = ecl::LoadImage(iconpath.c_str());
-            if (es) {
-                SDL_WM_SetIcon(es->get_surface(), NULL);
-            }
-        }
-    }
-#endif
-
-    SDL_WM_SetCaption(caption.c_str(), 0);
-
-    Uint32 flags = SDL_SWSURFACE;
+    Uint32 flags = SDL_WINDOW_SHOWN;
     if (fullscreen)
-        flags |= SDL_FULLSCREEN;
+        flags |= SDL_WINDOW_FULLSCREEN;
 
-    // Try to initialize vide mode, return error code on failure
-    sdlScreen = 0;
-    bpp = SDL_VideoModeOK(w, h, bpp, flags);
-    if (bpp == 0)
+    // TODO(SDL2): close existing windows
+    // Try to initialize video mode, return error code on failure
+    SDL_Window *window = SDL_CreateWindow(caption.c_str(),
+            SDL_WINDOWPOS_UNDEFINED,
+            SDL_WINDOWPOS_UNDEFINED, w, h,
+            flags);
+    if (!window)
         return false;
-    sdlScreen = SDL_SetVideoMode(w, h, bpp, flags);
-    if (sdlScreen == 0)
+    renderer = SDL_CreateSoftwareRenderer(SDL_GetWindowSurface(window));
+    if (!renderer)
         return false;
-
-    // Video mode could be set
-    screen = new Screen(sdlScreen);
+    screen = new Screen(window);
     initialized = true;
-
-    // Hack to hide the cursor after switching between
-    // window/fullscreen mode.
-    SDL_ShowCursor(SDL_ENABLE);
-    SDL_ShowCursor(SDL_DISABLE);
-
-    SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY / 2, SDL_DEFAULT_REPEAT_INTERVAL / 2);
-
     return true;
 }
 
 bool Video_SDL::is_fullscreen() const {
-    if (sdlScreen)
-        return (sdlScreen->flags & SDL_FULLSCREEN) != 0;
-    return false;
+    Uint32 flags = SDL_GetWindowFlags(screen->window());
+    return (flags & SDL_WINDOW_FULLSCREEN) != 0;
 }
 
 void Video_SDL::set_fullscreen(bool on_off) {
@@ -149,7 +119,7 @@ void Video_SDL::set_fullscreen(bool on_off) {
 }
 
 void Video_SDL::toggle_fullscreen() {
-    SDL_WM_ToggleFullScreen(sdlScreen);
+    SDL_SetWindowFullscreen(screen->window(), is_fullscreen() ? 0 : SDL_WINDOW_FULLSCREEN);
 }
 
 }  // namespace
@@ -193,7 +163,7 @@ private:
     bool changedp;
 };
 
-MouseCursor::MouseCursor() : background(0), cursor(0) {
+MouseCursor::MouseCursor() : background(NULL), cursor(NULL) {
     oldx = oldy = 0;
     hotx = hoty = 0;
     visible = 0;
@@ -274,6 +244,7 @@ void MouseCursor::init_bg() {
 
     delete background;
     background = ecl::MakeSurfaceLike(cursor->width(), cursor->height(), SCREEN->get_surface());
+    assert(background);
     grab_bg();
 }
 
@@ -525,22 +496,24 @@ VideoModes current_video_mode = VM_None;
 namespace {
 
 bool vm_available(int w, int h, int &bpp, bool fullscreen) {
-    Uint32 flags = SDL_HWSURFACE;
+    Uint32 flags = 0;
     if (fullscreen)
-        flags |= SDL_FULLSCREEN;
+        flags |= SDL_WINDOW_FULLSCREEN;
+    return true;
 
-    int newbpp = SDL_VideoModeOK(w, h, bpp, flags);
-    if (newbpp != 0) {
-        bpp = newbpp;
-        return true;
-    }
-    return false;
+    // TODO(SDL2): use something based on SDL_GetClosestDisplayMode instead.
+    // int newbpp = SDL_VideoModeOK(w, h, bpp, flags);
+    // if (newbpp != 0) {
+    //     bpp = newbpp;
+    //     return true;
+    // }
+    // return false;
 }
 
 // This function is installed as an event filter by video::Init. It intercepts
 // mouse motions, which are used to update the position of the mouse cursor
 // (but passed on to the event queue).
-int event_filter(const SDL_Event *e) {
+int event_filter(void *, SDL_Event *e) {
     if (e->type == SDL_MOUSEMOTION) {
         cursor->move(e->motion.x, e->motion.y);
         cursor->redraw();
@@ -586,22 +559,13 @@ TempInputGrab::~TempInputGrab() {
 }
 
 bool video::GetInputGrab() {
-    return SDL_WM_GrabInput(SDL_GRAB_QUERY) == SDL_GRAB_ON;
+    return SDL_GetWindowGrab(ecl::Screen::get_instance()->window());
 }
 
-bool video::SetInputGrab(bool onoff) {
-    bool old_onoff = GetInputGrab();
-    if (onoff) {
-        Screen *screen = GetScreen();
-        SDL_WarpMouse(screen->width() / 2, screen->height() / 2);
-        SDL_Event e;
-        while (SDL_PollEvent(&e)) {
-            ;  // swallow mouse motion event
-        }
-        SDL_WM_GrabInput(SDL_GRAB_ON);
-    } else
-        SDL_WM_GrabInput(SDL_GRAB_OFF);
-    return old_onoff;
+bool video::SetInputGrab(bool enabled) {
+    bool old_state = GetInputGrab();
+    SDL_SetWindowGrab(GetScreen()->window(), enabled ? SDL_TRUE : SDL_FALSE);
+    return old_state;
 }
 
 Surface *video::BackBuffer() {
@@ -751,14 +715,11 @@ void video::Init() {
     current_video_mode = static_cast<VideoModes>(vidmode);
     app.selectedVideoMode = current_video_mode;
 
-// Set the caption icon -- this position after SDL_SetVideoMode() contradicts SDL doc!!
-// But it proves to be the only working position for Linux.
-// It works for Windows besides XP with selected "WindowsXP Design", too.
 // Mac icon is set via Makefile
 #ifndef MACOSX
-    Surface *icn = enigma::GetImage("enigma_marble");
-    if (icn)
-        SDL_WM_SetIcon(icn->get_surface(), NULL);
+    if (Surface *icon = enigma::GetImage("enigma_marble")) {
+        SDL_SetWindowIcon(GetScreen()->window(), icon->get_surface());
+    }
 #endif
 
     cursor = new MouseCursor;
@@ -766,13 +727,11 @@ void video::Init() {
     SDL_GetMouseState(&x, &y);
     cursor->move(x, y);
 
-    SDL_SetEventFilter(event_filter);
-
-    UpdateGamma();
+    SDL_SetEventFilter(event_filter, NULL);
 }
 
 void video::Shutdown() {
-    SDL_SetEventFilter(0);
+    SDL_SetEventFilter(0, NULL);
     delete video_engine;
     delete cursor;
     delete back_buffer;
@@ -828,13 +787,6 @@ void video::SetCaption(const char *str) {
 
 const string &video::GetCaption() {
     return video_engine->get_caption();
-}
-
-void video::UpdateGamma() {
-    float gamma = static_cast<float>(app.prefs->getDouble("Gamma"));
-    if (gamma < 0.25)
-        gamma = 0.25;  // Windows does not set gamma for values < 0.2271
-    SDL_SetGamma(gamma, gamma, gamma);
 }
 
 void video::Screenshot(const std::string &fname) {

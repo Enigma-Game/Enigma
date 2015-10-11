@@ -1272,23 +1272,35 @@ struct ImageQuad {
     Image *operator[](int idx) { return images[idx]; }
 };
 
-bool only_static_shadows(Model *models[4], ImageQuad &q) {
-    int nimages = 4;
+// Returns true if all four models are static ImageModels; fills ImageQuad
+// with the corresponding images in this case.
+bool only_static_shadows(Model *models[4], ImageQuad &quad) {
+    int num_static_shadows = 4;
 
     for (int i = 0; i < 4; ++i) {
         if (models[i] == 0) {
             // No model at all? -> static
-            q.images[i] = 0;
+            quad.images[i] = 0;
         } else if (Model *shadow = models[i]->get_shadow()) {
-            if (ImageModel *im = dynamic_cast<ImageModel *>(shadow))
+            if (ImageModel *im = dynamic_cast<ImageModel *>(shadow)) {
                 // We have a model with a static image shadow
-                q.images[i] = im->get_image();
-            else
-                q.images[i] = 0, nimages--;
+                quad.images[i] = im->get_image();
+            } else {
+                quad.images[i] = 0;
+                num_static_shadows--;
+            }
         } else
-            q.images[i] = 0;
+            quad.images[i] = 0;
     }
-    return nimages == 4;
+    return num_static_shadows == 4;
+}
+
+// Returns a new RGBA surface suitable for drawing shadows.
+SDL_Surface *CreateShadowSurface(int w, int h) {
+    SDL_Surface *ss = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32,
+            0xff0000, 0xff00, 0xff, 0xff000000);
+    SDL_SetSurfaceAlphaMod(ss, 128);
+    return ss;
 }
 
 struct StoneShadow {
@@ -1296,7 +1308,7 @@ struct StoneShadow {
     Surface *image;
     bool in_cache;
 
-    StoneShadow(ImageQuad iq, bool cached) : images(iq), image(0), in_cache(cached) {}
+    StoneShadow(ImageQuad iq, bool cached) : images(iq), image(NULL), in_cache(cached) {}
 };
 
 }  // namespace
@@ -1313,12 +1325,8 @@ public:
     void clear();
 
 private:
+    // Use std::list to maintain LRU cache.
     typedef std::list<StoneShadow *> CacheList;
-
-    // Variables
-    CacheList m_cache;
-    int m_tilew, m_tileh;
-    vector<Surface *> m_surface_avail;
 
     // Private methods.
     Surface *new_surface();
@@ -1326,11 +1334,16 @@ private:
 
     void fill_image(StoneShadow *s);
     void fill_image(StoneShadow *sh, Model *models[4]);
+
+    // Variables
+    CacheList m_cache;
+    int m_tilew, m_tileh;
+    std::vector<Surface *> m_surface_avail;
 };
 
 }  // namespace display
 
-StoneShadowCache::StoneShadowCache(int tilew, int tileh) : m_cache() {
+StoneShadowCache::StoneShadowCache(int tilew, int tileh) {
     m_tilew = tilew;
     m_tileh = tileh;
 }
@@ -1340,9 +1353,10 @@ StoneShadowCache::~StoneShadowCache() {
 }
 
 void StoneShadowCache::clear() {
-    for (CacheList::iterator i = m_cache.begin(); i != m_cache.end(); ++i)
+    for (CacheList::iterator i = m_cache.begin(); i != m_cache.end(); ++i) {
         delete (*i)->image;
-    delete_sequence(m_cache.begin(), m_cache.end());
+        delete *i;
+    }
     m_cache.clear();
     delete_sequence(m_surface_avail.begin(), m_surface_avail.end());
     m_surface_avail.clear();
@@ -1350,14 +1364,15 @@ void StoneShadowCache::clear() {
 
 void StoneShadowCache::fill_image(StoneShadow *sh) {
     // Special case: no shadows at all:
-    if (sh->images[0] == 0 && sh->images[1] == 0 && sh->images[2] == 0 && sh->images[3] == 0) {
-        sh->image = 0;
+    if (sh->images[0] == NULL && sh->images[1] == NULL && sh->images[2] == NULL &&
+        sh->images[3] == NULL) {
+        sh->image = NULL;
         return;
     }
 
     Surface *s = new_surface();
     GC gc(s);
-    set_color(gc, 255, 255, 255);
+    set_color(gc, 255, 255, 255, 0);
     box(gc, s->size());
 
     if (Image *i = sh->images[0])
@@ -1368,18 +1383,13 @@ void StoneShadowCache::fill_image(StoneShadow *sh) {
         draw_image(i, gc, -m_tilew, 0);
     if (Image *i = sh->images[3])
         draw_image(i, gc, 0, 0);
-
-    SDL_Surface *ss = s->get_surface();
-    SDL_SetColorKey(ss, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(ss->format, 255, 255, 255));
-    SDL_SetAlpha(ss, SDL_SRCALPHA | SDL_RLEACCEL, 128);
-
     sh->image = s;
 }
 
 void StoneShadowCache::fill_image(StoneShadow *sh, Model *models[4]) {
     Surface *s = new_surface();
     GC gc(s);
-    set_color(gc, 255, 255, 255);
+    set_color(gc, 255, 255, 255, 0);
     box(gc, s->size());
     if (models[0])
         models[0]->draw_shadow(gc, -m_tilew, -m_tileh);
@@ -1389,9 +1399,6 @@ void StoneShadowCache::fill_image(StoneShadow *sh, Model *models[4]) {
         models[2]->draw_shadow(gc, -m_tilew, 0);
     if (models[3])
         models[3]->draw_shadow(gc, 0, 0);
-    SDL_Surface *ss = s->get_surface();
-    SDL_SetColorKey(ss, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(ss->format, 255, 255, 255));
-    SDL_SetAlpha(ss, SDL_SRCALPHA | SDL_RLEACCEL, 128);
     sh->image = s;
 }
 
@@ -1443,9 +1450,7 @@ void StoneShadowCache::release(StoneShadow *s) {
 Surface *StoneShadowCache::new_surface() {
     Surface *s = 0;
     if (m_surface_avail.empty()) {
-        // WARNING: Always make sure the surface format here matches
-        // the format of `buffer' in class DL_Shadows!!!
-        SDL_Surface *ss = SDL_CreateRGBSurface(SDL_SWSURFACE, m_tilew, m_tileh, 32, 0, 0, 0, 0);
+        SDL_Surface *ss = CreateShadowSurface(m_tilew, m_tileh);
         s = Surface::make_surface(ss);
     } else {
         s = m_surface_avail.back();
@@ -1476,12 +1481,8 @@ void DL_Shadows::new_world(int w, int h) {
     m_cache = new StoneShadowCache(tilew, tileh);
 
     delete buffer;
-    // WARNING: Always make sure the surface format here matches
-    // the format in `StoneShadowCache::new_surface' !!!
-    SDL_Surface *ss = SDL_CreateRGBSurface(SDL_SWSURFACE, tilew, tileh, 32, 0, 0, 0, 0);
-    SDL_SetAlpha(ss, SDL_SRCALPHA, 128);
-    SDL_SetColorKey(ss, SDL_SRCCOLORKEY, SDL_MapRGB(ss->format, 255, 255, 255));
 
+    SDL_Surface *ss = CreateShadowSurface(tilew, tileh);
     buffer = Surface::make_surface(ss);
 }
 
@@ -1564,7 +1565,7 @@ void DL_Shadows::draw(GC &gc, int xpos, int ypos, int x, int y) {
                 buffer->unlock();
                 s->unlock();
             } else {
-                set_color(gc2, 255, 255, 255);
+                set_color(gc2, 255, 255, 255, 0);
                 box(gc2, buffer->size());
             }
 

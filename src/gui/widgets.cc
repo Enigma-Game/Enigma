@@ -755,7 +755,7 @@ void PushButton::deactivate() {
     Button::deactivate();
 }
 
-SDLKey PushButton::getLastUpSym() {
+SDL_Keycode PushButton::getLastUpSym() {
     return lastUpSym;
 }
 

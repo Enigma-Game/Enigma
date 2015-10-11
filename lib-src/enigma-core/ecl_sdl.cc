@@ -13,9 +13,6 @@ bool EventHandler::dispatch_event(SDL_Event &e) {
     case SDL_MOUSEMOTION: handled = on_mousemotion(e); break;
     case SDL_MOUSEBUTTONDOWN:
     case SDL_MOUSEBUTTONUP: handled = on_mousebutton(e); break;
-    case SDL_ACTIVEEVENT:
-        // TODO
-        break;
     case SDL_QUIT: handled = on_quit(e); break;
     }
     return handled || on_event(e);

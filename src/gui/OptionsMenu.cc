@@ -307,35 +307,6 @@ namespace enigma { namespace gui {
         inInit = false;
     }
     
-    /* -------------------- GammaButton -------------------- */
-    
-    
-    GammaButton::GammaButton()
-    : ValueButton(1, 10)
-    {
-        init();
-    }
-    
-    void GammaButton::set_value(int value) 
-    { 
-        double gamma = double(value) / 5.0;
-        options::SetOption ("Gamma", gamma);
-        video::UpdateGamma();
-    }
-    
-    int GammaButton::get_value() const
-    { 
-        double gamma = options::GetDouble ("Gamma");
-        int value = round_down<int>(gamma * 5.0 + 0.1);
-        return value;
-    }
-    
-    string GammaButton::get_text(int value) const
-    {
-        return ecl::strf ("%d", value-5);
-    }
-    
-
     /* -------------------- Options Menu -------------------- */
     
     OptionsMenu::OptionsMenu(ecl::Surface *background_)
@@ -504,7 +475,6 @@ namespace enigma { namespace gui {
                 OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton())
                 fullscreen->set_listener(this);
                 OPTIONS_NEW_LB(N_("Video mode: "), videomode = new VideoModeButton())
-                OPTIONS_NEW_LB(N_("Gamma correction: "), new GammaButton())
                 break;
             case OPTIONS_AUDIO:
                 OPTIONS_NEW_LB(N_("Sound set: "), new SoundSetButton())

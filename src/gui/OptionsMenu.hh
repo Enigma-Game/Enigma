@@ -121,14 +121,6 @@ namespace enigma { namespace gui {
         LanguageButton (ActionListener *al = 0);        
     };
 
-    class GammaButton : public ValueButton {
-        int get_value() const;
-        void set_value(int value);
-        std::string get_text(int value) const;
-    public:
-        GammaButton();        
-    };
-    
 /* -------------------- Functions -------------------- */
 
     void ShowOptionsMenu(ecl::Surface *background);

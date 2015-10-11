@@ -206,15 +206,15 @@ void Client::handle_events() {
             break;
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP: on_mousebutton(e); break;
-        case SDL_ACTIVEEVENT: {
+        case SDL_WINDOWEVENT: {
             update_mouse_button_state();
-            if (e.active.gain == 0 && !video::IsFullScreen())
+            if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
+                // TODO(SDL2): is this sthe right event? The old code had
+                // !video::IsFullScreen() as an additional check - necessary?
                 show_menu(false);
-            break;
-        }
-
-        case SDL_VIDEOEXPOSE: {
-            display::RedrawAll(video::GetScreen());
+            } else if (e.window.event == SDL_WINDOWEVENT_EXPOSED) {
+                display::RedrawAll(video::GetScreen());
+            }
             break;
         }
 
@@ -372,8 +372,8 @@ void Client::user_input_next() {
 }
 
 void Client::on_keydown(SDL_Event &e) {
-    SDLKey keysym = e.key.keysym.sym;
-    SDLMod keymod = e.key.keysym.mod;
+    SDL_Keycode keysym = e.key.keysym.sym;
+    Uint16 keymod = e.key.keysym.mod;
 
     if (keymod & KMOD_CTRL) {
         switch (keysym) {
@@ -408,7 +408,7 @@ void Client::on_keydown(SDL_Event &e) {
         } break;
         default: break;
         };
-    } else if (keymod & KMOD_META) {
+    } else if (keymod & (KMOD_LGUI | KMOD_RGUI)) {
         switch (keysym) {
         case SDLK_q:  // Mac OS X application quit sequence
             app.bossKeyPressed = true;
@@ -462,9 +462,12 @@ void Client::on_keydown(SDL_Event &e) {
         case SDLK_BACKSPACE: user_input_backspace(); break;
         case SDLK_UP: user_input_previous(); break;
         case SDLK_DOWN: user_input_next(); break;
-        default:
-            if (e.key.keysym.unicode && (e.key.keysym.unicode & 0xff80) == 0) {
-                char ascii = static_cast<char>(e.key.keysym.unicode & 0x7f);
+        default: {
+            // TODO(SDL2): SDL_GetKeyName only returns uppercase letters.
+            const char *key = SDL_GetKeyName(e.key.keysym.sym);
+            const bool is_ascii = strlen(key) == 1 && ((key[0] & 0x7f) == key[0]);
+            if (is_ascii) {
+                char ascii = key[0];
                 if (isalnum(ascii) || strchr(" .-!\"$%&/()=?{[]}\\#'+*~_,;.:<>|",
                                              ascii))  // don't add '^' or change history code
                 {
@@ -473,6 +476,7 @@ void Client::on_keydown(SDL_Event &e) {
             }
 
             break;
+        }
         }
     }
 }

@@ -55,7 +55,7 @@ namespace enigma { namespace gui {
                 }
                 break;
             case SDL_KEYDOWN:
-                SDLKey keysym = e.key.keysym.sym;
+                SDL_Keycode keysym = e.key.keysym.sym;
                 switch (keysym) {
                 case SDLK_PAGEUP: 
                     if (shotNumber > 0 )

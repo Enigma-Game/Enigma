@@ -3281,7 +3281,7 @@ int characterColor(SDL_Surface * dst, Sint16 x, Sint16 y, char c, Uint32 color)
      */
     if (gfxPrimitivesFont[(unsigned char) c] == NULL) {
         gfxPrimitivesFont[(unsigned char) c] =
-	    SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_HWSURFACE | SDL_SRCALPHA, 8, 8,
+	    SDL_CreateRGBSurface(0, 8, 8,
                              32, 0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF);
         /*
          * Check pointer 
@@ -3304,7 +3304,6 @@ int characterColor(SDL_Surface * dst, Sint16 x, Sint16 y, char c, Uint32 color)
         /*
          * Redraw character 
          */
-        SDL_SetAlpha(gfxPrimitivesFont[(unsigned char) c], SDL_SRCALPHA, 255);
         gfxPrimitivesFontColor[(unsigned char) c] = color;
         
         /*

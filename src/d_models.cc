@@ -120,22 +120,8 @@ Surface *SurfaceCache::acquire(const std::string &name) {
     ecl::Surface *es = NULL;
 
     if (app.resourceFS->findImageFile(name + ".png", filename)) {
-        SDL_Surface *s = IMG_Load(filename.c_str());
-        if (s) {
-            SDL_Surface *img = 0;
-            if (s->flags & SDL_SRCALPHA) {
-                img = SDL_DisplayFormatAlpha(s);
-            } else {
-                SDL_SetColorKey(s, SDL_SRCCOLORKEY,  //|SDL_RLEACCEL,
-                                SDL_MapRGB(s->format, 255, 0, 255));
-                img = SDL_DisplayFormat(s);
-            }
-            if (img) {
-                SDL_FreeSurface(s);
-                es = Surface::make_surface(img);
-            } else {
-                es = Surface::make_surface(s);
-            }
+        if (SDL_Surface *s = IMG_Load(filename.c_str())) {
+            es = Surface::make_surface(s);
         }
     }
     if (es != NULL && vminfo->tt == video::VTS_64 && filename.find("gfx32") != std::string::npos) {

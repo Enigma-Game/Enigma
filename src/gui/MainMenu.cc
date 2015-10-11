@@ -489,7 +489,7 @@ namespace enigma { namespace gui {
     bool MainMenu::on_event (const SDL_Event &e) {
         switch (e.type) {
             case SDL_KEYDOWN:
-                SDLKey keysym = e.key.keysym.sym;
+                SDL_Keycode keysym = e.key.keysym.sym;
                 switch (keysym) {
                 case SDLK_F1:
                 case SDLK_F2: {

@@ -222,6 +222,8 @@ bool TextField::on_event(const SDL_Event &e) {
                     break;
                 default:
                     // get char
+                    // TODO(SDL2)
+                    #if 0
                     if (e.key.keysym.unicode != 0 ) {
                         UTF16 realChar;
                         if (e.key.keysym.unicode >= 0x20 && 
@@ -271,6 +273,7 @@ bool TextField::on_event(const SDL_Event &e) {
                         // like shift, alt,...
                         sound::EmitSoundEvent ("menustop");
                     }
+                    #endif
                     break;
             }
             break;
