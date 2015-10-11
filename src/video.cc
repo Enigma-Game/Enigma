@@ -22,24 +22,22 @@
 //
 // a) managing and rendering the mouse cursor,
 // b) changing between windowed and fullscreen mode,
-// c) fading between different screen using one of a number of
-//    predefined effects.
 //
 // The code in this file is independent of the game. For game-specific display
 // code, refer to file display.cc
 
 #include "video.hh"
 
-#include "ecl_video.hh"
-#include "ecl_system.hh"
-#include "lua.hh"
-#include "main.hh"
-#include "options.hh"
-#include "resource_cache.hh"
 #include <cassert>
 #include <cstdio>
 #include <sstream>
-#include "config.h"
+
+#include "ecl_system.hh"
+#include "ecl_video.hh"
+#include "enigma.hh"
+#include "main.hh"
+#include "options.hh"
+#include "resource_cache.hh"
 
 #define SCREEN ecl::Screen::get_instance()
 
@@ -57,7 +55,7 @@ public:
     Video_SDL();
     ~Video_SDL();
 
-    bool init(int w, int h, int bpp, bool fullscreen);
+    bool init(int w, int h, bool fullscreen);
     void toggle_fullscreen();
     void set_fullscreen(bool on_off);
     bool is_fullscreen() const;
@@ -66,14 +64,13 @@ public:
     ecl::Screen *get_screen() { return screen; }
 
 private:
-    SDL_Surface *sdlScreen;
+    ecl::Screen *screen;
     SDL_Renderer *renderer;
     string caption;
-    ecl::Screen *screen;
     bool initialized;
 };
 
-Video_SDL::Video_SDL() : sdlScreen(0), screen(0), initialized(false) {
+Video_SDL::Video_SDL() : screen(NULL), renderer(NULL), initialized(false) {
 }
 
 Video_SDL::~Video_SDL() {
@@ -87,7 +84,7 @@ void Video_SDL::set_caption(const char *str) {
         SDL_SetWindowTitle(screen->window(), str);
 }
 
-bool Video_SDL::init(int w, int h, int bpp, bool fullscreen) {
+bool Video_SDL::init(int w, int h, bool fullscreen) {
     Uint32 flags = SDL_WINDOW_SHOWN;
     if (fullscreen)
         flags |= SDL_WINDOW_FULLSCREEN;
@@ -163,7 +160,7 @@ private:
     bool changedp;
 };
 
-MouseCursor::MouseCursor() : background(NULL), cursor(NULL) {
+MouseCursor::MouseCursor() : background(NULL), cursor(NULL), x(0), y(0) {
     oldx = oldy = 0;
     hotx = hoty = 0;
     visible = 0;
@@ -495,7 +492,7 @@ VideoModes current_video_mode = VM_None;
 
 namespace {
 
-bool vm_available(int w, int h, int &bpp, bool fullscreen) {
+bool vm_available(int w, int h, bool fullscreen) {
     Uint32 flags = 0;
     if (fullscreen)
         flags |= SDL_WINDOW_FULLSCREEN;
@@ -648,33 +645,23 @@ bool video::ModeAvailable(VideoModes vm) {
 
 void video::Init() {
     static bool isInit = false;
-    static int bpp_default = 16;
-    int bpp = bpp_default;
 
     if (!isInit) {
         assert(NUMENTRIES(video_modes) == VM_COUNT);
         isInit = true;
         for (int i = VM_None + 1; i < VM_COUNT; i++) {
-            bpp = bpp_default;
             if (video_modes[i].w_available &&
-                !vm_available(video_modes[i].width, video_modes[i].height, bpp, false)) {
+                !vm_available(video_modes[i].width, video_modes[i].height, false)) {
                 video_modes[i].w_available = false;
                 Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
                     << " window not available\n";
             }
-            if (bpp != bpp_default)
-                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
-                    << " window available with bpp " << bpp << "\n";
-            bpp = bpp_default;
             if (video_modes[i].f_available &&
-                !vm_available(video_modes[i].width, video_modes[i].height, bpp, true)) {
+                !vm_available(video_modes[i].width, video_modes[i].height, true)) {
                 video_modes[i].f_available = false;
                 Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
                     << " fullscreen not available\n";
             }
-            if (bpp != bpp_default)
-                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
-                    << " fullscreen available with bpp " << bpp << "\n";
         }
     }
 
@@ -690,7 +677,6 @@ void video::Init() {
 
     video_engine = new Video_SDL();
 
-    assert(bpp == 16 || bpp == 32);
     int fallback_sequence = 1;
     while (true) {
         VMInfo *vminfo = &video_modes[vidmode];
@@ -698,7 +684,7 @@ void video::Init() {
         int h = vminfo->height;
 
         if (ModeAvailable(static_cast<VideoModes>(vidmode)) &&
-            vm_available(w, h, bpp, isFullScreen) && video_engine->init(w, h, bpp, isFullScreen)) {
+            vm_available(w, h, isFullScreen) && video_engine->init(w, h, isFullScreen)) {
             // Success!
             break;
         }
@@ -761,10 +747,6 @@ bool video::IsFullScreen() {
     return video_engine->is_fullscreen();
 }
 
-int video::GetColorDepth() {
-    return SCREEN->get_surface()->bipp();
-}
-
 bool video::SetFullscreen(bool on) {
     if ((on && video_modes[current_video_mode].f_available) ||
         (!on && video_modes[current_video_mode].w_available)) {
@@ -798,180 +780,4 @@ void video::Screenshot(const std::string &fname) {
 
     ecl::SavePNG(ecl::Grab(SCREEN->get_surface(), video_modes[current_video_mode].area), fname);
     enigma::Log << "Wrote screenshot to '" << fname << "'\n";
-}
-
-/* -------------------- Special Effects -------------------- */
-
-void video::FX_Fade(FadeMode mode) {
-    ecl::Screen *screen = ecl::Screen::get_instance();
-    Surface *d = screen->get_surface();
-    const double fadesec = 0.6;
-    double v = 255 / fadesec;
-
-    ecl::Surface *buffer = Duplicate(d);
-    double dt;
-
-    double a = mode == FADEIN ? 0 : 255;
-
-    GC gc(d);
-
-    while (true) {
-        Uint32 otime = SDL_GetTicks();
-
-        box(gc, d->size());
-        buffer->set_alpha(int(a));
-        blit(gc, 0, 0, buffer);
-        screen->update_all();
-        screen->flush_updates();
-
-        dt = (SDL_GetTicks() - otime) / 1000.0;
-        if ((mode == FADEIN && (a += v * dt) > 255) || (mode == FADEOUT && (a -= v * dt) < 0))
-            break;
-    }
-
-    if (mode == FADEIN) {
-        buffer->set_alpha(255);
-        blit(gc, 0, 0, buffer);
-    } else {
-        box(gc, d->size());
-    }
-    screen->update_all();
-    screen->flush_updates();
-    delete buffer;
-}
-
-void video::FX_Fly(Surface *newscr, int originx, int originy) {
-    double rest_time = 0.5;
-
-    double velx = -originx / rest_time;
-    double vely = -originy / rest_time;
-
-    double origx = originx;
-    double origy = originy;
-
-    Screen *scr = SCREEN;
-    GC scrgc(scr->get_surface());
-
-    while (rest_time > 0) {
-        Uint32 otime = SDL_GetTicks();
-
-        Rect r(static_cast<int>(origx), static_cast<int>(origy), scr->width(), scr->height());
-        blit(scrgc, r.x, r.y, newscr);
-
-        scr->update_rect(r);
-        scr->flush_updates();
-
-        double dt = (SDL_GetTicks() - otime) / 1000.0;
-        if (dt > rest_time)
-            dt = rest_time;
-        rest_time -= dt;
-        origx += velx * dt;
-        origy += vely * dt;
-    }
-}
-
-namespace {
-
-class Effect_Push : public TransitionEffect {
-public:
-    Effect_Push(ecl::Surface *newscr, int originx, int originy);
-    void tick(double dtime);
-    bool finished() const;
-
-private:
-    double rest_time;
-    ecl::Surface *newscr;
-    std::auto_ptr<ecl::Surface> oldscr;
-    int originx, originy;
-    double velx, vely;
-    double accx, accy;
-    double x, y;
-    double t;
-};
-
-Effect_Push::Effect_Push(ecl::Surface *newscr_, int originx_, int originy_)
-: rest_time(0.7),
-  newscr(newscr_),
-  oldscr(Duplicate(SCREEN->get_surface())),
-  originx(originx_),
-  originy(originy_),
-  velx(-2 * originx / rest_time),
-  vely(-2 * originy / rest_time),
-  accx(-0.5 * velx / rest_time),
-  accy(-0.5 * vely / rest_time),
-  x(originx),
-  y(originy),
-  t(0) {
-}
-
-void Effect_Push::tick(double dtime) {
-    Screen *scr = SCREEN;
-    GC scrgc(scr->get_surface());
-
-    if (rest_time > 0) {
-        if (dtime > rest_time)
-            dtime = rest_time;
-        rest_time -= dtime;
-        t += dtime;
-
-        x = (accx * t + velx) * t + originx;
-        y = (accy * t + vely) * t + originy;
-
-        blit(scrgc, (int)x - originx, (int)y, oldscr.get());
-        blit(scrgc, (int)x, (int)y - originy, oldscr.get());
-        blit(scrgc, (int)x - originx, (int)y - originy, oldscr.get());
-
-        blit(scrgc, (int)x, (int)y, newscr);
-
-        scr->update_all();
-        scr->flush_updates();
-    } else {
-        blit(scrgc, 0, 0, newscr);
-        scr->update_all();
-        scr->flush_updates();
-    }
-}
-
-bool Effect_Push::finished() const {
-    return rest_time <= 0;
-}
-
-}  // namespace
-
-TransitionEffect *video::MakeEffect(TransitionModes tm, ecl::Surface *newscr) {
-    int scrw = SCREEN->width();
-    int scrh = SCREEN->height();
-
-    switch (tm) {
-    case TM_PUSH_RANDOM: {
-        int xo = 0, yo = 0;
-        while (xo == 0 && yo == 0) {
-            xo = enigma::IntegerRand(-1, 1, false) * scrw;
-            yo = enigma::IntegerRand(-1, 1, false) * scrh;
-        }
-        return new Effect_Push(newscr, xo, yo);
-    }
-    case TM_PUSH_N: return new Effect_Push(newscr, 0, -scrh);
-    case TM_PUSH_S: return new Effect_Push(newscr, 0, +scrh);
-    case TM_PUSH_E: return new Effect_Push(newscr, +scrw, 0);
-    case TM_PUSH_W: return new Effect_Push(newscr, -scrw, 0);
-    default: return 0;
-    };
-}
-
-void video::ShowScreen(TransitionModes tm, Surface *newscr) {
-    int scrw = SCREEN->width();
-    int scrh = SCREEN->height();
-
-    switch (tm) {
-    case TM_RANDOM: break;
-    case TM_FADEOUTIN: break;
-    case TM_SQUARES: break;
-    case TM_FLY_N: FX_Fly(newscr, 0, -scrh); break;
-    case TM_FLY_S: FX_Fly(newscr, 0, +scrh); break;
-    case TM_FLY_E: FX_Fly(newscr, +scrw, 0); break;
-    case TM_FLY_W: FX_Fly(newscr, -scrw, 0); break;
-
-    default: break;
-    }
 }

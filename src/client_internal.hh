@@ -17,7 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 #include "gui/Menu.hh"
-#include "video.hh"
+#include "video_effects.hh"
 #include "ecl_buffer.hh"
 #include "enet/enet.h"
 #include <vector>

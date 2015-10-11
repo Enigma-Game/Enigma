@@ -22,6 +22,7 @@
 #include "ecl_video.hh"
 #include "resource_cache.hh"
 #include "video.hh"
+#include "video_effects.hh"
 #include "nls.hh"
 
 #include <cassert>

@@ -142,10 +142,6 @@ bool ModeAvailable(VideoModes vm);
 //! Return the current video mode
 VideoModes GetVideoMode();
 
-/*! Return the number of bits per pixel in the current video
-  mode. [currently always 16] */
-int GetColorDepth();
-
 ecl::Screen *GetScreen();
 
 /*! The backbuffer is surface that has the same size and pixel
@@ -180,41 +176,6 @@ void HideMouse();
 void ShowMouse();
 int Mousex();
 int Mousey();
-
-/* -------------------- Visual effects -------------------- */
-
-class TransitionEffect {
-public:
-    virtual ~TransitionEffect() {}
-    virtual void tick(double dtime) = 0;
-    virtual bool finished() const = 0;
-};
-
-enum FadeMode { FADEIN, FADEOUT };
-void FX_Fade(FadeMode mode);
-void FX_Fly(ecl::Surface *newscr, int originx, int originy);
-
-enum TransitionModes {
-    TM_RANDOM,
-    TM_FADEOUTIN,
-    TM_SQUARES,
-    TM_FLY_N,
-    TM_FLY_S,
-    TM_FLY_W,
-    TM_FLY_E,
-    TM_FLY_NW,
-    TM_FLY_NE,
-    TM_FLY_SE,
-    TM_FLY_SW,
-    TM_PUSH_RANDOM,
-    TM_PUSH_N,
-    TM_PUSH_S,
-    TM_PUSH_W,
-    TM_PUSH_E
-};
-
-void ShowScreen(TransitionModes tm, ecl::Surface *newscr);
-TransitionEffect *MakeEffect(TransitionModes tm, ecl::Surface *newscr);
 
 } // namespace video
 

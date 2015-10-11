@@ -829,7 +829,7 @@ void Client::level_loaded(bool isRestart) {
     ecl::GC gc(video::BackBuffer());
     display::DrawAll(gc);
 
-    m_effect.reset(video::MakeEffect((isRestart ? video::TM_SQUARES : video::TM_PUSH_RANDOM),
+    m_effect.reset(video::MakeEffect((isRestart ? video::TM_NONE : video::TM_PUSH_RANDOM),
                                      video::BackBuffer()));
     m_cheater = false;
     m_state = cls_preparing_game;

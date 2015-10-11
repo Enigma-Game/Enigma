@@ -138,6 +138,8 @@ enigma_SOURCES = 		\
 	Value.hh		\
 	video.cc 		\
 	video.hh		\
+	video_effects.cc	\
+	video_effects.hh	\
 	WorldProxy.cc		\
 	WorldProxy.hh		\
 	world.cc 		\
