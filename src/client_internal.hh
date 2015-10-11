@@ -172,7 +172,7 @@ private:
     std::string m_user_input;
     std::string m_error_message;
 
-    std::auto_ptr<video::TransitionEffect> m_effect;
+    std::unique_ptr<video::TransitionEffect> m_effect;
     ENetHost *m_network_host;
     ENetPeer *m_server;
 

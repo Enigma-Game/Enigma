@@ -618,9 +618,8 @@ void Client::tick(double dtime) {
     case cls_idle: break;
 
     case cls_preparing_game: {
-        video::TransitionEffect *fx = m_effect.get();
-        if (fx && !fx->finished()) {
-            fx->tick(dtime);
+        if (m_effect && !m_effect->finished()) {
+            m_effect->tick(dtime);
         } else {
             m_effect.reset();
             server::Msg_StartGame();
@@ -829,8 +828,8 @@ void Client::level_loaded(bool isRestart) {
     ecl::GC gc(video::BackBuffer());
     display::DrawAll(gc);
 
-    m_effect.reset(video::MakeEffect((isRestart ? video::TM_NONE : video::TM_PUSH_RANDOM),
-                                     video::BackBuffer()));
+    m_effect = video::CreateEffect((isRestart ? video::TM_NONE : video::TM_PUSH_RANDOM),
+                                     video::BackBuffer());
     m_cheater = false;
     m_state = cls_preparing_game;
 }

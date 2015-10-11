@@ -160,10 +160,11 @@ bool Effect_Push::finished() const {
 
 }  // namespace
 
-TransitionEffect *MakeEffect(TransitionModes tm, ecl::Surface *newscr) {
+std::unique_ptr<TransitionEffect> CreateEffect(TransitionModes tm, ecl::Surface *newscr) {
     int scrw = SCREEN->width();
     int scrh = SCREEN->height();
 
+    TransitionEffect *effect = nullptr;
     switch (tm) {
     case TM_PUSH_RANDOM: {
         int xo = 0, yo = 0;
@@ -171,14 +172,16 @@ TransitionEffect *MakeEffect(TransitionModes tm, ecl::Surface *newscr) {
             xo = enigma::IntegerRand(-1, 1, false) * scrw;
             yo = enigma::IntegerRand(-1, 1, false) * scrh;
         }
-        return new Effect_Push(newscr, xo, yo);
+        effect = new Effect_Push(newscr, xo, yo);
+        break;
     }
-    case TM_PUSH_N: return new Effect_Push(newscr, 0, -scrh);
-    case TM_PUSH_S: return new Effect_Push(newscr, 0, +scrh);
-    case TM_PUSH_E: return new Effect_Push(newscr, +scrw, 0);
-    case TM_PUSH_W: return new Effect_Push(newscr, -scrw, 0);
-    default: return 0;
+    case TM_PUSH_N: effect = new Effect_Push(newscr, 0, -scrh); break;
+    case TM_PUSH_S: effect = new Effect_Push(newscr, 0, +scrh); break;
+    case TM_PUSH_E: effect = new Effect_Push(newscr, +scrw, 0); break;
+    case TM_PUSH_W: effect = new Effect_Push(newscr, -scrw, 0); break;
+    default: break;
     };
+    return std::unique_ptr<TransitionEffect>(effect);
 }
 
 void ShowScreen(TransitionModes tm, ecl::Surface *newscr) {

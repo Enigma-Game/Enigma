@@ -127,8 +127,7 @@ namespace {
 
 class MouseCursor {
 public:
-    MouseCursor();
-    ~MouseCursor();
+    MouseCursor() = default;
 
     void set_image(ecl::Surface *s, int hotx_, int hoty_);
     void move(int newx, int newy);
@@ -139,7 +138,7 @@ public:
     Rect get_rect() const;
     Rect get_oldrect() const;
 
-    bool has_changed() { return changedp; }
+    bool has_changed() { return changed; }
     int get_x() const { return x; }
     int get_y() const { return y; }
 
@@ -150,31 +149,20 @@ private:
     void restore_bg();
 
     // Variables
-    Surface *background;  // Copy of screen contents behind cursor
-    Surface *cursor;      // Pixmap of the cursor
+    std::unique_ptr<Surface> background;  // Copy of screen contents behind cursor
+    std::unique_ptr<Surface> cursor;      // Pixmap of the cursor
 
-    int x, y;
-    int oldx, oldy;
-    int hotx, hoty;  // Coordinates of hotspot inside cursor image
-    int visible;
-    bool changedp;
+    int x = 0, y = 0;
+    int oldx = 0, oldy = 0;
+
+    // Coordinates of hotspot inside cursor image
+    int hotx = 0, hoty = 0;
+    int visible = 0;
+    bool changed = true;
 };
 
-MouseCursor::MouseCursor() : background(NULL), cursor(NULL), x(0), y(0) {
-    oldx = oldy = 0;
-    hotx = hoty = 0;
-    visible = 0;
-    changedp = true;
-}
-
-MouseCursor::~MouseCursor() {
-    delete background;
-    delete cursor;
-}
-
 void MouseCursor::set_image(ecl::Surface *s, int hx, int hy) {
-    delete cursor;
-    cursor = s;
+    cursor.reset(s);
     hotx = hx;
     hoty = hy;
 
@@ -187,15 +175,15 @@ void MouseCursor::draw() {
         grab_bg();
 
         GC gc(SCREEN->get_surface());
-        blit(gc, x - hotx, y - hoty, cursor);
+        blit(gc, x - hotx, y - hoty, cursor.get());
         SCREEN->update_rect(get_rect());
 
-        changedp = false;
+        changed = false;
     }
 }
 
 void MouseCursor::redraw() {
-    if (visible > 0 && changedp) {
+    if (visible > 0 && changed) {
         restore_bg();
         draw();
     }
@@ -204,43 +192,38 @@ void MouseCursor::redraw() {
 void MouseCursor::move(int newx, int newy) {
     x = newx;
     y = newy;
-    changedp = true;
+    changed = true;
 }
 
 void MouseCursor::show() {
     if (++visible == 1) {
         init_bg();
-        changedp = true;
+        changed = true;
     }
 }
 
 void MouseCursor::hide() {
     if (--visible == 0) {
-        changedp = true;
+        changed = true;
         restore_bg();
-        delete background;
-        background = 0;
+        background.reset(nullptr);
     }
 }
 
 Rect MouseCursor::get_rect() const {
-    int scrx = x - hotx;
-    int scry = y - hoty;
-    return Rect(scrx, scry, cursor->width(), cursor->height());
+    return Rect(x - hotx, y - hoty, cursor->width(), cursor->height());
 }
 
 Rect MouseCursor::get_oldrect() const {
-    int scrx = oldx - hotx;
-    int scry = oldy - hoty;
-    return Rect(scrx, scry, cursor->width(), cursor->height());
+    return Rect(oldx - hotx, oldy - hoty, cursor->width(), cursor->height());
 }
 
 void MouseCursor::init_bg() {
     assert(visible > 0);
     assert(cursor != 0);
 
-    delete background;
-    background = ecl::MakeSurfaceLike(cursor->width(), cursor->height(), SCREEN->get_surface());
+    background.reset(
+        ecl::MakeSurfaceLike(cursor->width(), cursor->height(), SCREEN->get_surface()));
     assert(background);
     grab_bg();
 }
@@ -248,7 +231,7 @@ void MouseCursor::init_bg() {
 void MouseCursor::grab_bg() {
     assert(background != 0);
 
-    GC gc(background);
+    GC gc(background.get());
     blit(gc, 0, 0, SCREEN->get_surface(), get_rect());
 
     oldx = x;
@@ -258,7 +241,7 @@ void MouseCursor::grab_bg() {
 void MouseCursor::restore_bg() {
     if (background) {
         GC gc(SCREEN->get_surface());
-        blit(gc, oldx - hotx, oldy - hoty, background);
+        blit(gc, oldx - hotx, oldy - hoty, background.get());
         SCREEN->update_rect(get_oldrect());
     }
 }

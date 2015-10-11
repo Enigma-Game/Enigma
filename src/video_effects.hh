@@ -19,6 +19,7 @@
 #ifndef VIDEO_EFFECTS_HH_INCLUDED
 #define VIDEO_EFFECTS_HH_INCLUDED
 
+#include <memory>
 #include "ecl_video.hh"
 
 namespace video {
@@ -52,7 +53,9 @@ enum TransitionModes {
 };
 
 void ShowScreen(TransitionModes tm, ecl::Surface *newscr);
-TransitionEffect *MakeEffect(TransitionModes tm, ecl::Surface *newscr);
+
+// Creates a new transition effect for displaying new_screen.
+std::unique_ptr<TransitionEffect> CreateEffect(TransitionModes tm, ecl::Surface *new_screen);
 
 }  // namespace video
 
