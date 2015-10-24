@@ -61,6 +61,10 @@ fi
 dnl ======================================================================
 dnl Check for programs
 dnl ======================================================================
+
+# Require C++11 support
+AX_CXX_COMPILE_STDCXX_11(noext, mandatory)
+
 CXXTMPFLAGS="$CXXFLAGS"
 AC_PROG_CC
 AM_PROG_CC_C_O
