@@ -31,7 +31,6 @@
 #include "server.hh"
 #include "MusicManager.hh"
 #include "StateManager.hh"
-#include "video.hh"
 #include "lev/Index.hh"
 
 using namespace std;
@@ -91,10 +90,10 @@ namespace enigma { namespace gui {
             }
         };
 
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
-        video::VideoTileType vtt = vminfo.tt;
-        
+        VideoTileType vtt = vminfo.tt;
+
         int preview_y = param[vtt].vmargin + 2*param[vtt].vgap_info + param[vtt].vgap_info_prev;
         ecl::Rect previewarea(param[vtt].hmargin_prev, preview_y,
                 vminfo.width - param[vtt].hmargin_nav - param[vtt].hsize_nav - param[vtt].hgap_prev_nav, 
@@ -421,9 +420,9 @@ namespace enigma { namespace gui {
     
     void LevelMenu::draw_background(ecl::GC &gc) 
     {
-        const video::VMInfo *vminfo = video::GetInfo();
-        
-        video::SetCaption(("Enigma - Level Menu"));
+        const VMInfo *vminfo = video_engine->GetInfo();
+
+        set_caption(("Enigma - Level Menu"));
         sound::StartMenuMusic();
     
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));

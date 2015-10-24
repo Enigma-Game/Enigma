@@ -66,7 +66,7 @@ bool game::DrawLevelPreview(ecl::GC &gc, lev::Proxy *levelProxy) {
 void game::StartGame() {
     lev::Index *ind = lev::Index::getCurrentIndex();
 
-    video::HideMouse();
+    video_engine->HideMouse();
     SDL_SetRelativeMouseMode(SDL_TRUE);
 
     //    Uint32 start_tick_time = SDL_GetTicks();
@@ -111,7 +111,7 @@ void game::StartGame() {
     lev::PersistentIndex::addCurrentToHistory();
 
     SDL_SetRelativeMouseMode(SDL_FALSE);
-    video::ShowMouse();
+    video_engine->ShowMouse();
 }
 
 void game::ResetGameTimer() {

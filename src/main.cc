@@ -413,11 +413,8 @@ void Application::init(int argc, char **argv)
 #endif
 
     // ----- Initialize video subsystem
-    video::Init();
-    video::SetCaption ("Enigma v" PACKAGE_VERSION);
-    video::SetMouseCursor(enigma::LoadImage("cur-magic"), 4, 4);
-    video::ShowMouse();
-    SDL_ShowCursor(0);
+    VideoInit();
+    video_engine->SetCaption("Enigma v" PACKAGE_VERSION);
     errorInit = true;
 
 
@@ -484,7 +481,7 @@ void Application::init(int argc, char **argv)
                 size, systemAppDataPath.c_str());
         Log << message;
 
-        Screen *scr = video::GetScreen();
+        Screen *scr = video_engine->GetScreen();
         GC gc (scr->get_surface());
         Font *f = enigma::GetFont("menufont");
         f->render (gc, 80, 240, message.c_str());
@@ -910,7 +907,7 @@ void Application::shutdown()
     }
     // now we shutdown SDL - no error reports will be possible!
     app.errorInit = false;
-    video::Shutdown();
+    video_engine->Shutdown();
     sound::Shutdown();
     enet_deinitialize();
     enigma::ShutdownCurl();

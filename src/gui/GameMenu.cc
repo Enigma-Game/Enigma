@@ -64,8 +64,8 @@ namespace enigma { namespace gui {
     
     void GameMenu::draw_background(ecl::GC &gc) 
     {
-        const video::VMInfo *vminfo = video::GetInfo();
-    
+        const VMInfo *vminfo = video_engine->GetInfo();
+
         if (!zoomed) {
             Rect game_area   = display::GetGameArea();
             int  part_width  = game_area.w/3;
@@ -107,23 +107,12 @@ namespace enigma { namespace gui {
             // Be sure to redraw everything, or actors may appear on top
             // of the stones (actors are drawn in one pass and only
             // clipped to the screen boundary).
-            display::RedrawAll(video::GetScreen());
-    
+            display::RedrawAll(video_engine->GetScreen());
+
             // get the selected part from screen
-    //         SDL_Surface *back = video::GetScreen()->get_surface();
             Rect     src_area(game_area.x+x, game_area.y+y, part_width, part_height);
-            Surface *src = Grab(video::GetScreen()->get_surface(), src_area);
-    
-            // zoom multiple times for softer image
-    //         const double stepsize = 0.3;
-    //         for (double zoom = 0.4; zoom < 0.9; zoom += stepsize) {
-    //             int      sx  = round_down<int>(zoom * vminfo->width);
-    //             int      sy  = round_down<int>(zoom * vminfo->height);
-    //             Surface *tmp = src->zoom(sx, sy);
-    
-    //             delete src;
-    //             src = tmp;
-    //         }
+            Surface *src = Grab(video_engine->GetScreen()->get_surface(), src_area);
+
             zoomed = src->zoom(vminfo->width+1, vminfo->height+1);
             delete src;
         }

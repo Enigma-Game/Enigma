@@ -101,7 +101,7 @@ StatusBarImpl::StatusBarImpl(const ScreenArea &area)
   playerImage(0),
   playerImageDuration(0),
   widthInit(false) {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     m_itemarea = vminfo->sb_itemarea;
 }
 
@@ -154,7 +154,7 @@ void StatusBarImpl::setBasicModes(std::string flags) {
 }
 
 void StatusBarImpl::redraw(ecl::GC &gc, const ScreenArea &r) {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     ScreenArea a = get_area();
     clip(gc, intersect(a, r));
 
@@ -389,7 +389,7 @@ TextDisplay::TextDisplay(Font &f)
   scrollspeed(DEFAULT_TextSpeed * FACTOR_TextSpeed),
   textsurface(0),
   font(f) {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     area = vminfo->sb_textarea;
     time = maxtime = 0;
     // Note: "scrollspeed" is not yet initialised with
@@ -494,7 +494,8 @@ DisplayEngine::DisplayEngine(int tilew, int tileh)
   m_width(0),
   m_height(0),
   m_redrawp(0, 0) {
-    m_area = video::GetScreen()->size();
+    // TODO: use video mode size, not screen size
+    m_area = video_engine->GetScreen()->size();
     m_screenoffset[0] = m_screenoffset[1] = 0;
 }
 
@@ -525,7 +526,7 @@ void DisplayEngine::move_offset(const ecl::V2 &off) {
   redraw.  This method assumes that the screen contents were not
   modified externally since the last call to update_offset(). */
 void DisplayEngine::update_offset() {
-    ecl::Screen *screen = video::GetScreen();
+    ecl::Screen *screen = video_engine->GetScreen();
 
     int oldx = m_screenoffset[0];
     int oldy = m_screenoffset[1];
@@ -664,7 +665,7 @@ void DisplayEngine::draw_all(ecl::GC &gc) {
 }
 
 void DisplayEngine::update_layer(DisplayLayer *l, WorldArea wa) {
-    GC gc(video::GetScreen()->get_surface());
+    GC gc(video_engine->GetScreen()->get_surface());
 
     int x2 = wa.x + wa.w;
     int y2 = wa.y + wa.h;
@@ -692,7 +693,7 @@ void DisplayEngine::update_layer(DisplayLayer *l, WorldArea wa) {
 }
 
 void DisplayEngine::update_screen() {
-    ecl::Screen *screen = video::GetScreen();
+    ecl::Screen *screen = video_engine->GetScreen();
     GC gc(screen->get_surface());
 
     if (m_new_offset != m_offset) {
@@ -709,12 +710,14 @@ void DisplayEngine::update_screen() {
     }
     int x2 = wa.x + wa.w;
     int y2 = wa.y + wa.h;
-    for (int x = wa.x; x < x2; x++)
-        for (int y = wa.y; y < y2; y++)
+    for (int x = wa.x; x < x2; x++) {
+        for (int y = wa.y; y < y2; y++) {
             if (m_redrawp(x, y) >= 1) {
                 if ((m_redrawp(x, y) -= 1) == 0)
                     screen->update_rect(world_to_screen(WorldArea(x, y, 1, 1)));
             }
+        }
+    }
 }
 
 /* -------------------- ModelLayer -------------------- */
@@ -1595,7 +1598,7 @@ CommonDisplay::CommonDisplay(const ScreenArea &a) {
     m_engine = new DisplayEngine;
     m_engine->set_screen_area(a);
 
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     m_engine->set_tilesize(vminfo->tile_size, vminfo->tile_size);
 
     // Create and configure display layers
@@ -1861,7 +1864,7 @@ void GameDisplay::resize_game_area(int w, int h) {
     int neww = w * e->get_tilew();
     int newh = h * e->get_tileh();
 
-    const video::VMInfo *vidinfo = video::GetInfo();
+    const VMInfo *vidinfo = video_engine->GetInfo();
 
     int screenw = vidinfo->width;
     int screenh = NTILESV * vidinfo->tile_size;
@@ -1882,7 +1885,7 @@ void display::Init(bool show_fps) {
         ShowFPS = true;
     InitModels();
 
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     gamedpy = new GameDisplay(vminfo->gamearea, vminfo->statusbararea);
 }
 

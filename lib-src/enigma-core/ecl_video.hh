@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 #ifndef ECL_VIDEO_HH_INCLUDED
 #define ECL_VIDEO_HH_INCLUDED
@@ -180,7 +179,6 @@ public:
     void update_all();
     void update_rect(const Rect &r);
     void flush_updates();
-    void set_caption(const char *str);
 
     /* ---------- Accessors ---------- */
 
@@ -292,9 +290,6 @@ Surface *MakeSurface(int w, int h);
 // Create a surface from image data that is already somewhere in memory.
 Surface *MakeSurface(void *data, int w, int h, int bipp, int pitch,
                      const RGBA_Mask &mask = RGBA_Mask());
-
-// Create a new surface with the same image format as `surface'.
-Surface *MakeSurfaceLike(int w, int h, Surface *surface);
 
 // Create a copy of a surface.
 Surface *Duplicate(const Surface *s);

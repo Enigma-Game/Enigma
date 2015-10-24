@@ -30,6 +30,7 @@
 #include "MusicManager.hh"
 #include "player.hh"
 #include "resource_cache.hh"
+#include "video.hh"
 #include "world.hh"
 #include "nls.hh"
 #include "StateManager.hh"
@@ -213,7 +214,7 @@ void Client::handle_events() {
                 // !video::IsFullScreen() as an additional check - necessary?
                 show_menu(false);
             } else if (e.window.event == SDL_WINDOWEVENT_EXPOSED) {
-                display::RedrawAll(video::GetScreen());
+                display::RedrawAll(video_engine->GetScreen());
             }
             break;
         }
@@ -391,7 +392,7 @@ void Client::on_keydown(SDL_Event &e) {
         case SDLK_x: abort(); break;
         case SDLK_t:
             if (enigma::WizardMode) {
-                ecl::Screen *scr = video::GetScreen();
+                ecl::Screen *scr = video_engine->GetScreen();
                 ecl::TintRect(scr->get_surface(), display::GetGameArea(), 100, 100, 100, 0);
                 scr->update_all();
             }
@@ -402,8 +403,8 @@ void Client::on_keydown(SDL_Event &e) {
             }
             break;
         case SDLK_RETURN: {
-            video::TempInputGrab(false);
-            video::ToggleFullscreen();
+            ScopedInputGrab(false);
+            video_engine->ToggleFullscreen();
             sdl::FlushEvents();
         } break;
         default: break;
@@ -455,7 +456,7 @@ void Client::on_keydown(SDL_Event &e) {
                 fname = basename + ecl::strf("#%d", i++) + ".png";
             }
             std::string savePath = app.userImagePath + "/" + fname;
-            video::Screenshot(savePath);
+            video_engine->Screenshot(savePath);
             break;
         }
         case SDLK_RETURN: process_userinput(); break;
@@ -494,19 +495,19 @@ static const char *helptext_ingame[] = {
 
 void Client::show_help() {
     server::Msg_Pause(true);
-    video::TempInputGrab grab(false);
+    ScopedInputGrab grab(false);
 
     helptext_ingame[17] = app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST
                               ? _("Skip to next level for best score hunt")
                               : _("Skip to next unsolved level");
 
-    video::ShowMouse();
+    video_engine->ShowMouse();
     gui::displayHelp(helptext_ingame, 200);
-    video::HideMouse();
+    video_engine->HideMouse();
 
     update_mouse_button_state();
     if (m_state == cls_game)
-        display::RedrawAll(video::GetScreen());
+        display::RedrawAll(video_engine->GetScreen());
 
     server::Msg_Pause(false);
     game::ResetGameTimer();
@@ -527,17 +528,17 @@ void Client::show_menu(bool isESC) {
 
     server::Msg_Pause(true);
 
-    ecl::Screen *screen = video::GetScreen();
+    ecl::Screen *screen = video_engine->GetScreen();
 
-    video::TempInputGrab grab(false);
+    ScopedInputGrab grab(false);
 
-    video::ShowMouse();
+    video_engine->ShowMouse();
     {
         int x, y;
         display::GetReferencePointCoordinates(&x, &y);
         enigma::gui::GameMenu(x, y).manage();
     }
-    video::HideMouse();
+    video_engine->HideMouse();
     update_mouse_button_state();
     if (m_state == cls_game)
         display::RedrawAll(screen);
@@ -552,7 +553,7 @@ void Client::show_menu(bool isESC) {
 void Client::draw_screen() {
     switch (m_state) {
     case cls_error: {
-        ecl::Screen *scr = video::GetScreen();
+        ecl::Screen *scr = video_engine->GetScreen();
         ecl::GC gc(scr->get_surface());
         blit(gc, 0, 0, enigma::GetImage("menu_bg", ".jpg"));
         ecl::Font *f = enigma::GetFont("menufont");
@@ -563,7 +564,7 @@ void Client::draw_screen() {
         int x = 60;
         int y = 60;
         int yskip = 25;
-        const video::VMInfo *vminfo = video::GetInfo();
+        const VMInfo *vminfo = video_engine->GetInfo();
         int width = vminfo->width - 120;
         for (unsigned i = 0; i < lines.size();) {
             std::string::size_type breakPos = ecl::breakString(f, lines[i], " ", width);
@@ -678,7 +679,7 @@ void Client::tick(double dtime) {
         for (; m_timeaccu >= timestep; m_timeaccu -= timestep) {
             display::Tick(timestep);
         }
-        display::Redraw(video::GetScreen());
+        display::Redraw(video_engine->GetScreen());
         handle_events();
         break;
     }
@@ -799,8 +800,9 @@ void Client::level_loaded(bool isRestart) {
     lev::Proxy *curProxy = ind->getCurrent();
 
     // update window title
-    video::SetCaption(ecl::strf(_("Enigma pack %s - level #%d: %s"), ind->getName().c_str(),
-                                ind->getCurrentLevel(), curProxy->getTitle().c_str()).c_str());
+    video_engine->SetCaption(ecl::strf(_("Enigma pack %s - level #%d: %s"), ind->getName().c_str(),
+                                       ind->getCurrentLevel(),
+                                       curProxy->getTitle().c_str()).c_str());
 
     std::string hunted = init_hunted_time();  // sets m_hunt_against_time (used below)
     documentHistory.clear();
@@ -825,11 +827,11 @@ void Client::level_loaded(bool isRestart) {
     sound::StartLevelMusic();
 
     // start screen transition
-    ecl::GC gc(video::BackBuffer());
+    ecl::GC gc(video_engine->BackBuffer());
     display::DrawAll(gc);
 
     m_effect = video::CreateEffect((isRestart ? video::TM_NONE : video::TM_PUSH_RANDOM),
-                                     video::BackBuffer());
+                                   video_engine->BackBuffer());
     m_cheater = false;
     m_state = cls_preparing_game;
 }

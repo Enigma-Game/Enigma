@@ -94,19 +94,18 @@ private:
 /* -------------------- SurfaceCache -------------------- */
 
 Surface *SurfaceCache_Alpha::acquire(const std::string &name) {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     std::string filename;
     ecl::Surface *es = NULL;
 
     if (app.resourceFS->findImageFile(name + ".png", filename))
         es = ecl::LoadImage(filename.c_str());
 
-    if (es != NULL && vminfo->tt == video::VTS_64 && filename.find("gfx32") != std::string::npos) {
+    if (es != NULL && vminfo->tt == VTS_64 && filename.find("gfx32") != std::string::npos) {
         ecl::Surface *es_zoom = es->zoom(es->width() * 2, es->height() * 2);
         delete es;
         es = es_zoom;
-    } else if (es != NULL && vminfo->tt == video::VTS_16 &&
-               filename.find("gfx32") != std::string::npos) {
+    } else if (es != NULL && vminfo->tt == VTS_16 && filename.find("gfx32") != std::string::npos) {
         ecl::Surface *es_zoom = es->zoom(es->width() / 2, es->height() / 2);
         delete es;
         es = es_zoom;
@@ -115,7 +114,7 @@ Surface *SurfaceCache_Alpha::acquire(const std::string &name) {
 }
 
 Surface *SurfaceCache::acquire(const std::string &name) {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     std::string filename;
     ecl::Surface *es = NULL;
 
@@ -124,12 +123,11 @@ Surface *SurfaceCache::acquire(const std::string &name) {
             es = Surface::make_surface(s);
         }
     }
-    if (es != NULL && vminfo->tt == video::VTS_64 && filename.find("gfx32") != std::string::npos) {
+    if (es != NULL && vminfo->tt == VTS_64 && filename.find("gfx32") != std::string::npos) {
         ecl::Surface *es_zoom = es->zoom(es->width() * 2, es->height() * 2);
         delete es;
         es = es_zoom;
-    } else if (es != NULL && vminfo->tt == video::VTS_16 &&
-               filename.find("gfx32") != std::string::npos) {
+    } else if (es != NULL && vminfo->tt == VTS_16 && filename.find("gfx32") != std::string::npos) {
         ecl::Surface *es_zoom = es->zoom(es->width() / 2, es->height() / 2);
         delete es;
         es = es_zoom;
@@ -191,7 +189,7 @@ Anim2d *anim_templ = 0;
 /* -------------------- Functions -------------------- */
 
 void display::InitModels() {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
 
     modelmgr = new ModelManager;
 

@@ -45,7 +45,7 @@ namespace enigma { namespace gui {
             listener(0), width (0), height (0), m_areas(), 
             isInvalidateUptodate (true), lastUpdate (0)
     {
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
     
         buttonw = vminfo.thumbw + (vshrink?13:27);  // min should be +30 for all modes but 640x480
@@ -294,7 +294,7 @@ namespace enigma { namespace gui {
     }
     
     void LevelWidget::draw(ecl::GC &gc, const ecl::Rect &r) {
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         const int imgw = vminfo.thumbw;       // Size of the preview images
         const int imgh = vminfo.thumbh;
         const int bwidth = vminfo.thumbborder_width;

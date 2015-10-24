@@ -359,10 +359,6 @@ void ecl::Screen::update_rect(const Rect &r) {
         update_all();
 }
 
-void ecl::Screen::set_caption(const char *str) {
-    SDL_SetWindowTitle(window(), str);
-}
-
 void ecl::Screen::flush_updates() {
     if (update_all_p) {
         SDL_UpdateWindowSurface(m_window);
@@ -476,12 +472,6 @@ Surface *ecl::MakeSurface(void *data, int w, int h, int bipp, int pitch, const R
     if (surface == 0)
         return 0;
     return Surface::make_surface(surface);
-}
-
-Surface *ecl::MakeSurfaceLike(int w, int h, Surface *surface) {
-    assert(surface);
-    SDL_Surface *sdls = surface->get_surface();
-    return MakeSurface(w, h);
 }
 
 Surface *ecl::Resample(Surface *s, Rect rect, int neww, int newh) {

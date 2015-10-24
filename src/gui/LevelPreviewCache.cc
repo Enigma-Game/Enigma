@@ -72,8 +72,8 @@ namespace enigma { namespace gui {
             clear();
             cachedIndex = lev::Index::getCurrentIndex();
         }
-            
-        const video::VMInfo &vminfo = *video::GetInfo();
+
+        const VMInfo &vminfo = *video_engine->GetInfo();
         std::string previewSubPath = makePreviewPath(levelProxy);
         Surface *surface = 0;
         
@@ -122,12 +122,12 @@ namespace enigma { namespace gui {
     }
     
     ecl::Surface *LevelPreviewCache::newPreview (lev::Proxy *levelProxy) {
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         Surface *surface = 0;
-        ecl::GC gc(video::BackBuffer());
-        if (game::DrawLevelPreview (gc, levelProxy)) { 
-            surface = Resample (video::BackBuffer(), 
-                        vminfo.gamearea, vminfo.thumbw, vminfo.thumbh); 
+        ecl::GC gc(video_engine->BackBuffer());
+        if (game::DrawLevelPreview (gc, levelProxy)) {
+            surface =
+                Resample(video_engine->BackBuffer(), vminfo.gamearea, vminfo.thumbw, vminfo.thumbh);
         }
         return surface;
     }
@@ -147,7 +147,7 @@ namespace enigma { namespace gui {
     }
     
     std::string LevelPreviewCache::makePreviewPath(lev::Proxy *levelProxy) {
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         return "thumbs" + vminfo.thumbsext + "/" +
                 levelProxy->getLocalSubstitutionLevelPath() +
                 ecl::strf("#%d", levelProxy->getReleaseVersion()) + ".png";
@@ -165,7 +165,7 @@ namespace enigma { namespace gui {
     }
     
     void LevelPreviewCache::makeSystemPreview(lev::Proxy *levelProxy, std::string systemDataPath) {
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         std::string savePath = systemDataPath + "/levels/" + levelProxy->getNormLevelPath() 
                 + vminfo.thumbsext + ".png";
         // auto-create the directory if necessary -- on an installed Enigma

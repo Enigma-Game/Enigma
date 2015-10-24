@@ -215,7 +215,8 @@ namespace enigma
         DOMErrorReporter *domSerErrorHandler;
         bool errorInit;
         bool isMakePreviews;
-        video::VideoModes selectedVideoMode;
+        // TODO(sdl2): initialize display mode using preferences or desktop resolution.
+        DisplayMode selectedDisplayMode{1280, 960};
         bool bossKeyPressed;
 
     private:

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: enigma
-** Generated automatically by tolua++-1.0.93 on Sun Sep 20 23:57:23 2015.
+** Generated automatically by tolua++-1.0.93 on Wed Oct 14 23:28:42 2015.
 */
 
 #ifndef __cplusplus
@@ -14,6 +14,7 @@
 TOLUA_API int  tolua_enigma_open (lua_State* tolua_S);
 
 #include "server.hh"
+#include "video.hh"
 #include "world.hh"
 #include "resource_cache.hh"
 #include "ecl_font.hh"
@@ -25,9 +26,6 @@ using std::string;
 using namespace server;
 using namespace lev;
 using namespace enigma;
-#include "video.hh"
-using namespace video;
-using ecl::Screen;
 #include "SoundEffectManager.hh"
 using namespace sound;
 
@@ -37,9 +35,8 @@ static void tolua_reg_types (lua_State* tolua_S)
  tolua_usertype(tolua_S,"Stone");
  tolua_usertype(tolua_S,"Font");
  tolua_usertype(tolua_S,"Object");
- tolua_usertype(tolua_S,"Floor");
  tolua_usertype(tolua_S,"Item");
- tolua_usertype(tolua_S,"Screen");
+ tolua_usertype(tolua_S,"Floor");
  tolua_usertype(tolua_S,"Surface");
 }
 
@@ -211,6 +208,36 @@ static int tolua_enigma_enigma_date00(lua_State* tolua_S)
 #ifndef TOLUA_RELEASE
  tolua_lerror:
  tolua_error(tolua_S,"#ferror in function 'date'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: ShowLoadingScreen */
+#ifndef TOLUA_DISABLE_tolua_enigma_enigma_ShowLoadingScreen00
+static int tolua_enigma_enigma_ShowLoadingScreen00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* text = ((const char*)  tolua_tostring(tolua_S,1,0));
+  int progress = ((int)  tolua_tonumber(tolua_S,2,0));
+  {
+   ShowLoadingScreen(text,progress);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'ShowLoadingScreen'.",&tolua_err);
  return 0;
 #endif
 }
@@ -933,85 +960,6 @@ static int tolua_enigma_world_Resize00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: GetScreen */
-#ifndef TOLUA_DISABLE_tolua_enigma_video_GetScreen00
-static int tolua_enigma_video_GetScreen00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isnoobj(tolua_S,1,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   Screen* tolua_ret = (Screen*)  GetScreen();
-   tolua_pushusertype(tolua_S,(void*)tolua_ret,"Screen");
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'GetScreen'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: HideMouse */
-#ifndef TOLUA_DISABLE_tolua_enigma_video_HideMouse00
-static int tolua_enigma_video_HideMouse00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isnoobj(tolua_S,1,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   HideMouse();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'HideMouse'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: ShowMouse */
-#ifndef TOLUA_DISABLE_tolua_enigma_video_ShowMouse00
-static int tolua_enigma_video_ShowMouse00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isnoobj(tolua_S,1,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   ShowMouse();
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'ShowMouse'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* function: DefineSoundEffect */
 #ifndef TOLUA_DISABLE_tolua_enigma_sound_DefineSoundEffect00
 static int tolua_enigma_sound_DefineSoundEffect00(lua_State* tolua_S)
@@ -1112,6 +1060,7 @@ TOLUA_API int tolua_enigma_open (lua_State* tolua_S)
    tolua_function(tolua_S,"RegisterImage",tolua_enigma_enigma_RegisterImage00);
    tolua_function(tolua_S,"GetFont",tolua_enigma_enigma_GetFont00);
    tolua_function(tolua_S,"date",tolua_enigma_enigma_date00);
+   tolua_function(tolua_S,"ShowLoadingScreen",tolua_enigma_enigma_ShowLoadingScreen00);
   tolua_endmodule(tolua_S);
   tolua_module(tolua_S,"enigma",1);
   tolua_beginmodule(tolua_S,"enigma");
@@ -1158,12 +1107,6 @@ TOLUA_API int tolua_enigma_open (lua_State* tolua_S)
    tolua_function(tolua_S,"MakeStone",tolua_enigma_world_MakeStone00);
    tolua_function(tolua_S,"GetNamedObject",tolua_enigma_world_GetNamedObject00);
    tolua_function(tolua_S,"Resize",tolua_enigma_world_Resize00);
-  tolua_endmodule(tolua_S);
-  tolua_module(tolua_S,"video",0);
-  tolua_beginmodule(tolua_S,"video");
-   tolua_function(tolua_S,"GetScreen",tolua_enigma_video_GetScreen00);
-   tolua_function(tolua_S,"HideMouse",tolua_enigma_video_HideMouse00);
-   tolua_function(tolua_S,"ShowMouse",tolua_enigma_video_ShowMouse00);
   tolua_endmodule(tolua_S);
   tolua_module(tolua_S,"sound",0);
   tolua_beginmodule(tolua_S,"sound");

@@ -22,6 +22,7 @@
 /* -------------------- enigma.cc -------------------- */
 
 $#include "server.hh"
+$#include "video.hh"
 $#include "world.hh"
 $#include "resource_cache.hh"
 $#include "ecl_font.hh"
@@ -43,6 +44,8 @@ module enigma
     Font    *GetFont(const char *name);
 
     const char *date(const char *format); // format see 'man strftime'
+
+    void ShowLoadingScreen(const char *text, int progress);
 }
 
 /* -------------------- server.cc, lev/Index.cc -------------------- */
@@ -95,19 +98,6 @@ module world
     Object *GetNamedObject(const char *name);
 
     void Resize(int w, int h);
-}
-
-/* -------------------- video.cc -------------------- */
-
-$#include "video.hh"
-$using namespace video;
-$using ecl::Screen;
-
-module video
-{
-    Screen *GetScreen();
-    void HideMouse();
-    void ShowMouse();
 }
 
 /* -------------------- sound.cc -------------------- */

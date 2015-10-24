@@ -113,21 +113,6 @@ namespace enigma { namespace gui {
         Uint8   mouseButton;
     };
 
-#if 0
-/* -------------------- EmptyWidget -------------------- */
-    class EmptyWidget : public Widget {
-    public:
-        EmptyWidget () : Widget ()
-        {}
-
-        virtual void draw (ecl::GC &gc, const ecl::Rect &r) 
-        {}
-
-        virtual void naturalsize (int &w, int &h) const {
-            w = h = 0;
-        }
-    };
-#endif
 /* -------------------- AreaManager -------------------- */
 
     class AreaManaged {

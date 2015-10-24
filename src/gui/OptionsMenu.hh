@@ -30,7 +30,6 @@ namespace enigma { namespace gui {
     class OptionsMenu : public Menu {
     public:
         OptionsMenu(ecl::Surface *background_);
-        ~OptionsMenu();
         virtual void quit();
 
     private:
@@ -65,61 +64,8 @@ namespace enigma { namespace gui {
         gui::TextField *userImagePathTF;
         gui::TextField *menuMusicTF;
         ecl::Surface *background;
-        std::string  previous_caption;
     };
 
-/* -------------------- Options Buttons -------------------- */
-
-    class FullscreenButton : public BoolOptionButton {
-    public:
-        FullscreenButton(ActionListener *al = 0);
-    };
-
-
-    class VideoModeButton : public ValueButton {
-        int get_value() const;
-        void set_value(int value);
-        std::string get_text(int value) const;
-    public:
-        VideoModeButton();
-        void reinit();
-    };
-
-    class StereoButton : public ValueButton {
-        int get_value() const;
-        void set_value(int value);
-        std::string get_text(int value) const;
-    public:
-        StereoButton();
-    };
-
-
-    class SoundSetButton : public ValueButton {
-    public:
-        SoundSetButton();
-        int get_value() const;
-        void set_value(int value);
-        std::string get_text(int value) const;
-    };
-
-    class MenuMusicButton : public ValueButton {
-    public:
-        MenuMusicButton();
-        int get_value() const;
-        void set_value(int value);
-        std::string get_text(int value) const;
-    };
-    
-    class LanguageButton : public ValueButton {
-        int get_value() const;
-        void set_value(int value);
-        std::string get_text(int value) const;
-        bool inInit;
-        ActionListener *myListener;
-    public:
-        // second user action listener: first one is misused by ValueButton 
-        LanguageButton (ActionListener *al = 0);        
-    };
 
 /* -------------------- Functions -------------------- */
 

@@ -85,7 +85,7 @@ namespace enigma { namespace gui {
     }
     
     void ScreenshotViewer::draw_background (ecl::GC &gc) {
-        const video::VMInfo *vminfo = video::GetInfo();
+        const VMInfo *vminfo = video_engine->GetInfo();
         std::string filename = "screenshots/" + 
                 levelProxy->getLocalSubstitutionLevelPath() + 
                 (shotNumber > 0 ? ecl::strf("#%d", shotNumber) : "") + ".png";

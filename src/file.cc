@@ -340,15 +340,15 @@ GameFS::findSubfolderFiles(const string &folder, const string &filename) const
 /* First search in video mode specific directory, then in "gfx/". */ 
 bool GameFS::findImageFile (const string &basename, string &filename)
 {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     string fname = string(vminfo->gfxdir) + basename;
     if (!findFile(fname, filename)) {
         // temporary workaround for incomplete 64 bit images
-        if (vminfo->tt == video::VTS_64) {
+        if (vminfo->tt == VTS_64) {
             fname = string("gfx32/") + basename;
             if (findFile(fname, filename))
                 return true;
-        } else if (vminfo->tt == video::VTS_16) {
+        } else if (vminfo->tt == VTS_16) {
             fname = string("gfx32/") + basename;
             if (findFile(fname, filename))
                 return true;

@@ -19,6 +19,8 @@
 #ifndef VIDEO_HH_INCLUDED
 #define VIDEO_HH_INCLUDED
 
+// This file contains code for managing the current window.
+
 #include <memory>
 #include "SDL.h"
 #include "ecl_geom.hh"
@@ -26,23 +28,25 @@
 
 namespace video {
 
-enum VideoModes {
+// just for main batch thumb generation in wrong videomode
+void SetThumbInfo(int width, int height, std::string extension);
+
+} // namespace video
+
+namespace enigma {
+
+enum VideoMode {
     VM_None = -1,
-    VM_640x480 = 0,    ///< 32 bit basic    -  4:3  - VGA
-    VM_640x512 = 1,    ///< 32 bit embedded -  5:4  - none
-    VM_800x600 = 2,    ///< 40 bit basic    -  4:3  - SVGA
-    VM_1024x768 = 3,   ///< 48 bit embedded -  4:3  - XGA
-    VM_960x720 = 4,    ///< 48 bit basic    -  4:3  - none
-    VM_1280x720 = 5,   ///< 48 bit embedded - 16:9  - HD720
-    VM_1280x960 = 6,   ///< 64 bit basic    -  4:3  - none
-    VM_1440x960 = 7,   ///< 64 bit embedded -  3:2  - none
-    VM_1280x1024 = 8,  ///< 64 bit embedded -  5:4  - SXGA
-    VM_1680x1050 = 9,  ///< 64 bit embedded - 16:10 - WSXGA+
-    VM_320x240 = 10,   ///< 16 bit basic    -  4:3  - CGA
+    VM_320x240,
+    VM_640x480,
+    VM_800x600,
+    VM_960x720,
+    VM_1280x960,
     VM_COUNT
 };
 
-enum VideoTileType {  // Tile size in pixels
+// Tile size in pixels
+enum VideoTileType {
     VTS_16 = 0,
     VTS_32 = 1,
     VTS_40 = 2,
@@ -51,7 +55,7 @@ enum VideoTileType {  // Tile size in pixels
 };
 
 struct VMInfo {
-    VideoModes videomode;
+    VideoMode mode;
     int width, height;             // Screen width and height in pixels
     int tile_size;                 // Tile size in pixels
     VideoTileType tt;              // Tile type
@@ -73,110 +77,91 @@ struct VMInfo {
     ecl::Rect sb_itemarea;
     ecl::Rect sb_textarea;
     int sb_coffsety;              // center offset of statusbar due to top black lines
-    bool w_available;             // Is this video mode available?
-    bool f_available;             // Is this video mode available?
-    std::string fallback_window;  // hyphen seperated list of modes e.g. "-7-4-2-0-"
-    std::string fallback_fullscreen;
 };
 
-void Init();
-void Shutdown();
+struct DisplayMode {
+    int width;
+    int height;
 
-void ChangeVideoMode();
-bool SetFullscreen(bool on);
 
-/*! Switch between windowed and fullscreen mode. Return true if
-   fullscreen mode is active afterwards. */
-bool ToggleFullscreen();
+    bool operator==(const DisplayMode &other) {
+        return width == other.width &&
+            height == other.height;
+    }
+    bool operator!=(const DisplayMode &other) {
+        return !(*this == other);
+    }
+};
 
-bool IsFullScreen();
 
-/*! Return information about arbitrary video mode. */
-const VMInfo *GetInfo(VideoModes vm);
 
-/*! Return information about current video mode. */
-const VMInfo *GetInfo();
-
-// just for main batch thumb generation in wrong videomode
-void SetThumbInfo(int width, int height, std::string extension);
-
-/**
- * Count number of available modes for the current configuration.
- * @arg  isFullScreen   video mode for fullscreen or window mode
- * @return   number of modes
- */
-int GetNumAvailableModes(bool isFullscreen);
-
-/**
- * Get the video mode by the sequence number of available modes for the
- * current configuration
- * @arg  number         desired sequence number within the list of available modes
- * @arg  isFullScreen   video mode for fullscreen or window mode
- * @return   the requested video mode
- */
-VideoModes GetVideoMode(int number, bool isFullscreen);
-
-/**
- * Calulate the sequence number for a given mode within the number of
- * available modes for the current configuration.
- * @arg  mode           the video mode to locate
- * @arg  isFullScreen   video mode for fullscreen or window mode
- * @return   the sequence number of the mode
- */
-int GetModeNumber(VideoModes mode, bool isFullScreen);
-
-/**
- * Calculate the best video mode out of the users preferences that is
- * available for the current configuration. As the user preference
- * state a sequence of fallback modes this function returns a useful
- * mode even if the user did run previously a future version of Enigma
- * and selected a mode that is not available in this Enigma version.
- * @arg  isFullScreen   video mode for fullscreen or window mode
- * @arg  seq            sequence number of best available mode, default to 1
- * @return   the preferable video mode
- */
-VideoModes GetBestUserMode(bool isFullScreen, int seq = 1);
-
-bool ModeAvailable(VideoModes vm);
-
-//! Return the current video mode
-VideoModes GetVideoMode();
-
-ecl::Screen *GetScreen();
-
-/*! The backbuffer is surface that has the same size and pixel
-  format as the screen.  This surface is used by ShowScreen() and
-  FX_* functions below. */
-ecl::Surface *BackBuffer();
-
-void SetCaption(const char *str);
-const std::string &GetCaption();
-
-/*! Take a screenshot and save it as a PNG to file FNAME. */
-void Screenshot(const std::string &fname);
-
-/* -------------------- Input grabbing -------------------- */
-
-class TempInputGrab {
+class VideoEngine {
 public:
-    TempInputGrab(bool onoff);
-    ~TempInputGrab();
+    ~VideoEngine() = default;
+
+
+    virtual void Init() = 0;
+    virtual void Shutdown() = 0;
+
+    // ---------- Main window ----------
+    virtual ecl::Screen *GetScreen() = 0;
+
+    virtual void SetCaption(const std::string &text) = 0;
+    virtual const std::string &GetCaption() = 0;
+
+    virtual std::vector<DisplayMode> EnumerateDisplayModes() = 0;
+    virtual DisplayMode ActiveDisplayMode() = 0;
+    virtual void SetDisplayMode(const DisplayMode &display_mode, bool fullscreen) = 0;
+
+    /*! Return information about current video mode. */
+    virtual const VMInfo *GetInfo() = 0;
+
+
+    
+    // Switch between windowed and fullscreen mode. Returns true if fullscreen
+    // mode is active afterwards.
+    virtual bool SetFullscreen(bool on) = 0;
+    virtual bool ToggleFullscreen() = 0;
+    virtual bool IsFullscreen() = 0;
+    
+    // The backbuffer is surface that has the same size and pixel format as
+    // the screen.
+    virtual ecl::Surface *BackBuffer() = 0;
+
+    // Take a screenshot and save it as a PNG to the specified file.
+    virtual void Screenshot(const std::string &file_name) = 0;
+
+    // ---------- Mouse cursor ----------
+    virtual void SetMouseCursor(ecl::Surface *s, int hotx, int hoty) = 0;
+    virtual void HideMouse() = 0;
+    virtual void ShowMouse() = 0;
+    virtual int Mousex() = 0;
+    virtual int Mousey() = 0;
+
+    virtual bool GetInputGrab() = 0;
+    virtual bool SetInputGrab(bool enabled) = 0;
+};
+
+extern VideoEngine *video_engine;
+
+class ScopedInputGrab {
+public:
+    ScopedInputGrab(bool grab_input) {
+        old_status = video_engine->SetInputGrab(grab_input);
+    }
+
+    ~ScopedInputGrab() {
+        video_engine->SetInputGrab(old_status);
+    }
 
 private:
-    bool old_onoff;
+    bool old_status;
 };
 
-bool GetInputGrab();
-bool SetInputGrab(bool onoff);
 
-/* -------------------- Mouse cursor -------------------- */
+void VideoInit();
+void ShowLoadingScreen(const char *text, int progress);
 
-void SetMouseCursor(ecl::Surface *s, int hotx, int hoty);
-void HideMouse();
-void ShowMouse();
-int Mousex();
-int Mousey();
-
-} // namespace video
+} // namespace enigma
 
 #endif

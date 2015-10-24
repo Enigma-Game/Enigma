@@ -22,6 +22,7 @@
 #include "SoundEngine.hh"
 #include "main.hh"
 
+#include "SDL.h"
 #include "SDL_mixer.h"
 #include "SDL_mutex.h"
 

@@ -22,27 +22,7 @@
 
 -- Display the loading progress
 function Progress(percent, text)
-    local fontname   = "levelmenu"
-    local scr        = video.GetScreen()
-    local d          = scr:get_surface()
-    local background = enigma.GetImage ("menu_bg", ".jpg")
-    local logo       = enigma.GetImage("enigma_logo3")
-    local x          = (d:width()  - logo:width())/2
-    local y          = (d:height() - logo:height())/2
-    local gs         = ecl.GS:new(d:size())
-    local font2      = enigma.GetFont("menufontsel")
-
-    d:blit(gs, 0, 0, background) -- offset missing!
-    d:blit(gs, x , y-logo:height(), logo)
-
-    if text then
-        font2:render(d, (d:width() - font2:get_width(text))/2, y, text)
-    end
---     font:render(d, x, y-10, strrep(".", 50))
---     font2:render(d, x, y-10, strrep(".", percent/2))
-    scr:update_all();
-    scr:flush_updates();
-    gs:delete()
+    enigma.ShowLoadingScreen(text, percent);
 end
 
 -- Return an unique modelname.

@@ -53,9 +53,8 @@ namespace enigma { namespace gui {
     LevelPackMenu::LevelPackMenu() : packsHList (NULL), scrollLeft (NULL), 
             scrollRight (NULL), scrollUp (NULL), scrollDown (NULL), 
             groupsVList (NULL), isLevelMenuSubmenu (false) {
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
-        vm = vminfo.videomode;
         vtt = vminfo.tt;
         vh = vminfo.area.x;
         vv = (vminfo.height - vminfo.area.h)/2;
@@ -473,8 +472,8 @@ namespace enigma { namespace gui {
     }
     
     void LevelPackMenu::draw_background(ecl::GC &gc) {
-        const video::VMInfo *vminfo = video::GetInfo();
-        video::SetCaption(("Enigma - Level Pack Menu"));
+        const VMInfo *vminfo = video_engine->GetInfo();
+        set_caption(_("Enigma - Level Pack Menu"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
     }
     

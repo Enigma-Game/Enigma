@@ -117,13 +117,13 @@ void AreaManager::invalidate_all() {
 
 void AreaManager::refresh() {
     if (!dirtyrects.empty()) {
-        video::HideMouse();
+        video_engine->HideMouse();
         GC gc(SCREEN->get_surface());
         for (RectList::iterator i = dirtyrects.begin(); i!=dirtyrects.end(); ++i) {
             top_container->draw(gc, *i);
             SCREEN->update_rect(*i);
         }
-        video::ShowMouse();
+        video_engine->ShowMouse();
         dirtyrects.clear();
     }
 }

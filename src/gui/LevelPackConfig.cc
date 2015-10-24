@@ -14,18 +14,17 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
  
 #include "gui/LevelPackConfig.hh"
-#include "gui/LevelPackComposer.hh"
+
 #include "errors.hh"
+#include "gui/LevelPackComposer.hh"
+#include "lev/Index.hh"
+#include "main.hh"
 #include "nls.hh"
 #include "resource_cache.hh"
 #include "video.hh"
-#include "lev/Index.hh"
-
-#include "main.hh"
 
 using namespace ecl;
 using namespace std;
@@ -103,7 +102,7 @@ namespace enigma { namespace gui {
     LevelPackConfig::LevelPackConfig(std::string indexName, std::string groupName,
             bool forceGroupReasign) : titleTF (NULL), isReasignOnly (forceGroupReasign), 
             didEditMetaData (false), undo_quit (false) {
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
         
         if (indexName.empty())
@@ -573,9 +572,9 @@ namespace enigma { namespace gui {
     }
     
     void LevelPackConfig::draw_background(ecl::GC &gc) {
-        const video::VMInfo *vminfo = video::GetInfo();
+        const VMInfo *vminfo = video_engine->GetInfo();
 
-        video::SetCaption(("Enigma - Level Pack Configuration"));
+        set_caption(("Enigma - Level Pack Configuration"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
     }
     

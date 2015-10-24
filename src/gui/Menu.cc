@@ -37,9 +37,13 @@ using namespace std;
 
 namespace enigma { namespace gui {
     /* -------------------- Menu -------------------- */
-    
-    Menu::Menu()
-    : active_widget(NULL), key_focus_widget(NULL), quitp(false), abortp(false) {
+
+Menu::Menu()
+: active_widget(NULL),
+  key_focus_widget(NULL),
+  quitp(false),
+  abortp(false),
+  previous_caption(video_engine->GetCaption()) {
     }
     
     void Menu::add(Widget *w) {
@@ -71,7 +75,15 @@ namespace enigma { namespace gui {
     bool Menu::is_key_focus(Widget *focus) {
         return (key_focus_widget == focus);
     }
-    
+
+    void Menu::set_caption(const std::string &text) {
+        video_engine->SetCaption(text);
+    }
+
+    std::string Menu::get_caption() const {
+        return video_engine->GetCaption();
+    }
+
     bool Menu::manage() {
         quitp=abortp=false;
         SDL_Event e;
@@ -131,7 +143,7 @@ namespace enigma { namespace gui {
         // Alt && Return for Fullscreen Toggle on Linux only
         if (e.type == SDL_KEYDOWN &&  e.key.keysym.sym == SDLK_RETURN && 
                 e.key.keysym.mod & KMOD_ALT) {
-            video::ToggleFullscreen();
+            video_engine->ToggleFullscreen();
             return;
         }
         

@@ -66,7 +66,7 @@ namespace enigma { namespace gui {
 
         curIndex = dynamic_cast<lev::PersistentIndex *>(lev::Index::getCurrentIndex());
 
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
 
         // Add navigation buttons
         pgup     = new ImageButton("ic-up", "ic-up1", this);
@@ -378,9 +378,9 @@ namespace enigma { namespace gui {
     }
 
     void LevelPackComposer::draw_background(ecl::GC &gc) {
-        const video::VMInfo *vminfo = video::GetInfo();
+        const VMInfo *vminfo = video_engine->GetInfo();
 
-        video::SetCaption(("Enigma - Level Pack Composer"));
+        set_caption(_("Enigma - Level Pack Composer"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
         if (isModified)
           blit(gc, 0,0, enigma::GetImage(("ic-obsolete" + vminfo->thumbsext).c_str()));

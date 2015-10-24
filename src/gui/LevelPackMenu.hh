@@ -59,8 +59,7 @@ namespace enigma { namespace gui {
         static std::string lastGroupName;
         static int firstDisplayedGroup;
         
-        video::VideoModes vm;
-        video::VideoTileType vtt;
+        VideoTileType vtt;
         int  vh, vv;   // h and v margins due to fullscreen margins
         std::vector<TextButton *> packButtons;
         std::vector<TextButton *> groupButtons;
