@@ -169,14 +169,14 @@ namespace enigma { namespace lev {
                 readFromZipStream(zipStream, content);
                 std::string score = content.str();
  #if _XERCES_VERSION >= 30000
-                std::auto_ptr<DOMLSInput> domInputScoreSource ( new Wrapper4InputSource(
-                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(score.c_str()),
-                        score.size(), "", false)));
+                std::unique_ptr<DOMLSInput> domInputScoreSource(new Wrapper4InputSource(
+                    new MemBufInputSource(reinterpret_cast<const XMLByte *>(score.c_str()),
+                                          score.size(), "", false)));
                 doc = app.domParser->parse(domInputScoreSource.get());
-#else    
-                std::auto_ptr<Wrapper4InputSource> domInputScoreSource ( new Wrapper4InputSource(
-                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(score.c_str()),
-                        score.size(), "", false)));
+#else
+                std::unique_ptr<Wrapper4InputSource> domInputScoreSource(new Wrapper4InputSource(
+                    new MemBufInputSource(reinterpret_cast<const XMLByte *>(score.c_str()),
+                                          score.size(), "", false)));
                 doc = app.domParser->parse(*domInputScoreSource);
 #endif
                 

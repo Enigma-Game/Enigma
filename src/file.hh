@@ -114,7 +114,7 @@ namespace enigma
          * @return  has a file been found.
          */
         bool findFile(const std::string &filename, std::string &dest, 
-                std::auto_ptr<std::istream> &isptr) const;
+                std::unique_ptr<std::istream> &isptr) const;
                 
         /**
          * Search first occurence of a file on the GameFS. The file can be
@@ -163,7 +163,7 @@ namespace enigma
     // banned code to file_zip.cc due to macro clashes
     bool findInZip(std::string zipPath, std::string zippedFilename1,
             std::string zippedFilename2, std::string &dest, 
-        std::auto_ptr<std::istream> &isresult);
+        std::unique_ptr<std::istream> &isresult);
     
     bool writeToZip(std::ostream &zipStream, std::string filename, unsigned size, std::istream &contents);
     bool readFromZipStream(std::istream &zipFile, std::ostream &contents);

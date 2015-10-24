@@ -270,6 +270,13 @@ public:
     Value getNamedPosition(const std::string &name);
     PositionList getPositionList(const std::string &tmpl, Object *reference = NULL);
 
+    void dispose_object(Object *obj) {
+        if (obj) {
+            unname(obj);
+            obj->dispose();
+        }
+    }
+    
     void tick(double dtime);
     void remove(ForceField *ff);
 

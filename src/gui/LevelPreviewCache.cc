@@ -79,7 +79,7 @@ namespace enigma { namespace gui {
         
         // load preview from file bundled with the level itself
         std::string absLevelPath ;
-        std::auto_ptr<std::istream> isptr;
+        std::unique_ptr<std::istream> isptr;
         ByteVec imageData;
         if(levelProxy->getNormPathType() == lev::Proxy::pt_resource && 
                 app.resourceFS->findFile ("levels/" + levelProxy->getNormLevelPath() 

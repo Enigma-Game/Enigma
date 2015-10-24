@@ -32,16 +32,17 @@ using namespace enigma;
 using namespace sound;
 
 /* -------------------- Local variables -------------------- */
-namespace
-{
-    std::auto_ptr<SoundEngine> sound_engine;
+namespace {
 
-    bool sound_enabled      = true;
-    bool music_enabled      = true;
-    bool sound_enabled_temp = false;
-    bool sound_mute         = false;
-    bool music_mute         = false;
-}
+std::unique_ptr<SoundEngine> sound_engine;
+
+bool sound_enabled = true;
+bool music_enabled = true;
+bool sound_enabled_temp = false;
+bool sound_mute = false;
+bool music_mute = false;
+
+}  // namespace
 
 /* -------------------- Interface Functions -------------------- */
 

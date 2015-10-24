@@ -34,28 +34,25 @@ using namespace enigma;
 using namespace std;
 using namespace zipios;
 
-static std::auto_ptr<zipios::ZipFile> zip;
+static std::unique_ptr<zipios::ZipFile> zip;
 static std::string lastZipPath;
 
-        
 bool enigma::findInZip(std::string zipPath, std::string zippedFilename1,
-        std::string zippedFilename2, string &dest, 
-        std::auto_ptr<std::istream> &isresult) {
+                       std::string zippedFilename2, string &dest,
+                       std::unique_ptr<std::istream> &isresult) {
 
     // reuse last opened zip if possible
     if (lastZipPath != zipPath) {
          zip.reset (new zipios::ZipFile (zipPath));
          lastZipPath = zipPath;
     }
-    std::auto_ptr<istream> isptr (zip->getInputStream (zippedFilename2));
-    if(isptr.get() != 0) {
-        isresult = isptr;
+    if (auto isptr = zip->getInputStream(zippedFilename2)) {
+        isresult.reset(isptr);
         dest = zippedFilename2;
         return true;
     }
-    isptr.reset(zip->getInputStream (zippedFilename1));
-    if(isptr.get() != 0) {
-        isresult = isptr;
+    if (auto isptr = zip->getInputStream(zippedFilename1)) {
+        isresult.reset(isptr);
         dest = zippedFilename1;
         return true;
     }

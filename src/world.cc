@@ -154,8 +154,10 @@ Direction contact_face(const StoneContact &sc) {
 /* -------------------- Global variables -------------------- */
 
 namespace {
-auto_ptr<World> level;
-}
+
+std::unique_ptr<World> level;
+
+}  // namespace
 
 enigma::Timer GameTimer;
 bool TrackMessages;
@@ -2536,10 +2538,7 @@ Actor *MakeActor(const char *kind) {
 }
 
 void DisposeObject(Object *o) {
-    if (o != 0) {
-        UnnameObject(o);
-        o->dispose();
-    }
+    level->dispose_object(o);
 }
 
 void DumpObjectInfo() {

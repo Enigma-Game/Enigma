@@ -393,7 +393,7 @@ namespace enigma { namespace lev {
             return;
         }
 
-        std::auto_ptr<std::istream> isptr;
+        std::unique_ptr<std::istream> isptr;
         ByteVec indexCode;
         std::string errMessage;
         absIndexPath = "";
@@ -422,14 +422,15 @@ namespace enigma { namespace lev {
                 } else {
                     // preloaded  xml or zipped xml
 #if _XERCES_VERSION >= 30000
-                    std::auto_ptr<DOMLSInput> domInputIndexSource ( new Wrapper4InputSource(
-                            new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(indexCode[0])),
-                            indexCode.size(), absIndexPath.c_str(), false)));
+                    std::unique_ptr<DOMLSInput> domInputIndexSource(new Wrapper4InputSource(
+                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(&indexCode[0]),
+                                              indexCode.size(), absIndexPath.c_str(), false)));
                     doc = app.domParser->parse(domInputIndexSource.get());
 #else
-                    std::auto_ptr<Wrapper4InputSource> domInputIndexSource ( new Wrapper4InputSource(
-                            new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(indexCode[0])),
-                            indexCode.size(), absIndexPath.c_str(), false)));
+                    std::unique_ptr<Wrapper4InputSource> domInputIndexSource(
+                        new Wrapper4InputSource(
+                            new MemBufInputSource(reinterpret_cast<const XMLByte *>(&indexCode[0]),
+                                                  indexCode.size(), absIndexPath.c_str(), false)));
                     doc = app.domParser->parse(*domInputIndexSource);
 #endif
                 }
@@ -613,7 +614,7 @@ namespace enigma { namespace lev {
                 return false;
             }
             // check if the name would conflict with existing files
-            std::auto_ptr<std::istream> isptr; // dummy
+            std::unique_ptr<std::istream> isptr;
             absIndexPath = "";
             std::string relIndexPath1 = "levels/" + fileName + "/" + INDEX_STD_FILENAME;
             std::string relIndexPath2 = "levels/cross/" + fileName + ".xml";
@@ -1206,24 +1207,21 @@ namespace enigma { namespace lev {
     }
 
     void AddZippedLevelPack (const char *zipfile) {
-//        Log << "Index AddZippedLevelPack " << zipfile << "\n";
-        using namespace std;
-        using namespace ecl;
-        string absPath;
+        std::string absPath;
         if (app.resourceFS->findFile (zipfile, absPath)) {
             // the index file as it would be for a unpacked zip
             std::string zf = zipfile;
             std::string dir = zf.substr(0, zf.rfind('.'));
             std::string indexfile = dir + "/index.txt";
             try {
-                auto_ptr<istream> isptr;
+                std::unique_ptr<istream> isptr;
                 std::string dummy;
-                if(!app.resourceFS->findFile(indexfile, dummy, isptr))
+                if (!app.resourceFS->findFile(indexfile, dummy, isptr))
                     throw XLevelPackInit ("No index in level pack: ");
 
-                istream &is = *isptr;
+                std::istream &is = *isptr;
 
-                string line;
+                std::string line;
                 std::string indexName;
                 if (getline(is, line)) {
                     // we read the index in binary mode and have to strip of the \n for
@@ -1234,14 +1232,11 @@ namespace enigma { namespace lev {
                     indexName = line;
 
                     // check if already loaded
-
                     Index::registerIndex(new PersistentIndex(isptr.get(), dir, true, indexName));
-                }
-                else {
+                } else {
                     throw XLevelPackInit ("Invalid level pack: " + indexName);
                 }
-            }
-            catch (std::exception &) {
+            } catch (std::exception &) {
                 throw XLevelPackInit ("Error reading from .zip file: " + indexfile);
             }
         } else {

@@ -49,7 +49,7 @@ private:
     bool showscroll;
     double xoff;
     double scrollspeed;  // pixels per second
-    std::auto_ptr<ecl::Surface> textsurface;
+    std::unique_ptr<ecl::Surface> textsurface;
     ecl::Font &font;
     double time, maxtime;
 };
