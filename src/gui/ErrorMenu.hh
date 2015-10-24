@@ -32,9 +32,9 @@ namespace enigma { namespace gui {
         bool isRejectQuit();
         bool isLaterQuit();
     private:
-        bool on_event           (const SDL_Event &e);
-        void on_action          (gui::Widget *w);
-        void draw_background    (ecl::GC &gc);
+        bool on_event           (const SDL_Event &e) override;
+        void on_action          (gui::Widget *w) override;
+        void draw_background    (ecl::GC &gc) override;
     
         std::string  text;
         gui::Widget *quit;

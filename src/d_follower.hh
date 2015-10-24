@@ -61,7 +61,7 @@ private:
 class Follower_Screen : public Follower {
 public:
     Follower_Screen(DisplayEngine *e, double borderx = 0.5, double bordery = 0.5);
-    void tick(double dtime, const ecl::V2 &point);
+    void tick(double dtime, const ecl::V2 &point) override;
 };
 
 // Follows a sprite by softly scrolling the visible area to the next screen as
@@ -70,8 +70,8 @@ class Follower_Scrolling : public Follower {
 public:
     Follower_Scrolling(DisplayEngine *e, bool screenwise, double borderx = 0.5,
                        double bordery = 0.5);
-    void tick(double dtime, const ecl::V2 &point);
-    void center(const ecl::V2 &point);
+    void tick(double dtime, const ecl::V2 &point) override;
+    void center(const ecl::V2 &point) override;
 
 private:
     bool currently_scrolling;
@@ -86,8 +86,8 @@ private:
 class Follower_Smooth : public Follower {
 public:
     Follower_Smooth(DisplayEngine *e);
-    void tick(double time, const ecl::V2 &point);
-    void center(const ecl::V2 &point);
+    void tick(double time, const ecl::V2 &point) override;
+    void center(const ecl::V2 &point) override;
     virtual void set_boundary(double /*b*/) {}
 
     ecl::V2 calc_offset(const ecl::V2 &point);

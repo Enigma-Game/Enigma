@@ -140,8 +140,8 @@ public:
     ModelLayer() {}
 
     // DisplayLayer interface
-    void tick(double dtime);
-    void new_world(int, int);
+    void tick(double dtime) override;
+    void new_world(int, int) override;
 
     // Member functions
     void activate(Model *m);
@@ -174,11 +174,11 @@ private:
     void mark_redraw(int x, int y);
 
     // DisplayLayer interface.
-    void new_world(int w, int h);
-    void draw(ecl::GC &gc, const WorldArea &a, int x, int y);
+    void new_world(int w, int h) override;
+    void draw(ecl::GC &gc, const WorldArea &a, int x, int y) override;
 
     // ModelLayer interface
-    virtual int redraw_size() const { return m_redrawsize; }
+    virtual int redraw_size() const override { return m_redrawsize; }
 
     // Variables.
     typedef ecl::Array2<Model *> ModelArray;
@@ -198,10 +198,10 @@ public:
     Sprite *above[3];
     Sprite *beneath[3];
 
-    Sprite(const ecl::V2 &p, SpriteLayer l, Model *m) : model(m), pos(p), layer(l), visible(true) {
+    Sprite(ecl::V2 p, SpriteLayer l, Model *m) : model(m), pos(std::move(p)), layer(l), visible(true) {
         screenpos[0] = screenpos[1] = 0;
-        above[0] = above[1] = above[2] = NULL;
-        beneath[0] = beneath[1] = beneath[2] = NULL;
+        above[0] = above[1] = above[2] = nullptr;
+        beneath[0] = beneath[1] = beneath[2] = nullptr;
     }
     ~Sprite() { delete model; }
 };
@@ -214,9 +214,9 @@ public:
     ~DL_Sprites();
 
     /* ---------- DisplayLayer interface ---------- */
-    void draw(ecl::GC &gc, const WorldArea &a, int x, int y);
-    void draw_onepass(ecl::GC &gc);
-    void new_world(int, int);
+    void draw(ecl::GC &gc, const WorldArea &a, int x, int y) override;
+    void draw_onepass(ecl::GC &gc) override;
+    void new_world(int, int) override;
 
     /* ---------- Member functions ---------- */
     SpriteId add_sprite(Sprite *sprite, bool isDispensible = false);
@@ -244,7 +244,7 @@ private:
     void update_sprite_region(Sprite *s, bool is_add, bool is_redraw_only = false);
 
     // ModelLayer interface
-    virtual void tick(double /*dtime*/);
+    virtual void tick(double /*dtime*/) override;
 
     // Variables.
     unsigned numsprites;          // Current number of sprites
@@ -261,17 +261,17 @@ public:
     DL_Shadows(DL_Grid *grid, DL_Sprites *sprites);
     ~DL_Shadows();
 
-    void new_world(int w, int h);
+    void new_world(int w, int h) override;
     void draw(ecl::GC &gc, int xpos, int ypos, int x, int y);
 
-    void draw(ecl::GC &gc, const WorldArea &a, int x, int y);
+    void draw(ecl::GC &gc, const WorldArea &a, int x, int y) override;
 
 private:
     /* ---------- Private functions ---------- */
     void shadow_blit(ecl::Surface *scr, int x, int y, ecl::Surface *shadows, ecl::Rect r);
 
     bool has_actor(int x, int y);
-    virtual void prepare_draw(const WorldArea &);
+    virtual void prepare_draw(const WorldArea &) override;
 
     Model *get_shadow_model(int x, int y);
 
@@ -292,12 +292,11 @@ private:
 struct Line {
     ecl::V2 start, end;
     ecl::V2 oldstart, oldend;
-    unsigned short r, g, b;
+    int r, g, b;
     bool thick;
 
-    Line(const ecl::V2 &s, const ecl::V2 &e, unsigned short rc, unsigned short gc,
-         unsigned short bc, bool isThick)
-    : start(s), end(e), r(rc), g(gc), b(bc), thick(isThick) {}
+    Line(ecl::V2 start, ecl::V2 end, int red, int green, int blue, bool isThick)
+    : start(std::move(start)), end(std::move(end)), r(red), g(green), b(blue), thick(isThick) {}
     Line() {}
 };
 
@@ -307,15 +306,15 @@ class DL_Lines : public DisplayLayer {
 public:
     DL_Lines() : m_id(1) {}
 
-    void draw(ecl::GC & /*gc*/, const WorldArea & /*a*/, int /*x*/, int /*y*/) {}
-    void draw_onepass(ecl::GC &gc);
+    void draw(ecl::GC & /*gc*/, const WorldArea & /*a*/, int /*x*/, int /*y*/) override {}
+    void draw_onepass(ecl::GC &gc) override;
 
     RubberHandle add_line(const ecl::V2 &p1, const ecl::V2 &p2, unsigned short rc,
                           unsigned short gc, unsigned short bc, bool isThick);
     void set_startpoint(unsigned id, const ecl::V2 &p1);
     void set_endpoint(unsigned id, const ecl::V2 &p2);
     void kill_line(unsigned id);
-    void new_world(int w, int h);
+    void new_world(int w, int h) override;
 
 private:
     // Private methods.
@@ -373,7 +372,7 @@ private:
 
 class GameDisplay : public CommonDisplay {
 public:
-    GameDisplay(const ScreenArea &gamearea, const ScreenArea &inventoryarea);
+    GameDisplay(const ScreenArea &gamearea, ScreenArea inventoryarea);
     ~GameDisplay();
 
     StatusBar *get_status_bar() const;

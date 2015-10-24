@@ -34,11 +34,6 @@
 
 using namespace std;
 
-using enigma::GridPos;
-using enigma::Value;
-using enigma::DoubleRand;
-using ecl::V2;
-
 namespace enigma {
 
 /* -------------------- Item implementation -------------------- */
@@ -144,7 +139,7 @@ bool Item::isFreezable() const {
     return isPortable() || (get_traits().flags & itf_freezable);
 }
 
-void Item::add_force(Actor *, V2 &) {
+void Item::add_force(Actor *, ecl::V2 &) {
 }
 
 bool Item::actor_hit(Actor *actor) {

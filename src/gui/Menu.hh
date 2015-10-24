@@ -40,18 +40,18 @@ namespace enigma { namespace gui {
         void add(Widget *w, ecl::Rect r);
         void center();
 
-        void draw (ecl::GC &gc, const ecl::Rect &r);
+        void draw (ecl::GC &gc, const ecl::Rect &r) override;
 
         virtual void quit();
         void abort();
         
         // Container interface
-        virtual void set_key_focus(Widget *newfocus);
-        virtual bool is_key_focus(Widget *focus);
+        virtual void set_key_focus(Widget *newfocus) override;
+        virtual bool is_key_focus(Widget *focus) override;
 
     protected:
-        void reset_active_widget() { active_widget = NULL; }
-        void reset_key_focus_widget() { key_focus_widget = NULL; }
+        void reset_active_widget() { active_widget = nullptr; }
+        void reset_key_focus_widget() { key_focus_widget = nullptr; }
         
         // Menu interface.
         virtual void draw_background(ecl::GC &/*gc*/) {}
@@ -74,8 +74,8 @@ namespace enigma { namespace gui {
         Menu *container;
         int skip;
     public:
-        BuildVList(Menu *cc, const ecl::Rect &rr, int s)
-        : r(rr), container(cc), skip(s)
+        BuildVList(Menu *cc, ecl::Rect rr, int s)
+        : r(std::move(rr)), container(cc), skip(s)
         {}
 
         Widget *add(Widget *w) {
@@ -92,8 +92,8 @@ namespace enigma { namespace gui {
         Menu *container;
         int skip;
     public:
-        BuildHList(Menu *cc, const ecl::Rect &rr, int s)
-        : r(rr), container(cc), skip(s)
+        BuildHList(Menu *cc, ecl::Rect rr, int s)
+        : r(std::move(rr)), container(cc), skip(s)
         {}
 
         Widget * add(Widget *w) {

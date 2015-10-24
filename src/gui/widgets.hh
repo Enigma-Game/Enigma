@@ -98,7 +98,7 @@ namespace enigma { namespace gui {
         virtual void tick (double /*dtime*/) {}
 
     protected:
-        Widget(Container *parent=0);
+        Widget(Container *parent=nullptr);
 
         /* ---------- Functions ---------- */
         void reconfigure();
@@ -146,9 +146,9 @@ namespace enigma { namespace gui {
     public:
         AreaManager(Container *managed);
 
-        void invalidate_area(const ecl::Rect &r);
-        void invalidate_all();
-        void refresh();
+        void invalidate_area(const ecl::Rect &r) override;
+        void invalidate_all() override;
+        void refresh() override;
 
     private:
         ecl::RectList  dirtyrects;
@@ -177,13 +177,13 @@ namespace enigma { namespace gui {
         virtual bool is_key_focus(Widget *focus);
 
         // Widget interface.
-        void draw (ecl::GC& gc, const ecl::Rect &r);
-        void move (int x, int y);
+        void draw (ecl::GC& gc, const ecl::Rect &r) override;
+        void move (int x, int y) override;
 
         // AreaManaged interface.
-        void invalidate_area(const ecl::Rect &r);
-        void invalidate_all();
-        void refresh();
+        void invalidate_area(const ecl::Rect &r) override;
+        void invalidate_all() override;
+        void refresh() override;
         
     protected:
         typedef std::vector<Widget *> WidgetList;
@@ -213,8 +213,8 @@ namespace enigma { namespace gui {
         };
 
         void add_back (Widget *w, ExpansionMode m = List::TIGHT);
-        virtual void remove_child (Widget *w);
-        virtual void exchange_child (Widget *oldChild, Widget *newChild);
+        virtual void remove_child (Widget *w) override;
+        virtual void exchange_child (Widget *oldChild, Widget *newChild) override;
 
         void set_default_size (int w, int h);
         void set_alignment (HAlignment halign, VAlignment valign);
@@ -231,14 +231,14 @@ namespace enigma { namespace gui {
         void get_size (const Widget *widget, int &w, int &h) const;
 
         // ---------- Widget interface ----------
-        virtual void move (int x, int y);
-        virtual void resize(int w, int h);
+        virtual void move (int x, int y) override;
+        virtual void resize(int w, int h) override;
 
         // ---------- List interface ---------- 
         virtual void recalc() = 0;
 
         // ---------- Container interface ----------
-        virtual void reconfigure_child (Widget *w);
+        virtual void reconfigure_child (Widget *w) override;
 
 
     protected:
@@ -258,21 +258,21 @@ namespace enigma { namespace gui {
     class HList : public List {
     public:
         HList() : List() {}
-        virtual bool fits();
+        virtual bool fits() override;
 
     private:
         // List interface
-        virtual void recalc();
+        virtual void recalc() override;
     };
 
     class VList : public List {
     public:
         VList() : List() {}
-        virtual bool fits();
+        virtual bool fits() override;
 
     private:
         // List interface
-        virtual void recalc();
+        virtual void recalc() override;
 
     };
 
@@ -280,8 +280,8 @@ namespace enigma { namespace gui {
 
     class Image : public Widget {
     public:
-        Image (const std::string &iname) : imgname(iname) {}
-        void draw (ecl::GC &gc, const ecl::Rect &r);
+        Image (std::string iname) : imgname(std::move(iname)) {}
+        void draw (ecl::GC &gc, const ecl::Rect &r) override;
     private:
         std::string imgname;
     };
@@ -295,8 +295,8 @@ namespace enigma { namespace gui {
                VAlignment valign=VALIGN_CENTER);
 
         // Widget interface
-        virtual void draw (ecl::GC &gc, const ecl::Rect &r);
-        virtual void naturalsize (int &w, int &h) const;
+        virtual void draw (ecl::GC &gc, const ecl::Rect &r) override;
+        virtual void naturalsize (int &w, int &h) const override;
 
         // Methods
         void set_text (const std::string &text);
@@ -322,7 +322,7 @@ namespace enigma { namespace gui {
                VAlignment valign=VALIGN_CENTER);
 
         // TextButton interface.
-        virtual std::string get_text() const;
+        virtual std::string get_text() const override;
     };
 
 /* -------------------- Button -------------------- */
@@ -335,9 +335,9 @@ namespace enigma { namespace gui {
         Button();
         
         // Widget interface.
-        void draw(ecl::GC &gc, const ecl::Rect &r);
-        void activate();
-        void deactivate();
+        void draw(ecl::GC &gc, const ecl::Rect &r) override;
+        void activate() override;
+        void deactivate() override;
         bool m_activep;
         bool highlight;
     };
@@ -352,8 +352,8 @@ namespace enigma { namespace gui {
         bool is_pressed() { return m_pressedp; }
         
     protected:
-        bool on_event(const SDL_Event &e);
-        void deactivate();
+        bool on_event(const SDL_Event &e) override;
+        void deactivate() override;
         SDLKey getLastUpSym();
         Uint8 getLastUpButton();
         virtual bool soundOk(); 
@@ -367,12 +367,12 @@ namespace enigma { namespace gui {
 
     class TextButton : public PushButton {
     public:
-        TextButton(ActionListener *al=0);
+        TextButton(ActionListener *al=nullptr);
         virtual std::string get_text() const = 0;
 
     private:
         // Widget interface.
-        void draw(ecl::GC &gc, const ecl::Rect &r);
+        void draw(ecl::GC &gc, const ecl::Rect &r) override;
 
         // Variables.
         ecl::Font *menufont;
@@ -383,11 +383,11 @@ namespace enigma { namespace gui {
 
     class StaticTextButton : public TextButton {
     public:
-        StaticTextButton(const std::string &t, ActionListener *al=0);
+        StaticTextButton(const std::string &t, ActionListener *al=nullptr);
         virtual void set_text(const std::string &t);
 
         // TextButton interface.
-        std::string get_text() const;
+        std::string get_text() const override;
 
     protected:
         // Variables.
@@ -398,10 +398,10 @@ namespace enigma { namespace gui {
 
     class UntranslatedStaticTextButton : public StaticTextButton {
     public:
-        UntranslatedStaticTextButton(const std::string &t, ActionListener *al=0);
+        UntranslatedStaticTextButton(const std::string &t, ActionListener *al=nullptr);
 
         // TextButton interface.
-        std::string get_text() const;
+        std::string get_text() const override;
     };
 
 /* -------------------- BoolOptionButton -------------------- */
@@ -410,13 +410,13 @@ namespace enigma { namespace gui {
         BoolOptionButton(const char         *option_name,
                          const std::string&  true_text,
                          const std::string&  false_text,
-                         ActionListener     *al = 0);
+                         ActionListener     *al = nullptr);
 
         bool toggle(); // returns new value
-        virtual void on_action(Widget *);
+        virtual void on_action(Widget *) override;
 
         // TextButton interface.
-        std::string get_text() const;
+        std::string get_text() const override;
 
     private:
         const char *optionName;
@@ -436,13 +436,13 @@ namespace enigma { namespace gui {
         bool inc_value(int offset);
 
         // TextButton interface.
-        virtual std::string get_text() const;
+        virtual std::string get_text() const override;
 
         // Widget interface.
-        virtual void on_action(Widget *w);
+        virtual void on_action(Widget *w) override;
     protected:
         void init(); // called in ctor of derived
-        virtual bool soundOk(); 
+        virtual bool soundOk() override; 
     private:
         int min_value;
         int max_value;
@@ -457,10 +457,10 @@ namespace enigma { namespace gui {
     public:
         ImageButton(const std::string &unselected,
                     const std::string &selected,
-                    ActionListener    *al = 0);
+                    ActionListener    *al = nullptr);
         void set_images(const std::string &unselected, const std::string &selected);
         // Widget interface.
-        virtual void draw(ecl::GC &gc, const ecl::Rect &r);
+        virtual void draw(ecl::GC &gc, const ecl::Rect &r) override;
     private:
         std::string fname_sel, fname_unsel;
     };
@@ -474,13 +474,13 @@ namespace enigma { namespace gui {
                               const std::string &selected,
                               const std::string &mouseover,
                               bool isSelected =false,
-                              ActionListener    *al = 0);
+                              ActionListener    *al = nullptr);
         void set_images(const std::string &unselected, const std::string &selected,
                         const std::string &mouseover);
         void setState(bool isSelected);
         bool getState() const;
         // Widget interface.
-        virtual void draw(ecl::GC &gc, const ecl::Rect &r);
+        virtual void draw(ecl::GC &gc, const ecl::Rect &r) override;
     private:
         std::string fname_sel, fname_unsel, fname_mouse;
         bool state;

@@ -37,30 +37,28 @@ public:
     typedef typename std::list<value_type>::const_iterator const_iterator;
 
     iterator find(const key_type &key) {
-        iterator i = this->begin(), e = this->end();
-        for (; i != e; ++i)
+        for (auto i = this->begin(); i != this->end(); ++i)
             if (i->first == key)
-                break;
-        return i;
+                return i;
+        return this->end();
     }
 
     const_iterator find(const key_type &key) const {
-        const_iterator i = this->begin(), e = this->end();
-        for (; i != e; ++i)
+        for (auto i = this->begin(); i != this->end(); ++i)
             if (i->first == key)
-                break;
-        return i;
+                return i;
+        return this->end();
     }
 
     VAL &operator[](const key_type &key) {
-        iterator i = find(key);
+        auto i = find(key);
         if (i == this->end())
             i = this->insert(this->end(), make_pair(key, VAL()));
         return i->second;
     }
 
     void remove_key(const key_type &key) {
-        iterator i = find(key);
+        auto i = find(key);
         if (i != this->end())
             this->erase(i);
     }

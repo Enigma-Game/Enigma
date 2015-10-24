@@ -37,7 +37,7 @@ struct Image {
 
     // Constructors.
     Image(ecl::Surface *sfc);
-    Image(ecl::Surface *sfc, const ecl::Rect &r);
+    Image(ecl::Surface *sfc, ecl::Rect r);
 };
 
 void incref(Image *i);
@@ -57,9 +57,9 @@ public:
     ~ImageModel();
 
     // Model interface
-    void draw(ecl::GC &gc, int x, int y);
-    Model *clone();
-    void get_extension(ecl::Rect &r);
+    void draw(ecl::GC &gc, int x, int y) override;
+    Model *clone() override;
+    void get_extension(ecl::Rect &r) override;
     Image *get_image() { return image; }
 };
 
@@ -71,18 +71,18 @@ public:
     ~ShadowModel();
 
     // Model interface
-    void expose(ModelLayer *ml, int vx, int vy);
-    void remove(ModelLayer *ml);
+    void expose(ModelLayer *ml, int vx, int vy) override;
+    void remove(ModelLayer *ml) override;
 
-    void set_callback(ModelCallback *cb);
-    void reverse();
-    void restart();
-    void draw(ecl::GC &gc, int x, int y);
-    void draw_shadow(ecl::GC &gc, int x, int y);
-    Model *get_shadow() const;
-    Model *clone();
+    void set_callback(ModelCallback *cb) override;
+    void reverse() override;
+    void restart() override;
+    void draw(ecl::GC &gc, int x, int y) override;
+    void draw_shadow(ecl::GC &gc, int x, int y) override;
+    Model *get_shadow() const override;
+    Model *clone() override;
 
-    void get_extension(ecl::Rect &r);
+    void get_extension(ecl::Rect &r) override;
 
 private:
     Model *model, *shade;
@@ -102,32 +102,32 @@ public:
     }
 
     // Animation interface
-    void set_callback(ModelCallback *cb) {
+    void set_callback(ModelCallback *cb) override {
         fg->set_callback(cb);
     }
-    void reverse() {
+    void reverse() override {
         fg->reverse();
     }
-    void restart() { fg->restart(); }
+    void restart() override { fg->restart(); }
 
     // Model interface
-    Model *get_shadow() const { return bg->get_shadow(); }
-    virtual void expose(ModelLayer *ml, int vx, int vy) {
+    Model *get_shadow() const override { return bg->get_shadow(); }
+    virtual void expose(ModelLayer *ml, int vx, int vy) override {
         fg->expose(ml, vx, vy);
     }
-    virtual void remove(ModelLayer *ml) {
+    virtual void remove(ModelLayer *ml) override {
         fg->remove(ml);
     }
-    void draw(ecl::GC &gc, int x, int y) {
+    void draw(ecl::GC &gc, int x, int y) override {
         bg->draw(gc, x, y);
         fg->draw(gc, x, y);
     }
-    void draw_shadow(ecl::GC &gc, int x, int y) {
+    void draw_shadow(ecl::GC &gc, int x, int y) override {
         bg->draw_shadow(gc, x, y);
     }
-    Model *clone() { return new CompositeModel(bg->clone(), fg->clone()); }
+    Model *clone() override { return new CompositeModel(bg->clone(), fg->clone()); }
 
-    void get_extension(ecl::Rect &r) {
+    void get_extension(ecl::Rect &r) override {
         fg->get_extension(r);
     }
 };
@@ -140,7 +140,7 @@ class RandomModel : public Model {
 
 public:
     void add_model(const std::string &name) { modelnames.push_back(name); }
-    Model *clone();
+    Model *clone() override;
 };
 
 /* -------------------- AliasModel -------------------- */
@@ -149,8 +149,8 @@ class AliasModel : public Model {
     std::string name;
 
 public:
-    AliasModel(const std::string &modelname) : name(modelname) {}
-    Model *clone();
+    AliasModel(std::string modelname) : name(std::move(modelname)) {}
+    Model *clone() override;
 };
 
 /* -------------------- Animations -------------------- */
@@ -182,26 +182,26 @@ class Anim2d : public Model, public ecl::Nocopy {
 public:
     Anim2d(bool loop);
     ~Anim2d();
-    void set_callback(ModelCallback *cb) { callback = cb; }
+    void set_callback(ModelCallback *cb) override { callback = cb; }
 
     void add_frame(Model *m, double duration);
 
     /* ---------- Model interface ---------- */
-    void draw(ecl::GC &gc, int x, int y);
-    void draw_shadow(ecl::GC &gc, int x, int y);
-    Model *clone() { return new Anim2d(rep, extension); }
-    void reverse() { reversep = !reversep; }
-    void restart();
+    void draw(ecl::GC &gc, int x, int y) override;
+    void draw_shadow(ecl::GC &gc, int x, int y) override;
+    Model *clone() override { return new Anim2d(rep, extension); }
+    void reverse() override { reversep = !reversep; }
+    void restart() override;
 
-    void expose(ModelLayer *ml, int vx, int vy);
-    void remove(ModelLayer *ml);
+    void expose(ModelLayer *ml, int vx, int vy) override;
+    void remove(ModelLayer *ml) override;
 
-    void tick(double dtime);
-    bool has_changed(ecl::Rect &changed_region);
-    bool is_garbage() const { return finishedp; }
+    void tick(double dtime) override;
+    bool has_changed(ecl::Rect &changed_region) override;
+    bool is_garbage() const override { return finishedp; }
 
     void move(int newx, int newy);
-    void get_extension(ecl::Rect &r);
+    void get_extension(ecl::Rect &r) override;
 
 private:
     Anim2d(AnimRep *r, ecl::Rect &ext_r);
