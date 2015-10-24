@@ -32,7 +32,7 @@ namespace enigma {
         Other();
         
         // Object interface
-        virtual Object::ObjectType getObjectType() const;
+        virtual Object::ObjectType getObjectType() const override;
         
         virtual void postAddition();
         virtual void preRemoval();

@@ -36,12 +36,12 @@ namespace ecl {
 class XGeneric : public std::exception {
 public:
     // Constructor.
-    XGeneric(const std::string &str = "") : m_string(str) {}
+    XGeneric(std::string str = "") : m_string(std::move(str)) {}
     virtual ~XGeneric() throw() {}
 
     // Accessors
     const std::string &get_string() const { return m_string; }
-    const char *what() const throw() { return m_string.c_str(); }
+    const char *what() const throw() override { return m_string.c_str(); }
 
 private:
     std::string m_string;

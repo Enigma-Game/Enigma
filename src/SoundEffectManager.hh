@@ -248,9 +248,9 @@ namespace sound
                        double volume_, bool loop_, bool global_, int priority_,
                        double damp_max_, double damp_inc_, double damp_mult_,
                        double damp_min_, double damp_tick_, std::string silence_string_)
-        : name(name_), soundset_key(soundset_key_), filename(filename_), volume(volume_),
+        : name(std::move(name_)), soundset_key(std::move(soundset_key_)), filename(std::move(filename_)), volume(volume_),
           loop(loop_), global(global_), priority(priority_),
-          silence_string(silence_string_) {
+          silence_string(std::move(silence_string_)) {
             damp.maxi = damp_max_;
             damp.incr = damp_inc_;
             damp.mult = damp_mult_;
@@ -290,11 +290,11 @@ namespace sound
     class SoundSet {
     public:
         SoundSet(std::string soundset_key_, int button_position_, OxydLib::OxydVersion oxyd_ver_)
-        : soundset_key(soundset_key_), is_oxyd(true), oxyd_ver(oxyd_ver_),
+        : soundset_key(std::move(soundset_key_)), is_oxyd(true), oxyd_ver(oxyd_ver_),
           button_position(button_position_) {}
 
         SoundSet(std::string soundset_key_, int button_position_)
-        : soundset_key(soundset_key_), is_oxyd(false),
+        : soundset_key(std::move(soundset_key_)), is_oxyd(false),
           oxyd_ver(OxydLib::OxydVersion_Invalid), button_position(button_position_) {}
 
         SoundSet()

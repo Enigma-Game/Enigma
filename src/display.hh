@@ -54,7 +54,7 @@ public:
     virtual void draw(ecl::GC & /*gc*/, int /*x*/, int /*y*/) {}
     virtual void draw_shadow(ecl::GC & /*gc*/, int /*x*/, int /*y*/) {}
 
-    virtual Model *get_shadow() const { return 0; }
+    virtual Model *get_shadow() const { return nullptr; }
 
     virtual void expose(ModelLayer * /*ml*/, int /*videox*/, int /*videoy*/) {}
     virtual void remove(ModelLayer * /*ml*/) {}
@@ -149,7 +149,7 @@ SpriteHandle AddEffect(const ecl::V2 &pos, const char *modelname, bool isDispens
 
 // Create a new sprite. If modelname==0, the sprite is considered invisible.
 // Sprites of this type are _never_ automatically deleted.
-SpriteHandle AddSprite(const ecl::V2 &pos, const char *modelname = 0);
+SpriteHandle AddSprite(const ecl::V2 &pos, const char *modelname = nullptr);
 
 /* -------------------- Rubber bands -------------------- */
 
@@ -157,7 +157,7 @@ class DL_Lines;
 
 class RubberHandle {
 public:
-    RubberHandle(DL_Lines *layer = 0, unsigned id = 0);
+    RubberHandle(DL_Lines *layer = nullptr, unsigned id = 0);
     operator unsigned() { return id; }
 
     void update_first(const ecl::V2 &p1);

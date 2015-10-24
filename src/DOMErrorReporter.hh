@@ -46,7 +46,7 @@ namespace enigma
          * @param domError  the error description 
          * @return  true to continue parse or serialization
          */
-        bool handleError(const XERCES_CPP_NAMESPACE_QUALIFIER DOMError& domError);
+        bool handleError(const XERCES_CPP_NAMESPACE_QUALIFIER DOMError& domError) override;
 
         /**
          * Returns true if error or warning occured since last reset

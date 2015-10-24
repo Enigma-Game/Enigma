@@ -103,21 +103,21 @@ namespace sound
     public:
 
         // SoundEngine interface
-        bool init() { return true; }
-        void shutdown() {}
-        bool is_initialized() const { return true; }
-        void set_sound_volume(double /*soundvol*/) {}
-        void set_music_volume(double /*musicvol*/) {}
-        bool play_music (const std::string &/*filename*/, double /*position*/) { return false; }
-        void stop_music() {}
-        void fadeout_music(bool blocking =true) {}
-        bool is_music_playing() { return false; }
-        void clear_cache() {}
-        void define_sound (const SoundName &, const SoundData &) {}
-        bool play_sound (const SoundEvent &) { return false;}
-        void cache_sound(const SoundEffect &s) {}
-        void set_listenerpos (ecl::V2 pos) {}
-        void tick(double /*dtime*/) {}
+        bool init() override { return true; }
+        void shutdown() override {}
+        bool is_initialized() const override { return true; }
+        void set_sound_volume(double /*soundvol*/) override {}
+        void set_music_volume(double /*musicvol*/) override {}
+        bool play_music (const std::string &/*filename*/, double /*position*/) override { return false; }
+        void stop_music() override {}
+        void fadeout_music(bool blocking =true) override {}
+        bool is_music_playing() override { return false; }
+        void clear_cache() override {}
+        void define_sound (const SoundName &, const SoundData &) override {}
+        bool play_sound (const SoundEvent &) override { return false;}
+        void cache_sound(const SoundEffect &s) override {}
+        void set_listenerpos (ecl::V2 pos) override {}
+        void tick(double /*dtime*/) override {}
     };
 
     class SoundEngine_SDL : public SoundEngine {
@@ -126,21 +126,21 @@ namespace sound
         ~SoundEngine_SDL();
 
         // ---------- SoundEngine interface ----------
-        bool init();        
-        void shutdown();
-        bool is_initialized() const { return m_initialized; }
-        void set_sound_volume(double soundvol);
-        void set_music_volume(double musicvol);
-        bool play_music (const std::string &filename, double position);
-        void stop_music();
-        void fadeout_music(bool blocking =true);
-        bool is_music_playing();
-        void clear_cache();
-        void define_sound (const SoundName &, const SoundData &);
-        bool play_sound(const SoundEvent &s);
-        void cache_sound(const SoundEffect &s);
-        void set_listenerpos (ecl::V2 pos) { m_listenerpos = pos; }
-        void tick (double dtime);
+        bool init() override;        
+        void shutdown() override;
+        bool is_initialized() const override { return m_initialized; }
+        void set_sound_volume(double soundvol) override;
+        void set_music_volume(double musicvol) override;
+        bool play_music (const std::string &filename, double position) override;
+        void stop_music() override;
+        void fadeout_music(bool blocking =true) override;
+        bool is_music_playing() override;
+        void clear_cache() override;
+        void define_sound (const SoundName &, const SoundData &) override;
+        bool play_sound(const SoundEvent &s) override;
+        void cache_sound(const SoundEffect &s) override;
+        void set_listenerpos (ecl::V2 pos) override { m_listenerpos = pos; }
+        void tick (double dtime) override;
 
         /*! These functions convert raw audio data with a specified format to
           the mixer's audio format.  This is used for converting the original

@@ -61,7 +61,7 @@ struct Contact {
     // Constructor
     Contact() {}
 
-    Contact(const ecl::V2 &pos_, const ecl::V2 &normal_) : pos(pos_), normal(normal_) {}
+    Contact(ecl::V2 pos, ecl::V2 normal) : pos(std::move(pos)), normal(std::move(normal)) {}
 };
 
 #define MAX_CONTACTS 7
@@ -93,8 +93,6 @@ struct ActorInfo {
 
     // Variables used internally by the physics engine
 
-    //        ecl::V2 last_pos;        // Position before current tick
-    //        ecl::V2 oldpos;		// Backup position for enter/leave notification
     ecl::V2 force;  // Force used during tick
     ecl::V2 collforce;
     double friction;  // friction on the current position
@@ -119,13 +117,12 @@ public:
     static const double max_radius;
 
     // ModelCallback interface
-    void animcb();
+    void animcb() override;
 
     /* ---------- Object interface ---------- */
-    Actor *clone() = 0;
-    virtual void setAttr(const std::string &key, const Value &val);
-    virtual Value getAttr(const std::string &key) const;
-    virtual Value message(const Message &m);
+    virtual void setAttr(const std::string &key, const Value &val) override;
+    virtual Value getAttr(const std::string &key) const override;
+    virtual Value message(const Message &m) override;
 
     /* ---------- Actor interface ---------- */
     virtual const ActorTraits &get_traits() const = 0;
@@ -189,11 +186,11 @@ public:
     bool controlled_by(int player) const { return (get_controllers() & (1 + player)) != 0; }
 
     const GridPos &get_gridpos() const { return m_actorinfo.gridpos; }
-    virtual double squareDistance(const Object *other) const;
-    virtual bool isSouthOrEastOf(const Object *other) const;
+    virtual double squareDistance(const Object *other) const override;
+    virtual bool isSouthOrEastOf(const Object *other) const override;
 
 protected:
-    virtual Object::ObjectType getObjectType() const { return Object::ACTOR; }
+    virtual Object::ObjectType getObjectType() const override { return Object::ACTOR; }
 
     Actor(const ActorTraits &tr);
     void set_model(const std::string &modelname);

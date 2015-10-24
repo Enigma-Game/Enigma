@@ -42,7 +42,7 @@ namespace enigma
     public:
         static PreferenceManager *instance();
         ~PreferenceManager();
-        virtual bool save();
+        virtual bool save() override;
         void shutdown();
         
     protected:

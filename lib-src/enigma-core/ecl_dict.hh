@@ -55,13 +55,13 @@ private:
         typedef value_type &reference;
         typedef value_type *pointer;
 
-        Iter() : dict(0), idx(0), cur(0) {}
+        Iter() : dict(nullptr), idx(0), cur(nullptr) {}
         Iter(const Dict<T> *d, size_type i, Entry *c) : dict(d), idx(i), cur(c) {}
         Iter(const Dict<T> *d) : dict(d) {
             for (idx = 0; idx < dict->nbuckets; ++idx)
-                if ((cur = dict->hashtab[idx]) != 0)
+                if ((cur = dict->hashtab[idx]) != nullptr)
                     return;
-            dict = 0;  // End
+            dict = nullptr;  // End
             idx = 0;
         }
         bool operator==(const Iter &i) { return dict == i.dict && idx == i.idx && cur == i.cur; }
@@ -70,12 +70,12 @@ private:
         reference operator*() { return cur->pair; }
         pointer operator->() { return &cur->pair; }
         Iter &operator++() {
-            if ((cur = cur->next) == 0) {
+            if ((cur = cur->next) == nullptr) {
                 for (++idx; idx < dict->nbuckets; ++idx)
-                    if ((cur = dict->hashtab[idx]) != 0)
+                    if ((cur = dict->hashtab[idx]) != nullptr)
                         return *this;
-                dict = 0;
-                cur = 0;
+                dict = nullptr;
+                cur = nullptr;
                 idx = 0;
             }
             return *this;
@@ -169,7 +169,7 @@ template <class T>
 Dict<T>::Dict(size_type table_size)
 : nentries(0), nbuckets(table_size), hashtab(new Entry *[nbuckets]) {
     for (size_type i = 0; i < nbuckets; ++i)
-        hashtab[i] = 0;
+        hashtab[i] = nullptr;
 }
 
 template <class T>
@@ -181,7 +181,7 @@ Dict<T>::~Dict() {
 template <class T>
 typename Dict<T>::iterator Dict<T>::find(const key_type &key) {
     unsigned h = hash(key) % nbuckets;
-    for (Entry *e = hashtab[h]; e != 0; e = e->next)
+    for (Entry *e = hashtab[h]; e != nullptr; e = e->next)
         if (e->pair.first == key)
             return iterator(this, h, e);
     return end();
@@ -200,11 +200,11 @@ template <class T>
 void Dict<T>::clear() {
     for (size_type i = 0; i < nbuckets; ++i) {
         Entry *cur, *next;
-        for (cur = hashtab[i]; cur != 0; cur = next) {
+        for (cur = hashtab[i]; cur != nullptr; cur = next) {
             next = cur->next;
             delete cur;
         }
-        hashtab[i] = 0;
+        hashtab[i] = nullptr;
     }
     nentries = 0;
 }
@@ -212,7 +212,7 @@ void Dict<T>::clear() {
 template <class T>
 void Dict<T>::insert(const key_type &key, const T &val) {
     unsigned h = hash(key) % nbuckets;
-    Entry *e = new Entry(key, val);
+    auto  e = new Entry(key, val);
     e->next = hashtab[h];
     hashtab[h] = e;
     nentries += 1;
@@ -224,7 +224,7 @@ void Dict<T>::remove(const key_type &key) {
     Entry *e = hashtab[h];
     Entry **eptr = &hashtab[h];
 
-    while (e != 0) {
+    while (e != nullptr) {
         if (e->pair.first == key) {
             *eptr = e->next;  // Modify pointer referring to e
             delete e;
@@ -238,16 +238,16 @@ void Dict<T>::remove(const key_type &key) {
 
 template <class T>
 bool Dict<T>::has_key(const key_type &key) const {
-    return find_entry(key) != 0;
+    return find_entry(key) != nullptr;
 }
 
 template <class T>
 typename Dict<T>::Entry *Dict<T>::find_entry(const key_type &key) const {
     unsigned h = hash(key) % nbuckets;
-    for (Entry *e = hashtab[h]; e != 0; e = e->next)
+    for (Entry *e = hashtab[h]; e != nullptr; e = e->next)
         if (e->pair.first == key)
             return e;
-    return 0;
+    return nullptr;
 }
 }
 #endif

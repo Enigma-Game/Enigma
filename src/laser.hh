@@ -39,14 +39,14 @@ namespace enigma {
         static void prepareLevel();
 
         // Object interface
-        virtual std::string getClass() const;
-        virtual Value message(const Message &m);
+        virtual std::string getClass() const override;
+        virtual Value message(const Message &m) override;
 
         // GridObject interface
-        DirectionBits emissionDirections() const { return (DirectionBits)(objFlags & 15); }
+        DirectionBits emissionDirections() const override { return (DirectionBits)(objFlags & 15); }
         static ItemTraits traits;
 
-        const ItemTraits &get_traits() const {
+        const ItemTraits &get_traits() const override {
             return traits;
         }
     private:
@@ -55,18 +55,18 @@ namespace enigma {
         }
 
         // Item interface.
-        void processLight(Direction dir);
-        void on_creation (GridPos p);
-        virtual void on_removal(GridPos p);
-        void init_model();
-        bool actor_hit(Actor *actor);
+        void processLight(Direction dir) override;
+        void on_creation (GridPos p) override;
+        virtual void on_removal(GridPos p) override;
+        void init_model() override;
+        bool actor_hit(Actor *actor) override;
 
-        Item *clone() {
+        Item *clone() override {
             // new LaserBeams may only created inside `emit_from'.
 //            assert(0);
-            return 0;
+            return nullptr;
         }
-        void dispose();
+        void dispose() override;
 
         // Variables
         

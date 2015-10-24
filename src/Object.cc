@@ -121,20 +121,23 @@ Value Object::message(const Message &m) {
         case FLOOR: KillFloor(dynamic_cast<GridObject *>(this)->get_pos()); break;
         case ITEM: KillItem(dynamic_cast<GridObject *>(this)->get_pos()); break;
         case STONE: KillStone(dynamic_cast<GridObject *>(this)->get_pos()); break;
+        default:
+            // Ignore
+            break;
         }
     } else if (m.message == "disconnect") {
         bool wasConnected = false;
         ObjectList olist = getAttr("rubbers");  // a private deletion resistant copy
         for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it)
             KillOther(dynamic_cast<Other *>(*it));
-        if (olist.size() > 0) {
+        if (!olist.empty()) {
             wasConnected = true;
             setAttr("rubber", Value());  // delete attribute
         }
         olist = getAttr("wires");  // a private deletion resistant copy
         for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it)
             KillOther(dynamic_cast<Other *>(*it));
-        if (olist.size() > 0) {
+        if (!olist.empty()) {
             wasConnected = true;
             setAttr("wires", Value());  // delete attribute
         }
@@ -149,13 +152,11 @@ void Object::setAttr(const std::string &key, const Value &val) {
             objFlags |= OBJBIT_INVERSE;
         else
             objFlags &= ~OBJBIT_INVERSE;
-
     } else if (key == "nopaction") {
         if (val.to_bool())
             objFlags |= OBJBIT_NOP;
         else
             objFlags &= ~OBJBIT_NOP;
-
     } else if (val) {  // only set non-default values
         if (val.getType() == Value::NIL /*&& server::EnigmaCompatibility >= 1.10*/)
             // delete attribute
@@ -318,8 +319,8 @@ void Object::performAction(const Value &val) {
         action = (ait != actions.end()) ? ait->to_string() : "";
 
         ObjectList ol =
-            (*tit).getObjectList(this);  // get all or nearest objects described by target token
-        if (ol.size() == 0 || (ol.size() == 1 && ol.front() == NULL)) {  // no target object
+            tit->getObjectList(this);  // get all or nearest objects described by target token
+        if (ol.empty() || (ol.size() == 1 && ol.front() == NULL)) {  // no target object
             if ((action == "callback" || action.empty()) && (tit->getType() == Value::STRING)) {
                 // it is an existing callback function
                 if (secure) {
@@ -375,15 +376,13 @@ void Object::send_impulse(const GridPos &dest, Direction dir) {
     }
 }
 
-// Like variant above, but the _result_ of the impulse is delayed.
 bool Object::getDestinationByIndex(int idx, ecl::V2 &dstpos) {
     int i = 0;                              // counter for destination candidates
     TokenList tl = getAttr("destination");  // expand any tokens to a list of values
-    for (TokenList::iterator tit = tl.begin(); tit != tl.end(); ++tit) {
-        PositionList pl =
-            (*tit).getPositionList(this);  // convert next token to a list of positions
-        for (PositionList::iterator pit = pl.begin(); pit != pl.end(); ++pit) {
-            ecl::V2 pos = (*pit).centeredPos();
+    for (auto tit = tl.begin(); tit != tl.end(); ++tit) {
+        PositionList pl = tit->getPositionList(this);  // convert next token to a list of positions
+        for (auto position : pl) {
+            ecl::V2 pos = position.centeredPos();
             if (IsInsideLevel(pos)) {  // no positions in inventory,..
                 if (i == idx) {
                     dstpos = pos;
@@ -401,7 +400,7 @@ void Object::finalizeNearestObjectReferences(std::string attr) {
     TokenList targets = getAttr(attr);
 
     for (TokenList::iterator tit = targets.begin(); tit != targets.end(); ++tit) {
-        modified |= (*tit).finalizeNearestObjectReference(this);
+        modified |= tit->finalizeNearestObjectReference(this);
     }
     if (modified) {
         if (attr.find("anchor") == 0) {

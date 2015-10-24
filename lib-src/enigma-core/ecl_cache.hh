@@ -61,10 +61,7 @@ private:
     virtual T acquire(const std::string &name) = 0;
 
     // ---------- Variables ----------
-    typedef ecl::Dict<T> Map;
-    typedef typename Map::iterator iterator;
-
-    Map cache;
+    ecl::Dict<T> cache;
 };
 
 template <class T, class D>
@@ -74,8 +71,8 @@ Cache<T, D>::Cache()
 
 template <class T, class D>
 void Cache<T, D>::clear() {
-    for (iterator i = cache.begin(); i != cache.end(); ++i)
-        release(i->second);
+    for (auto & elem : cache)
+        release(elem.second);
     cache.clear();
 }
 
@@ -92,7 +89,7 @@ T Cache<T, D>::store(const std::string &key, T value) {
 
 template <class T, class D>
 T Cache<T, D>::get(const std::string &key) {
-    iterator i = cache.find(key);
+    auto i = cache.find(key);
     if (i != cache.end())
         return i->second;
     else

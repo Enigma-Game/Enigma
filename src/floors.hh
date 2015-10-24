@@ -81,9 +81,9 @@ public:
           const char *firetransform_ = "", const char *heattransform_ = "");
 
     // Object interface
-    virtual Value message(const Message &m);
-    virtual void setAttr(const std::string &key, const Value &val);
-    virtual Value getAttr(const std::string &key) const;
+    virtual Value message(const Message &m) override;
+    virtual void setAttr(const std::string &key, const Value &val) override;
+    virtual Value getAttr(const std::string &key) const override;
 
     // Floor interface
     virtual ecl::V2 process_mouseforce(Actor *a, ecl::V2 force);
@@ -102,17 +102,17 @@ public:
     virtual bool is_destructible() const;
     virtual bool is_freeze_check() const;
 
-    virtual void animcb();
+    virtual void animcb() override;
     void on_burnable_animcb(bool justIgnited);  // Called by burnable-items on it.
 
 protected:
-    virtual Object::ObjectType getObjectType() const { return Object::FLOOR; }
+    virtual Object::ObjectType getObjectType() const override { return Object::FLOOR; }
 
     // GridObject interface
-    virtual void on_creation(GridPos p);
-    virtual void set_model(const std::string &mname);
-    virtual display::Model *get_model();
-    virtual void kill_model(GridPos p);
+    virtual void on_creation(GridPos p) override;
+    virtual void set_model(const std::string &mname) override;
+    virtual display::Model *get_model() override;
+    virtual void kill_model(GridPos p) override;
 
     // Fire interface
     virtual bool has_firetype(FloorFireType selector);

@@ -207,9 +207,8 @@ void player::PrepareLevel() {
 }
 
 void player::LevelFinished(int stage) {
-    for (unsigned i = 0; i < players.size(); ++i) {
-        for (unsigned j = 0; j < players[i].actors.size(); ++j) {
-            Actor *a = players[i].actors[j];
+    for (auto &player : players) {
+        for (Actor *a : player.actors) {
             if (stage == 0) {
                 SendMessage(a, "_levelfinish");
             } else {
@@ -227,7 +226,7 @@ Inventory *player::GetInventory(int iplayer) {
 Inventory *player::GetInventory(Actor *a) {
     if (Value v = a->getAttr("owner"))
         return GetInventory((int)v);
-    return 0;
+    return nullptr;
 }
 
 bool player::WieldedItemIs(Actor *a, const string &kind) {
@@ -254,8 +253,8 @@ void player::SetCurrentPlayer(unsigned iplayer) {
 unsigned player::NumberOfRealPlayers() {
     unsigned real_players = 0;
 
-    for (unsigned i = 0; i < players.size(); ++i) {
-        if (!players[i].actors.empty()) {
+    for (auto &player : players) {
+        if (!player.actors.empty()) {
             ++real_players;
         }
     }
@@ -267,13 +266,11 @@ unsigned player::NumberOfRealPlayers() {
 void player::SetRespawnPositions(GridPos pos, Value color) {
     ecl::V2 center = pos.center();
 
-    for (unsigned i = 0; i < players.size(); ++i) {
-        vector<Actor *> &al = players[i].actors;
-
-        for (unsigned j = 0; j < al.size(); ++j) {
-            if (Value ac = al[j]->getAttr("color")) {
+    for (auto &player : players) {
+        for (auto &actor : player.actors) {
+            if (Value ac = actor->getAttr("color")) {
                 if (ac == color)
-                    al[j]->set_respawnpos(center);
+                    actor->set_respawnpos(center);
             }
         }
     }
@@ -281,23 +278,20 @@ void player::SetRespawnPositions(GridPos pos, Value color) {
 
 /*! Remove respawn positions for black or white actors */
 void player::RemoveRespawnPositions(Value color) {
-    for (unsigned i = 0; i < players.size(); ++i) {
-        vector<Actor *> &al = players[i].actors;
-
-        for (unsigned j = 0; j < al.size(); ++j) {
-            if (Value ac = al[j]->getAttr("color")) {
+    for (auto &player : players) {
+        for (auto &actor : player.actors) {
+            if (Value ac = actor->getAttr("color")) {
                 if (ac == color)
-                    al[j]->remove_respawnpos();
+                    actor->remove_respawnpos();
             }
         }
     }
 }
 
 void player::Suicide() {
-    for (unsigned i = 0; i < players.size(); ++i) {
-        vector<Actor *> &al = players[i].actors;
-        for (unsigned j = 0; j < al.size(); ++j) {
-            SendMessage(al[j], "_suicide");
+    for (auto &player : players) {
+        for (auto &actor : player.actors) {
+            SendMessage(actor, "_suicide");
         }
     }
 }
@@ -306,14 +300,13 @@ Actor *player::ReplaceActor(unsigned iplayer, Actor *old, Actor *a) {
     if (iplayer >= players.size())
         server::RaiseError("Invalid actor number");
 
-    vector<Actor *> &al = players[iplayer].actors;
-    for (unsigned i = 0; i < al.size(); ++i) {
-        if (al[i] == old) {
-            al[i] = a;
+    for (auto &actor : players[iplayer].actors) {
+        if (actor == old) {
+            actor = a;
             return old;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 void player::AddActor(unsigned iplayer, Actor *a) {
@@ -331,8 +324,8 @@ void player::AddActor(unsigned iplayer, Actor *a) {
 
 bool player::HasActor(unsigned iplayer, Actor *a) {
     if (iplayer < players.size()) {
-        for (int i = 0; i < players[iplayer].actors.size(); i++) {
-            if (players[iplayer].actors[i] == a)
+        for (auto &actor : players[iplayer].actors) {
+            if (actor == a)
                 return true;
         }
     }
@@ -385,8 +378,7 @@ void player::CheckDeadActors() {
         std::map<std::string, int> essMap;
         std::map<std::string, int>::iterator itEss;
 
-        for (size_t i = 0; i < actors.size(); ++i) {
-            Actor *a = actors[i];
+        for (auto a : actors) {
             std::string essId;
             if (Value v = a->getAttr("essential_id"))
                 essId = v.to_string();
@@ -443,9 +435,7 @@ void player::CheckDeadActors() {
         bool reset_level = true;
         for (unsigned pl = 0; pl < players.size(); ++pl) {
             numDead.push_back(0);
-            vector<Actor *> &actors = players[pl].actors;
-            for (size_t i = 0; i < actors.size(); ++i) {
-                Actor *a = actors[i];
+            for (auto a : players[pl].actors) {
                 if (a->is_dead()) {
                     numDead[pl]++;
                 }
@@ -481,7 +471,7 @@ void player::CheckDeadActors() {
 
 Actor *player::GetMainActor(unsigned iplayer) {
     vector<Actor *> &actors = players[iplayer].actors;
-    return actors.empty() ? 0 : actors[0];
+    return actors.empty() ? nullptr : actors[0];
 }
 
 void player::Tick(double dtime) {
@@ -513,7 +503,7 @@ Inventory *player::MayPickup(Actor *a, Item *it, bool allowFlying) {
     if (Value v = a->getAttr("owner"))
         iplayer = v;
     if (iplayer < 0 || (unsigned)iplayer >= players.size()) {
-        return 0;
+        return nullptr;
     }
 
     Inventory *inv = GetInventory(iplayer);
@@ -521,7 +511,7 @@ Inventory *player::MayPickup(Actor *a, Item *it, bool allowFlying) {
                        !inv->willAddItem(it) || a->is_dead() ||
                        (server::GameCompatibility != GAMET_ENIGMA && a->getClass() != "ac_marble");
 
-    return dont_pickup ? 0 : inv;
+    return dont_pickup ? nullptr : inv;
 }
 
 void player::PickupItem(Actor *a, GridPos p) {
@@ -555,12 +545,12 @@ void player::ActivateFirstItem() {
 
     if (inv.size() > 0) {
         Item *it = inv.get_item(0);
-        Actor *ac = NULL;
+        Actor *ac = nullptr;
         GridPos p;
         bool can_drop_item = false;
         std::vector<Actor *>::iterator itr;
         for (itr = players[icurrent_player].actors.begin();
-             itr != players[icurrent_player].actors.end() && ac == NULL; itr++) {
+             itr != players[icurrent_player].actors.end() && ac == nullptr; itr++) {
             if (!(*itr)->is_dead()) {
                 ac = *itr;
                 p = GridPos(ac->get_pos());
@@ -568,7 +558,7 @@ void player::ActivateFirstItem() {
             }
         }
 
-        if (ac != NULL) {
+        if (ac != nullptr) {
             switch (it->activate(ac, p)) {
             case ITEM_DROP:
                 // only drop if no item underneath and actor allows it

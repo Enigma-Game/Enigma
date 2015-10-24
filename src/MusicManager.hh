@@ -64,7 +64,7 @@ namespace sound
         MusicSingle(std::string title_, std::string filename_,
             float aff_int = 0, float aff_dex = 0, float aff_pat = 0,
             float aff_kno = 0, float aff_spe = 0)
-        : title(title_), filename(filename_), affinity_intelligence(aff_int),
+        : title(std::move(title_)), filename(std::move(filename_)), affinity_intelligence(aff_int),
         affinity_dexterity(aff_dex), affinity_patience(aff_pat),
         affinity_knowledge(aff_kno), affinity_speed(aff_spe) {}
 
@@ -117,7 +117,7 @@ namespace sound
     class MusicQueue {
     public:
         MusicQueue(std::string title_, MusicQueueShuffleType shuffle_type_, int button_position_)
-        : title(title_), button_position(button_position_),
+        : title(std::move(title_)), button_position(button_position_),
           current_position_in_queue(-1), queue_entry(), defunc(false),
           shuffle_type(shuffle_type_) {}
 

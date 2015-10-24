@@ -24,6 +24,7 @@
 // parts of the program, like common types and constants.
 
 #include "ecl_math.hh"
+#include <utility>
 #include <stdint.h>
 
 #define NUMENTRIES(array) (sizeof(array) / sizeof(*array))
@@ -289,7 +290,7 @@ inline bool operator<(GridPos a, GridPos b) {
 
 // ---------- GridLoc ----------
 
-inline GridLoc::GridLoc(GridLayer l, GridPos p) : pos(p), layer(l) {
+inline GridLoc::GridLoc(GridLayer l, GridPos p) : pos(std::move(p)), layer(l) {
 }
 
 }  // namespace enigma

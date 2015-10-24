@@ -41,8 +41,8 @@ namespace enigma
         FSType      type;
         std::string location;
 
-        FSEntry (FSType type_, const std::string &location_)
-        : type (type_), location (location_)
+        FSEntry (FSType type_, std::string location_)
+        : type (type_), location (std::move(location_))
         {}
     };
 

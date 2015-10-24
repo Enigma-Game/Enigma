@@ -43,7 +43,7 @@ namespace enigma
     public:
         static StateManager *instance();
         ~StateManager();
-        virtual bool save();
+        virtual bool save() override;
         void shutdown();
         
         void getGroupNames(std::vector<std::string> *names);

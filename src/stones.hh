@@ -171,8 +171,7 @@ public:
     ~Stone();
 
     /* ---------- Virtual functions ---------- */
-    virtual Stone *clone() = 0;
-    virtual std::string getClass() const;
+    virtual std::string getClass() const override;
 
     /* ---------- Stone interface (properties) ---------- */
 
@@ -204,7 +203,7 @@ public:
     }
 
     virtual bool isConnectable(Stone *other) const {
-        return other != NULL && std::string(other->getClass()) == getClass();
+        return other != nullptr && std::string(other->getClass()) == getClass();
     }
 
     /* ---------- Stone interface (events) ---------- */
@@ -222,7 +221,7 @@ public:
     void propagateImpulse(const Impulse &impulse);
 
 protected:
-    virtual Object::ObjectType getObjectType() const { return Object::STONE; }
+    virtual Object::ObjectType getObjectType() const override { return Object::STONE; }
 
     bool move_stone(GridPos newPos, const char *soundevent);
     bool move_stone(Direction dir);
@@ -235,16 +234,16 @@ protected:
 
 protected:
     // GridObject interface
-    virtual void on_creation(GridPos p);
-    virtual void set_model(const std::string &mname) {
+    virtual void on_creation(GridPos p) override;
+    virtual void set_model(const std::string &mname) override {
         display::SetModel(GridLoc(GRID_STONES, get_pos()), mname);
     }
 
-    virtual display::Model *get_model() {
+    virtual display::Model *get_model() override {
         return display::GetModel(GridLoc(GRID_STONES, get_pos()));
     }
 
-    virtual void kill_model(GridPos p) { display::KillModel(GridLoc(GRID_STONES, p)); }
+    virtual void kill_model(GridPos p) override { display::KillModel(GridLoc(GRID_STONES, p)); }
 
 private:
     // Help structure and routine for freeze_check()

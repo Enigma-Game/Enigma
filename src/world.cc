@@ -17,6 +17,9 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
+#include "world.hh"
+#include "world_internal.hh"
+
 #include "errors.hh"
 #include "laser.hh"
 #include "player.hh"
@@ -43,8 +46,6 @@
 
 using namespace std;
 using namespace ecl;
-
-#include "world_internal.hh"
 
 namespace enigma {
 
@@ -73,16 +74,14 @@ bool has_nearby_contact(const Contact *ca, int ca_count, const Contact &c) {
 ActorInfo::ActorInfo()
 : pos(),
   gridpos(),
-  field(NULL),
-  vel(),
-  forceacc(),
+  field(nullptr),
   charge(0),
   mass(1),
   radius(1),
   grabbed(false),
+  created(false),
   ignore_contacts(false),
-  force(),
-  //        grabbed(false), ignore_contacts (false), last_pos(), force(),
+  friction(0.0),
   contacts(&contacts_a[0]),
   last_contacts(&contacts_b[0]),
   contacts_count(0),
@@ -91,29 +90,29 @@ ActorInfo::ActorInfo()
 
 /* -------------------- Messages -------------------- */
 
-Message::Message() : sender(NULL) {
+Message::Message() : sender(nullptr) {
 }
 
-Message::Message(const std::string &theMessage, const Value &theValue, Object *theSender)
-: message(theMessage), value(theValue), sender(theSender) {
+Message::Message(std::string theMessage, const Value &theValue, Object *theSender)
+: message(std::move(theMessage)), value(theValue), sender(theSender) {
 }
 
 /* -------------------- Field -------------------- */
 
 Field::Field() {
-    floor = 0;
-    item = 0;
-    stone = 0;
+    floor = nullptr;
+    item = nullptr;
+    stone = nullptr;
 }
 
 Field::~Field() {
     // the field should be empty at this point, but for security reasons ...
     DisposeObject(stone);
-    stone = NULL;
+    stone = nullptr;
     DisposeObject(item);
-    item = NULL;
+    item = nullptr;
     DisposeObject(floor);
-    floor = NULL;
+    floor = nullptr;
 }
 
 /* -------------------- StoneContact -------------------- */
@@ -177,7 +176,7 @@ T *Layer<T>::yield(GridPos p) {
     if (Field *f = level->get_field(p)) {
         T *x = raw_get(*f);
         if (x) {
-            raw_set(*f, 0);
+            raw_set(*f, nullptr);
             x->removal(p);
         }
         return x;
@@ -206,16 +205,15 @@ const double World::contact_e = 0.02;  // epsilon distant limit for contacts
 
 World::World(int ww, int hh)
 : fields(ww, hh),
-  preparing_level(true),
-  leftmost_actor(NULL),
-  rightmost_actor(NULL),
+  leftmost_actor(nullptr),
+  rightmost_actor(nullptr),
+  scrambleIntensity(10),  // difficult default
   numMeditatists(0),
   indispensableHollows(0),
   engagedIndispensableHollows(0),
   engagedDispensableHollows(0),
-  registerCriticalPositions(false),
-  scrambleIntensity(10)  // difficult default
-{
+  preparing_level(true),
+  registerCriticalPositions(false) {
     w = ww;
     h = hh;
 }
@@ -229,13 +227,13 @@ World::~World() {
     }
     // dispose all grid objects without removing them to avoid side effects
     // keep the field array still valid for arbitrary access
-    for (FieldArray::iterator itr = fields.begin(); itr != fields.end(); ++itr) {
-        DisposeObject((*itr).stone);
-        (*itr).stone = NULL;
-        DisposeObject((*itr).item);
-        (*itr).item = NULL;
-        DisposeObject((*itr).floor);
-        (*itr).floor = NULL;
+    for (auto &field : fields) {
+        DisposeObject(field.stone);
+        field.stone = nullptr;
+        DisposeObject(field.item);
+        field.item = nullptr;
+        DisposeObject(field.floor);
+        field.floor = nullptr;
     }
     // reset the fields
     fields = FieldArray(0, 0);
@@ -247,7 +245,7 @@ bool World::is_border(const GridPos &p) {
 }
 
 void World::remove(ForceField *ff) {
-    ForceList::iterator i = find(forces.begin(), forces.end(), ff);
+    auto i = find(forces.begin(), forces.end(), ff);
     if (i != forces.end())
         forces.erase(i);
 }
@@ -262,7 +260,7 @@ Object *World::get_named(const std::string &name) {
     if (found != m_objnames.end())
         return found->second;
     //    Log << "Did not find named object: " << name << '\n';
-    return NULL;
+    return nullptr;
 }
 
 std::list<Object *> World::get_group(const std::string &tmpl, Object *reference) {
@@ -280,7 +278,7 @@ std::list<Object *> World::get_group(const std::string &tmpl, Object *reference)
         } else if (pattern[0] == '@') {
             pattern.erase(0, 1);  // erase the leading @@
         }
-        if (reference != NULL)
+        if (reference != nullptr)
             nearest = true;
     }
 
@@ -309,7 +307,7 @@ std::list<Object *> World::get_group(const std::string &tmpl, Object *reference)
 
 void World::name_object(Object *obj, const std::string &name) {
     Object *old = get_named(name);
-    if (old != NULL)
+    if (old != nullptr)
         unname(old);
 
     std::string unique_name = name;
@@ -317,7 +315,7 @@ void World::name_object(Object *obj, const std::string &name) {
         // auto name object with a unique name
         int i;
         //        for (i = 1; get_named(name + ecl::strf("%d",i)) != NULL; i++);
-        for (i = IntegerRand(1, 999999); get_named(name + ecl::strf("%d", i)) != NULL;
+        for (i = IntegerRand(1, 999999); get_named(name + ecl::strf("%d", i)) != nullptr;
              i = IntegerRand(1, 999999))
             ;
         unique_name = name + ecl::strf("%d", i);
@@ -365,12 +363,17 @@ Value World::getNamedPosition(const std::string &name) {
 PositionList World::getPositionList(const std::string &tmpl, Object *reference) {
     PositionList positions;
     ObjectList objects = get_group(tmpl, reference);
-    for (ObjectList::iterator itr = objects.begin(); itr != objects.end(); ++itr) {
-        switch ((*itr)->getObjectType()) {
+    for (auto &object : objects) {
+        switch (object->getObjectType()) {
         case Object::STONE:
         case Object::FLOOR:
-        case Object::ITEM: positions.push_back(dynamic_cast<GridObject *>(*itr)->get_pos()); break;
-        case Object::ACTOR: positions.push_back(dynamic_cast<Actor *>(*itr)->get_pos()); break;
+        case Object::ITEM:
+            positions.push_back(dynamic_cast<GridObject *>(object)->get_pos());
+            break;
+        case Object::ACTOR: positions.push_back(dynamic_cast<Actor *>(object)->get_pos()); break;
+        default:
+            // ignore
+            break;
         }
     }
 
@@ -401,11 +404,11 @@ void World::add_actor(Actor *a, const V2 &pos) {
     Actor *oldright = rightmost_actor;
 
     a->left = oldright;  // might be NULL
-    a->right = NULL;
+    a->right = nullptr;
     rightmost_actor = a;
-    if (leftmost_actor == NULL)
+    if (leftmost_actor == nullptr)
         leftmost_actor = a;
-    if (oldright != NULL) {
+    if (oldright != nullptr) {
         oldright->right = a;
         did_move_actor(a);
     }
@@ -420,27 +423,27 @@ void World::add_actor(Actor *a, const V2 &pos) {
 }
 
 Actor *World::yield_actor(Actor *a) {
-    ActorList::iterator i = find(actorlist.begin(), actorlist.end(), a);
+    auto i = find(actorlist.begin(), actorlist.end(), a);
     if (i != actorlist.end()) {
         actorlist.erase(i);
 
-        if (a->left == NULL)
+        if (a->left == nullptr)
             leftmost_actor = a->right;
         else
             a->left->right = a->right;
 
-        if (a->right == NULL)
+        if (a->right == nullptr)
             rightmost_actor = a->left;
         else
             a->right->left = a->left;
 
-        a->left = NULL;
-        a->right = NULL;
+        a->left = nullptr;
+        a->right = nullptr;
 
         GrabActor(a);
         return a;
     }
-    return NULL;
+    return nullptr;
 }
 
 void World::exchange_actors(Actor *a1, Actor *a2) {
@@ -460,38 +463,39 @@ void World::tick(double dtime) {
     tick_sound_dampings();
 
     // Tell floors and items about new stones.
-    for (unsigned i = 0; i < changed_stones.size(); ++i)
-        stone_change(changed_stones[i]);
+    for (auto &stone : changed_stones)
+        stone_change(stone);
     changed_stones.clear();
 
     m_mouseforce.tick(dtime);
-    for_each(forces.begin(), forces.end(), bind2nd(mem_fun(&ForceField::tick), dtime));
+    for (auto &force : forces)
+        force->tick(dtime);
 
     GameTimer.tick(dtime);
 
     PerformRecalcLight(false);  // recalculate laser beams if necessary
     doPerformPendingActions();
     // do kill lasered actors in same time step
-    for (unsigned i = 0; i < actorlist.size(); ++i) {
-        Item *it = actorlist[i]->get_actorinfo()->field->item;
-        if (it != NULL && get_id(it) == it_laserbeam) {
-            it->actor_hit(actorlist[i]);
+    for (auto actor : actorlist) {
+        Item *it = actor->get_actorinfo()->field->item;
+        if (it != nullptr && get_id(it) == it_laserbeam) {
+            it->actor_hit(actor);
         }
     }
 }
 
 void World::doPerformPendingActions() {
-    for (std::list<Action>::iterator itr = actionList.begin(); itr != actionList.end(); ++itr) {
-        if ((*itr).isCallback) {
-            if (lua::CallFunc(lua::LevelState(), (*itr).name, (*itr).val,
-                              Object::getObject((*itr).senderId),
-                              (*itr).targetId) != lua::NO_LUAERROR) {
-                throw XLevelRuntime(std::string("delayed callback '") + (*itr).name +
+    for (auto &action : actionList) {
+        if (action.isCallback) {
+            if (lua::CallFunc(lua::LevelState(), action.name, action.val,
+                              Object::getObject(action.senderId),
+                              action.targetId) != lua::NO_LUAERROR) {
+                throw XLevelRuntime(std::string("delayed callback '") + action.name +
                                     "' failed:\n" + lua::LastError(lua::LevelState()));
             }
         } else {
-            SendMessage(Object::getObject((*itr).targetId),
-                        Message((*itr).name, (*itr).val, Object::getObject((*itr).senderId)));
+            SendMessage(Object::getObject(action.targetId),
+                        Message(action.name, action.val, Object::getObject(action.senderId)));
         }
     }
     actionList.clear();
@@ -505,10 +509,7 @@ void World::add_scramble(GridPos p, Direction dir) {
 
 void World::scramble_puzzles() {
     while (!scrambles.empty()) {
-        list<Scramble>::iterator i = scrambles.begin();
-        list<Scramble>::iterator e = scrambles.end();
-
-        for (; i != e; ++i) {
+        for (auto i = scrambles.begin(); i != scrambles.end(); ++i) {
             Stone *puzz = GetStone(i->pos);
             if (puzz && i->intensity) {
                 SendMessage(puzz, "_scramble", Value(double(i->dir)));
@@ -599,8 +600,7 @@ ecl::V2 World::get_global_force(Actor *a) {
 
     // Electrostatic forces between actors.
     if (double q = get_charge(a)) {
-        for (ActorList::iterator i = actorlist.begin(); i != actorlist.end(); ++i) {
-            Actor *a2 = *i;
+        for (auto a2 : actorlist) {
             if (a2 == a)
                 continue;
             if (double q2 = get_charge(a2)) {
@@ -612,8 +612,8 @@ ecl::V2 World::get_global_force(Actor *a) {
     }
 
     // All other force fields.
-    for (ForceList::iterator i = forces.begin(); i != forces.end(); ++i)
-        f += (*i)->globalForce(a);
+    for (auto force : forces)
+        f += force->globalForce(a);
 
     return f;
 }
@@ -654,7 +654,7 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
     c.outerCorner = false;
     bool isInnerContact = false;
 
-    Stone *stone = (st != NULL) ? st : GetStone(p);
+    Stone *stone = (st != nullptr) ? st : GetStone(p);
     if (!stone)
         return;
 
@@ -715,7 +715,7 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
             // the faces that the neighbour window owns
             Stone *neighbour = GetStone(GridPos(x + xoff_neighbour, y + yoff_neighbour));
             DirectionBits face_neighbour =
-                (neighbour != NULL && neighbour->get_traits().id == st_window)
+                (neighbour != nullptr && neighbour->get_traits().id == st_window)
                     ? neighbour->getFaces(a->is_invisible())
                     : NODIRBIT;
 
@@ -926,11 +926,11 @@ void World::find_contact_with_edge(Actor *a, GridPos p0, GridPos p1, GridPos p2,
     Stone *s0 = GetStone(p0);
     Stone *s1 = GetStone(p1);
     Stone *s2 = GetStone(p2);
-    if (s0 != NULL)
+    if (s0 != nullptr)
         c0.response = s0->collision_response(c0);
-    if (s1 != NULL)
+    if (s1 != nullptr)
         c1.response = s1->collision_response(c1);
-    if (s2 != NULL)
+    if (s2 != nullptr)
         c2.response = s2->collision_response(c2);
 
     if (s1 && s2 && c1.response == STONE_REBOUND && c2.response == STONE_REBOUND) {
@@ -1026,7 +1026,7 @@ void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1, St
     // contacts within the grid
     Stone *actorWinStone = GetStone(g);
     DirectionBits winFacesActorStone =
-        (actorWinStone != NULL && actorWinStone->get_traits().id == st_window)
+        (actorWinStone != nullptr && actorWinStone->get_traits().id == st_window)
             ? actorWinStone->getFaces(a->is_invisible())
             : NODIRBIT;
 
@@ -1226,6 +1226,7 @@ void World::handle_stone_contact(StoneContact &sc) {
 }
 
 namespace {
+
 struct ActorEntry {
     double pos;
     size_t idx;
@@ -1241,17 +1242,18 @@ struct ActorEntry {
 
     bool operator<(const ActorEntry &x) const { return pos < x.pos; }
 };
-};
+
+}  // namespace
 
 void World::handle_actor_contacts() {
     // For each actor, search for possible collisions with other actors.
     // If there is a good chance for a collision, call handle_actor_contact.
     Actor *a = leftmost_actor;
-    while (a != NULL) {
+    while (a != nullptr) {
         Actor *candidate = a->right;
         double actingradius = a->m_actorinfo.radius + Actor::max_radius;
         double max_x = a->m_actorinfo.pos[0] + actingradius;
-        while (candidate != NULL && candidate->m_actorinfo.pos[0] <= max_x) {
+        while (candidate != nullptr && candidate->m_actorinfo.pos[0] <= max_x) {
             double ydist = candidate->m_actorinfo.pos[1] - a->m_actorinfo.pos[1];
             ydist = (ydist < 0) ? -ydist : ydist;
             if (ydist <= actingradius) {
@@ -1318,7 +1320,7 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2) {
                 double volume = length(force) * ActorTimeStep;
                 volume = std::min(1.0, volume);
                 if (volume > 0.4) {
-                    volume = GetVolume("ballcollision", NULL, volume);
+                    volume = GetVolume("ballcollision", nullptr, volume);
                     sound::EmitSoundEvent("ballcollision", contact.pos, volume);
                 }
             }
@@ -1386,7 +1388,7 @@ void World::move_actors(double dtime) {
 
             ai.forceacc = V2();
             ai.collforce = V2();
-            //            ai.last_pos  = ai.pos;
+
             // swap contacts and clear contacts
             ai.last_contacts = ai.contacts;
             ai.last_contacts_count = ai.contacts_count;
@@ -1394,8 +1396,8 @@ void World::move_actors(double dtime) {
             ai.contacts_count = 0;
         }
 
-        for (RubberbandList::iterator rit = rubberbands.begin(); rit != rubberbands.end(); ++rit) {
-            (*rit)->applyForces(dt);
+        for (auto &rubberband : rubberbands) {
+            rubberband->applyForces(dt);
         }
 
         handle_actor_contacts();
@@ -1491,9 +1493,8 @@ void World::advance_actor(Actor *a, double &dtime) {
     GridPos oldGridPos(oldPos);
     GridPos newGridPos(ai.pos);
     //
-    for (std::list<GridPos>::iterator itr = collisionCriticalPositions.begin();
-         itr != collisionCriticalPositions.end(); ++itr) {
-        if (*itr == newGridPos) {
+    for (auto &elem : collisionCriticalPositions) {
+        if (elem == newGridPos) {
             ai.pos = oldPos;
             newGridPos = oldGridPos;
             break;
@@ -1547,20 +1548,20 @@ void World::did_move_actor(Actor *a) {
     Actor *new_left = old_left;
     Actor *new_right = old_right;
     // find new position in actor list
-    while (new_left != NULL && new_left->m_actorinfo.pos[0] > ax) {
+    while (new_left != nullptr && new_left->m_actorinfo.pos[0] > ax) {
         new_left = new_left->left;
     };
-    while (new_right != NULL && new_right->m_actorinfo.pos[0] < ax) {
+    while (new_right != nullptr && new_right->m_actorinfo.pos[0] < ax) {
         new_right = new_right->right;
     };
     if (new_left != old_left || new_right != old_right) {
         // remove from old position
-        if (old_left == NULL) {
+        if (old_left == nullptr) {
             leftmost_actor = old_right;
-            old_right->left = NULL;
-        } else if (old_right == NULL) {
+            old_right->left = nullptr;
+        } else if (old_right == nullptr) {
             rightmost_actor = old_left;
-            old_left->right = NULL;
+            old_left->right = nullptr;
         } else {
             old_left->right = old_right;
             old_right->left = old_left;
@@ -1568,8 +1569,8 @@ void World::did_move_actor(Actor *a) {
         // insert at new position
         if (new_left != old_left) {
             // did move to left side
-            if (new_left == NULL) {
-                a->left = NULL;
+            if (new_left == nullptr) {
+                a->left = nullptr;
                 a->right = leftmost_actor;
                 leftmost_actor->left = a;
                 leftmost_actor = a;
@@ -1581,8 +1582,8 @@ void World::did_move_actor(Actor *a) {
             }
         } else if (new_right != old_right) {
             // did move to right side
-            if (new_right == NULL) {
-                a->right = NULL;
+            if (new_right == nullptr) {
+                a->right = nullptr;
                 a->left = rightmost_actor;
                 rightmost_actor->right = a;
                 rightmost_actor = a;
@@ -1605,8 +1606,8 @@ void World::tick_sound_dampings() {
 
     if (counter > 9) {
         counter = 0;
-        SoundDampingList::iterator i = level->sound_dampings.begin(),
-                                   end = level->sound_dampings.end();
+        auto i = level->sound_dampings.begin();
+        auto end = level->sound_dampings.end();
         while (i != end) {
             if (i->tick())  // return true if damping entry should be deleted
                 i = level->sound_dampings.erase(i);
@@ -1690,8 +1691,7 @@ bool WorldInitLevel() {
 
     bool seen_player0 = false;
 
-    for (ActorList::iterator i = level->actorlist.begin(); i != level->actorlist.end(); ++i) {
-        Actor *a = *i;
+    for (auto a : level->actorlist) {
         a->on_creation(a->get_actorinfo()->pos);
         SendMessage(a, "_init", Value());
 
@@ -1713,8 +1713,8 @@ bool WorldInitLevel() {
     BroadcastMessage("_init", Value(),
                      GridLayerBits(GRID_ITEMS_BIT | GRID_STONES_BIT | GRID_FLOOR_BIT));
 
-    for (OtherList::iterator oit = level->others.begin(); oit != level->others.end(); ++oit) {
-        SendMessage(*oit, "_init", Value());
+    for (auto &elem : level->others) {
+        SendMessage(elem, "_init", Value());
     }
 
     server::InitMoveCounter();
@@ -1732,7 +1732,7 @@ bool WorldInitLevel() {
 
     if (lua::IsFunc(lua::LevelState(), "postinit")) {
         // it is an existing callback function
-        if (lua::CallFunc(lua::LevelState(), "postinit", Value(), NULL) != lua::NO_LUAERROR) {
+        if (lua::CallFunc(lua::LevelState(), "postinit", Value(), nullptr) != lua::NO_LUAERROR) {
             throw XLevelRuntime(std::string("callback 'postinit' failed:\n") +
                                 lua::LastError(lua::LevelState()));
         }
@@ -1814,7 +1814,7 @@ void AddSignal(const GridLoc &srcloc, const GridLoc &dstloc, const string &msg) 
     Object *src = GetObject(srcloc);
     Object *dst = GetObject(dstloc);
 
-    if (src == NULL) {
+    if (src == nullptr) {
         Log << ecl::strf("AddSignal: Invalid signal source: src=%i/%i-%d dest=%i/%i-%d msg='%s'\n",
                          srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y,
                          dstloc.layer, msg.c_str());
@@ -1847,15 +1847,15 @@ void AddSignal(const GridLoc &srcloc, const GridLoc &dstloc, const string &msg) 
         }
     }
 
-    if (dst == NULL && dstloc.layer == GRID_ITEMS) {
+    if (dst == nullptr && dstloc.layer == GRID_ITEMS) {
         GridLoc altloc(GRID_STONES, dstloc.pos);
         dst = GetObject(altloc);
         if (dst && !(dst->isKind("st_blocker")))
             // just use blocker stone instead of blocker item as substitution
-            dst = NULL;
+            dst = nullptr;
     }
 
-    if (dst == NULL) {
+    if (dst == nullptr) {
         Log << ecl::strf(
             "AddSignal: Invalid signal destination src=%i/%i-%d dest=%i/%i-%d msg='%s'\n",
             srcloc.pos.x, srcloc.pos.y, srcloc.layer, dstloc.pos.x, dstloc.pos.y, dstloc.layer,
@@ -1943,8 +1943,6 @@ Value SendMessage(Object *obj, const Message &m) {
 
 void BroadcastMessage(const std::string &msg, const Value &value, GridLayerBits grids, bool actors,
                       bool others) {
-    int width = level->w;
-    int height = level->h;
     bool to_floors = (grids & GRID_FLOOR_BIT) != 0;
     bool to_items = (grids & GRID_ITEMS_BIT) != 0;
     bool to_stones = (grids & GRID_STONES_BIT) != 0;
@@ -1952,8 +1950,8 @@ void BroadcastMessage(const std::string &msg, const Value &value, GridLayerBits 
     //    Uint32 start_tick_time = SDL_GetTicks();   // meassure time for level loading
 
     if (grids != 0) {
-        for (int y = 0; y < height; ++y) {
-            for (int x = 0; x < width; ++x) {
+        for (int y = 0; y < level->h; ++y) {
+            for (int x = 0; x < level->w; ++x) {
                 GridPos p(x, y);
                 Field *f = level->get_field(p);
                 if (to_floors && f->floor)
@@ -1966,15 +1964,12 @@ void BroadcastMessage(const std::string &msg, const Value &value, GridLayerBits 
         }
     }
     if (actors) {
-        for (ActorList::iterator itr = level->actorlist.begin(); itr != level->actorlist.end();
-             ++itr) {
-            SendMessage(*itr, msg, value);
-        }
+        for (auto &actor : level->actorlist)
+            SendMessage(actor, msg, value);
     }
     if (others) {
-        for (OtherList::iterator oit = level->others.begin(); oit != level->others.end(); ++oit) {
-            SendMessage(*oit, msg, value);
-        }
+        for (auto &elem : level->others)
+            SendMessage(elem, msg, value);
     }
 
     //    double exectime = (SDL_GetTicks() - start_tick_time)/1000.0;
@@ -2073,7 +2068,7 @@ Object *GetObject(const GridLoc &l) {
     case GRID_FLOOR: return GetFloor(l.pos);
     case GRID_ITEMS: return GetItem(l.pos);
     case GRID_STONES: return GetStone(l.pos);
-    default: return 0;
+    default: return nullptr;
     }
 }
 
@@ -2086,23 +2081,22 @@ const Field *GetField(GridPos p) {
 void AddOther(Other *o) {
     level->others.push_back(o);
     Rubberband *rb = dynamic_cast<Rubberband *>(o);
-    if (rb != NULL)
+    if (rb != nullptr)
         level->rubberbands.push_back(rb);
     o->postAddition();
 }
 
 void KillOther(Other *o) {
-    if (o == NULL)
+    if (o == nullptr)
         return;
 
     o->preRemoval();
-    OtherList::iterator i = find(level->others.begin(), level->others.end(), o);
+    auto i = find(level->others.begin(), level->others.end(), o);
     if (i != level->others.end()) {
         level->others.erase(i);
         Rubberband *rb = dynamic_cast<Rubberband *>(o);
-        if (rb != NULL) {
-            RubberbandList::iterator j =
-                find(level->rubberbands.begin(), level->rubberbands.end(), rb);
+        if (rb != nullptr) {
+            auto j = find(level->rubberbands.begin(), level->rubberbands.end(), rb);
             if (j != level->rubberbands.end()) {
                 level->rubberbands.erase(j);
             }
@@ -2238,7 +2232,6 @@ void WarpActor(Actor *a, double newx, double newy, bool keep_velocity) {
 }
 
 void FastRespawnActor(Actor *a, bool keep_velocity) {
-    //    a->find_respawnpos();
     const V2 &p = a->get_respawnpos();
     WarpActor(a, p[0], p[1], keep_velocity);
 }
@@ -2249,21 +2242,17 @@ void RespawnActor(Actor *a) {
 }
 
 Actor *FindActorByID(ActorID id) {
-    ActorList::iterator i = level->actorlist.begin(), end = level->actorlist.end();
-    for (; i != end; ++i) {
-        Actor *a = *i;
-        if (get_id(a) == id)
-            return a;
+    for (auto &actor : level->actorlist) {
+        if (get_id(actor) == id)
+            return actor;
     }
-    return 0;
+    return nullptr;
 }
 
 unsigned CountActorsOfKind(ActorID id) {
     unsigned count = 0;
-    ActorList::iterator i = level->actorlist.begin(), end = level->actorlist.end();
-    for (; i != end; ++i) {
-        Actor *a = *i;
-        if (get_id(a) == id)
+    for (auto &actor : level->actorlist) {
+        if (get_id(actor) == id)
             ++count;
     }
     return count;
@@ -2271,18 +2260,17 @@ unsigned CountActorsOfKind(ActorID id) {
 
 Actor *FindOtherMarble(Actor *thisMarble) {
     if (!thisMarble)
-        return 0;
+        return nullptr;
 
     switch (get_id(thisMarble)) {
     case ac_marble_black: return FindActorByID(ac_marble_white);
     case ac_marble_white: return FindActorByID(ac_marble_black);
-    default: return 0;
+    default: return nullptr;
     }
 }
 
 bool ExchangeMarbles(Actor *marble1) {
-    Actor *marble2 = FindOtherMarble(marble1);
-    if (marble2) {
+    if (Actor *marble2 = FindOtherMarble(marble1)) {
         level->exchange_actors(marble1, marble2);
         return true;
     }
@@ -2298,9 +2286,7 @@ void ReleaseActor(Actor *a) {
 }
 
 bool GetActorsInRange(ecl::V2 center, double range, vector<Actor *> &actors) {
-    ActorList &al = level->actorlist;
-    for (ActorList::iterator i = al.begin(); i != al.end(); ++i) {
-        Actor *a = *i;
+    for (auto &a : level->actorlist) {
         if (length(a->get_pos() - center) < range)
             actors.push_back(a);
     }
@@ -2308,9 +2294,7 @@ bool GetActorsInRange(ecl::V2 center, double range, vector<Actor *> &actors) {
 }
 
 bool GetActorsInsideField(const GridPos &pos, vector<Actor *> &actors) {
-    ActorList &al = level->actorlist;
-    for (ActorList::iterator i = al.begin(); i != al.end(); ++i) {
-        Actor *a = *i;
+    for (auto &a : level->actorlist) {
         if (a->get_gridpos() == pos)
             actors.push_back(a);
     }
@@ -2320,9 +2304,8 @@ bool GetActorsInsideField(const GridPos &pos, vector<Actor *> &actors) {
 void ShatterActorsInsideField(const GridPos &p) {
     vector<Actor *> actors;
     GetActorsInsideField(p, actors);
-    vector<Actor *>::iterator i = actors.begin(), end = actors.end();
-    for (; i != end; ++i)
-        SendMessage(*i, "_shatter");
+    for (auto &actor : actors)
+        SendMessage(actor, "_shatter");
 }
 
 /* -------------------- Functions -------------------- */
@@ -2346,14 +2329,12 @@ void ChangeMeditation(int diffMeditatists, int diffIndispensableHollows,
 }
 
 float GetVolume(const char *name, Object *obj, float def_volume) {
-    if ((def_volume == 0.0) || sound::IsSoundMute())
+    if (def_volume == 0.0 || sound::IsSoundMute())
         return 0;
     // See SoundEffectManager.hh for details.
-    SoundDampingList::iterator i = level->sound_dampings.begin(), end = level->sound_dampings.end();
-    while (i != end) {
-        if (i->is_equal(name, obj))
-            return i->get_volume(def_volume);
-        ++i;
+    for (auto &elem : level->sound_dampings) {
+        if (elem.is_equal(name, obj))
+            return elem.get_volume(def_volume);
     }
     // No entry found for this object. Create a new one.
     level->sound_dampings.push_back(sound::SoundDamping(name, obj));
@@ -2365,19 +2346,15 @@ void WorldTick(double dtime) {
 }
 
 void TickFinished(double dtime) {
-    for (unsigned i = 0; i < level->actorlist.size(); ++i) {
-        level->actorlist[i]->move_screen();
-    }
-
-    //
-    for (OtherList::iterator oit = level->others.begin(); oit != level->others.end(); ++oit) {
-        (*oit)->tick(dtime);
-    }
+    for (auto &actor : level->actorlist)
+        actor->move_screen();
+    for (auto &other : level->others)
+        other->tick(dtime);
 }
 
 void InitWorld() {
     Object::bootFinished();
-    BootRegister(NULL, NULL, false);
+    BootRegister(nullptr, nullptr, false);
     InitLasers();
     client::ClientInit();
 }
@@ -2392,6 +2369,7 @@ void ShutdownWorld() {
 
 /* -------------------- Object repository -------------------- */
 namespace {
+
 class ObjectRepos : public ecl::Nocopy {
 public:
     ObjectRepos();
@@ -2408,7 +2386,8 @@ private:
     ObjectMap objmap;  // repository of object templates
     int stonecount, floorcount, itemcount;
 };
-}
+
+}  // namespace
 
 ObjectRepos::ObjectRepos() {
     stonecount = floorcount = itemcount = 0;
@@ -2430,9 +2409,9 @@ bool ObjectRepos::has_templ(const string &name) {
 }
 
 Object *ObjectRepos::make(const string &name) {
-    ObjectMap::iterator i = objmap.find(name);
+    auto i = objmap.find(name);
     if (i == objmap.end())
-        return 0;
+        return nullptr;
     else
         return i->second->clone();
 }
@@ -2441,45 +2420,45 @@ Object *ObjectRepos::get_template(const string &name) {
     if (objmap.find(name) != objmap.end())
         return objmap[name];
     else
-        return 0;
+        return nullptr;
 }
 
 /* Generate a list of all available objects and their attributes. */
 void ObjectRepos::dump_info() {
-    ObjectMap::iterator iter = objmap.begin();
-    for (; iter != objmap.end(); ++iter) {
+    for (auto iter = objmap.begin(); iter != objmap.end(); ++iter) {
         cout << iter->first << "( ";
         Object *obj = iter->second;
         const Object::AttribMap &a = obj->get_attribs();
-        for (Object::AttribMap::const_iterator j = a.begin(); j != a.end(); ++j) {
-            if (j->first != "kind")
-                cout << j->first << " ";
+        for (const auto &elem : a) {
+            if (elem.first != "kind")
+                cout << elem.first << " ";
         }
         cout << ")\n";
     }
 }
 
 namespace {
-ObjectRepos *repos;
-}
 
 struct BootKindObject {
     std::string kind;
     Object *object;
-    BootKindObject(std::string name, Object *o) : kind(name), object(o) {}
+    BootKindObject(std::string name, Object *o) : kind(std::move(name)), object(o) {}
 };
+
+ObjectRepos *repos;
+
+}  // namespace
 
 void BootRegister(Object *obj, const char *name, bool isRegistration) {
     static std::list<BootKindObject *> templates;
     if (isRegistration) {
-        std::string kind = (name != NULL ? std::string(name) : std::string(""));
+        std::string kind = (name != nullptr ? std::string(name) : std::string(""));
         templates.push_back(new BootKindObject(kind, obj));
     } else {
         int count = 0;
-        for (std::list<BootKindObject *>::iterator itr = templates.begin(); itr != templates.end();
-             ++itr) {
-            Register((*itr)->kind, (*itr)->object);
-            delete (*itr);
+        for (auto &templ : templates) {
+            Register(templ->kind, templ->object);
+            delete templ;
             count++;
         }
         Log << count << " boot registered object\n";
@@ -2498,7 +2477,7 @@ void Repos_Shutdown() {
 }
 
 Object *MakeObject(const char *kind) {
-    static Object *last_templ = NULL;
+    static Object *last_templ = nullptr;
     static string last_kind;
 
     if (last_kind != kind) {
@@ -2506,10 +2485,10 @@ Object *MakeObject(const char *kind) {
         last_templ = repos->get_template(kind);
     }
 
-    Object *obj = NULL;
+    Object *obj = nullptr;
     if (last_templ)
         obj = last_templ->clone();
-    ASSERT(obj != NULL, XLevelRuntime,
+    ASSERT(obj != nullptr, XLevelRuntime,
            ecl::strf("MakeObject: unknown object name `%s'\n", kind).c_str());
     return obj;
 }
@@ -2517,7 +2496,7 @@ Object *MakeObject(const char *kind) {
 Object *GetObjectTemplate(const std::string &kind) {
     if (!repos->has_templ(kind)) {
         cerr << "GetObjectTemplate: unknown object name `" << kind << "'.\n";
-        return 0;
+        return nullptr;
     } else
         return repos->get_template(kind);
 }

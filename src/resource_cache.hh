@@ -31,7 +31,7 @@ class ImageCache : public ecl::PtrCache<ecl::Surface> {
 public:
     using ecl::PtrCache<ecl::Surface>::store;
 
-    ecl::Surface *acquire(const std::string &name) {
+    ecl::Surface *acquire(const std::string &name) override {
         return ecl::LoadImage(name.c_str());
     }
 };
