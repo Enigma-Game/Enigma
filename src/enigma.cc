@@ -41,24 +41,20 @@ namespace enigma {
 
 static const char *versionName[GAMET_COUNT + 1] = {"enigma",  // same indices as enum GameType
                                                    "oxyd1",       "per.oxyd", "oxyd.extra",
-                                                   "oxyd.magnum", 0};
+                                                   "oxyd.magnum", nullptr};
 
-GameType GetGameType(std::string name) {
-    GameType type = GAMET_UNKNOWN;
+GameType GetGameType(const std::string &name) {
     for (int v = 0; v < GAMET_COUNT; ++v) {
-        if (0 == strcmp(name.c_str(), versionName[v])) {
-            type = GameType(v);
-            break;
-        }
+        if (name == versionName[v])
+            return static_cast<GameType>(v);
     }
-    return type;
+    return GAMET_UNKNOWN;
 }
 
 std::string GetGameTypeName(GameType type) {
     if (type >= GAMET_FIRST && type <= GAMET_LAST)
         return versionName[type];
-    else
-        return "unknown";
+    return "unknown";
 }
 
 /* -------------------- Direction -------------------- */
@@ -172,7 +168,7 @@ bool to_gridloc(const char *str, GridLoc &l) {
     else
         numstr = str;
 
-    if (2 != sscanf(numstr, "%d %d", &loc.pos.x, &loc.pos.y))
+    if (sscanf(numstr, "%d %d", &loc.pos.x, &loc.pos.y) != 2)
         return false;
     l = loc;
     return true;
@@ -183,7 +179,7 @@ bool to_gridloc(const char *str, GridLoc &l) {
 int32_t SystemRandomState;
 
 void Randomize(bool isLevel) {
-    time_t seed = time(NULL) & 0x7fffffff;
+    time_t seed = time(nullptr) & 0x7fffffff;
     Randomize(seed, isLevel);
 }
 
@@ -224,7 +220,7 @@ double DoubleRand(double min, double max, bool isLevel) {
 
 #define MAX_DATE_LENGTH 256
 const char *date(const char *format) {  // format see 'man strftime'
-    static char *result = 0;
+    static char *result = nullptr;
     char buffer[MAX_DATE_LENGTH];
 
     time_t t;

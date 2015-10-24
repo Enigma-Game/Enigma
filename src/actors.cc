@@ -37,39 +37,32 @@ const double Actor::max_radius = 24.0 / 64;
 /* -------------------- ActorsInRangeIterator -------------------- */
 
 ActorsInRangeIterator::ActorsInRangeIterator(Actor *center, double range, unsigned type_mask)
-: centerActor(center), previousActor(center), dir(WEST), rangeDist(range), typeMask(type_mask) {
+: centerActor(center), currentActor(center), moveLeft(true), rangeDist(range), typeMask(type_mask) {
     xCenter = center->m_actorinfo.pos[0];
 }
 
 Actor *ActorsInRangeIterator::next() {
-    bool ready = false;
-    while (!ready) {
-        if (previousActor != NULL) {
-            if (dir == WEST) {
-                previousActor = previousActor->left;
-            } else {
-                previousActor = previousActor->right;
+    while (true) {
+        if (currentActor) {
+            currentActor = moveLeft ? currentActor->left : currentActor->right;
+        }
+        bool foundCandidate =
+            currentActor && std::abs(xCenter - currentActor->m_actorinfo.pos[0]) <= rangeDist;
+        if (foundCandidate) {
+            unsigned id_mask = currentActor->get_traits().id_mask;
+            if (id_mask & typeMask &&
+                length(currentActor->m_actorinfo.pos - centerActor->m_actorinfo.pos) < rangeDist) {
+                break;
             }
-        }
-        if (dir == WEST &&
-            (previousActor == NULL || xCenter - previousActor->m_actorinfo.pos[0] > rangeDist)) {
-            previousActor = centerActor->right;
-            dir = EAST;
-        }
-        if (dir == EAST &&
-            (previousActor == NULL || previousActor->m_actorinfo.pos[0] - xCenter > rangeDist)) {
-            ready = true;
-            previousActor = NULL;
-            continue;
-        }
-        unsigned id_mask = previousActor->get_traits().id_mask;
-        if (id_mask & typeMask) {
-            if (length(previousActor->m_actorinfo.pos - centerActor->m_actorinfo.pos) < rangeDist) {
-                ready = true;
-            }
+        } else if (moveLeft) {
+            moveLeft = false;
+            currentActor = centerActor;
+        } else {
+            currentActor = nullptr;
+            break;
         }
     }
-    return previousActor;
+    return currentActor;
 }
 
 /* -------------------- Actor -------------------- */

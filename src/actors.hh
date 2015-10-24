@@ -165,7 +165,7 @@ public:
     void show();
 
     void add_force(const ecl::V2 &f);
-    virtual void stoneBounce(const StoneContact &sc){};
+    virtual void stoneBounce(const StoneContact &) {}
 
     /* ---------- Accessors ---------- */
     ActorInfo *get_actorinfo();
@@ -240,8 +240,8 @@ public:
 private:
     Actor *centerActor;
     double xCenter;
-    Actor *previousActor;
-    Direction dir;
+    Actor *currentActor;
+    bool moveLeft;
     double rangeDist;
     unsigned typeMask;
 };

@@ -455,6 +455,7 @@ static void push_value(lua_State *L, const Value &val) {
             }
             break;
         }
+        default: ASSERT(false, XLevelRuntime, "This shouldn't happen");
     }
 }
 
@@ -1368,12 +1369,12 @@ static int getStoneItemFloor(lua_State *L, Object::ObjectType ot) {
             }
             Object *obj = NULL;
             switch (ot) {
-                case Object::FLOOR :
-                    obj = GetFloor(p); break;
-                case Object::ITEM :
-                    obj = GetItem(p); break;
-                case Object::STONE :
-                    obj = GetStone(p); break;
+            case Object::FLOOR: obj = GetFloor(p); break;
+            case Object::ITEM: obj = GetItem(p); break;
+            case Object::STONE: obj = GetStone(p); break;
+            default:
+                // do nothing, simply return nullptr
+                break;
             }
             if (obj != NULL) 
                 objects.push_back(obj);

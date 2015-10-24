@@ -449,6 +449,9 @@ bool Floor::has_firetype(FloorFireType selector) {
     case flft_noash: return getDefaultedAttr("noash", dflt).to_bool();
     case flft_fastfire: return getDefaultedAttr("fastfire", dflt).to_bool();
     case flft_initfire: return getDefaultedAttr("initfire", dflt).to_bool();
+    default:
+        // do nothing
+        break;
     }
     return dflt;
 }

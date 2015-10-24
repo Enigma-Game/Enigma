@@ -56,7 +56,7 @@ enum GameType {
     GAMET_UNKNOWN
 };
 
-GameType GetGameType(std::string name);
+GameType GetGameType(const std::string &name);
 std::string GetGameTypeName(GameType type);
 
 /* -------------------- Direction, DirectionBits -------------------- */
