@@ -14,17 +14,18 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 #ifndef ECL_DICT_HH
 #define ECL_DICT_HH
 
 #include "ecl_error.hh"
-#include <utility>
 #include <cstddef>
+#include <utility>
+#include <vector>
 
 namespace ecl {
-extern unsigned hash(const std::string &key);
+
+unsigned hash(const std::string &key);
 
 class XInvalidKey : XGeneric {
 public:
@@ -40,7 +41,7 @@ public:
 
 private:
     struct Entry {
-        Entry(const key_type &k, const T &v) : pair(k, v) {}
+        Entry(const key_type &k, const T &v) : pair(k, v), next(nullptr) {}
         value_type pair;
         Entry *next;
     };
@@ -58,8 +59,8 @@ private:
         Iter() : dict(nullptr), idx(0), cur(nullptr) {}
         Iter(const Dict<T> *d, size_type i, Entry *c) : dict(d), idx(i), cur(c) {}
         Iter(const Dict<T> *d) : dict(d) {
-            for (idx = 0; idx < dict->nbuckets; ++idx)
-                if ((cur = dict->hashtab[idx]) != nullptr)
+            for (idx = 0; idx < dict->buckets.size(); ++idx)
+                if ((cur = dict->buckets[idx]) != nullptr)
                     return;
             dict = nullptr;  // End
             idx = 0;
@@ -71,8 +72,8 @@ private:
         pointer operator->() { return &cur->pair; }
         Iter &operator++() {
             if ((cur = cur->next) == nullptr) {
-                for (++idx; idx < dict->nbuckets; ++idx)
-                    if ((cur = dict->hashtab[idx]) != nullptr)
+                for (++idx; idx < dict->buckets.size(); ++idx)
+                    if ((cur = dict->buckets[idx]) != nullptr)
                         return *this;
                 dict = nullptr;
                 cur = nullptr;
@@ -80,7 +81,7 @@ private:
             }
             return *this;
         }
-        Iter &operator++(int) {
+        Iter operator++(int) {
             Iter tmp = *this;
             ++*this;
             return tmp;
@@ -148,40 +149,29 @@ private:
 
     // ----------  Variables ----------
     size_type nentries;  // Number of entries
-    size_type nbuckets;  // Number of buckets in `hashtab'
-    Entry **hashtab;
+    std::vector<Entry *> buckets;
 
 private:
     // Copying not implemented yet
-    Dict(const Dict<T> &d)
-    : nentries(d.nentries), nbuckets(d.nbuckets), hashtab(new Entry *[nbuckets]) {
-        for (size_type i = 0; i < nbuckets; ++i) {
-            Entry *e = d.hashtab[i];
-            hashtab[i] = 0;  // XXX Fix
-        }
-    }
-    Dict &operator=(const Dict<T> &d);
+    Dict(const Dict<T> &d) = delete;
+    Dict &operator=(const Dict<T> &d) = delete;
 };
 
 /* -------------------- Dict implementation -------------------- */
 
 template <class T>
 Dict<T>::Dict(size_type table_size)
-: nentries(0), nbuckets(table_size), hashtab(new Entry *[nbuckets]) {
-    for (size_type i = 0; i < nbuckets; ++i)
-        hashtab[i] = nullptr;
-}
+: nentries(0), buckets(table_size, nullptr) {}
 
 template <class T>
 Dict<T>::~Dict() {
     clear();
-    delete[] hashtab;
 }
 
 template <class T>
 typename Dict<T>::iterator Dict<T>::find(const key_type &key) {
-    unsigned h = hash(key) % nbuckets;
-    for (Entry *e = hashtab[h]; e != nullptr; e = e->next)
+    unsigned h = hash(key) % buckets.size();
+    for (Entry *e = buckets[h]; e != nullptr; e = e->next)
         if (e->pair.first == key)
             return iterator(this, h, e);
     return end();
@@ -189,8 +179,8 @@ typename Dict<T>::iterator Dict<T>::find(const key_type &key) {
 
 template <class T>
 typename Dict<T>::const_iterator Dict<T>::find(const key_type &key) const {
-    unsigned h = hash(key) % nbuckets;
-    for (Entry *e = hashtab[h]; e != 0; e = e->next)
+    unsigned h = hash(key) % buckets.size();
+    for (Entry *e = buckets[h]; e != 0; e = e->next)
         if (e->pair.first == key)
             return const_iterator(this, h, e);
     return end();
@@ -198,31 +188,31 @@ typename Dict<T>::const_iterator Dict<T>::find(const key_type &key) const {
 
 template <class T>
 void Dict<T>::clear() {
-    for (size_type i = 0; i < nbuckets; ++i) {
+    for (auto &entry : buckets) {
         Entry *cur, *next;
-        for (cur = hashtab[i]; cur != nullptr; cur = next) {
+        for (cur = entry; cur != nullptr; cur = next) {
             next = cur->next;
             delete cur;
         }
-        hashtab[i] = nullptr;
+        entry = nullptr;
     }
     nentries = 0;
 }
 
 template <class T>
 void Dict<T>::insert(const key_type &key, const T &val) {
-    unsigned h = hash(key) % nbuckets;
-    auto  e = new Entry(key, val);
-    e->next = hashtab[h];
-    hashtab[h] = e;
+    unsigned h = hash(key) % buckets.size();
+    auto e = new Entry(key, val);
+    e->next = buckets[h];
+    buckets[h] = e;
     nentries += 1;
 }
 
 template <class T>
 void Dict<T>::remove(const key_type &key) {
-    unsigned h = hash(key) % nbuckets;
-    Entry *e = hashtab[h];
-    Entry **eptr = &hashtab[h];
+    unsigned h = hash(key) % buckets.size();
+    Entry *e = buckets[h];
+    Entry **eptr = &buckets[h];
 
     while (e != nullptr) {
         if (e->pair.first == key) {
@@ -243,11 +233,13 @@ bool Dict<T>::has_key(const key_type &key) const {
 
 template <class T>
 typename Dict<T>::Entry *Dict<T>::find_entry(const key_type &key) const {
-    unsigned h = hash(key) % nbuckets;
-    for (Entry *e = hashtab[h]; e != nullptr; e = e->next)
+    unsigned h = hash(key) % buckets.size();
+    for (Entry *e = buckets[h]; e != nullptr; e = e->next)
         if (e->pair.first == key)
             return e;
     return nullptr;
 }
-}
+
+}  // namespace ecl
+
 #endif
