@@ -240,8 +240,8 @@ public:
 private:
     Actor *centerActor;
     double xCenter;
-    Actor *previousActor;
-    Direction dir;
+    Actor *currentActor;
+    bool moveLeft;
     double rangeDist;
     unsigned typeMask;
 };
