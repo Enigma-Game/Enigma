@@ -204,17 +204,15 @@ public:
     void replace(std::string kind);
 
     /* ---------- Virtual functions ---------- */
-    virtual std::string getClass() const;
-    virtual Value getAttr(const std::string &key) const;
+    virtual std::string getClass() const override;
+    virtual Value getAttr(const std::string &key) const override;
 
-    void init_model();
-    virtual void processLight(Direction d);
+    void init_model() override;
+    virtual void processLight(Direction d) override;
     virtual double getFriction(ecl::V2 position, double defaultFriction, Actor *a);
     virtual ecl::V2 calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce);
 
     /* ---------- Item interface ---------- */
-
-    virtual Item *clone() = 0;
 
     virtual const ItemTraits &get_traits() const = 0;
 
@@ -264,18 +262,18 @@ public:
     virtual std::list<GridPos> warpSpreadPos(bool isWater);
 
 protected:
-    virtual Object::ObjectType getObjectType() const { return Object::ITEM; }
+    virtual Object::ObjectType getObjectType() const override { return Object::ITEM; }
 
     // GridObject interface
-    virtual void set_model(const std::string &mname) {
+    virtual void set_model(const std::string &mname) override {
         display::SetModel(GridLoc(GRID_ITEMS, get_pos()), mname);
     }
 
-    virtual display::Model *get_model() {
+    virtual display::Model *get_model() override {
         return display::GetModel(GridLoc(GRID_ITEMS, get_pos()));
     }
 
-    virtual void kill_model(GridPos p) { display::KillModel(GridLoc(GRID_ITEMS, p)); }
+    virtual void kill_model(GridPos p) override { display::KillModel(GridLoc(GRID_ITEMS, p)); }
     void transform(std::string kind);
     // replace template method hook
     virtual void setup_successor(Item *newitem) {}
@@ -318,11 +316,11 @@ inline bool has_flags(Item *it, ItemFlags flags) {
 
 #define DECL_ITEMTRAITS       \
     static ItemTraits traits; \
-    const ItemTraits &get_traits() const { return traits; }
+    const ItemTraits &get_traits() const override { return traits; }
 
 #define DECL_ITEMTRAITS_ARRAY(n, subtype_expr) \
     static ItemTraits traits[n];               \
-    const ItemTraits &get_traits() const { return traits[subtype_expr]; }
+    const ItemTraits &get_traits() const override { return traits[subtype_expr]; }
 
 #define DEF_ITEMTRAITS(classname, name, id) ItemTraits classname::traits = {name, id, itf_none, 0.0}
 

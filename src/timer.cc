@@ -87,26 +87,20 @@ struct Timer::Rep {
     std::list<Alarm> alarms;
 };
 
-Timer::Timer() : self(*new Rep) {
+Timer::Timer() : self(new Rep) {
 }
 
-Timer::~Timer() {
-    clear();
-    delete &self;
-}
+Timer::~Timer() = default;
 
 void Timer::deactivate(TimeHandler *th) {
-    std::list<TimeHandler *>::iterator i;
-
-    i = find(self.handlers.begin(), self.handlers.end(), th);
-    if (i != self.handlers.end()) {
-        *i = 0;
-    }
+    auto i = find(self->handlers.begin(), self->handlers.end(), th);
+    if (i != self->handlers.end())
+        *i = nullptr;
 }
 
 void Timer::activate(TimeHandler *th) {
-    if (find(self.handlers.begin(), self.handlers.end(), th) == self.handlers.end())
-        self.handlers.push_back(th);
+    if (find(self->handlers.begin(), self->handlers.end(), th) == self->handlers.end())
+        self->handlers.push_back(th);
 }
 
 void Timer::set_alarm(TimeHandler *th, double interval, bool repeatp) {
@@ -114,39 +108,38 @@ void Timer::set_alarm(TimeHandler *th, double interval, bool repeatp) {
     ASSERT(!repeatp || interval >= 0.01, XLevelRuntime,
            "Timer error: looping timer with interval < 0.01 seconds");
     if (interval > 0)
-        self.alarms.push_back(Alarm(th, interval, repeatp));
+        self->alarms.push_back(Alarm(th, interval, repeatp));
 }
 
 double Timer::remove_alarm(TimeHandler *th) {
     double timeleft = 0;
-    std::list<Alarm>::iterator e = self.alarms.end();
-    for (std::list<Alarm>::iterator it = self.alarms.begin(); it != e; ++it) {
-        if (it->has_handler(th)) {
-            it->mark_removed();
-            timeleft = it->timeleft;
+    for (auto &alarm : self->alarms) {
+        if (alarm.has_handler(th)) {
+            alarm.mark_removed();
+            timeleft = alarm.timeleft;
         }
     }
     return timeleft;
 }
 
 void Timer::tick(double dtime) {
-    self.handlers.remove(0);  // remove inactive entries
-    for_each(self.handlers.begin(), self.handlers.end(),
-             std::bind2nd(std::mem_fun(&TimeHandler::tick), dtime));
+    self->handlers.remove(nullptr);  // remove inactive entries
+    for (auto &handler : self->handlers)
+        handler->tick(dtime);
 
     // Explicit loop to allow remove_alarm() to be called from inside alarm()
-    for (std::list<Alarm>::iterator i = self.alarms.begin(); i != self.alarms.end();) {
-        std::list<Alarm>::iterator next = i;
+    for (auto i = self->alarms.begin(); i != self->alarms.end();) {
+        auto next = i;
         ++next;
         i->tick(dtime);
         i = next;
     }
-    self.alarms.remove_if(std::mem_fun_ref(&Alarm::expired));
+    self->alarms.remove_if(std::mem_fun_ref(&Alarm::expired));
 }
 
 void Timer::clear() {
-    self.handlers.clear();
-    self.alarms.clear();
+    self->handlers.clear();
+    self->alarms.clear();
 }
 
 }  // namespace enigma

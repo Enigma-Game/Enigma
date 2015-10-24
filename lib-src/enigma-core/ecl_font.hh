@@ -34,11 +34,11 @@ public:
     virtual int get_height() = 0;
 
     virtual int get_width(char c) = 0;  // depreceated ! not utf-8 compatible!
-    virtual int get_width(const char *str, Font *altFont = NULL) = 0;
+    virtual int get_width(const char *str, Font *altFont = nullptr) = 0;
 
     virtual Surface *render(const char *str) = 0;
     virtual void render(const GC &gc, int x, int y, const char *str) = 0;
-    virtual void render(const GC &gc, int x, int y, std::string text, Font *altFont = NULL,
+    virtual void render(const GC &gc, int x, int y, std::string text, Font *altFont = nullptr,
                         int maxwidth = -1);
 };
 

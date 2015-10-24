@@ -83,31 +83,31 @@ namespace enigma {
         OxydStone(std::string flavor = "b");
         
         // Object interface
-        virtual std::string getClass() const;
-        virtual OxydStone * clone();
-        virtual void dispose();
-        virtual Value message(const Message &m);
-        virtual void setAttr(const std::string& key, const Value &val);
+        virtual std::string getClass() const override;
+        virtual OxydStone * clone() override;
+        virtual void dispose() override;
+        virtual Value message(const Message &m) override;
+        virtual void setAttr(const std::string& key, const Value &val) override;
 
         // StateObject interface
-        virtual int maxState() const;
-        virtual void toggleState();
-        virtual int externalState() const;
-        virtual void setState(int extState);
+        virtual int maxState() const override;
+        virtual void toggleState() override;
+        virtual int externalState() const override;
+        virtual void setState(int extState) override;
 
         // GridObject interface
-        virtual void on_creation(GridPos p);
-        virtual void on_removal (GridPos p);
-        virtual void init_model();
-        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
+        virtual void on_creation(GridPos p) override;
+        virtual void on_removal (GridPos p) override;
+        virtual void init_model() override;
+        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) override;
 
         // Stone interface
-        virtual void actor_hit(const StoneContact &sc);
-        virtual const char *collision_sound() { return "stone"; }
-        virtual bool is_removable() const;
+        virtual void actor_hit(const StoneContact &sc) override;
+        virtual const char *collision_sound() override { return "stone"; }
+        virtual bool is_removable() const override;
         
         // ModelCallback interface  - Animation callback
-        virtual void animcb();
+        virtual void animcb() override;
     
     private:
         enum iState { CLOSED, OPEN_PAIR, OPENING, CLOSING, OPEN_SINGLE };

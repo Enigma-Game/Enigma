@@ -125,7 +125,7 @@ void Item::on_pickup(Actor * /*a*/) {
 }
 
 bool Item::can_drop_at(GridPos p) {
-    return GetItem(p) == 0;
+    return GetItem(p) == nullptr;
 }
 
 ItemAction Item::activate(Actor * /*a*/, GridPos /*p*/) {

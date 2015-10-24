@@ -35,17 +35,17 @@ namespace enigma
         ~Inventory();
 
         // Object interface
-        virtual Object *clone();
-        virtual void dispose();
-        virtual std::string getClass() const;
+        virtual Object *clone() override;
+        virtual void dispose() override;
+        virtual std::string getClass() const override;
 
         // ---------- ItemHolder interface ----------
-        bool is_full() const;
-        virtual bool is_empty() const;
-        void add_item (Item *i);
-        virtual void takeItemsFrom(ItemHolder *ih);
-        virtual Item *yield_first();
-        virtual bool containsKind(std::string kind) const;
+        bool is_full() const override;
+        virtual bool is_empty() const override;
+        void add_item (Item *i) override;
+        virtual void takeItemsFrom(ItemHolder *ih) override;
+        virtual Item *yield_first() override;
+        virtual bool containsKind(std::string kind) const override;
         
         // ---------- Methods ----------
 

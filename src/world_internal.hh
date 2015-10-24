@@ -17,6 +17,9 @@
  */
 
 #include "ecl_array2.hh"
+#include "ecl_dict.hh"
+#include "SoundEngine.hh"
+#include "world.hh"
 #include <list>
 #include <memory>
 #include <vector>
@@ -42,20 +45,20 @@ typedef std::vector<Signal> SignalList;
   by this force field. */
 class MouseForce {
 public:
-    void set_force(V2 f) { force = f; }
-    void add_force(V2 f) { force += f; }
+    void set_force(ecl::V2 f) { force = f; }
+    void add_force(ecl::V2 f) { force += f; }
 
-    V2 get_force(Actor *a) {
+    ecl::V2 get_force(Actor *a) {
         if (a->is_flying() || a->is_dead())
-            return V2();
+            return ecl::V2();
         else
             return force * a->get_mouseforce();
     }
 
-    void tick(double /*dtime*/) { force = V2(); }
+    void tick(double /*dtime*/) { force = ecl::V2(); }
 
 private:
-    V2 force;
+    ecl::V2 force;
 };
 
 /* -------------------- Scramble -------------------- */
@@ -68,7 +71,7 @@ struct Scramble {
     Direction dir;
     int intensity;
 
-    Scramble(GridPos p, Direction d, int i) : pos(p), dir(d), intensity(i) {}
+    Scramble(GridPos p, Direction d, int i) : pos(std::move(p)), dir(d), intensity(i) {}
 
     bool expired() const { return intensity < 1; }
 };
@@ -84,8 +87,8 @@ class DelayedImpulse {
 
     DelayedImpulse &operator=(const DelayedImpulse &other);  // forbidden
 public:
-    DelayedImpulse(const Impulse &impulse_, double delay_, const Stone *receiver_)
-    : impulse(impulse_),
+    DelayedImpulse(Impulse impulse_, double delay_, const Stone *receiver_)
+    : impulse(std::move(impulse_)),
       delay(delay_),
       receiver(receiver_),
       isReferenced(false),
@@ -135,7 +138,7 @@ public:
     }
 };
 
-typedef list<DelayedImpulse> ImpulseList;
+typedef std::list<DelayedImpulse> ImpulseList;
 
 /* -------------------- Layer -------------------- */
 
@@ -167,9 +170,9 @@ private:
 */
 class FloorLayer : public Layer<Floor> {
 public:
-    Floor *yield(GridPos p) {
+    Floor *yield(GridPos p) override {
         Floor *f = Layer<Floor>::yield(p);
-        if (f != NULL) {
+        if (f != nullptr) {
             if (Value v = f->getAttr("name")) {
                 NamePosition(p, v.to_string());
             }
@@ -177,9 +180,9 @@ public:
         return f;
     }
 
-    void set(GridPos p, Floor *x) {
+    void set(GridPos p, Floor *x) override {
         Floor *f = get(p);
-        if (f != NULL) {
+        if (f != nullptr) {
             if (Value v = f->getAttr("name")) {
                 NamePosition(p, v.to_string());
             }
@@ -187,8 +190,8 @@ public:
         Layer<Floor>::set(p, x);
     }
 
-    Floor *raw_get(Field &f) { return f.floor; }
-    void raw_set(Field &f, Floor *x) { f.floor = x; }
+    Floor *raw_get(Field &f) override { return f.floor; }
+    void raw_set(Field &f, Floor *x) override { f.floor = x; }
 };
 
 /*
@@ -196,8 +199,8 @@ public:
 */
 class ItemLayer : public Layer<Item> {
 private:
-    Item *raw_get(Field &f) { return f.item; }
-    void raw_set(Field &f, Item *x) { f.item = x; }
+    Item *raw_get(Field &f) override { return f.item; }
+    void raw_set(Field &f, Item *x) override { f.item = x; }
 };
 
 /*
@@ -208,9 +211,9 @@ public:
     StoneLayer() : Layer<Stone>(&borderstone) {}
 
 private:
-    Stone *raw_get(Field &f) { return f.stone; }
-    void raw_set(Field &f, Stone *st) { f.stone = st; }
-    void dispose(Stone *st) {
+    Stone *raw_get(Field &f) override { return f.stone; }
+    void raw_set(Field &f, Stone *st) override { f.stone = st; }
+    void dispose(Stone *st) override {
         if (st) {
             SendMessage(st, "disconnect");
             DisposeObject(st);
@@ -223,9 +226,9 @@ private:
     class BorderStone : public Stone {
     public:
         BorderStone() : Stone("borderstone") {}
-        Stone *clone() { return this; }
-        void dispose() {}
-        virtual const StoneTraits &get_traits() const {
+        Stone *clone() override { return this; }
+        void dispose() override {}
+        virtual const StoneTraits &get_traits() const override {
             static StoneTraits border_traits = {"INVALID", st_borderstone, stf_none, material_stone,
                                                 1.0};
             return border_traits;
@@ -237,7 +240,7 @@ private:
 
 /* ------------- Sound Damping List -------------- */
 
-typedef list<sound::SoundDamping> SoundDampingList;
+typedef std::list<sound::SoundDamping> SoundDampingList;
 
 /* -------------------- World -------------------- */
 
@@ -259,17 +262,24 @@ public:
         if (this->contains(p))
             return &fields(p.x, p.y);
         else
-            return 0;
+            return nullptr;
     }
 
-    void name_object(Object *obj, const string &name);
+    void name_object(Object *obj, const std::string &name);
     void unname(Object *);
-    Object *get_named(const string &);
-    std::list<Object *> get_group(const std::string &tmpl, Object *reference = NULL);
+    Object *get_named(const std::string &);
+    std::list<Object *> get_group(const std::string &tmpl, Object *reference = nullptr);
     void namePosition(Value po, const std::string &name);
     Value getNamedPosition(const std::string &name);
-    PositionList getPositionList(const std::string &tmpl, Object *reference = NULL);
+    PositionList getPositionList(const std::string &tmpl, Object *reference = nullptr);
 
+    void dispose_object(Object *obj) {
+        if (obj) {
+            unname(obj);
+            obj->dispose();
+        }
+    }
+    
     void tick(double dtime);
     void remove(ForceField *ff);
 
@@ -277,7 +287,7 @@ public:
     void scramble_puzzles();
 
     void add_actor(Actor *a);
-    void add_actor(Actor *a, const V2 &pos);
+    void add_actor(Actor *a, const ecl::V2 &pos);
     Actor *yield_actor(Actor *a);
     void exchange_actors(Actor *a1, Actor *a2);
     void did_move_actor(Actor *a);
@@ -286,15 +296,15 @@ public:
 private:
     /* ---------- Private methods ---------- */
 
-    ecl::V2 drunkenMouseforce(Actor *a, V2 &mforce);
-    V2 get_local_force(Actor *a);
-    V2 get_global_force(Actor *a);
+    ecl::V2 drunkenMouseforce(Actor *a, ecl::V2 &mforce);
+    ecl::V2 get_local_force(Actor *a);
+    ecl::V2 get_global_force(Actor *a);
 
     void advance_actor(Actor *a, double &dt);
     void move_actors(double dtime);
     void find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
                                  DirectionBits winFacesActorStone = NODIRBIT, bool isRounded = true,
-                                 Stone *st = NULL);
+                                 Stone *st = nullptr);
     void find_contact_with_edge(Actor *a, GridPos pe, GridPos p1, GridPos p2, StoneContact &c0,
                                 StoneContact &c1, StoneContact &c2,
                                 DirectionBits winFacesActorStone = NODIRBIT);
@@ -348,7 +358,7 @@ private:
     ecl::Dict<Object *> m_objnames;   // Name -> object mapping
     ecl::Dict<Value> namedPositions;  // Name -> position mapping
 
-    list<Scramble> scrambles;
+    std::list<Scramble> scrambles;
 };
 
 }  // namespace enigma

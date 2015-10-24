@@ -19,6 +19,7 @@
 #define ENIGMA_TIMER_HH
 
 #include "ecl_util.hh"
+#include <memory>
 
 namespace enigma {
 
@@ -42,6 +43,7 @@ class Timer : public ecl::Nocopy {
 public:
     Timer();
     ~Timer();
+
     void activate(TimeHandler *th);
     void deactivate(TimeHandler *th);
     void set_alarm(TimeHandler *th, double interval, bool repeatp = false);
@@ -52,7 +54,7 @@ public:
 
 private:
     struct Rep;
-    Rep &self;
+    std::unique_ptr<Rep> self;
 };
 
 }  // namespace enigma

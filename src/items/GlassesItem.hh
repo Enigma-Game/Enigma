@@ -47,17 +47,17 @@ namespace enigma {
         Glasses(int initState);
         
         // StateObject interface
-        virtual int maxState() const;
-        virtual void toggleState();
-        virtual void setState(int extState);
+        virtual int maxState() const override;
+        virtual void toggleState() override;
+        virtual void setState(int extState) override;
         
         // GridObject interface
-        virtual void init_model();
+        virtual void init_model() override;
         
         // Items interface
-        virtual void on_drop(Actor *a);
-        virtual void on_pickup(Actor *a);
-        virtual void on_stonehit(Stone *st);
+        virtual void on_drop(Actor *a) override;
+        virtual void on_pickup(Actor *a) override;
+        virtual void on_stonehit(Stone *st) override;
         
     private:
         int traitsIdx() const;

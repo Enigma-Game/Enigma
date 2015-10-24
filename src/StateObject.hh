@@ -63,21 +63,21 @@ namespace enigma {
          * by SendMessage() if they are not explicitly declared for the final
          * subclass in objects.xml.
          */
-        virtual Value message(const Message &m);
+        virtual Value message(const Message &m) override;
         
         /**
          * Handle the attribute "state" by a pseudo implementation. Subclasses
          * shall not interfere with this attribute but override the method
          * "externalState()" on demand.
          */
-        virtual Value getAttr(const std::string &key) const;
+        virtual Value getAttr(const std::string &key) const override;
         
         /**
          * Handle the attribute "state" by a pseudo implementation. Subclasses
          * shall not interfere with this attribute but override the method
          * "setState()". New state values are checked against min and max. 
          */
-        virtual void setAttr(const std::string& key, const Value &val);
+        virtual void setAttr(const std::string& key, const Value &val) override;
         
     protected:
         /**

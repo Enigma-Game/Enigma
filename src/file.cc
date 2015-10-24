@@ -242,8 +242,8 @@ bool GameFS::findFile (const string &filename, string &dest) const
     return false;
 }
 
-bool GameFS::findFile (const string &filename, string &dest, 
-        std::auto_ptr<std::istream> &isresult) const {
+bool GameFS::findFile(const string &filename, string &dest,
+                      std::unique_ptr<std::istream> &isresult) const {
     std::string::size_type slpos = filename.rfind('/');
     std::string zipName;
     std::string zippedFilename1, zippedFilename2;

@@ -39,12 +39,12 @@ struct FontDescr {
     int r, g, b;
 
     // Constructor
-    FontDescr(const std::string &name_, const std::string &ttf_name_, int ttf_size_,
-              const std::string &bitmap_name_, int r_, int g_, int b_)
-    : name(name_),
-      ttf_name(ttf_name_),
+    FontDescr(std::string name_, std::string ttf_name_, int ttf_size_, std::string bitmap_name_,
+              int r_, int g_, int b_)
+    : name(std::move(name_)),
+      ttf_name(std::move(ttf_name_)),
       ttf_size(ttf_size_),
-      bitmap_name(bitmap_name_),
+      bitmap_name(std::move(bitmap_name_)),
       r(r_),
       g(g_),
       b(b_) {}
@@ -52,12 +52,12 @@ struct FontDescr {
 
 class FontCache : public ecl::PtrCache<Font> {
 public:
-    Font *acquire(const std::string &name) {
-        Font *f = 0;
+    Font *acquire(const std::string &name) override {
+        Font *f = nullptr;
         if (m_fonts.has_key(name)) {
             const FontDescr &fd = m_fonts[name];
             f = load_ttf(fd.ttf_name, fd.ttf_size, fd.r, fd.g, fd.b);
-            if (f == 0) {
+            if (f == nullptr) {
                 std::cerr << "Could not load .ttf file " << fd.ttf_name << "\n";
                 f = load_bmf(fd.bitmap_name);
             }
@@ -87,14 +87,14 @@ private:
             app.resourceFS->findFile(std::string("fonts/") + name + ".bmf", bmf)) {
             return ecl::LoadBitmapFont(png.c_str(), bmf.c_str());
         }
-        return 0;
+        return nullptr;
     }
 
     Font *load_ttf(const std::string &name, int ptsize, int r, int g, int b) {
         std::string ttf;
         if (app.resourceFS->findFile(std::string("fonts/") + name, ttf))
             return ecl::LoadTTF(ttf.c_str(), ptsize, r, g, b);
-        return 0;
+        return nullptr;
     }
 
     // Variables
@@ -125,14 +125,14 @@ ecl::Surface *LoadImage(const char *name) {
     std::string filename;
     if (app.resourceFS->findImageFile(std::string(name) + ".png", filename))
         return ecl::LoadImage(filename.c_str());
-    return 0;
+    return nullptr;
 }
 
 ecl::Surface *GetImage(const char *name, const char *ext) {
     std::string filename;
     if (app.resourceFS->findImageFile(std::string(name) + ext, filename))
         return image_cache.get(filename);
-    return 0;
+    return nullptr;
 }
 
 ecl::Surface *RegisterImage(const char *name, ecl::Surface *s) {

@@ -42,15 +42,15 @@ namespace enigma {
         Rubberband();
         
         // Object interface
-        virtual std::string getClass() const;
-        virtual void setAttr(const std::string &key, const Value &val);
-        virtual Value getAttr(const std::string &key) const;
-        virtual Value message(const Message &m);
+        virtual std::string getClass() const override;
+        virtual void setAttr(const std::string &key, const Value &val) override;
+        virtual Value getAttr(const std::string &key) const override;
+        virtual Value message(const Message &m) override;
         
         // Other interface
-        virtual void postAddition();
-        virtual void preRemoval();
-        virtual void tick(double dt);
+        virtual void postAddition() override;
+        virtual void preRemoval() override;
+        virtual void tick(double dt) override;
         
         void applyForces(double dt);
         

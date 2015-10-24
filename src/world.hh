@@ -48,8 +48,8 @@ struct Impulse {
     bool byWire;
 
     // Constructors
-    Impulse(Object *sender_, const GridPos &dest_, Direction dir_, bool sendByWire = false)
-    : sender(sender_), dest(dest_), dir(dir_), byWire(sendByWire) {}
+    Impulse(Object *sender_, GridPos dest_, Direction dir_, bool sendByWire = false)
+    : sender(sender_), dest(std::move(dest_)), dir(dir_), byWire(sendByWire) {}
 };
 
 struct Action {
@@ -60,7 +60,7 @@ struct Action {
     Value val;
 
     Action(int senderId_, bool isCallback_, int targetId_, std::string name_, Value val_)
-    : senderId(senderId_), isCallback(isCallback_), targetId(targetId_), name(name_), val(val_) {}
+    : senderId(senderId_), isCallback(isCallback_), targetId(targetId_), name(std::move(name_)), val(val_) {}
 };
 
 struct Message {
@@ -71,7 +71,7 @@ struct Message {
 
     // Constructors
     Message();
-    Message(const std::string &message, const Value &value, Object *sender);
+    Message(std::string message, const Value &value, Object *sender);
 };
 
 /*! The different kinds of materials objects in Enigma can be made
@@ -166,13 +166,13 @@ Object *GetObject(const GridLoc &l);
 void NameObject(Object *obj, const std::string &name);
 void UnnameObject(Object *obj);
 Object *GetNamedObject(const std::string &name);
-std::list<Object *> GetNamedGroup(const std::string &templ, Object *reference = NULL);
+std::list<Object *> GetNamedGroup(const std::string &templ, Object *reference = nullptr);
 
 /* -------------------- Named Positions -------------------- */
 
 void NamePosition(Value po, const std::string &name);
 Value GetNamedPosition(const std::string &name);
-PositionList GetNamedPositionList(const std::string &templ, Object *reference = NULL);
+PositionList GetNamedPositionList(const std::string &templ, Object *reference = nullptr);
 
 /* -------------------- Force Fields -------------------- */
 
@@ -207,7 +207,7 @@ void BroadcastMessage(const std::string &msg, const Value &value, GridLayerBits 
                       bool actors = false, bool others = false);
 
 Value SendMessage(Object *obj, const std::string &msg, const Value &value = Value(),
-                  Object *sender = NULL);
+                  Object *sender = nullptr);
 Value SendMessage(Object *obj, const Message &m);
 
 /* -------------------- Secure Delayed Actions -------------------- */
@@ -321,7 +321,7 @@ Actor *MakeActor(const char *kind);
 void DisposeObject(Object *o);
 
 /* Register a new object. */
-void BootRegister(Object *obj, const char *kind = NULL, bool isRegistration = true);
+void BootRegister(Object *obj, const char *kind = nullptr, bool isRegistration = true);
 void Register(const std::string &kind, Object *obj);
 
 /* Shutdown object repository */

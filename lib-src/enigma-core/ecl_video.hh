@@ -50,7 +50,7 @@ enum GS_Flags { GS_DEFAULT = 0, GS_ANTIALIAS = 1, GS_NOCLIP = 2 };
 
 struct GraphicsState {
     // Constructors.
-    GraphicsState(const Rect &clipr = Rect()) : cliprect(clipr), pcolor(0), flags(GS_DEFAULT) {}
+    GraphicsState(Rect clipr = Rect()) : cliprect(std::move(clipr)), pcolor(0), flags(GS_DEFAULT) {}
 
     // Variables.
     Rect cliprect;       // current clipping rectangle
@@ -138,14 +138,14 @@ public:
     SDL_Surface *get_surface() const { return m_surface; }
 
     /* ---------- Drawable interface ---------- */
-    PackedColor map_color(int r, int g, int b);
-    PackedColor map_color(int r, int g, int b, int a);
+    PackedColor map_color(int r, int g, int b) override;
+    PackedColor map_color(int r, int g, int b, int a) override;
 
-    Rect size() const { return Rect(0, 0, m_surface->w, m_surface->h); }
-    void box(const GS &gs, int x, int y, int w, int h);
-    void line(const GS &gs, int x1, int y1, int x2, int y2);
-    void blit(const GS &gs, int x, int y, const Surface *s, const Rect &r);
-    void blit(const GS &gs, int x, int y, const Surface *src);
+    Rect size() const override { return Rect(0, 0, m_surface->w, m_surface->h); }
+    void box(const GS &gs, int x, int y, int w, int h) override;
+    void line(const GS &gs, int x1, int y1, int x2, int y2) override;
+    void blit(const GS &gs, int x, int y, const Surface *s, const Rect &r) override;
+    void blit(const GS &gs, int x, int y, const Surface *src) override;
 
     /* ---------- Static methods ---------- */
 

@@ -387,7 +387,7 @@ TextDisplay::TextDisplay(Font &f)
   showscroll(false),
   xoff(0),
   scrollspeed(DEFAULT_TextSpeed * FACTOR_TextSpeed),
-  textsurface(0),
+  textsurface(nullptr),
   font(f) {
     const VMInfo *vminfo = video_engine->GetInfo();
     area = vminfo->sb_textarea;

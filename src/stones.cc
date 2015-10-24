@@ -34,8 +34,8 @@ namespace enigma {
 void Stone::on_creation(GridPos p) {
     // notify rubberbands that may now exceed max/min limits
     ObjectList olist = getAttr("rubbers");  // a private deletion resistant copy
-    for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr)
-        SendMessage(*itr, "_recheck");
+    for (auto &elem : olist)
+        SendMessage(elem, "_recheck");
     GridObject::on_creation(p);
 }
 
@@ -43,12 +43,12 @@ void Stone::transform(std::string kind) {
     Stone *newStone = MakeStone(kind.c_str());
     transferIdentity(newStone);  // subclasses may hook this call
     ObjectList olist = getAttr("rubbers");
-    for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr) {
-        (*itr)->setAttr("anchor2", newStone);
+    for (auto &elem : olist) {
+        elem->setAttr("anchor2", newStone);
     }
     olist = getAttr("wires");
-    for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr) {
-        (*itr)->setAttr((this == (*itr)->getAttr("anchor1")) ? "anchor1" : "anchor2", newStone);
+    for (auto &elem : olist) {
+        elem->setAttr((this == elem->getAttr("anchor1")) ? "anchor1" : "anchor2", newStone);
     }
     SetStone(get_pos(), newStone);
 }
@@ -72,7 +72,7 @@ bool maybe_push_stone(const StoneContact &sc) {
     Direction dir = get_push_direction(sc);
     if (dir != enigma::NODIR) {
         sc.actor->send_impulse(sc.stonepos, dir);
-        return GetStone(sc.stonepos) == 0;  // return true only if stone vanished
+        return GetStone(sc.stonepos) == nullptr;  // return true only if stone vanished
     }
     return false;
 }
@@ -115,7 +115,7 @@ void Stone::on_impulse(const Impulse &impulse) {
         int theid = getId();
         move_stone(impulse.dir);  // may kill the stone!
 
-        if (Object::getObject(theid) != NULL)  // not killed?
+        if (Object::getObject(theid) != nullptr)  // not killed?
             propagateImpulse(impulse);
     }
 }
@@ -123,9 +123,8 @@ void Stone::on_impulse(const Impulse &impulse) {
 void Stone::propagateImpulse(const Impulse &impulse) {
     if (!impulse.byWire) {
         ObjectList olist = getAttr("fellows");
-        for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it) {
-            Stone *fellow = dynamic_cast<Stone *>(*it);
-            if (fellow != NULL) {
+        for (auto &elem : olist) {
+            if (Stone *fellow = dynamic_cast<Stone *>(elem)) {
                 Impulse wireImpulse(this, fellow->get_pos(), impulse.dir, true);
                 fellow->on_impulse(wireImpulse);
             }
@@ -250,7 +249,7 @@ FreezeStatusBits Stone::get_freeze_bits() {
 
 FreezeStatusBits Stone::get_freeze_bits(GridPos p) {
     Stone *st = GetStone(p);
-    if (st == NULL)
+    if (st == nullptr)
         return FREEZEBIT_NO_STONE;
     return st->get_freeze_bits();
 }
@@ -263,7 +262,7 @@ bool Stone::freeze_check() {
     if (freeze_check_running)
         return false;
     Floor *fl = GetFloor(this_pos);
-    if ((fl == NULL) || (!fl->is_freeze_check()))
+    if ((fl == nullptr) || (!fl->is_freeze_check()))
         return false;
     // Do freeze checks only with standard movables
     if (this->get_freeze_bits() != FREEZEBIT_STANDARD)

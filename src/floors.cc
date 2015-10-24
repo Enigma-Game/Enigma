@@ -33,12 +33,12 @@ namespace enigma {
 Floor::Floor(const char *kind, double friction_, double mfactor, FloorFlags flags,
              FloorFireType flft, const char *firetransform_, const char *heattransform_)
 : GridObject(kind),
+  var_floorforce(),
   traits(kind, flags, flft, firetransform_, heattransform_),
   heating_animation(false),
   fire_countdown(1),
-  var_floorforce(),
-  adhesion(mfactor),
-  friction(friction_) {
+  friction(friction_),
+  adhesion(mfactor) {
 }
 
 Floor::Floor(const FloorTraits &tr)
@@ -407,13 +407,13 @@ void Floor::on_burnable_animcb(bool justIgnited) {
                                            (cont_fire ? flhf_fire : flhf_last));
 
     Stone *st = GetStone(p);  // stone can be killed due to fire message
-    if (st == NULL || st->allowsSpreading(NORTH))
+    if (st == nullptr || st->allowsSpreading(NORTH))
         heat_neighbor(NORTH, flhf);
-    if (st == NULL || st->allowsSpreading(EAST))
+    if (st == nullptr || st->allowsSpreading(EAST))
         heat_neighbor(EAST, flhf);
-    if (st == NULL || st->allowsSpreading(SOUTH))
+    if (st == nullptr || st->allowsSpreading(SOUTH))
         heat_neighbor(SOUTH, flhf);
-    if (st == NULL || st->allowsSpreading(WEST))
+    if (st == nullptr || st->allowsSpreading(WEST))
         heat_neighbor(WEST, flhf);
 
     if (cont_fire)
@@ -449,6 +449,9 @@ bool Floor::has_firetype(FloorFireType selector) {
     case flft_noash: return getDefaultedAttr("noash", dflt).to_bool();
     case flft_fastfire: return getDefaultedAttr("fastfire", dflt).to_bool();
     case flft_initfire: return getDefaultedAttr("initfire", dflt).to_bool();
+    default:
+        // do nothing
+        break;
     }
     return dflt;
 }

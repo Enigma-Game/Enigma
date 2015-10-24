@@ -265,26 +265,26 @@ private:
     }
 
 #define CLONEOBJ(TYPE)                        \
-    TYPE *clone() { return new TYPE(*this); } \
-    void dispose() { delete this; }
+    TYPE *clone() override { return new TYPE(*this); } \
+    void dispose() override { delete this; }
 
 #define CLONEACTOR(TYPE)           \
-    TYPE *clone() {                \
+    TYPE *clone() override {                \
         TYPE *o = new TYPE(*this); \
         o->init();                 \
         return o;                  \
     }                              \
-    void dispose() { delete this; }
+    void dispose() override { delete this; }
 
 #define INSTANCELISTOBJ(TYPE)                                            \
     typedef std::vector<TYPE *> InstanceList;                            \
     static InstanceList instances;                                       \
-    TYPE *clone() {                                                      \
+    TYPE *clone() override {                                                      \
         TYPE *o = new TYPE(*this);                                       \
         instances.push_back(o);                                          \
         return o;                                                        \
     }                                                                    \
-    void dispose() {                                                     \
+    void dispose() override {                                                     \
         instances.erase(find(instances.begin(), instances.end(), this)); \
         delete this;                                                     \
     }

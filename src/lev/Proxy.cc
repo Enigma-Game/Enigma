@@ -394,7 +394,7 @@ namespace enigma { namespace lev {
     Proxy * Proxy::copy(std::string newBasePath, std::string newPackPath, bool backup) {
         bool useFileLoader = false;
         bool isXML = true;
-        std::auto_ptr<std::istream> isptr;
+        std::unique_ptr<std::istream> isptr;
         ByteVec levelCode;
         std::string absLevelPath = "";
         std::string filename;
@@ -493,7 +493,7 @@ namespace enigma { namespace lev {
         Uint32 start_tick_time = SDL_GetTicks();   // meassure time for level loading
         bool useFileLoader = false;
         bool isXML = true;
-        std::auto_ptr<std::istream> isptr;
+        std::unique_ptr<std::istream> isptr;
         ByteVec levelCode;
         std::string errMessage;
         absLevelPath = "";
@@ -650,14 +650,14 @@ namespace enigma { namespace lev {
 
                 // preloaded lua-commented xml or zipped xml
 #if _XERCES_VERSION >= 30000
-                std::auto_ptr<DOMLSInput> domInputLevelSource ( new Wrapper4InputSource(
-                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(levelCode[0])),
-                        levelCode.size(), absLevelPath.c_str(), false)));
+                std::unique_ptr<DOMLSInput> domInputLevelSource(new Wrapper4InputSource(
+                    new MemBufInputSource(reinterpret_cast<const XMLByte *>(&levelCode[0]),
+                                          levelCode.size(), absLevelPath.c_str(), false)));
                 doc = app.domParser->parse(domInputLevelSource.get());
 #else
-                std::auto_ptr<Wrapper4InputSource> domInputLevelSource ( new Wrapper4InputSource(
-                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(levelCode[0])),
-                        levelCode.size(), absLevelPath.c_str(), false)));
+                std::unique_ptr<Wrapper4InputSource> domInputLevelSource(new Wrapper4InputSource(
+                    new MemBufInputSource(reinterpret_cast<const XMLByte *>(&levelCode[0]),
+                                          levelCode.size(), absLevelPath.c_str(), false)));
                 doc = app.domParser->parse(*domInputLevelSource);
 #endif
                 if (app.domParserSchemaResolver->didResolveSchema() && doc != NULL
@@ -892,7 +892,7 @@ namespace enigma { namespace lev {
 //                Log << "EData: Path="<<extNormPath<< " Url=" << extUrl<<"\n";
                 // load every external data resource just once even if multiple urls are given
                 if (externalData.find(extNormPath) == externalData.end()) {
-                    std::auto_ptr<std::istream> isptr;
+                    std::unique_ptr<std::istream> isptr;
                     ByteVec extCode;
 
                     std::string extFilename;

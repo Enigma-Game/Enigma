@@ -406,7 +406,7 @@ void Application::init(int argc, char **argv)
     Log <<  ecl::strf("SDL_image Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
 #ifdef SDL_IMG_INIT
     int img_flags = IMG_INIT_PNG | IMG_INIT_JPG;
-    if (IMG_Init(img_flags) & (img_flags != img_flags)) {
+    if ((IMG_Init(img_flags) & img_flags) != img_flags) {
         fprintf(stderr, "Couldn't initialize SDL_image: %s\n", IMG_GetError());
         exit(1);
     }
