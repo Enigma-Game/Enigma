@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 #ifndef ERRORS_HH
 #define ERRORS_HH
@@ -22,35 +21,28 @@
 #include "ecl_error.hh"
 #include <string>
 
-namespace enigma { 
-/* -------------------- Exceptions -------------------- */
+namespace enigma {
 
-    class XLevelLoading : public ecl::XGeneric {
-    public:
-        XLevelLoading (const std::string &msg)
-        : XGeneric (msg)
-        {}
-    };
+class XLevelLoading : public ecl::XGeneric {
+public:
+    XLevelLoading(const std::string &msg) : XGeneric(msg) {}
+};
 
-    class XLevelPackInit : public ecl::XGeneric {
-    public:
-        XLevelPackInit (const std::string &msg)
-        : XGeneric (msg)
-        {}
-    };
-    
-    class XLevelRuntime : public ecl::XGeneric {
-    public:
-        XLevelRuntime (const std::string &msg)
-        : XGeneric (msg)
-        {}
-    };
+class XLevelPackInit : public ecl::XGeneric {
+public:
+    XLevelPackInit(const std::string &msg) : XGeneric(msg) {}
+};
 
-    class XFrontend : public ecl::XGeneric {
-    public:
-        XFrontend (const std::string &msg)
-        : XGeneric (msg)
-        {}
-    };
-} // namespace enigma
+class XLevelRuntime : public ecl::XGeneric {
+public:
+    XLevelRuntime(const std::string &msg) : XGeneric(msg) {}
+};
+
+class XFrontend : public ecl::XGeneric {
+public:
+    XFrontend(const std::string &msg) : XGeneric(msg) {}
+};
+
+}  // namespace enigma
+
 #endif

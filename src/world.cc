@@ -620,20 +620,18 @@ ecl::V2 World::get_global_force(Actor *a) {
 
 /* -------------------- Collision handling -------------------- */
 
-/* Determine whether an actor is in contact with a stone at position
-   `p'.  The result is returned in `c'.  Three situations can occur:
-
-   1) There is no stone at `p'. In this case, `is_contact' is set to
-      false and nothing else is done.
-
-   2) The stone and the actor are in contact. In this case, `c' is
-      filled with the contact information and `is_contact' is set to
-      true.
-
-   3) The stone and the actor are _not_ in contact.  In this case, `c'
-      is filled is filled with information about the closest feature
-      on the stone and `is_contact' is set to false.
-*/
+// Determine whether an actor is in contact with a stone at position `p'. The
+// result is returned in `c'. Three situations can occur:
+//
+// 1) There is no stone at `p'. In this case, `is_contact' is set to false and
+//    nothing else is done.
+//
+// 2) The stone and the actor are in contact. In this case, `c' is filled with
+//    the contact information and `is_contact' is set to true.
+//
+// 3) The stone and the actor are _not_ in contact. In this case, `c' is
+//    filled is filled with information about the closest feature on the stone
+//    and `is_contact' is set to false.
 
 /**
  * Examine a possible contact of an actor with stone at a given grid position. Joins

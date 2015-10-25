@@ -76,7 +76,7 @@ const int NTILESH = 20;  // Default game screen width in tiles
 const int NTILESV = 13;  // Default game screen height in tiles
 
 DisplayFlags display_flags = SHOW_ALL;
-GameDisplay *gamedpy = 0;
+GameDisplay *gamedpy = nullptr;
 bool ShowFPS = false;
 
 }  // namespace
@@ -181,9 +181,9 @@ void StatusBarImpl::redraw(ecl::GC &gc, const ScreenArea &r) {
     int xsize_time = 0;
     int xsize_moves = 0;
     int xsize_modes = 0;
-    Surface *s_time = 0;
-    Surface *s_moves = 0;
-    Surface *s_modes = 0;
+    Surface *s_time = nullptr;
+    Surface *s_moves = nullptr;
+    Surface *s_modes = nullptr;
     Font *timefont = enigma::GetFont("timefont");
     Font *movesfont = enigma::GetFont("smallfont");
     Font *modesfont = enigma::GetFont("modesfont");
@@ -313,8 +313,7 @@ void StatusBarImpl::redraw(ecl::GC &gc, const ScreenArea &r) {
         client::Msg_FinishedText();
         int itemsize = static_cast<int>(vminfo->tile_size * 1.125);
         x = m_itemarea.x;
-        for (unsigned i = 0; i < m_models.size(); ++i) {
-            Model *m = m_models[i];
+        for (auto m : m_models) {
             m->draw(gc, x, m_itemarea.y);
             x += itemsize;
         }
@@ -332,8 +331,8 @@ void StatusBarImpl::set_inventory(enigma::Player activePlayer,
     ecl::delete_sequence(m_models.begin(), m_models.end());
     m_models.clear();
 
-    for (size_t i = 0; i < modelnames.size(); ++i) {
-        m_models.push_back(MakeModel(modelnames[i]));
+    for (auto &modelname : modelnames) {
+        m_models.push_back(MakeModel(modelname));
     }
     m_changedp = true;
 }
@@ -554,10 +553,8 @@ void DisplayEngine::update_offset() {
         RectList rl;
         rl.push_back(get_area());
         rl.sub(blitrect);
-        for (RectList::iterator i = rl.begin(); i != rl.end(); ++i) {
-            Rect r = screen_to_world(*i);
-            mark_redraw_area(r);
-        }
+        for (auto &rect : rl)
+            mark_redraw_area(screen_to_world(rect));
     }
 }
 
@@ -572,12 +569,13 @@ void DisplayEngine::new_world(int w, int h) {
     m_screenoffset[0] = m_screenoffset[1] = 0;
     m_redrawp.resize(w, h, 1);
 
-    for (unsigned i = 0; i < m_layers.size(); ++i)
-        m_layers[i]->new_world(w, h);
+    for (auto &layer : m_layers)
+        layer->new_world(w, h);
 }
 
 void DisplayEngine::tick(double dtime) {
-    for_each(m_layers.begin(), m_layers.end(), bind2nd(mem_fun(&DisplayLayer::tick), dtime));
+    for (auto &layer : m_layers)
+        layer->tick(dtime);
 }
 
 void DisplayEngine::world_to_screen(const V2 &pos, int *x, int *y) {
@@ -650,17 +648,17 @@ void DisplayEngine::draw_all(ecl::GC &gc) {
         rl.push_back(get_area());
         rl.sub(world_to_screen(WorldArea(0, 0, m_width, m_height)));
         set_color(gc, 200, 0, 200);
-        for (RectList::iterator i = rl.begin(); i != rl.end(); ++i)
-            box(gc, *i);
+        for (auto &rect : rl)
+            box(gc, rect);
     }
 
     int xpos, ypos;
     world_to_screen(V2(wa.x, wa.y), &xpos, &ypos);
-    for (unsigned i = 0; i < m_layers.size(); ++i) {
+    for (auto &layer : m_layers) {
         clip(gc, get_area());
-        m_layers[i]->prepare_draw(wa);
-        m_layers[i]->draw(gc, wa, xpos, ypos);
-        m_layers[i]->draw_onepass(gc);
+        layer->prepare_draw(wa);
+        layer->draw(gc, wa, xpos, ypos);
+        layer->draw_onepass(gc);
     }
 }
 
@@ -705,8 +703,8 @@ void DisplayEngine::update_screen() {
     clip(gc, area);
 
     WorldArea wa = screen_to_world(area);
-    for (unsigned i = 0; i < m_layers.size(); ++i) {
-        update_layer(m_layers[i], wa);
+    for (auto &layer : m_layers) {
+        update_layer(layer, wa);
     }
     int x2 = wa.x + wa.w;
     int y2 = wa.y + wa.h;
@@ -739,11 +737,11 @@ void ModelLayer::activate(Model *m) {
 
 void ModelLayer::deactivate(Model *m) {
     list<Model *> &am = m_active_models;
-    list<Model *>::iterator i = find(am.begin(), am.end(), m);
+    auto i = find(am.begin(), am.end(), m);
     if (i == am.end()) {
         m_active_models_new.remove(m);
     } else {
-        *i = 0;
+        *i = nullptr;
     }
 }
 
@@ -755,7 +753,7 @@ void ModelLayer::new_world(int, int) {
 void ModelLayer::tick(double dtime) {
     ModelList &am = m_active_models;
 
-    am.remove(static_cast<Model *>(0));
+    am.remove(nullptr);
     am.remove_if(mem_fun(&Model::is_garbage));
 
     // Append new active models to list
@@ -788,7 +786,7 @@ DL_Grid::~DL_Grid() {
 void DL_Grid::new_world(int w, int h) {
     ModelLayer::new_world(w, h);
     delete_sequence(m_models.begin(), m_models.end());
-    m_models.resize(w, h, 0);
+    m_models.resize(w, h, nullptr);
 }
 
 void DL_Grid::mark_redraw(int x, int y) {
@@ -824,7 +822,7 @@ Model *DL_Grid::yield_model(int x, int y) {
     Model *m = get_model(x, y);
     if (m)
         m->remove(this);
-    m_models(x, y) = 0;
+    m_models(x, y) = nullptr;
     mark_redraw(x, y);
     return m;
 }
@@ -851,14 +849,14 @@ void DL_Grid::draw(ecl::GC &gc, const WorldArea &a, int destx, int desty) {
 SpriteHandle::SpriteHandle(DL_Sprites *l, unsigned spriteid) : layer(l), id(spriteid) {
 }
 
-SpriteHandle::SpriteHandle() : layer(0) {
+SpriteHandle::SpriteHandle() : layer(nullptr) {
     id = DL_Sprites::MAGIC_SPRITEID;
 }
 
 void SpriteHandle::kill() {
     if (layer) {
         layer->kill_sprite(id);
-        layer = 0;
+        layer = nullptr;
         id = DL_Sprites::MAGIC_SPRITEID;
     }
 }
@@ -876,7 +874,7 @@ void SpriteHandle::replace_model(Model *m) const {
 }
 
 Model *SpriteHandle::get_model() const {
-    return layer ? layer->get_model(id) : 0;
+    return layer ? layer->get_model(id) : nullptr;
 }
 
 void SpriteHandle::set_callback(ModelCallback *cb) const {
@@ -923,7 +921,7 @@ void DL_Sprites::new_world(int w, int h) {
     ModelLayer::new_world(w, h);
     delete_sequence(sprites.begin(), sprites.end());
     sprites.clear();
-    Sprite *dummy = NULL;
+    Sprite *dummy = nullptr;
     bottomSprites.assign(w, dummy);
     numsprites = 0;
 }
@@ -955,7 +953,7 @@ SpriteId DL_Sprites::add_sprite(Sprite *sprite, bool isDispensible) {
     SpriteId id = 0;
 
     // Find the first empty slot
-    SpriteList::iterator i = find(sl.begin(), sl.end(), static_cast<Sprite *>(0));
+    auto i = find(sl.begin(), sl.end(), nullptr);
     if (i == sl.end()) {
         id = sl.size();
         sl.push_back(sprite);
@@ -991,7 +989,7 @@ void DL_Sprites::kill_sprite(SpriteId id) {
         if (Model *m = sprite->model) {
             m->remove(this);
         }
-        sprites[id] = 0;
+        sprites[id] = nullptr;
         numsprites -= 1;
         delete sprite;
     }
@@ -1008,7 +1006,7 @@ void DL_Sprites::draw_sprites(bool drawshadowp, GC &gc, const WorldArea &a) {
     for (int i = 0; i < a.w; i++, gx++) {
         int m = gx % 3;
         Sprite *s = bottomSprites[gx];
-        for (; s != NULL; s = s->above[m]) {
+        for (; s != nullptr; s = s->above[m]) {
             if (s && s->model && s->visible) {
                 int sx, sy;
                 get_engine()->world_to_screen(s->pos, &sx, &sy);
@@ -1047,21 +1045,21 @@ void DL_Sprites::update_sprite_region(Sprite *s, bool is_add, bool is_redraw_onl
             if (x >= 0 && x < e->get_width()) {
                 int m = x % 3;
                 if (is_add) {
-                    if (bottomSprites[x] != NULL)
+                    if (bottomSprites[x] != nullptr)
                         bottomSprites[x]->beneath[m] = s;
                     s->above[m] = bottomSprites[x];
-                    s->beneath[m] = NULL;
+                    s->beneath[m] = nullptr;
                     bottomSprites[x] = s;
                 } else {  // remove
                     if (bottomSprites[x] == s) {
                         bottomSprites[x] = s->above[m];
-                        if (s->above[m] != NULL)
-                            s->above[m]->beneath[m] = NULL;
+                        if (s->above[m] != nullptr)
+                            s->above[m]->beneath[m] = nullptr;
                     } else {
-                        if (s->above[m] != NULL) {
+                        if (s->above[m] != nullptr) {
                             s->above[m]->beneath[m] = s->beneath[m];
                         }
-                        if (s->beneath[m] != NULL) {
+                        if (s->beneath[m] != nullptr) {
                             s->beneath[m]->above[m] = s->above[m];
                         }
                     }
@@ -1097,14 +1095,14 @@ void DL_Lines::draw_onepass(ecl::GC &gc) {
     //    set_color (gc, 240, 140, 20, 255);
     set_flags(gc.flags, GS_ANTIALIAS);
 
-    for (LineMap::iterator i = m_rubbers.begin(); i != m_rubbers.end(); ++i) {
+    for (auto &elem : m_rubbers) {
         int x1, y1, x2, y2;
-        engine->world_to_screen(i->second.start, &x1, &y1);
-        engine->world_to_screen(i->second.end, &x2, &y2);
+        engine->world_to_screen(elem.second.start, &x1, &y1);
+        engine->world_to_screen(elem.second.end, &x2, &y2);
 
-        set_color(gc, i->second.r, i->second.g, i->second.b, 255);
+        set_color(gc, elem.second.r, elem.second.g, elem.second.b, 255);
         line(gc, x1, y1, x2, y2);
-        if (i->second.thick) {
+        if (elem.second.thick) {
             line(gc, x1 - 1, y1, x2 - 1, y2);
             line(gc, x1, y1 - 1, x2, y2 - 1);
             line(gc, x1 - 1, y1 - 1, x2 - 1, y2 - 1);
@@ -1189,7 +1187,7 @@ void DL_Lines::set_endpoint(unsigned id, const V2 &p2) {
 
 void DL_Lines::kill_line(unsigned id) {
     mark_redraw_line(m_rubbers[id]);
-    LineMap::iterator i = m_rubbers.find(id);
+    auto i = m_rubbers.find(id);
     if (i != m_rubbers.end())
         m_rubbers.erase(i);
 }
@@ -1281,15 +1279,15 @@ bool only_static_shadows(Model *models[4], ImageQuad &quad) {
     int num_static_shadows = 4;
 
     for (int i = 0; i < 4; ++i) {
-        if (models[i] == 0) {
+        if (models[i] == nullptr) {
             // No model at all? -> static
-            quad.images[i] = 0;
+            quad.images[i] = nullptr;
         } else if (Model *shadow = models[i]->get_shadow()) {
             if (ImageModel *im = dynamic_cast<ImageModel *>(shadow)) {
                 // We have a model with a static image shadow
                 quad.images[i] = im->get_image();
             } else {
-                quad.images[i] = 0;
+                quad.images[i] = nullptr;
                 num_static_shadows--;
             }
         } else
@@ -1311,7 +1309,8 @@ struct StoneShadow {
     Surface *image;
     bool in_cache;
 
-    StoneShadow(ImageQuad iq, bool cached) : images(iq), image(NULL), in_cache(cached) {}
+    StoneShadow(ImageQuad iq, bool cached)
+    : images(std::move(iq)), image(nullptr), in_cache(cached) {}
 };
 
 }  // namespace
@@ -1328,9 +1327,6 @@ public:
     void clear();
 
 private:
-    // Use std::list to maintain LRU cache.
-    typedef std::list<StoneShadow *> CacheList;
-
     // Private methods.
     Surface *new_surface();
     StoneShadow *find_in_cache(const ImageQuad &images);
@@ -1339,7 +1335,8 @@ private:
     void fill_image(StoneShadow *sh, Model *models[4]);
 
     // Variables
-    CacheList m_cache;
+    // Use std::list to maintain LRU cache.
+    std::list<StoneShadow *> m_cache;
     int m_tilew, m_tileh;
     std::vector<Surface *> m_surface_avail;
 };
@@ -1356,9 +1353,9 @@ StoneShadowCache::~StoneShadowCache() {
 }
 
 void StoneShadowCache::clear() {
-    for (CacheList::iterator i = m_cache.begin(); i != m_cache.end(); ++i) {
-        delete (*i)->image;
-        delete *i;
+    for (auto &elem : m_cache) {
+        delete elem->image;
+        delete elem;
     }
     m_cache.clear();
     delete_sequence(m_surface_avail.begin(), m_surface_avail.end());
@@ -1367,9 +1364,8 @@ void StoneShadowCache::clear() {
 
 void StoneShadowCache::fill_image(StoneShadow *sh) {
     // Special case: no shadows at all:
-    if (sh->images[0] == NULL && sh->images[1] == NULL && sh->images[2] == NULL &&
-        sh->images[3] == NULL) {
-        sh->image = NULL;
+    if (!sh->images[0] && !sh->images[1] && !sh->images[2] && !sh->images[3]) {
+        sh->image = nullptr;
         return;
     }
 
@@ -1406,8 +1402,7 @@ void StoneShadowCache::fill_image(StoneShadow *sh, Model *models[4]) {
 }
 
 StoneShadow *StoneShadowCache::find_in_cache(const ImageQuad &images) {
-    CacheList::iterator i = m_cache.begin();
-    for (; i != m_cache.end(); ++i) {
+    for (auto i = m_cache.begin(); i != m_cache.end(); ++i) {
         if ((*i)->images == images) {
             StoneShadow *sh = *i;
             // Move entry to front of list
@@ -1415,13 +1410,13 @@ StoneShadow *StoneShadowCache::find_in_cache(const ImageQuad &images) {
             return sh;
         }
     }
-    return 0;
+    return nullptr;
 }
 
 /* Try to lookup the shadow created by the four models in `models[]'
    in the shadow cache. */
 StoneShadow *StoneShadowCache::retrieve(Model *models[4]) {
-    StoneShadow *shadow = 0;
+    StoneShadow *shadow = nullptr;
 
     ImageQuad images;
 
@@ -1451,7 +1446,7 @@ void StoneShadowCache::release(StoneShadow *s) {
 }
 
 Surface *StoneShadowCache::new_surface() {
-    Surface *s = 0;
+    Surface *s = nullptr;
     if (m_surface_avail.empty()) {
         SDL_Surface *ss = CreateShadowSurface(m_tilew, m_tileh);
         s = Surface::make_surface(ss);
@@ -1465,7 +1460,7 @@ Surface *StoneShadowCache::new_surface() {
 /* -------------------- Shadow layer -------------------- */
 
 DL_Shadows::DL_Shadows(DL_Grid *grid, DL_Sprites *sprites)
-: m_grid(grid), m_sprites(sprites), m_cache(0), buffer(0), m_hasactor(0, 0) {
+: m_grid(grid), m_sprites(sprites), m_cache(nullptr), buffer(nullptr), m_hasactor(0, 0) {
 }
 
 DL_Shadows::~DL_Shadows() {
@@ -1516,8 +1511,7 @@ void DL_Shadows::prepare_draw(const WorldArea &wa) {
         for (int j = 0; j < wa.h; ++j)
             m_hasactor(wa.x + i, wa.y + j) = false;
 
-    for (unsigned k = 0; k < m_sprites->sprites.size(); ++k) {
-        Sprite *s = m_sprites->sprites[k];
+    for (auto s : m_sprites->sprites) {
         if (s && s->layer == SPRITE_ACTOR && s->model) {
             Rect r, redrawr;
             s->model->get_extension(r);
@@ -1539,7 +1533,7 @@ Model *DL_Shadows::get_shadow_model(int x, int y) {
         if (Model *m = m_grid->get_model(x, y))
             return m;  // return m->get_shadow();
     }
-    return 0;
+    return nullptr;
 }
 
 void DL_Shadows::draw(GC &gc, int xpos, int ypos, int x, int y) {
@@ -1574,7 +1568,7 @@ void DL_Shadows::draw(GC &gc, int xpos, int ypos, int x, int y) {
 
             int m = x % 3;
             Sprite *sp = m_sprites->bottomSprites[x];
-            for (; sp != NULL; sp = sp->above[m]) {
+            for (; sp != nullptr; sp = sp->above[m]) {
                 if (sp->visible && sp->model) {
                     int sx = round_nearest<int>(sp->pos[0] * tilew) - x * tilew;
                     int sy = round_nearest<int>(sp->pos[1] * tileh) - y * tileh;
@@ -1645,9 +1639,9 @@ Model *CommonDisplay::get_model(const GridLoc &l) {
     case GRID_FLOOR: return floor_layer->get_model(x, y);
     case GRID_ITEMS: return item_layer->get_model(x, y);
     case GRID_STONES: return stone_layer->get_model(x, y);
-    case GRID_COUNT: return 0;
+    case GRID_COUNT: return nullptr;
     }
-    return 0;
+    return nullptr;
 }
 
 Model *CommonDisplay::yield_model(const GridLoc &l) {
@@ -1656,9 +1650,9 @@ Model *CommonDisplay::yield_model(const GridLoc &l) {
     case GRID_FLOOR: return floor_layer->yield_model(x, y);
     case GRID_ITEMS: return item_layer->yield_model(x, y);
     case GRID_STONES: return stone_layer->yield_model(x, y);
-    case GRID_COUNT: return 0;
+    case GRID_COUNT: return nullptr;
     }
-    return 0;
+    return nullptr;
 }
 
 RubberHandle CommonDisplay::add_line(V2 p1, V2 p2, unsigned short rc, unsigned short gc,
@@ -1667,12 +1661,12 @@ RubberHandle CommonDisplay::add_line(V2 p1, V2 p2, unsigned short rc, unsigned s
 }
 
 SpriteHandle CommonDisplay::add_effect(const V2 &pos, Model *m, bool isDispensible) {
-    Sprite *spr = new Sprite(pos, SPRITE_EFFECT, m);
+    auto spr = new Sprite(pos, SPRITE_EFFECT, m);
     return SpriteHandle(effects_layer, effects_layer->add_sprite(spr, isDispensible));
 }
 
 SpriteHandle CommonDisplay::add_sprite(const V2 &pos, Model *m) {
-    Sprite *spr = new Sprite(pos, SPRITE_ACTOR, m);
+    auto spr = new Sprite(pos, SPRITE_ACTOR, m);
     return SpriteHandle(sprite_layer, sprite_layer->add_sprite(spr));
 }
 
@@ -1700,13 +1694,13 @@ void CommonDisplay::set_stone(int x, int y, Model *m) {
 // Game Display Engine
 //----------------------------------------------------------------------
 
-GameDisplay::GameDisplay(const ScreenArea &gamearea, const ScreenArea &inventoryarea_)
+GameDisplay::GameDisplay(const ScreenArea &gamearea, ScreenArea inventoryarea_)
 : CommonDisplay(gamearea),
   last_frame_time(0),
   redraw_everything(false),
   m_reference_point(),
-  m_follower(0),
-  inventoryarea(inventoryarea_) {
+  m_follower(nullptr),
+  inventoryarea(std::move(inventoryarea_)) {
     status_bar = new StatusBarImpl(inventoryarea);
 }
 
@@ -1739,7 +1733,7 @@ StatusBar *GameDisplay::get_status_bar() const {
 
 void GameDisplay::set_follow_mode(FollowMode m) {
     switch (m) {
-    case FOLLOW_NONEOLD: set_follower(0); break;
+    case FOLLOW_NONEOLD: set_follower(nullptr); break;
     case FOLLOW_SCROLLING: set_follower(new Follower_Scrolling(get_engine(), false)); break;
     case FOLLOW_SCREEN: set_follower(new Follower_Screen(get_engine())); break;
     case FOLLOW_SCREENSCROLLING:
@@ -1754,7 +1748,7 @@ void GameDisplay::updateFollowMode() {
     if (!server::FollowGrid)
         set_follower(new Follower_Smooth(get_engine()));
     else if (server::FollowMethod == FOLLOW_NONE)
-        set_follower(NULL);
+        set_follower(nullptr);
     else if (server::FollowMethod == FOLLOW_FLIP) {
         if (server::FollowThreshold.getType() == Value::DOUBLE)
             set_follower(new Follower_Screen(get_engine(), (double)server::FollowThreshold,
@@ -1854,9 +1848,8 @@ void GameDisplay::draw_borders(GC &gc) {
     rl.sub(inventoryarea);
     clip(gc);
     set_color(gc, 0, 0, 0);
-    for (RectList::iterator i = rl.begin(); i != rl.end(); ++i) {
-        box(gc, *i);
-    }
+    for (auto &rect : rl)
+        box(gc, rect);
 }
 
 void GameDisplay::resize_game_area(int w, int h) {
@@ -1955,7 +1948,7 @@ SpriteHandle display::AddEffect(const V2 &pos, const char *modelname, bool isDis
 }
 
 SpriteHandle display::AddSprite(const V2 &pos, const char *modelname) {
-    Model *m = modelname ? MakeModel(modelname) : 0;
+    Model *m = modelname ? MakeModel(modelname) : nullptr;
     return gamedpy->add_sprite(pos, m);
 }
 

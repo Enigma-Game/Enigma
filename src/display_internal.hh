@@ -21,7 +21,7 @@ typedef std::list<Model *> ModelList;
 class Window {
 public:
     Window() {}
-    Window(const ScreenArea &area) : m_area(area) {}
+    Window(ScreenArea area) : m_area(std::move(area)) {}
 
     const ScreenArea &get_area() const { return m_area; }
 
@@ -65,18 +65,18 @@ public:
     void new_world();
 
     // StatusBar interface.
-    void set_time(double time);
-    void set_inventory(enigma::Player activePlayer, const std::vector<std::string> &modelnames);
-    void show_text(const std::string &str, bool scrolling, double duration);
-    void hide_text();
+    void set_time(double time) override;
+    void set_inventory(enigma::Player activePlayer, const std::vector<std::string> &modelnames) override;
+    void show_text(const std::string &str, bool scrolling, double duration) override;
+    void hide_text() override;
 
-    void show_move_counter(bool active);
-    void setCMode(bool flag);
-    void setBasicModes(std::string flags);
+    void show_move_counter(bool active) override;
+    void setCMode(bool flag) override;
+    void setBasicModes(std::string flags) override;
 
-    void set_speed(double speed);
-    void set_travelled_distance(double distance);
-    void set_counter(int new_counter);
+    void set_speed(double speed) override;
+    void set_travelled_distance(double distance) override;
+    void set_counter(int new_counter) override;
 
 private:
     ScreenArea m_itemarea;

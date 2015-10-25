@@ -58,12 +58,12 @@ extern "C" {
 namespace {
 class SurfaceCache_Alpha : public PtrCache<Surface> {
 public:
-    Surface *acquire(const std::string &name);
+    Surface *acquire(const std::string &name) override;
 };
 
 class SurfaceCache : public PtrCache<Surface> {
 public:
-    Surface *acquire(const std::string &name);
+    Surface *acquire(const std::string &name) override;
 };
 
 class ModelManager {
@@ -96,43 +96,35 @@ private:
 Surface *SurfaceCache_Alpha::acquire(const std::string &name) {
     const VMInfo *vminfo = video_engine->GetInfo();
     std::string filename;
-    ecl::Surface *es = NULL;
+    std::unique_ptr<ecl::Surface> es;
 
     if (app.resourceFS->findImageFile(name + ".png", filename))
-        es = ecl::LoadImage(filename.c_str());
+        es.reset(ecl::LoadImage(filename.c_str()));
 
-    if (es != NULL && vminfo->tt == VTS_64 && filename.find("gfx32") != std::string::npos) {
-        ecl::Surface *es_zoom = es->zoom(es->width() * 2, es->height() * 2);
-        delete es;
-        es = es_zoom;
-    } else if (es != NULL && vminfo->tt == VTS_16 && filename.find("gfx32") != std::string::npos) {
-        ecl::Surface *es_zoom = es->zoom(es->width() / 2, es->height() / 2);
-        delete es;
-        es = es_zoom;
-    }
-    return es;
+    if (es && vminfo->tt == VTS_64 && filename.find("gfx32") != std::string::npos)
+        return es->zoom(es->width() * 2, es->height() * 2);
+    if (es && vminfo->tt == VTS_16 && filename.find("gfx32") != std::string::npos)
+        return es->zoom(es->width() / 2, es->height() / 2);
+
+    return es.release();
 }
 
 Surface *SurfaceCache::acquire(const std::string &name) {
     const VMInfo *vminfo = video_engine->GetInfo();
     std::string filename;
-    ecl::Surface *es = NULL;
+    std::unique_ptr<ecl::Surface> es;
 
     if (app.resourceFS->findImageFile(name + ".png", filename)) {
-        if (SDL_Surface *s = IMG_Load(filename.c_str())) {
-            es = Surface::make_surface(s);
-        }
+        // TODO(sdl2): is there a reason this is different from SurfaceCache_Alpha?
+        if (SDL_Surface *s = IMG_Load(filename.c_str()))
+            es.reset(Surface::make_surface(s));
     }
-    if (es != NULL && vminfo->tt == VTS_64 && filename.find("gfx32") != std::string::npos) {
-        ecl::Surface *es_zoom = es->zoom(es->width() * 2, es->height() * 2);
-        delete es;
-        es = es_zoom;
-    } else if (es != NULL && vminfo->tt == VTS_16 && filename.find("gfx32") != std::string::npos) {
-        ecl::Surface *es_zoom = es->zoom(es->width() / 2, es->height() / 2);
-        delete es;
-        es = es_zoom;
-    }
-    return es;
+    if (es && vminfo->tt == VTS_64 && filename.find("gfx32") != std::string::npos)
+        return es->zoom(es->width() * 2, es->height() * 2);
+    if (es && vminfo->tt == VTS_16 && filename.find("gfx32") != std::string::npos)
+        return es->zoom(es->width() / 2, es->height() / 2);
+
+    return es.release();
 }
 
 /* -------------------- ModelManager -------------------- */
@@ -149,12 +141,10 @@ void ModelManager::define(const std::string name, Model *m) {
 }
 
 Model *ModelManager::create(const std::string &name) {
-    ModelMap::iterator i = m_templates.find(name);
-
+    auto i = m_templates.find(name);
     if (i != m_templates.end())
         return i->second->clone();
-    else
-        return 0;
+    return nullptr;
 }
 
 void ModelManager::remove(const std::string &name) {
@@ -179,10 +169,10 @@ namespace {
 
 SurfaceCache surface_cache;
 SurfaceCache_Alpha surface_cache_alpha;
-ModelManager *modelmgr = 0;
+ModelManager *modelmgr = nullptr;
 vector<Surface *> image_pile;
 string anim_templ_name;
-Anim2d *anim_templ = 0;
+Anim2d *anim_templ = nullptr;
 
 }  // namespace
 
@@ -234,7 +224,7 @@ void display::ShutdownModels() {
     delete_sequence(image_pile.begin(), image_pile.end());
     image_pile.clear();
     anim_templ_name = "";
-    anim_templ = 0;
+    anim_templ = nullptr;
 }
 
 Surface *display::CropSurface(const Surface *s, Rect r) {
@@ -288,7 +278,7 @@ int display::DefineSubImage(const char *name, const char *fname, int xoff, int y
 }
 
 void display::DefineRandModel(const char *name, int n, char **names) {
-    RandomModel *m = new RandomModel();
+    auto m = new RandomModel();
     for (int i = 0; i < n; i++)
         m->add_model(names[i]);
     DefineModel(name, m);
@@ -343,7 +333,7 @@ void Model::get_extension(ecl::Rect &r) {
 Image::Image(ecl::Surface *sfc) : surface(sfc), rect(surface->size()), refcount(1) {
 }
 
-Image::Image(ecl::Surface *sfc, const ecl::Rect &r) : surface(sfc), rect(r), refcount(1) {
+Image::Image(ecl::Surface *sfc, ecl::Rect r) : surface(sfc), rect(std::move(r)), refcount(1) {
 }
 
 void display::incref(Image *i) {
@@ -460,7 +450,7 @@ Model *RandomModel::clone() {
         return MakeModel(modelnames[r]);
     } else {
         fprintf(stderr, "display_2d.cc: empty RandomModel\n");
-        return 0;
+        return nullptr;
     }
 }
 
@@ -484,7 +474,7 @@ Anim2d::Anim2d(AnimRep *r, ecl::Rect &ext_r)
   reversep(false),
   videox(0),
   videoy(0),
-  callback(0),
+  callback(nullptr),
   extension(ext_r) {
     rep->refcount++;
     frametime = 0;
@@ -580,7 +570,7 @@ void Anim2d::tick(double dtime) {
             else
                 finishedp = true;
         }
-        if (finishedp && callback != 0)
+        if (finishedp && callback != nullptr)
             callback->animcb();
     }
 }
