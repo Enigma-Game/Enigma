@@ -383,7 +383,7 @@ namespace enigma { namespace gui {
         set_caption(_("Enigma - Level Pack Composer"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
         if (isModified)
-          blit(gc, 0,0, enigma::GetImage(("ic-obsolete" + vminfo->thumbsext).c_str()));
+            blit(gc, 0, 0, enigma::GetImage(("ic-obsolete" + vminfo->thumb.suffix).c_str()));
     }
 
 

@@ -26,13 +26,6 @@
 #include "ecl_geom.hh"
 #include "ecl_video.hh"
 
-namespace video {
-
-// just for main batch thumb generation in wrong videomode
-void SetThumbInfo(int width, int height, std::string extension);
-
-} // namespace video
-
 namespace enigma {
 
 enum VideoMode {
@@ -54,6 +47,12 @@ enum VideoTileType {
     VTS_64 = 4,
 };
 
+struct ThumbnailInfo {
+    int width, height;          // Width and height of thumbnails
+    int border_width;           // width of border around thumbnail
+    std::string suffix;         // suffix added to thumbnails files and dirs
+};    
+
 struct VMInfo {
     VideoMode mode;
     int width, height;             // Screen width and height in pixels
@@ -66,9 +65,7 @@ struct VMInfo {
     const char *gfxdir;            // Directory that contains the graphics
     ecl::Rect area;                // Area that is used for display
     int mbg_offsetx, mbg_offsety;  // offsets for menu background image
-    int thumbw, thumbh;            // Width and height of thumbnails
-    int thumbborder_width;         //
-    std::string thumbsext;         // extension added to thumbnails files and dirs
+    ThumbnailInfo thumb;
     ecl::Rect gamearea;
     ecl::Rect statusbararea;
     ecl::Rect sb_timearea;
@@ -82,7 +79,6 @@ struct VMInfo {
 struct DisplayMode {
     int width;
     int height;
-
 
     bool operator==(const DisplayMode &other) {
         return width == other.width &&

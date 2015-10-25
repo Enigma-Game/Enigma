@@ -229,12 +229,8 @@ void AP::on_argument (const string &arg)
     levelnames.push_back (arg);
 }
 
-
-
 /*! Initialize enough of the game to be able to show error messages in
   the window, not on the console. */
-
-
 
 /* -------------------- Application -------------------- */
 
@@ -242,7 +238,6 @@ Application::Application() : wizard_mode (false), nograb (false), language (""),
         defaultLanguage (""), argumentLanguage (""), errorInit (false),
         isMakePreviews (false), bossKeyPressed (false) {
 }
-
 
 void Application::init(int argc, char **argv)
 {
@@ -352,6 +347,7 @@ void Application::init(int argc, char **argv)
         app.prefs->setProperty("FullScreen", false);
     }
     if (isMakePreviews) {
+        // TODO(sdl2): fix this.
         app.prefs->setProperty("VideoModesFullscreen", "-0-");
         app.prefs->setProperty("VideoModesWindow", "-0-");     // we will not save the prefs!
     }
@@ -473,44 +469,7 @@ void Application::init(int argc, char **argv)
     enigma::Randomize(true);
 
     if (isMakePreviews) {
-        app.state->setProperty("Difficulty", DIFFICULTY_HARD); // will not be saved
-        std::set<lev::Proxy *> proxies = lev::Proxy::getProxies();
-        int size = proxies.size();
-        std::set<lev::Proxy *>::iterator it;
-        std::string message = ecl::strf("Make 3 x %d previews on system path '%s'",
-                size, systemAppDataPath.c_str());
-        Log << message;
-
-        Screen *scr = video_engine->GetScreen();
-        GC gc (scr->get_surface());
-        Font *f = enigma::GetFont("menufont");
-        f->render (gc, 80, 240, message.c_str());
-        set_color(gc, 200,200,200);
-        hline(gc, 170, 280, 300);
-        hline(gc, 170, 300, 300);
-        vline(gc, 170, 280, 20);
-        vline(gc, 470, 280, 20);
-        scr->update_all ();
-        scr->flush_updates();
-
-        int i = 0;
-        for (int m=0; m<3; m++) {
-            switch (m) {
-                case 0 : video::SetThumbInfo(120, 78, "-120x78"); break;
-                case 1 : video::SetThumbInfo(160, 104, "-160x104"); break;
-                case 2 : video::SetThumbInfo(60, 39, "-60x39"); break;
-            }
-            for (it = proxies.begin(); it != proxies.end(); it++, i++) {
-                Log << "Make preview " << (*it)->getId() << "\n";
-                gui::LevelPreviewCache::makeSystemPreview(*it, systemAppDataPath);
-                // i counts from 0 to 3*size (3 video modes),
-                // this makes up for the factor 100 = 300 / 3.
-                vline(gc, 170 + i*100 / size, 280, 20);
-                scr->update_all ();
-                scr->flush_updates();
-            }
-        }
-        Log << "Make preview finished succesfully\n";
+        createPreviews();
         return;
     }
 
@@ -806,6 +765,46 @@ void Application::updateMac1_00() {
     }
 }
 #endif
+
+void Application::createPreviews() {
+    app.state->setProperty("Difficulty", DIFFICULTY_HARD);  // will not be saved
+    const auto &proxies = lev::Proxy::getProxies();
+
+    const std::string message =
+        ecl::strf("Make 3 x %d previews on system path '%s'", static_cast<int>(proxies.size()),
+                  systemAppDataPath.c_str());
+    Log << message;
+
+    Screen *scr = video_engine->GetScreen();
+    GC gc(scr->get_surface());
+    Font *f = enigma::GetFont("menufont");
+    f->render(gc, 80, 240, message.c_str());
+    set_color(gc, 200, 200, 200);
+
+    const int kProgressWidth = 300;
+    hline(gc, 170, 280, kProgressWidth);
+    hline(gc, 170, 300, kProgressWidth);
+    vline(gc, 170, 280, 20);
+    vline(gc, 470, 280, 20);
+    scr->update_all();
+    scr->flush_updates();
+
+    int i = 0;
+    const int num_thumbnails = 3 * proxies.size();
+    ThumbnailInfo thumbinfos[] = {
+        {120, 78, 0, "-120x78"}, {160, 104, 0, "-160x104"}, {60, 39, 0, "-60x39"}};
+    for (auto &thumbinfo : thumbinfos) {
+        for (auto &level : proxies) {
+            Log << "Make preview " << level->getId() << "\n";
+            gui::LevelPreviewCache::makeSystemPreview(level, thumbinfo, systemAppDataPath);
+            vline(gc, 170 + kProgressWidth * (float(i) / num_thumbnails), 280, 20);
+            scr->update_all();
+            scr->flush_updates();
+            i++;
+        }
+    }
+    Log << "Make preview finished succesfully\n";
+}
 
 void Application::init_i18n()
 {

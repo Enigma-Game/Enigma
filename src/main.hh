@@ -224,6 +224,8 @@ namespace enigma
         void initXerces();
         void initUserDatapaths();
         void updateMac1_00();
+        void createPreviews();
+
         double enigmaVersion;
         std::string systemAppDataPath;    // dir path to the apps data
         std::string systemCmdDataPath;    // commandline override of systemAppDataPath

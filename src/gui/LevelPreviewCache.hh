@@ -19,9 +19,11 @@
 #ifndef GUI_LEVELPREVIEWCACHE_HH_INCLUDED
 #define GUI_LEVELPREVIEWCACHE_HH_INCLUDED
 
-#include "resource_cache.hh"
 #include "lev/Index.hh"
 #include "lev/Proxy.hh"
+#include "resource_cache.hh"
+#include "video.hh"
+
 #include <map>
 
 namespace enigma { namespace gui {
@@ -57,12 +59,15 @@ namespace enigma { namespace gui {
     class LevelPreviewCache {
     public:
         static LevelPreviewCache *instance();
-        static void makeSystemPreview(lev::Proxy *levelProxy, std::string systemDataPath);
+        static void makeSystemPreview(lev::Proxy *levelProxy,
+                const ThumbnailInfo &thumbinfo,
+                const std::string &systemDataPath);
         ~LevelPreviewCache();
 
-        ecl::Surface *getPreview (lev::Proxy *levelProxy, 
+        ecl::Surface *getPreview (lev::Proxy *levelProxy,
+                const ThumbnailInfo &thumbinfo,
             bool allowGeneration, bool &didGenerate);
-        ecl::Surface *updatePreview (lev::Proxy *levelProxy);
+        ecl::Surface *updatePreview (lev::Proxy *levelProxy, const ThumbnailInfo &thumbinfo);
         void clear();
     protected:
         LevelPreviewCache();
@@ -76,9 +81,9 @@ namespace enigma { namespace gui {
 
         // ---------- Internal methods ----------
 
-        static ecl::Surface *newPreview (lev::Proxy *levelProxy);
-        std::string makePreviewPath(lev::Proxy *levelProxy);
-        void savePreview(lev::Proxy *levelProxy, ecl::Surface *s);
+        static ecl::Surface *newPreview (lev::Proxy *levelProxy, const ThumbnailInfo &thumbinfo);
+        std::string makePreviewPath(lev::Proxy *levelProxy, const ThumbnailInfo &thumbinfo);
+        void savePreview(lev::Proxy *levelProxy, const ThumbnailInfo &thumbinfo, ecl::Surface *s);
 
         // ---------- Variables ----------
 

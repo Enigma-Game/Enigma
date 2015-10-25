@@ -241,7 +241,8 @@ namespace enigma { namespace lev {
                     theProxy->getId() + ecl::strf("[%d]", subNum), "");
                 cache.insert(std::make_pair(cacheKey, theProxy));
                 if (isLuaTitle) {  // update Preview to get lua title
-                    gui::LevelPreviewCache::instance()->updatePreview(theProxy);
+                    gui::LevelPreviewCache::instance()->updatePreview(
+                        theProxy, video_engine->GetInfo()->thumb);
                 }
             }
         }

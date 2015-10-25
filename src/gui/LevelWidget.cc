@@ -47,9 +47,10 @@ namespace enigma { namespace gui {
     {
         const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
-    
-        buttonw = vminfo.thumbw + (vshrink?13:27);  // min should be +30 for all modes but 640x480
-        buttonh = vminfo.thumbh + (vshrink?14:28);
+
+        buttonw = vminfo.thumb.width +
+                  (vshrink ? 13 : 27);  // min should be +30 for all modes but 640x480
+        buttonh = vminfo.thumb.height + (vshrink ? 14 : 28);
         curIndex = lev::Index::getCurrentIndex();
         iselected = curIndex->getCurrentPosition();
         ifirst = curIndex->getScreenFirstPosition();
@@ -60,15 +61,15 @@ namespace enigma { namespace gui {
         img_feather     = enigma::GetImage("ic-feather");
         img_easy        = enigma::GetImage("completed-easy");
         img_hard        = enigma::GetImage("completed");
-        img_obsolete     = enigma::GetImage(("ic-obsolete" + vminfo.thumbsext).c_str());
-        img_outdated     = enigma::GetImage(("ic-outdated" + vminfo.thumbsext).c_str());
+        img_obsolete = enigma::GetImage(("ic-obsolete" + vminfo.thumb.suffix).c_str());
+        img_outdated = enigma::GetImage(("ic-outdated" + vminfo.thumb.suffix).c_str());
         img_unavailable = enigma::GetImage("unavailable");
         img_par         = enigma::GetImage("par");
         img_wrEasy      = enigma::GetImage("ic-wr-easy");
         img_wrDifficult = enigma::GetImage("ic-wr-difficult");
-        img_border      = enigma::GetImage(("thumbborder" + vminfo.thumbsext).c_str());
-        img_editborder  = enigma::GetImage(("editborder" + vminfo.thumbsext).c_str());
-        thumbmode       = (vminfo.thumbw == 160) ? 2 : ((vminfo.thumbw == 120) ? 1 : 0);
+        img_border = enigma::GetImage(("thumbborder" + vminfo.thumb.suffix).c_str());
+        img_editborder = enigma::GetImage(("editborder" + vminfo.thumb.suffix).c_str());
+        thumbmode = (vminfo.thumb.width == 160) ? 2 : ((vminfo.thumb.width == 120) ? 1 : 0);
     }
     
     void LevelWidget::syncFromIndexMgr() {
@@ -217,8 +218,10 @@ namespace enigma { namespace gui {
             lev::Proxy *proxy, bool selected, bool isCross, bool locked,
             bool allowGeneration, bool &didGenerate) { 
         // Draw button with level preview
-    
-        Surface *img = preview_cache->getPreview(proxy, allowGeneration, didGenerate);
+
+        const VMInfo *vminfo = video_engine->GetInfo();
+        Surface *img =
+            preview_cache->getPreview(proxy, vminfo->thumb, allowGeneration, didGenerate);
         if (img == NULL)
             return false;
    
@@ -295,10 +298,10 @@ namespace enigma { namespace gui {
     
     void LevelWidget::draw(ecl::GC &gc, const ecl::Rect &r) {
         const VMInfo &vminfo = *video_engine->GetInfo();
-        const int imgw = vminfo.thumbw;       // Size of the preview images
-        const int imgh = vminfo.thumbh;
-        const int bwidth = vminfo.thumbborder_width;
-    
+        const int imgw = vminfo.thumb.width;  // Size of the preview images
+        const int imgh = vminfo.thumb.height;
+        const int bwidth = vminfo.thumb.border_width;
+
         const int hgap = Max(0, (get_w() - width*buttonw) / (width));
         const int vgap = Max(0, (get_h() - height*buttonh)/ (height-1));
     
@@ -454,7 +457,8 @@ namespace enigma { namespace gui {
         switch (e->key.keysym.sym) {
             case SDLK_t:
                 // Generate new level preview for current level
-                preview_cache->updatePreview(curIndex->getProxy(iselected));
+                preview_cache->updatePreview(curIndex->getProxy(iselected),
+                                             video_engine->GetInfo()->thumb);
                 invalidate();
                 break;
             

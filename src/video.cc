@@ -32,7 +32,6 @@
 #include "resource_cache.hh"
 
 using namespace ecl;
-using namespace video;
 using namespace enigma;
 
 /* -------------------- MouseCursor -------------------- */
@@ -187,7 +186,7 @@ VMInfo video_modes[] = {
      "models-16.lua", "gfx16/",  // initscript, dir
      Rect(0, 0, 320, 240),       // display area
      0, 0,                       // menu background image offsets
-     60, 39, 2, "-60x39",        // thumbnail size/extension
+     {60, 39, 2, "-60x39"},        // thumbnail size/extension
      Rect(0, 0, 320, 208),       // game area
      Rect(0, 208, 320, 32),      // statusbar area
      Rect(3, 212, 65, 21),       // time area
@@ -204,7 +203,7 @@ VMInfo video_modes[] = {
      "models-32.lua", "gfx32/",  // initscript, dir
      Rect(0, 0, 640, 480),       // display area
      0, 0,                       // menu background image offsets
-     120, 78, 4, "-120x78",      // thumbnail size/extension
+     {120, 78, 4, "-120x78"},      // thumbnail size/extension
      Rect(0, 0, 640, 416),       // game area
      Rect(0, 416, 640, 64),      // statusbar area
      Rect(10, 428, 117, 43),     // time area
@@ -221,7 +220,7 @@ VMInfo video_modes[] = {
      "models-40.lua", "gfx40/",  // initscript, dir
      Rect(0, 0, 800, 600),       // display area
      0, 0,                       // menu background image offsets
-     120, 78, 4, "-120x78",      // thumbnail size/extension
+     {120, 78, 4, "-120x78"},      // thumbnail size/extension
      Rect(0, 0, 800, 520),       // game area
      Rect(0, 520, 800, 80),      // statusbar area
      Rect(16, 540, 140, 40),     // time area
@@ -238,7 +237,7 @@ VMInfo video_modes[] = {
      "models-48.lua", "gfx48/",    // initscript, dir
      Rect(0, 0, 960, 720),         // display area
      0, 0,                         // menu background image offsets
-     120, 78, 4, "-120x78",        // thumbnail size/extension
+     {120, 78, 4, "-120x78"},        // thumbnail size/extension
      Rect(0, 0, 960, 624),         // game area
      Rect(0, 624, 960, 96),        // statusbar area
      Rect(18, 640, 170, 60),       // time area
@@ -255,7 +254,7 @@ VMInfo video_modes[] = {
      "models-64.lua", "gfx64/",      // initscript, dir
      Rect(0, 0, 1280, 960),          // display area
      0, 0,                           // menu background image offsets
-     160, 104, 5, "-160x104",        // thumbnail size/extension
+     {160, 104, 5, "-160x104"},        // thumbnail size/extension
      Rect(0, 0, 1280, 832),          // game area
      Rect(0, 832, 1280, 128),        // statusbar area
      Rect(24, 857, 227, 80),         // time area //TODO
@@ -268,16 +267,6 @@ VMInfo video_modes[] = {
 };
 
 }  // namespace
-
-namespace video {
-
-void SetThumbInfo(int width, int height, std::string extension) {
-    // video_modes[current_video_mode].thumbw = width;
-    // video_modes[current_video_mode].thumbh = height;
-    // video_modes[current_video_mode].thumbsext = extension;
-}
-
-}  // namespace video
 
 namespace enigma {
 
