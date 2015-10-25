@@ -228,11 +228,11 @@ World::~World() {
     // dispose all grid objects without removing them to avoid side effects
     // keep the field array still valid for arbitrary access
     for (auto &field : fields) {
-        DisposeObject(field.stone);
+        dispose_object(field.stone);
         field.stone = nullptr;
-        DisposeObject(field.item);
+        dispose_object(field.item);
         field.item = nullptr;
-        DisposeObject(field.floor);
+        dispose_object(field.floor);
         field.floor = nullptr;
     }
     // reset the fields
