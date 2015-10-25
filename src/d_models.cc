@@ -106,7 +106,7 @@ Surface *SurfaceCache_Alpha::acquire(const std::string &name) {
     if (es && vminfo->tt == video::VTS_16 && filename.find("gfx32") != std::string::npos)
         return es->zoom(es->width() / 2, es->height() / 2);
 
-    return es.get();
+    return es.release();
 }
 
 Surface *SurfaceCache::acquire(const std::string &name) {
