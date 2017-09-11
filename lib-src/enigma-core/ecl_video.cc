@@ -422,7 +422,7 @@ void ecl::SavePNG(const ecl::Surface *s, const std::string &filename) {
 }
 
 void ecl::TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
-    std::auto_ptr<Surface> copy(Grab(s, rect));
+    std::unique_ptr<Surface> copy(Grab(s, rect));
     if (copy.get()) {
         copy->set_alpha(a);
 
