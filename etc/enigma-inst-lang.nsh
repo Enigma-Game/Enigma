@@ -136,12 +136,12 @@ LangString DeleteUserdata ${LANG_POLISH} "Usuń również dane użytkownika Enig
 
 LangString ProgramDesc ${LANG_PORTUGUESE} "Enigma é um jogo de quebra-cabeças inspirado por Oxyd no Atari ST e Rock'n'Roll no Amiga. O objetivo do jogo é encontrar e descobrir pares de pedras Oxyd coloridas idênticas.\r\n\r\nSimples? Sim. Fácil? Claro que não! Armadilhas escondidas, labirintos vastos, raios laser, e principalmente, quebra-cabeças peludos bloqueiam geralmente o seu acesso às pedras Oxyd...\r\n\r\nEsta ajuda guia-o pela instalação de Enigma."
 LangString OldInstallSure ${LANG_PORTUGUESE} "Já existe uma instalação do Enigma na diretoria escolhida."
-LangString OldInstallMaybe ${LANG_PORTUGUESE} "A diretoria escolhida contém dados."
+LangString OldInstallMaybe ${LANG_PORTUGUESE} "A diretoria que escolheu contém dados."
 LangString OldInstallDesc ${LANG_PORTUGUESE} "Deseja eliminar todos os seus conteúdos?"
 LangString OldInstallDesc2 ${LANG_PORTUGUESE} "A sua configuração e as pontuações não são afetadas."
-LangString DesktopIcon ${LANG_PORTUGUESE} "Criar símbolo do ambiente de trabalho"
+LangString DesktopIcon ${LANG_PORTUGUESE} "Criar símbolo na área de trabalho"
 LangString Documentation ${LANG_PORTUGUESE} "Documentação"
-LangString DeleteUserdata ${LANG_PORTUGUESE} "Apagar também os dados do utilizador do Enigma com toda a sua configuração e pontuações. Não selecione esta opção enquanto atualiza o Enigma. Só a selecione se pretender livrar-se de todos os vestígios do Enigma para sempre!"
+LangString DeleteUserdata ${LANG_PORTUGUESE} "Eliminar também os dados do utilizador do Enigma com toda a sua configuração pessoal e pontuações. Não selecione esta opção enquanto atualiza o Enigma. Selecione apenas se pretender livrar-se de todos os vestígios do Enigma para sempre!"
 
 LangString ProgramDesc ${LANG_HUNGARIAN} "Az Enigma egy fejtörő játék, amit az Atari ST-s Oxyd és az Amigás Rock'n'Roll inspirált. A játék célja, hogy egyező színű Oxyd köveket fedjünk fel.\r\n\r\nEgyszerű? Igen. Könnyű? Korántsem! Rejtett csapdák, kiterjedt labirintusok, lézersugarak, és legfőbbképpen számtalan szőrszálhasogató rejtvény, amik elállják az egyenes utat az Oxyd kövekhez.\r\n\r\nA varázsló segítségével feltelepítheted az Enigmát."
 LangString OldInstallSure ${LANG_HUNGARIAN} "A célkönyvtárba már telepítve van az Enigma egy példánya."
