@@ -1,17 +1,17 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Danish translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
-# Joe Hansen <joedalton2@yahoo.dk>, 2014
+# Joe Hansen <joedalton2@yahoo.dk>, 2014,2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-10-31 21:10+0000\n"
+"PO-Revision-Date: 2018-04-30 23:39+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
-"Language-Team: Danish (http://www.transifex.com/projects/p/enigma/language/"
+"Language-Team: Danish (http://www.transifex.com/michtrz/enigma/language/"
 "da/)\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
@@ -290,9 +290,8 @@ msgid "Back"
 msgstr "Tilbage"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Hovedudviklere for udgivelse 1.20:"
+msgstr "Hovedudviklere for 1.21-udgivelsen:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -344,9 +343,8 @@ msgid "Special Thanks:"
 msgstr "Speciel tak til:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Bidragydere:"
+msgstr "Bidragydere"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -1195,15 +1193,16 @@ msgstr "O.k., det må være en uafgjort"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
 msgstr ""
+"Afdæk stenpar, mens du navigerer igennem forhindringer ved hjælp af en bold"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1214,9 +1213,8 @@ msgid "Escape by Chaining Thieves"
 msgstr ""
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Husk farverne."
+msgstr ""
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"
@@ -1322,6 +1320,8 @@ msgid ""
 "This is a really hard puzzle. The English man will have to help me, if this "
 "enigma is to be solved."
 msgstr ""
+"Dette er et rigtigt svært puslespil. Den engelske mand må hjælpe mig, hvis "
+"denne enigma skal løses."
 
 #: level_i18n.cc:69
 msgid "You wonder what this switch could trigger."
@@ -1337,11 +1337,11 @@ msgstr "Du var heldig at finde dette hul. Det forhindrer dig i at drukne."
 
 #: level_i18n.cc:72
 msgid "This glass stone must fulfill a purpose ..."
-msgstr ""
+msgstr "Denne glassten må have et formål ..."
 
 #: level_i18n.cc:73
 msgid "It's funny that such a temple should have a side entrance."
-msgstr ""
+msgstr "Det er sjovt at sådan et tempel har en sideindgang."
 
 #: level_i18n.cc:74
 msgid "Be careful! There are sensors in the walls."
@@ -1365,6 +1365,8 @@ msgid ""
 "\"You've been smarter than I expected. But you'll never enter the treasure "
 "room nor escape from here!\""
 msgstr ""
+"»Du har været smartere end jeg forventede. Men du kommer aldrig ind i "
+"skattekammeret eller slipper ud!«"
 
 #: level_i18n.cc:78
 msgid ""
@@ -1428,7 +1430,7 @@ msgstr ""
 
 #: level_i18n.cc:157
 msgid "Move fast!"
-msgstr ""
+msgstr "Skynd dig!"
 
 #: level_i18n.cc:164
 msgid "Useful unsuccessful drillings"
@@ -1440,7 +1442,7 @@ msgstr ""
 
 #: level_i18n.cc:177
 msgid "Work together!"
-msgstr ""
+msgstr "Arbejd sammen!"
 
 #: level_i18n.cc:181
 msgid "Mark stones burnable"
@@ -1502,7 +1504,7 @@ msgstr ""
 
 #: level_i18n.cc:302
 msgid "Run for your life!"
-msgstr ""
+msgstr "Løb for dit liv!"
 
 #: level_i18n.cc:315
 msgid "It isn't as easy as it looks."
@@ -1730,7 +1732,7 @@ msgstr ""
 
 #: level_i18n.cc:884
 msgid "Only reset or Shift-F3 can make things evolve ..."
-msgstr ""
+msgstr "Kun nulstilling eller Skift-F3 kan gøre at tingene udvikler sig ..."
 
 #: level_i18n.cc:891
 msgid ""
@@ -1755,15 +1757,15 @@ msgstr ""
 
 #: level_i18n.cc:971
 msgid "Watch out for water holes!"
-msgstr ""
+msgstr "Pas på vandhuller!"
 
 #: level_i18n.cc:979
 msgid "... did it!"
-msgstr ""
+msgstr "... lykkedes!"
 
 #: level_i18n.cc:1047
 msgid "Some stones and stone rows can be moved!"
-msgstr ""
+msgstr "Nogle sten og stenrækker kan flyttes!"
 
 #: level_i18n.cc:1078
 msgid "Dig in ..."
@@ -1779,7 +1781,7 @@ msgstr ""
 
 #: level_i18n.cc:1099
 msgid "Nothing can stop us!"
-msgstr ""
+msgstr "Intet kan stoppe os!"
 
 #: level_i18n.cc:1133
 msgid "Just a hint: Try the easy-mode first ..."
@@ -1821,7 +1823,7 @@ msgstr "Dedikeret til min ven Frank."
 
 #: level_i18n.cc:1254
 msgid "This level is quite straightforward, isn't it? Just continue ... ;-)"
-msgstr ""
+msgstr "Denne bane er ret ligefrem, er den ikke? Bare fortsæt ... ;-)"
 
 #: level_i18n.cc:1266
 msgid "Road to Eden"
@@ -1880,7 +1882,7 @@ msgstr ""
 
 #: level_i18n.cc:1387
 msgid "Take some money and build yourself the tools you need."
-msgstr ""
+msgstr "Tag nogle penge og byg de værktøjer du skal bruge."
 
 #: level_i18n.cc:1398
 msgid ""
@@ -1907,7 +1909,7 @@ msgstr "Vær opmærksom! Sorte huller!"
 
 #: level_i18n.cc:1442
 msgid "...  now  go  back  and  get  the  hammer!"
-msgstr ""
+msgstr "... gå tilbage nu og hent hammeren!"
 
 #: level_i18n.cc:1457
 msgid "The other document lies and the left wormhole is the right one."
@@ -1927,11 +1929,11 @@ msgstr ""
 
 #: level_i18n.cc:1468
 msgid "The level preview might help ..."
-msgstr ""
+msgstr "Baneforhåndsvisningen kan hjælpe ..."
 
 #: level_i18n.cc:1472
 msgid "Make a Sword, & Umbrella."
-msgstr ""
+msgstr "Lav et sværd, og en paraply."
 
 #: level_i18n.cc:1482
 msgid "Some stones are movable."
@@ -1943,7 +1945,7 @@ msgstr "Du tabte!"
 
 #: level_i18n.cc:1500
 msgid "Translate or let it be translated"
-msgstr ""
+msgstr "Oversæt eller lad det blive oversat"
 
 #: level_i18n.cc:1507
 msgid "Friction and acceleration depend on the floor type."
@@ -2205,7 +2207,7 @@ msgstr ""
 
 #: level_i18n.cc:1602
 msgid "Try using the spade on the holes caused by the dynamite."
-msgstr ""
+msgstr "Prøv at bruge spaden på hullerne lavet af dynamitten."
 
 #: level_i18n.cc:1603
 msgid ""
@@ -2416,7 +2418,7 @@ msgstr ""
 
 #: level_i18n.cc:1801
 msgid "Try the easy mode first ..."
-msgstr ""
+msgstr "Prøv de nemme niveauer først ..."
 
 #: level_i18n.cc:1807
 msgid ""
@@ -2433,15 +2435,15 @@ msgstr ""
 
 #: level_i18n.cc:1812
 msgid "Prove your speed in the Test of Fire!"
-msgstr ""
+msgstr "Bevis din fart i ildtesten!"
 
 #: level_i18n.cc:1813
 msgid "You have proven your worth! The ancients grant you a FLAG!"
-msgstr ""
+msgstr "Du har bevist din værdi! De modtager et FLAG fra de ældre!"
 
 #: level_i18n.cc:1814
 msgid "Prove your intelligence in the Test of Earth!"
-msgstr ""
+msgstr "Bevis din intelligens i jordtesten!"
 
 #: level_i18n.cc:1815
 msgid "You have proven your worth! The ancients grant you a SPRING!"
@@ -2527,7 +2529,7 @@ msgstr ""
 
 #: level_i18n.cc:1910
 msgid "What is the current month?"
-msgstr ""
+msgstr "Hvilken måned er det?"
 
 #: level_i18n.cc:1912
 msgid "What is this level's name?"
@@ -2565,7 +2567,7 @@ msgstr "Bliv ikke for tiltrukket!"
 
 #: level_i18n.cc:1974
 msgid "It is not quite that easy."
-msgstr ""
+msgstr "Det er ikke så nemt."
 
 #: level_i18n.cc:1984
 msgid "Keypad Corners"
@@ -2820,7 +2822,7 @@ msgstr "Du skal være hurtig!"
 
 #: level_i18n.cc:2562 level_i18n.cc:3405
 msgid "Everything's been counted carefully!"
-msgstr ""
+msgstr "Alt er blevet omhyggeligt talt!"
 
 #: level_i18n.cc:2563 level_i18n.cc:3406
 msgid "Parts of the tubes disappear during detonation!"
@@ -2836,7 +2838,7 @@ msgstr "Lad der være lys!"
 
 #: level_i18n.cc:2611
 msgid "Business hours from 8am to 4pm"
-msgstr ""
+msgstr "Åbningstiden er fra 8.00 til 16.00"
 
 #: level_i18n.cc:2622
 msgid "Welcome to Liberty Island, New York City"
@@ -2897,7 +2899,7 @@ msgstr ""
 
 #: level_i18n.cc:2664
 msgid "Only A Labyrinth"
-msgstr ""
+msgstr "Kun en labyrint"
 
 #: level_i18n.cc:2675
 msgid "Crabwise I"
@@ -3107,7 +3109,7 @@ msgstr ""
 
 #: level_i18n.cc:2842
 msgid "Number Crunching"
-msgstr ""
+msgstr "Talknusning"
 
 #: level_i18n.cc:2847
 msgid "My First Level"
@@ -3243,7 +3245,7 @@ msgstr ""
 
 #: level_i18n.cc:3250
 msgid "Enigmas wildcat"
-msgstr ""
+msgstr "Enigmas vildkat"
 
 #: level_i18n.cc:3305
 msgid "Meandering Impulses"
@@ -3503,7 +3505,7 @@ msgstr ""
 
 #: level_i18n.cc:4560
 msgid "Hey, where am i now?"
-msgstr ""
+msgstr "Hallo, hvor er jeg nu?"
 
 #: level_i18n.cc:4562
 msgid ""
@@ -3523,7 +3525,7 @@ msgstr ""
 
 #: level_i18n.cc:4568
 msgid "WARNING: Highest caution is necessary."
-msgstr ""
+msgstr "ADVARSEL: Den største forsigtighed er krævet."
 
 #: level_i18n.cc:4570
 msgid "Wild buffaloes are crossing the way."
@@ -3746,7 +3748,7 @@ msgstr ""
 
 #: level_i18n.cc:4755
 msgid "The innocent victim."
-msgstr ""
+msgstr "Det uskyldige offer."
 
 #: level_i18n.cc:4757
 msgid "Office of your boss."
@@ -3798,7 +3800,7 @@ msgstr ""
 
 #: level_i18n.cc:4809
 msgid "Change guaranteed"
-msgstr ""
+msgstr "Ændring garanteret"
 
 #: level_i18n.cc:4831
 msgid "Bridge those synapses!"
@@ -3868,6 +3870,10 @@ msgid ""
 "receive a heart, I fear I'm stuck here. It would be nice if you could help "
 "me out a bit ...'"
 msgstr ""
+"Den rustne tintræmand kan ikke flytte nogen selv. »Selv om jeg gerne ville "
+"slutte mig til din rejse, Dorothy, for jeg skal spørge troldmanden hvorfor "
+"jeg ikke fik et hjerte, så frygter jeg at jeg er fanget her. Det ville være "
+"rart, hvis du kunne hjælpe mig ...«"
 
 #: level_i18n.cc:4907
 msgid ""
@@ -3954,7 +3960,7 @@ msgstr ""
 
 #: level_i18n.cc:4976
 msgid "Place 9 different items in each row, column, and 3x3 box."
-msgstr ""
+msgstr "Placer ni forskellige elementer i hver række, kolonne og 3x3 boks."
 
 #: level_i18n.cc:4977
 msgid ""
@@ -4581,15 +4587,15 @@ msgstr ""
 
 #: level_i18n.cc:5347
 msgid "Violence"
-msgstr ""
+msgstr "Vold"
 
 #: level_i18n.cc:5349
 msgid "Fraud"
-msgstr ""
+msgstr "Svindel"
 
 #: level_i18n.cc:5351
 msgid "Treachery"
-msgstr ""
+msgstr "Forræderi"
 
 #: level_i18n.cc:5354
 msgid "... passed the point / to which all weights are drawn from every side."
@@ -4636,7 +4642,7 @@ msgstr ""
 
 #: level_i18n.cc:5457
 msgid "No sharing!"
-msgstr ""
+msgstr "Ingen deling!"
 
 #: level_i18n.cc:5465
 msgid ""

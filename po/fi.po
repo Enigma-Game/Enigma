@@ -1,20 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Finnish translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
 # Heikki Ylipaavalniemi, 2014
 # Hypocrite, 2014
+# Jorma Karvonen <karvonen.jorma@gmail.com>, 2015
 # Lasse Liehu <larso@gmx.com>, 2014
 # Mikke Surakka <Iceshark7@gmail.com>, 2007
+# Michał Trzebiatowski <michtrz@gmail.com>, 2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-11-04 04:00+0000\n"
-"Last-Translator: Lasse Liehu <larso@gmx.com>\n"
-"Language-Team: Finnish (http://www.transifex.com/projects/p/enigma/language/"
+"PO-Revision-Date: 2018-05-01 01:11+0000\n"
+"Last-Translator: Michał Trzebiatowski <michtrz@gmail.com>\n"
+"Language-Team: Finnish (http://www.transifex.com/michtrz/enigma/language/"
 "fi/)\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -153,7 +155,7 @@ msgstr "Liian hidasta pelaajalle "
 
 #: src/client.cc:653
 msgid "You are slow today ... Ctrl-A"
-msgstr ""
+msgstr "Olet hidas tänään ... Ctrl-A"
 
 #: src/client.cc:722
 msgid "Exactly the world record of "
@@ -220,12 +222,12 @@ msgstr "Virhe kokoonpanotiedostossa.\n"
 #: src/main.cc:620 src/main.cc:643
 #, c-format
 msgid "Error: Home directory does not exist.\n"
-msgstr ""
+msgstr "Virhe: Kotihakemistoa ei ole olemassa.\n"
 
 #: src/main.cc:635
 #, c-format
 msgid "Error: Application Data directory does not exist.\n"
-msgstr ""
+msgstr "Virhe: Sovellustietohakemistoa ei ole olemassa.\n"
 
 #: src/main.cc:662 src/main.cc:711
 #, c-format
@@ -264,6 +266,8 @@ msgid ""
 "Fatal error that caused the application to quit:\n"
 "\n"
 msgstr ""
+"Kohtalokas virhe, joka aiheutti sovelluksen poistumisen:\n"
+"\n"
 
 #: src/main.cc:938 src/gui/MainMenu.cc:438
 msgid "Quit"
@@ -283,9 +287,8 @@ msgid "Back"
 msgstr "Takaisin"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Pääkehittäjät 1.20 julksaisulle:"
+msgstr "Pääkehittäjät 1.21 julksaisulle:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -336,9 +339,8 @@ msgid "Special Thanks:"
 msgstr "Erityiskiitokset:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Avustajat:"
+msgstr "Avustajat"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -701,7 +703,7 @@ msgstr "Lisää leikepöytään kopiona"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Alt-left arrow:"
-msgstr ""
+msgstr "Alt-vasen nuoli:"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Exchange level with predecessor"
@@ -709,7 +711,7 @@ msgstr "Vaihda taso edeltäjänsä kanssa"
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Alt-right arrow:"
-msgstr ""
+msgstr "Alt-oikea nuoli:"
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Exchange level with successor"
@@ -1135,6 +1137,8 @@ msgid ""
 "Note: the current version will be reloaded!\n"
 "\n"
 msgstr ""
+"Huomaa: nykyinen versio ladataan uudelleen!\n"
+"\n"
 
 #: src/lev/PersistentIndex.cc:472
 msgid "Error on registration of levelpack index: \n"
@@ -1184,15 +1188,15 @@ msgstr "Hyvä on, sanotaan sitä tasapeliksi"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
-msgstr ""
+msgstr "Paljasta kiviparit liikuttaen kuulaa esteiden läpi"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1203,9 +1207,8 @@ msgid "Escape by Chaining Thieves"
 msgstr "Pakene Kahlittavilta Varkailta"
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Muista Atreyun hevonen Atrax!"
+msgstr "Muista Atreyun hevonen Artax!"
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"
@@ -3641,7 +3644,7 @@ msgstr ""
 
 #: level_i18n.cc:4570
 msgid "Wild buffaloes are crossing the way."
-msgstr ""
+msgstr "Villit buffelit ylittävät tien."
 
 #: level_i18n.cc:4572
 msgid "Help me, the forest is on fire!"
@@ -3661,7 +3664,7 @@ msgstr "Jos siellä on lopultakin ulosmeno?"
 
 #: level_i18n.cc:4580
 msgid "I'm afraid, i need some assistance!"
-msgstr ""
+msgstr "Pelkään, että tarvitsen jotain apua!"
 
 #: level_i18n.cc:4582
 msgid "Filling station for empty extinguishers."
@@ -3673,7 +3676,7 @@ msgstr "Varo: vihaisia moskiittoja!"
 
 #: level_i18n.cc:4586
 msgid "Useful things may also be hidden!"
-msgstr ""
+msgstr "Hyödylliset asiat voivat ehkä olla piilotettuja!"
 
 #: level_i18n.cc:4591
 msgid "Freeze by the Power of Light"
@@ -4699,7 +4702,7 @@ msgstr ""
 
 #: level_i18n.cc:5417
 msgid "5, 8, or 10 seconds?"
-msgstr ""
+msgstr "5, 8, tai 10 sekuntia?"
 
 #: level_i18n.cc:5433
 msgid "Search it."

@@ -1,21 +1,20 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# German translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
-# AndreasL <and.lochmann@googlemail.com>, 2014
+# Andreas Lochmann <and.lochmann@googlemail.com>, 2013-2014
 # Andreas Abraham, 2010
-# Andreas Lochmann, 2013
 # Daniel Heck <dheck@gmx.de>, 2004
-# M T <michtrz@gmail.com>, 2013-2014
+# Michał Trzebiatowski <michtrz@gmail.com>, 2013-2014,2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-08-05 18:00+0000\n"
-"Last-Translator: AndreasL <and.lochmann@googlemail.com>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/enigma/language/"
+"PO-Revision-Date: 2018-04-30 23:39+0000\n"
+"Last-Translator: Michał Trzebiatowski <michtrz@gmail.com>\n"
+"Language-Team: German (http://www.transifex.com/michtrz/enigma/language/"
 "de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -297,9 +296,8 @@ msgid "Back"
 msgstr "Zurück"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Hauptentwickler der Version 1.20:"
+msgstr "Hauptentwickler der Version 1.21:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -350,9 +348,8 @@ msgid "Special Thanks:"
 msgstr "Besonderer Dank an:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Mitarbeiter:"
+msgstr "Mitwirkende"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -1202,15 +1199,15 @@ msgstr "Nun gut, nennen wir es unentschieden"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
-msgstr ""
+msgstr "Decke Steinpaare mit einer Kugel in einer Welt voller Hindernisse auf"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1221,9 +1218,8 @@ msgid "Escape by Chaining Thieves"
 msgstr "Entfesselung durch Gefangennahme von Dieben"
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Denke an Atrax, das Pferd von Atréju!"
+msgstr "Denke an Artax, das Pferd von Atréju!"
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"
@@ -3162,7 +3158,6 @@ msgstr ""
 "die gefährlichen Sandvipern und Enighomatheps Flüche."
 
 #: level_i18n.cc:2707
-#, fuzzy
 msgid ""
 "Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
 "were the most useful items in this desert. But nobody was willing to spend 2 "
@@ -3527,7 +3522,7 @@ msgstr "Achtung: Mit diesem Fahrschein nur einfache Fahrt."
 
 #: level_i18n.cc:3234
 msgid "Christmas Star"
-msgstr ""
+msgstr "Weihnachtsstern"
 
 #: level_i18n.cc:3250
 msgid "Enigmas wildcat"
@@ -3924,7 +3919,6 @@ msgid "Who broke the pearl necklace?"
 msgstr "Wer zerbrach das Perlenhalsband?"
 
 #: level_i18n.cc:4645
-#, fuzzy
 msgid ""
 "Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls "
 "rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "

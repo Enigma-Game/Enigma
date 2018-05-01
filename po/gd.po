@@ -1,19 +1,17 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Scottish Gaelic translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
-# GunChleoc, 2014
-# GunChleoc, 2014
-# GunChleoc, 2014
+# GunChleoc, 2014,2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-10-27 12:11+0000\n"
+"PO-Revision-Date: 2018-04-30 23:39+0000\n"
 "Last-Translator: GunChleoc\n"
-"Language-Team: Gaelic, Scottish (http://www.transifex.com/projects/p/enigma/"
+"Language-Team: Gaelic, Scottish (http://www.transifex.com/michtrz/enigma/"
 "language/gd/)\n"
 "Language: gd\n"
 "MIME-Version: 1.0\n"
@@ -296,9 +294,8 @@ msgid "Back"
 msgstr "Air ais"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Am prìomh luchd-leasachaidh airson an sgaoilidh 1.20:"
+msgstr "Am prìomh luchd-leasachaidh airson an sgaoilidh 1.21:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -352,9 +349,8 @@ msgid "Special Thanks:"
 msgstr "Taing shònraichte:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Co-thabhartaichean:"
+msgstr "Co-thabhartaichean"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -1210,15 +1206,17 @@ msgstr "Ceart gu leòr, gairmidh sinn geama co-ionnann"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
 msgstr ""
+"Siubhail le marbhal seachad air cnapan-starra gus càraidean cloiche a "
+"nochdadh"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1229,7 +1227,6 @@ msgid "Escape by Chaining Thieves"
 msgstr "Cuibhrich na mèilich ’s teic"
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
 msgstr "Cuimhnich Atrax, an t-each aig Atreyu!"
 
@@ -3196,7 +3193,6 @@ msgstr ""
 "mallachdan Enighomathep."
 
 #: level_i18n.cc:2707
-#, fuzzy
 msgid ""
 "Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
 "were the most useful items in this desert. But nobody was willing to spend 2 "
@@ -3561,7 +3557,7 @@ msgstr "Thoir an aire! Seo ticead aon-shlighe dhan eilean."
 
 #: level_i18n.cc:3234
 msgid "Christmas Star"
-msgstr ""
+msgstr "Reul na Nollaig"
 
 #: level_i18n.cc:3250
 msgid "Enigmas wildcat"
@@ -3957,7 +3953,6 @@ msgid "Who broke the pearl necklace?"
 msgstr "Cò bhris an neamhnaid-chrios?"
 
 #: level_i18n.cc:4645
-#, fuzzy
 msgid ""
 "Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls "
 "rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "
@@ -5208,7 +5203,7 @@ msgstr "chan eil na tha nas motha nas lugha"
 msgid "Sorry, but in difficult mode you need more ... Restart."
 msgstr ""
 "Duilich ach sa mhodh dhoirbh, bi feum agad air barrachd ... ath-"
-"thòiseachaidh."
+"thòiseachaidh."."
 
 #~ msgid "It's easier with spikes!"
 #~ msgstr "Tha e nas fhasa le spìcean!"

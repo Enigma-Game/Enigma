@@ -1,18 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Swedish translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
 # Daniel Nylander <po@danielnylander.se>, 2006
+# Merarom <merarom@yahoo.es>, 2014
+# Michał Trzebiatowski <michtrz@gmail.com>, 2018
 # Stefan Gagner <stefan@mei-ya.se>, 2014
+# theschitz <theodore@theschitz.se>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-03-15 23:09+0000\n"
-"Last-Translator: M T <michtrz@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.com/projects/p/enigma/language/"
+"PO-Revision-Date: 2018-05-01 13:30+0000\n"
+"Last-Translator: Michał Trzebiatowski <michtrz@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/michtrz/enigma/language/"
 "sv/)\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +110,7 @@ msgstr "F5:"
 
 #: src/client.cc:486
 msgid "F6:"
-msgstr ""
+msgstr "F6:"
 
 #: src/client.cc:486
 msgid "Jump back to last level"
@@ -151,7 +154,7 @@ msgstr "För långsam för "
 
 #: src/client.cc:653
 msgid "You are slow today ... Ctrl-A"
-msgstr ""
+msgstr "Du är långsam i dag ... Ctrl-A"
 
 #: src/client.cc:722
 msgid "Exactly the world record of "
@@ -218,12 +221,12 @@ msgstr "Fel i konfigurationsfil.\n"
 #: src/main.cc:620 src/main.cc:643
 #, c-format
 msgid "Error: Home directory does not exist.\n"
-msgstr ""
+msgstr "Fel: Hemmakatalogen finns inte.\n"
 
 #: src/main.cc:635
 #, c-format
 msgid "Error: Application Data directory does not exist.\n"
-msgstr ""
+msgstr "Fel: Applikationsdatakatalog finns inte.\n"
 
 #: src/main.cc:662 src/main.cc:711
 #, c-format
@@ -244,10 +247,21 @@ msgid ""
 "If ok Enigma will move your data to this new location.\n"
 "Note that you have to restart Enigma once for completion of this update."
 msgstr ""
+"Mac OS X uppgradering från Enigma 1.00\n"
+"\n"
+"Standard användardata vägen har ändrats från\n"
+"%s\n"
+"\n"
+"till den synliga uppgifter path\n"
+"%s \n"
+"\n"
+"Om ok kommer Enigma att flytta dina data till denna nya plats.\n"
+"Observera att du måste starta om Enigma en gång för slutförande av denna "
+"uppdatering."
 
 #: src/main.cc:790
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/main.cc:790 src/gui/OptionsMenu.cc:139 src/gui/OptionsMenu.cc:143
 msgid "Never"
@@ -255,13 +269,15 @@ msgstr "Aldrig"
 
 #: src/main.cc:790
 msgid "Remind"
-msgstr ""
+msgstr "Påminn"
 
 #: src/main.cc:936
 msgid ""
 "Fatal error that caused the application to quit:\n"
 "\n"
 msgstr ""
+"Allvarligt fel som orsakade att programmet avslutades:\n"
+"\n"
 
 #: src/main.cc:938 src/gui/MainMenu.cc:438
 msgid "Quit"
@@ -282,7 +298,7 @@ msgstr "Tillbaka"
 
 #: src/gui/MainMenu.cc:105
 msgid "Main developers of the 1.21 release:"
-msgstr ""
+msgstr "Huvudutvecklare av 1.21-utgåvan:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -322,32 +338,31 @@ msgstr "villkoren för GNU General Public License, version 2."
 
 #: src/gui/MainMenu.cc:126
 msgid "Copyright (C) 2002-2014 Daniel Heck and contributors."
-msgstr ""
+msgstr "Copyright (C) 2002-2014 Daniel Heck och medarbetare."
 
 #: src/gui/MainMenu.cc:128
 msgid "Main developers of all releases:"
-msgstr ""
+msgstr "Huvudutvecklare av alla utgåvor:"
 
 #: src/gui/MainMenu.cc:144
 msgid "Special Thanks:"
 msgstr "Speciella tack till:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Bidragsgivare:"
+msgstr "Bidragsgivare"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
-msgstr ""
+msgstr "Hemsida"
 
 #: src/gui/MainMenu.cc:290
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentation"
 
 #: src/gui/MainMenu.cc:291 src/gui/OptionsMenu.cc:415
 msgid "Paths"
-msgstr ""
+msgstr "Sökvägar"
 
 #: src/gui/MainMenu.cc:292
 msgid "Locate Auto"
@@ -403,7 +418,7 @@ msgstr "Uppdatera paket"
 
 #: src/gui/MainMenu.cc:437
 msgid "Help"
-msgstr ""
+msgstr "Hjälp"
 
 #: src/gui/OptionsMenu.cc:92 src/gui/OptionsMenu.cc:113
 msgid "muted"
@@ -433,7 +448,7 @@ msgstr "Auto"
 
 #: src/gui/OptionsMenu.cc:143
 msgid "Always"
-msgstr ""
+msgstr "Alltid"
 
 #: src/gui/OptionsMenu.cc:252
 msgid "reversed"
@@ -458,15 +473,15 @@ msgstr "Huvudmeny"
 
 #: src/gui/OptionsMenu.cc:409
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: src/gui/OptionsMenu.cc:411
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: src/gui/OptionsMenu.cc:413
 msgid "Config"
-msgstr ""
+msgstr "Konfigurering"
 
 #: src/gui/OptionsMenu.cc:434 src/gui/LevelPackComposer.cc:121
 #: src/gui/LevelPackConfig.cc:345 src/gui/LPGroupConfig.cc:101
@@ -504,7 +519,7 @@ msgstr "Uppdatering av betyg: "
 
 #: src/gui/OptionsMenu.cc:495
 msgid "Score upload: "
-msgstr ""
+msgstr "Poänguppladdning:"
 
 #: src/gui/OptionsMenu.cc:500 src/gui/OptionsMenu.cc:525
 msgid "User name: "
@@ -520,11 +535,11 @@ msgstr "Ljudschema: "
 
 #: src/gui/OptionsMenu.cc:511
 msgid "Menu music: "
-msgstr ""
+msgstr "Musikmeny:"
 
 #: src/gui/OptionsMenu.cc:512
 msgid "Music ingame: "
-msgstr ""
+msgstr "Musik i spel:"
 
 #: src/gui/OptionsMenu.cc:515
 msgid "Stereo: "
@@ -532,7 +547,7 @@ msgstr "Stereo: "
 
 #: src/gui/OptionsMenu.cc:520
 msgid "Text speed: "
-msgstr ""
+msgstr "Texthastighet:"
 
 #: src/gui/OptionsMenu.cc:530
 msgid "User path: "
@@ -580,7 +595,7 @@ msgstr "Föregående/nästa nivåpaket"
 
 #: src/gui/LevelMenu.cc:200
 msgid "Mark current level as unsolved"
-msgstr ""
+msgstr "Markera aktuell nivå som olöst"
 
 #: src/gui/LevelMenu.cc:202
 msgid "Alt+Return:"
@@ -636,7 +651,7 @@ msgstr "%d%% lösta"
 
 #: src/gui/LevelMenu.cc:370
 msgid "Your time: "
-msgstr ""
+msgstr "Din tid:"
 
 #: src/gui/LevelMenu.cc:375
 msgid "That's world record."
@@ -658,7 +673,7 @@ msgstr ""
 #: src/gui/LevelMenu.cc:402 src/gui/LevelMenu.cc:406
 #, c-format
 msgid "World record by %s: "
-msgstr ""
+msgstr "Världsrekord med %s: "
 
 #: src/gui/LevelMenu.cc:438
 msgid "No further unsolved level available!"
@@ -666,7 +681,7 @@ msgstr "Ingen ytterligare olöst nivå är tillgänglig!"
 
 #: src/gui/LevelPackComposer.cc:42
 msgid "Shift-click:"
-msgstr ""
+msgstr "Skiftklicka:"
 
 #: src/gui/LevelPackComposer.cc:42
 msgid "Add to clipboard"
@@ -674,7 +689,7 @@ msgstr "Lägg till i urklipp"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Shift-delete:"
-msgstr ""
+msgstr "Shift-delete:"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Clear clipboard"
@@ -698,7 +713,7 @@ msgstr "Infoga urklipp som kopia"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Alt-left arrow:"
-msgstr ""
+msgstr "Alt-vänsterpil:"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Exchange level with predecessor"
@@ -706,11 +721,11 @@ msgstr ""
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Alt-right arrow:"
-msgstr ""
+msgstr "Alt-högerpil:"
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Exchange level with successor"
-msgstr ""
+msgstr "Byte ut nivå med efterföljare"
 
 #: src/gui/LevelPackComposer.cc:49
 msgid "Delete:"
@@ -1068,11 +1083,11 @@ msgstr "Paketsökväg: "
 
 #: src/gui/LevelInspector.cc:499
 msgid "Id: "
-msgstr ""
+msgstr "Id: "
 
 #: src/gui/LevelInspector.cc:501
 msgid "Load time: "
-msgstr ""
+msgstr "Laddningstid:"
 
 #: src/gui/LevelInspector.cc:506
 msgid "Compatibility: "
@@ -1177,19 +1192,21 @@ msgstr ""
 
 #: src/stones/KnightStone.cc:60
 msgid "All right, we'll call it a draw"
-msgstr ""
+msgstr "Okej, vi kallar det oavgjort"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
 msgstr ""
+"Upptäck par med stenar medan du tar dig igenom hinder med hjälp av en "
+"stenkula"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1200,9 +1217,8 @@ msgid "Escape by Chaining Thieves"
 msgstr ""
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Kom ihåg färgerna."
+msgstr ""
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"
@@ -1718,7 +1734,7 @@ msgstr ""
 
 #: level_i18n.cc:917
 msgid "An English text based riddle"
-msgstr ""
+msgstr "En engelsk textbaserad gåta"
 
 #: level_i18n.cc:948
 msgid "Did you bring your flag?"
@@ -2606,7 +2622,7 @@ msgstr "! -  FARLIGT  -  INGA INKRÄKTARE  -  FARLIGT  - !"
 
 #: level_i18n.cc:2095
 msgid "It's a race!"
-msgstr ""
+msgstr "Det är ett race!"
 
 #: level_i18n.cc:2108
 msgid "Fight appearing lava."
@@ -2725,7 +2741,7 @@ msgstr ".moor txen eht ot teg ot syaw owt era erehT"
 
 #: level_i18n.cc:2296
 msgid "Don't wake it up!"
-msgstr ""
+msgstr "Väck den inte!"
 
 #: level_i18n.cc:2309
 msgid ""
@@ -2767,7 +2783,7 @@ msgstr "Allting har räknats noga!"
 
 #: level_i18n.cc:2563 level_i18n.cc:3406
 msgid "Parts of the tubes disappear during detonation!"
-msgstr ""
+msgstr "Delar av rören försvinner under detonationen!"
 
 #: level_i18n.cc:2576
 msgid "Don't believe all that you see!"
@@ -2856,7 +2872,7 @@ msgstr ""
 
 #: level_i18n.cc:2693
 msgid "Dont eat cherries"
-msgstr ""
+msgstr "Ät inte körsbär"
 
 #: level_i18n.cc:2698
 msgid "Just a Dance ?"
@@ -3052,7 +3068,7 @@ msgstr ""
 
 #: level_i18n.cc:2847
 msgid "My First Level"
-msgstr ""
+msgstr "Min första bana"
 
 #: level_i18n.cc:2849
 msgid "Secrets? Use the items, ... use the glasses ..."
@@ -3128,7 +3144,7 @@ msgstr ""
 
 #: level_i18n.cc:3048
 msgid "Deep ..."
-msgstr ""
+msgstr "Djupt ..."
 
 #: level_i18n.cc:3059
 msgid "Crabwise II"
@@ -3136,7 +3152,7 @@ msgstr ""
 
 #: level_i18n.cc:3063
 msgid "Danger Flag"
-msgstr ""
+msgstr "Varningsflagg"
 
 #: level_i18n.cc:3082
 msgid "Steering The Flood"
@@ -3160,7 +3176,7 @@ msgstr ""
 
 #: level_i18n.cc:3205
 msgid "Welcome to Enigma X"
-msgstr ""
+msgstr "Välkommen till Enigma X"
 
 #: level_i18n.cc:3212
 msgid "Volatile Storage"
@@ -3236,19 +3252,19 @@ msgstr "Vit hjälper svart, svart hjälper vit."
 
 #: level_i18n.cc:3604
 msgid "when you've been particular places"
-msgstr ""
+msgstr "när du har varit speciella platser"
 
 #: level_i18n.cc:3606
 msgid "that you know you've never seen before"
-msgstr ""
+msgstr "som du vet att du aldrig har sett förut"
 
 #: level_i18n.cc:3608
 msgid "can you be sure?"
-msgstr ""
+msgstr "kan du vara säker?"
 
 #: level_i18n.cc:3610
 msgid "feel like I've been here before"
-msgstr ""
+msgstr "känns som jag har varit här innan"
 
 #: level_i18n.cc:3612
 msgid "quote: Iron Maiden - Deja-Vu"
@@ -3912,7 +3928,7 @@ msgstr ""
 
 #: level_i18n.cc:4996
 msgid "Use ~all~ Stones"
-msgstr ""
+msgstr "Använd ~alla~ stenar"
 
 #: level_i18n.cc:5001
 msgid ""
@@ -4209,7 +4225,7 @@ msgstr ""
 
 #: level_i18n.cc:5223
 msgid "Poe's Nightmare"
-msgstr ""
+msgstr "Poe's mardröm"
 
 #: level_i18n.cc:5225
 msgid ""
