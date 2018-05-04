@@ -18,8 +18,8 @@
   !insertmacro MUI_LANGUAGE "Croatian"
   !insertmacro MUI_LANGUAGE "Slovak"
   !insertmacro MUI_LANGUAGE "Ukrainian"
-  !insertmacro MUI_LANGUAGE "Norwegian"
-  !insertmacro MUI_LANGUAGE "Japanese"
+;  !insertmacro MUI_LANGUAGE "Norwegian"
+;  !insertmacro MUI_LANGUAGE "Japanese"
   ;Include language definitions
   !include /NONFATAL "enigma-inst-eng.nsh"
   !include /NONFATAL "enigma-inst-fre.nsh"
