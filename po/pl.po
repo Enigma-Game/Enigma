@@ -1,27 +1,27 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Polish translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
 # Dawid <hoek@hoek.pl>, 2014
-# Grzegorz Pruchniakowski <gootector@o2.pl>, 2013-2014
-# Michał Trzebiatowski <hippie_1968@hotmail.com>, 2010
-# M T <michtrz@gmail.com>, 2013-2014
+# Grzegorz Pruchniakowski <gootector@o2.pl>, 2013-2015
+# Michał Trzebiatowski <michtrz@gmail.com>, 2010-2014,2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-07-30 21:11+0000\n"
-"Last-Translator: M T <michtrz@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/enigma/language/"
+"PO-Revision-Date: 2018-05-03 09:42+0000\n"
+"Last-Translator: Michał Trzebiatowski <michtrz@gmail.com>\n"
+"Language-Team: Polish (http://www.transifex.com/michtrz/enigma/language/"
 "pl/)\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: src/server.cc:177 src/server.cc:189 src/gui/LevelInspector.cc:204
 msgid "Server Error: could not load level '"
@@ -30,7 +30,7 @@ msgstr "Błąd serwera: nie można załadować poziomu '"
 #: src/client.cc:66
 #, c-format
 msgid "Mouse speed: %d"
-msgstr "Prędkość myszki: %d"
+msgstr "Czułość myszki: %d"
 
 #: src/client.cc:76
 msgid "Another nameless level"
@@ -130,7 +130,7 @@ msgstr "Lewa/prawa strzałka:"
 
 #: src/client.cc:487
 msgid "Change mouse speed"
-msgstr "Zmień prędkości myszki"
+msgstr "Zmień czułość myszki"
 
 #: src/client.cc:487
 msgid "Alt+x:"
@@ -296,9 +296,8 @@ msgid "Back"
 msgstr "Wstecz"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Główni programiści wydania 1.20:"
+msgstr "Główni programiści wydania 1.21:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -349,9 +348,8 @@ msgid "Special Thanks:"
 msgstr "Specjalne podziękowania:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Współpracownicy:"
+msgstr "Współtwórcy"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -504,7 +502,7 @@ msgstr "Rozdzielczość: "
 
 #: src/gui/OptionsMenu.cc:490 src/gui/OptionsMenu.cc:519
 msgid "Mouse speed: "
-msgstr "Prędkość myszki: "
+msgstr "Czułość myszki: "
 
 #: src/gui/OptionsMenu.cc:491 src/gui/OptionsMenu.cc:513
 msgid "Sound volume: "
@@ -524,7 +522,7 @@ msgstr "Wysyłanie punktów: "
 
 #: src/gui/OptionsMenu.cc:500 src/gui/OptionsMenu.cc:525
 msgid "User name: "
-msgstr "Nazwa uzytkownika: "
+msgstr "Nazwa użytkownika: "
 
 #: src/gui/OptionsMenu.cc:507
 msgid "Gamma correction: "
@@ -592,7 +590,7 @@ msgstr "Backspace/Spacja"
 
 #: src/gui/LevelMenu.cc:199
 msgid "Previous/next levelpack"
-msgstr "Poprzedni /następny pakiet poziomów"
+msgstr "Poprzedni/następny pakiet poziomów"
 
 #: src/gui/LevelMenu.cc:200
 msgid "Mark current level as unsolved"
@@ -628,7 +626,7 @@ msgstr "Wybierz następny nierozwiązany poziom"
 
 #: src/gui/LevelMenu.cc:275
 msgid "You are not allowed to play this level yet."
-msgstr "Jeszcze nie wolno ci grać na tym poziomie."
+msgstr "Jeszcze nie wolno Ci grać na tym poziomie."
 
 #: src/gui/LevelMenu.cc:312 src/gui/LevelPackComposer.cc:348
 #, c-format
@@ -1202,15 +1200,15 @@ msgstr "Dobra, nazwiemy to remisem"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
-msgstr ""
+msgstr "Odkryj pary kamieni podczas poruszania kulki poprzez rożne przeszkody"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1221,9 +1219,8 @@ msgid "Escape by Chaining Thieves"
 msgstr "Ucieczka przez skutych łańcuchami złodziei"
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Pamiętaj o Atraksie, koń Atréju!"
+msgstr "Pamiętaj o Artaksie, koń Atréju!"
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"
@@ -1253,7 +1250,7 @@ msgid ""
 "to be a relic of the ancient Aztec empire. But the temple is in surprisingly "
 "good condition ..."
 msgstr ""
-"Witamy w Meksyku! Osiem godzin temu, twój samolot wylądował na lotnisku "
+"Witamy w Meksyku! Osiem godzin temu Twój samolot wylądował na lotnisku "
 "\"Coatlicue\", to mała wioska otoczona terenem niezbadanej dżungli. Teraz "
 "znajdujesz się naprzeciwko imponującej świątyni, która wydaje się być "
 "reliktem starożytnego azteckiego imperium. Ale świątynia jest w zadziwiająco "
@@ -2031,7 +2028,7 @@ msgid ""
 "bottom of the screen.   And guess what these three items down there can be "
 "used to."
 msgstr ""
-"Użyj prawego przycisku myszy, aby obracać pozycjami inwentarza, to jest "
+"Użyj prawego przycisku myszki, aby obracać pozycjami inwentarza, to jest "
 "pasek na dole ekranu. I zgadnij do czego te trzy pozycje na dole mogą służyć."
 
 #: level_i18n.cc:1512
@@ -2078,7 +2075,7 @@ msgid ""
 "despair if you don't get through it at the first time.   Bye!"
 msgstr ""
 "Ale zanim zakończysz, spójrz na ostatni poziom samouczka, który opracował "
-"dla ciebie Jacob. Jak chcesz, to potraktuj to jako egzamin. Jest dosyć "
+"dla Ciebie Jacob. Jak chcesz, to potraktuj to jako egzamin. Jest dosyć "
 "trudny, więc nie rozpaczaj, jeśli nie przejdziesz go za pierwszym razem. Do "
 "zobaczenia!"
 
@@ -2138,7 +2135,7 @@ msgstr "Naucz się odpowiednio poruszać czarną kulą."
 
 #: level_i18n.cc:1569
 msgid "Some stones look exactly like the Oxyd stones!"
-msgstr "Niektóre kamienie wyglądają dokładnie tak jak kamienie Oxyd!"
+msgstr "Niektóre kamienie wyglądają dokładnie tak, jak kamienie Oxyd!"
 
 #: level_i18n.cc:1573
 msgid "Take your time ..."
@@ -2176,7 +2173,7 @@ msgid ""
 "This wooden block is movable and heavy enough to hold down the trigger on "
 "the right.   Try to push it there!"
 msgstr ""
-"Ten drewniany blok jest ruchomy i wystarczająco ciężki aby nacisnąć ten "
+"Ten drewniany blok jest ruchomy i wystarczająco ciężki, aby nacisnąć ten "
 "spust po prawej stronie. Spróbuj go tam przesunąć!"
 
 #: level_i18n.cc:1584
@@ -2260,10 +2257,10 @@ msgid ""
 "Try to find a way to get past and into the next room (you can use the blocks "
 "in the center of the room as barricades)."
 msgstr ""
-"Ten klocek to bączek -- zniszczy twoją kulę jeśli go dotkniesz. A jak "
-"zbliżysz się niego za blisko, będzie ciebie ścigał. Jeśli zginiesz, będziesz "
-"ponownie zaczynał na początku poziomu (dopóki pozostały ci jeszcze jakieś "
-"kule). Postaraj się znaleźć sposób, by dostać się do następnego pokoju "
+"Ten klocek to bączek -- zniszczy Twoją kulę, jeśli go dotkniesz. A jak "
+"zbliżysz się niego za blisko, będzie Cię ścigał. Jeśli zginiesz, będziesz "
+"ponownie zaczynał na początku poziomu (dopóki pozostały Ci jeszcze jakieś "
+"kule). Postaraj się znaleźć sposób, aby dostać się do następnego pokoju "
 "(możesz użyć bloków na środku pokoju jako barykad)."
 
 #: level_i18n.cc:1597
@@ -2284,7 +2281,7 @@ msgid ""
 "see)."
 msgstr ""
 "Szare podłogi to stoki. Biała podłoga działa w odwrotnym kierunku do ruchu "
-"myszy (przekonasz się)."
+"myszki (przekonasz się)."
 
 #: level_i18n.cc:1600
 msgid ""
@@ -2340,7 +2337,7 @@ msgid ""
 "Use the mirrors to direct the beam."
 msgstr ""
 "Postaraj się, aby promień lasera trafił ten czarny kamień, ale nie zestrzel "
-"sam siebie! Użyj lustra aby skierować promień."
+"sam siebie! Użyj lustra, aby skierować promień."
 
 #: level_i18n.cc:1608
 msgid ""
@@ -2382,13 +2379,13 @@ msgid ""
 "restart at the beginning of the level if you have any balls left (and you "
 "will lose one of the balls)."
 msgstr ""
-"Obszar ten na dole ekranu to twój inwentarz -- jeśli zbierzesz przedmiot, "
-"znajdziesz go tutaj ale nie więcej niż dwanaście. Aby przewiać inwentarz, "
+"Obszar ten na dole ekranu to Twój inwentarz -- jeśli zbierzesz przedmiot, "
+"znajdziesz go tutaj, ale nie więcej niż dwanaście. Aby przewiać inwentarz, "
 "użyj prawego przycisku myszy lub klawisza \"tab\". Aby usunąć lub użyć "
-"przedmiotu, kliknij lewym przyciskiem myszy. Niektóre obiekty, takie jak "
+"przedmiotu, kliknij lewym przyciskiem myszki. Niektóre obiekty, takie jak "
 "dokumenty (tak jak ten), nie mogą zostać usunięte, lecz są wykorzystywane. "
 "Te dwie kule w inwentarzu to twoje życia -- jeśli zginiesz w tym poziomie, "
-"zaczniesz ponownie na początku tego poziomu ale tylko, jeśli pozostało ci "
+"zaczniesz ponownie na początku tego poziomu ale tylko, jeśli pozostało Ci "
 "jakieś życie (i stracisz jedną z kul)."
 
 #: level_i18n.cc:1612
@@ -2444,7 +2441,7 @@ msgid ""
 "targets.   From these, only the light-gray ones are movable, just try it!"
 msgstr ""
 "Ten jasny promień światła to wiązka laserowa. Nie zbliżaj się za blisko do "
-"niej! Ale ma swoje zastosowanie ... Możesz użyć lustr, aby skierować laser "
+"niej! Ale ma swoje zastosowanie ... Możesz użyć luster, aby skierować laser "
 "do swoich celów. Tylko jasno-szare lustra są ruchome, po prostu wypróbuj!"
 
 #: level_i18n.cc:1644
@@ -3132,7 +3129,6 @@ msgstr ""
 "żmije w piasku i na przekleństwo Enighomathepa."
 
 #: level_i18n.cc:2707
-#, fuzzy
 msgid ""
 "Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
 "were the most useful items in this desert. But nobody was willing to spend 2 "
@@ -3488,7 +3484,7 @@ msgstr "Uwaga! Bilet na wyspę w jedną stronę."
 
 #: level_i18n.cc:3234
 msgid "Christmas Star"
-msgstr ""
+msgstr "Gwiazdka świąteczna"
 
 #: level_i18n.cc:3250
 msgid "Enigmas wildcat"
@@ -3703,8 +3699,8 @@ msgid ""
 "This is a color maze. You have to work out what order you need to traverse "
 "the colored floors in order to reach the oxyds."
 msgstr ""
-"To jest labirynt w kolorze. Musisz znaleźć sposób w jakiej kolejności trzeba "
-"przemierzyć kolorową podłogę aby dostać się do Oxyd'ów."
+"To jest labirynt w kolorze. Musisz znaleźć sposób, w jakiej kolejności "
+"trzeba przemierzyć kolorową podłogę, aby dostać się do Oxyd'ów."
 
 #: level_i18n.cc:4480
 msgid "Open the Doors, Open the Oxyds"
@@ -3886,7 +3882,6 @@ msgid "Who broke the pearl necklace?"
 msgstr "Kto rozerwał naszyjnik z pereł?"
 
 #: level_i18n.cc:4645
-#, fuzzy
 msgid ""
 "Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls "
 "rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "
@@ -4493,8 +4488,7 @@ msgstr "Te automaty (dozowniki) są puste..."
 
 #: level_i18n.cc:5054
 msgid "The glass next to this document can be pushed to let you back out."
-msgstr ""
-"Możesz przesunąć szklany kamień obok tego dokumentu aby ciebie wypuścić."
+msgstr "Możesz przesunąć szklany kamień obok tego dokumentu, aby Cię wypuścić."
 
 #: level_i18n.cc:5062
 msgid "Danger!"
@@ -4806,7 +4800,7 @@ msgid ""
 "yourself of anything that could be interpreted as a sign of life.  Now "
 "begone!"
 msgstr ""
-"Nie! Nie przewiozę ciebie dopóki nie złożysz odpowiedniej ofiary, "
+"Nie! Nie przewiozę Ciebie dopóki nie złożysz odpowiedniej ofiary, "
 "pozbawiając się wszystkiego, co może być interpretowane jako znak życia. "
 "Teraz odejdź!"
 
@@ -5110,7 +5104,8 @@ msgstr "więcej jest nie mniej"
 #: level_i18n.cc:5485
 msgid "Sorry, but in difficult mode you need more ... Restart."
 msgstr ""
-"Przykro nam, ale na trudnym poziomie musisz więcej... Uruchom ponownie."
+"Przykro nam, ale na trudnym poziomie musisz osiągnąć więcej... Uruchom "
+"ponownie."
 
 #~ msgid "It's easier with spikes!"
 #~ msgstr "To jest łatwiejsze z kolcami!"
