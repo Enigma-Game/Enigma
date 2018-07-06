@@ -3,13 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Is It Easy?" el:subtitle="" el:id="martin06"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -39,6 +38,9 @@ wo:shuffleOxyd({"oxyd%1#*", max=0}, {"oxyd%2#*", max=0}, {"oxyd%3#*", max=0}, {"
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">... There are more than two ...</el:english>
       </el:string>
     </el:i18n>
   </el:protected>
