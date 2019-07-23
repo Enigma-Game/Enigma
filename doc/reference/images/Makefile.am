@@ -1,6 +1,7 @@
 
 PNG = first_level.png construction.png ralD006_1.png
 
+CONVERT=convert
 CONVERTOPT = -density 112x112 -units PixelsPerCentimeter
 
 # Enable out of source build
