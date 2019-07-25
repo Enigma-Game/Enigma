@@ -441,7 +441,7 @@ if MINGW32
 
 else # not MINGW32
 
-  localedir_enigma := $(datadir)/locale
+  localedir_enigma := @localedir@
   mingw_ldadd =
 
 endif
