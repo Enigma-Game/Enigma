@@ -1,10 +1,9 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT
+AC_INIT([zipios++], [0.1.5])
 AC_CONFIG_SRCDIR([src/backbuffer.h])
+AM_INIT_AUTOMAKE
 
-AM_INIT_AUTOMAKE(zipios++,0.1.5)
 AC_CONFIG_HEADERS([zipios++/zipios-config.h])
-
 
 dnl Add -mno-cygwin to CXXFLAGS and CFLAGS if working under cygwin
 dnl if test "$host_os in *cygwin*"; then
