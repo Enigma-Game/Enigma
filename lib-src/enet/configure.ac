@@ -14,7 +14,7 @@ AC_CHECK_FUNC(inet_ntop, [AC_DEFINE(HAS_INET_NTOP)])
 
 AC_CHECK_MEMBER(struct msghdr.msg_flags, [AC_DEFINE(HAS_MSGHDR_FLAGS)], , [#include <sys/socket.h>])
 
-AC_CHECK_TYPE(socklen_t, [AC_DEFINE(HAS_SOCKLEN_T)], , 
+AC_CHECK_TYPE(socklen_t, [AC_DEFINE(HAS_SOCKLEN_T)], ,
               #include <sys/types.h>
               #include <sys/socket.h>
 )

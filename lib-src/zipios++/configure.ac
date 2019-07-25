@@ -14,15 +14,15 @@ dnl fi
 dnl to run test progs with CXX: AC_LANG([C++])
 
 dnl Use std compliant iostream library if present?
-AC_ARG_WITH(std-compliant-iostream, 
-[  --with-std-compliant-iostream 
+AC_ARG_WITH(std-compliant-iostream,
+[  --with-std-compliant-iostream
          Include iostream (if present) instead of iostream.h. (Default is yes) ] )
 
 if test -n "$with_std_compliant_iostream" -a \
         "$with_std_compliant_iostream" != "no" -a \
         "$with_std_compliant_iostream" != "yes" ; then
   AC_MSG_ERROR(
-[illegal argument specified for --with-std-compliant-iostream. 
+[illegal argument specified for --with-std-compliant-iostream.
 Only 'yes' and 'no' are accepted.])
 fi
 if test -z "$with_std_compliant_iostream" -o \
