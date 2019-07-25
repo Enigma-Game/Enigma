@@ -1,5 +1,6 @@
-AC_INIT(libenet, 1.0)
-AM_INIT_AUTOMAKE(libenet.a, 1.0)
+AC_INIT([libenet], [1.0])
+AC_CONFIG_SRCDIR([callbacks.c])
+AM_INIT_AUTOMAKE
 
 AC_PROG_CC
 AC_PROG_RANLIB
