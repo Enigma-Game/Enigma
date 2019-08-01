@@ -904,6 +904,7 @@ void Application::shutdown()
         lev::ScoreManager::instance()->shutdown();
         app.state->shutdown();
         app.prefs->shutdown();
+        lev::Index::shutdown();
     }
     // now we shutdown SDL - no error reports will be possible!
     app.errorInit = false;
