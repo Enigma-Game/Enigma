@@ -927,6 +927,8 @@ do
     DefStone("st_blur_straight", "sh_round")
     DefStone("st_blur_cross", "sh_round")
     DefStone("st_yinyang_inactive", "sh_round")
+    DefStone("st_document", "sh_round")
+    DefStone("st_pebble", "sh_round")
 end
 
 -- st_key --
@@ -1052,6 +1054,11 @@ end
 -- st_disco --
 do
     DefTiles("st_disco", {"st_disco0","st_disco1","st_disco2"})
+end
+
+-- st_document --
+do
+    DefAlias("st_document_breaking", "st_break_plain-anim", 10, 50)
 end
 
 -- st_death --
@@ -1211,6 +1218,11 @@ do
     for i=1,12 do DefFloatingStone(model_names[i], "st_onewayx"..i) end
 end
 
+-- st_pebble --
+do
+    DefAlias("st_pebble_breaking", "st_break_plain-anim", 10, 50)
+end
+
 -- st_pull, st_swap --
 do
     DefSubimages("st_pull",{modelname="st-pull-fg",h=5})
@@ -1276,6 +1288,7 @@ do
     DefRoundStone("st_scissors", images[1])
     DefAnim("st_scissors_snip_anim", {{images[2], 130}})
     DefShModel("st_scissors_snip", "st_scissors_snip_anim", "sh_round")
+    DefAlias("st_scissors_breaking", "st_break_plain-anim", 10, 50)
 end
 
 -- st-shogun* --

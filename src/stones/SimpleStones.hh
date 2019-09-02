@@ -201,6 +201,68 @@ namespace enigma {
     private:
         void switchPlayer();
     };
+
+    /** 
+     * DocumentStone
+     */
+    class DocumentStone : public Stone {
+        CLONEOBJ(DocumentStone);
+        
+    public:
+        DocumentStone();
+
+        enum iState {
+            IDLE,         ///< 
+            BREAKING      ///< 
+        };
+
+        // Object interface
+        virtual std::string getClass() const;
+        virtual Value message(const Message &m);
+
+        // GridObject interface
+        virtual void init_model();
+        
+        // ModelCallback interface  - Animation callback
+        virtual void animcb();
+
+        // Stone interface
+        virtual void actor_hit(const StoneContact &sc);
+
+    private:
+        void doBreak();
+    };
+
+    /** 
+     * PebbleStone
+     */
+    class PebbleStone : public Stone {
+        CLONEOBJ(PebbleStone);
+        
+    public:
+        PebbleStone();
+
+        enum iState {
+            IDLE,         ///< 
+            BREAKING      ///< 
+        };
+
+        // Object interface
+        virtual std::string getClass() const;
+        virtual Value message(const Message &m);
+
+        // GridObject interface
+        virtual void init_model();
+        
+        // ModelCallback interface  - Animation callback
+        virtual void animcb();
+
+        // Stone interface
+        virtual void actor_hit(const StoneContact &sc);
+
+    private:
+        void doBreak();
+    };
 } // namespace enigma
 
 #endif /*SIMPLESTONES_HH*/
