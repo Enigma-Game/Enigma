@@ -29,13 +29,6 @@ namespace enigma {
      */
     class ForwardFloor : public Floor, public TimeHandler {
         CLONEOBJ(ForwardFloor);
-    private:
-        enum iState { // Orientation
-            WEST,
-            SOUTH,
-            EAST,
-            NORTH
-        };
     public:
         ForwardFloor(Direction dir, std::string flavor);
         ~ForwardFloor();
@@ -43,7 +36,12 @@ namespace enigma {
         // Object interface
         virtual std::string getClass() const;
         virtual void setAttr(const std::string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
+        virtual Value message(const Message &m);
         
+        // StateObject interface
+        virtual int maxState() const;
+
         // GridObject interface
         virtual void init_model();
                 

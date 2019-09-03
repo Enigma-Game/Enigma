@@ -27,7 +27,6 @@ namespace enigma {
     
     ForwardFloor::ForwardFloor(Direction dir, std::string flavor) : Floor("fl_forward")  {
         Floor::setAttr("flavor", flavor);
-        Floor::setAttr("orientation", dir);
         Floor::setAttr("burnable", flavor == "bridgewood");
         state = dir;
     }
@@ -52,13 +51,36 @@ namespace enigma {
                 init_model();    // need to redisplay after attribute set
             }
         } else if (key == "orientation") {
-            // Do not change this attribute directly.
+            if (val >= minState() && val <= maxState())
+                setState(val);
         } else
             Floor::setAttr(key, val);
     }
 
+    Value ForwardFloor::getAttr(const std::string &key) const {
+        if (key == "orientation") {
+            return state;
+        } else
+            return Floor::getAttr(key);
+    }
+
+    Value ForwardFloor::message(const Message &m) {
+        if (m.message == "orientate") {
+            setAttr("state", m.value);   // enforce value check
+            return Value();
+        } else if (m.message == "signal" || m.message == "flip") {
+            setState(reverse((Direction)state));
+            return Value();
+        }
+        return Floor::message(m);
+    }
+
+    int ForwardFloor::maxState() const {
+        return 3;  // dir representing state
+    }
+
     void ForwardFloor::init_model() {
-        std::string suffix = toSuffix((Direction)((int)Floor::getAttr("orientation")));
+        std::string suffix = toSuffix((Direction)state);
         std::string animname = "fl_forward_" + getAttr("flavor").to_string() + suffix;
         set_anim(animname);
     }
@@ -72,10 +94,8 @@ namespace enigma {
         if (Value theid = getAttr("$stoneabove")) {
             GridPos p = get_pos();
             Stone *st = GetStone(p);
-            if (st != NULL && theid == st->getId()) {
-                int dir = (int)Floor::getAttr("orientation");
-                send_impulse(p, (Direction)dir);
-            }
+            if (st != NULL && theid == st->getId())
+                send_impulse(p, (Direction)state);
         }
     }
 
@@ -87,26 +107,31 @@ namespace enigma {
 
     BOOT_REGISTER_START
         BootRegister(new ForwardFloor( WEST, "darkgray"), "fl_forward");
+        BootRegister(new ForwardFloor( WEST, "darkgray"), "fl_forward_darkgray");
         BootRegister(new ForwardFloor( WEST, "darkgray"), "fl_forward_darkgray_w");
         BootRegister(new ForwardFloor(SOUTH, "darkgray"), "fl_forward_darkgray_s");
         BootRegister(new ForwardFloor( EAST, "darkgray"), "fl_forward_darkgray_e");
         BootRegister(new ForwardFloor(NORTH, "darkgray"), "fl_forward_darkgray_n");
 
+        BootRegister(new ForwardFloor( WEST, "platinum"), "fl_forward_platinum");
         BootRegister(new ForwardFloor( WEST, "platinum"), "fl_forward_platinum_w");
         BootRegister(new ForwardFloor(SOUTH, "platinum"), "fl_forward_platinum_s");
         BootRegister(new ForwardFloor( EAST, "platinum"), "fl_forward_platinum_e");
         BootRegister(new ForwardFloor(NORTH, "platinum"), "fl_forward_platinum_n");
 
+        BootRegister(new ForwardFloor( WEST, "rough"), "fl_forward_rough");
         BootRegister(new ForwardFloor( WEST, "rough"), "fl_forward_rough_w");
         BootRegister(new ForwardFloor(SOUTH, "rough"), "fl_forward_rough_s");
         BootRegister(new ForwardFloor( EAST, "rough"), "fl_forward_rough_e");
         BootRegister(new ForwardFloor(NORTH, "rough"), "fl_forward_rough_n");
 
+        BootRegister(new ForwardFloor( WEST, "bright"), "fl_forward_bright");
         BootRegister(new ForwardFloor( WEST, "bright"), "fl_forward_bright_w");
         BootRegister(new ForwardFloor(SOUTH, "bright"), "fl_forward_bright_s");
         BootRegister(new ForwardFloor( EAST, "bright"), "fl_forward_bright_e");
         BootRegister(new ForwardFloor(NORTH, "bright"), "fl_forward_bright_n");
 
+        BootRegister(new ForwardFloor( WEST, "bridgewood"), "fl_forward_bridgewood");
         BootRegister(new ForwardFloor( WEST, "bridgewood"), "fl_forward_bridgewood_w");
         BootRegister(new ForwardFloor(SOUTH, "bridgewood"), "fl_forward_bridgewood_s");
         BootRegister(new ForwardFloor( EAST, "bridgewood"), "fl_forward_bridgewood_e");

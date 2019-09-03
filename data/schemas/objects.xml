@@ -463,6 +463,10 @@
       <attr name="flavor" default="darkgray"/>
       <attr name="friction" default="3.0"/>
       <attr name="adhesion" default="1.6"/>
+      <attr name="orientation" default="0"/>
+      <msg name="flip"/>
+      <msg name="orientate"/>
+      <msg name="signal"/>
     </object>
     <object name="fl_forward_bridgewood">
       <attr name="flavor" value="bridgewood"/>
