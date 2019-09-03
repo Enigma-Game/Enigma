@@ -161,6 +161,8 @@ enigma_SOURCES = 		\
 	floors/BridgeFloor.hh	\
 	floors/FloodStream.cc	\
 	floors/FloodStream.hh	\
+	floors/ForwardFloor.cc	\
+	floors/ForwardFloor.hh	\
 	floors/ScalesFloor.cc	\
 	floors/ScalesFloor.hh	\
 	floors/SimpleFloors.cc	\

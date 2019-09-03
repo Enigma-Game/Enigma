@@ -527,6 +527,25 @@ do
     display.DefineComposite("fl_scales_platinum_pressed", "fl_platinum", scales[2])
 end
 
+-- forward floor --
+do
+    local forward = DefSubimages("fl_forward", {w=4, h=6})
+    local flavors = {"darkgray", "platinum", "rough", "bright", "bridgewood"}
+    local backgrounds = {"darkgray", "platinum", "rough1", "bright", "bridge_bw_closed"}
+    local directions = {"n", "e", "s", "w"}
+    for b = 1, table.getn(backgrounds) do
+        for d = 1, 4 do
+            local basemodel = "fl_forward_"..flavors[b].."_"..directions[d]
+            local frames = {}
+            for j = 1, 6 do
+                display.DefineComposite(basemodel..j, "fl_"..backgrounds[b], forward[j + 6*(d-1)])
+                table.insert(frames, basemodel..j)
+            end
+            DefAnim(basemodel, ComposeFrames(frames, {110, 90, 90, 90, 90, 90}))
+        end
+    end
+end
+
 ------------------------
 -- Heating animations --
 ------------------------

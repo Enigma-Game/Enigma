@@ -456,6 +456,32 @@
     <object name="fl_fake_trigger">
       <attr name="flavor" value="trigger"/>
     </object>
+    <object name="fl_forward">
+      <attr name="flavor" default="darkgray"/>
+      <attr name="friction" default="3.0"/>
+      <attr name="adhesion" default="1.6"/>
+    </object>
+    <object name="fl_forward_bridgewood">
+      <attr name="flavor" value="bridgewood"/>
+      <attr name="friction" value="5.0"/>
+      <attr name="adhesion" value="1.0"/>
+    </object>
+    <object name="fl_forward_bright">
+      <attr name="flavor" value="bright"/>
+      <attr name="friction" value="3.0"/>
+      <attr name="adhesion" value="1.5"/>
+    </object>
+    <object name="fl_forward_darkgray">
+      <attr name="flavor" value="darkgray"/>
+    </object>
+    <object name="fl_forward_platinum">
+      <attr name="flavor" value="platinum"/>
+    </object>
+    <object name="fl_forward_rough">
+      <attr name="flavor" value="rough"/>
+      <attr name="friction" value="7.0"/>
+      <attr name="adhesion" value="2.0"/>
+    </object>
     <object name="fl_gravel" super="fl_standard">
       <attr name="faces"/>
       <attr name="friction" default="3.2"/>
