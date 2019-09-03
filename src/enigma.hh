@@ -33,7 +33,7 @@ namespace enigma {
 
 enum Player { YIN = 0, YANG = 1 };
 
-enum Color { BLACK = 0, WHITE = 1, BLUE = 2, YELLOW = 3 };
+enum Color { BLACK = 0, WHITE = 1, GLASS = 2, BLUE = 3, YELLOW = 4 };
 
 /* -------------------- Various types -------------------- */
 

@@ -306,6 +306,10 @@ enum ExplosionType {
 };
 void SendExplosionEffect(GridPos p, ExplosionType type);
 
+/* -------------------- Stone Contacts -------------------- */
+
+Direction GetPushDirection (const StoneContact &sc);
+
 /* -------------------- Sound Events and Damping -------------------- */
 
 float GetVolume(const char *name, Object *obj, float def_volume = 1.0);

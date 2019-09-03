@@ -251,6 +251,9 @@
     <object name="ac_marble_white">
       <attr name="color" value="1"/>
     </object>
+    <object name="ac_marble_glass">
+      <attr name="color" value="2"/>
+    </object>
     <object name="ac_pearl">
       <attr name="color" default="1"/>
       <msg name="_appear"/>

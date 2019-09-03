@@ -53,23 +53,10 @@ void Stone::transform(std::string kind) {
     SetStone(get_pos(), newStone);
 }
 
-/*! Determine whether the actor hitting the stone can move stone
-  and return either the direction the stone should move or NODIR. */
-Direction get_push_direction(const StoneContact &sc) {
-    ActorInfo *ai = sc.actor->get_actorinfo();
-    Direction dir = contact_face(sc);
-
-    // Make sure the speed component towards the face of the stone is
-    // large enough and pointing towards the stone.
-    if (dir != enigma::NODIR && ai->vel * sc.normal < -4)
-        return reverse(dir);
-    return NODIR;
-}
-
 /* Move a stone (by sending an impulse) Called when an actor hits a
    stone. */
 bool maybe_push_stone(const StoneContact &sc) {
-    Direction dir = get_push_direction(sc);
+    Direction dir = GetPushDirection(sc);
     if (dir != enigma::NODIR) {
         sc.actor->send_impulse(sc.stonepos, dir);
         return GetStone(sc.stonepos) == nullptr;  // return true only if stone vanished

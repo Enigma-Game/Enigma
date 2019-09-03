@@ -48,8 +48,10 @@ namespace enigma {
                     change_state(SHATTERING);
                     handled = true;
                 } else if (m.message == "_laserhit") {
-                    centerRespawn = false;
-                    change_state_noshield(SHATTERING);
+                    if(getAttr("color") != GLASS) {
+                        centerRespawn = false;
+                        change_state_noshield(SHATTERING);
+                    }
                     handled = true;
                 } else if (m.message == "_fall") {
                     change_state_noshield(FALLING);
@@ -314,7 +316,7 @@ namespace enigma {
         if (!(it != NULL && it->covers_floor(get_pos(), this)) && fl != NULL)
             fl->get_sink_speed (sink_speed, raise_speed);
 
-        if (sink_speed == 0.0 || has_shield()) {
+        if (sink_speed == 0.0 || has_shield() || getAttr("color") == GLASS) {
             sinkDepth = minSinkDepth;
             sinkModel = -1;
         }
@@ -536,13 +538,18 @@ namespace enigma {
         }
     }
 
+    void BasicBall::stoneBounce(const StoneContact &sc) {
+        if((getAttr("color") == GLASS) && (GetPushDirection(sc) != NODIR))
+            change_state_noshield(SHATTERING);
+    }
+
 
 /* -------------------- Marble  -------------------- */
     Marble::Marble(int color) : BasicBall(traits[color]) {
         setAttr("adhesion", 1.0);
         setAttr("color", color);
-        setAttr("owner", color == BLACK ? YIN : YANG);
-        setAttr("controllers", color == BLACK ? 1 : 2);
+        setAttr("owner", color == WHITE ? YANG : YIN);
+        setAttr("controllers", color == WHITE ? 2 : 1);
     }
 
     std::string Marble::getClass() const {
@@ -553,9 +560,10 @@ namespace enigma {
         return getAttr("color");
     }
 
-    ActorTraits Marble::traits[2] = {
+    ActorTraits Marble::traits[3] = {
         {"ac_marble_black", ac_marble_black, 1<<ac_marble_black, 19.0/64, 1.0},
         {"ac_marble_white", ac_marble_white, 1<<ac_marble_white, 19.0/64, 1.0},
+        {"ac_marble_glass", ac_marble_glass, 1<<ac_marble_glass, 19.0/64, 0.5},
     };
 
 /* -------------------- Pearl  -------------------- */
@@ -588,12 +596,13 @@ namespace enigma {
     };
 
     BOOT_REGISTER_START
-        BootRegister(new Marble(0), "ac_marble");
-        BootRegister(new Marble(0), "ac_marble_black");
-        BootRegister(new Marble(1), "ac_marble_white");
-        BootRegister(new Pearl(1), "ac_pearl");
-        BootRegister(new Pearl(1), "ac_pearl_white");
-        BootRegister(new Pearl(0), "ac_pearl_black");
+        BootRegister(new Marble(BLACK), "ac_marble");
+        BootRegister(new Marble(BLACK), "ac_marble_black");
+        BootRegister(new Marble(WHITE), "ac_marble_white");
+        BootRegister(new Marble(GLASS), "ac_marble_glass");
+        BootRegister(new Pearl(WHITE), "ac_pearl");
+        BootRegister(new Pearl(WHITE), "ac_pearl_white");
+        BootRegister(new Pearl(BLACK), "ac_pearl_black");
     BOOT_REGISTER_END
 
 } // namespace enigma

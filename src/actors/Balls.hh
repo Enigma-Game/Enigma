@@ -80,7 +80,8 @@ namespace enigma {
 
         virtual void move_screen();
         virtual void hide();
-        
+        virtual void stoneBounce(const StoneContact &sc);
+                
         // ModelCallback interface  - Animation callback
         virtual void animcb();
 
@@ -120,7 +121,7 @@ namespace enigma {
 /* -------------------- Marble  -------------------- */
     class Marble : public BasicBall {
         CLONEACTOR(Marble);
-        DECL_ACTORTRAITS_ARRAY(2, traitsIdx());
+        DECL_ACTORTRAITS_ARRAY(3, traitsIdx());
         
     public:
         Marble(int color);
