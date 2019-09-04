@@ -68,6 +68,7 @@ enum StoneID {
     st_fourswitch,
     st_greenbrown,
     st_ice,
+    st_inkwell,
     st_key,
     st_knight,
     st_dongle,

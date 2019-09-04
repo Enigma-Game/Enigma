@@ -170,6 +170,7 @@
     <msg name="_rise" type="nil"/>
     <msg name="_scissors" type="nil"/>
     <msg name="_scramble" type="int"/>
+    <msg name="_setcolor" type="nil"/>
     <msg name="_shatter" type="nil"/>
     <msg name="_shield" type="nil"/>
     <msg name="_shogun" type="int"/>
@@ -241,6 +242,7 @@
       <msg name="_levelfinish"/>
       <msg name="_resurrect"/>
       <msg name="_rise"/>
+      <msg name="_setcolor"/>
       <msg name="_shatter"/>
       <msg name="_shield"/>
       <msg name="_suicide"/>
@@ -1835,6 +1837,10 @@
     <object name="st_invisible">
       <attr name="hollow" rw="r"/>
     </object>
+    <object name="st_inkwell"/>
+    <object name="st_inkwell_black"/>
+    <object name="st_inkwell_empty"/>
+    <object name="st_inkwell_white"/>
     <object name="st_invisible_hollow">
       <attr name="hollow" value="true"/>
     </object>

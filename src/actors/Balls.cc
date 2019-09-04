@@ -68,6 +68,10 @@ namespace enigma {
                 } else if (m.message == "_disappear") {
                     change_state(DISAPPEARING);
                     handled = true;
+                } else if (m.message == "_setcolor") {
+                    setAttr("color", m.value);
+                    update_model();
+                    return true;
                 }
                 break;
             case JUMPING:

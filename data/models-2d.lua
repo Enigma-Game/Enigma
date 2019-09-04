@@ -1184,6 +1184,26 @@ do
     DefShModel("st_ice_melting", "st_ice_melt-anim", "sh_rawglass")
 end
 
+-- st_inkwell --
+do
+    DefSubimages("st_inkwell", {h=9})
+    DefShModel("st_inkwell_black", "st_inkwell1", "sh_round")
+    DefShModel("st_inkwell_empty", "st_inkwell5", "sh_round")
+    DefShModel("st_inkwell_white", "st_inkwell9", "sh_round")
+    DefAnim("st_inkwell_2_to_4",
+        BuildFrames({"st_inkwell2", "st_inkwell3", "st_inkwell4"}, 100), false)
+    DefShModel("st_inkwell_black_to_empty", "st_inkwell_2_to_4", "sh_round")
+    DefAnim("st_inkwell_6_to_8",
+        BuildFrames({"st_inkwell6", "st_inkwell7", "st_inkwell8"}, 100), false)
+    DefShModel("st_inkwell_empty_to_white", "st_inkwell_6_to_8", "sh_round")
+    DefAnim("st_inkwell_8_to_6",
+        BuildFrames({"st_inkwell8", "st_inkwell7", "st_inkwell6"}, 100), false)
+    DefShModel("st_inkwell_white_to_empty", "st_inkwell_8_to_6", "sh_round")
+    DefAnim("st_inkwell_4_to_2",
+        BuildFrames({"st_inkwell4", "st_inkwell3", "st_inkwell2"}, 100), false)
+    DefShModel("st_inkwell_empty_to_black", "st_inkwell_4_to_2", "sh_round")
+end
+
 -- st_knight --
 do
     local images = DefSubimages("st_knight", {modelname="knight", h=5})
