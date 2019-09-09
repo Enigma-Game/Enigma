@@ -2130,6 +2130,9 @@
     <object name="st_portal_pearl">
       <attr name="flavor" value="pearl"/>
     </object>
+    <object name="st_portal_glass">
+      <attr name="flavor" value="glass"/>
+    </object>
     <object name="st_pull">
       <attr name="state" rw="r"/>
     </object>

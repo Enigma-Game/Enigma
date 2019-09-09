@@ -35,7 +35,8 @@ namespace enigma {
     private:
         enum iState {
             HORSE,      ///< 
-            PEARL       ///< 
+            PEARL,      ///< 
+            GLASS,      ///< 
         };
         
     public:

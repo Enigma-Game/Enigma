@@ -38,6 +38,8 @@ namespace enigma {
                     return "horse";
                 case PEARL:
                     return "pearl";
+                case GLASS:
+                    return "glass";
             }
         }
         return Stone::getAttr(key);
@@ -52,6 +54,7 @@ namespace enigma {
             default:
             case HORSE:
             case PEARL:
+            case GLASS:
                 set_model("st_portal_horse");
                 break;
         }
@@ -63,7 +66,9 @@ namespace enigma {
 
     StoneResponse PortalStone::collision_response(const StoneContact &sc) {
         ActorID theid = get_id(sc.actor);
-        if ((state == HORSE && theid == ac_horse) || (state == PEARL && theid == ac_pearl_white))
+        if (   (state == HORSE && theid == ac_horse)
+            || (state == PEARL && theid == ac_pearl_white)
+            || (state == GLASS && theid == ac_marble_glass))
             return STONE_PASS;
         else
             return STONE_REBOUND;
@@ -75,6 +80,7 @@ namespace enigma {
         BootRegister(new PortalStone(0), "st_portal");
         BootRegister(new PortalStone(0), "st_portal_horse");
         BootRegister(new PortalStone(1), "st_portal_pearl");
+        BootRegister(new PortalStone(2), "st_portal_glass");
     BOOT_REGISTER_END
 
 } // namespace enigma
