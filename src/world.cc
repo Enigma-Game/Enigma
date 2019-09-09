@@ -1183,12 +1183,12 @@ void World::handle_stone_contact(StoneContact &sc) {
             bool slow_collision = length(ai.vel) < 0.3;
             if (!has_nearby_contact(ai.last_contacts, ai.last_contacts_count, contact)) {
                 if (Stone *stone = GetStone(sc.stonepos)) {
+                    a->beforeStoneBounce(sc);
                     if (slow_collision)
                         stone->actor_touch(sc);
                     else
                         stone->actor_hit(sc);
-
-                    a->stoneBounce(sc);
+                    a->afterStoneBounce(sc);
                     if (!slow_collision) {
                         client::Msg_Sparkle(sc.contact_point);
                         double volume = std::max(0.25, length(ai.vel) / 8);

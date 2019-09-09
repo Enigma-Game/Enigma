@@ -166,7 +166,8 @@ public:
     void show();
 
     void add_force(const ecl::V2 &f);
-    virtual void stoneBounce(const StoneContact &) {}
+    virtual void beforeStoneBounce(const StoneContact &) {}
+    virtual void afterStoneBounce(const StoneContact &) {}
 
     /* ---------- Accessors ---------- */
     ActorInfo *get_actorinfo();

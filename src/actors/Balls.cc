@@ -542,7 +542,7 @@ namespace enigma {
         }
     }
 
-    void BasicBall::stoneBounce(const StoneContact &sc) {
+    void BasicBall::beforeStoneBounce(const StoneContact &sc) {
         if (getAttr("color") == GLASS) {
             if (GetPushDirection(sc) != NODIR) {
                 change_state_noshield(SHATTERING);

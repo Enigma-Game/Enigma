@@ -80,7 +80,7 @@ namespace enigma {
 
         virtual void move_screen();
         virtual void hide();
-        virtual void stoneBounce(const StoneContact &sc);
+        virtual void beforeStoneBounce(const StoneContact &sc);
                 
         // ModelCallback interface  - Animation callback
         virtual void animcb();

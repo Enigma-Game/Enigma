@@ -56,10 +56,12 @@ void Stone::transform(std::string kind) {
 /* Move a stone (by sending an impulse) Called when an actor hits a
    stone. */
 bool maybe_push_stone(const StoneContact &sc) {
-    Direction dir = GetPushDirection(sc);
-    if (dir != enigma::NODIR) {
-        sc.actor->send_impulse(sc.stonepos, dir);
-        return GetStone(sc.stonepos) == nullptr;  // return true only if stone vanished
+    if(sc.actor && (!sc.actor->isMoribund())) {
+        Direction dir = GetPushDirection(sc);
+        if (dir != enigma::NODIR) {
+            sc.actor->send_impulse(sc.stonepos, dir);
+            return GetStone(sc.stonepos) == nullptr;  // return true only if stone vanished
+        }
     }
     return false;
 }

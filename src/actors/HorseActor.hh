@@ -49,7 +49,7 @@ namespace enigma {
         // Actor interface
         virtual bool is_dead() const;
         virtual void think(double dtime);
-        virtual void stoneBounce(const StoneContact &sc);
+        virtual void afterStoneBounce(const StoneContact &sc);
 
     private:
         // Variables

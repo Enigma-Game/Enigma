@@ -95,11 +95,11 @@ namespace enigma {
         Actor::think(dtime);
     }
 
-    void Horse::stoneBounce(const StoneContact &sc) {
+    void Horse::afterStoneBounce(const StoneContact &sc) {
         if ((objFlags & OBJBIT_AUTOMOVE) && (sc.stonepos == GridPos(target))) {
             updateTarget(true);
         }
-        Actor::stoneBounce(sc);
+        Actor::afterStoneBounce(sc);
     }
 
     void Horse::updateTarget(bool touched) {
