@@ -543,8 +543,17 @@ namespace enigma {
     }
 
     void BasicBall::stoneBounce(const StoneContact &sc) {
-        if((getAttr("color") == GLASS) && (GetPushDirection(sc) != NODIR))
-            change_state_noshield(SHATTERING);
+        if (getAttr("color") == GLASS) {
+            if (GetPushDirection(sc) != NODIR) {
+                change_state_noshield(SHATTERING);
+                return;
+            }
+            if (sc.outerCorner && sc.is_contact) {
+                ActorInfo *ai  = sc.actor->get_actorinfo();
+                if (ai->vel * ai->vel > 3)
+                    change_state_noshield(SHATTERING);
+            }
+        }
     }
 
 
