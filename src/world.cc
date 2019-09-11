@@ -1289,7 +1289,8 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2) {
             return;
 
         bool enforceCollision = actor1->on_collision(actor2);
-        enforceCollision = enforceCollision || actor2->on_collision(actor1);
+        // Use eager evaluation of OR; e.g. if two glass marbles collide, both might shatter.
+        enforceCollision = enforceCollision | actor2->on_collision(actor1);
 
         bool reboundp = (actor1->is_movable() && actor2->is_movable() &&
                          (enforceCollision || (actor1->is_on_floor() == actor2->is_on_floor())));

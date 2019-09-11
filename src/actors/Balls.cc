@@ -21,6 +21,7 @@
 #include "actors/Balls.hh"
 #include "errors.hh"
 #include "world.hh"
+#include "main.hh"
 
 namespace enigma {
 
@@ -195,6 +196,17 @@ namespace enigma {
 
     bool BasicBall::has_shield() const {
         return m_shield_rest_time > 0;
+    }
+
+    bool BasicBall::on_collision(Actor *a) {
+        if (getAttr("color") == GLASS && !is_flying() && !a->is_flying()) {
+            ecl::V2 dv = get_vel() - a->get_vel();
+            Log << dv*dv;
+            Log << "\n";
+            if (dv*dv > 16)
+                change_state_noshield(SHATTERING);
+        }
+        return Actor::on_collision(a);
     }
 
     void BasicBall::on_creation(const ecl::V2 &p) {
