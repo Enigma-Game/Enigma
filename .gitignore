@@ -15,3 +15,6 @@ Makefile.in
 *.o
 *~
 .dirstamp
+doc/reference/images/*.png
+lib-src/enet/compile
+lib-src/zipios++/compile

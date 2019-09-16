@@ -1,5 +1,6 @@
-AC_INIT(libenet, 1.0)
-AM_INIT_AUTOMAKE(libenet.a, 1.0)
+AC_INIT([libenet], [1.0])
+AC_CONFIG_SRCDIR([callbacks.c])
+AM_INIT_AUTOMAKE
 
 AC_PROG_CC
 AC_PROG_RANLIB
@@ -13,7 +14,7 @@ AC_CHECK_FUNC(inet_ntop, [AC_DEFINE(HAS_INET_NTOP)])
 
 AC_CHECK_MEMBER(struct msghdr.msg_flags, [AC_DEFINE(HAS_MSGHDR_FLAGS)], , [#include <sys/socket.h>])
 
-AC_CHECK_TYPE(socklen_t, [AC_DEFINE(HAS_SOCKLEN_T)], , 
+AC_CHECK_TYPE(socklen_t, [AC_DEFINE(HAS_SOCKLEN_T)], ,
               #include <sys/types.h>
               #include <sys/socket.h>
 )
