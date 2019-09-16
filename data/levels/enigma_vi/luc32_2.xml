@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Blitz Chess" el:subtitle="Move fast!" el:id="luc322006"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_wood"}
+ti["."] = {"fl_abyss"}
+ti["b"] = {"fl_bridge_bw", name="bridge"}
+ti["x"] = {"it_trigger", target="bridge"}
+ti["s"] = {"fl_swamp"}
+ti["t"] = {"fl_thief"}
+ti["#"] = {"st_greenbrown"}
+ti["e"] = {"st_laser_e", name="laser1"}
+ti["o"] = {"st_switch", target="laser1"}
+ti["n"] = {"st_laser_n", name="laser2"}
+ti["y"] = {"it_trigger", target="laser2"}
+ti["l"] = {"st_lightpassenger", interval=0.001}
+ti["/"] = {"st_mirror", state=WEST}
+ti["<"] = {"st_mirror_triangle", state=EAST}
+ti["k"] = {"st_chess"}
+ti["w"] = {"it_wormhole", destination=po(8.5, 6.5), range=0.5}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble"}
+
+w, h = wo(ti, " ", {
+    "......#.............",
+    ".O....x.....   .ttt.",
+    ".<....  b    / .t.t.",
+    ".O.y..  .....  .t.t.",
+    "... .. ..k  . ..t.t.",
+    ".el    s. . ./..w.t.",
+    ".....  .    ......t.",
+    "......  .. ..   ..t.",
+    ".       ..    . ..t.",
+    ". ....n   ..... ..t.",
+    ". .   ...       ..t.",
+    ".   .  o..........@.",
+    "...................."})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Blitzschach</el:translation>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Ziehe schnell!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

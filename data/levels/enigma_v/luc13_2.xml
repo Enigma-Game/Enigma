@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Moving Puzzles" el:subtitle="" el:id="luc13"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_woven"}
+ti["."] = {"fl_abyss"}
+ti["#"] = {"st_brownpyramid"}
+ti["x"] = {"st_grate"}
+ti["*"] = {"st_box"}
+ti["0"] = {"st_oxyd_a"}
+ti["t"] = {"it_trigger", target="open", action="signal"}
+ti["p"] = {"st_puzzle", cluster="1"}
+ti["P"] = {"st_puzzle", cluster="2"}
+ti["q"] = {"st_puzzle", cluster="3"}
+ti["Q"] = {"st_puzzle", cluster="4"}
+ti["="] = {"st_door_d", name="door"}
+ti["@"] = {"#ac_marble"}
+
+w, h = wo(ti, " ", {
+    "####################",
+    "#xxxxxxxxxxxxxxxxxx#",
+    "#xpp  p PPP      0x#",
+    "#xp PpppPpPqqqq   x#",
+    "#xppPP p p qQ     x#",
+    "#x  PP   pppQQQQ  x#",
+    "#xt t t t         x#",
+    "#x       #        x#",
+    "#x tt t t#        x#",
+    "#x       #        x#",
+    "#xt t t t#       @x#",
+    "#xxxxxxxx#xxxxxxxxx#",
+    "##################=#",
+    "#####    ######### #",
+    "####     ######### #",
+    "#### p . ######### #",
+    "#### p .      #### #",
+    "0 .. p##     x  pp #",
+    "##...p* QQQ qx  PP #",
+    "# .. P##    qx  qq #",
+    "#### P .      ######",
+    "#### P   ###########",
+    "#### P   ###########",
+    "#####    ###########",
+    "####################"})
+
+wo:add({"ot_counter", name="open", state=0, target="door", action_11="close", action_12="open"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

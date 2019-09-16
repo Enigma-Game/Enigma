@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Correspondence Chess" el:subtitle="Send smartly!" el:id="luc352007"/>
+      <el:version el:score="3" el:release="4" el:revision="6" el:status="released"/>
+      <el:author el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl_samba"}
+ti["# "] = {"st_rawglass"}
+ti["D "] = {"st_death"}
+ti["w "] = {"st_box"}
+ti["< "] = {"st_oneway_w"}
+ti["> "] = {"st_oneway_e"}
+ti["K "] = {"st_chess"}
+ti["E "] = {"st_mail_e"}
+ti["A "] = {"st_door_d", name="door1"}
+ti["B "] = {"st_door_d", name="door2"}
+ti["C "] = {"st_door_d", name="door3"}
+ti["a "] = {"it_trigger", target="door1"}
+ti["b "] = {"it_trigger", target="door2"}
+ti["c "] = {"it_trigger", target="door3"}
+ti[" W"] = {"st_boulder_w"}
+ti[" X"] = {"it_cross"}
+ti[" c"] = {"it_cherry"}
+ti["x "] = {"fl_swamp"}
+ti["t "] = {"fl_thief"}
+ti[". "] = {"it_seed"}
+ti["! "] = cond(wo["IsDifficult"], {"it_seed_volcano"}, ti[". "])
+ti["p "] = {"it_puller_s"}
+ti["1 "] = {"it_pipe_ns"}
+ti["2 "] = {"it_pipe_ew"}
+ti["3 "] = {"it_pipe_nw"}
+ti["4 "] = {"it_pipe_es"}
+ti["5 "] = {"it_pipe_ne"}
+ti["6 "] = {"it_pipe_sw"}
+ti["O "] = {"st_oxyd_d"}
+ti["@ "] = {"#ac_marble"}
+
+w, h = wo(res.composer(ti), "  ", {
+    "D D D D # O # # # # # # # # # # # # # # ",
+    "D t t t #cAX#c1 x x x x x x x # b w cW# ",
+    "D t D t # @ x x x x x x x x x # # x # # ",
+    "D t D t > x x K x x x x 1 x x x x x 3 # ",
+    "D t # # # x x x x x 2 x x x x x x 1 x # ",
+    "D t # p <Xx 1 x # x x x x x x x # x x # ",
+    "# BX# CX# # # x x x 1 x x x x x x x 1 # ",
+    "# . 1 6 4 5 # 3 x x x # x x 1 x x x x # ",
+    "# 4 . 5 1 2 # x x # x x x x x x x x x # ",
+    "# 1 6 ! 3 4 E x x x x x x x x x x # x # ",
+    "# 5 4 1 . 6 # x x x x x 3 x x x x # #c# ",
+    "O 1 3 4 3 . # x 6 x x x x x x x x #ca #c",
+    "# # # # # # # # # # # # # # # # # # #c# "})
+
+function postinit()
+    no["door3"]:open()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Fernschach</el:translation>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Verschicke geschickt!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

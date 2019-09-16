@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Fatal Attraction III" el:subtitle="" el:id="spaceman3"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Spaceman" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Spaceman</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal_7"}
+ti["!"] = {"st_bluegray"}
+ti["O"] = {"st_oxyd_c", "left#"}
+ti["P"] = {"st_oxyd_c", "right#"}
+ti["h"] = {"st_door_d", "doorblack#", faces="ns"} .. ti{"it_yinyang"}
+ti["v"] = {"st_door_d", "doorblack#", faces="ew"}
+ti["%"] = {"st_floppy", target="doorblack#*"}
+ti["i"] = {"st_door_d", "doorwhite#", faces="ns"} .. ti{"it_yinyang"}
+ti["w"] = {"st_door_d", "doorwhite#", faces="ew"}
+ti["$"] = {"st_floppy", target="doorwhite#*"}
+ti["@"] = {"#ac_marble", "black", owner=YIN, controllers=CTRL_YIN} .. ti{"it_floppy"}
+ti["&"] = {"#ac_marble_white", "white", owner=YANG, controllers=CTRL_YANG} .. ti{"it_floppy"}
+ti["1"] = {"#ac_rotor", "rot1", range=15.0, strength=10.0, gohome=false}
+ti["2"] = {"#ac_rotor", "rot2", range=15.0, strength=10.0, gohome=false}
+
+w, h = wo (ti, " ", {
+    "!!!!!!!!!!%!!!!!!!!!!!!!!!!!$!!!!!!!!!!",
+    "!        v@v       !       w&w        !",
+    "!  O     !h!     O ! P     !i!     P  !",
+    "!                  !                  !",
+    "!                  !                  !",
+    "!                  !                  !",
+    "!                  !                  !",
+    "!                  !                  !",
+    "!                  !                  !",
+    "!                  !                  !",
+    "!  O             O ! P             P  !",
+    "!         1        !        2         !",
+    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"})
+
+wo:add({"ot_rubberband", anchor1="black", anchor2="rot1", length=10.0, strength=10.0})
+wo:add({"ot_rubberband", anchor1="white", anchor2="rot2", length=10.0, strength=10.0})
+wo:shuffleOxyd({"left#*", max=1})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

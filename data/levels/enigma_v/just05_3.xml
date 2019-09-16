@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Walking around" el:subtitle="" el:id="just05"/>
+      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
+      <el:author el:name="JuSt" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © JuSt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:id="lib/libpuzzle" el:release="3" el:preload="true" el:path="lib/libpuzzle"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl_concrete"}
+ti["_ "] = {"fl_abyss"}
+ti["! "] = {"st_greengray"}
+ti["O "] = {"st_oxyd_c"}
+ti["$ "] = {"st_rawglass"}
+ti["% "] = {"st_stoneimpulse"}
+ti[", "] = {"st_stoneimpulse_hollow"}
+ti["- "] = {"st_laser_n", name="laser"}
+ti["' "] = {"st_grate"}
+ti["( "] = {"st_shogun_sml"}
+ti[") "] = {"st_door_d", name="door", faces="ew"}
+ti["1 "] = {"st_box"}
+ti["+ "] = {"st_oneway_s"}
+ti["0 "] = {"st_oneway_w"}
+ti["2 "] = {"st_oneway_n"}
+ti["4 "] = {"st_oneway_e"}
+ti["5 "] = {"st_turnstile"}
+ti["3 "] = {"st_turnstilearm_w"}
+ti["6 "] = {"st_turnstilearm_s"}
+ti["7 "] = {"st_turnstilearm_e"}
+ti["8 "] = {"st_turnstilearm_n"}
+ti["& "] = {"st_mirror_triangle", state=WEST, transparent=true, movable=true}
+ti["* "] = {"st_mirror_triangle", state=WEST, transparent=true}
+ti[". "] = {"st_mirror", state=SOUTH}
+ti["/ "] = {"st_mirror", state=EAST}
+ti["P"] = {"st_puzzle_yellow", intensity=0}
+ti[" b"] = {"it_bomb"}
+ti[" t"] = {"it_trigger", target="laser"}
+ti[" s"] = {"it_shogun_l", target="door"}
+ti[" :"] = {"it_seed"}
+ti["@ "] = {"#ac_marble"}
+
+w, h = wo(res.composer(res.puzzle(ti, "P")), "  ", {
+    "! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ",
+    "! O $b b b b' .       !       Pj' ' O ! ",
+    "! $b$b*       '       !       Pl' ' ' ! ",
+    "!  b&b  &   ' '   ! 2 !   !   PbPjPePe! ",
+    "!  t b      ' /   !   4  b!     Ph    ! ",
+    "! ! ! ! ! ! - !   ! 2 ! ! !         Pc! ",
+    "! % % % %     0   0 @ 4   4           ! ",
+    "! % '   %     ! ! ! +:!   ! ! ! ! ! ! ! ",
+    "! % (  s%       _     !   5 7     8  b! ",
+    "! % % % %     ! 1 ! + !   6     3 5 7 ! ",
+    "! ! !         ! , ! 3 5     5 7   6   ! ",
+    "! O ) + ! ! ! ! , !         6       O ! ",
+    "! ! % , , , , , , ! ! ! ! ! ! ! ! ! ! ! "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Push your way" el:subtitle="" el:id="level4b"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_dunes"}
+ti["x "] = {"st_box"}
+ti["X "] = {"st_grate"}
+ti["O "] = {"st_oxyd"}
+ti["i "] = {"st_invisible"}
+ti["P "] = {"st_puzzle", connections="nesw"}
+ti["Q "] = {"st_puzzle", connections="nesw", hollow=true}
+ti[" w"] = {"it_magicwand"}
+ti[" d"] = {"it_document", text="text1"}
+ti[" @"] = {"#ac_marble"}
+
+w, h = wo(res.composer(ti), "  ", {
+    "x x x x x x x x x x x x x x x x x x x x ",
+    "x   X X X X X X         X X X X X X   x ",
+    "x O i     X X X x x x x X X X     i O x ",
+    "x   i   X P P P P P P P P P P X   i   x ",
+    "x   i x X P P P P P P P P P P X x i   x ",
+    "x x i   X P P Q P Q P Q P P P X   i   x ",
+    "x x i xwX P P P P P Q P P P P X x i   x ",
+    "x x i   X P P P P P P P Q P P X   i   x ",
+    "x   i xdX P P P Q P P P P P P X x i   x ",
+    "x   i   X P P P P P P P P P P X@  i   x ",
+    "x O i i i X X X x x x x X X X     i O x ",
+    "x   X X X X X X i i i i X X X X X X   x ",
+    "x x x x x x x x x x x x x x x x x x x x "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="false"> </el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

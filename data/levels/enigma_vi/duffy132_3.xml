@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Prepare Your Defense" el:subtitle="" el:id="duffy132"/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd1"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_concrete"}
+ti["!"] = {"fl_abyss"}
+ti["~"] = {"fl_water"}
+ti["I"] = {"fl_ice"}
+ti["d"] = {"fl_slope_ps"}
+ti["u"] = {"fl_slope_pn"}
+ti["r"] = {"fl_slope_pe"}
+ti["l"] = {"fl_slope_pw"}
+ti["1"] = {"fl_slope_isw"}
+ti["3"] = {"fl_slope_ise"}
+ti["9"] = {"fl_slope_inw"}
+ti["7"] = {"fl_slope_ine"}
+ti["#"] = {"st_woven"}
+ti["%"] = {"st_break_white"}
+ti["+"] = {"st_box"}
+ti["w"] = {"st_rawglass"}
+ti["S"] = {"st_stoneimpulse"}
+ti["`"] = {"st_knight"}
+ti["o"] = {"st_oxyd"}
+ti["*"] = {"st_brownie"}
+ti["g"] = {"st_grate"}
+ti["<"] = {"st_oneway_w"}
+ti[">"] = {"st_rubberband", name="r1"}
+ti["&"] = {"st_swap"}
+ti["V"] = {"st_blocker"}
+ti["Q"] = {"st_boulder_w", name="b1"}
+ti["A"] = {"st_door_d", name="door1", faces="ew", state=OPEN} .. ti{"it_sword"}
+ti["B"] = {"st_door_d", name="door2", faces="ew"}
+ti["k"] = {"st_key", target="door2"}
+ti["L"] = {"st_laser_w", name="laser1"}
+ti[";"] = {"st_mirror", state=WEST, movable=true}
+ti["/"] = {"st_mirror", state=EAST, movable=true}
+ti["-"] = {"st_mirror", state=SOUTH, movable=true}
+ti["|"] = {"st_mirror", state=NORTH, movable=true}
+ti["M"] = {"st_mirror_triangle", state=SOUTH, movable=true}
+ti["_"] = ti["I"] .. ti["g"]
+ti["Y"] = ti["~"] .. ti["g"]
+ti["G"] = ti["g"] .. {"it_bomb"}
+ti["z"] = {"ac_marble", 0.0, 1.0}
+ti["h"] = {"fl_metal_7"} .. ti{"#ac_horse", name="h1", controllers=CTRL_NONE}
+ti["T"] = {"it_trigger", target="door1"}
+ti["U"] = {"it_trigger", target="laser1"}
+ti["t"] = {"it_trigger", target="b1", action_1="flip"}
+ti["K"] = {"it_key"}
+ti["C"] = {"it_coffee"}
+ti["c"] = {"it_cherry"}
+ti["n"] = {"it_coin_m"}
+ti["e"] = {"it_extinguisher"}
+ti["p"] = {"it_pin"}
+ti["s"] = {"it_spade"}
+ti["F"] = {"it_flag"}
+ti["W"] = {"it_weight"}
+ti["q"] = {"it_spoon"}
+ti[":"] = {"it_floppy"}
+ti["."] = {"it_glasses"}
+ti["b"] = {"it_bomb"}
+ti["H"] = {"it_meditation"}
+ti["O"] = {"it_extralife"}
+
+w, h = wo(ti, " ", {
+    "############################################################################################>######SS##############",
+    "#t                                                                           IIII_UI~~# 3d1   %+%   !!#  *  k#eCp##",
+    "#  z                                                                         ~~~~~~II~# rhl   %%%     #* * * #c:.##",
+    "#                                                                            ~~~~~~I~~# 9u7           # * *  #nOF##",
+    "#t                                                                                                     *  * *#CqW##",
+    "################################################################################gggggggggggggggggggggg########ggg##",
+    "#Q                                                                                    b                 ~  VKV   T#",
+    "################################################################################ggggggGgggggggggggg##ggggg####ggg##",
+    "#o                                                                           !!!      b  #               <      H##",
+    "#                                                                            !!!  bbbbb  #  g   ;      H  wwwwww-##",
+    "#                                                                            ###  b ###    g+g   H & #    Mwwwww/##",
+    "#o                                                                           BA<bbb #s! `#        # H     |wwwwwL##",
+    "###################################################################################################################"})
+
+wo:add({"ot_rubberband", anchor1="h1", anchor2="r1", length=6, strength=20})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

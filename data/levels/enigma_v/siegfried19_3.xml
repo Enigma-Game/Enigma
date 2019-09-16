@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Space Pirates" el:subtitle="" el:id="level6a"/>
+      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_rough"}
+ti["- "] = {"fl_water"}
+ti["* "] = {"fl_space"}
+ti["# "] = {"st_granite"}
+ti["L "] = {"st_laser_s", name="laser"}
+ti["C "] = {"st_coinslot", target="laser"}
+ti[" 5"] = {"it_coin_m"}
+ti["D "] = {"st_door_d", name="door#"}
+ti["S "] = {"st_switch", target="@door#*", action="open"}
+ti[" t"] = {"it_trigger", invisible=true, target="@door#*", action="close"}
+ti["B "] = {"st_dispenser"}
+ti[" g"] = {"st_grate", flavor="framed"}
+ti["T "] = {"st_thief"}
+ti["x "] = {"st_box"}
+ti[" b"] = {"it_bomb"}
+ti[" d"] = {"it_dynamite"}
+ti[" h"] = {"it_hammer"}
+ti[" /"] = {"st_break_oxydc"}
+ti["> "] = {"st_mirror_triangle", state=EAST, movable=true}
+ti[" ^"] = {"st_oneway_n"}
+ti[" v"] = {"st_oneway_s"}
+ti["O "] = {"st_oxyd_a"}
+ti["@ "] = {"#ac_marble"}
+
+w, h = wo(res.composer(ti), "  ", {
+    "# # # # # # # # # L # # # # # # # # # # ",
+    "#          dS       -gO             O # ",
+    "# D # # # # #       -g                # ",
+    "#  b     t          -g                # ",
+    "# B      t        @ -g g g g g gT *^T # ",
+    "# # # # # # #       -/-/-/x T T T * T # ",
+    "#      5      >     * * * * * * * * T # ",
+    "# # # # # # #       -/-/-/x T T T * T # ",
+    "# B      t          -g g g g g gT *vT # ",
+    "#  b     t       d  -g                # ",
+    "# D # # # # #       -g                # ",
+    "#          hS       -gO             O # ",
+    "# # # # # # # # # C # # # # # # # # # # "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

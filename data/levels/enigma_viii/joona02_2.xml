@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Joona's Chess" el:id="joona02"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Joona Laire" el:email="joona.laire@gmail.com"/>
+      <el:copyright>Copyright © 2006 Joona Laire</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_white"}
+ti["o"] = {"fl_dark"}
+ti["X"] = {"st_yellow"}
+ti["0"] = {"st_oxyd"}
+ti["H"] = {"st_chess_white"}
+ti["B"] = ti["o"] .. {"st_plop"}
+ti["S"] = ti["o"] .. {"st_plaster_movable"}
+ti["F"] = {"st_flash", hit_strength=50.0}
+ti["Z"] = {"st_passage_white", flavor="cross"}
+ti["*"] = cond(wo["IsDifficult"], {"#ac_rotor", range=6, strength=60, gohome=false}, {"#ac_rotor", range=6, strength=20, gohome=false})
+ti["x"] = {"fl_blueslab"}
+ti["?"] = {"st_grate"}
+ti["+"] = {"#ac_marble"}
+ti["-"] = {"#ac_marble_white", controllers=CTRL_NONE, essential=INDISPENSABLE}
+
+w, h = wo(ti, " ", {
+    "ZZZZZ?????XXXXXXXXXX",
+    "Zo B o S ?X0   0XxxX",
+    "Z B o S o?X     XxxX",
+    "Zo B o S ?X     XxxX",
+    "Z-B o S o?Z     XxxX",
+    "Zo B o S*?X0   0XxxX",
+    "Z B o S o?XXXXXXXXXX",
+    "Zo B o S ?XxxX     X",
+    "Z B o S o?XxxX     X",
+    "ZZZZZ?????XxxX  F  X",
+    "XXXXXXXXXXXxxX     X",
+    "XxxxxxxxxxXxxX    +X",
+    "XXXXXXXXXXXXXXXXXXXX"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n/>
+  </el:protected>
+</el:level>

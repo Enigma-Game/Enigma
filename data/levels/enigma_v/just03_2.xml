@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Doors forever" el:subtitle="" el:id="just03"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author el:name="JuSt" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 JuSt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+        <el:dependency el:id="lib/libpuzzle" el:release="3" el:preload="true" el:path="lib/libpuzzle"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl_bluegray"}
+ti["_ "] = {"fl_abyss"}
+ti["~ "] = {"fl_water"}
+ti["o "] = {"st_oxyd"}
+ti["# "] = {"st_granite"}
+ti[". "] = {"st_stoneimpulse"}
+ti["+ "] = {"st_granite_hollow"}
+ti["= "] = {"st_box"}
+ti["x "] = {"st_death"}
+ti["/ "] = {"st_plaster_movable"}
+ti["n "] = {"st_plaster_breakable"}
+ti["; "] = {"st_rotator", movable=true}
+ti["r "] = {"st_mail_e"}
+ti["s "] = {"st_knight"}
+ti["p "] = {"st_swap"}
+ti["q "] = {"st_pull"}
+ti["O "] = {"st_rawglass"}
+ti["> "] = {"st_oneway_black_e"}
+ti["< "] = {"st_oneway_black_w"}
+ti["^ "] = {"st_oneway_black_n"}
+ti["y "] = {"st_oneway_black_s"}
+ti["m "] = {"st_laser_e", name="laser1"}
+ti["M "] = {"it_trigger", target="laser1"}
+ti["t "] = {"st_laser_w", name="laser2"}
+ti["T "] = {"it_trigger", target="laser2"}
+ti["u "] = {"st_mirror", state=NORTH}
+ti["v "] = {"st_mirror", state=WEST, movable=true}
+ti["w "] = {"st_mirror", state=WEST, movable=true, transparent=true}
+ti[" *"] = {"#ac_marble"}
+ti[" +"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG}
+ti[" `"] = {"it_pipe_sw"}
+ti[" |"] = {"it_pipe_ns"}
+ti[" /"] = {"it_pipe_nw"}
+ti[" -"] = {"it_pipe_ew"}
+ti[" @"] = {"it_coin_s"}
+ti[" 1"] = {"it_puller_s"}
+ti[" 2"] = {"st_brake"}
+ti[" 3"] = {"it_puller_w"}
+ti[" 4"] = {"it_brush"}
+ti[" 5"] = {"it_dynamite"}
+ti[" 6"] = {"it_floppy"}
+ti[" 7"] = {"it_yinyang"}
+ti[" 8"] = {"it_coffee"}
+ti[" 9"] = {"it_key"}
+ti[" 0"] = {"it_seed"}
+ti[" !"] = {"it_extinguisher"}
+ti[" $"] = {"it_glasses"}
+ti[" s"] = {"it_sword"}
+ti[" _"] = {"it_bomb"}
+ti[" x"] = {"it_wormhole", strength=2, destination=po(2.5, 23.5)}
+ti[" y"] = {"it_wormhole", strength=2, destination=po(1.5, 1.5)}
+ti[" ,"] = {"it_document", text="text1"}
+ti[" ."] = {"it_document", text="text2"}
+ti[" Z"] = {"it_umbrella"}
+ti[" m"] = {"it_magnet", name="mag#"}
+ti[" O"] = cond(wo["IsDifficult"], {"it_trigger", target="mag#*", action="on"}, ti["  "])
+ti[" Q"] = cond(wo["IsDifficult"], {"it_trigger", target="mag#*", action="off"}, ti["  "])
+ti["F "] = cond(wo["IsDifficult"], ti["# "], ti["~ "])
+ti["z "] = cond(wo["IsDifficult"], ti["x "], ti["# "])
+ti["D*"] = {"st_door_d", name="door%%", faces="ew"}
+ti["d*"] = {"st_door_d", name="door%%", faces="ns"}
+ti["a*"] = {"it_trigger", target="door%%"}
+ti["b*"] = {"st_switch", target="door%%"}
+ti["c*"] = {"st_coinslot", target="door%%"}
+ti["e*"] = {"st_floppy", target="door%%"}
+ti["f*"] = {"st_laserswitch", target="door%%", action="open"}
+ti[" P"] = {"st_puzzle_yellow", cluster="1", intensity=1}
+
+resolver = res.autotile(ti, {"D", "D*"}, {"d", "d*"}, {"a", "a*"}, {"b", "b*"}, {"c", "c*"}, {"e", "e*"}, {"f", "f*"})
+w, h = wo(res.composer(res.puzzle(resolver, " P")), "  ", {
+    "# # # # # # # # # # # # # # # # # # # #   ",
+    "ba *Da  #             Db              #   ",
+    "# # #   #   # . . . . # # ; # # # # dc#   ",
+    "o   #  ,#   # .   = . # ac  # +.      #   ",
+    "o   #       # .   ab. #   / # #   =  1r  `",
+    "# di# # # # # . . . . # # # #    2= =Z#  |",
+    "# dj#       # # # bl        #   =3=4  #  |",
+    "# dk#   = = #   = Df    #   #    6= =7#  |",
+    "# dl#       x     # # # # de#   =3=8 9#  |",
+    "#   # ~ F             ~ #   #    0= = #  |",
+    "#   #   #   p q    P P P#   #    !=  $#  |",
+    "#   #   #       # # # _P#   # dd# # # #  |",
+    "#   #   =   # # # # # _Pce       @+s+x#  |",
+    "#   #   = = #   n    P P# # # # # # # #  |",
+    "#   #     ~ ~ ~ #      P P            #  |",
+    "#   # # # z # # # # # # # # # # # bgdg#  |",
+    ". =  _          # # #   # ^ y y ^ >   #  |",
+    "u    _              fk  # y < > ^ >   #  |",
+    "#  _ _  w   fj  # = #   # y > > < <   #  |",
+    "#       v   O O         t < > > > >   #  |",
+    "fiO O         #     #   # # dheh# # # #  |",
+    "# # # #   ~ ~ # T # #   x #m O    #m_7bd |",
+    "m     #             #  Q    # x   #   #- /",
+    "#  yM s #           # # x         #m +#   ",
+    "# # # bf# # # # # # # # # #mx #mx # # #   "})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Look carefully at everything!</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Do you need a helping hand?</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

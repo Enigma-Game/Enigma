@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pull it!" el:subtitle="" el:id="luc14"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_sand"}
+ti["#"] = {"st_yellow"}
+ti["p"] = {"st_pull"}
+ti["b"] = {"st_box"}
+ti["s"] = {"it_puller_s"}
+ti["w"] = {"it_puller_w"}
+ti["e"] = {"it_puller_e"}
+ti["d"] = {"st_door_d", name="door1", faces="ns"}
+ti["D"] = {"st_door_d", name="door2", faces="ns"}
+ti["t"] = {"it_trigger", target="door1"}
+ti["T"] = {"it_trigger", target="door2"}
+ti["O"] = {"st_oxyd_c"}
+ti["@"] = {"ac_marble", 0.0, 0.5}
+
+w, h = wo(ti, " ", {
+    "####################",
+    "#T#               t#",
+    "#p#                #",
+    "#d#                #",
+    "#                  #",
+    "#ws                #",
+    "#se       @        #",
+    "#ew                #",
+    "#                  #",
+    "#                  #",
+    "#        #D#      b#",
+    "#p       # #      bO",
+    "##########O#########"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
