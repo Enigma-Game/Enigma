@@ -68,6 +68,7 @@ namespace enigma { namespace lev {
     class Index  {
     public:
         static void initGroups();
+        static void shutdown();
         static void registerIndex(Index *anIndex);
         static Index * findIndex(std::string anIndexName);
         static Index * getCurrentIndex();
