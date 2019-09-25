@@ -89,7 +89,7 @@ do
 
     -- Falling glass marble
     -- Use shadow from black marble
-    images = SpriteImages("ac_marble_black_fall", 10)
+    images = SpriteImages("ac_marble_glass_fall", 10)
     frames = {}
     for i=1,table.getn(images) do
         DefShModel("ac_marble_glass-sink"..(i-1), images[i], shadows[i])
@@ -125,7 +125,7 @@ do
 
     -- Jumping glass marble
     -- Use shadow from black marble
-    images = SpriteImages("ac_marble_black_jump", 4)
+    images = SpriteImages("ac_marble_glass_jump", 4)
     frames = {}
     for i=1,4 do
         DefShModel("gb-jump"..i, images[i], shadows[i])
@@ -151,7 +151,7 @@ do
 
     -- Sinking glass marble
     -- Use shadow from black marble
-    images = SpriteImages("ac_marble_black_sink", 7)
+    images = SpriteImages("ac_marble_glass_sink", 7)
     for i=1,table.getn(images) do
         DefShModel("ac_marble_glass-sink"..(i-1), images[i], shadows[i])
     end
@@ -168,9 +168,9 @@ do
     DefAlias("ac_marble_white-shattered", "ac_marble_white_shatter5")
 
     -- Shattering glass marble
-    Sprite({name="ac_marble_black_shatter", nimages=5, framelen=60})
-    DefAlias("ac_marble_glass-shatter", "ac_marble_black_shatter")
-    DefAlias("ac_marble_glass-shattered", "ac_marble_black_shatter5")
+    Sprite({name="ac_marble_glass_shatter", nimages=5, framelen=60})
+    DefAlias("ac_marble_glass-shatter", "ac_marble_glass_shatter")
+    DefAlias("ac_marble_glass-shattered", "ac_marble_glass_shatter5")
 end
 
 -- ac_pearl --
