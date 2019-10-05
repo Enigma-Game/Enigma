@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="79" title="Enigma VIII"/>
+  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="80" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -11,12 +11,12 @@
     <level _seq="3" _title="Crawling the Abyss" _xpath="./sph02_2" author="ShadowPhrogg32642342" ctrl="force" easy="true" id="sph02" rel="2" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="- Meditation -" _xpath="./joe04_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe4" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="alternate X" _xpath="./devnull29_2" author="/dev/null" ctrl="force" easy="true" id="devnull29" rel="2" rev="10" score="2" target="time" unit="duration"/>
-    <level _seq="6" _title="Ball Alley" _xpath="./johann01_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann01" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="Ball Alley" _xpath="./johann01_2" author="Johann Freymuth" ctrl="force" easy="false" id="johann01" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Pick-Up" _xpath="./joe27_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe27" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="The Red Room" _xpath="./joe29_2" author="Joseph Dunne" ctrl="force" easy="true" id="joe29" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Cross Mail" _xpath="./johann03_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann03" rel="1" rev="11" score="1" target="time" unit="duration"/>
     <level _seq="10" _title=" - Meditation - " _xpath="./devnull06_1" author="/dev/null" ctrl="force" easy="true" id="devnull06" rel="1" rev="9" score="1" target="time" unit="duration"/>
-    <level _seq="11" _title="Joona's Chess" _xpath="./joona02_1" author="Joona Laire" ctrl="force" easy="true" id="joona02" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Joona's Chess" _xpath="./joona02_2" author="Joona Laire" ctrl="force" easy="true" id="joona02" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Helios I" _xpath="./mecke07_1" author="mecke" ctrl="force" easy="false" id="mecke48" rel="1" rev="22" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Rhythm of Space" _xpath="./mecke20_2" author="mecke" ctrl="force" easy="true" id="mecke20" rel="2" rev="37" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Mazelets" _xpath="./raoul34_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul34" rel="1" rev="2" score="1" target="time" unit="duration"/>
