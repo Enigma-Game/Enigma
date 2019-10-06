@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Padding" el:subtitle="" el:id="devnull116"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="2:22"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_wood"}
+ti[" ~"] = {"fl_water"}
+ti["# "] = {"st_purplegray"}
+ti["+ "] = {"st_box"}
+ti["B "] = {"st_passage_black", flavor="frame"}
+ti["W "] = {"st_passage_white", flavor="frame"}
+ti["doors"] = {"st_door_a", name="door%%"}
+ti["trigger"] = {"fl_scales_bridgewood", min=0.6, target="door%%"}
+ti["Ob"] = {"st_oxyd_a", oxydcolor=OXYD_BLACK}
+ti["Og"] = {"st_oxyd_a", oxydcolor=OXYD_GRAY}
+ti["Ow"] = {"st_oxyd_a", oxydcolor=OXYD_WHITE}
+ti["@0"] = {"#ac_marble_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+w, h = wo(res.composer(res.autotile(ti, {"t", "trigger"}, {"D", "doors"})), "  ", {
+    " ~ ~ ~ ~#~#~#~#~#~#~#~#~#~#~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~  @0    DaB     Db#~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~W +~+ tb#~#~#~OwtzOg#~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~+ +~   ~#~ ~ ~#~DZOb#~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~  +~   ~#~ ~ ~#~DzOb#~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~tBDctC  #~#~#~OwtZOg#~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~ ~      DAW     DB#~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~ ~   ~D~#~#~#~#~#~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~ ~ ~ ~ta#~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~B  ~    #~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~ ~+~B tA#~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~tc@1DC  #~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~#~#~#~#~#~#~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

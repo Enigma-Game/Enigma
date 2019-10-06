@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Unusual" el:subtitle="" el:id="devnull121"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="5:25"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_wood"}
+ti["# "] = {"st_grate"}
+ti[" ~"] = {"fl_water"}
+ti["+ "] = {"st_box_wood"}
+ti["B "] = {"st_passage_black", flavor="frame"}
+ti["W "] = {"st_passage_white", flavor="frame"}
+ti["trigger"] = {"fl_scales_bridgewood", target="blocker%%"}
+ti["blockerB"] = {"st_blocker", name="blocker%%"}
+ti[" s"] = {"it_springboard"}
+ti[" l"] = {"it_extralife"}
+ti["Ot"] = ti[" ~"] .. {"st_oxyd", name="oxydsTop#"}
+ti["Ob"] = ti[" ~"] .. {"st_oxyd", name="oxydsBottom#"}
+ti["@0"] = {"#ac_marble_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"t", "trigger"}, {"B", "blockerB"})), "  ", {
+    " ~Ot#~#~Ot#~Ot ~ ~ ~ ~ ~Ot#~Ot#~#~Ot ~",
+    " ~#~ ~ ~+  ~#~ ~ ~ ~ ~ ~#~   ~+  ~#~ ~",
+    " ~#~  +~@0+ #~ ~ ~ ~ ~ ~#~+~ ~+l@1#~ ~",
+    " ~#~  + +  ~#~ ~ ~ ~ ~ ~#~ ~+  ~+l#~ ~",
+    " ~#~W    ~+s ~ ~ ~ ~ ~ ~ ~+s ~    #~ ~",
+    " ~#~   ~#~B #~ ~ ~ ~ ~ ~#~ ~ ~ ~W #~ ~",
+    " ~#~B +~ ~  #~ ~ ~ ~ ~ ~#~B +l ~ ~#~ ~",
+    " ~#~ ~+~+l ~#~#~ ~ ~ ~#~#~ ~ ~+ + #~ ~",
+    " ~#~ ~   ~W   #~#~Ob#~#~B + +~ ~  #~ ~",
+    " ~#~#~ ~+~ ~+  ~ ~   ~ ~    + W #~#~ ~",
+    " ~ ~#~#~     ~+~B        ~ ~ ~#~#~ ~ ~",
+    " ~ ~ ~#~#~ ~ ~ ~ ~   ~ ~ ~ ~#~#~ ~ ~ ~",
+    " ~ ~ ~ ~#~Ob#~Ob#~Ob#~Ob#~Ob#~ ~ ~ ~ ~"})
+
+wo:shuffleOxyd({"oxydsTop#*", max=0}, {"oxydsBottom#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
