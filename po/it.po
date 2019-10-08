@@ -1,22 +1,23 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Italian translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
 # Claudio B. <ahufactory@gmail.com>, 2014
 # luigif <luigif@gmail.com>, 2014
+# Riccardo Di Maio <riccardodimaio11@gmail.com>, 2015
 # Samuele Kaplun <kaplun@aliceposta.it>, 2005
 # Samuele Kaplun <Samuele.Kaplun@cern.ch>, 2007
 # Vincenzo Reale <smart2128@baslug.org>, 2014
 # Vincenzo Reale <vinx.reale@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-07-30 21:11+0000\n"
-"Last-Translator: Claudio B. <ahufactory@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/enigma/language/"
+"PO-Revision-Date: 2018-05-02 18:38+0000\n"
+"Last-Translator: Michał Trzebiatowski <michtrz@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/michtrz/enigma/language/"
 "it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -297,9 +298,8 @@ msgid "Back"
 msgstr "Indietro"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Sviluppatori principali della versione 1.20:"
+msgstr "Sviluppatori principali della versione 1.21:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -352,9 +352,8 @@ msgid "Special Thanks:"
 msgstr "Un ringraziamento particolare va a:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Collaboratori:"
+msgstr "Collaboratori"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -1208,15 +1207,16 @@ msgstr "Bene, diciamo che siamo pari."
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
 msgstr ""
+"Scopri le coppie di pietre mentre superi gli ostacoli utilizzando una biglia"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1227,9 +1227,8 @@ msgid "Escape by Chaining Thieves"
 msgstr ""
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Ricorda Atrax, il cavallo di Atreiu!"
+msgstr "Ricorda Artax, il cavallo di Atreiu!"
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"
@@ -1471,7 +1470,7 @@ msgstr ""
 
 #: level_i18n.cc:157
 msgid "Move fast!"
-msgstr ""
+msgstr "Muoviti velocemente!"
 
 #: level_i18n.cc:164
 msgid "Useful unsuccessful drillings"
@@ -1483,7 +1482,7 @@ msgstr ""
 
 #: level_i18n.cc:177
 msgid "Work together!"
-msgstr ""
+msgstr "Lavorate insieme!"
 
 #: level_i18n.cc:181
 msgid "Mark stones burnable"
@@ -2245,7 +2244,7 @@ msgid ""
 "out of the way)."
 msgstr ""
 "Questa è dinamite. Prova a buttare qualcosa accanto al muro giallognolo (e "
-"scappa via da li). "
+"scappa via da li)."
 
 #: level_i18n.cc:1602
 msgid "Try using the spade on the holes caused by the dynamite."
@@ -3304,7 +3303,7 @@ msgstr ""
 
 #: level_i18n.cc:3213
 msgid "Handle with care!"
-msgstr ""
+msgstr "Maneggiare con cura!"
 
 #: level_i18n.cc:3221
 msgid "Interlude III"
@@ -3606,7 +3605,7 @@ msgstr ""
 
 #: level_i18n.cc:4568
 msgid "WARNING: Highest caution is necessary."
-msgstr ""
+msgstr "ATTENZIONE: portare massima prudenza."
 
 #: level_i18n.cc:4570
 msgid "Wild buffaloes are crossing the way."
@@ -3727,7 +3726,7 @@ msgstr ""
 
 #: level_i18n.cc:4677
 msgid "Don't forget your disguise!"
-msgstr ""
+msgstr "Non dimenticare il tuo travestimento!"
 
 #: level_i18n.cc:4679
 msgid "Here lies the grave of John Reid."
@@ -4422,7 +4421,7 @@ msgstr "Congratulazioni! Sei sopravvissuto all'incubo di Poe."
 
 #: level_i18n.cc:5256
 msgid "With respects to Dante Alighieri"
-msgstr ""
+msgstr "Con rispetto a Dante Alighieri"
 
 #: level_i18n.cc:5258
 msgid ""

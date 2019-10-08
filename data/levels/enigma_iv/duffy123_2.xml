@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Electric Meditation" el:subtitle="" el:id="duffy123"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ElectricStrength"] = cond(wo["IsDifficult"], 50.0, 35.0)
+
+ti[" "] = {"fl_metal_7"}
+ti["!"] = {"fl_abyss"}
+ti["P"] = {"st_charge_plus"}
+ti["M"] = {"st_charge_minus"}
+ti["H"] = {"it_meditation"}
+ti["="] = {"fl_space", name="floor#"}
+ti["d"] = {"fl_slope_ps", name="floor#"} .. ti{"#ac_pearl"}
+ti["u"] = {"fl_slope_pn", name="floor#"} .. ti{"#ac_pearl"}
+ti["r"] = {"fl_slope_pe", name="floor#"} .. ti{"#ac_pearl"}
+ti["l"] = {"fl_slope_pw", name="floor#"} .. ti{"#ac_pearl"}
+ti["h"] = ti["="] .. {"it_meditation_hill", name="med#"} .. ti{"#ac_pearl"}
+
+w, h = wo(ti, " ", {
+    "!!!!!!M!!!!!M!!!!!!",
+    "!!!!!MuM!!!MuM!!!!!",
+    "!!!!P   P!P   P!!!!",
+    "!!!P  H  P  H  P!!!",
+    "!!P P   P=P   P P!!",
+    "!M   M M===M M   M!",
+    "Ml H  M==h==M  H rM",
+    "!M   M M===M M   M!",
+    "!!P P   P=P   P P!!",
+    "!!!P  H  P  H  P!!!",
+    "!!!!P   P!P   P!!!!",
+    "!!!!!MdM!!!MdM!!!!!",
+    "!!!!!!M!!!!!M!!!!!!"})
+
+wo:add({"ot_timer", interval=1, target="start"})
+
+function start ()
+    wo[no["floor#*"]] = ti[" "]
+    wo[no["med#*"]] = {"it_meditation"}
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

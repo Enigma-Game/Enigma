@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Safe" el:subtitle="" el:id="siegfried77"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_sahara"}
+ti["# "] = {"fl_abyss"}
+ti["f "] = {"fl_rough"}
+ti["* "] = {"fl_space"}
+ti["g "] = {"st_lightglass"}
+ti["h "] = {"st_lightglass_hollow"}
+ti["r "] = {"st_tigris"}
+ti["D "] = {"st_death"}
+ti["d "] = {"st_death_invisible"}
+ti["q "] = {"st_window_s"}
+ti["i "] = {"st_actorimpulse"}
+ti["l "] = {"st_laser_e", state=ON}
+ti["o "] = {"st_oxyd_a"}
+ti["$ "] = {"st_door_d", name="door", faces="ew"}
+ti["O "] = {"st_laserflop", target="door"}
+ti["% "] = {"it_spring"}
+ti["a "] = {"#ac_marble"}
+ti["t*"] = {"st_mirror", name="mirror%%", state=NORTH}
+ti["u*"] = {"st_mirror", name="mirror%%", state=SOUTH}
+ti["v*"] = {"st_mirror", name="mirror%%", state=WEST}
+ti["w*"] = {"st_mirror", name="mirror%%", state=EAST}
+ti["s*"] = {"st_fourswitch", target="mirror%%", action="turn"}
+ti["d*"] = ti["* "] .. {"it_document", text="text%%"}
+ti["e*"] = {"it_document", text="text%%"}
+
+w, h = wo(res.autotile(ti,{"d", "d*"}, {"e", "e*"}, {"s", "s*"}, {"t", "t*"}, {"u", "u*"}, {"v", "v*"}, {"w", "w*"}), "  ", {
+    "g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g ",
+    "g                                   r g f f f f f g   %                     g                                     g ",
+    "g                                   r g f f o f f g                         g                                     g ",
+    "g l   t1  t4  u5  v8  O             r g f f f f f g                     d   h                                     g ",
+    "g                                   r g f f f f f g                         g                                     g ",
+    "g     w2  v3  t6  w7                r g f f f f f g                         g                                     g ",
+    "g                                   r g f f f f f $                         g                                     g ",
+    "g                                   r g f f f f f g                         g                                     g ",
+    "g                                   r g f f f f f g                         g                                     g ",
+    "g                                   r g f f f f f g                         g                                     g ",
+    "g                                   r g f f o f f g                         g                         d           g ",
+    "g r r r r r r r r r r r r r r r r r r g f f f f f g                         g                                     g ",
+    "g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g q g g g g g g ",
+    "g                                     g                                     g                                     g ",
+    "g                                     g                                     h   d                                 g ",
+    "g                                     g                                     g                                     g ",
+    "g                                     g                                     g                                     g ",
+    "g                                     g                                     g                                     g ",
+    "g                                     g                                     g                                     g ",
+    "g                                     g                                     g                                     g ",
+    "g                                     g                                     g                                     g ",
+    "g                                     g                                     g                                     g ",
+    "g     d                               g                                     g                                     g ",
+    "g                                     h   d                                 g                                     g ",
+    "g g g h g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g h g g g g g g g g g g g g g g ",
+    "g                                     g   s1  s2  s3  s4    s5  s6  s7  s8  g                                     g ",
+    "g                                     g     #   #   #         #   #   #     g         d                           g ",
+    "g                                     g     #   #   #         #   #   #     g                                     g ",
+    "g                                     g     #   #   #         #   #   #     g                                     g ",
+    "g                                     g     #   #                 #   #     g                                     g ",
+    "g             a     e5                g     #   # # # #     # # # #   #     g                                     g ",
+    "g                                     g     #                         #     g                                     g ",
+    "g                                 d   h     # # # # # # # # # # # # # #     g                                     g ",
+    "g                                     g                                     g                                     g ",
+    "g                                     g                                     g                                     g ",
+    "g                                     g                                     g                                     g ",
+    "g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g h g g g g ",
+    "g                                                                                                                 g ",
+    "g                                                                                                         d       g ",
+    "g                                                                                                                 g ",
+    "g                                                                                                                 g ",
+    "g     h h h       g g D g g g g g g g g g g g g g g g g D g g g g g g g g g g g g g g g g g g D g g               g ",
+    "g     h D h       # # #     * * * * * * * * d1* d2* d3* d4* * * * * * * * * * * * * * * * * * * i g               g ",
+    "g     h h h       g g D g g g g g g g g g g g g g g g g D g g g g g g g g g g g g g g g g g g D g g               g ",
+    "g                                                                                                                 g ",
+    "g                                                                                                                 g ",
+    "g                                                                                                                 g ",
+    "g                                                                                                                 g ",
+    "g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g g "})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text%1">
+        <el:english el:translate="false">     5 = E     3 = S     </el:english>
+      </el:string>
+      <el:string el:key="text%2">
+        <el:english el:translate="false">     1 = W     8 = S     </el:english>
+      </el:string>
+      <el:string el:key="text%3">
+        <el:english el:translate="false">     4 = E     2 = S     </el:english>
+      </el:string>
+      <el:string el:key="text%4">
+        <el:english el:translate="false">     7 = N     6 = W     </el:english>
+      </el:string>
+      <el:string el:key="text%5">
+        <el:english el:translate="true">It's a long way ...</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

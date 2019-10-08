@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Laser Paradise" el:subtitle="" el:id="illmind05"/>
+      <el:version el:score="1" el:release="4" el:revision="3" el:status="released"/>
+      <el:author el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
+      <el:copyright>Copyright © 2005 illmind</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_dark"}
+ti["# "] = {"st_granite"}
+ti["H "] = {"st_granite_hollow"}
+ti[": "] = {"st_door_d", name="door", faces="ew"}
+ti["R "] = {"st_rawglass"}
+ti["X "] = {"st_box"}
+ti["/ "] = {"st_break_oxydc"}
+ti["F "] = {"st_fake_oxydd"}
+ti["O "] = {"st_oxyd_d"}
+ti["t "] = {"it_trigger", target="door"}
+ti["h "] = {"it_hammer"}
+ti["z*"] = {"it_document", text="text%%"}
+ti["a*"] = {"st_laser_s", name="laser%%#"}
+ti["A*"] = {"st_laser_s", name="laser%%#", state=ON}
+ti["b*"] = {"st_laser_e", name="laser%%#"}
+ti["B*"] = {"st_laser_e", name="laser%%#", state=ON}
+ti["c*"] = {"st_laser_n", name="laser%%#"}
+ti["C*"] = {"st_laser_n", name="laser%%#", state=ON}
+ti["d*"] = {"st_laser_w", name="laser%%#"}
+ti["D*"] = {"st_laser_w", name="laser%%#", state=ON}
+ti["T*"] = {"st_timer", target="laser%%#*", interval=4.0}
+ti["t*"] = {"st_timer", target="laser%%#*", interval=5.0}
+ti["S*"] = {"st_switch", target={"laser%%#*", action="off"}}
+ti["@ "] = {"#ac_marble"}
+
+w, h = wo(res.autotile(ti, {"a", "a*"}, {"A", "A*"}, {"b", "b*"}, {"B", "B*"}, {"c", "c*"}, {"C", "C*"}, {"d", "d*"}, {"D", "D*"}, {"T", "T*"}, {"t", "t*"}, {"S", "S*"}, {"z", "z*"}), "  ", {
+    "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # T1",
+    "# @ A2  a1  A2  A1  a2  a1  A2  a1    : z2F / / / O / / / F / / / O / / / F # t2",
+    "#                                   D2# / / / F / / / F / / / F / / / F / / #   ",
+    "# B1                                  # / F / / / F / / / F / / / F / / / O #   ",
+    "#         R   R R R     R R         D1# / / / F / / / O / / / F / / / F / / #   ",
+    "# b2    R             R     R         # / O / / / F / / / F / / / F / / / F #   ",
+    "#         R         R         R     D2# # # / F / / / F / / / F / / / F / / #   ",
+    "# b1        R     R             R     # S2# / / / F / / / F / / / F / / / F #   ",
+    "#             R R     R R R R     R d1# h # / F / / / F / / / F / / / F / / #   ",
+    "# B2                                  H   # / / / F / / / O / / / O / / / F #   ",
+    "# t X                               D2# # # / O / / / F / / / F / / / F / / #   ",
+    "# z1  C2  c1  c2  C1  C2  c1  C2  c1  # / F / / / F / / / F / / / F / / / F #   ",
+    "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #   "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text%1">
+        <el:english el:translate="false">illmind's  laser  paradise  ...</el:english>
+      </el:string>
+      <el:string el:key="text%2">
+        <el:english el:translate="true">...  now  go  back  and  get  the  hammer!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

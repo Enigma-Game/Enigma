@@ -1,19 +1,20 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Modern Greek translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
-# firespin <dartworldgr@hotmail.com>, 2014
-# Γιάννης Ανθυμίδης <yannanth@gmail.com>, 2014
+# firespin <dartworldgr@hotmail.com>, 2014-2015
+# George Birbilis, 2014
+# Wasilis Mandratzis-Walz, 2015
+# Γιάννης Ανθυμίδης <yannanth@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-07-30 21:11+0000\n"
-"Last-Translator: firespin <dartworldgr@hotmail.com>\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/enigma/language/"
-"el/)\n"
+"PO-Revision-Date: 2018-05-02 18:42+0000\n"
+"Last-Translator: Michał Trzebiatowski <michtrz@gmail.com>\n"
+"Language-Team: Greek (http://www.transifex.com/michtrz/enigma/language/el/)\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,7 +152,7 @@ msgstr "Πολύ αργός χρόνος για "
 
 #: src/client.cc:653
 msgid "You are slow today ... Ctrl-A"
-msgstr ""
+msgstr "Είσαι αργός σήμερα … Ctrl+A"
 
 #: src/client.cc:722
 msgid "Exactly the world record of "
@@ -163,7 +164,7 @@ msgstr "Συγχαρητήρια! Νέο παγκόσμιο ρεκόρ!"
 
 #: src/client.cc:729
 msgid "Again your personal record..."
-msgstr "Ξανά το ατομικό σου ρεκόρ..."
+msgstr "Ξανά το ατομικό σου ρεκόρ…"
 
 #: src/client.cc:734
 msgid "New personal record - better than par!"
@@ -175,7 +176,7 @@ msgstr "Νέο προσωπικό ρεκόρ!"
 
 #: src/client.cc:751
 msgid "Your record, "
-msgstr "Το ρεκόρ σου,"
+msgstr "Το ρεκόρ σου, "
 
 #: src/client.cc:757
 msgid "behind world record."
@@ -204,7 +205,7 @@ msgstr "Πακέτο %s - επίπεδο #%d: %s"
 
 #: src/client.cc:810
 msgid "Your record: "
-msgstr "Το ρεκόρ σου:"
+msgstr "Το ρεκόρ σου: "
 
 #: src/client.cc:812
 msgid "World record to beat: "
@@ -292,9 +293,8 @@ msgid "Back"
 msgstr "Επιστροφή"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Κύριοι αναπτυκτές της έκδοσης 1.20:"
+msgstr "Κύριοι αναπτυκτές της έκδοσης 1.21:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -336,7 +336,7 @@ msgstr "όρους της Γενικής Άδειας Δημόσιας Χρήσ�
 
 #: src/gui/MainMenu.cc:126
 msgid "Copyright (C) 2002-2014 Daniel Heck and contributors."
-msgstr ""
+msgstr "Copyright (C) 2002-2014 Daniel Heck και συνεισφέροντες."
 
 #: src/gui/MainMenu.cc:128
 msgid "Main developers of all releases:"
@@ -347,9 +347,8 @@ msgid "Special Thanks:"
 msgstr "Ιδιαίτερες ευχαριστίες:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Συντελεστές:"
+msgstr "Συντελεστές"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -365,11 +364,11 @@ msgstr "Τοποθεσίες"
 
 #: src/gui/MainMenu.cc:292
 msgid "Locate Auto"
-msgstr ""
+msgstr "Αυτοματη Θέση"
 
 #: src/gui/MainMenu.cc:293
 msgid "Locate Score"
-msgstr ""
+msgstr "Αυτοματο σκορ"
 
 #: src/gui/MainMenu.cc:294
 msgid "Credits"
@@ -518,7 +517,7 @@ msgstr "Ενημέρωση χρόνων: "
 
 #: src/gui/OptionsMenu.cc:495
 msgid "Score upload: "
-msgstr ""
+msgstr "Αποστολή βαθμολογίας:"
 
 #: src/gui/OptionsMenu.cc:500 src/gui/OptionsMenu.cc:525
 msgid "User name: "
@@ -650,7 +649,7 @@ msgstr "%d%% λυμένα"
 
 #: src/gui/LevelMenu.cc:370
 msgid "Your time: "
-msgstr "Ο χρόνος σου:"
+msgstr "Ο χρόνος σου: "
 
 #: src/gui/LevelMenu.cc:375
 msgid "That's world record."
@@ -680,7 +679,7 @@ msgstr "Δεν υπάρχει περαιτέρω επίπεδο για λύση!
 
 #: src/gui/LevelPackComposer.cc:42
 msgid "Shift-click:"
-msgstr ""
+msgstr "Shift+κλικ:"
 
 #: src/gui/LevelPackComposer.cc:42
 msgid "Add to clipboard"
@@ -688,7 +687,7 @@ msgstr "Προσθήκη στο πρόχειρο"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Shift-delete:"
-msgstr ""
+msgstr "Shift+Delete:"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Clear clipboard"
@@ -712,7 +711,7 @@ msgstr "Εισαγωγή στο πρόχειρο ως αντίγραφο"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Alt-left arrow:"
-msgstr ""
+msgstr "Alt+αριστερό βέλος:"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Exchange level with predecessor"
@@ -720,7 +719,7 @@ msgstr "Μετακίνηση επιπέδου προς τα αριστερά"
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Alt-right arrow:"
-msgstr ""
+msgstr "Alt+δεξί βέλος:"
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Exchange level with successor"
@@ -936,19 +935,19 @@ msgstr "Στιγμιότυπο"
 
 #: src/gui/LevelInspector.cc:232
 msgid "Level: "
-msgstr "Επίπεδο:"
+msgstr "Επίπεδο: "
 
 #: src/gui/LevelInspector.cc:234 src/gui/LevelInspector.cc:292
 msgid "Author: "
-msgstr "Δημιουργός:"
+msgstr "Δημιουργός: "
 
 #: src/gui/LevelInspector.cc:235
 msgid "Contact: "
-msgstr "Επικοινωνία:"
+msgstr "Επικοινωνία: "
 
 #: src/gui/LevelInspector.cc:236
 msgid "Homepage: "
-msgstr "Σελίδα:"
+msgstr "Σελίδα: "
 
 #: src/gui/LevelInspector.cc:257
 msgid "Public Ratings"
@@ -1146,7 +1145,7 @@ msgstr "Συνέχεια"
 
 #: src/lev/PersistentIndex.cc:463
 msgid "Error on update of levelpack index: \n"
-msgstr ""
+msgstr "Σφάλμα στην ενημέρωση του ευρετηρίου του πακέτου επιπέδων:\n"
 
 #: src/lev/PersistentIndex.cc:465
 msgid ""
@@ -1158,7 +1157,7 @@ msgstr ""
 
 #: src/lev/PersistentIndex.cc:472
 msgid "Error on registration of levelpack index: \n"
-msgstr ""
+msgstr "Σφάλμα στην καταχώρηση του ευρετηρίου του πακέτου επιπέδων:\n"
 
 #: src/lev/PersistentIndex.cc:474
 msgid ""
@@ -1200,19 +1199,19 @@ msgstr ""
 
 #: src/stones/KnightStone.cc:60
 msgid "All right, we'll call it a draw"
-msgstr ""
+msgstr "Εντάξει, θα το πούμε ισοπαλία"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
-msgstr ""
+msgstr "Αποκάλυψε ζεύγη πετρωμάτων όσο πλοηγείς γύρο από εμπόδια με έναν βόλο "
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1223,9 +1222,8 @@ msgid "Escape by Chaining Thieves"
 msgstr "Απόδρασε με το να αλυσοδένεις τους κλέφτες."
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Θυμήσου το άλογο της Atreyu, τον Atrax!"
+msgstr "Θυμήσου το άλογο της Atreyu, τον Artax!"
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"
@@ -1255,7 +1253,7 @@ msgid ""
 "to be a relic of the ancient Aztec empire. But the temple is in surprisingly "
 "good condition ..."
 msgstr ""
-"Καλωσήρθες στο Μεξικό! Οχτώ ώρες πριν, το αεροπλάνο σου προσγειώθηκε στο "
+"Καλώς ήρθες στο Μεξικό! Οχτώ ώρες πριν, το αεροπλάνο σου προσγειώθηκε στο "
 "αεροδρόμιο της \"Coatlicue\", ένα μικρό χωριό περιτρυγιρισμένο από "
 "ανεξερεύνητα δάση ζούγκλας. Βρίσκεσαι μπροστά σε έναν ναό, που φαίνεται να "
 "είναι απομεινάρι της παλαιάς αυτοκρατορίας των Αζτέκων. Αλλά ο ναός είναι σε "
@@ -1514,7 +1512,7 @@ msgstr "Καλωσήρθες"
 
 #: level_i18n.cc:196
 msgid "Welcome to Enigma VI"
-msgstr "Καλώς ήρθες στο Enigma VI"
+msgstr "Καλώς ήρθες στο Enigma ΣΤʹ"
 
 #: level_i18n.cc:201
 msgid "Charging live ammunition"
@@ -1554,7 +1552,7 @@ msgstr "Χτύπημα από ένα κεραυνοβολημένο άλογο"
 
 #: level_i18n.cc:292
 msgid "The real value of coffee"
-msgstr ""
+msgstr "Η αληθινή αξία του καφέ"
 
 #: level_i18n.cc:300
 msgid "Hot Hurdle Race"
@@ -1647,6 +1645,8 @@ msgstr "Υπάρχουν τουλάχιστον δύο τρόποι να παρ�
 #: level_i18n.cc:426
 msgid "It is a well known secret that a few prisoners did escape."
 msgstr ""
+"Είναι ένα ευρέως γνωστό μυστικό πως κάποιοι κρατούμενοι κατόρθωσαν "
+"ν'αποδράσουν."
 
 #: level_i18n.cc:427
 msgid "A window in the wall would be really nice."
@@ -1662,7 +1662,7 @@ msgstr "Άφησε το σφυρί δίπλα σε ένα πεντόμινο, ό
 
 #: level_i18n.cc:667
 msgid "Same room, new mirrors ..."
-msgstr "Ίδιο δωμάτιο, νέοι κεθρέφτες..."
+msgstr "Ίδιο δωμάτιο, νέοι καθρέφτες …"
 
 #: level_i18n.cc:743
 msgid "You can fly for a short time if you use the umbrella."
@@ -1733,7 +1733,7 @@ msgstr ""
 
 #: level_i18n.cc:862
 msgid "Congratulations! You are the most aware awale player of the valley ..."
-msgstr "Συγχαρητήρια! Είσαι ο καλύτερος παίκτης του Awale στην κοιλάδα ..."
+msgstr "Συγχαρητήρια! Είσαι ο καλύτερος παίκτης του Awale στην κοιλάδα …"
 
 #: level_i18n.cc:864
 msgid ""
@@ -1741,7 +1741,7 @@ msgid ""
 "the far left ..."
 msgstr ""
 "Χαμένος στην σαβάνα; Μην περιμένεις και πάτα το διακόπτη που βρίσκεται πέρα "
-"- πέρα αριστερά ..."
+"- πέρα αριστερά …"
 
 #: level_i18n.cc:866
 msgid "Validate your choice here."
@@ -1801,7 +1801,7 @@ msgstr ""
 
 #: level_i18n.cc:884
 msgid "Only reset or Shift-F3 can make things evolve ..."
-msgstr ""
+msgstr "Μόνο το 'Shift+F3' μπορεί να διορθώσει τα πράγματα ..."
 
 #: level_i18n.cc:891
 msgid ""
@@ -1821,7 +1821,7 @@ msgstr ""
 
 #: level_i18n.cc:917
 msgid "An English text based riddle"
-msgstr ""
+msgstr "Ένα αίνιγμα αγγλικού κειμένου με βάση"
 
 #: level_i18n.cc:948
 msgid "Did you bring your flag?"
@@ -1841,7 +1841,7 @@ msgstr "Μερικές πέτρες και σειρές πετρών μπορο�
 
 #: level_i18n.cc:1078
 msgid "Dig in ..."
-msgstr "Έμπα μέσα..."
+msgstr "Έμπα μέσα …"
 
 #: level_i18n.cc:1082
 msgid "Rest on the bright spot for a minute."
@@ -1898,8 +1898,7 @@ msgstr "Αφιερωμένο στον φίλο μου τον Φρανκ."
 
 #: level_i18n.cc:1254
 msgid "This level is quite straightforward, isn't it? Just continue ... ;-)"
-msgstr ""
-"Αυτό το επίπεδο είναι πολύ εύκολο, έτσι δεν είναι; Απλά συνέχιζε ... ;-)"
+msgstr "Αυτό το επίπεδο είναι πολύ εύκολο, έτσι δεν είναι; Απλά συνέχιζε … ;-)"
 
 #: level_i18n.cc:1266
 msgid "Road to Eden"
@@ -1915,23 +1914,24 @@ msgstr "Πάτα F3 ή τέλειωνε"
 
 #: level_i18n.cc:1310
 msgid "Welcome to Enigma II"
-msgstr "Καλώς ήρθες στο Enigma II"
+msgstr "Καλώς ήρθες στο Enigma Βʹ"
 
 #: level_i18n.cc:1317
 msgid "So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!"
-msgstr "Λοιπόν, πού είναι οι ιππότες; - Θα λυπάσαι που ρώτησες!"
+msgstr "Λοιπόν,  πού  είναι  οι  ιππότες;  -  Θα  λυπάσαι  που  ρώτησες!"
 
 #: level_i18n.cc:1329
 msgid "Our full attention this is worth:           Air and Fire, Water, Earth."
-msgstr "Η πλήρης προσοχή μας είναι σημαντική: Αέρας, Φωτιά, Νερό και Γη."
+msgstr ""
+"Η πλήρης προσοχή μας είναι σημαντική:           Αέρας, Φωτιά, Νερό και Γη."
 
 #: level_i18n.cc:1332
 msgid ""
 "And if your answer can’t be found           then shame on you, eyes to the "
 "ground!"
 msgstr ""
-"Και αν η λύση δεν μπορεί να βρεθεί         τότε κρίμα σε σένα, τα μάτια στο "
-"ταπί!"
+"Και αν η λύση δεν μπορεί να βρεθεί           τότε κρίμα σε σένα, τα μάτια "
+"στο ταπί!"
 
 #: level_i18n.cc:1348
 msgid "You'd need a portable box!"
@@ -1951,8 +1951,8 @@ msgid ""
 "box ...                                           but maybe you can use the "
 "3rd seed differently!"
 msgstr ""
-"Θυμήσου ότι δεν μπορείς να συμπληρώσεις μια κλειστή γέφυρα με ένα "
-"κουτί ...                                  αλλά ίσως μπορείς να "
+"Θυμήσου ότι δεν μπορείς να συμπληρώσεις μια κλειστή γέφυρα με ένα κουτί "
+"…                                           αλλά ίσως μπορείς να "
 "χρησιμοποιήσεις τον 3ο σπόρο διαφορετικά!"
 
 #: level_i18n.cc:1351
@@ -1973,8 +1973,8 @@ msgid ""
 "Between Might Lay   --   A Secret Way!   --   (If this you see, press Shift-"
 "F3.)"
 msgstr ""
-"Μια Πέτρα, ένα Δέντρο και Δέντρα τρία, -- Για να νικηθεί η Τυραννία,  -- "
-"Ανάμεσα στο Πιθανό και στο Κάτι  --  Ένα μυστικό Μονοπάτι!  --  (Αν αυτό "
+"Μια Πέτρα, ένα Δέντρο και Δέντρα τρία,   --   Για να νικηθεί η Τυραννία,  -- "
+"Ανάμεσα στο Πιθανό και στο Κάτι   --   Ένα μυστικό Μονοπάτι!   --   (Αν αυτό "
 "έχεις δει, το Shift+F3 να πατηθεί)."
 
 #: level_i18n.cc:1420
@@ -1995,7 +1995,7 @@ msgstr "Προσοχή! Μαύρες τρύπες!"
 
 #: level_i18n.cc:1442
 msgid "...  now  go  back  and  get  the  hammer!"
-msgstr "...Τώρα γύρνα πίσω και πάρε το σφυρί!"
+msgstr "...  τώρα  γύρνα  πίσω  και  πάρε  το  σφυρί!"
 
 #: level_i18n.cc:1457
 msgid "The other document lies and the left wormhole is the right one."
@@ -2015,12 +2015,12 @@ msgid ""
 "One of the puzzle stones needs to be placed onto the trigger "
 "field.                       Guess which ... :)"
 msgstr ""
-"Μια από τις πέτρες-πάζλ πρέπει να τοποθετηθεί πάνω στην "
-"πλάστιγγα.                 Μάντεψε ποια ... :)"
+"Μια από τις πέτρες-παζλ πρέπει να τοποθετηθεί πάνω στην "
+"πλάστιγγα.                       Μάντεψε ποια … :)"
 
 #: level_i18n.cc:1468
 msgid "The level preview might help ..."
-msgstr "Η προεπισκόπηση του επιπέδου ίσως βοηθήσει..."
+msgstr "Η προεπισκόπηση του επιπέδου ίσως βοηθήσει…"
 
 #: level_i18n.cc:1472
 msgid "Make a Sword, & Umbrella."
@@ -2167,9 +2167,9 @@ msgid ""
 "nevertheless be aware when you see one: After some time-period anything "
 "might happen ..."
 msgstr ""
-"Αυτή η πέτρα που ταλαντώνεται είανι μια πέτρα - χρονομετρητής. Δεν μπορείς "
-"να αλληλεπιδράσεις μαζί της, αλλά τα μάτα σου δεκατέσσερα αν δεις μία: Μετά "
-"από συγκεκριμένο χρονικό διάστημα οτιδήποτε μπορεί να συμβεί..."
+"Αυτή η πέτρα που ταλαντώνεται είναι μια πέτρα - χρονομετρητής. Δεν μπορείς "
+"να αλληλεπιδράσεις μαζί της, αλλά τα μάτια σου δεκατέσσερα αν δεις μία: Μετά "
+"από συγκεκριμένο χρονικό διάστημα οτιδήποτε μπορεί να συμβεί …"
 
 #: level_i18n.cc:1578
 msgid ""
@@ -2178,16 +2178,16 @@ msgid ""
 "elements of Enigma - you will see lots of them."
 msgstr ""
 "Οι πέτρες με βελάκια είναι πέτρες μονής κατεύθυνσης. Όπως θα μάντεψες, "
-"μπορείς να τις περάσεις μόνο από μία κατεύθυνση.            Οι λαβύρινθοι "
-"είναι βασικά στοιχεία στο Enigma - θα δεις πάρα πολλούς."
+"μπορείς να τις περάσεις μόνο από μία κατεύθυνση.                Οι "
+"λαβύρινθοι είναι βασικά στοιχεία στο Enigma - θα δεις πάρα πολλούς."
 
 #: level_i18n.cc:1579
 msgid ""
 "Well done!     When you have finished this level, let's play some example "
 "levels from the actual Enigma packs!"
 msgstr ""
-"Καλή δουλεά!  Ας παίξουμε μερικά επίπεδα από τα κανονικά πακέτα του Enigma "
-"(αφού βέβαια ολοκληρώσεις αυτό το επίπεδο!)"
+"Καλή δουλεά!     Ας παίξουμε μερικά επίπεδα από τα κανονικά πακέτα του "
+"Enigma (αφού βέβαια ολοκληρώσεις αυτό το επίπεδο!)"
 
 #: level_i18n.cc:1583
 msgid ""
@@ -2216,7 +2216,7 @@ msgid ""
 "Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
 "how to play."
 msgstr ""
-"Καλωσήρθες στο Enigma! Αυτό το εκπαιδευτικό επίπεδο, που έγραψε ο Jacob "
+"Καλώς ήρθες στο Enigma! Αυτό το εκπαιδευτικό επίπεδο, που έγραψε ο Jacob "
 "Scott, θα σου διδάξει πώς να παίζεις."
 
 #: level_i18n.cc:1590
@@ -2517,11 +2517,11 @@ msgstr "Το Νησί των Πειρατών"
 
 #: level_i18n.cc:1706
 msgid "The pirates have lost several hidden things on this island ..."
-msgstr "Οι πειρατές έχουν χάσει αρκετά πράγματα σε αυτό το νησί..."
+msgstr "Οι πειρατές έχουν χάσει αρκετά πράγματα σ'αυτό το νησί …"
 
 #: level_i18n.cc:1710
 msgid "Warning ... ... thieves!"
-msgstr "Προσοχή... ...ληστές!"
+msgstr "Προσοχή … … ληστές!"
 
 #: level_i18n.cc:1724
 msgid "Could you need something?"
@@ -2536,8 +2536,8 @@ msgid ""
 "The most dangerous animals of the bayou are the alligators, the "
 "mosquitoes ... and the zombies! (But the zombies at least, don't move ...)"
 msgstr ""
-"Τα πιο επικίνδυνα ζώα στον ζωολογικό κήπο είναι οι αλιγάτορες, τα "
-"κουνούπια ... και τα ζόμπι! (Τουλάχιστον τα ζόμπι δεν κινούνται...)"
+"Τα πιο επικίνδυνα ζώα στον ζωολογικό κήπο είναι οι αλιγάτορες, τα κουνούπια "
+"… και τα ζόμπι! (Τουλάχιστον τα ζόμπι δεν κινούνται …)"
 
 #: level_i18n.cc:1767
 msgid ""
@@ -2656,11 +2656,11 @@ msgstr "Μήπως χρειάζεσαι ένα χέρι βοήθειας;"
 
 #: level_i18n.cc:1884
 msgid "This level is symmetric ..."
-msgstr "Αυτό το επίπεδο είναι συμμετρικό..."
+msgstr "Αυτό το επίπεδο είναι συμμετρικό …"
 
 #: level_i18n.cc:1893
 msgid "Welcome to Enigma V"
-msgstr "Καλώς ήρθες στο Enigma V"
+msgstr "Καλώς ήρθες στο Enigma Εʹ"
 
 #: level_i18n.cc:1897
 msgid "If I only had a bag."
@@ -2668,7 +2668,7 @@ msgstr "Μακάρι να είχα έναν σάκο."
 
 #: level_i18n.cc:1898
 msgid "shh ... listen!"
-msgstr "Σςςς...άκου!!!"
+msgstr "Σςςς … άκου!!!"
 
 #: level_i18n.cc:1904
 msgid "April 1st"
@@ -2699,8 +2699,8 @@ msgid ""
 "Remember Seed Puzzle 2? There was a similar problem. Or was it Portable "
 "Laser ...?"
 msgstr ""
-"Θυμάσαι το 'Seed Puzzle 2'; Υπήρχε ένα παρόμοιο πρόβλημα. Ή μήπως ήταν το "
-"'Portable Laser';"
+"Θυμάσαι το «Seed Puzzle 2»; Υπήρχε ένα παρόμοιο πρόβλημα. Ή μήπως ήταν το "
+"«Portable Laser»;"
 
 #: level_i18n.cc:1929
 msgid ""
@@ -2766,7 +2766,7 @@ msgid ""
 "Earth fills and lasts ... Want to replace missing floors? Then build your "
 "way to the Holy Seed!"
 msgstr ""
-"Η γη γεμίζει και διαρκεί ... Θέλεις να αντικαταστήσεις το μέρος του δαπέδου "
+"Η γη γεμίζει και διαρκεί … Θέλεις να αντικαταστήσεις το μέρος του δαπέδου "
 "που λείπει; Τότε χτίσε τον δρόμο σου προς τον Ιερό Σπόρο!"
 
 #: level_i18n.cc:1992
@@ -2774,15 +2774,15 @@ msgid ""
 "Air blows and goes by ... Want to jump across the void? Then make your way "
 "to the Holy Spring!"
 msgstr ""
-"Ο αέρας έρχεται και φεύγει ... Θέλεις να περάσεις απέναντι; Τότε βρες το "
-"σωστό δρόμο προς το Ιερό Ελατήριο!"
+"Ο αέρας έρχεται και φεύγει … Θέλεις να περάσεις απέναντι; Τότε βρες το σωστό "
+"δρόμο προς το Ιερό Ελατήριο!"
 
 #: level_i18n.cc:1993
 msgid ""
 "Water waves and shifts ... Want to trade minds with your partner? Then find "
 "your way to the Holy Yin-Yang!"
 msgstr ""
-"Το νερό κυματίζει και φουρτουνιάζει ... Θέλεις να ανταλλάξεις μυαλά με τον "
+"Το νερό κυματίζει και φουρτουνιάζει … Θέλεις να ανταλλάξεις μυαλά με τον "
 "βοηθό σου; Τότε βρες τον σωστό δρόμο για το Ιερό Γιν-Γιανγκ!"
 
 #: level_i18n.cc:2030
@@ -2825,27 +2825,27 @@ msgstr "Κλοπή ξύλου"
 
 #: level_i18n.cc:2059
 msgid "Too many wooden blocks!  Try the other way ..."
-msgstr "Πάρα πολλές ξύλινες κούτες! Δοκίμασε τον άλλο τρόπο..."
+msgstr "Πάρα πολλές ξύλινες κούτες!  Δοκίμασε τον άλλο τρόπο …"
 
 #: level_i18n.cc:2060
 msgid ""
 "Greetings, adventurer!    The road ahead is long and dangerous, so be "
 "careful!"
 msgstr ""
-"Χαιρετίσματα, εξερευνητή! Ο δρόμος μπροστά σου είναι μακρύς και δύσκολος, "
+"Χαιρετίσματα, εξερευνητή!    Ο δρόμος μπροστά σου είναι μακρύς και δύσκολος, "
 "γι'αυτό να είσαι προσεκτικός!"
 
 #: level_i18n.cc:2061
 msgid "Well done, adventurer!    Good luck!"
-msgstr "Καλή δουλειά, εξερευνητή!  Καλή τύχη!"
+msgstr "Καλή δουλειά, εξερευνητή!    Καλή τύχη!"
 
 #: level_i18n.cc:2062
 msgid "Congratulations, adventurer!  You did it!"
-msgstr "Συγχαρητήρια εξερευνητή!    Τα κατάφερες!"
+msgstr "Συγχαρητήρια εξερευνητή!  Τα κατάφερες!"
 
 #: level_i18n.cc:2081
 msgid "What a pity, and there's so much paint left ..."
-msgstr "Τι κρίμα, και έχει απομείνει τόση πολλή μπογιά..."
+msgstr "Τι κρίμα, και έχει απομείνει τόση πολλή μπογιά …"
 
 #: level_i18n.cc:2085
 msgid "! -  DANGER  -  NO TRESPASSING  -  DANGER  - !"
@@ -2857,7 +2857,7 @@ msgstr "Είναι μια κούρσα!"
 
 #: level_i18n.cc:2108
 msgid "Fight appearing lava."
-msgstr ""
+msgstr "Πολεμήστε την εμφανιζόμενη λάβα."
 
 #: level_i18n.cc:2109
 msgid "A hammer destroys some black stones."
@@ -2873,12 +2873,14 @@ msgstr "Συνέχιζε να μπογιατίζεις!"
 
 #: level_i18n.cc:2166
 msgid "Oops ... you're stuck ...     Try again ..."
-msgstr "Ουπς...κόλλησες...     Ξαναπροσπάθησε..."
+msgstr "Ουπς … κόλλησες …     Ξαναπροσπάθησε …"
 
 #: level_i18n.cc:2167
 msgid ""
 "Congratulations, you reached this side ...     but can you get to the oxyds?"
 msgstr ""
+"Συγχαρητήρια, φτάσατε στην πλευρά αυτή …     αλλά μπορείτε να φτάσετε στα "
+"oxyd;"
 
 #: level_i18n.cc:2168
 msgid "Well done!"
@@ -2895,18 +2897,18 @@ msgid ""
 "on this side ...    The reaper passing by ...    Could know the reason "
 "why!     (orig. by Herman's Hermits)   "
 msgstr ""
-"Καμιά βοήθεια σήμερα ...  Αυτές οι σημαιόπετρες περνούν γρήγορα ...  Ο "
-"πάπυρος είναι μόνος ...   Γιατί είναι τόσο μόνος; ...  Αυτή η βοήθεια "
-"σήμερα ...   Γιατί είναι αντίπερα; ...   Ο θεριστής που περνάει από "
-"εκεί ...  Ίσως να ξέρει το γιατί!"
+"Καμιά βοήθεια σήμερα …    Αυτές οι σημαιόπετρες περνούν γρήγορα ...    Ο "
+"πάπυρος είναι μόνος …    Γιατί είναι τόσο μόνος;    …    Αυτή η βοήθεια "
+"σήμερα …    Γιατί είναι αντίπερα; …    Ο θεριστής που περνάει από εκεί … "
+"Ίσως να ξέρει το γιατί!     (αρχικά από Herman's Hermits)"
 
 #: level_i18n.cc:2240
 msgid "Danger ... laser beams!"
-msgstr "Προσοχή...ακτίνες λέιζερ!"
+msgstr "Προσοχή … ακτίνες λέιζερ!"
 
 #: level_i18n.cc:2246
 msgid "Welcome to Enigma IV"
-msgstr "Καλωσήρθες στο Enigma IV"
+msgstr "Καλώς ήρθες στο Enigma Δʹ"
 
 #: level_i18n.cc:2252
 msgid ""
@@ -2922,7 +2924,7 @@ msgstr ""
 "ύποπτοι είναι η ντροπαλή Κυρία Παγώνη, ο μυστικοπαθής Συνταγματάρχης "
 "Μουστάρδας, ο αφηρημένος Καθηγητής Δαμάσκηνος, ο μυστήριος Αιδεσιμότατος "
 "Πράσινος, η οικιακή βοηθός Κυρία Άσπρου, που ανακάλυψε το πτώμα και η "
-"Δεσποινίς Φλόγα της οποίας η ομορφιά μπορεί να είναι θανάσιμη...πρέπει να "
+"Δεσποινίς Φλόγα της οποίας η ομορφιά μπορεί να είναι θανάσιμη … πρέπει να "
 "βρεις ποιος σκότωσε τον θείο σου, πού και πώς."
 
 #: level_i18n.cc:2254
@@ -2990,7 +2992,7 @@ msgid ""
 "As long as there is motion around the oxyd-stones, you won't reach them.   "
 "So: Don't lose control of the level! It's possible."
 msgstr ""
-"Όσο υπάρχει κίνηση γύρω από τις πέτρες oxyd, δεν μπορείς να τις αγγίξεις.  "
+"Όσο υπάρχει κίνηση γύρω από τις πέτρες oxyd, δεν μπορείς να τις αγγίξεις.   "
 "Γι'αυτό: Μην χάνεις τον έλεγχο του επιπέδου! Επιλύεται."
 
 #: level_i18n.cc:2323
@@ -3043,7 +3045,7 @@ msgstr "Ώρες εργασίας από 8 πμ έως 4μμ"
 
 #: level_i18n.cc:2622
 msgid "Welcome to Liberty Island, New York City"
-msgstr ""
+msgstr "Καλώς ήρθατε στο Νησί της Ελευθερίας, Νέας Υόρκη"
 
 #: level_i18n.cc:2624
 msgid ""
@@ -3076,11 +3078,11 @@ msgstr ""
 
 #: level_i18n.cc:2634
 msgid "Welcome to Chinatown"
-msgstr ""
+msgstr "Καλώς ήρθατε στην Chinatown"
 
 #: level_i18n.cc:2639
 msgid "Crabwise IV"
-msgstr "Καβουροσοφός IV"
+msgstr "Καβουροσοφός Δʹ"
 
 #: level_i18n.cc:2648
 msgid "The Hand Mirror Cabinet"
@@ -3097,7 +3099,7 @@ msgstr ""
 
 #: level_i18n.cc:2659
 msgid "Every pencil must go"
-msgstr ""
+msgstr "Κάθε μολύβι πρέπει να φύγει"
 
 #: level_i18n.cc:2664
 msgid "Only A Labyrinth"
@@ -3105,7 +3107,7 @@ msgstr "Μόνο ένας λαβύρινθος"
 
 #: level_i18n.cc:2675
 msgid "Crabwise I"
-msgstr "Καβουροσοφός Ι"
+msgstr "Καβουροσοφός Αʹ"
 
 #: level_i18n.cc:2680
 msgid "Ball Alley"
@@ -3281,7 +3283,7 @@ msgstr ""
 
 #: level_i18n.cc:2789
 msgid "Welcome to Enigma VIII"
-msgstr "Καλωσήρθες στο Enigma VIII"
+msgstr "Καλώς ήρθες στο Enigma Ηʹ"
 
 #: level_i18n.cc:2802
 msgid "It's not symmetric!"
@@ -3289,7 +3291,7 @@ msgstr "Δεν είναι συμμετρικό!"
 
 #: level_i18n.cc:2810
 msgid "Alternation II"
-msgstr "Εναλλαγή ΙΙ"
+msgstr "Εναλλαγή Βʹ"
 
 #: level_i18n.cc:2812
 msgid "Alternation in a Dark Area"
@@ -3374,19 +3376,19 @@ msgstr ""
 
 #: level_i18n.cc:3006
 msgid "Missing Oxyds?"
-msgstr ""
+msgstr "Λείπουν Oxyd;"
 
 #: level_i18n.cc:3010
 msgid "Not everything is as it seems ..."
-msgstr ""
+msgstr "Δεν είναι όλα όπως φαίνονται..."
 
 #: level_i18n.cc:3014
 msgid "Make sure you find all of them"
-msgstr ""
+msgstr "Φροντίστε να τους βρείτε όλους"
 
 #: level_i18n.cc:3031
 msgid "Crabwise III"
-msgstr "Καβουροσοφός III"
+msgstr "Καβουροσοφός Γʹ"
 
 #: level_i18n.cc:3048
 msgid "Deep ..."
@@ -3394,7 +3396,7 @@ msgstr "Bαθιά ..."
 
 #: level_i18n.cc:3059
 msgid "Crabwise II"
-msgstr ""
+msgstr "Καβουροσοφός Βʹ"
 
 #: level_i18n.cc:3063
 msgid "Danger Flag"
@@ -3402,43 +3404,43 @@ msgstr "Σημαία Κινδύνου"
 
 #: level_i18n.cc:3082
 msgid "Steering The Flood"
-msgstr ""
+msgstr "Οδηγώντας την Πλημμύρα"
 
 #: level_i18n.cc:3110
 msgid "Braking Distance"
-msgstr ""
+msgstr "Απόσταση Φρεναρίσματος"
 
 #: level_i18n.cc:3111
 msgid "Make the white marble wait on the cross for 3 seconds."
-msgstr ""
+msgstr "Κάντε το λευκό μάρμαρο να περιμένει στο σταυρό για 3 δευτερόλεπτα."
 
 #: level_i18n.cc:3125
 msgid "Interlude II"
-msgstr ""
+msgstr "Διάλειμμα Βʹ"
 
 #: level_i18n.cc:3148
 msgid "No clear view? How about visiting an optician?"
-msgstr ""
+msgstr "Δεν έχετε καθαρή θέα; Μήπως να επισκεφτείτε έναν οπτικό;"
 
 #: level_i18n.cc:3205
 msgid "Welcome to Enigma X"
-msgstr ""
+msgstr "Καλώς ήρθες στο Enigma Ιʹ"
 
 #: level_i18n.cc:3212
 msgid "Volatile Storage"
-msgstr ""
+msgstr "Προσωρινή Αποθήκευση"
 
 #: level_i18n.cc:3213
 msgid "Handle with care!"
-msgstr ""
+msgstr "Χειριστείτε με προσοχή!"
 
 #: level_i18n.cc:3221
 msgid "Interlude III"
-msgstr ""
+msgstr "Διάλειμμα Γʹ"
 
 #: level_i18n.cc:3226
 msgid "Attention! One way ticket to the island."
-msgstr ""
+msgstr "Προσοχή! Ένας εισιτήριο χωρις επιστοφη για το νησί."
 
 #: level_i18n.cc:3234
 msgid "Christmas Star"
@@ -3446,11 +3448,11 @@ msgstr ""
 
 #: level_i18n.cc:3250
 msgid "Enigmas wildcat"
-msgstr ""
+msgstr "Enigmas αγριόγατα"
 
 #: level_i18n.cc:3305
 msgid "Meandering Impulses"
-msgstr ""
+msgstr "Οφιοειδείς ερεθίσματα"
 
 #: level_i18n.cc:3464
 msgid "This level is much bigger! Press F3!"
@@ -3489,12 +3491,12 @@ msgid ""
 "Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
 "room  ..."
 msgstr ""
-"Θυμήσου μόνο να μετακινείς αρκετές πέτρες ώστε να κοιτάξεις απλώς τι "
-"βρίσκεται στο διπλανό δωμάτιο  ..."
+"Θυμήσου  μόνο  να  μετακινείς  αρκετές  πέτρες  ώστε  να  κοιτάξεις  απλώς  "
+"τι  βρίσκεται  στο  διπλανό  δωμάτιο  …"
 
 #: level_i18n.cc:3565
 msgid "It's a long way ..."
-msgstr "Είναι μακρύς δρόμος..."
+msgstr "Είναι μακρύς δρόμος …"
 
 #: level_i18n.cc:3584
 msgid "White helps black, black helps white."
@@ -3510,11 +3512,11 @@ msgstr ""
 
 #: level_i18n.cc:3608
 msgid "can you be sure?"
-msgstr ""
+msgstr "Μπορείς να είσαι σίγουρος;"
 
 #: level_i18n.cc:3610
 msgid "feel like I've been here before"
-msgstr ""
+msgstr "Νοιώθω ότι έχω ξανάρθει"
 
 #: level_i18n.cc:3612
 msgid "quote: Iron Maiden - Deja-Vu"
@@ -3528,7 +3530,7 @@ msgstr ""
 msgid ""
 "Welcome to the control room. Use the triggers and switches to plan the "
 "movement of the turtle. The switches are, clockwise: Add, Run and Restart."
-msgstr "Καλωσήρθες στο κέντρο ελέγχου. "
+msgstr "Καλωσήρθες στο κέντρο ελέγχου."
 
 #: level_i18n.cc:3700
 msgid "Look ... they're over there!"
@@ -3536,11 +3538,11 @@ msgstr "Κοίτα ... εκεί πέρα είναι!"
 
 #: level_i18n.cc:3704
 msgid "A castle lies before you ... beware of guardians!"
-msgstr "Ένα κάστρο βρίσκεται μπροστά σου...προσοχή στους φρουρούς!"
+msgstr "Ένα κάστρο βρίσκεται μπροστά σου … προσοχή στους φρουρούς!"
 
 #: level_i18n.cc:3709
 msgid "Risk your life ..."
-msgstr "Ρίσκαρε τη ζωή σου..."
+msgstr "Ρίσκαρε τη ζωή σου …"
 
 #: level_i18n.cc:3713
 msgid "The left-most room is important!"
@@ -3548,11 +3550,11 @@ msgstr "Το πιο αριστερό δωμάτιο είναι σημαντικ�
 
 #: level_i18n.cc:3714
 msgid "This is the control panel."
-msgstr "Αυτός είναι ο πίνακας ελέγχου..."
+msgstr "Αυτός είναι ο πίνακας ελέγχου."
 
 #: level_i18n.cc:3719
 msgid "Restart with F3 ..."
-msgstr "Επανεκκίνηση με F3..."
+msgstr "Επανεκκίνηση με F3 …"
 
 #: level_i18n.cc:3735
 msgid "One more and you won't get this hammer until you don't need it anymore!"
@@ -3560,11 +3562,11 @@ msgstr ""
 
 #: level_i18n.cc:3744
 msgid "Welcome to Enigma III"
-msgstr "Καλωσήρθες στο Enigma III"
+msgstr "Καλώς ήρθες στο Enigma Γʹ"
 
 #: level_i18n.cc:3772
 msgid "Don't forget to open the door ..."
-msgstr "Μην ξεχνάς να ανοίξεις την πόρτα..."
+msgstr "Μην ξεχνάς να ανοίξεις την πόρτα …"
 
 #: level_i18n.cc:3773
 msgid "Good Luck!"
@@ -3580,7 +3582,7 @@ msgstr "Συγχαρητήρια! (ή προσπάθησε ξανά)"
 
 #: level_i18n.cc:3776
 msgid "Almost finished ..."
-msgstr "Σχεδόν τελείωσες..."
+msgstr "Σχεδόν τελείωσες …"
 
 #: level_i18n.cc:3780
 msgid "Flood Control Dam #3 seems rather unstable. Be quick or be dead."
@@ -3608,7 +3610,7 @@ msgstr "Εύκολο;"
 
 #: level_i18n.cc:4250
 msgid "Please remember:    42"
-msgstr "Θυμήσου:       42"
+msgstr "Θυμήσου:    42"
 
 #: level_i18n.cc:4254
 msgid "Watch out!!"
@@ -3658,7 +3660,7 @@ msgstr ""
 
 #: level_i18n.cc:4480
 msgid "Open the Doors, Open the Oxyds"
-msgstr ""
+msgstr "Ανοίξτε τις Πόρτες, Ανοίξτε τα Oxyd"
 
 #: level_i18n.cc:4487
 msgid ""
@@ -3704,7 +3706,7 @@ msgstr "Δοκός Ισορροπίας"
 
 #: level_i18n.cc:4548
 msgid "Welcome to Enigma VII"
-msgstr "Καλωσήρθες στο Enigma VII"
+msgstr "Καλως ήρθες στο Enigma Ζʹ"
 
 #: level_i18n.cc:4555
 msgid "Can you relax amid all this chaos?"
@@ -3799,7 +3801,7 @@ msgid ""
 "Watch out for mines!        White = 0, Blue = 1, Black = 2, Red = 3, Yellow "
 "= 4, Deep Blue = 5, Deep Red = 6 ..."
 msgstr ""
-"Προσοχή στις νάρκες!      Λευκό=0, Μπλε=1, Μαύρο=2, Κόκκινο=3, Κίτρινο=4, "
+"Προσοχή στις νάρκες!        Λευκό=0, Μπλε=1, Μαύρο=2, Κόκκινο=3, Κίτρινο=4, "
 "Σκούρο Μπλε=5, Σκούρο κόκκινο=6..."
 
 #: level_i18n.cc:4618
@@ -3850,6 +3852,8 @@ msgstr ""
 #: level_i18n.cc:4651
 msgid "The moving boulder can fall down holes but cannot fall into water."
 msgstr ""
+"Ο κινούμενος βράχος μπορεί να πέσει σε τρύπες αλλά δεν μπορεί να πέσει στο "
+"νερό."
 
 #: level_i18n.cc:4665
 msgid "Restless Meditation"
@@ -3917,7 +3921,7 @@ msgstr "Γέφυρα"
 
 #: level_i18n.cc:4723
 msgid "... under construction"
-msgstr "... υπό κατασκευή"
+msgstr "… υπό κατασκευή"
 
 #: level_i18n.cc:4725
 msgid "try the boulders as gondola"
@@ -4273,6 +4277,8 @@ msgstr ""
 msgid ""
 "They presently saw a Town before them, and the name of that Town is Vanity."
 msgstr ""
+"Επί του παρόντος είδαν την Πόλη μπροστά τους, και το όνομα της πόλης είναι "
+"Ματαιοδοξία."
 
 #: level_i18n.cc:5025
 msgid ""
@@ -4298,12 +4304,12 @@ msgstr ""
 
 #: level_i18n.cc:5033
 msgid "Beware of the Flatterer."
-msgstr ""
+msgstr "Πρόσεχε τον Κόλακα"
 
 #: level_i18n.cc:5035
 msgid ""
 "Follow me, said the Flatterer, it is to the Coelestial City that I am going."
-msgstr ""
+msgstr "Ακολούθησε με, είπε ο Κόλακας, είναι προς την Ουράνια Πόλη που πάω."
 
 #: level_i18n.cc:5037
 msgid ""
@@ -4342,7 +4348,7 @@ msgstr ""
 
 #: level_i18n.cc:5051
 msgid "Choices, choices ..."
-msgstr ""
+msgstr "Επιλογές, επιλογές ..."
 
 #: level_i18n.cc:5052
 msgid ""
@@ -4352,7 +4358,7 @@ msgstr ""
 
 #: level_i18n.cc:5053
 msgid "These dispensers are all empty ..."
-msgstr ""
+msgstr "Αυτά τα μηχανήματα είναι όλα τα κενά ..."
 
 #: level_i18n.cc:5054
 msgid "The glass next to this document can be pushed to let you back out."
@@ -4429,6 +4435,8 @@ msgid ""
 "Each of the 6 women has a profession; and each of them carries or wears only "
 "one of the items."
 msgstr ""
+"Κάθε μιά από τις 6 γυναίκες έχει ένα επάγγελμα. Και κάθε μια τους κουβαλάει "
+"ή φοράει μόνο ένα από τα αντικείμενα."
 
 #: level_i18n.cc:5149
 msgid "Miss Black's best friends are the poet and the locksmith."
@@ -4451,11 +4459,12 @@ msgstr ""
 
 #: level_i18n.cc:5157
 msgid "The magician carries the umbrella."
-msgstr ""
+msgstr "Ο μάγος κουβαλάει την ομπρέλα."
 
 #: level_i18n.cc:5159
 msgid "Neither the magician nor the firewoman are permitted to wear the ring."
 msgstr ""
+"Ούτε ο μάγος ούτε η πυροσβέστης έχουν το δικαίωμα να φορέσουν το δαχτυλίδι."
 
 #: level_i18n.cc:5161
 msgid ""
@@ -4475,7 +4484,7 @@ msgstr ""
 
 #: level_i18n.cc:5170
 msgid "Interlude I"
-msgstr ""
+msgstr "Διάλειμμα Αʹ"
 
 #: level_i18n.cc:5177
 msgid "Distribution Meditation"
@@ -4499,15 +4508,15 @@ msgstr "Να φοβάσαι για το ~νερό~, είναι τόσο βαθύ
 
 #: level_i18n.cc:5208
 msgid "Once, No More No Less"
-msgstr ""
+msgstr "Μια, Όχι Παραπάνω Όχι Παρακάτω"
 
 #: level_i18n.cc:5215
 msgid "Origami"
-msgstr ""
+msgstr "Οριγκάμι"
 
 #: level_i18n.cc:5223
 msgid "Poe's Nightmare"
-msgstr ""
+msgstr "Ο εφιάλτης του Πόε"
 
 #: level_i18n.cc:5225
 msgid ""
@@ -4634,7 +4643,7 @@ msgstr ""
 
 #: level_i18n.cc:5277
 msgid "In that case, then begone!"
-msgstr ""
+msgstr "Σε αυτή την περίπτωση, εξαφανίσου."
 
 #: level_i18n.cc:5280
 msgid ""
@@ -4761,39 +4770,39 @@ msgstr ""
 
 #: level_i18n.cc:5335
 msgid "Faithlessness"
-msgstr ""
+msgstr "Απιστία"
 
 #: level_i18n.cc:5337
 msgid "Lust"
-msgstr ""
+msgstr "Λαγνεία"
 
 #: level_i18n.cc:5339
 msgid "Gluttony"
-msgstr ""
+msgstr "Λαιμαργία"
 
 #: level_i18n.cc:5341
 msgid "Avarice"
-msgstr ""
+msgstr "Φιλαργυρία"
 
 #: level_i18n.cc:5343
 msgid "Sloth"
-msgstr ""
+msgstr "Nωθρότητα"
 
 #: level_i18n.cc:5345
 msgid "Heresy"
-msgstr ""
+msgstr "Αίρεση"
 
 #: level_i18n.cc:5347
 msgid "Violence"
-msgstr ""
+msgstr "Βία"
 
 #: level_i18n.cc:5349
 msgid "Fraud"
-msgstr ""
+msgstr "Απάτη"
 
 #: level_i18n.cc:5351
 msgid "Treachery"
-msgstr ""
+msgstr "Προδοσία"
 
 #: level_i18n.cc:5354
 msgid "... passed the point / to which all weights are drawn from every side."
@@ -4808,11 +4817,11 @@ msgstr ""
 
 #: level_i18n.cc:5363
 msgid "Welcome to Enigma IX"
-msgstr ""
+msgstr "Καλως ήρθες στο Enigma Θʹ"
 
 #: level_i18n.cc:5403
 msgid "What I Don't Have"
-msgstr ""
+msgstr "Αυτό Που Δεν Έχω"
 
 #: level_i18n.cc:5416
 msgid "Seasonal Timings"
@@ -4836,7 +4845,7 @@ msgstr ""
 
 #: level_i18n.cc:5456
 msgid "Marching Formation"
-msgstr ""
+msgstr "Σχηματισμός Παρέλασης"
 
 #: level_i18n.cc:5457
 msgid "No sharing!"
@@ -4847,16 +4856,20 @@ msgid ""
 "There are 56 fully connected puzzle piece arrangements, but just 34 of them "
 "are reachable from this first distribution."
 msgstr ""
+"Υπάρχουν 56 πλήρως συνδεδμένες διατάξεις κομματιών πάζλ, αλλά μόνο 34 από "
+"αυτές είναι προσβάσιμες από αυτή την πρώτη διανομή."
 
 #: level_i18n.cc:5467
 msgid ""
 "This second distribution can just be converted to any of the other 28 "
 "arrangements."
 msgstr ""
+"Αυτή η δεύτερη κατανομή μπορεί απλώς να μετατραπεί σε οποιαδήποτε από τις "
+"άλλες 28 ρυθμίσεις."
 
 #: level_i18n.cc:5482
 msgid "more is not less"
-msgstr ""
+msgstr "Περισσότερα δεν είναι λιγότερα"
 
 #: level_i18n.cc:5485
 msgid "Sorry, but in difficult mode you need more ... Restart."

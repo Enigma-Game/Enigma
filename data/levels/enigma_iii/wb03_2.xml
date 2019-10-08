@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Lotsa Triggers" el:subtitle="" el:id="wb3"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Jon 'WB' Sneyers" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jon 'WB' Sneyers</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_tigris"}
+ti[";"] = {"fl_samba"}
+ti["#"] = {"st_purplegray"}
+ti["a"] = {"st_door_d", name="doorA", faces="ew"}
+ti["c"] = {"st_door_d", name="doorC"}
+ti["A"] = {"it_trigger", target="doorA", action="open"}
+ti["B"] = {"it_trigger", target="doorA", action="close"}
+ti["C"] = {"it_trigger", target="doorC", action="open"}
+ti["D"] = {"it_trigger", target="doorC", action="close"}
+ti["@"] = {"#ac_marble"}
+ti["0"] = {"st_oxyd_c"}
+ti["1"] = cond(wo["IsDifficult"], ti["0"], ti[";"])
+ti["2"] = cond(wo["IsDifficult"], ti["0"], ti["#"])
+
+w, h = wo(ti, " ", {
+    "####################",
+    "#@AABDA0############",
+    "###A################",
+    "###A################",
+    "###A##0#0###0###C###",
+    "###A##B#D###D#0DBB0#",
+    "###A##B#DD##B#DD#BB#",
+    "###A##B#BBB2D#D2#2B#",
+    "###A##B#B2BBB#DDDDB#",
+    "###A##B#B##BB#D2#2B#",
+    "###A##B#c##2B#D###B#",
+    "##1;;;;D;;a;;B;;;;A#",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

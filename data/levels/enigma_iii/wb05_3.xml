@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Block its way!" el:subtitle="" el:id="wb5"/>
+      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
+      <el:author el:name="Jon 'WB' Sneyers" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jon 'WB' Sneyers</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_lawn"}
+ti[";"] = {"fl_tigris"}
+ti[":"] = {"fl_samba"}
+ti["/"] = {"fl_stone"}
+ti["%"] = {"fl_sand"}
+ti["@"] = {"fl_abyss"}
+ti["."] = {"fl_water"}
+
+ti["w"] = {"st_box"}
+ti["W"] = ti[":"] .. {"st_box"}
+ti["i"] = {"st_stoneimpulse"}
+ti["I"] = {"st_stoneimpulse_hollow"}
+ti["#"] = {"st_purplegray"}
+ti["="] = {"st_granite"}
+ti["R"] = {"st_concrete"}
+ti["B"] = ti[":"] .. {"st_passage", flavor="frame"}
+ti["b"] = ti[":"] .. {"st_passage_white", flavor="frame"}
+ti["0"] = {"st_oxyd"}
+
+ti["&"] = {"st_oneway_e"}
+ti["l"] = {"st_oneway_s"}
+ti["j"] = {"st_oneway_n"}
+ti["V"] = {"st_boulder_s"}
+ti[">"] = {"st_boulder_e"}
+ti["<"] = {"st_boulder_w"}
+ti["^"] = {"st_boulder_n"}
+ti["t"] = {"st_door_d", name="door", faces="ew"}
+ti["u"] = cond(wo["IsDifficult"], {"st_door_d", "extradoor", state=OPEN, faces="ew"}, ti[" "])
+ti["T"] = {"it_trigger", target={"door", "extradoor"}, action="close"}
+ti["U"] = {"it_trigger", target="door", action="open"}
+
+ti["O"] = {"#ac_marble"}
+ti["o"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG}
+
+ti["y"] = {"it_yinyang"}
+ti["document"] = {"it_document", text="text%%"}
+ti["5"] = ti[":"] .. {"it_document", text="text5"}
+
+w, h = wo(res.autotile(ti, {"1", "4", "document"}), " ", {
+    "...................====================",
+    ".iiiiiiiiiiiiiiii#iV:=::::::::::::::::=",
+    ".iUu     #######i#i#:=::===========:W:=",
+    ".i## O 1 & 2   ii#ii:=::=:::::::::=:::=",
+    ".i0#     #####.wI0#i:=::=:::====:==:::=",
+    ".i4iiiiiiIIIIIIi##ii:=B==:::=0:=...:::=",
+    ".ijI##wwww########i#:=::::::.=:=:==:W:=",
+    ".i II#....#IIIIIIii#:=======:=b=:=::::=",
+    ".i wiw....wI     w##::B:::::W=:::=::W:=",
+    ".i0 i# ww  IIII 3  .::======.=====::===",
+    ".i0y t II     I  w#:::=0::::.=0::::==:=",
+    ".iiiiiiiiiiiiiiiii##T=======.=======::=",
+    "...................===:::::WWW::&:::::0",
+    "...........RRR%%....=:::::::::::==l====",
+    "..%%%%%%%..R w %..;;;:::::::::::::::::=",
+    "..%  w w%..%  w%R...===W============BB=",
+    "..% wow %..%%%%RR...=::W::::::::::::::=",
+    "..%  w  %.....RR....=::===========::::=",
+    "..%%%%%%%...........=bb=:::::::::==W===",
+    "....................=:::::=====:::::::=",
+    ".%%RRRRR..%RRRRRRR%.=======0=0=======B=",
+    ".% y  0R..%      0%.=5::::::::::::::::=",
+    ".RRR  RR..%w  w w %.=WWWWWWWWWWWWWWWWW=",
+    "...RR%%...%%%%%%%%%.=:::::::::::::::::=",
+    "....................==0==0=======0==0=="})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text%1">
+        <el:english el:translate="true">Don't forget to open the door ...</el:english>
+      </el:string>
+      <el:string el:key="text%2">
+        <el:english el:translate="true">Good Luck!</el:english>
+      </el:string>
+      <el:string el:key="text%3">
+        <el:english el:translate="true">Hurry!</el:english>
+      </el:string>
+      <el:string el:key="text%4">
+        <el:english el:translate="true">Congratulations! (or try again)</el:english>
+      </el:string>
+      <el:string el:key="text5">
+        <el:english el:translate="true">Almost finished ...</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

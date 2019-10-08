@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Sentinels" el:subtitle="" el:id="level8d"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_rough"}
+ti["# "] = {"st_tigris"}
+ti["- "] = {"fl_water"}
+ti["O "] = {"st_oxyd_c"}
+ti["P "] = {"st_oxyd_c", name="upper#"}
+ti["> "] = {"st_oneway_e"}
+ti["< "] = {"st_oneway_w"}
+ti["^ "] = {"st_oneway_n"}
+ti["V "] = {"st_oneway_s"}
+ti["D1"] = {"st_door_d", name="door1", faces="ns"}
+ti["S1"] = {"st_switch", target="door1"}
+ti["D2"] = {"st_door_d", name="door2", faces="ns"}
+ti["S2"] = {"st_switch", target="door2"}
+ti["@ "] = {"#ac_marble"}
+ti[" w"] = {"st_boulder_w", name="boulder#"}
+ti[" n"] = {"st_boulder_n", name="boulder#"}
+ti[" s"] = {"st_boulder_s", name="boulder#"}
+ti[" 1"] = {"it_trigger", invisible=true, target="@boulder#*", action_1="flip"}
+
+w, h = wo(res.composer(ti), "  ", {
+    "# # # # # # # # # # # # # # # # # # # # ",
+    "#             #   # # S1#   >       # # ",
+    "#   # ^ # # # #   >     >   # # #   # # ",
+    "#   #   >     #   # # V #   >   #     # ",
+    "# ^ #   # # V # ^ #     # # # V # #   # ",
+    "# @ #     #       #   # #     <   <   # ",
+    "# V # # ^ # # #   #         # # # # < # ",
+    "#   >     >   >   # # # # ^         V # ",
+    "# V # # V # # #   >         # # # #   # ",
+    "#             >   # S2# D1# #         # ",
+    "#   # # # # # ^ # # # # D2# # # # # # # ",
+    "#   # # - P                       - # # ",
+    "#   # -1-    w                    - -1# ",
+    "#   # # -     - - - - - -   P     - # # ",
+    "#   # -1-                    w    - -1# ",
+    "#   # # -   P   - - - -   P       - # # ",
+    "#   # # # # # # # # # # # # # # # # # # ",
+    "#   # # -1# -1# -1# -1# -1# -1# -1# - # ",
+    "#   # - - - - - - - - - -n- - - - - - # ",
+    "#         O      s    O      nO       # ",
+    "#   #             O       O           # ",
+    "#   # O  n    O      n           nO   # ",
+    "#   # - - - -n- - - - - - - - - - - - # ",
+    "#   # # -1# -1# -1# -1# -1# -1# -1# - # ",
+    "# # # # # # # # # # # # # # # # # # # # "})
+
+wo:shuffleOxyd({"upper#*", max=1})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

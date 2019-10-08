@@ -1,21 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Czech translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
-# fri, 2013
 # Markéta Pecoldová <pecolmar@fel.cvut.cz>, 2013-2014
-# M T <michtrz@gmail.com>, 2014
-# fri, 2013-2014
+# fri, 2013-2014,2018
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-07-30 21:11+0000\n"
+"PO-Revision-Date: 2018-04-30 23:39+0000\n"
 "Last-Translator: fri\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/enigma/language/"
-"cs/)\n"
+"Language-Team: Czech (http://www.transifex.com/michtrz/enigma/language/cs/)\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -295,9 +292,8 @@ msgid "Back"
 msgstr "Zpět"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Hlavní vývojáři verze 1.20:"
+msgstr "Hlavní vývojáři verze 1.21:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -348,9 +344,8 @@ msgid "Special Thanks:"
 msgstr "Zvláštní poděkování:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Přispěvatelé:"
+msgstr "Přispěvatelé"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -1201,15 +1196,15 @@ msgstr "No, řekněme, že to je nerozhodný výsledek"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
-msgstr ""
+msgstr "Odhalujte dvojice kamenů pomocí kuličky ve světě naplněném překážkami"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1220,9 +1215,8 @@ msgid "Escape by Chaining Thieves"
 msgstr "Abyste unikli, spoutejte zloděje řetězy"
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Nezapomeň Atreyův kůň Atrax!"
+msgstr "Nezapomeň na Atreyova koně Artaxe!"
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"
@@ -3114,15 +3108,14 @@ msgstr ""
 "zmije a Enighomathepovo prokletí."
 
 #: level_i18n.cc:2707
-#, fuzzy
 msgid ""
 "Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
 "were the most useful items in this desert. But nobody was willing to spend 2 "
 "marbleons.  ---  Now a blacksmith offers his service."
 msgstr ""
-"Panu Vyvolávačideště patřil tento obchod. Vždycky tvrdil, že jeho deštníky "
-"jsou ty nejužitečnější věci v poušti. Nikdo, ale nebyl ochoten za deštník "
-"utratit 2 marbleony.  ---  Nyní zde nabízí své služby kovář."
+"Pan Rainmaker kdysi vlastnil tento obchod. Vždy trval na tom, že jeho "
+"deštníky jsou nejužitečnější věcí v této poušti. Ale nikdo nebyl ochoten "
+"utratit 2 marbleony.  ---  Nyní tu své služby nabízí kovář."
 
 #: level_i18n.cc:2709
 msgid ""
@@ -3468,7 +3461,7 @@ msgstr "Pozor! Jednosměrný lístek na ostrov."
 
 #: level_i18n.cc:3234
 msgid "Christmas Star"
-msgstr ""
+msgstr "Vánoční hvězda"
 
 #: level_i18n.cc:3250
 msgid "Enigmas wildcat"
@@ -3857,16 +3850,16 @@ msgid "Who broke the pearl necklace?"
 msgstr "Kdo rozbil perlový náhrdelník?"
 
 #: level_i18n.cc:4645
-#, fuzzy
 msgid ""
 "Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls "
 "rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "
 "knows that succeeding pearls connect, when each is placed on a neighboring "
 "dot and a coin is inserted into the slot."
 msgstr ""
-"Krásný perlový náhrdelník paní Scarlett se roztrhl a všechny barevné perly "
-"se rozsypaly po zemi. Paní Scarlett si nepamatuje pořadí perel, ale ví, že "
-"perly, které se umístí na správné místo se spojí."
+"Nádherný náhrdelník paní Scarlettové se roztrhl a všechny pestrobarevné "
+"perly se skutálely na podlahu. Paní Scarlettová si nepamatuje pořadí, ale "
+"ví, že se následující perly spojí, když je každá umístěna na sousedící bod a "
+"do otvoru je vložen ponízek."
 
 #: level_i18n.cc:4646
 msgid ""

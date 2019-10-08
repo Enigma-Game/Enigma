@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Robbery" el:subtitle="" el:id="ant29"/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
+      <el:author el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl_himalaya"}
+ti["# "] = {"st_brownmarble"}
+ti["_ "] = {"fl_abyss"}
+ti["O "] = {"st_oxyd_a"}
+ti["A "] = {"st_door_a", "doorsA#"}
+ti["B "] = {"st_door_a", "doorsB#"}
+ti["C "] = {"st_coinslot", target="doorsA#*"}
+ti["D "] = {"st_coinslot", target="doorsB#*"}
+ti[" !"] = {"it_spring_drop"}
+ti["@ "] = {"#ac_marble"}
+ti["s "] = {"it_coin_s"}
+ti["m "] = {"it_coin_m"}
+ti["l "] = {"it_coin_l"}
+ti["c "] = {"it_crack_s", spreading=0, fragility=0}
+ti["d "] = {"it_crack_l", spreading=0, fragility=0}
+
+w, h = wo(res.composer(res.random(ti, ". ", {"s ", "m ", "l "})), "  ", {
+    "# # # # # # # # # # # # # # # # # # # # ",
+    "# O A               B!O # _ #         # ",
+    "# # #               # # # _ #       . # ",
+    "#                       # _ #     . . # ",
+    "#           C             _     . . . # ",
+    "#         @               _   . . . . # ",
+    "#                         _ . . . . . # ",
+    "#               s         _   . . . . # ",
+    "#           D         c   _     . . . # ",
+    "#                   c d # _       . . # ",
+    "# # #               # # # _         . # ",
+    "# O B               A!O # _           # ",
+    "# # # # # # # # # # # # # # # # # # # # "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

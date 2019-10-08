@@ -1,5 +1,5 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([enigma],[1.21])
+AC_INIT([enigma], [1.21], [enigma-devel@nongnu.org])
 AC_PREREQ(2.59)
 AC_CANONICAL_BUILD
 AC_CANONICAL_TARGET
@@ -187,13 +187,13 @@ if test "$MINGW32" = yes; then
   AC_MSG_CHECKING([for Xerces release 3.0])
   AC_EGREP_HEADER([gXercesMajVersion = 3],[xercesc/util/XercesVersion.hpp],
       [AC_MSG_RESULT([found])],
-      [AC_MSG_ERROR([not found])])      
+      [AC_MSG_ERROR([not found])])
    AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
 else
   AC_MSG_CHECKING([for current Xerces release 3.0])
   AC_EGREP_HEADER([gXercesMajVersion = 3],[xercesc/util/XercesVersion.hpp],
       xerces3exp="yes",
-      xerces3exp="no")      
+      xerces3exp="no")
   if test "x$xerces3exp" = xyes; then
     AC_MSG_RESULT([found])
     AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
@@ -203,7 +203,7 @@ else
     AC_RUN_IFELSE([AC_LANG_PROGRAM([[#include <xercesc/util/XercesVersion.hpp>]],
           [[if (XERCES_VERSION_MAJOR < 2)
               return 1;
-            else if (XERCES_VERSION_MAJOR == 2 && XERCES_VERSION_MINOR < 4) 
+            else if (XERCES_VERSION_MAJOR == 2 && XERCES_VERSION_MINOR < 4)
               return 1;
             return 0;]])],
         [AC_MSG_RESULT([found])],
@@ -270,7 +270,7 @@ dnl ----------------------------------------
 dnl Include experimental features?
 dnl ----------------------------------------
 AC_ARG_ENABLE(experimental,
-  AS_HELP_STRING(--enable-experimental,Include experimental features [default=no]), 
+  AS_HELP_STRING(--enable-experimental,Include experimental features [default=no]),
   , enable_experimental=no)
 if test "x$enable_experimental" = xyes; then
   AC_DEFINE(ENABLE_EXPERIMENTAL, , [Include experimental features])
@@ -281,7 +281,7 @@ dnl Include asserts ?
 dnl ----------------------------------------
 AC_MSG_CHECKING(whether to include assert statements)
 AC_ARG_ENABLE(assert,
-  AS_HELP_STRING(--enable-assert,Include assert statements [default=yes]), 
+  AS_HELP_STRING(--enable-assert,Include assert statements [default=yes]),
   , enable_assert=yes)
 if test "x$enable_assert" = xyes; then
   CXXFLAGS="$CXXFLAGS -DENABLE_ASSERT"
@@ -398,7 +398,7 @@ dnl Configure libraries
 dnl ----------------------------------------------------------
 AC_CONFIG_SUBDIRS(lib-src/zipios++)
 
-AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile 
+AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/Makefile
            data/gfx/Makefile
            data/gfx/flags25x15/Makefile
@@ -494,4 +494,3 @@ Enigma is now configured
 
 If these values seem to make sense, you can now run make.
 ])
-

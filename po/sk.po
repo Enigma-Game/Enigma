@@ -1,17 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Slovak translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
 # Ľuboslava <lubka.becvarova@gmail.com>, 2014
+# Michal Hriň <michal.hrin@yahoo.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-07-30 21:11+0000\n"
-"Last-Translator: M T <michtrz@gmail.com>\n"
-"Language-Team: Slovak (http://www.transifex.com/projects/p/enigma/language/"
+"PO-Revision-Date: 2018-05-01 14:43+0000\n"
+"Last-Translator: Michał Trzebiatowski <michtrz@gmail.com>\n"
+"Language-Team: Slovak (http://www.transifex.com/michtrz/enigma/language/"
 "sk/)\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -186,11 +187,11 @@ msgstr "za tvojím rekordom."
 
 #: src/client.cc:767
 msgid "Level finished - better than par!"
-msgstr "Level prejdený - lešie ako par!"
+msgstr "Level prejdený - lepšie ako par!"
 
 #: src/client.cc:773
 msgid "Level finished!"
-msgstr "Lvele prejdený!"
+msgstr "Level prejdený!"
 
 #: src/client.cc:776
 msgid " Cheater!"
@@ -292,9 +293,8 @@ msgid "Back"
 msgstr "Späť"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Hlavní vývojári verzie 1.20:"
+msgstr "Hlavní vývojári verzie 1.21:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -345,9 +345,8 @@ msgid "Special Thanks:"
 msgstr "Špeciálne poďakovanie: "
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Prispievatelia: "
+msgstr "Prispievatelia"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -1197,15 +1196,15 @@ msgstr "Dobre, nazveme to remíza"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
-msgstr ""
+msgstr "Odkry dvojice kameňov pri navigácií prekážok s použitím guličky"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1216,9 +1215,8 @@ msgid "Escape by Chaining Thieves"
 msgstr "Útek zviazaním zlodejov reťazami"
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Pamätaj na Atrejovho koňa Atraxa!"
+msgstr "Pamätaj na Atrejovho koňa Artaxa!"
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"
@@ -3104,7 +3102,6 @@ msgstr ""
 "život v pyradmíde. Dávajte pozor na zmije a Enighomathepovu kliatbu."
 
 #: level_i18n.cc:2707
-#, fuzzy
 msgid ""
 "Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
 "were the most useful items in this desert. But nobody was willing to spend 2 "
@@ -3458,7 +3455,7 @@ msgstr "Pozor! Jednosmerný lístok na ostrov."
 
 #: level_i18n.cc:3234
 msgid "Christmas Star"
-msgstr ""
+msgstr "Vianočná hviezda"
 
 #: level_i18n.cc:3250
 msgid "Enigmas wildcat"
@@ -3839,7 +3836,6 @@ msgid "Who broke the pearl necklace?"
 msgstr "Kto pokazil perlový náhrdelník?"
 
 #: level_i18n.cc:4645
-#, fuzzy
 msgid ""
 "Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls "
 "rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "

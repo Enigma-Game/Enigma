@@ -22,7 +22,7 @@
 #include "ecl_video.hh"
 #include <vector>
 #include <string>
-#include <memory>  // for auto_ptr
+#include <memory>
 #include <stdio.h>
 #include <cstdlib>
 #include <ostream>
@@ -257,7 +257,7 @@ Surface *TrueTypeFont::render(const char *str) {
 }
 
 void TrueTypeFont::render(const GC &gc, int x, int y, const char *str) {
-    std::auto_ptr<Surface> s(render(str));
+    std::unique_ptr<Surface> s(render(str));
     if (s.get())
         blit(gc, x, y, s.get());
 }

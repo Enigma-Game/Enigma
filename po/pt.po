@@ -1,26 +1,26 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Portuguese translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
-# Bruno Queiros <bqueiros@gmail.com>, 2014
+# Bruno Queiros <bqueiros@gmail.com>, 2014-2015
 # Carlos Moreira <crolidge@gmail.com>, 2014
 # Gonçalo Silva <de2a9293@opayq.com>, 2013
 # João Filipe Rodrigues Gaspar <joao.f.r.gaspar@gmail.com>, 2014
-# João Filipe Rodrigues Gaspar <joao.f.r.gaspar@gmail.com>, 2014
 # Gonçalo Silva <de2a9293@opayq.com>, 2013
-# Manuela Silva <manuela.silva@sky.com>, 2014
+# Manuela Silva <manuela.silva@sky.com>, 2014,2018
+# Rui <xymarior@yandex.com>, 2018
 # Sérgio Marques <smarquespt@gmail.com>, 2014
-# Translator: Krishnamurti Nunes <krishnalelis@gmail.com>, 2006
+# Krishnamurti Nunes <krishnalelis@gmail.com>, 2006
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-11-30 17:56+0000\n"
-"Last-Translator: Carlos Moreira <crolidge@gmail.com>\n"
-"Language-Team: Portuguese (http://www.transifex.com/projects/p/enigma/"
-"language/pt/)\n"
+"PO-Revision-Date: 2018-05-02 09:30+0000\n"
+"Last-Translator: Manuela Silva <manuela.silva@sky.com>\n"
+"Language-Team: Portuguese (http://www.transifex.com/michtrz/enigma/language/"
+"pt/)\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -303,9 +303,8 @@ msgid "Back"
 msgstr "Recuar"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Programadores principais da versão 1.20:"
+msgstr "Programadores principais do lançamento 1.21"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -353,12 +352,11 @@ msgstr "Programadores principais de todas as versões:"
 
 #: src/gui/MainMenu.cc:144
 msgid "Special Thanks:"
-msgstr "Agradecimentos Especiais:"
+msgstr "Agradecimentos especiais:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Colaboradores:"
+msgstr "Contribuidores"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -386,11 +384,11 @@ msgstr "Créditos"
 
 #: src/gui/MainMenu.cc:346
 msgid "Preferences Path:"
-msgstr "Pasta das Preferências:"
+msgstr "Pasta das preferências:"
 
 #: src/gui/MainMenu.cc:356
 msgid "User Path:"
-msgstr "Pasta do Utilizador:"
+msgstr "Pasta do utilizador:"
 
 #: src/gui/MainMenu.cc:366
 msgid "User Image Path:"
@@ -398,11 +396,11 @@ msgstr "Pasta das imagens do utilizador:"
 
 #: src/gui/MainMenu.cc:376
 msgid "System Path:"
-msgstr "Pasta do Sistema:"
+msgstr "Pasta do sistema:"
 
 #: src/gui/MainMenu.cc:386
 msgid "Resource Paths:"
-msgstr "Pasta dos Recursos:"
+msgstr "Pasta dos recursos:"
 
 #: src/gui/MainMenu.cc:396
 msgid "L10n Path:"
@@ -430,7 +428,7 @@ msgstr "Ajuda"
 
 #: src/gui/OptionsMenu.cc:92 src/gui/OptionsMenu.cc:113
 msgid "muted"
-msgstr "sem som"
+msgstr "silenciado"
 
 #: src/gui/OptionsMenu.cc:126
 msgid "Music in game"
@@ -1209,15 +1207,16 @@ msgstr "Muito bem, podemos dizer que é um empate"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
 msgstr ""
+"Descobrir pares de pedras enquanto percorre os obstáculos com um berlinde"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1228,9 +1227,8 @@ msgid "Escape by Chaining Thieves"
 msgstr "Escape acorrentando os ladrões"
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Lembre-se do cavalo Atrax de Atreyu!"
+msgstr "Lembre-se do cavalo Artax de Atreyu!"
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"
@@ -2489,7 +2487,7 @@ msgstr "Alerta... ladrões!"
 
 #: level_i18n.cc:1724
 msgid "Could you need something?"
-msgstr ""
+msgstr "Poderia precisar de alguma coisa?"
 
 #: level_i18n.cc:1733
 msgid "Fire or be fired"
@@ -3038,7 +3036,7 @@ msgstr "Bemvindo a Chinatown"
 
 #: level_i18n.cc:2639
 msgid "Crabwise IV"
-msgstr ""
+msgstr "Crabwise IV"
 
 #: level_i18n.cc:2648
 msgid "The Hand Mirror Cabinet"
@@ -3062,11 +3060,11 @@ msgstr "Apenas um labirinto"
 
 #: level_i18n.cc:2675
 msgid "Crabwise I"
-msgstr ""
+msgstr "Crabwise I"
 
 #: level_i18n.cc:2680
 msgid "Ball Alley"
-msgstr ""
+msgstr "Ball Alley"
 
 #: level_i18n.cc:2691
 msgid "Plutos Confusion"
@@ -3074,7 +3072,7 @@ msgstr ""
 
 #: level_i18n.cc:2693
 msgid "Dont eat cherries"
-msgstr ""
+msgstr "Não coma cerejas"
 
 #: level_i18n.cc:2698
 msgid "Just a Dance ?"
@@ -3201,7 +3199,7 @@ msgstr ""
 
 #: level_i18n.cc:2741
 msgid "Sorry, the useful item that was hidden here has been stolen."
-msgstr ""
+msgstr "Desculpe, o item útil que estava oculto aqui foi roubado."
 
 #: level_i18n.cc:2743
 msgid ""
@@ -3230,11 +3228,11 @@ msgstr ""
 
 #: level_i18n.cc:2766
 msgid "Alternation I"
-msgstr ""
+msgstr "Alternação I"
 
 #: level_i18n.cc:2768
 msgid "Alternation in a Blue Area"
-msgstr ""
+msgstr "Alternação numa Área Azul"
 
 #: level_i18n.cc:2789
 msgid "Welcome to Enigma VIII"
@@ -3246,15 +3244,15 @@ msgstr "Não é simétrico!"
 
 #: level_i18n.cc:2810
 msgid "Alternation II"
-msgstr ""
+msgstr "Alternação II"
 
 #: level_i18n.cc:2812
 msgid "Alternation in a Dark Area"
-msgstr ""
+msgstr "Alternação numa Área Escura"
 
 #: level_i18n.cc:2819
 msgid "Listen for the best place for an explosion"
-msgstr ""
+msgstr "Ouça para o melhor lugar para uma explosão"
 
 #: level_i18n.cc:2830 level_i18n.cc:2882
 msgid "Keep distance!"
@@ -3274,7 +3272,7 @@ msgstr "O meu Primeiro Nível"
 
 #: level_i18n.cc:2849
 msgid "Secrets? Use the items, ... use the glasses ..."
-msgstr ""
+msgstr "Segredos? Utilize os itens, ... utilize os óculos ..."
 
 #: level_i18n.cc:2862
 msgid "Floating ..."
@@ -3382,11 +3380,11 @@ msgstr "Bem-vindo ao Enigma X"
 
 #: level_i18n.cc:3212
 msgid "Volatile Storage"
-msgstr ""
+msgstr "Armazenamento Volátil"
 
 #: level_i18n.cc:3213
 msgid "Handle with care!"
-msgstr ""
+msgstr "Utilizar com cuidado!"
 
 #: level_i18n.cc:3221
 msgid "Interlude III"

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Overshoot" el:subtitle="" el:id="ss2"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_sahara"}
+ti["G"] = {"st_rawglass"}
+ti["O"] = {"st_oxyd_d"}
+ti["door"] = {"st_door_d", "door%%"}
+ti["vdoor"] = {"st_door_d", "vdoor%%", faces="ew"}
+ti["trig"] = {"it_trigger", target="door%%"}
+ti["vtrig"] = {"it_trigger", target="vdoor%%"}
+ti["boulder"] = {"st_boulder_n", "boulder%%"}
+ti["switch"] = {"st_fourswitch", target="boulder%%", action="orientate"}
+ti["A"] = cond(wo["IsDifficult"], {"fl_abyss"}, ti[" "])
+ti["B"] = {"#ac_marble"}
+ti["W"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG}
+ti["y"] = {"it_yinyang"}
+
+w, h = wo(res.autotile(ti, {"a", "b", "door"}, {"c", "d", "vdoor"}, {"e", "f", "trig"}, {"g", "h", "vtrig"}, {"i", "l", "boulder"}, {"m", "p", "switch"}), " ", {
+    "GmnGGGGGGGGGGGGGGGGG",
+    "GB Gi             jG",
+    "G yG               G",
+    "GopG               G",
+    "GGGG   e   A g     G",
+    "Gk        A        G",
+    "G        A         G",
+    "G       A        G G",
+    "G    h A   f   GGOGG",
+    "G              GGaGG",
+    "G             GOcWdO",
+    "G             lGGbGG",
+    "GGGGGGGGGGGGGGGGGOGG"})
+
+wo:add(YANG, {"it_yinyang"})
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

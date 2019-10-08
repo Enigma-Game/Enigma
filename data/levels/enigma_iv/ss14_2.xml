@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="What's the Problem?" el:subtitle="" el:id="ss14"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSingleOxyds"] = true
+
+ti[" "] = cond(wo["IsDifficult"], {"fl_dunes"}, {"fl_concrete"})
+ti["a"] = {"fl_water"}
+ti["i"] = {"fl_ice"}
+ti["I"] = ti["i"] .. {"st_actorimpulse", invisible=true}
+ti["#"] = {"st_greenbrown"}
+ti["t"] = {"st_door_d", "door#", faces="ew"}
+ti["b"] = {"st_door_d", "door#", faces="ns"}
+ti["c"] = {"st_actorimpulse", invisible=true}
+ti["F"] = {"st_quake"}
+ti["k"] = {"st_knight"}
+ti["<"] = {"st_oneway_w"}
+ti["v"] = {"st_oneway_s"}
+ti["g"] = {"st_grate"}
+ti["w"] = {"st_swap"}
+ti["W"] = {"st_brownie"}
+ti["L"] = {"st_laser_s", "laser"}
+ti["1"] = {"st_switch", target="@door#*"}
+ti["2"] = {"st_switch", target="laser"}
+ti["O"] = {"st_oxyd", oxydcolor=OXYD_BLUE}
+ti["."] = {"it_extralife"}
+ti["-"] = ti["a"] .. {"it_strip_ew"}
+ti["|"] = ti["a"] .. {"it_strip_ns"}
+ti["h"] = ti["i"] .. {"it_meditation"}
+ti["D"] = {"it_document", text="text1"}
+ti["d"] = {"it_dynamite"}
+ti["x"]={"#ac_pearl", essential=INDISPENSABLE}
+
+w, h = wo(ti, " ", {
+    "##################I#",
+    "F c1dD <#iiiiiiiiii2",
+    "# c#b#vv#g########i#",
+    "#         W L    #i#",
+    "#                #h#",
+    "#                #i#",
+    "###   x   w  x   #i#",
+    "#.t              #i#",
+    "###      kk      #i#",
+    "#       OFk      #i#",
+    "#|a      kk    ##IiI",
+    "#1-            #FiiI",
+    "##################II"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Alfred Nobel says: This is definitely a meditation landscape!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

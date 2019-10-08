@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Magic Triangle" el:subtitle="" el:id="just13"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="JuSt" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 JuSt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_gravel"}
+ti["-"] = {"fl_swamp"}
+ti["."] = {"fl_wood"}
+ti["6"] = {"fl_slope_pn"}
+ti["7"] = {"fl_slope_pe"}
+ti["8"] = {"fl_slope_pw"}
+ti["u"] = ti["8"] .. {"it_umbrella"}
+ti["#"] = {"st_brownpyramid"}
+ti["L"] = {"st_lightpassenger", name="passenger"}
+ti["l"] = {"st_lightpassenger"}
+ti["X"] = {"st_grate"}
+ti["&"] = {"st_death"}
+ti["K"] = {"st_chess"}
+ti["D"] = {"st_door_d", name="door1", faces="ew"}
+ti["d"] = {"st_door_d", name="door2", faces="ew"}
+ti["F"] = {"st_door_d", name="finaldoor", faces="ns"}
+ti["O"] = {"st_oxyd"}
+ti["S"] = {"st_laser_s", name="laser1#"}
+ti["E"] = {"st_laser_e", name="laser1#"}
+ti["N"] = {"st_laser_n", name="laser1#"}
+ti["!"] = {"st_laser_s", name="laser2"}
+ti["?"] = {"st_laser_w", name="laser3", state=ON}
+ti["s"] = {"st_laser_s", name="laser4#"}
+ti["e"] = {"st_laser_e", name="laser4#"}
+ti["1"] = {"it_trigger", target={"laser1#*", "laser2", "laser3"}, action={"on", "off", "off"}}
+ti["2"] = {"it_trigger", target={"laser1#*", "laser2", "laser3"}, action={"off", "on", "on"}}
+ti["3"] = {"it_trigger", target={"door1", "all_off"}, action={"toggle", "callback"}}
+ti["4"] = {"it_trigger", target={"door2", "laser4#*"}}
+ti["5"] = {"it_trigger", target={"finaldoor"}}
+ti["%"] = {"it_spade"}
+ti["f"] = {"it_floppy"}
+ti["w"] = {"it_wrench"}
+ti["@"] = {"ac_marble", 0.0, 0.0}
+
+w, h = wo(ti, " ", {
+    "##########SSSSSSS!##",
+    "E                  #",
+    "E                  #",
+    "E                  #",
+    "E                  #",
+    "E                  #",
+    "E        @         #",
+    "E                  #",
+    "E                2 #",
+    "#1       L        ?#",
+    "#NNNNNNNN          #",
+    "#   %          #####",
+    "############## #O O#",
+    "#s dXXXX XXXX#w#O O#",
+    "#l-#XX XXXXKXD #   #",
+    "#--# XX X X X#f##F##",
+    "#--#XKXXX XXX# #&6&#",
+    "#-.#X XXXX X #3#887#",
+    "#--#XXX XXXXX###&6&#",
+    "#--#X XXXXX X  su77#",
+    "#--#X###XXXXX## &6&#",
+    "#-.###4########    #",
+    "#----.---.---.-    #",
+    "e--------------   5#",
+    "####################"})
+
+function all_off(value, sender)
+    if po(no["passenger"]) == po(sender) then
+        no["laser1#*"]:off()
+        no["laser2"]:off()
+        no["laser3"]:off()
+        no["laser4#*"]:off()
+    end
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

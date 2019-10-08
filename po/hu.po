@@ -1,6 +1,6 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Hungarian translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
 # Gabe Stilez <zorg@atw.hu>, 2014
@@ -9,13 +9,13 @@
 # Zoltan Hoppár <zoltanh721@fedoraproject.org>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-10-30 04:50+0000\n"
-"Last-Translator: Gabe Stilez <zorg@atw.hu>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/enigma/"
-"language/hu/)\n"
+"PO-Revision-Date: 2018-05-01 01:17+0000\n"
+"Last-Translator: Michał Trzebiatowski <michtrz@gmail.com>\n"
+"Language-Team: Hungarian (http://www.transifex.com/michtrz/enigma/language/"
+"hu/)\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -289,9 +289,8 @@ msgid "Back"
 msgstr "Vissza"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Az 1.20-s kiadás fő fejlesztői:"
+msgstr "Az 1.21-s kiadás fő fejlesztői:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -343,9 +342,8 @@ msgid "Special Thanks:"
 msgstr "Különleges köszönet:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Közreműködtek:"
+msgstr "Közreműködtek"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -1197,15 +1195,15 @@ msgstr "Rendben, egyezzünk ki egy döntetlenben"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
-msgstr ""
+msgstr "Fedj fel kőpárokat egy márványgolyóval akadályok között manőverezve"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1216,9 +1214,8 @@ msgid "Escape by Chaining Thieves"
 msgstr "Meneküljön a tolvajok láncolásával"
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Emlékezzen Atráskó lovára!"
+msgstr "Emlékezzen Artáskó lovára!"
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"

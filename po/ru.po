@@ -1,6 +1,6 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
+# Russian translation
+# Copyright (C) 2018 Free Software Foundation, Inc.
+# This file is distributed under the same license as the Enigma package.
 #
 # Translators:
 # Dremuk Serge <dremuk@rambler.ru>, 2006
@@ -8,19 +8,20 @@
 # Yuriy Zhyromskiy <gedgeck@gmail.com>, 2010
 msgid ""
 msgstr ""
-"Project-Id-Version: Enigma\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Enigma 1.21\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
 "POT-Creation-Date: 2015-10-09 22:56+0200\n"
-"PO-Revision-Date: 2014-07-30 21:11+0000\n"
-"Last-Translator: M T <michtrz@gmail.com>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/enigma/language/"
+"PO-Revision-Date: 2018-05-01 13:44+0000\n"
+"Last-Translator: Michał Trzebiatowski <michtrz@gmail.com>\n"
+"Language-Team: Russian (http://www.transifex.com/michtrz/enigma/language/"
 "ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: src/server.cc:177 src/server.cc:189 src/gui/LevelInspector.cc:204
 msgid "Server Error: could not load level '"
@@ -295,9 +296,8 @@ msgid "Back"
 msgstr "Назад"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.21 release:"
-msgstr "Главные разработчики версии 1.20:"
+msgstr "Главные разработчики версии 1.21:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -348,9 +348,8 @@ msgid "Special Thanks:"
 msgstr "Особая благодарность:"
 
 #: src/gui/MainMenu.cc:161
-#, fuzzy
 msgid "Contributors"
-msgstr "Участники: "
+msgstr "Участники"
 
 #: src/gui/MainMenu.cc:289
 msgid "Homepage"
@@ -1196,15 +1195,17 @@ msgstr "Ладно, будем считать, что это ничья"
 
 #: etc/enigma.desktop:4
 msgid "Enigma"
-msgstr ""
+msgstr "Enigma"
 
 #: etc/enigma.desktop:23
 msgid "Uncover pairs of stones while navigating obstacles using a marble"
 msgstr ""
+"Управляйте шариком, преодолевая препятствия, чтобы найти пары одинаковых "
+"камней"
 
 #: etc/enigma.desktop:46
 msgid "enigma"
-msgstr ""
+msgstr "enigma"
 
 #: level_i18n.cc:4
 msgid "illmind's be quick or be dead"
@@ -1215,9 +1216,8 @@ msgid "Escape by Chaining Thieves"
 msgstr "Освободитесь от цепей"
 
 #: level_i18n.cc:13
-#, fuzzy
 msgid "Remember Atreyu's horse Artax!"
-msgstr "Вспомните Атракса, скакуна Атрея"
+msgstr "Вспомните Атракса, скакуна Артея"
 
 #: level_i18n.cc:15
 msgid "I am innocent! I've never stolen anything!"
@@ -3132,7 +3132,6 @@ msgstr ""
 "Остерегайтесь песчаных гадюк и проклятия Энигхоматепа."
 
 #: level_i18n.cc:2707
-#, fuzzy
 msgid ""
 "Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
 "were the most useful items in this desert. But nobody was willing to spend 2 "
@@ -3489,7 +3488,7 @@ msgstr "Внимание! Билет в один конец до острова.
 
 #: level_i18n.cc:3234
 msgid "Christmas Star"
-msgstr ""
+msgstr "Рождественская звезда"
 
 #: level_i18n.cc:3250
 msgid "Enigmas wildcat"
@@ -3882,7 +3881,6 @@ msgid "Who broke the pearl necklace?"
 msgstr "Кто сломал жемчужное ожерелье?"
 
 #: level_i18n.cc:4645
-#, fuzzy
 msgid ""
 "Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls "
 "rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "

@@ -934,7 +934,7 @@ namespace enigma { namespace lev {
                     } else if (haveLocalCopy) {
                         // plain file
                         basic_ifstream<char> ifs(absExtPath.c_str(), ios::binary | ios::in);
-                        if (ifs != NULL)
+                        if (ifs)
                             Readfile(ifs, extCode);
                         else
                             haveLocalCopy = false;

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="deja-vu" el:subtitle="" el:id="illmind09"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
+      <el:copyright>Copyright © 2005 illmind</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_dark"}
+ti["# "] = {"st_granite"}
+ti[": "] = {"st_rawglass"}
+ti["; "] = {"st_lightglass_hollow"}
+ti["Y "] = {"fl_dark"}..ti{"st_chameleon"}..ti{"it_yinyang"}
+ti[" X"] = {"st_box"}
+ti["x "] = {"it_hammer"} .. ti[" X"]
+ti["0 "] = {"st_oxyd_d"}
+ti["/ "] = {"st_break_oxydc"}
+ti["L*"] = {"st_laser_s", name="laser%%nr#", state=ON}
+ti["l*"] = {"st_laser_w", name="laser%%nr#", state=ON}
+ti["m*"] = {"st_laser_s", name="laser%%nr#", state=ON}
+ti["s*"] = {"it_trigger", target="laser%%nr#*"}
+ti["S*"] = {"it_trigger", target="laser%%nr#*"} .. ti[" X"]
+ti["D*"] = {"st_door_d", name="doors%%", faces="ew"}
+ti["t*"] = {"it_trigger", target="doors%%"}
+ti["z*"] = {"it_document", text="text%%"}
+ti["@ "] = {"#ac_marble"}
+ti["& "] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG}
+
+w, h = wo(res.autotile(ti, {"t", "t*"}, {"D", "D*"}, {"L", "L*"}, {"l", "l*"}, {"m", "m*"}, {"s", "s*"}, {"S", "S*"}, {"z", "z*"}), "  ", {
+    "# # # # # # # # # # # # # L1# # # # # # # # # # # # # # # # # # L2# # # # # # ",
+    "# Y             :     @     Da      0 # Y             :     &     Dg      0 # ",
+    "#   ta  tb  tc  :   tdtetf  # # # # # #   tg  th  ti  :   tjtktl  # # # # # # ",
+    "#               l3    z1    Db      0 #               l4    z1    Dh      0 # ",
+    "#   / / / / /   :     z2    # # # # # #   / / / / /   :     z2    # # # # # # ",
+    "# : m5: / : : : m7    z3    Dc      0 # : m6: / : : : m8    z3    Di      0 # ",
+    "# s1: : / / :               # # # # # # s2: : / / :               # # # # # # ",
+    "#  X: : S5/ / :       z4    Dd      0 #  X: : S6/ / :       z4    Dj      0 # ",
+    "# / : / / S7/ : :           # # # # # # / : / / S8/ : :           # # # # # # ",
+    "# / : / S3/ / / :     z5    De      0 # / : / S4/ / / :     z5    Dk      0 # ",
+    "# / : / / /     x  X X      # # # # # # / : / / /     x  X X      # # # # # # ",
+    "# / ; / / / / / :     z6    Df      0 # / ; / / / / / :     z6    Dl      0 # ",
+    "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # "})
+
+function postinit()
+    no["laser%3nr#*"]:off()
+    no["laser%4nr#*"]:off()
+    no["laser%5nr#*"]:off()
+    no["laser%6nr#*"]:off()
+    no["laser%7nr#*"]:off()
+    no["laser%8nr#*"]:off()
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text%1">
+        <el:english el:translate="true">when you've been particular places</el:english>
+        <el:translation el:lang="de">Wenn Du schonmal an bestimmten Orten warst</el:translation>
+      </el:string>
+      <el:string el:key="text%2">
+        <el:english el:translate="true">that you know you've never seen before</el:english>
+        <el:translation el:lang="de">die Du noch nie zuvor gesehen hast</el:translation>
+      </el:string>
+      <el:string el:key="text%3">
+        <el:english el:translate="true">can you be sure?</el:english>
+        <el:translation el:lang="de">kannst Du Dir da sicher sein ?</el:translation>
+      </el:string>
+      <el:string el:key="text%4">
+        <el:english el:translate="true">feel like I've been here before</el:english>
+        <el:translation el:lang="de">Fühlt sich an, als sei ich hier bereits gewesen</el:translation>
+      </el:string>
+      <el:string el:key="text%5">
+        <el:english el:translate="true">quote: Iron Maiden - Deja-Vu</el:english>
+        <el:translation el:lang="de">frei übersetzter Textauszug von Iron Maiden's - Deja-Vu</el:translation>
+      </el:string>
+      <el:string el:key="text%6">
+        <el:english el:translate="true">for illmind's deja vu try the top left corner ...</el:english>
+        <el:translation el:lang="de">um illmind's deja vu zu spüren versuche die linke obere Ecke ...</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

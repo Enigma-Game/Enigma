@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Drunk" el:subtitle="" el:id="duffy38"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_hay"}
+ti["-"] = {"fl_abyss"}
+ti["#"] = {"st_brownie"}
+ti["D"] = {"st_death"}
+ti["&"] = {"st_greenbrown"}
+ti["d"] = {"st_door", name="door", faces="ew"}
+ti["O"] = {"st_oxyd"}
+ti["F"] = {"st_fake_quake"}
+ti["T"] = {"st_timer", target="timer_handler"}
+ti["@"] = {"ac_marble", 0.5, 1.0}
+
+w, h = wo(ti, " ", {
+    "T#-#################",
+    "#O   D      -    @O#",
+    "#O   D      -      #",
+    "#F   D      --     #",
+    "#O   &             #",
+    "#F & d   -         #",
+    "#O   &     -       #",
+    "#O   D -           #",
+    "#F   D -  D        #",
+    "#O   D -  D  -     #",
+    "#F   D             D",
+    "#O   D -  -        D",
+    "##-##D###########DDD"})
+
+mytimer = 0
+
+function timer_handler()
+    mytimer = mytimer + 1
+    if mytimer == 1 then
+        wo["GlobalForce"] = po(20.0, 20.0)
+    end
+    if mytimer == 2 then
+        wo["GlobalForce"] = po(-20.0, -20.0)
+    end
+    if mytimer == 3 then
+        wo["GlobalForce"] = po(20.0, -20.0)
+    end
+    if mytimer == 4 then
+        wo["GlobalForce"] = po(0.0, 0.0)
+        wo["GlobalForce"] = po(-20.0, 20.0)
+        no["door"]:toggle()
+        mytimer = 0
+    end
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.20" group="Facets" location="15700" network="false" owner="Enigma Team" release="1" revision="12" title="Enigma 1.21 new"/>
+  <info enigma="1.20" group="Facets" location="15700" network="false" owner="Enigma Team" release="1" revision="13" title="Enigma 1.21 new"/>
 
   <attributes/>
 
@@ -42,7 +42,7 @@
     <level _seq="34" _title="White Excitation" _xpath="enigma_x/duffy187_2" author="Jacob Scott, /dev/null" ctrl="force" easy="false" id="duffy187" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Black-White Patterns" _xpath="enigma_x/duffy188_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy188" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="36" _title="Safety Line" _xpath="enigma_x/duffy189_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy189" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="37" _title="Even more Mess" _xpath="enigma_x/duffy190_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy190" rel="3" rev="3" score="2" target="time" unit="duration"/>
+    <level _seq="37" _title="Even more Mess" _xpath="enigma_x/duffy190_4" author="Jacob Scott" ctrl="force" easy="false" id="duffy190" rel="4" rev="4" score="3" target="time" unit="duration"/>
     <level _seq="38" _title="West Wind" _xpath="enigma_x/andreas67_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas67" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="South Wind" _xpath="enigma_x/mecke43_1" author="mecke" ctrl="force" easy="true" id="mecke43" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="Nice Neighbour" _xpath="enigma_x/devnull137_1" author="/dev/null" ctrl="force" easy="false" id="devnull137" rel="1" rev="1" score="1" target="time" unit="duration"/>

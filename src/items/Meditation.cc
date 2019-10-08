@@ -27,7 +27,7 @@ namespace enigma {
 
     Meditation::Meditation(int initState) {
         state = initState;
-        //whiteball = NULL;
+        whiteball = NULL;
     }
 
     std::string Meditation::getClass() const {

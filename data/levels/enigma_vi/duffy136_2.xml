@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Group Trip to Meditation" el:subtitle="" el:id="duffy136"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_bluegreen"}
+ti["#"] = {"st_greenbrown"}
+ti["D"] = {"st_death"}
+ti["W"] = {"st_rawglass"}
+ti["!"] = {"fl_water"}
+ti["1"] = {"st_oneway_w"}
+ti["w"] = {"ac_pearl", 1.0, 1.0}
+ti["G"] = {"st_door_d", name="door1"}
+ti["H"] = {"it_meditation"}
+ti["L"] = {"st_laser_n", name="laser", state=ON}
+ti["F"] = {"st_switch", target="door1"}
+ti["s"] = {"st_stoneimpulse"}
+ti["%"] = {"st_stoneimpulse", name="s1"}
+ti["S"] = {"st_stoneimpulse_hollow"}
+
+w, h = wo(ti, " ", {
+    "####################!!!!!!!!!!!!!!!!!!#########D#############################",
+    "#        w                 !    !  !                     #                  #",
+    "#                          !!         ################## D SSSSSSSSSSSSSS%# #",
+    "#                      !!             #             #    # S    H SS H    S #",
+    "#      w   w           !!  #       # !# WWWWWWWWW   # #### S H    SS    H S #",
+    "#                              !     !#         W   #    # S   SSSSSSSS   S #",
+    "#                              !     !#         W        # S   S  HH  S   S #",
+    "#    w   w   w               !    !   #WWWWWWW  ########## S H SSSSSSSS H S #",
+    "#                      #             !#         #   1   F# S              S #",
+    "#                      !      #       #         #   #    # S     H  H     S #",
+    "#  w   w   w   w           !   !      # WWWWWWWW#G###    # SSSSSSSSSSSSSSSS #",
+    "#                      !!         !!!!#                                     #",
+    "####################!!!!!!!!!!!!!!!!!!#####L#################################"})
+
+wo:add({"ot_timer", target="laser", interval=1.0})
+wo:add({"ot_timer", target="s1", action="signal", interval=1.0})
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

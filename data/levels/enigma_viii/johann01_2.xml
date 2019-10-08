@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Ball Alley" el:subtitle="" el:id="johann01"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Johann Freymuth" el:email="johannff@web.de"/>
+      <el:copyright>Copyright © 2007 Johann Freymuth</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="0:39"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_gray"}
+ti["_ "] = {"fl_abyss"}
+ti["v "] = {"fl_slope_ps"}
+ti["> "] = {"fl_slope_pe"}
+ti["< "] = {"fl_slope_pw"}
+ti["^ "] = {"fl_slope_pn"}
+ti["d "] = {"fl_slope_pe", name="death"} .. ti{"st_break_black"}
+ti["x "] = {"st_oxyd_d"}
+ti["# "] = {"st_bluesand"}
+ti[" w"] = {"st_break_white"}
+ti[" b"] = {"st_break_black"}
+ti["K "] = {"st_box"}
+ti["B "] = {"st_passage"}
+ti["W "] = {"st_passage_white"}
+ti["D "] = {"st_door_a", name="door"}
+ti["S "] = {"st_switch_white", target="door", action="open"}
+ti["T "] = {"st_timer", name="timer", state=OFF, target="stop", interval=2}
+ti[" t"] = {"it_sensor", invisible=true, target="timer", action="on"}
+ti[" h"] = {"it_hammer"}
+ti[" @"] = {"#ac_marble"}
+ti[" &"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_NONE}
+
+w, h = wo(res.composer(ti), "  ", {
+    "T # # # # # # # # # # # # # # # # # # # ",
+    "# v&# >w>wvw# >td >b_b>b_b>b_b>b_b>bvb# ",
+    "# v # ^w# vw# ^ # # K # K # K # K # vb# ",
+    "# v # ^w# vw# ^w#                 # vb# ",
+    "# v # ^w# vw# ^w#                 # vb# ",
+    "# v # ^w# vw# ^w#          @      # vb# ",
+    "# v # ^w# vw# ^w# # # D #    h    # vb# ",
+    "# v # ^w# vw# ^w# x     #         # vb# ",
+    "# v # ^w# vw# ^w#       #         # vb# ",
+    "# v # ^w# vw# ^w#     x #         B vb# ",
+    "# v # ^w# vw# ^w# # # # # # # # # # W # ",
+    "# > >w^w# >w>w^w# S < < < < < < < < < # ",
+    "# # # # # # # # # # # # # # # # # # # # "})
+
+function stop()
+    wo[no["death"]]={"st_death"}
+end
+
+wo:add(YANG, {"it_hammer"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Kugelbahn</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

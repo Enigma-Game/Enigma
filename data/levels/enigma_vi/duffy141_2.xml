@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="In the Middle" el:subtitle="" el:id="duffy141"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="false" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_metal"}
+ti["!"] = {"fl_abyss"}
+ti["o"] = ti["!"] .. {"st_oxyd"}
+ti["F"] = ti["!"] .. {"st_quake"}
+ti["k"] = ti["!"] .. {"#ac_killer", name="ac3", controllers=CTRL_NONE}
+ti["K"] = ti["!"] .. {"#ac_killer", name="ac4", controllers=CTRL_NONE}
+ti["u"] = {"fl_slope_pn"}
+ti["d"] = {"fl_slope_ps"}
+ti["r"] = {"fl_slope_pe"}
+ti["l"] = {"fl_slope_pw"}
+ti["1"] = {"fl_slope_isw"}
+ti["3"] = {"fl_slope_ise"}
+ti["7"] = {"fl_slope_inw"}
+ti["9"] = {"fl_slope_ine"}
+ti["@"] = {"#ac_marble", name="ac1"}
+ti["A"] = {"#ac_marble_white", name="ac2"}
+
+w, h = wo(ti, " ", {
+    "!!!!!!!!!!!!!!!!!!!!",
+    "!3dddddddddddddddd1!",
+    "!r        @       l!",
+    "!r 7uuuuuuuuuuuu9 l!",
+    "!r l!!!!!oo!!!!!r l!",
+    "!r l!o!!!!k!!!o!r l!",
+    "!r l!!!o!FF!o!!!r l!",
+    "!r l!o!!!K!!!!o!r l!",
+    "!r l!!!!!oo!!!!!r l!",
+    "!r 1dddddddddddd3 l!",
+    "!r       A        l!",
+    "!9uuuuuuuuuuuuuuuu7!",
+    "!!!!!!!!!!!!!!!!!!!!"})
+
+wo:add({"ot_rubberband", anchor1="ac1", anchor2="ac3", length=3, strength=50})
+wo:add({"ot_rubberband", anchor1="ac2", anchor2="ac4", length=3, strength=50})
+wo:add({"ot_rubberband", anchor1="ac3", anchor2="ac4", length=2, strength=30})
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

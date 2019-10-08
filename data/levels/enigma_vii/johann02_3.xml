@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Riverside" el:subtitle="" el:id="johann02"/>
+      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
+      <el:author el:name="Johann Freymuth" el:email="-" el:homepage="-"/>
+      <el:copyright>Copyright © 2007 Johann Freymuth</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn_b"}
+ti["-"] = {"fl_water"}
+ti["."] = {"fl_sand"}
+ti["i"] = {"fl_ice"}
+ti["A"] = {"st_camouflage"}
+ti["B"] = {"st_box"}
+ti["C"] = {"st_stoneimpulse"}
+ti["D"] = {"st_camouflage_movable"}
+ti["E"] = {"st_granite"}
+ti["G"] = {"st_door_d", name="door1#"}
+ti["I"] = {"st_door_d", name="door2#"}
+ti["F"] = {"st_key", code="1", target="door1#*"}
+ti["H"] = {"st_key", code="2", target="door2#*"}
+ti["g"] = {"it_key", code="1", invisible=true} .. ti["D"]
+ti["h"] = {"it_key", code="2", invisible=true} .. ti["D"]
+ti["@"] = {"#ac_marble"}
+ti["W"] = {"#ac_pearl", "white", controllers=CTRL_NONE}
+ti["b"] = {"it_dynamite"} .. ti["D"]
+ti["p"] = {"it_puller_n"}
+ti["d"] = {"it_document", text="text1"}
+ti["w"] = {"it_wormhole", strength=10, range=5}
+ti["R"] = {"it_rubberband", anchor2="white", strength=100.0}
+
+w, h = wo(ti, " ", {
+    "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    "A@ A     g pppp    A  -----           A",
+    "A  B             iiiii-----           A",
+    "AABAB          ---iiiii----           A",
+    "A  B         -------iiii--            A",
+    "A          ----------iii              A",
+    "A         -------  A                 hA",
+    "A    A A ------    A                  A",
+    "A   AA A -----     A                  A",
+    "A   A  AA----      A                  A",
+    "A   A   ----    d  A                  A",
+    "A   A   ----       A        A A       A",
+    "AACCCAAA----AAAAAAAAAAAAAAAAA AAAAAAAAA",
+    "A BBB   ----       A        A A       A",
+    "A       ----       A                  A",
+    "A DAD ------       A                  A",
+    "A    ---------     A            DDDD  A",
+    "A   -------------  A            EGIE  A",
+    "A   ---------------AAAAADAAAAEEFEIGEHEE",
+    "A   -----..--------A        AE  EGIE  E",
+    "A   ---..b.--------A AAA AA AE        E",
+    "A  -----...--------A AwAAAA AE        E",
+    "A -----------------A AAAAAA AEEEEEE EEE",
+    "A------------------A   R    AEW       E",
+    "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEEEEEEEEEE"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Am Fluss</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Wrong side!                   F3</el:english>
+        <el:translation el:lang="de">Falsche Seite!                  F3</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

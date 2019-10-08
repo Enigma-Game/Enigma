@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Lady in Red" el:subtitle="" el:id="just30"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:author el:name="JuSt" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 JuSt</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="0:34" el:difficult="0:34"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl_pinkbumps"}
+ti["# "] = {"st_pinkbumps"}
+ti["! "] = {"fl_pinkbumps", name="dest"}
+ti["- "] = {"fl_water"}
+ti["@ "] = {"#ac_marble", essential=INDISPENSABLE}
+ti["& "] = {"#ac_marble_white", essential=INDISPENSABLE}
+ti["x "] = {"st_box"}
+ti["N "] = {"st_boulder_n"}
+ti["v "] = {"st_boulder_s"}
+ti["< "] = {"st_boulder_w"}
+ti["? "] = {"it_vortex", destination="dest", autoclose=true}
+ti["T "] = {"st_turnstile"}
+ti["e "] = {"st_turnstilearm_e"}
+ti["w "] = {"st_turnstilearm_w"}
+ti["n "] = {"st_turnstilearm_n"}
+ti["s "] = {"st_turnstilearm_s"}
+ti["i "] = {"st_stoneimpulse"}
+ti["I "] = {"st_stoneimpulse_hollow"}
+ti["A "] = {"st_actorimpulse"}
+ti["G "] = {"st_grate"}
+ti["g "] = ti["G "] .. {"it_wrench"}
+ti["R "] = {"st_rotator"}
+ti["r "] = {"st_rotator_ccw"}
+ti["O "] = {"st_oxyd"}
+ti["D*"] = {"st_door_d", name="door%%nr#", faces="ew"}
+ti["d*"] = {"st_door_d", name="door%%nr#"}
+if wo["IsDifficult"] then
+    ti["S*"] = {"st_switch_black", target="door%%nr#*"}
+    ti["X*"] = {"st_timer", name="timer%%nr#", interval=1.0, loop=false, target="door%%nr#*", action="close"}
+else
+    ti["S*"] = {"st_switch", target="door%%nr#*"}
+    ti["X*"] = {"st_timer", name="timer%%nr#", interval=2.0, loop=false, target="door%%nr#*", action="close"}
+end
+ti["t*"] = {"it_trigger", target="door%%nr#*", action="open"}
+ti["u*"] = {"it_trigger", target={"door%%nr#*", "timer%%nr#*"}, action={"open", "on"}}
+
+w, h = wo(res.autotile(ti, {"D", "D*"}, {"d", "d*"}, {"t", "t*"}, {"u", "u*"}, {"S", "S*"}, {"X", "X*"}), "  ", {
+    "# # # # # # # # # # # # # # # # # # O # X3",
+    "# !   D1    n   D3  #       #   S7#   O X4",
+    "#     #   w T e #   #   #   #     # d7# X5",
+    "# - - #     s   #   #   #   # d6# #   # X6",
+    "# - t1# # #     #   #   # d5#     #   #   ",
+    "# ? x -   # T e #   #   #   # #   #   #   ",
+    "#   N #   i s   #   D4  #         #   #   ",
+    "#     #   # v I # # # # # # # # # #   #   ",
+    "#     #   - x i #                     #   ",
+    "#     #   # t2      # # # # # # # # R #   ",
+    "#     #   #     A G - u6        u5    #   ",
+    "# & @ #   D2    A g < u3        u4    R   ",
+    "# # # # # # # # # G r # # # # # # # # #   "})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

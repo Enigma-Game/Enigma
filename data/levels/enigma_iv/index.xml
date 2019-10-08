@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="68" title="Enigma IV"/>
+  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="69" title="Enigma IV"/>
 
   <attributes/>
 
@@ -32,7 +32,7 @@
     <level _seq="24" _title="Tunnels" _xpath="./martin82_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin82" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="Light Switches" _xpath="./siegfried24_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level8e" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="The Tomb" _xpath="./ant04_2" author="Petr Machata" ctrl="force" easy="false" id="ant04" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="27" _title="Robbery" _xpath="./ant29_2" author="Petr Machata" ctrl="force" easy="false" id="ant29" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="27" _title="Robbery" _xpath="./ant29_3" author="Petr Machata" ctrl="force" easy="false" id="ant29" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="28" _title="The Life Game" _xpath="./alain13_2" author="Alain Busser" ctrl="force" easy="true" id="alain13" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Where is it?" _xpath="./barry02_2" author="Barry &amp; Lori Mead" ctrl="force" easy="false" id="barry02" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="- Meditation -" _xpath="./ant23_2" author="Petr Machata" ctrl="force" easy="true" id="ant23" rel="2" rev="4" score="1" target="time" unit="duration"/>
@@ -42,7 +42,7 @@
     <level _seq="34" _title="Running Rings" _xpath="./siegfried14_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level4f" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="It Never Stops" _xpath="./duffy36_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy36" rel="2" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="36" _title="Circularity" _xpath="./ant10_2" author="Petr Machata" ctrl="force" easy="true" id="ant10" rel="2" rev="1" score="2" target="time" unit="duration"/>
-    <level _seq="37" _title="Eccentric Orbits" _xpath="./nat19_1" author="Nat Pryce" ctrl="force" easy="false" id="nat19" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title="Eccentric Orbits" _xpath="./nat19_2" author="Nat Pryce" ctrl="force" easy="false" id="nat19" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Mourning Palace" _xpath="./ant08_2" author="Petr Machata" ctrl="force" easy="false" id="ant08" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="How Many Spirals?" _xpath="./nat23_1" author="Nat Pryce" ctrl="force" easy="true" id="nat23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Meditation -" _xpath="./nat18_2" author="Nat Pryce" ctrl="force" easy="false" id="nat18" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -54,16 +54,16 @@
     <level _seq="46" _title="Stay There!" _xpath="./ralf05_3" author="Ralf Westram" ctrl="force" easy="false" id="ralf05" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="47" _title="Just Moving Blocks?" _xpath="./duffy05_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy5" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="48" _title="Artillery" _xpath="./duffy111_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy111" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="49" _title="What's the Problem?" _xpath="./ss14_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss14" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="49" _title="What's the Problem?" _xpath="./ss14_2" author="Sven Siggelkow" ctrl="force" easy="true" id="ss14" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Walls Of Sadness" _xpath="./ss12_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss12" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="51" _title="Pull it!" _xpath="./luc14_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc14" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="51" _title="Pull it!" _xpath="./luc14_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc14" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="FIRE, FIRE!" _xpath="./ss07_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss7" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Chain Reaction" _xpath="./siegfried17_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5e" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Fire Safety" _xpath="./duffy83_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy83" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="55" _title="Easily Inflammable" _xpath="./martin95_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin95" rel="2" rev="0" score="2" target="time" unit="duration"/>
+    <level _seq="55" _title="Easily Inflammable" _xpath="./martin95_3" author="Martin Hawlisch" ctrl="force" easy="false" id="martin95" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="56" _title="The Builder" _xpath="./ss09_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss9" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="57" _title="Run Like Hell" _xpath="./ralf09_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf09" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="58" _title="What a Mess" _xpath="./duffy68_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy68" rel="2" rev="3" score="2" target="time" unit="duration"/>
+    <level _seq="58" _title="What a Mess" _xpath="./duffy68_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy68" rel="3" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="59" _title="Sleeping Serpent" _xpath="./raoul10_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul10" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="- No Meditation -" _xpath="./ralf08_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf08" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Go!" _xpath="./ant02_1" author="Petr Machata" ctrl="force" easy="false" id="ant02" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -75,7 +75,7 @@
     <level _seq="67" _title="U-Swap" _xpath="./ralf15_2" author="Ralf Westram" ctrl="force" easy="true" id="ralf15" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="68" _title="Triple-Maze" _xpath="./duffy125_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy125" rel="2" rev="12" score="2" target="time" unit="duration"/>
     <level _seq="69" _title="The Dark Outside" _xpath="./andreas16_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas16" rel="2" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="70" _title="Electric Meditation" _xpath="./duffy123_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy123" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="70" _title="Electric Meditation" _xpath="./duffy123_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy123" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Seed Puzzle" _xpath="./duffy77_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy77" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="Action at a Distance" _xpath="./duffy121_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy121" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="73" _title="Long Jump" _xpath="./duffy43_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy43" rel="2" rev="2" score="2" target="time" unit="duration"/>

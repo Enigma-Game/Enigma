@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="What a Mess" el:subtitle="" el:id="duffy68"/>
+      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+        <el:dependency el:id="lib/libpuzzle" el:release="3" el:preload="true" el:path="lib/libpuzzle"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["CrackSpreading"] = 0
+
+ti["  "] = {"fl_lawn"}
+ti["# "] = {"st_greenbrown"}
+ti["T "] = {"st_thief"}
+ti["o "] = {"st_oxyd"}
+ti[" ~"] = {"fl_water"}
+ti["* "] = {"st_brownie"}
+ti["! "] = {"fl_abyss"}
+ti["g "] = {"st_grate"}
+ti["+ "] = {"st_box"}
+ti["= "] = {"fl_space"}
+ti["u "] = {"st_boulder_n"}
+ti["D "] = {"st_oneway_s"}
+ti["L "] = {"st_oneway_w"}
+ti["R "] = {"st_oneway_e"}
+ti["U "] = {"st_oneway_n"}
+ti[" b"] = {"it_bomb"}
+ti["f "] = {"it_floppy"}
+ti["k "] = {"it_key"}
+ti["s "] = {"st_stoneimpulse"}
+ti["c "] = {"it_crack_l"}
+ti["1 "] = {"st_door_a", name="doors1#"}
+ti["2 "] = {"st_door_a", name="doors2#"}
+ti["F "] = {"st_floppy", target="doors1#*"}
+ti["K "] = {"st_key", target="doors2#*"}
+ti["p "] = {"it_wormhole", strength=0, destination=po(7.5, 8.5)}
+ti["q "] = {"it_wormhole", strength=0, destination=po(12.5, 8.5)}
+ti["P"] = {"st_puzzle", intensity=0}
+ti["z "] = {"#ac_marble"}
+
+w, h = wo(res.composer(res.puzzle(ti, "P")), "  ", {
+    "s s s T T T T # # # # # # # s s s s s s ",
+    "s +   T = = = R         L   PdPOPaPdPcs ",
+    "s  b+   ! T # # # D D # # #       Ph# # ",
+    "# #b# Ub# # #             # # # U # # # ",
+    "s  b b b    #             #           # ",
+    "s +     + + L             R           # ",
+    "s +   +   + L       z     R   *   *   # ",
+    "s +     +   #             #     *     # ",
+    "#  ~ ~ ~ ~ ~# c         c #   * u *   # ",
+    "#  ~ ~ ~ ~ ~# # # 1 1 # # # ! u * u ! # ",
+    "# #~ ~ ~ ~#~# o # 2 2 # o # ! * u * ! # ",
+    "# f  ~ ~ ~p K             F q u   u k # ",
+    "# # # # # # # # # # # # # # # # # # # # "})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

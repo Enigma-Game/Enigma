@@ -47,6 +47,12 @@ namespace enigma { namespace lev {
         }
         currentGroup = app.state->getString("CurrentGroup");
     }
+    void Index::shutdown()
+    {
+        for (auto it = indexGroups.begin();it != indexGroups.end();it++) {
+            delete it->second;
+        }
+    }
     
     void Index::registerIndex(Index *anIndex) {
         if (anIndex == NULL)
