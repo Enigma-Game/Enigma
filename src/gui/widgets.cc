@@ -708,7 +708,7 @@ PushButton::PushButton() : m_pressedp (false) {
 bool PushButton::on_event(const SDL_Event &e) {
     Widget::on_event(e);
     bool was_pressed = m_pressedp;
-    bool handeled = false;
+    bool handled = false;
 
     switch (e.type) {
         case SDL_KEYDOWN:
@@ -716,25 +716,38 @@ bool PushButton::on_event(const SDL_Event &e) {
             // fall-through
         case SDL_MOUSEBUTTONDOWN:
             m_pressedp = true;
-            handeled = true;
+            handled = true;
             break;
-    
         case SDL_KEYUP:
             if (e.key.keysym.sym != SDLK_RETURN) break;
             lastUpSym = e.key.keysym.sym;
-            lastUpBotton = 0;
+            lastUpButton = 0;
             m_pressedp = false;
-            handeled = true;
+            handled = true;
             break;
         case SDL_MOUSEBUTTONUP:
             lastUpSym = SDLK_UNKNOWN;
-            lastUpBotton = e.button.button;
+            lastUpButton = e.button.button;
             m_pressedp = false;
-            handeled = true;
+            handled = true;
+            break;
+        case SDL_MOUSEWHEEL:
+            // Mousewheel is interpreted as left and right
+            // mouse button clicks.
+            lastUpSym = SDLK_UNKNOWN;
+            lastUpButton = 0;
+            handled = true;
+            if (e.wheel.y > 0)
+                lastUpButton = SDL_BUTTON_RIGHT;
+            if (e.wheel.y < 0)
+                lastUpButton = SDL_BUTTON_LEFT;
+            if (e.wheel.y == 0)
+                handled = false;
             break;
     }
 
-    bool changed = (was_pressed != m_pressedp);
+    bool changed =    (was_pressed != m_pressedp)
+                   || (e.type == SDL_MOUSEWHEEL);
     if (changed) {
         invalidate();
         if (!m_pressedp) {
@@ -744,13 +757,13 @@ bool PushButton::on_event(const SDL_Event &e) {
         }
     }
 
-    return handeled;
+    return handled;
 }
 
 void PushButton::deactivate() {
     m_pressedp = false;
     lastUpSym = SDLK_UNKNOWN;
-    lastUpBotton = 0;
+    lastUpButton = 0;
     invalidate();
     Button::deactivate();
 }
@@ -760,7 +773,7 @@ SDL_Keycode PushButton::getLastUpSym() {
 }
 
 Uint8 PushButton::getLastUpButton() {
-    return lastUpBotton;
+    return lastUpButton;
 }
 
 bool PushButton::soundOk() {
@@ -893,20 +906,13 @@ bool ValueButton::update_value(int old_value, int new_value) {
 
 
 void ValueButton::on_action(Widget *) {
-    int incr = 1;
-    bool stop = false;
-    if (getLastUpSym() == SDLK_PAGEDOWN || 
-        getLastUpButton() == SDL_BUTTON_RIGHT ||
-        getLastUpButton() == 5) {  // wheel down
-        incr = -1;
-    }
-    if (getLastUpSym() == SDLK_PAGEDOWN || 
-        getLastUpSym() == SDLK_PAGEUP ||
-        getLastUpButton() == SDL_BUTTON_RIGHT ||
-        getLastUpButton() == SDL_BUTTON_LEFT  ||
-        getLastUpButton() ==  4 || getLastUpButton() == 5) {
-        stop = true;
-    }
+    // Mouse wheel has already been interpreted as a button click.
+    int incr = (getLastUpSym() == SDLK_PAGEDOWN ||
+                getLastUpButton() == SDL_BUTTON_RIGHT) ? -1 : 1;
+    bool stop = getLastUpSym() == SDLK_PAGEDOWN ||
+                getLastUpSym() == SDLK_PAGEUP ||
+                getLastUpButton() == SDL_BUTTON_RIGHT ||
+                getLastUpButton() == SDL_BUTTON_LEFT;
     if (inc_value(incr)) {
         sound::EmitSoundEvent("menuswitch");
     } else {

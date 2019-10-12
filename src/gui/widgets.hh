@@ -345,7 +345,7 @@ namespace enigma { namespace gui {
     private:
         bool m_pressedp;
         SDL_Keycode lastUpSym;
-        Uint8 lastUpBotton;
+        Uint8 lastUpButton;
     };
 
 /* -------------------- TextButton -------------------- */
