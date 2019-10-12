@@ -193,17 +193,16 @@ Menu::Menu()
                         break;
                     }
                 }
-        
                 break;
             case SDL_MOUSEBUTTONDOWN:
             case SDL_MOUSEBUTTONUP:
                 track_active_widget( e.button.x, e.button.y );
                 if (active_widget) active_widget->on_event(e);
                 break;
-            // TODO(SDL2)
-            // case SDL_VIDEOEXPOSE:
-            //     draw_all();
-            //     break;
+            case SDL_WINDOWEVENT:
+                if (e.window.event == SDL_WINDOWEVENT_EXPOSED)
+                    draw_all();
+                break;
             default:
                 if (active_widget) active_widget->on_event(e);
         }
