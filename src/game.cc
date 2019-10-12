@@ -66,7 +66,7 @@ void game::StartGame() {
     lev::Index *ind = lev::Index::getCurrentIndex();
 
     video_engine->HideMouse();
-    SDL_SetRelativeMouseMode(SDL_TRUE);
+    SDL_SetRelativeMouseMode(enigma::Nograb ? SDL_FALSE : SDL_TRUE);
 
     //    Uint32 start_tick_time = SDL_GetTicks();
 
