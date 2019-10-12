@@ -308,8 +308,15 @@ public:
     bool GetInputGrab() override { return SDL_GetWindowGrab(window) == SDL_TRUE; }
 
     bool SetInputGrab(bool enabled) override {
+        // From SDL 1 to SDL 2, the old grabbing commands were
+        // split up into two separate pairs, one setting the mouse mode,
+        // and one defining the window to be grabbed. As long as Enigma
+        // uses only one window, we use both SDL_Set... commands in parallel,
+        // but only SDL_GetWindowGrab to retrieve the current state. When
+        // Enigma starts using several windows, this needs to be adapted.
         bool old_state = GetInputGrab();
         SDL_SetWindowGrab(window, enabled ? SDL_TRUE : SDL_FALSE);
+        SDL_SetRelativeMouseMode(enabled ? SDL_TRUE : SDL_FALSE);
         return old_state;
     }
 

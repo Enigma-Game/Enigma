@@ -66,7 +66,7 @@ void game::StartGame() {
     lev::Index *ind = lev::Index::getCurrentIndex();
 
     video_engine->HideMouse();
-    SDL_SetRelativeMouseMode(enigma::Nograb ? SDL_FALSE : SDL_TRUE);
+    ScopedInputGrab grab(enigma::Nograb ? SDL_FALSE : SDL_TRUE);    
 
     //    Uint32 start_tick_time = SDL_GetTicks();
 
@@ -109,7 +109,6 @@ void game::StartGame() {
     // add last played level
     lev::PersistentIndex::addCurrentToHistory();
 
-    SDL_SetRelativeMouseMode(SDL_FALSE);
     video_engine->ShowMouse();
 }
 
