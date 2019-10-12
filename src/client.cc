@@ -207,6 +207,12 @@ void Client::handle_events() {
             break;
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP: on_mousebutton(e); break;
+        case SDL_MOUSEWHEEL:
+            if (e.wheel.y < 0) // mousewheel down: rotate inventory
+                rotate_inventory(+1);
+            if (e.wheel.y > 0) // mousewheel up: inverse rotate inventory
+                rotate_inventory(+1);
+            break;
         case SDL_WINDOWEVENT: {
             update_mouse_button_state();
             if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
@@ -229,20 +235,18 @@ void Client::handle_events() {
 
 void Client::update_mouse_button_state() {
     int b = SDL_GetMouseState(0, 0);
+    // TODO(sdl2): Should we replace SDL_BUTTON(1) by SDL_BUTTON(SDL_BUTTON_LEFT) etc.?
     player::InhibitPickup((b & SDL_BUTTON(1)) || (b & SDL_BUTTON(3)));
 }
 
 void Client::on_mousebutton(SDL_Event &e) {
     if (e.button.state == SDL_PRESSED) {
-        if (e.button.button == 1) {
+        if (e.button.button == SDL_BUTTON_LEFT) {
             // left mousebutton -> activate first item in inventory
             server::Msg_ActivateItem();
-        } else if (e.button.button == 3 || e.button.button == 4) {
-            // right mousebutton, wheel down -> rotate inventory
+        } else if (e.button.button == SDL_BUTTON_RIGHT) {
+            // right mousebutton -> rotate inventory
             rotate_inventory(+1);
-        } else if (e.button.button == 5) {
-            // wheel down -> inverse rotate inventory
-            rotate_inventory(-1);
         }
     }
     update_mouse_button_state();

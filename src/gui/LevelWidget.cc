@@ -405,6 +405,16 @@ namespace enigma { namespace gui {
                 if (get_area().contains(e.button.x, e.button.y))
                     handled = handle_mousedown (&e);
                 break;
+            case SDL_MOUSEWHEEL:
+                if (e.wheel.y < 0) {
+                    scroll_up(1);
+                    handled = true;
+                }
+                if (e.wheel.y > 0) {
+                    scroll_down(1);
+                    handled = true;
+                }
+                break;
             case SDL_KEYDOWN:
                 handled = handle_keydown (&e);
                 break;
@@ -447,8 +457,6 @@ namespace enigma { namespace gui {
                         return true;
                     }
                 break;
-            case 4: scroll_down(1); return true;
-            case 5: scroll_up(1); return true;
         }
         return false;
     }
