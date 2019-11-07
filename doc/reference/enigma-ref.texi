@@ -13537,7 +13537,8 @@ lets it explode immediately without prior ignition.
 
 On ignition its fuse starts burning. After a short time the bomb explodes
 causing on the 8 neighboring positions items to ignite and some stones like
-@ref{st_break} to dissolve, too.
+@ref{st_break} to dissolve, too. An already burning floor however might get
+extinguished by a neighboring bomb explosion.
 
 @samp{BLACK} bombs will cause destructible items on the 4 neighboring positions
 to be blown away, and dissolve the floor beneath to a @ref{fl_abyss}.
