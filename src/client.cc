@@ -197,6 +197,8 @@ void Client::handle_events() {
     SDL_Event e;
     while (SDL_PollEvent(&e)) {
         switch (e.type) {
+        // TODO: If we want umlauts and other special characters ingame,
+        //       we need to add SDL_TEXTINPUT and SDL_TEXTEDITING here.
         case SDL_KEYDOWN: on_keydown(e); break;
         case SDL_MOUSEMOTION:
             if (abs(e.motion.xrel) > 300 || abs(e.motion.yrel) > 300) {
@@ -468,18 +470,21 @@ void Client::on_keydown(SDL_Event &e) {
         case SDLK_UP: user_input_previous(); break;
         case SDLK_DOWN: user_input_next(); break;
         default: {
-            // TODO(SDL2): SDL_GetKeyName only returns uppercase letters.
+            // SDL2's GetKeyName only returns uppercase keys.
             const char *key = SDL_GetKeyName(e.key.keysym.sym);
             const bool is_ascii = strlen(key) == 1 && ((key[0] & 0x7f) == key[0]);
+            const bool capslock = keymod & KMOD_CAPS;
             if (is_ascii) {
                 char ascii = key[0];
                 if (isalnum(ascii) || strchr(" .-!\"$%&/()=?{[]}\\#'+*~_,;.:<>|",
-                                             ascii))  // don't add '^' or change history code
-                {
-                    user_input_append(ascii);
+                                             ascii)) { // don't add '^' or change history code
+                    if (keymod & (KMOD_LSHIFT | KMOD_RSHIFT)) {
+                        user_input_append(capslock ? std::tolower(ascii) : ascii);
+                    } else {
+                        user_input_append(capslock ? ascii : std::tolower(ascii));
+                    }
                 }
             }
-
             break;
         }
         }
