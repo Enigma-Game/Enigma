@@ -216,7 +216,7 @@ namespace enigma
         bool errorInit;
         bool isMakePreviews;
         // TODO(sdl2): initialize display mode using preferences or desktop resolution.
-        DisplayMode selectedDisplayMode{1280, 960};
+        DisplayMode selectedDisplayMode{800, 600};  //{1280, 960};
         bool bossKeyPressed;
 
     private:

@@ -200,8 +200,16 @@ Menu::Menu()
                 if (active_widget) active_widget->on_event(e);
                 break;
             case SDL_WINDOWEVENT:
-                if (e.window.event == SDL_WINDOWEVENT_EXPOSED)
+                switch (e.window.event) {
+                case SDL_WINDOWEVENT_EXPOSED:
                     draw_all();
+                    break;
+                case SDL_WINDOWEVENT_RESIZED:
+                    video_engine->Resize(e.window.data1, e.window.data2);
+                    // Drawing will be done by tick.
+                    draw_all();
+                    break;
+                }
                 break;
             default:
                 if (active_widget) active_widget->on_event(e);

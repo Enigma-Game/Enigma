@@ -287,6 +287,7 @@ public:
     std::vector<DisplayMode> EnumerateDisplayModes() override;
     DisplayMode ActiveDisplayMode() override;
     void SetDisplayMode(const DisplayMode &display_mode, bool fullscreen) override;
+    void Resize(Sint32 width, Sint32 height) override;
 
     const VMInfo *GetInfo() override;
     const VMInfo *GetInfo(VideoMode mode) { return &video_modes[mode]; }
@@ -401,6 +402,11 @@ void VideoEngineImpl::SetDisplayMode(const DisplayMode &display_mode, bool fulls
     }
 }
 
+void VideoEngineImpl::Resize(Sint32 width, Sint32 height) {
+    SDL_SetWindowSize(window, width, height);
+    SDL_RenderSetLogicalSize(renderer, width, height);
+}
+
 const VMInfo *VideoEngineImpl::GetInfo() {
     auto mode = FindClosestVideoMode(ActiveDisplayMode());
     assert(mode != VM_None);
@@ -453,7 +459,7 @@ void VideoEngineImpl::ShowMouse() {
 }
 
 bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
-    Uint32 flags = SDL_WINDOW_SHOWN;
+    Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
     if (fullscreen)
         flags |= SDL_WINDOW_FULLSCREEN;
 

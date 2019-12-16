@@ -108,6 +108,7 @@ public:
     virtual std::vector<DisplayMode> EnumerateDisplayModes() = 0;
     virtual DisplayMode ActiveDisplayMode() = 0;
     virtual void SetDisplayMode(const DisplayMode &display_mode, bool fullscreen) = 0;
+    virtual void Resize(Sint32 width, Sint32 height) = 0;
 
     /*! Return information about current video mode. */
     virtual const VMInfo *GetInfo() = 0;
