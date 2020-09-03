@@ -533,6 +533,8 @@ void DisplayEngine::update_offset() {
     world_to_video(m_new_offset, &newx, &newy);
 
     if (newx != oldx || newy != oldy) {
+        // TODO: Up to Enigma 1.21, we used the following code:
+        /*
         const Rect &a = get_area();
         Rect oldarea(a.x + oldx, a.y + oldy, a.w, a.h);
         Rect newarea(a.x + newx, a.y + newy, a.w, a.h);
@@ -555,6 +557,18 @@ void DisplayEngine::update_offset() {
         rl.sub(blitrect);
         for (auto &rect : rl)
             mark_redraw_area(screen_to_world(rect));
+        */
+        // Unfortunately, switching to SDL 2 created problems with blitting
+        // from one surface to the same. For the time being, we simply
+        // redraw the whole surface:
+        set_offset(V2(newx / double(m_tilew), newy / double(m_tileh)));
+        mark_redraw_screen();
+        // This is very ressource hungry, but only marginally slower than 
+        // blitting first to a temporary surface, and then back to the
+        // video screen. Best solution would be to have two surfaces to
+        // blit to in class Screen, and smooth scrolling would alternate
+        // between these; or to keep the whole level in one surface and
+        // blit from there to the screen.
     }
 }
 
