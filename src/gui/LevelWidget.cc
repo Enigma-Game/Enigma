@@ -36,6 +36,7 @@
 using namespace ecl;
 using namespace std;
 
+#define SCREEN ecl::Screen::get_instance()
 
 namespace enigma { namespace gui {
     /* -------------------- LevelWidget -------------------- */
@@ -389,13 +390,17 @@ namespace enigma { namespace gui {
     
     bool LevelWidget::on_event(const SDL_Event &e) {
         bool handled = Widget::on_event(e);
+        int mouse_x = 0;
+        int mouse_y = 0;
     
         switch (e.type) {
             case SDL_MOUSEMOTION:
-                if (get_area().contains(e.motion.x, e.motion.y)) {
+                mouse_x = (int)((double) (e.motion.x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
+                mouse_y = (int)((double) (e.motion.y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
+                if (get_area().contains(mouse_x, mouse_y)) {
                     int newsel=iselected;
                     for (unsigned i=0; i<m_areas.size(); ++i)
-                        if (m_areas[i].contains(e.motion.x, e.motion.y))
+                        if (m_areas[i].contains(mouse_x, mouse_y))
                         {
                             newsel = ifirst+i;
                             break;
@@ -405,7 +410,9 @@ namespace enigma { namespace gui {
                 }
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                if (get_area().contains(e.button.x, e.button.y))
+                mouse_x = (int)((double) (e.button.x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
+                mouse_y = (int)((double) (e.button.y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
+                if (get_area().contains(mouse_x, mouse_y))
                     handled = handle_mousedown (&e);
                 break;
             case SDL_MOUSEWHEEL:
@@ -427,10 +434,12 @@ namespace enigma { namespace gui {
     }
     
     bool LevelWidget::handle_mousedown(const SDL_Event *e) {
+        int mouse_x = (int)((double) (e->button.x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
+        int mouse_y = (int)((double) (e->button.y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
         switch (e->button.button) {
             case SDL_BUTTON_LEFT:
                 for (unsigned i=0; i<m_areas.size(); ++i)
-                    if (m_areas[i].contains(e->button.x, e->button.y))
+                    if (m_areas[i].contains(mouse_x, mouse_y))
                     {
                         sound::EmitSoundEvent ("menuok");
                         iselected = ifirst+i;
@@ -449,7 +458,7 @@ namespace enigma { namespace gui {
                 break;
             case SDL_BUTTON_RIGHT: 
                 for (unsigned i=0; i<m_areas.size(); ++i)
-                    if (m_areas[i].contains(e->button.x, e->button.y))
+                    if (m_areas[i].contains(mouse_x, mouse_y))
                     {
                         sound::EmitSoundEvent ("menuok");
                         iselected = ifirst+i;
