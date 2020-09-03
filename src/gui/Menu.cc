@@ -226,7 +226,9 @@ Menu::Menu()
         }
     }
     
-    void Menu::track_active_widget( int x, int y ) {
+    void Menu::track_active_widget( int window_x, int window_y ) {
+        int x = (int)((double) (window_x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
+        int y = (int)((double) (window_y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
         switch_active_widget(find_widget(x, y));
     }
     

@@ -116,8 +116,8 @@ void MouseCursor::redraw() {
 }
 
 void MouseCursor::move(int newx, int newy) {
-    x = newx;
-    y = newy;
+    x = (int)((double) (newx * screen->size().w) / screen->window_size().w + 0.5);
+    y = (int)((double) (newy * screen->size().h) / screen->window_size().h + 0.5);
     changed = true;
 }
 
