@@ -19,6 +19,7 @@
 #define ECL_GEOM_HH
 
 #include "ecl_util.hh"
+#include "ecl_math.hh"
 
 #include <iosfwd>
 #include <vector>

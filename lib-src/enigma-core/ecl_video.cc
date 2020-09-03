@@ -335,8 +335,10 @@ ecl::Screen *ecl::Screen::get_instance() {
 
 ecl::Screen::Screen(SDL_Window *window)
 : m_window(window),
-  m_surface(Surface::make_surface(SDL_GetWindowSurface(window))),
-  m_sdlsurface(SDL_GetWindowSurface(window)),
+  //m_surface(Surface::make_surface(SDL_GetWindowSurface(window))),
+  //m_sdlsurface(SDL_GetWindowSurface(window)),
+  m_surface(Surface::make_surface(SDL_CreateRGBSurface(0, 800, 600, 32, 0xff0000, 0xff00, 0xff, 0xff000000))),
+  m_sdlsurface(m_surface->get_surface()),
   update_all_p(false) {
     assert(m_window);
     assert(m_surface);
@@ -361,6 +363,7 @@ void ecl::Screen::update_rect(const Rect &r) {
 
 void ecl::Screen::flush_updates() {
     if (update_all_p) {
+        SDL_BlitScaled(m_sdlsurface, NULL, SDL_GetWindowSurface(m_window), NULL);
         SDL_UpdateWindowSurface(m_window);
         update_all_p = false;
     } else if (!m_dirtyrects.empty()) {
@@ -369,7 +372,17 @@ void ecl::Screen::flush_updates() {
         std::vector<SDL_Rect> rects(m_dirtyrects.size());
         RectList::iterator j = m_dirtyrects.begin();
         for (unsigned i = 0; i < rects.size(); ++i, ++j)
-            sdl::copy_rect(rects[i], *j);
+        {
+            SDL_Rect sdlrect;
+            sdl::copy_rect(sdlrect, *j);
+            int nx = (int)((double) (j->x * window_size().w) / size().w + 0.5);
+            int ny = (int)((double) (j->y * window_size().h) / size().h + 0.5);
+            int nw = (int)((double) (j->w * window_size().w) / size().w + 0.5);
+            int nh = (int)((double) (j->h * window_size().h) / size().h + 0.5);
+            ecl::Rect scaledRect = Rect(nx, ny, nw, nh);
+            sdl::copy_rect(rects[i], scaledRect);
+            SDL_BlitScaled(m_sdlsurface, &sdlrect, SDL_GetWindowSurface(m_window), &rects[i]);
+        }
         SDL_UpdateWindowSurfaceRects(m_window, &rects[0], rects.size());
     }
     m_dirtyrects.clear();
@@ -385,6 +398,18 @@ int ecl::Screen::width() const {
 
 int ecl::Screen::height() const {
     return m_sdlsurface->h;
+}
+
+Rect ecl::Screen::window_size() const {
+    return Rect(0, 0, window_width(), window_height());
+}
+
+int ecl::Screen::window_width() const {
+    return SDL_GetWindowSurface(m_window)->w;
+}
+
+int ecl::Screen::window_height() const {
+    return SDL_GetWindowSurface(m_window)->h;
 }
 
 /* -------------------- Functions -------------------- */

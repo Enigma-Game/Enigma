@@ -171,6 +171,17 @@ private:
 
 /* -------------------- Screen -------------------- */
 
+/* Screen is a wrapper for one SDL_Window and one SDL_Surface.
+   SDL_Window brings its own SDL_Surface which was identical to
+   the first one till Enigma 1.30, which introduced scaled
+   windows. Now "window" is an SDL_Window which refers to the
+   actual window on the screen, and its corresponding SDL_Surface.
+   It shows a scaled version of the SDL_Surface "m_surface".
+   "get_surface", "size", "width", "height" etc. refer to the
+   non-scaled m_surface. The scaling will be performed by
+   "flush_updates".
+*/
+
 class Screen {
 public:
     Screen(SDL_Window *window);
@@ -188,6 +199,10 @@ public:
     Rect size() const;
     int width() const;
     int height() const;
+
+    Rect window_size() const;
+    int window_width() const;
+    int window_height() const;
 
     /* ---------- Static methods ---------- */
 

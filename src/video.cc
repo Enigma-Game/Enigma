@@ -343,8 +343,8 @@ VideoEngineImpl::~VideoEngineImpl() {
 
 void VideoEngineImpl::Init() {
     bool isFullScreen = false;  // app.prefs->getBool("FullScreen");
-    int w = 1280;
-    int h = 960;
+    int w = 800; //1280;
+    int h = 600; //960;
     OpenWindow(w, h, isFullScreen);
 
 // Mac icon is set via Makefile
@@ -405,6 +405,7 @@ void VideoEngineImpl::SetDisplayMode(const DisplayMode &display_mode, bool fulls
 void VideoEngineImpl::Resize(Sint32 width, Sint32 height) {
     SDL_SetWindowSize(window, width, height);
     SDL_RenderSetLogicalSize(renderer, width, height);
+    // TODO?: app.prefs->setProperty("FullScreen", false);
 }
 
 const VMInfo *VideoEngineImpl::GetInfo() {
