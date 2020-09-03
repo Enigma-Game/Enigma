@@ -229,9 +229,12 @@ namespace enigma { namespace gui {
             blit (gc, x - borderWidth, y - borderWidth, displayEditBorder ? img_editborder : img_border);
             blit (gc, x, y, img);
         } else {
-            img->set_alpha (127);
+            // With SDL2, set_alpha doesn't work properly anymore. We are therefore
+            // using set_brightness instead.
+            // TODO: Revert to set_alpha, once it's repaired.
+            img->set_brightness(127);
             blit (gc, x, y, img);
-            img->set_alpha(255);
+            img->set_brightness(255);
         }
 
         // Shade unavailable levels

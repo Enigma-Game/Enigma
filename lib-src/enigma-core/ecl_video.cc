@@ -303,6 +303,10 @@ void Surface::set_alpha(int a) {
     SDL_SetSurfaceAlphaMod(get_surface(), a);
 }
 
+void Surface::set_brightness(int a) {
+    SDL_SetSurfaceColorMod(get_surface(), a, a, a);
+}
+
 Surface *Surface::zoom(int w, int h) {
     SDL_Surface *s_new;
     s_new = zoomSurface(get_surface(), (double)w / width(), (double)h / height(), true);

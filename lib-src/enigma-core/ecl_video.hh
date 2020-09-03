@@ -118,6 +118,7 @@ public:
 
     void set_color_key(int r, int g, int b);
     void set_alpha(int a);
+    void set_brightness(int a);
 
     void lock();
     void unlock();
