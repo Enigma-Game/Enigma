@@ -216,7 +216,11 @@ namespace enigma
         bool errorInit;
         bool isMakePreviews;
         // TODO(sdl2): initialize display mode using preferences or desktop resolution.
-        DisplayMode selectedDisplayMode{800, 600};  //{1280, 960};
+        WindowSize selectedFullscreenMode {800, 600};  //{1280, 960};
+        WindowSize selectedWindowSize {800, 600};
+        VideoTilesetId selectedFullscreenTilesetId = VTS_40_130;
+        VideoTilesetId selectedWindowTilesetId = VTS_40_130;
+        
         bool bossKeyPressed;
 
     private:

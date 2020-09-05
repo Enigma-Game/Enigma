@@ -23,8 +23,11 @@
 #include "gui/TextField.hh"
 
 namespace enigma { namespace gui {
-    class VideoModeButton;
-    
+    class FullscreenModeButton;
+    class WindowSizeButton;
+    class FullscreenTilesetButton;
+    class WindowTilesetButton;
+
 /* -------------------- OptionsMenu -------------------- */
 
     class OptionsMenu : public Menu {
@@ -58,7 +61,10 @@ namespace enigma { namespace gui {
         gui::StaticTextButton *but_config_options;
         gui::StaticTextButton *but_paths_options;
         gui::BoolOptionButton *fullscreen;
-        gui::VideoModeButton *videomode;
+        gui::FullscreenModeButton *fullscreenmode;
+        gui::WindowSizeButton *windowsize;
+        gui::FullscreenTilesetButton *fullscreentileset;
+        gui::WindowTilesetButton *windowtileset;
         gui::TextField *userNameTF;
         gui::TextField *userPathTF;
         gui::TextField *userImagePathTF;

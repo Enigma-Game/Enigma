@@ -183,7 +183,6 @@ VMInfo video_modes[] = {
      VM_320x240, 320, 240,       // id, w, h
      16, VTS_16,                 // tilesize, tiletype
      "320x240", "CGA", "4:3",    // name, fsname, fs only
-     "models-16.lua", "gfx16/",  // initscript, dir
      Rect(0, 0, 320, 240),       // display area
      0, 0,                       // menu background image offsets
      {60, 39, 2, "-60x39"},        // thumbnail size/extension
@@ -200,7 +199,6 @@ VMInfo video_modes[] = {
      VM_640x480, 640, 480,       // id, w, h
      32, VTS_32,                 // tilesize, tiletype
      "640x480", "VGA", "4:3",    // name, fsname, fs only
-     "models-32.lua", "gfx32/",  // initscript, dir
      Rect(0, 0, 640, 480),       // display area
      0, 0,                       // menu background image offsets
      {120, 78, 4, "-120x78"},      // thumbnail size/extension
@@ -217,7 +215,6 @@ VMInfo video_modes[] = {
      VM_800x600, 800, 600,       // id, w, h
      40, VTS_40,                 // tilesize, tiletype
      "800x600", "SVGA", "4:3",   // name, fsname, fs only
-     "models-40.lua", "gfx40/",  // initscript, dir
      Rect(0, 0, 800, 600),       // display area
      0, 0,                       // menu background image offsets
      {120, 78, 4, "-120x78"},      // thumbnail size/extension
@@ -234,7 +231,6 @@ VMInfo video_modes[] = {
      VM_960x720, 960, 720,         // id, w, h
      48, VTS_48,                   // tilesize, tiletype
      "960x720", "960x720", "4:3",  // name, fsname, fs only
-     "models-48.lua", "gfx48/",    // initscript, dir
      Rect(0, 0, 960, 720),         // display area
      0, 0,                         // menu background image offsets
      {120, 78, 4, "-120x78"},        // thumbnail size/extension
@@ -251,7 +247,6 @@ VMInfo video_modes[] = {
      VM_1280x960, 1280, 960,         // id, w, h
      64, VTS_64,                     // tilesize, tiletype
      "1280x960", "1280x960", "4:3",  // name, fsname, fs only
-     "models-64.lua", "gfx64/",      // initscript, dir
      Rect(0, 0, 1280, 960),          // display area
      0, 0,                           // menu background image offsets
      {160, 104, 5, "-160x104"},        // thumbnail size/extension
@@ -264,6 +259,16 @@ VMInfo video_modes[] = {
      Rect(360, 884, 888, 53),        // text area //TODO
      1,                              // statusbar coffsety
     },
+};
+
+/*! List of available tilesets. */
+std::vector<VideoTileset> video_tilesets {
+    // Id, name, tiletype, optimal fullscreen mode, initscript, dir
+    {VTS_16_130, "16x16 Enigma 1.30", VTS_16,  VM_320x240, "models-16.lua", "gfx16/"},
+    {VTS_32_130, "32x32 Enigma 1.30", VTS_32,  VM_640x480, "models-32.lua", "gfx32/"},
+    {VTS_40_130, "40x40 Enigma 1.30", VTS_40,  VM_800x600, "models-40.lua", "gfx40/"},
+    {VTS_48_130, "48x48 Enigma 1.30", VTS_48,  VM_960x720, "models-48.lua", "gfx48/"},
+    {VTS_64_130, "64x64 Enigma 1.30", VTS_64, VM_1280x960, "models-64.lua", "gfx64/"},
 };
 
 }  // namespace
@@ -284,13 +289,17 @@ public:
     void SetCaption(const std::string &text) override;
     const std::string &GetCaption() override;
 
-    std::vector<DisplayMode> EnumerateDisplayModes() override;
-    DisplayMode ActiveDisplayMode() override;
-    void SetDisplayMode(const DisplayMode &display_mode, bool fullscreen) override;
+    std::vector<WindowSize> EnumerateDisplayModes() override;
+    std::vector<VideoTilesetId> EnumerateAllTilesets() override;
+    WindowSize ActiveDisplayMode() override;
+    void SetVideoTileset(const VideoTilesetId vtsid);
+    void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId id) override;
     void Resize(Sint32 width, Sint32 height) override;
 
     const VMInfo *GetInfo() override;
-    const VMInfo *GetInfo(VideoMode mode) { return &video_modes[mode]; }
+    const VMInfo *GetInfo(FullscreenMode mode) { return &video_modes[mode]; }
+    VideoTileset *GetTileset() override;
+    const VideoTilesetId GetTilesetId() override;
 
     bool SetFullscreen(bool enabled) override;
     bool ToggleFullscreen() override { return SetFullscreen(!IsFullscreen()); }
@@ -323,7 +332,7 @@ public:
 
 private:
     bool OpenWindow(int width, int height, bool fullscreen);
-    VideoMode FindClosestVideoMode(const DisplayMode &display_mode);
+    FullscreenMode FindClosestFullscreenMode(const WindowSize &display_mode);
     void CloseWindow();
 
     ecl::Screen *screen;
@@ -332,6 +341,8 @@ private:
     std::unique_ptr<Surface> back_buffer;
     std::unique_ptr<MouseCursor> cursor;
     std::string window_caption;
+    VideoTileset *video_tileset;
+    VideoTilesetId video_tileset_id;
 };
 
 VideoEngineImpl::VideoEngineImpl() : screen(NULL), window(NULL), renderer(NULL) {
@@ -345,6 +356,7 @@ void VideoEngineImpl::Init() {
     bool isFullScreen = false;  // app.prefs->getBool("FullScreen");
     int w = 800; //1280;
     int h = 600; //960;
+    SetVideoTileset(VTS_40_130);
     OpenWindow(w, h, isFullScreen);
 
 // Mac icon is set via Makefile
@@ -372,15 +384,15 @@ const std::string &VideoEngineImpl::GetCaption() {
     return window_caption;
 }
 
-std::vector<DisplayMode> VideoEngineImpl::EnumerateDisplayModes() {
-    std::vector<DisplayMode> modes;
+std::vector<WindowSize> VideoEngineImpl::EnumerateDisplayModes() {
+    std::vector<WindowSize> modes;
     const int display = 0;
     const int num_modes = SDL_GetNumDisplayModes(display);
     for (int i = 0; i < num_modes; ++i) {
         SDL_DisplayMode mode;
         if (SDL_GetDisplayMode(display, i, &mode) == 0) {
             Log << "  display mode " << mode.w << "x" << mode.h << "\n";
-            DisplayMode new_mode = {mode.w, mode.h};
+            WindowSize new_mode = {mode.w, mode.h};
             if (std::find(modes.begin(), modes.end(), new_mode) == modes.end())
                 modes.push_back(new_mode);
         }
@@ -388,18 +400,52 @@ std::vector<DisplayMode> VideoEngineImpl::EnumerateDisplayModes() {
     return modes;
 }
 
-DisplayMode VideoEngineImpl::ActiveDisplayMode() {
-    return {screen->width(), screen->height()};
+std::vector<VideoTilesetId> VideoEngineImpl::EnumerateAllTilesets() {
+    std::vector<VideoTilesetId> ids;
+    for (int i = VTSID_FIRST; i < VTSID_COUNT; i++) {
+        ids.push_back((VideoTilesetId) i);
+    }
+    return ids;
 }
 
-void VideoEngineImpl::SetDisplayMode(const DisplayMode &display_mode, bool fullscreen) {
-    DisplayMode old_mode = ActiveDisplayMode();
+WindowSize VideoEngineImpl::ActiveDisplayMode() {
+    return {screen->window_width(), screen->window_height()};
+}
+
+void VideoEngineImpl::SetVideoTileset(const VideoTilesetId vtsid) {
+    video_tileset_id = vtsid;
+    video_tileset = VideoTilesetFromId(vtsid);
+    assert(video_tileset);
+}
+
+void VideoEngineImpl::SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId vtsid) {
+    // Save old configuration in case the new one fails.
+    bool old_fs = IsFullscreen();
+    WindowSize old_mode = ActiveDisplayMode();
+    VideoTilesetId old_vtsid = GetTilesetId();
+    // Close old window, then try new config.
     CloseWindow();
-    if (!OpenWindow(display_mode.width, display_mode.height, fullscreen)) {
-        bool success = OpenWindow(old_mode.width, old_mode.height, false);
-        // TODO(sdl2): proper error handling when old mode cannot be re-enabled.
-        assert(success);
-    }
+    SetVideoTileset(vtsid);
+    if (OpenWindow(display_mode.width, display_mode.height, fullscreen))
+        return;
+    // Something went wrong with the new configuration -- try old config.
+    SetVideoTileset(old_vtsid);
+    if (OpenWindow(old_mode.width, old_mode.height, old_fs))
+        return;
+    // Try old config with window.
+    SetVideoTileset(old_vtsid);
+    if (OpenWindow(old_mode.width, old_mode.height, false))
+        return;
+    // Try two fallback solutions: 640x480, then 320x240, in windowed mode.
+    SetVideoTileset(VTS_32_130);
+    if (OpenWindow(640, 480, false))
+        return;
+    SetVideoTileset(VTS_16_130);
+    if (OpenWindow(320, 240, false))
+        return;
+    // Give up.
+    fprintf(stderr, "Could not find a working display mode, sorry.");
+    exit(1);
 }
 
 void VideoEngineImpl::Resize(Sint32 width, Sint32 height) {
@@ -409,9 +455,18 @@ void VideoEngineImpl::Resize(Sint32 width, Sint32 height) {
 }
 
 const VMInfo *VideoEngineImpl::GetInfo() {
-    auto mode = FindClosestVideoMode(ActiveDisplayMode());
+    FullscreenMode mode = FindClosestFullscreenMode(ActiveDisplayMode());
     assert(mode != VM_None);
     return &video_modes[mode];
+}
+
+VideoTileset *VideoEngineImpl::GetTileset() {
+    assert(video_tileset);
+    return video_tileset;
+}
+
+const VideoTilesetId VideoEngineImpl::GetTilesetId() {
+    return video_tileset_id;
 }
 
 bool VideoEngineImpl::SetFullscreen(bool enabled) {
@@ -476,7 +531,7 @@ bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
     if (!renderer)
         return false;
 
-    VideoMode video_mode = FindClosestVideoMode({width, height});
+    FullscreenMode video_mode = FindClosestFullscreenMode({width, height});
     const VMInfo *vminfo = GetInfo(video_mode);
     SDL_RenderSetLogicalSize(renderer, vminfo->width, vminfo->height);
 
@@ -491,7 +546,7 @@ bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
     return true;
 }
 
-VideoMode VideoEngineImpl::FindClosestVideoMode(const DisplayMode &display_mode) {
+FullscreenMode VideoEngineImpl::FindClosestFullscreenMode(const WindowSize &display_mode) {
     for (int i = VM_1280x960; i >= VM_320x240; --i) {
         const VMInfo &info = video_modes[i];
 
@@ -509,6 +564,7 @@ void VideoEngineImpl::CloseWindow() {
     SetInputGrab(false);
     cursor = nullptr;
     back_buffer = nullptr;
+    video_tileset = nullptr;
     delete screen;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -541,5 +597,14 @@ void ShowLoadingScreen(const char *text, int /* progress */) {
     screen->update_all();
     screen->flush_updates();
 }
+
+VideoTileset *VideoTilesetFromId(VideoTilesetId id) {
+    for (int i = 0; i < video_tilesets.size(); i++) {
+        if (video_tilesets[i].id == id) {
+            return &(video_tilesets[i]);
+        }
+    }
+    return &(video_tilesets[0]);
+};
 
 }  // namespace enigma

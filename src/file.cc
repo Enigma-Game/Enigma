@@ -341,7 +341,8 @@ GameFS::findSubfolderFiles(const string &folder, const string &filename) const
 bool GameFS::findImageFile (const string &basename, string &filename)
 {
     const VMInfo *vminfo = video_engine->GetInfo();
-    string fname = string(vminfo->gfxdir) + basename;
+    const VideoTileset *vts = video_engine->GetTileset();
+    string fname = string(vts->gfxdir) + basename;
     if (!findFile(fname, filename)) {
         // temporary workaround for incomplete 64 bit images
         if (vminfo->tt == VTS_64) {

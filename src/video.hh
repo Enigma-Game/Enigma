@@ -28,7 +28,7 @@
 
 namespace enigma {
 
-enum VideoMode {
+enum FullscreenMode {
     VM_None = -1,
     VM_320x240,
     VM_640x480,
@@ -36,6 +36,19 @@ enum VideoMode {
     VM_960x720,
     VM_1280x960,
     VM_COUNT
+};
+
+struct WindowSize {
+    int width;
+    int height;
+
+    bool operator==(const WindowSize &other) {
+        return width == other.width &&
+            height == other.height;
+    }
+    bool operator!=(const WindowSize &other) {
+        return !(*this == other);
+    }
 };
 
 // Tile size in pixels
@@ -47,6 +60,25 @@ enum VideoTileType {
     VTS_64 = 4,
 };
 
+enum VideoTilesetId {
+    VTSID_FIRST = 0,
+    VTS_16_130 = 0,
+    VTS_32_130 = 1,
+    VTS_40_130 = 2,
+    VTS_48_130 = 3,
+    VTS_64_130 = 4,
+    VTSID_COUNT
+};
+
+struct VideoTileset {
+    VideoTilesetId id;             // Id of tileset
+    const char *name;              // Name of tileset
+    VideoTileType tt;              // Tile type (encoding tile width and height)
+    FullscreenMode OptimalFullscreenMode;  // Tile width and height times 20x13
+    const char *initscript;        // Lua initialization script
+    const char *gfxdir;            // Directory that contains the graphics
+};
+
 struct ThumbnailInfo {
     int width, height;          // Width and height of thumbnails
     int border_width;           // width of border around thumbnail
@@ -54,15 +86,13 @@ struct ThumbnailInfo {
 };    
 
 struct VMInfo {
-    VideoMode mode;
+    FullscreenMode mode;
     int width, height;             // Screen width and height in pixels
     int tile_size;                 // Tile size in pixels
     VideoTileType tt;              // Tile type
     const char *name;              // Menu text resolution
     const char *std_name;          // Menu text svg standard
     const char *relation_name;     // Menu text relation width : height
-    const char *initscript;        // Lua initialization script
-    const char *gfxdir;            // Directory that contains the graphics
     ecl::Rect area;                // Area that is used for display
     int mbg_offsetx, mbg_offsety;  // offsets for menu background image
     ThumbnailInfo thumb;
@@ -74,19 +104,6 @@ struct VMInfo {
     ecl::Rect sb_itemarea;
     ecl::Rect sb_textarea;
     int sb_coffsety;              // center offset of statusbar due to top black lines
-};
-
-struct DisplayMode {
-    int width;
-    int height;
-
-    bool operator==(const DisplayMode &other) {
-        return width == other.width &&
-            height == other.height;
-    }
-    bool operator!=(const DisplayMode &other) {
-        return !(*this == other);
-    }
 };
 
 
@@ -105,16 +122,18 @@ public:
     virtual void SetCaption(const std::string &text) = 0;
     virtual const std::string &GetCaption() = 0;
 
-    virtual std::vector<DisplayMode> EnumerateDisplayModes() = 0;
-    virtual DisplayMode ActiveDisplayMode() = 0;
-    virtual void SetDisplayMode(const DisplayMode &display_mode, bool fullscreen) = 0;
+    virtual std::vector<WindowSize> EnumerateDisplayModes() = 0;
+    virtual std::vector<VideoTilesetId> EnumerateAllTilesets() = 0;
+    virtual WindowSize ActiveDisplayMode() = 0;
+    virtual void SetVideoTileset(const VideoTilesetId vtsid) = 0;
+    virtual void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId vtsid) = 0;
     virtual void Resize(Sint32 width, Sint32 height) = 0;
 
-    /*! Return information about current video mode. */
+    /*! Return information about current video mode and chosen tileset. */
     virtual const VMInfo *GetInfo() = 0;
+    virtual VideoTileset *GetTileset() = 0;
+    virtual const VideoTilesetId GetTilesetId() = 0;
 
-
-    
     // Switch between windowed and fullscreen mode. Returns true if fullscreen
     // mode is active afterwards.
     virtual bool SetFullscreen(bool on) = 0;
@@ -158,6 +177,7 @@ private:
 
 void VideoInit();
 void ShowLoadingScreen(const char *text, int progress);
+VideoTileset *VideoTilesetFromId(VideoTilesetId id);
 
 } // namespace enigma
 

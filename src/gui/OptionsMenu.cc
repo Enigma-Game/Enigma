@@ -50,9 +50,9 @@ public:
     FullscreenButton(ActionListener *al = 0);
 };
 
-class VideoModeButton : public ValueButton {
+class FullscreenModeButton : public ValueButton {
 public:
-    VideoModeButton();
+    FullscreenModeButton();
     void reinit();
 
 private:
@@ -60,8 +60,50 @@ private:
     void set_value(int value);
     std::string get_text(int value) const;
 
-    std::vector<DisplayMode> displayModes;
+    std::vector<WindowSize> displayModes;
     int selectedMode = 0;
+};
+
+class WindowSizeButton : public ValueButton {
+public:
+    WindowSizeButton();
+    void reinit();
+
+private:
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+
+    std::vector<WindowSize> displayModes;
+    int selectedMode = 0;
+};
+
+class FullscreenTilesetButton : public ValueButton {
+public:
+    FullscreenTilesetButton();
+    void reinit();
+
+private:
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+
+    std::vector<WindowSize> tilesets;
+    int selectedSet = 0;
+};
+
+class WindowTilesetButton : public ValueButton {
+public:
+    WindowTilesetButton();
+    void reinit();
+
+private:
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+
+    std::vector<VideoTilesetId> tilesets;
+    int selectedSet = 0;
 };
 
 class StereoButton : public ValueButton {
@@ -202,10 +244,16 @@ public:
         ScoreUploadButton() : BoolOptionButton("ScoreAutoUpload", N_("Always"), N_("Never"), this) {}
     };
 
-
-    /* -------------------- VideoModeButton -------------------- */
+    /* -------------------- FullscreenButton -------------------- */
     
-    VideoModeButton::VideoModeButton() : ValueButton(0, 1) {
+    FullscreenButton::FullscreenButton(ActionListener *al)
+    : BoolOptionButton("FullScreen", N_("Yes"), N_("No"), al)        
+    {
+    }
+    
+    /* -------------------- FullscreenModeButton -------------------- */
+    
+    FullscreenModeButton::FullscreenModeButton() : ValueButton(0, 1) {
         displayModes = video_engine->EnumerateDisplayModes();
         selectedMode = 0;
         auto pos =
@@ -216,30 +264,140 @@ public:
         init();
     }
     
-    void VideoModeButton::reinit() {
+    void FullscreenModeButton::reinit() {
         displayModes = video_engine->EnumerateDisplayModes();
         setMaxValue(displayModes.size() - 1);
     }
 
-    int VideoModeButton::get_value() const {
+    int FullscreenModeButton::get_value() const {
         return selectedMode;
     }
 
-    void VideoModeButton::set_value(int value) {
+    void FullscreenModeButton::set_value(int value) {
         selectedMode = value;
-        app.selectedDisplayMode = displayModes[value];
+        app.selectedFullscreenMode = displayModes[value];
 
         // TODO(sdl2): save current video mode to preferences.
         // app.prefs->setProperty(isFullScreen ? "VideoModesFullscreen" : "VideoModesWindow",
         //     isFullScreen ? info->fallback_fullscreen : info->fallback_window);
     }
 
-    std::string VideoModeButton::get_text(int value) const {
+    std::string FullscreenModeButton::get_text(int value) const {
         std::stringstream ss;
         ss << displayModes[value].width << " x " << displayModes[value].height;
         return ss.str();
     }
 
+    /* -------------------- WindowSizeButton -------------------- */
+    
+    WindowSizeButton::WindowSizeButton() : ValueButton(0, 1) {
+        displayModes = video_engine->EnumerateDisplayModes();
+        selectedMode = 0;
+        auto pos =
+            std::find(displayModes.begin(), displayModes.end(), video_engine->ActiveDisplayMode());
+        if (pos != displayModes.end())
+            selectedMode = pos - displayModes.begin();
+        setMaxValue(displayModes.size() - 1);
+        init();
+    }
+    
+    void WindowSizeButton::reinit() {
+        displayModes = video_engine->EnumerateDisplayModes();
+        setMaxValue(displayModes.size() - 1);
+    }
+
+    int WindowSizeButton::get_value() const {
+        return selectedMode;
+    }
+
+    void WindowSizeButton::set_value(int value) {
+        selectedMode = value;
+        app.selectedWindowSize = displayModes[value];
+
+        // TODO(sdl2): save current video mode to preferences.
+        // app.prefs->setProperty(isFullScreen ? "VideoModesFullscreen" : "VideoModesWindow",
+        //     isFullScreen ? info->fallback_fullscreen : info->fallback_window);
+    }
+
+    std::string WindowSizeButton::get_text(int value) const {
+        std::stringstream ss;
+        ss << displayModes[value].width << " x " << displayModes[value].height;
+        return ss.str();
+    }
+
+    /* -------------------- FullscreenTilesetButton -------------------- */
+    
+    FullscreenTilesetButton::FullscreenTilesetButton() : ValueButton(0, 1) {
+        tilesets = video_engine->EnumerateDisplayModes();
+        selectedSet = 0;
+        auto pos =
+            std::find(tilesets.begin(), tilesets.end(), video_engine->ActiveDisplayMode());
+        if (pos != tilesets.end())
+            selectedSet = pos - tilesets.begin();
+        setMaxValue(tilesets.size() - 1);
+        init();
+    }
+    
+    void FullscreenTilesetButton::reinit() {
+        tilesets = video_engine->EnumerateDisplayModes();
+        setMaxValue(tilesets.size() - 1);
+    }
+
+    int FullscreenTilesetButton::get_value() const {
+        return selectedSet;
+    }
+
+    void FullscreenTilesetButton::set_value(int value) {
+        selectedSet = value;
+        app.selectedFullscreenTilesetId = (VideoTilesetId) value;
+
+        // TODO(sdl2): save current video mode to preferences.
+        // app.prefs->setProperty(isFullScreen ? "VideoModesFullscreen" : "VideoModesWindow",
+        //     isFullScreen ? info->fallback_fullscreen : info->fallback_window);
+    }
+
+    std::string FullscreenTilesetButton::get_text(int value) const {
+        std::stringstream ss;
+        ss << tilesets[value].width << " x " << tilesets[value].height;
+        return ss.str();
+    }
+
+    /* -------------------- WindowTilesetButton -------------------- */
+    
+    WindowTilesetButton::WindowTilesetButton() : ValueButton(0, 1) {
+        tilesets = video_engine->EnumerateAllTilesets();
+        selectedSet = 0;
+        auto pos =
+            std::find(tilesets.begin(), tilesets.end(), video_engine->GetTilesetId());
+        if (pos != tilesets.end())
+            selectedSet = pos - tilesets.begin();
+        setMaxValue(tilesets.size() - 1);
+        init();
+    }
+    
+    void WindowTilesetButton::reinit() {
+        tilesets = video_engine->EnumerateAllTilesets();
+        setMaxValue(tilesets.size() - 1);
+    }
+
+    int WindowTilesetButton::get_value() const {
+        return selectedSet;
+    }
+
+    void WindowTilesetButton::set_value(int value) {
+        selectedSet = value;
+        app.selectedWindowTilesetId = tilesets[value];
+
+        // TODO(sdl2): save current video mode to preferences.
+        // app.prefs->setProperty(isFullScreen ? "VideoModesFullscreen" : "VideoModesWindow",
+        //     isFullScreen ? info->fallback_fullscreen : info->fallback_window);
+    }
+
+    std::string WindowTilesetButton::get_text(int value) const {
+        std::stringstream ss;
+        ss << VideoTilesetFromId(tilesets[value])->name;
+        return ss.str();
+    }
 
     /* -------------------- SoundSetButton -------------------- */
     
@@ -317,14 +475,6 @@ public:
         return string();
     }
     
-
-    /* -------------------- FullscreenButton -------------------- */
-    
-    FullscreenButton::FullscreenButton(ActionListener *al)
-    : BoolOptionButton("FullScreen", N_("Yes"), N_("No"), al)        
-    {
-    }
-    
     /* -------------------- LanguageButton -------------------- */
     
     int LanguageButton::get_value() const
@@ -380,7 +530,10 @@ public:
       but_audio_options(NULL),
       but_config_options(NULL),
       fullscreen(NULL),
-      videomode(NULL),
+      fullscreenmode(NULL),
+      windowsize(NULL),
+      fullscreentileset(NULL),
+      windowtileset(NULL),
       userNameTF(NULL),
       userPathTF(NULL),
       userImagePathTF(NULL),
@@ -522,7 +675,7 @@ public:
             case OPTIONS_MAIN:
                 OPTIONS_NEW_LB(N_("Language: "), language = new LanguageButton(this))
                 OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton(this))
-                OPTIONS_NEW_LB(N_("Video mode: "), videomode = new VideoModeButton())
+                OPTIONS_NEW_LB(N_("Fullscreen mode: "), fullscreenmode = new FullscreenModeButton())
                 OPTIONS_NEW_LB(N_("Mouse speed: "), new MouseSpeedButton())
                 OPTIONS_NEW_LB(N_("Sound volume: "), new SoundVolumeButton())
                 OPTIONS_NEW_LB(N_("Music volume: "), new MusicVolumeButton())
@@ -539,7 +692,10 @@ public:
             case OPTIONS_VIDEO:
                 OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton())
                 fullscreen->set_listener(this);
-                OPTIONS_NEW_LB(N_("Video mode: "), videomode = new VideoModeButton())
+                OPTIONS_NEW_LB(N_("Fullscreen mode: "), fullscreenmode = new FullscreenModeButton())
+                OPTIONS_NEW_LB(N_("Tileset in fullscreen mode: "), fullscreentileset = new FullscreenTilesetButton())
+                OPTIONS_NEW_LB(N_("Window size: "), windowsize = new WindowSizeButton())
+                OPTIONS_NEW_LB(N_("Tileset in window mode: "), windowtileset = new WindowTilesetButton())
                 break;
             case OPTIONS_AUDIO:
                 OPTIONS_NEW_LB(N_("Sound set: "), new SoundSetButton())
@@ -643,7 +799,10 @@ public:
         }
         language = NULL;
         fullscreen = NULL;
-        videomode = NULL;
+        fullscreenmode = NULL;
+        windowsize = NULL;
+        fullscreentileset = NULL;
+        windowtileset = NULL;
         menuMusicTF = NULL;
         userNameTF = NULL;
         userPathTF = NULL;

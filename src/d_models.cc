@@ -179,7 +179,7 @@ Anim2d *anim_templ = nullptr;
 /* -------------------- Functions -------------------- */
 
 void display::InitModels() {
-    const VMInfo *vminfo = video_engine->GetInfo();
+    const VideoTileset *vts = video_engine->GetTileset();
 
     modelmgr = new ModelManager;
 
@@ -203,8 +203,8 @@ void display::InitModels() {
 
     string fname;
 
-    fname = app.systemFS->findFile(vminfo->initscript);
-    if (lua::DoSysFile(L, vminfo->initscript) != lua::NO_LUAERROR) {
+    fname = app.systemFS->findFile(vts->initscript);
+    if (lua::DoSysFile(L, vts->initscript) != lua::NO_LUAERROR) {
         std::string message = ecl::strf("Error loading '%s'\nError: '%s'\n", fname.c_str(),
                                         lua::LastError(L).c_str());
         fprintf(stderr, "%s", message.c_str());
