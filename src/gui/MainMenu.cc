@@ -499,6 +499,10 @@ namespace enigma { namespace gui {
             m.manage();
         } else if (w == options) {
             ShowOptionsMenu(0);
+            clear();
+            reset_active_widget();
+            build_menu();
+            invalidate_all();
         } else if (w == help) {
             MainHelpMenu m;
             m.manage();

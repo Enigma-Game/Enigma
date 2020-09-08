@@ -605,7 +605,6 @@ bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
 }
 
 FullscreenMode VideoEngineImpl::FindClosestFullscreenMode(const WindowSize &display_mode) {
-    Log << "FindClosest " << display_mode.width << "x" << display_mode.height << "\n";
     for (int i = VM_1280x960; i >= VM_320x240; --i) {
         const VMInfo &info = video_modes[i];
 
