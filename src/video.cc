@@ -265,7 +265,7 @@ VMInfo video_modes[] = {
 
 /*! List of available tilesets. */
 std::vector<VideoTileset> video_tilesets {
-    // Id, name, tiletype, tilesize, optimal fullscreen mode, initscript, dir
+    // Id, name, tiletype, tilesize, optimal fullscreen mode, initscript, dir, fallback
     {VTS_16_130, "16x16 Enigma 1.30", VTS_16, 16,  VM_320x240, "models-16.lua", "gfx16/", VTS_32_130},
     {VTS_32_130, "32x32 Enigma 1.30", VTS_32, 32,  VM_640x480, "models-32.lua", "gfx32/", VTS_NONE},
     {VTS_40_130, "40x40 Enigma 1.30", VTS_40, 40,  VM_800x600, "models-40.lua", "gfx40/", VTS_NONE},

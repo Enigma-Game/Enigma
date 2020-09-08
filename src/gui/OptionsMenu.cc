@@ -522,7 +522,7 @@ public:
     
     /* -------------------- Options Menu -------------------- */
 
-    OptionsMenu::OptionsMenu(ecl::Surface *background_)
+    OptionsMenu::OptionsMenu(ecl::Surface *background_, bool gameIsOngoing_)
     : pagesVList(NULL),
       commandHList(NULL),
       optionsVList(NULL),
@@ -541,7 +541,8 @@ public:
       userPathTF(NULL),
       userImagePathTF(NULL),
       menuMusicTF(NULL),
-      background(background_) {
+      background(background_),
+      gameIsOngoing(gameIsOngoing_) {
         center();
         close_page();
         open_page(OPTIONS_MAIN);
@@ -677,7 +678,9 @@ public:
         switch (new_page) {
             case OPTIONS_MAIN:
                 OPTIONS_NEW_LB(N_("Language: "), language = new LanguageButton(this))
-                OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton(this))
+                if (!gameIsOngoing) {
+                    OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton(this))
+                }
                 //OPTIONS_NEW_LB(N_("Fullscreen resolution: "), fullscreenmode = new FullscreenModeButton())
                 OPTIONS_NEW_LB(N_("Mouse speed: "), new MouseSpeedButton())
                 OPTIONS_NEW_LB(N_("Sound volume: "), new SoundVolumeButton())
@@ -693,14 +696,18 @@ public:
                 OPTIONS_NEW_T(userNameTF)
                 break;
             case OPTIONS_VIDEO:
-                OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton())
-                fullscreen->set_listener(this);
-                OPTIONS_NEW_L(N_("In fullscreen mode: "))
-                OPTIONS_NEW_LB(N_("Screen resolution: "), fullscreenmode = new FullscreenModeButton())
-                OPTIONS_NEW_LB(N_("Tileset: "), fullscreentileset = new FullscreenTilesetButton())
-                OPTIONS_NEW_L(N_("In windowed mode: "))
-                OPTIONS_NEW_LB(N_("Tileset: "), windowtileset = new WindowTilesetButton())
-                OPTIONS_NEW_LB(N_("Window size: "), windowsize = new WindowSizeButton())
+                if (gameIsOngoing) {
+                    OPTIONS_NEW_L(N_("Sorry, no video changes during an ongoing game."))
+                } else {
+                    OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton())
+                    fullscreen->set_listener(this);
+                    OPTIONS_NEW_L(N_("In fullscreen mode: "))
+                    OPTIONS_NEW_LB(N_("Screen resolution: "), fullscreenmode = new FullscreenModeButton())
+                    OPTIONS_NEW_LB(N_("Tileset: "), fullscreentileset = new FullscreenTilesetButton())
+                    OPTIONS_NEW_L(N_("In windowed mode: "))
+                    OPTIONS_NEW_LB(N_("Tileset: "), windowtileset = new WindowTilesetButton())
+                    OPTIONS_NEW_LB(N_("Window size: "), windowsize = new WindowSizeButton())
+                }
                 break;
             case OPTIONS_AUDIO:
                 OPTIONS_NEW_LB(N_("Sound set: "), new SoundSetButton())
@@ -746,7 +753,8 @@ public:
     }
     
     void OptionsMenu::close_page() {
-        video_engine->ApplySettings();
+        if (!gameIsOngoing)
+            video_engine->ApplySettings();
         // Reset active and key_focus widgets, they will be deleted soon,
         // and we don't want any ticks for them anymore.
         reset_active_widget();
@@ -878,10 +886,10 @@ public:
     
 /* -------------------- Functions -------------------- */
 
-    void ShowOptionsMenu(Surface *background) {
+    void ShowOptionsMenu(Surface *background, bool gameIsOngoing) {
         if (background == 0)
             background = enigma::GetImage("menu_bg", ".jpg");
-        OptionsMenu m(background);
+        OptionsMenu m(background, gameIsOngoing);
         m.manage();
     }
 

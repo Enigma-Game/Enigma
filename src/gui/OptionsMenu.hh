@@ -32,7 +32,7 @@ namespace enigma { namespace gui {
 
     class OptionsMenu : public Menu {
     public:
-        OptionsMenu(ecl::Surface *background_);
+        OptionsMenu(ecl::Surface *background_, bool gameIsOngoing_);
         virtual void quit();
 
     private:
@@ -70,12 +70,13 @@ namespace enigma { namespace gui {
         gui::TextField *userImagePathTF;
         gui::TextField *menuMusicTF;
         ecl::Surface *background;
+        bool gameIsOngoing;
     };
 
 
 /* -------------------- Functions -------------------- */
 
-    void ShowOptionsMenu(ecl::Surface *background);
+    void ShowOptionsMenu(ecl::Surface *background, bool gameIsOngoing);
 
 }} // namespace enigma::gui
 #endif

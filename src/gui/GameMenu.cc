@@ -151,7 +151,7 @@ namespace enigma { namespace gui {
             
         }
         else if (w == options) {
-            enigma::gui::ShowOptionsMenu (0);
+            enigma::gui::ShowOptionsMenu (0, true);
             invalidate_all();
 //            Menu::quit();
         }

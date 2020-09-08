@@ -498,7 +498,7 @@ namespace enigma { namespace gui {
             LevelPackMenu m;
             m.manage();
         } else if (w == options) {
-            ShowOptionsMenu(0);
+            ShowOptionsMenu(0, false);
             clear();
             reset_active_widget();
             build_menu();
