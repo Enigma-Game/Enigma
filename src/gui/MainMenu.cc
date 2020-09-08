@@ -528,36 +528,12 @@ namespace enigma { namespace gui {
 
     void MainMenu::tick(double /* dtime */)
     {
-        bool wantFullScreen = app.prefs->getBool("FullScreen");
-        // Do we have to change the display mode and/or active tileset?
-        // Don't change the display if we are in window mode and only the
-        // window size has changed. (This will be handled by the options menu.)
-        if (wantFullScreen && video_engine->IsFullscreen()
-            && (app.selectedFullscreenMode == video_engine->ActiveDisplayMode())
-            && (video_engine->GetTilesetId() == app.selectedFullscreenTilesetId))
-            return;
-        if (!wantFullScreen && !video_engine->IsFullscreen()
-            //&& (app.selectedWindowSize == video_engine->ActiveDisplayMode())
-            && (video_engine->GetTilesetId() == app.selectedWindowTilesetId))
-            return;
-        // Change display mode.
-        if (wantFullScreen) {
-            video_engine->SetDisplayMode(app.selectedFullscreenMode, true, app.selectedFullscreenTilesetId);
-        } else {
-            video_engine->SetDisplayMode(app.selectedWindowSize, false, app.selectedWindowTilesetId);
-        }
-        // The display might have been set to a different setting. Save these.
-        app.prefs->setProperty("FullScreen", video_engine->IsFullscreen());
-        if (video_engine->IsFullscreen()) {
-            app.selectedFullscreenMode = video_engine->ActiveDisplayMode();
-        } else {
-            app.selectedWindowSize = video_engine->ActiveDisplayMode();
-        }
-        // Rebuild menu.
-        clear();
+        //TODO(sdl2): Change to a tick similar to other menues.
+        //video_engine->ApplySettings();
+        /*clear();
         reset_active_widget();
         build_menu();
-        invalidate_all();
+        invalidate_all();*/
     }
 
 /* -------------------- Functions -------------------- */

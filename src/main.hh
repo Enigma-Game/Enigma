@@ -217,7 +217,7 @@ namespace enigma
         bool isMakePreviews;
         // TODO(sdl2): initialize display mode using preferences or desktop resolution.
         WindowSize selectedFullscreenMode {800, 600};  //{1280, 960};
-        WindowSize selectedWindowSize {800, 600};
+        int selectedWindowSizeFactor = 0;
         VideoTilesetId selectedFullscreenTilesetId = VTS_40_130;
         VideoTilesetId selectedWindowTilesetId = VTS_40_130;
         

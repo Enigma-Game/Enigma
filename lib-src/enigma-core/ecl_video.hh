@@ -185,7 +185,7 @@ private:
 
 class Screen {
 public:
-    Screen(SDL_Window *window);
+    Screen(SDL_Window *window, int surface_w, int surface_h);
     ~Screen();
 
     void update_all();

@@ -74,6 +74,7 @@ struct VideoTileset {
     VideoTilesetId id;             // Id of tileset
     const char *name;              // Name of tileset
     VideoTileType tt;              // Tile type (encoding tile width and height)
+    int tilesize;                  // Tile size
     FullscreenMode OptimalFullscreenMode;  // Tile width and height times 20x13
     const char *initscript;        // Lua initialization script
     const char *gfxdir;            // Directory that contains the graphics
@@ -125,9 +126,13 @@ public:
     virtual std::vector<WindowSize> EnumerateDisplayModes() = 0;
     virtual std::vector<VideoTilesetId> EnumerateAllTilesets() = 0;
     virtual WindowSize ActiveDisplayMode() = 0;
+    virtual WindowSize ActiveWindowSize() = 0;
     virtual void SetVideoTileset(const VideoTilesetId vtsid) = 0;
     virtual void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId vtsid) = 0;
+    virtual void ApplySettings() = 0;
     virtual void Resize(Sint32 width, Sint32 height) = 0;
+    virtual WindowSize SelectedWindowSize() = 0;
+    virtual int ActiveWindowSizeFactor() = 0;
 
     /*! Return information about current video mode and chosen tileset. */
     virtual const VMInfo *GetInfo() = 0;

@@ -30,6 +30,8 @@
 #include "main.hh"
 #include "options.hh"
 #include "resource_cache.hh"
+#include "display.hh"
+#include "gui/LevelPreviewCache.hh"
 
 using namespace ecl;
 using namespace enigma;
@@ -263,12 +265,12 @@ VMInfo video_modes[] = {
 
 /*! List of available tilesets. */
 std::vector<VideoTileset> video_tilesets {
-    // Id, name, tiletype, optimal fullscreen mode, initscript, dir
-    {VTS_16_130, "16x16 Enigma 1.30", VTS_16,  VM_320x240, "models-16.lua", "gfx16/"},
-    {VTS_32_130, "32x32 Enigma 1.30", VTS_32,  VM_640x480, "models-32.lua", "gfx32/"},
-    {VTS_40_130, "40x40 Enigma 1.30", VTS_40,  VM_800x600, "models-40.lua", "gfx40/"},
-    {VTS_48_130, "48x48 Enigma 1.30", VTS_48,  VM_960x720, "models-48.lua", "gfx48/"},
-    {VTS_64_130, "64x64 Enigma 1.30", VTS_64, VM_1280x960, "models-64.lua", "gfx64/"},
+    // Id, name, tiletype, tilesize, optimal fullscreen mode, initscript, dir
+    {VTS_16_130, "16x16 Enigma 1.30", VTS_16, 16,  VM_320x240, "models-16.lua", "gfx16/"},
+    {VTS_32_130, "32x32 Enigma 1.30", VTS_32, 32,  VM_640x480, "models-32.lua", "gfx32/"},
+    {VTS_40_130, "40x40 Enigma 1.30", VTS_40, 40,  VM_800x600, "models-40.lua", "gfx40/"},
+    {VTS_48_130, "48x48 Enigma 1.30", VTS_48, 48,  VM_960x720, "models-48.lua", "gfx48/"},
+    {VTS_64_130, "64x64 Enigma 1.30", VTS_64, 64, VM_1280x960, "models-64.lua", "gfx64/"},
 };
 
 }  // namespace
@@ -292,9 +294,13 @@ public:
     std::vector<WindowSize> EnumerateDisplayModes() override;
     std::vector<VideoTilesetId> EnumerateAllTilesets() override;
     WindowSize ActiveDisplayMode() override;
+    WindowSize ActiveWindowSize() override;
     void SetVideoTileset(const VideoTilesetId vtsid);
     void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId id) override;
+    void ApplySettings() override;
     void Resize(Sint32 width, Sint32 height) override;
+    WindowSize SelectedWindowSize() override;
+    int ActiveWindowSizeFactor() override;
 
     const VMInfo *GetInfo() override;
     const VMInfo *GetInfo(FullscreenMode mode) { return &video_modes[mode]; }
@@ -408,8 +414,12 @@ std::vector<VideoTilesetId> VideoEngineImpl::EnumerateAllTilesets() {
     return ids;
 }
 
-WindowSize VideoEngineImpl::ActiveDisplayMode() {
+WindowSize VideoEngineImpl::ActiveWindowSize() {
     return {screen->window_width(), screen->window_height()};
+}
+
+WindowSize VideoEngineImpl::ActiveDisplayMode() {
+    return {screen->width(), screen->height()};
 }
 
 void VideoEngineImpl::SetVideoTileset(const VideoTilesetId vtsid) {
@@ -446,6 +456,51 @@ void VideoEngineImpl::SetDisplayMode(const WindowSize &display_mode, bool fullsc
     // Give up.
     fprintf(stderr, "Could not find a working display mode, sorry.");
     exit(1);
+}
+
+WindowSize VideoEngineImpl::SelectedWindowSize() {
+    int tilesize = VideoTilesetFromId(app.selectedWindowTilesetId)->tilesize;
+    if (app.selectedWindowSizeFactor == 0) {
+        return ActiveWindowSize();
+    }
+    return {app.selectedWindowSizeFactor * tilesize * 20, app.selectedWindowSizeFactor * tilesize * 15};
+}
+
+int VideoEngineImpl::ActiveWindowSizeFactor() {
+    return (int) (ActiveWindowSize().width / 20 / VideoTilesetFromId(app.selectedWindowTilesetId)->tilesize);
+}
+
+void VideoEngineImpl::ApplySettings() {
+    bool wantFullScreen = app.prefs->getBool("FullScreen");
+    // Do we have to change the display mode and/or active tileset?
+    if (wantFullScreen && IsFullscreen()
+        && (app.selectedFullscreenMode == ActiveWindowSize())
+        && (GetTilesetId() == app.selectedFullscreenTilesetId))
+        return;
+    if (!wantFullScreen && !IsFullscreen()
+        && (SelectedWindowSize() == ActiveWindowSize())
+        && (app.selectedWindowTilesetId == GetTilesetId()))
+        return;
+    // Change display mode.
+    if (wantFullScreen) {
+        SetDisplayMode(app.selectedFullscreenMode, true, app.selectedFullscreenTilesetId);
+    } else {
+        SetDisplayMode(SelectedWindowSize(), false, app.selectedWindowTilesetId);
+    }
+    // The display might have been set to a different setting. Save these.
+    app.prefs->setProperty("FullScreen", IsFullscreen());
+    if (video_engine->IsFullscreen()) {
+        app.selectedFullscreenMode = ActiveWindowSize();
+    } else {
+        app.selectedWindowSizeFactor = ActiveWindowSizeFactor();
+    }
+    // Restart display. TODO(sdl2): Decomment?
+    //enigma::WorldPrepareLevel();      // make sure no references to models remain
+    //enigma::ClearFontCache();
+    gui::LevelPreviewCache::instance()->clear();
+    //enigma::ClearImageCache();
+    display::Shutdown();
+    display::Init();
 }
 
 void VideoEngineImpl::Resize(Sint32 width, Sint32 height) {
@@ -525,7 +580,10 @@ bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
                               flags);
     if (!window)
         return false;
-    screen = new Screen(window);
+
+    assert(GetTileset());
+    int tilesize = GetTileset()->tilesize;
+    screen = new Screen(window, tilesize * 20, tilesize * 15);
 
     renderer = SDL_CreateSoftwareRenderer(SDL_GetWindowSurface(window));
     if (!renderer)
@@ -547,6 +605,7 @@ bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
 }
 
 FullscreenMode VideoEngineImpl::FindClosestFullscreenMode(const WindowSize &display_mode) {
+    Log << "FindClosest " << display_mode.width << "x" << display_mode.height << "\n";
     for (int i = VM_1280x960; i >= VM_320x240; --i) {
         const VMInfo &info = video_modes[i];
 

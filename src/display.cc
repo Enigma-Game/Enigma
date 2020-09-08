@@ -493,8 +493,7 @@ DisplayEngine::DisplayEngine(int tilew, int tileh)
   m_width(0),
   m_height(0),
   m_redrawp(0, 0) {
-    // TODO: use video mode size, not screen size
-    m_area = video_engine->GetScreen()->size();
+    m_area = video_engine->GetInfo()->area;
     m_screenoffset[0] = m_screenoffset[1] = 0;
 }
 
@@ -1606,8 +1605,8 @@ CommonDisplay::CommonDisplay(const ScreenArea &a) {
     m_engine = new DisplayEngine;
     m_engine->set_screen_area(a);
 
-    const VMInfo *vminfo = video_engine->GetInfo();
-    m_engine->set_tilesize(vminfo->tile_size, vminfo->tile_size);
+    VideoTileset *vts = video_engine->GetTileset();
+    m_engine->set_tilesize(vts->tilesize, vts->tilesize);
 
     // Create and configure display layers
     floor_layer = new DL_Grid;
@@ -1871,10 +1870,10 @@ void GameDisplay::resize_game_area(int w, int h) {
     int neww = w * e->get_tilew();
     int newh = h * e->get_tileh();
 
-    const VMInfo *vidinfo = video_engine->GetInfo();
+    VideoTileset *vts = video_engine->GetTileset();
 
-    int screenw = vidinfo->width;
-    int screenh = NTILESV * vidinfo->tile_size;
+    int screenw = NTILESH * vts->tilesize;
+    int screenh = NTILESV * vts->tilesize;
     if (neww > screenw || newh > screenh) {
         enigma::Log << "Illegal screen size (" << neww << "," << newh
                     << "): larger than physical display\n";

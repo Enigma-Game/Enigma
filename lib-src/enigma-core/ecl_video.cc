@@ -337,11 +337,12 @@ ecl::Screen *ecl::Screen::get_instance() {
     return m_instance;
 }
 
-ecl::Screen::Screen(SDL_Window *window)
+ecl::Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
 : m_window(window),
   //m_surface(Surface::make_surface(SDL_GetWindowSurface(window))),
   //m_sdlsurface(SDL_GetWindowSurface(window)),
-  m_surface(Surface::make_surface(SDL_CreateRGBSurface(0, 800, 600, 32, 0xff0000, 0xff00, 0xff, 0xff000000))),
+  m_surface(Surface::make_surface(
+      SDL_CreateRGBSurface(0, surface_w, surface_h, 32, 0xff0000, 0xff00, 0xff, 0xff000000))),
   m_sdlsurface(m_surface->get_surface()),
   update_all_p(false) {
     assert(m_window);
