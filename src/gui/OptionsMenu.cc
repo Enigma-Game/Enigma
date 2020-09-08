@@ -350,6 +350,8 @@ public:
     void WindowTilesetButton::set_value(int value) {
         selectedSet = value;
         app.selectedWindowTilesetId = tilesets[value];
+        if (get_parent() != NULL)
+            get_parent()->invalidate_all();
 
         // TODO(sdl2): save current video mode to preferences.
         // app.prefs->setProperty(isFullScreen ? "VideoModesFullscreen" : "VideoModesWindow",
