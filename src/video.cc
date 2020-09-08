@@ -291,8 +291,9 @@ public:
     void SetCaption(const std::string &text) override;
     const std::string &GetCaption() override;
 
-    std::vector<WindowSize> EnumerateDisplayModes() override;
+    std::vector<WindowSize> EnumerateFullscreenModes() override;
     std::vector<VideoTilesetId> EnumerateAllTilesets() override;
+    std::vector<VideoTilesetId> EnumerateFittingTilesets(WindowSize &display_mode) override;
     WindowSize ActiveDisplayMode() override;
     WindowSize ActiveWindowSize() override;
     void SetVideoTileset(const VideoTilesetId vtsid);
@@ -338,7 +339,6 @@ public:
 
 private:
     bool OpenWindow(int width, int height, bool fullscreen);
-    FullscreenMode FindClosestFullscreenMode(const WindowSize &display_mode);
     void CloseWindow();
 
     ecl::Screen *screen;
@@ -390,16 +390,16 @@ const std::string &VideoEngineImpl::GetCaption() {
     return window_caption;
 }
 
-std::vector<WindowSize> VideoEngineImpl::EnumerateDisplayModes() {
+std::vector<WindowSize> VideoEngineImpl::EnumerateFullscreenModes() {
     std::vector<WindowSize> modes;
     const int display = 0;
     const int num_modes = SDL_GetNumDisplayModes(display);
     for (int i = 0; i < num_modes; ++i) {
         SDL_DisplayMode mode;
         if (SDL_GetDisplayMode(display, i, &mode) == 0) {
-            Log << "  display mode " << mode.w << "x" << mode.h << "\n";
             WindowSize new_mode = {mode.w, mode.h};
-            if (std::find(modes.begin(), modes.end(), new_mode) == modes.end())
+            if (   (FindFullscreenMode(new_mode) != VM_None)
+                && (std::find(modes.begin(), modes.end(), new_mode) == modes.end()))
                 modes.push_back(new_mode);
         }
     }
@@ -410,6 +410,17 @@ std::vector<VideoTilesetId> VideoEngineImpl::EnumerateAllTilesets() {
     std::vector<VideoTilesetId> ids;
     for (int i = VTSID_FIRST; i < VTSID_COUNT; i++) {
         ids.push_back((VideoTilesetId) i);
+    }
+    return ids;
+}
+
+std::vector<VideoTilesetId> VideoEngineImpl::EnumerateFittingTilesets(WindowSize &display_mode) {
+    std::vector<VideoTilesetId> ids;
+    FullscreenMode fullscreen_mode = FindFullscreenMode(display_mode);
+    for (int i = VTSID_FIRST; i < VTSID_COUNT; i++) {
+        VideoTileset *vts = VideoTilesetFromId((VideoTilesetId) i);
+        if (vts->OptimalFullscreenMode == fullscreen_mode)
+            ids.push_back((VideoTilesetId) i);
     }
     return ids;
 }
@@ -471,24 +482,24 @@ int VideoEngineImpl::ActiveWindowSizeFactor() {
 }
 
 void VideoEngineImpl::ApplySettings() {
-    bool wantFullScreen = app.prefs->getBool("FullScreen");
+    bool wantFullscreen = app.prefs->getBool("FullScreen");
     // Do we have to change the display mode and/or active tileset?
-    if (wantFullScreen && IsFullscreen()
+    if (wantFullscreen && IsFullscreen()
         && (app.selectedFullscreenMode == ActiveWindowSize())
-        && (GetTilesetId() == app.selectedFullscreenTilesetId))
+        && (app.selectedFullscreenTilesetId == GetTilesetId()))
         return;
-    if (!wantFullScreen && !IsFullscreen()
+    if (!wantFullscreen && !IsFullscreen()
         && (SelectedWindowSize() == ActiveWindowSize())
         && (app.selectedWindowTilesetId == GetTilesetId()))
         return;
     // Change display mode.
-    if (wantFullScreen) {
+    if (wantFullscreen) {
         SetDisplayMode(app.selectedFullscreenMode, true, app.selectedFullscreenTilesetId);
     } else {
         SetDisplayMode(SelectedWindowSize(), false, app.selectedWindowTilesetId);
     }
     // The display might have been set to a different setting. Save these.
-    app.prefs->setProperty("FullScreen", IsFullscreen());
+    //TODO(sdl2): Decomment app.prefs->setProperty("FullScreen", IsFullscreen());
     if (video_engine->IsFullscreen()) {
         app.selectedFullscreenMode = ActiveWindowSize();
     } else {
@@ -506,7 +517,6 @@ void VideoEngineImpl::ApplySettings() {
 void VideoEngineImpl::Resize(Sint32 width, Sint32 height) {
     SDL_SetWindowSize(window, width, height);
     SDL_RenderSetLogicalSize(renderer, width, height);
-    // TODO?: app.prefs->setProperty("FullScreen", false);
 }
 
 const VMInfo *VideoEngineImpl::GetInfo() {
@@ -604,17 +614,6 @@ bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
     return true;
 }
 
-FullscreenMode VideoEngineImpl::FindClosestFullscreenMode(const WindowSize &display_mode) {
-    for (int i = VM_1280x960; i >= VM_320x240; --i) {
-        const VMInfo &info = video_modes[i];
-
-        if (info.width <= display_mode.width && info.height <= display_mode.height) {
-            return info.mode;
-        }
-    }
-    return VM_None;
-}
-
 void VideoEngineImpl::CloseWindow() {
     assert(window);
     assert(renderer);
@@ -654,6 +653,28 @@ void ShowLoadingScreen(const char *text, int /* progress */) {
 
     screen->update_all();
     screen->flush_updates();
+}
+
+FullscreenMode FindClosestFullscreenMode(const WindowSize &display_mode) {
+    for (int i = VM_1280x960; i >= VM_320x240; --i) {
+        const VMInfo &info = video_modes[i];
+
+        if (info.width <= display_mode.width && info.height <= display_mode.height) {
+            return info.mode;
+        }
+    }
+    return VM_None;
+}
+
+FullscreenMode FindFullscreenMode(const WindowSize &display_mode) {
+    for (int i = VM_1280x960; i >= VM_320x240; --i) {
+        const VMInfo &info = video_modes[i];
+
+        if (info.width == display_mode.width && info.height == display_mode.height) {
+            return info.mode;
+        }
+    }
+    return VM_None;
 }
 
 VideoTileset *VideoTilesetFromId(VideoTilesetId id) {

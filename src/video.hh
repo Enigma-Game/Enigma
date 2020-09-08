@@ -125,8 +125,9 @@ public:
     virtual void SetCaption(const std::string &text) = 0;
     virtual const std::string &GetCaption() = 0;
 
-    virtual std::vector<WindowSize> EnumerateDisplayModes() = 0;
+    virtual std::vector<WindowSize> EnumerateFullscreenModes() = 0;
     virtual std::vector<VideoTilesetId> EnumerateAllTilesets() = 0;
+    virtual std::vector<VideoTilesetId> EnumerateFittingTilesets(WindowSize &display_mode) = 0;
     virtual WindowSize ActiveDisplayMode() = 0;
     virtual WindowSize ActiveWindowSize() = 0;
     virtual void SetVideoTileset(const VideoTilesetId vtsid) = 0;
@@ -184,6 +185,8 @@ private:
 
 void VideoInit();
 void ShowLoadingScreen(const char *text, int progress);
+FullscreenMode FindClosestFullscreenMode(const WindowSize &display_mode);
+FullscreenMode FindFullscreenMode(const WindowSize &display_mode);
 VideoTileset *VideoTilesetFromId(VideoTilesetId id);
 
 } // namespace enigma
