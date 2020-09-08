@@ -337,11 +337,40 @@ GameFS::findSubfolderFiles(const string &folder, const string &filename) const
 }
 
 
-/* First search in video mode specific directory, then in "gfx/". */ 
-bool GameFS::findImageFile (const string &basename, string &filename)
+/* First search in tileset specific directory, then in gfx??, then
+   in gfx32 or gfx48, finally in "gfx/". Return a code encoding
+   necessary scaling of the result. */
+FindImageReturnCode GameFS::findImageFile (const string &basename, string &filename)
 {
     const VideoTileset *vts = video_engine->GetTileset();
     string fname = string(vts->gfxdir) + basename;
+    if (findFile(fname, filename))
+        return IMAGE_FOUND;
+    // The image is not where we expected it to be. Follow the fallback-chain.
+    while (vts->fallback != VTS_NONE) {
+        vts = VideoTilesetFromId(vts->fallback);
+        fname = string(vts->gfxdir) + basename;
+        if (findFile(fname, filename)) {
+            // Is scaling necessary?
+            int origtilesize = video_engine->GetTileset()->tilesize;
+            if (vts->tilesize == origtilesize)
+                return IMAGE_FOUND;
+            if ((vts->tilesize == 32) && (origtilesize == 16))
+                return IMAGE_NEEDS_SCALING_32_TO_16;
+            if ((vts->tilesize == 48) && (origtilesize == 64))
+                return IMAGE_NEEDS_SCALING_48_TO_64;
+            if ((vts->tilesize == 32) && (origtilesize == 64))
+                return IMAGE_NEEDS_SCALING_32_TO_64;
+            // Unknown scaling. Keep on fallbacking.
+        }
+    }
+    // Finally, try the gfx-directory.
+    fname = string ("gfx/") + basename;
+    return findFile(fname, filename) ? IMAGE_FOUND : IMAGE_NOT_FOUND;
+
+
+    /*const VideoTilesetId fallback_vts = VideoTilesetFromId(vts->fallback);
+    if 
     if (!findFile(fname, filename)) {
         // temporary workaround for incomplete 64 bit images
         if (vts->tt == VTS_64) {
@@ -356,7 +385,7 @@ bool GameFS::findImageFile (const string &basename, string &filename)
         fname = string ("gfx/") + basename;
         return findFile(fname, filename);
     }
-    return true;
+    return findFile(fname, filename);*/
 }
 
 /* -------------------- Helper functions -------------------- */

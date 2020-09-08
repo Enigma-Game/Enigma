@@ -98,14 +98,15 @@ Surface *SurfaceCache_Alpha::acquire(const std::string &name) {
     std::string filename;
     std::unique_ptr<ecl::Surface> es;
 
-    if (app.resourceFS->findImageFile(name + ".png", filename))
+    FindImageReturnCode found = app.resourceFS->findImageFile(name + ".png", filename);
+    if (found != IMAGE_NOT_FOUND)
         es.reset(ecl::LoadImage(filename.c_str()));
-
-    if (es && vminfo->tt == VTS_64 && filename.find("gfx32") != std::string::npos)
-        return es->zoom(es->width() * 2, es->height() * 2);
-    if (es && vminfo->tt == VTS_16 && filename.find("gfx32") != std::string::npos)
+    if (found == IMAGE_NEEDS_SCALING_32_TO_16)
         return es->zoom(es->width() / 2, es->height() / 2);
-
+    if (found == IMAGE_NEEDS_SCALING_48_TO_64)
+        return es->zoom((es->width() * 4) / 3, (es->height() * 4) / 3);
+    if (found == IMAGE_NEEDS_SCALING_32_TO_64)
+        return es->zoom(es->width() * 2, es->height() * 2);
     return es.release();
 }
 
@@ -114,16 +115,18 @@ Surface *SurfaceCache::acquire(const std::string &name) {
     std::string filename;
     std::unique_ptr<ecl::Surface> es;
 
-    if (app.resourceFS->findImageFile(name + ".png", filename)) {
+    FindImageReturnCode found = app.resourceFS->findImageFile(name + ".png", filename);
+    if (found != IMAGE_NOT_FOUND) {
         // TODO(sdl2): is there a reason this is different from SurfaceCache_Alpha?
         if (SDL_Surface *s = IMG_Load(filename.c_str()))
-            es.reset(Surface::make_surface(s));
+            es.reset(ecl::LoadImage(filename.c_str()));
     }
-    if (es && vminfo->tt == VTS_64 && filename.find("gfx32") != std::string::npos)
-        return es->zoom(es->width() * 2, es->height() * 2);
-    if (es && vminfo->tt == VTS_16 && filename.find("gfx32") != std::string::npos)
+    if (found == IMAGE_NEEDS_SCALING_32_TO_16)
         return es->zoom(es->width() / 2, es->height() / 2);
-
+    if (found == IMAGE_NEEDS_SCALING_48_TO_64)
+        return es->zoom((es->width() * 4) / 3, (es->height() * 4) / 3);
+    if (found == IMAGE_NEEDS_SCALING_32_TO_64)
+        return es->zoom(es->width() * 2, es->height() * 2);
     return es.release();
 }
 

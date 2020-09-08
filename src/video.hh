@@ -61,6 +61,7 @@ enum VideoTileType {
 };
 
 enum VideoTilesetId {
+    VTS_NONE = -1,
     VTSID_FIRST = 0,
     VTS_16_130 = 0,
     VTS_32_130 = 1,
@@ -78,6 +79,7 @@ struct VideoTileset {
     FullscreenMode OptimalFullscreenMode;  // Tile width and height times 20x13
     const char *initscript;        // Lua initialization script
     const char *gfxdir;            // Directory that contains the graphics
+    VideoTilesetId fallback;       // Fallback tileset if images are missing
 };
 
 struct ThumbnailInfo {
