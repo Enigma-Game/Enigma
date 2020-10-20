@@ -32,9 +32,15 @@ enum FullscreenMode {
     VM_None = -1,
     VM_320x240,
     VM_640x480,
+    VM_640x512,
     VM_800x600,
     VM_960x720,
+    VM_1024x768,
+    VM_1280x720,
     VM_1280x960,
+    VM_1280x1024,
+    VM_1440x960,
+    VM_1680x1050,
     VM_COUNT
 };
 
@@ -90,6 +96,7 @@ struct ThumbnailInfo {
 
 struct VMInfo {
     FullscreenMode mode;
+    int preferences_number;        // Mode number in preference file, 1.0-compatible
     int width, height;             // Screen width and height in pixels
     int tile_size;                 // Tile size in pixels
     VideoTileType tt;              // Tile type
@@ -107,6 +114,8 @@ struct VMInfo {
     ecl::Rect sb_itemarea;
     ecl::Rect sb_textarea;
     int sb_coffsety;              // center offset of statusbar due to top black lines
+    bool f_available;             // Is this video mode in fullscreen available?
+    std::string f_fallback;       // hyphen separated list of modes e.g. "-7-4-2-0-"
 };
 
 
