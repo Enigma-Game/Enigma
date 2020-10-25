@@ -348,7 +348,7 @@ FindImageReturnCode GameFS::findImageFile (const string &basename, string &filen
         return IMAGE_FOUND;
     // The image is not where we expected it to be. Follow the fallback-chain.
     while (vts->fallback != VTS_NONE) {
-        vts = VideoTilesetFromId(vts->fallback);
+        vts = VideoTilesetById(vts->fallback);
         fname = string(vts->gfxdir) + basename;
         if (findFile(fname, filename)) {
             // Is scaling necessary?

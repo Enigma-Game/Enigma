@@ -29,19 +29,21 @@
 namespace enigma {
 
 enum FullscreenMode {
-    VM_None = -1,
-    VM_320x240,
-    VM_640x480,
-    VM_640x512,
-    VM_800x600,
-    VM_960x720,
-    VM_1024x768,
-    VM_1280x720,
-    VM_1280x960,
-    VM_1280x1024,
-    VM_1440x960,
-    VM_1680x1050,
-    VM_COUNT
+    VM_NONE = -1,
+    VM_FIRST = 0,
+    VM_320x240 = 0,    ///< 16x16 basic    -  4:3  - CGA
+    VM_640x480 = 1,    ///< 32x32 basic    -  4:3  - VGA
+    VM_640x512 = 2,    ///< 32x32 embedded -  5:4  - none
+    VM_800x600 = 3,    ///< 40x40 basic    -  4:3  - SVGA
+    VM_960x720 = 4,    ///< 48x48 basic    -  4:3  - none
+    VM_1024x768 = 5,   ///< 48x48 embedded -  4:3  - XGA
+    VM_1280x720 = 6,   ///< 48x48 embedded - 16:9  - HD720
+    VM_1280x960 = 7,   ///< 64x64 basic    -  4:3  - none
+    VM_1280x1024 = 8,  ///< 64x64 embedded -  5:4  - SXGA
+    VM_1440x960 = 9,   ///< 64x64 embedded -  3:2  - none
+    VM_1680x1050 = 10,  ///< 64x64 embedded - 16:10 - WSXGA+
+    VM_LAST = 10,
+    VM_COUNT = 11
 };
 
 struct WindowSize {
@@ -86,6 +88,7 @@ struct VideoTileset {
     const char *initscript;        // Lua initialization script
     const char *gfxdir;            // Directory that contains the graphics
     VideoTilesetId fallback;       // Fallback tileset if images are missing
+    bool is_standard;              // There should be one standard tileset per tile type.
 };
 
 struct ThumbnailInfo {
@@ -96,7 +99,7 @@ struct ThumbnailInfo {
 
 struct VMInfo {
     FullscreenMode mode;
-    int preferences_number;        // Mode number in preference file, 1.0-compatible
+    int preffilenr;                // Mode number in preference file, 1.0-compatible
     int width, height;             // Screen width and height in pixels
     int tile_size;                 // Tile size in pixels
     VideoTileType tt;              // Tile type
@@ -139,7 +142,7 @@ public:
     virtual std::vector<VideoTilesetId> EnumerateFittingTilesets(WindowSize &display_mode) = 0;
     virtual WindowSize ActiveDisplayMode() = 0;
     virtual WindowSize ActiveWindowSize() = 0;
-    virtual void SetVideoTileset(const VideoTilesetId vtsid) = 0;
+    virtual void SetVideoTileset(VideoTileset* vts) = 0;
     virtual void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId vtsid) = 0;
     virtual void ApplySettings() = 0;
     virtual void Resize(Sint32 width, Sint32 height) = 0;
@@ -196,7 +199,26 @@ void VideoInit();
 void ShowLoadingScreen(const char *text, int progress);
 FullscreenMode FindClosestFullscreenMode(const WindowSize &display_mode);
 FullscreenMode FindFullscreenMode(const WindowSize &display_mode);
-VideoTileset *VideoTilesetFromId(VideoTilesetId id);
+FullscreenMode PrefFileNrToMode(int prefnr);
+
+/**
+ * Calculate the best fullscreen mode out of the users preferences that is
+ * available for the current configuration. As the user preference
+ * state a sequence of fallback modes this function returns a useful
+ * mode even if the user did run previously a future version of Enigma
+ * and selected a mode that is not available in this Enigma version.
+ * Note that the numbers in the sequence do not directly correspond
+ * to the video_modes-sequence, but rather to their "preffilenr".
+ * @arg  modes           string of modes to parse, typically from a pref file
+ * @arg  available_only  if true, only choose modes available for fullscreen
+ * @arg  seq             sequence number of best available mode, default to 1
+ * @return               the preferable video mode
+ */
+FullscreenMode ParseVideomodesFallbackString(std::string modes, bool available_only, int seq = 1);
+
+VideoTileset* VideoTilesetById(VideoTilesetId id);
+VideoTileset* VideoTilesetByName(std::string name);
+VideoTileset* StandardTileset(VideoTileType tt);
 
 } // namespace enigma
 

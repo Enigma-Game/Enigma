@@ -345,9 +345,9 @@ public:
     }
 
     std::string FullscreenTilesetButton::get_text(int value) const {
-        std::stringstream ss;
-        ss << VideoTilesetFromId(tilesets[value])->name;
-        return ss.str();
+        VideoTileset* vts = VideoTilesetById(tilesets[value]);
+        assert(vts);
+        return vts->name;
     }
 
     /* -------------------- WindowTilesetButton -------------------- */
@@ -384,9 +384,9 @@ public:
     }
 
     std::string WindowTilesetButton::get_text(int value) const {
-        std::stringstream ss;
-        ss << VideoTilesetFromId(tilesets[value])->name;
-        return ss.str();
+        VideoTileset* vts = VideoTilesetById(tilesets[value]);
+        assert(vts);
+        return vts->name;
     }
 
     /* -------------------- WindowSizeButton -------------------- */
@@ -407,17 +407,22 @@ public:
 
     void WindowSizeButton::set_value(int value) {
         selectedMode = value;
-        int tilesize = VideoTilesetFromId(app.selectedWindowTilesetId)->tilesize;
+        VideoTileset* vts = VideoTilesetById(app.selectedWindowTilesetId);
+        assert(vts);
+        int tilesize = vts->tilesize;
         if (value != 0) {
             app.selectedWindowSizeFactor = value;
         }
+        // TODO(sdl2): Actually USE tilesize? Or get rid of it.
         // TODO(sdl2): save current video mode to preferences.
         // app.prefs->setProperty(isFullScreen ? "VideoModesFullscreen" : "VideoModesWindow",
         //     isFullScreen ? info->fallback_fullscreen : info->fallback_window);
     }
 
     std::string WindowSizeButton::get_text(int value) const {
-        int tilesize = VideoTilesetFromId(app.selectedWindowTilesetId)->tilesize;
+        VideoTileset* vts = VideoTilesetById(app.selectedWindowTilesetId);
+        assert(vts);
+        int tilesize = vts->tilesize;
         std::stringstream ss;
         if (value == 0)
             ss << "Not fixed";
