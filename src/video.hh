@@ -145,12 +145,14 @@ public:
     virtual void SetVideoTileset(VideoTileset* vts) = 0;
     virtual void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId vtsid) = 0;
     virtual void ApplySettings() = 0;
+    virtual void SaveWindowSizePreferences() = 0;
     virtual void Resize(Sint32 width, Sint32 height) = 0;
     virtual WindowSize SelectedWindowSize() = 0;
     virtual int ActiveWindowSizeFactor() = 0;
 
-    /*! Return information about current video mode and chosen tileset. */
+    /*! Return information about current or other video mode(s) and chosen tileset. */
     virtual const VMInfo *GetInfo() = 0;
+    virtual const VMInfo *GetInfo(FullscreenMode mode) = 0;
     virtual VideoTileset *GetTileset() = 0;
     virtual const VideoTilesetId GetTilesetId() = 0;
 
@@ -219,6 +221,7 @@ FullscreenMode ParseVideomodesFallbackString(std::string modes, bool available_o
 VideoTileset* VideoTilesetById(VideoTilesetId id);
 VideoTileset* VideoTilesetByName(std::string name);
 VideoTileset* StandardTileset(VideoTileType tt);
+std::string VideoTilesetPrefName(VideoTilesetId id);
 
 } // namespace enigma
 

@@ -417,6 +417,7 @@ public:
     void SetVideoTileset(VideoTileset* vts);
     void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId id) override;
     void ApplySettings() override;
+    void SaveWindowSizePreferences() override;
     void Resize(Sint32 width, Sint32 height) override;
     WindowSize SelectedWindowSize() override;
     int ActiveWindowSizeFactor() override;
@@ -699,6 +700,8 @@ int VideoEngineImpl::ActiveWindowSizeFactor() {
 
 void VideoEngineImpl::ApplySettings() {
     bool wantFullscreen = app.prefs->getBool("FullScreen");
+    if (wantFullscreen && !IsFullscreen())
+        SaveWindowSizePreferences();
     // Do we have to change the display mode and/or active tileset?
     if (wantFullscreen && IsFullscreen()
         && (app.selectedFullscreenMode == ActiveWindowSize())
@@ -715,19 +718,21 @@ void VideoEngineImpl::ApplySettings() {
         SetDisplayMode(SelectedWindowSize(), false, app.selectedWindowTilesetId);
     }
     // The display might have been set to a different setting. Save these.
-    //TODO(sdl2): Decomment app.prefs->setProperty("FullScreen", IsFullscreen());
-    if (video_engine->IsFullscreen()) {
+    app.prefs->setProperty("FullScreen", IsFullscreen());
+    if (IsFullscreen()) {
         app.selectedFullscreenMode = ActiveWindowSize();
     } else {
-        app.selectedWindowSizeFactor = ActiveWindowSizeFactor();
+        SaveWindowSizePreferences();
     }
-    // Restart display. TODO(sdl2): Decomment?
-    //enigma::WorldPrepareLevel();      // make sure no references to models remain
-    //enigma::ClearFontCache();
     gui::LevelPreviewCache::instance()->clear();
-    //enigma::ClearImageCache();
     display::Shutdown();
     display::Init();
+}
+
+void VideoEngineImpl::SaveWindowSizePreferences() {
+    WindowSize ws = ActiveWindowSize();
+    app.prefs->setProperty("WindowWidth", ws.width);
+    app.prefs->setProperty("WindowHeight", ws.height);
 }
 
 void VideoEngineImpl::Resize(Sint32 width, Sint32 height) {
@@ -752,6 +757,9 @@ const VideoTilesetId VideoEngineImpl::GetTilesetId() {
 
 bool VideoEngineImpl::SetFullscreen(bool enabled) {
     // TODO(sdl2): change display mode if necessary
+    if (!IsFullscreen())
+        SaveWindowSizePreferences();
+
     SDL_SetWindowFullscreen(window, enabled ? SDL_WINDOW_FULLSCREEN : 0);
     return IsFullscreen();
 }
@@ -851,7 +859,7 @@ VideoEngine *video_engine = nullptr;
 void VideoInit() {
     video_engine = new VideoEngineImpl;
     video_engine->Init();
-    Log << "VideoInit done\n";
+    Log << "VideoInit done.\n";
 }
 
 void ShowLoadingScreen(const char *text, int /* progress */) {
@@ -934,6 +942,11 @@ VideoTileset* VideoTilesetById(VideoTilesetId id) {
 };
 
 VideoTileset* VideoTilesetByName(std::string name) {
+    if (name == "16x16 Standard")  return StandardTileset(VTS_16);
+    if (name == "32x32 Standard")  return StandardTileset(VTS_32);
+    if (name == "40x40 Standard")  return StandardTileset(VTS_40);
+    if (name == "48x48 Standard")  return StandardTileset(VTS_48);
+    if (name == "64x64 Standard")  return StandardTileset(VTS_64);
     for(auto it = std::begin(video_tilesets); it != std::end(video_tilesets); ++it)
         if (it->name == name)
             return &(*it);
@@ -948,5 +961,16 @@ VideoTileset* StandardTileset(VideoTileType tt) {
     exit(1);
 }
 
+std::string VideoTilesetPrefName(VideoTilesetId id) {
+    VideoTileset* vts = VideoTilesetById(id);
+    if (vts == nullptr)
+        return "Error while saving tileset preferences.";
+    std::stringstream ss;
+    if (vts->is_standard)
+        ss << (vts->tilesize) << "x" << (vts->tilesize) << " Standard";
+    else
+        ss << (vts->name);
+    return ss.str();
+}
 
 }  // namespace enigma

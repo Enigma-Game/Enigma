@@ -347,9 +347,14 @@ void Application::init(int argc, char **argv)
         app.prefs->setProperty("FullScreen", false);
     }
     if (isMakePreviews) {
-        // TODO(sdl2): fix this.
+        // we will not save the prefs!
         app.prefs->setProperty("VideoModesFullscreen", "-0-");
-        app.prefs->setProperty("VideoModesWindow", "-0-");     // we will not save the prefs!
+        app.prefs->setProperty("FullscreenTileset", "32x32 Standard");
+        app.prefs->setProperty("VideoModesWindow", "-0-");
+        app.prefs->setProperty("WindowWidth", 640);
+        app.prefs->setProperty("WindowHeight", 480);
+        app.prefs->setProperty("WindowSizeFactor", 1);
+        app.prefs->setProperty("WindowTileset", "32x32 Standard");
     }
 
     // initialize user data paths -- needs preferences, system datapaths
@@ -897,6 +902,8 @@ void Application::shutdown()
     enigma::ShutdownWorld();
     display::Shutdown();
     if (!isMakePreviews) { // avoid saves on preview generation
+        if (!video_engine->IsFullscreen())
+            video_engine->SaveWindowSizePreferences();
         lev::RatingManager::instance()->save();
         if (lev::PersistentIndex::historyIndex != NULL)
             lev::PersistentIndex::historyIndex->save();

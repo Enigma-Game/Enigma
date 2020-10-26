@@ -215,11 +215,10 @@ namespace enigma
         DOMErrorReporter *domSerErrorHandler;
         bool errorInit;
         bool isMakePreviews;
-        // TODO(sdl2): initialize display mode using preferences or desktop resolution.
-        WindowSize selectedFullscreenMode {800, 600};  //{1280, 960};
+        WindowSize selectedFullscreenMode {0, 0};
         int selectedWindowSizeFactor = 0;
-        VideoTilesetId selectedFullscreenTilesetId = VTS_40_130;
-        VideoTilesetId selectedWindowTilesetId = VTS_40_130;
+        VideoTilesetId selectedFullscreenTilesetId = VTS_NONE;
+        VideoTilesetId selectedWindowTilesetId = VTS_NONE;
         
         bool bossKeyPressed;
 
