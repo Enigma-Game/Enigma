@@ -469,6 +469,7 @@ void Client::on_keydown(SDL_Event &e) {
         case SDLK_BACKSPACE: user_input_backspace(); break;
         case SDLK_UP: user_input_previous(); break;
         case SDLK_DOWN: user_input_next(); break;
+        case SDLK_SPACE: user_input_append(' '); break;
         default: {
             // SDL2's GetKeyName only returns uppercase keys.
             const char *key = SDL_GetKeyName(e.key.keysym.sym);
