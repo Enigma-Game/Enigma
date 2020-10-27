@@ -237,8 +237,7 @@ void Client::handle_events() {
 
 void Client::update_mouse_button_state() {
     int b = SDL_GetMouseState(0, 0);
-    // TODO(sdl2): Should we replace SDL_BUTTON(1) by SDL_BUTTON(SDL_BUTTON_LEFT) etc.?
-    player::InhibitPickup((b & SDL_BUTTON(1)) || (b & SDL_BUTTON(3)));
+    player::InhibitPickup((b & SDL_BUTTON_LMASK) || (b & SDL_BUTTON_RMASK));
 }
 
 void Client::on_mousebutton(SDL_Event &e) {
