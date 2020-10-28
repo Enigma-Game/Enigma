@@ -215,10 +215,10 @@ namespace enigma
         DOMErrorReporter *domSerErrorHandler;
         bool errorInit;
         bool isMakePreviews;
-        WindowSize selectedFullscreenMode {0, 0};
-        int selectedWindowSizeFactor = 0;
+        FullscreenMode selectedFullscreenMode = VM_NONE;
         VideoTilesetId selectedFullscreenTilesetId = VTS_NONE;
         VideoTilesetId selectedWindowTilesetId = VTS_NONE;
+        int selectedWindowSizeFactor = 0;
         
         bool bossKeyPressed;
 

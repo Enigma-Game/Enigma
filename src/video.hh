@@ -137,9 +137,9 @@ public:
     virtual void SetCaption(const std::string &text) = 0;
     virtual const std::string &GetCaption() = 0;
 
-    virtual std::vector<WindowSize> EnumerateFullscreenModes() = 0;
+    virtual std::vector<FullscreenMode> EnumerateFullscreenModes() = 0;
     virtual std::vector<VideoTilesetId> EnumerateAllTilesets() = 0;
-    virtual std::vector<VideoTilesetId> EnumerateFittingTilesets(WindowSize &display_mode) = 0;
+    virtual std::vector<VideoTilesetId> EnumerateFittingTilesets(FullscreenMode fmode) = 0;
     virtual WindowSize ActiveDisplayMode() = 0;
     virtual WindowSize ActiveWindowSize() = 0;
     virtual void SetVideoTileset(VideoTileset* vts) = 0;

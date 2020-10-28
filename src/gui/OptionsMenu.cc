@@ -76,7 +76,7 @@ private:
     std::string get_text(int value) const;
     FullscreenTilesetButton *dependent_button;
 
-    std::vector<WindowSize> displayModes;
+    std::vector<FullscreenMode> displayModes;
     int selectedMode = 0;
 };
 
@@ -293,9 +293,9 @@ public:
                 dependent_button->reinit();
             if (get_parent() != NULL)
                 get_parent()->invalidate_all();
-            FullscreenMode mode = FindFullscreenMode(displayModes[value]);
-            std::string modes = (video_engine->GetInfo(mode))->f_fallback;
-            app.prefs->setProperty("VideoModesFullscreen", modes);
+            const VMInfo* info = video_engine->GetInfo(displayModes[value]);
+            assert(info);
+            app.prefs->setProperty("VideoModesFullscreen", info->f_fallback);
         }
     }
 
@@ -303,8 +303,11 @@ public:
         std::stringstream ss;
         if (displayModes.size() == 0)
             ss << N_("None found");
-        else
-            ss << displayModes[value].width << " x " << displayModes[value].height;
+        else {
+            const VMInfo* info = video_engine->GetInfo(displayModes[value]);
+            assert(info);
+            ss << info->width << " x " << info->height;
+        }
         return ss.str();
     }
 

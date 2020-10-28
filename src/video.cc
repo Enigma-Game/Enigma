@@ -409,9 +409,9 @@ public:
     void SetCaption(const std::string &text) override;
     const std::string &GetCaption() override;
 
-    std::vector<WindowSize> EnumerateFullscreenModes() override;
+    std::vector<FullscreenMode> EnumerateFullscreenModes() override;
     std::vector<VideoTilesetId> EnumerateAllTilesets() override;
-    std::vector<VideoTilesetId> EnumerateFittingTilesets(WindowSize &display_mode) override;
+    std::vector<VideoTilesetId> EnumerateFittingTilesets(FullscreenMode fmode) override;
     WindowSize ActiveDisplayMode() override;
     WindowSize ActiveWindowSize() override;
     void SetVideoTileset(VideoTileset* vts);
@@ -487,15 +487,19 @@ void VideoEngineImpl::Init() {
     // Sanitize and save preferences for fullscreen mode.
     FullscreenMode fmode = ParseVideomodesFallbackString(app.prefs->getString("VideoModesFullscreen"), true);
     VideoTileset* fvts = VideoTilesetByName(app.prefs->getString("FullscreenTileset"));
-    if (fmode != VM_NONE) {
-        if ((fvts == nullptr) || (fvts->tt != video_modes[fmode].tt))
-            fvts = StandardTileset(video_modes[fmode].tt);
-        app.selectedFullscreenMode = {video_modes[fmode].width, video_modes[fmode].height};
-        app.selectedFullscreenTilesetId = fvts->id;
-    } else {
-        app.selectedFullscreenMode = {0, 0};
+    std::vector<FullscreenMode> available_modes = EnumerateFullscreenModes();
+    auto modepos = std::find(available_modes.begin(), available_modes.end(), fmode);
+    if ((fmode == VM_NONE) || (modepos == available_modes.end())) {
+        // Fullscreen mode is not available
+        app.selectedFullscreenMode = VM_NONE;
         app.selectedFullscreenTilesetId = VTS_NONE;
         isFullScreen = false;
+    } else {
+        // Fullscreen mode is available
+        if ((fvts == nullptr) || (fvts->tt != video_modes[fmode].tt))
+            fvts = StandardTileset(video_modes[fmode].tt);
+        app.selectedFullscreenMode = fmode;
+        app.selectedFullscreenTilesetId = fvts->id;
     }
     // Sanitize and save preferences for window mode.
     int w = app.prefs->getInt("WindowWidth");
@@ -560,7 +564,7 @@ void VideoEngineImpl::Init() {
     }
     // Save the de-facto modes (just in "app", not as preference).    
     if (video_engine->IsFullscreen()) {
-        app.selectedFullscreenMode = ActiveWindowSize();
+        app.selectedFullscreenMode = FindFullscreenMode(ActiveWindowSize());
         app.selectedFullscreenTilesetId = GetTilesetId();
     } else {
         app.selectedWindowTilesetId == GetTilesetId();
@@ -590,22 +594,22 @@ const std::string &VideoEngineImpl::GetCaption() {
     return window_caption;
 }
 
-std::vector<WindowSize> VideoEngineImpl::EnumerateFullscreenModes() {
-    std::vector<WindowSize> modes;
+std::vector<FullscreenMode> VideoEngineImpl::EnumerateFullscreenModes() {
+    std::vector<FullscreenMode> modes;
     const int display = 0;
     const int num_modes = SDL_GetNumDisplayModes(display);
     for (int i = 0; i < num_modes; ++i) {
         SDL_DisplayMode mode;
         if (SDL_GetDisplayMode(display, i, &mode) == 0) {
             WindowSize new_mode = {mode.w, mode.h};
-            FullscreenMode corresponding_mode = FindFullscreenMode(new_mode);
-            if (   (corresponding_mode != VM_NONE)
-                && (video_modes[corresponding_mode].f_available)
-                && (std::find(modes.begin(), modes.end(), new_mode) == modes.end()))
+            FullscreenMode fmode = FindFullscreenMode(new_mode);
+            if (   (fmode != VM_NONE)
+                && (video_modes[fmode].f_available)
+                && (std::find(modes.begin(), modes.end(), fmode) == modes.end()))
             {
                 Log << "Found fullscreen mode: " << new_mode.width
                     << "x" << new_mode.height << "\n";
-                modes.push_back(new_mode);
+                modes.push_back(fmode);
             }
         }
     }
@@ -620,9 +624,9 @@ std::vector<VideoTilesetId> VideoEngineImpl::EnumerateAllTilesets() {
     return ids;
 }
 
-std::vector<VideoTilesetId> VideoEngineImpl::EnumerateFittingTilesets(WindowSize &display_mode) {
+std::vector<VideoTilesetId> VideoEngineImpl::EnumerateFittingTilesets(FullscreenMode fmode) {
     std::vector<VideoTilesetId> ids;
-    const VMInfo* vminfo = GetInfo(FindFullscreenMode(display_mode));
+    const VMInfo* vminfo = GetInfo(fmode);
     assert(vminfo);
     for (int i = VTSID_FIRST; i < VTSID_COUNT; i++) {
         VideoTileset *vts = VideoTilesetById((VideoTilesetId) i);
@@ -704,7 +708,7 @@ void VideoEngineImpl::ApplySettings() {
         SaveWindowSizePreferences();
     // Do we have to change the display mode and/or active tileset?
     if (wantFullscreen && IsFullscreen()
-        && (app.selectedFullscreenMode == ActiveWindowSize())
+        && (app.selectedFullscreenMode == FindFullscreenMode(ActiveWindowSize()))
         && (app.selectedFullscreenTilesetId == GetTilesetId()))
         return;
     if (!wantFullscreen && !IsFullscreen()
@@ -713,14 +717,16 @@ void VideoEngineImpl::ApplySettings() {
         return;
     // Change display mode.
     if (wantFullscreen) {
-        SetDisplayMode(app.selectedFullscreenMode, true, app.selectedFullscreenTilesetId);
+        int w = video_modes[app.selectedFullscreenMode].width;
+        int h = video_modes[app.selectedFullscreenMode].height;
+        SetDisplayMode({w,h}, true, app.selectedFullscreenTilesetId);
     } else {
         SetDisplayMode(SelectedWindowSize(), false, app.selectedWindowTilesetId);
     }
     // The display might have been set to a different setting. Save these.
     app.prefs->setProperty("FullScreen", IsFullscreen());
     if (IsFullscreen()) {
-        app.selectedFullscreenMode = ActiveWindowSize();
+        app.selectedFullscreenMode = FindFullscreenMode(ActiveWindowSize());
     } else {
         SaveWindowSizePreferences();
     }
