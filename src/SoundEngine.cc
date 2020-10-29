@@ -355,23 +355,32 @@ void SoundEngine_SDL::update_channel (int channel)
     SoundEvent &se = m_channelinfo[channel];
 
     double volume;
-    int    left;
-    int    right;
+    //int    left;
+    //int    right;
     if (se.has_position) {
         ecl::V2 distv = se.position - m_listenerpos;
-        int xdist = int(distv[0] * options::GetDouble("StereoSeparation"));
-        left  = ecl::Clamp (255 - xdist, 0, 255);
-        right = ecl::Clamp (255 + xdist, 0, 255);
+        //int xdist = int(distv[0] * options::GetDouble("StereoSeparation"));
+        //left  = ecl::Clamp (127 - xdist, 0, 254);
+        //right = ecl::Clamp (127 + xdist, 0, 254);
         volume = se.effectiveVolume(length(distv));
     }
     else
     {
         volume = se.volume;
-        left = se.left;
-        right = se.right;
+        //left = se.left;
+        //right = se.right;
     }
 
-    Mix_SetPanning (channel, left, right);
+    /* TODO(sdl2): Mix_SetPanning crashes under Linux (e.g. in just23, andreas31, ...)
+       Here is a backtrace:
+    #0  __lll_lock_wait (futex=futex@entry=0x555555c37bd0, private=0) at lowlevellock.c:52
+    #1  ... in __GI___pthread_mutex_lock (mutex=0x555555c37bd0) at ../nptl/pthread_mutex_lock.c:115
+    #2  ... in  () at /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0
+    #3  ... in Mix_SetPanning () at /usr/lib/x86_64-linux-gnu/libSDL2_mixer-2.0.so.0
+    #4  ... in sound::SoundEngine_SDL::update_channel(int) (this=<optimized out>, channel=5)
+       If you repair this, please decomment "xdist", "left" and "right" above. */
+
+    //Mix_SetPanning (channel, left, right);
 
     int mixvol = ecl::round_down<int>(volume * MIX_MAX_VOLUME);
     Mix_Volume(channel, ecl::Clamp(mixvol, 0, MIX_MAX_VOLUME));
