@@ -156,6 +156,12 @@ public:
     virtual VideoTileset *GetTileset() = 0;
     virtual const VideoTilesetId GetTilesetId() = 0;
 
+    /*! Identify fullscreen modes by window size or other properties. */
+    virtual FullscreenMode FindFullscreenMode(const WindowSize &display_mode) = 0;
+    virtual FullscreenMode FindClosestFullscreenMode(const WindowSize &display_mode) = 0;
+    virtual FullscreenMode FullscreenModeByPrefNr(int prefnr) = 0;
+    virtual FullscreenMode ParseVideomodesFallbackString(std::string modes, bool available_only, int seq = 1) = 0;
+
     // Switch between windowed and fullscreen mode. Returns true if fullscreen
     // mode is active afterwards.
     virtual bool SetFullscreen(bool on) = 0;
@@ -199,24 +205,6 @@ private:
 
 void VideoInit();
 void ShowLoadingScreen(const char *text, int progress);
-FullscreenMode FindClosestFullscreenMode(const WindowSize &display_mode);
-FullscreenMode FindFullscreenMode(const WindowSize &display_mode);
-FullscreenMode PrefFileNrToMode(int prefnr);
-
-/**
- * Calculate the best fullscreen mode out of the users preferences that is
- * available for the current configuration. As the user preference
- * state a sequence of fallback modes this function returns a useful
- * mode even if the user did run previously a future version of Enigma
- * and selected a mode that is not available in this Enigma version.
- * Note that the numbers in the sequence do not directly correspond
- * to the video_modes-sequence, but rather to their "preffilenr".
- * @arg  modes           string of modes to parse, typically from a pref file
- * @arg  available_only  if true, only choose modes available for fullscreen
- * @arg  seq             sequence number of best available mode, default to 1
- * @return               the preferable video mode
- */
-FullscreenMode ParseVideomodesFallbackString(std::string modes, bool available_only, int seq = 1);
 
 VideoTileset* VideoTilesetById(VideoTilesetId id);
 VideoTileset* VideoTilesetByName(std::string name);

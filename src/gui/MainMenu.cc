@@ -530,14 +530,7 @@ namespace enigma { namespace gui {
         invalidate_all();
     }
 
-    void MainMenu::tick(double /* dtime */)
-    {
-        //TODO(sdl2): Change to a tick similar to other menues.
-        //video_engine->ApplySettings();
-        /*clear();
-        reset_active_widget();
-        build_menu();
-        invalidate_all();*/
+    void MainMenu::tick(double /* dtime */) {
     }
 
 /* -------------------- Functions -------------------- */

@@ -414,7 +414,7 @@ public:
     std::vector<VideoTilesetId> EnumerateFittingTilesets(FullscreenMode fmode) override;
     WindowSize ActiveDisplayMode() override;
     WindowSize ActiveWindowSize() override;
-    void SetVideoTileset(VideoTileset* vts);
+    void SetVideoTileset(VideoTileset* vts) override;
     void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId id) override;
     void ApplySettings() override;
     void SaveWindowSizePreferences() override;
@@ -423,9 +423,14 @@ public:
     int ActiveWindowSizeFactor() override;
 
     const VMInfo *GetInfo() override;
-    const VMInfo *GetInfo(FullscreenMode mode) { return &video_modes[mode]; }
+    const VMInfo *GetInfo(FullscreenMode mode) override { return &video_modes[mode]; }
     VideoTileset *GetTileset() override;
     const VideoTilesetId GetTilesetId() override;
+
+    FullscreenMode FindFullscreenMode(const WindowSize &display_mode) override;
+    FullscreenMode FindClosestFullscreenMode(const WindowSize &display_mode) override;
+    FullscreenMode FullscreenModeByPrefNr(int prefnr) override;
+    FullscreenMode ParseVideomodesFallbackString(std::string modes, bool available_only, int seq = 1) override;
 
     bool SetFullscreen(bool enabled) override;
     bool ToggleFullscreen() override { return SetFullscreen(!IsFullscreen()); }
@@ -442,19 +447,7 @@ public:
     int Mousey() override { return cursor->get_y(); }
 
     bool GetInputGrab() override { return SDL_GetWindowGrab(window) == SDL_TRUE; }
-
-    bool SetInputGrab(bool enabled) override {
-        // From SDL 1 to SDL 2, the old grabbing commands were
-        // split up into two separate pairs, one setting the mouse mode,
-        // and one defining the window to be grabbed. As long as Enigma
-        // uses only one window, we use both SDL_Set... commands in parallel,
-        // but only SDL_GetWindowGrab to retrieve the current state. When
-        // Enigma starts using several windows, this needs to be adapted.
-        bool old_state = GetInputGrab();
-        SDL_SetWindowGrab(window, enabled ? SDL_TRUE : SDL_FALSE);
-        SDL_SetRelativeMouseMode(enabled ? SDL_TRUE : SDL_FALSE);
-        return old_state;
-    }
+    bool SetInputGrab(bool enabled) override;
 
 private:
     bool OpenWindow(int width, int height, bool fullscreen);
@@ -723,7 +716,7 @@ void VideoEngineImpl::ApplySettings() {
     } else {
         SetDisplayMode(SelectedWindowSize(), false, app.selectedWindowTilesetId);
     }
-    // The display might have been set to a different setting. Save these.
+    // The display might have been set to different settings. Save these.
     app.prefs->setProperty("FullScreen", IsFullscreen());
     if (IsFullscreen()) {
         app.selectedFullscreenMode = FindFullscreenMode(ActiveWindowSize());
@@ -858,6 +851,88 @@ void VideoEngineImpl::CloseWindow() {
     SDL_DestroyWindow(window);
 }
 
+
+FullscreenMode VideoEngineImpl::FindFullscreenMode(const WindowSize &display_mode) {
+    for (int i = VM_LAST; i >= VM_FIRST; --i) {
+        const VMInfo &info = video_modes[i];
+        if (info.width == display_mode.width && info.height == display_mode.height) {
+            return info.mode;
+        }
+    }
+    return VM_NONE;
+}
+
+FullscreenMode VideoEngineImpl::FindClosestFullscreenMode(const WindowSize &display_mode) {
+    for (int i = VM_LAST; i >= VM_FIRST; --i) {
+        const VMInfo &info = video_modes[i];
+        if (info.width <= display_mode.width && info.height <= display_mode.height) {
+            return info.mode;
+        }
+    }
+    return VM_NONE;
+}
+
+FullscreenMode VideoEngineImpl::FullscreenModeByPrefNr(int prefnr) {
+    for (int i = VM_LAST; i >= VM_FIRST; --i) {
+        const VMInfo &info = video_modes[i];
+        if (info.preffilenr == prefnr)
+            return info.mode;
+    }
+    return VM_NONE;
+}
+
+/**
+ * Calculate the best fullscreen mode out of the users preferences that is
+ * available for the current configuration. As the user preference
+ * state a sequence of fallback modes this function returns a useful
+ * mode even if the user did run previously a future version of Enigma
+ * and selected a mode that is not available in this Enigma version.
+ * Note that the numbers in the sequence do not directly correspond
+ * to the video_modes-sequence, but rather to their "preffilenr".
+ * @arg  modes           string of modes to parse, typically from a pref file
+ * @arg  available_only  if true, only choose modes available for fullscreen
+ * @arg  seq             sequence number of best available mode, default to 1
+ * @return               the preferable video mode
+ */
+FullscreenMode VideoEngineImpl::ParseVideomodesFallbackString
+            (std::string modes, bool available_only, int seq) {
+    // seq defaults to 1.
+    // In Enigma 1.3, we actually use our own fallback system, so we only
+    // ever use the very first known and activated mode we find, and work
+    // through our own fallbacks from there on. Therefore, this function
+    // is used with seq = 1 only.
+    if (modes.length() > 1) {
+        std::istringstream ms(modes);
+        FullscreenMode mode = VM_NONE;
+        int prefnr = -1;
+        ms.ignore();  // leading '-'
+        while (ms && seq > 0) {
+            ms >> std::dec >> prefnr;
+            ms.ignore();
+            mode = FullscreenModeByPrefNr(prefnr);
+            if ((!available_only) || video_modes[mode].f_available) {
+                if (seq == 1)
+                    return mode;
+                --seq;
+            }
+        }
+    }
+    return VM_NONE;
+}
+
+bool VideoEngineImpl::SetInputGrab(bool enabled) {
+    // From SDL 1 to SDL 2, the old grabbing commands were
+    // split up into two separate pairs, one setting the mouse mode,
+    // and one defining the window to be grabbed. As long as Enigma
+    // uses only one window, we use both SDL_Set... commands in parallel,
+    // but only SDL_GetWindowGrab to retrieve the current state. When
+    // Enigma starts using several windows, this needs to be adapted.
+    bool old_state = GetInputGrab();
+    SDL_SetWindowGrab(window, enabled ? SDL_TRUE : SDL_FALSE);
+    SDL_SetRelativeMouseMode(enabled ? SDL_TRUE : SDL_FALSE);
+    return old_state;
+}
+
 // -------------------- Global variables & functions --------------------
 
 VideoEngine *video_engine = nullptr;
@@ -884,60 +959,6 @@ void ShowLoadingScreen(const char *text, int /* progress */) {
 
     screen->update_all();
     screen->flush_updates();
-}
-
-FullscreenMode FindClosestFullscreenMode(const WindowSize &display_mode) {
-    for (int i = VM_LAST; i >= VM_FIRST; --i) {
-        const VMInfo &info = video_modes[i];
-        if (info.width <= display_mode.width && info.height <= display_mode.height) {
-            return info.mode;
-        }
-    }
-    return VM_NONE;
-}
-
-FullscreenMode FindFullscreenMode(const WindowSize &display_mode) {
-    for (int i = VM_LAST; i >= VM_FIRST; --i) {
-        const VMInfo &info = video_modes[i];
-        if (info.width == display_mode.width && info.height == display_mode.height) {
-            return info.mode;
-        }
-    }
-    return VM_NONE;
-}
-
-FullscreenMode PrefFileNrToMode(int prefnr) {
-    for (int i = VM_LAST; i >= VM_FIRST; --i) {
-        const VMInfo &info = video_modes[i];
-        if (info.preffilenr == prefnr)
-            return info.mode;
-    }
-    return VM_NONE;
-}
-
-FullscreenMode ParseVideomodesFallbackString(std::string modes, bool available_only, int seq) {
-    // seq defaults to 1.
-    // In Enigma 1.3, we actually use our own fallback system, so we only
-    // ever use the very first known and activated mode we find, and work
-    // through our own fallbacks from there on. Therefore, this function
-    // is used with seq = 1 only.
-    if (modes.length() > 1) {
-        std::istringstream ms(modes);
-        FullscreenMode mode = VM_NONE;
-        int prefnr = -1;
-        ms.ignore();  // leading '-'
-        while (ms && seq > 0) {
-            ms >> std::dec >> prefnr;
-            ms.ignore();
-            mode = PrefFileNrToMode(prefnr);
-            if ((!available_only) || video_modes[mode].f_available) {
-                if (seq == 1)
-                    return mode;
-                --seq;
-            }
-        }
-    }
-    return VM_NONE;
 }
 
 VideoTileset* VideoTilesetById(VideoTilesetId id) {
