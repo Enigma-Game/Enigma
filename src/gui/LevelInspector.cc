@@ -181,8 +181,9 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         isDeveloperMode(showDeveloperInfo)
     {
         bool didGenerate;  // dummy
-        previewImage = LevelPreviewCache::instance()->getPreview(aLevel, true, didGenerate);
-        const video::VMInfo *vminfo = video::GetInfo();
+        const VMInfo *vminfo = video_engine->GetInfo();
+        previewImage =
+            LevelPreviewCache::instance()->getPreview(aLevel, vminfo->thumb, true, didGenerate);
         const int vshrink = vminfo->width < 640 ? 1 : 0;
         vspacing = vminfo->height < 400 ? 1 :(vminfo->height < 500 ? 2 :(vminfo->height < 650 ? 3 : 4));
         vspacing2 = vminfo->height < 400 ? 8 :(vminfo->height < 500 ? 16 :(vminfo->height < 650 ? 14 : 16));
@@ -234,9 +235,13 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         authorT.add(new Label(N_("Author: "), HALIGN_RIGHT));
         authorT.add(new Label(N_("Contact: "), HALIGN_RIGHT));
         authorT.add(new Label(N_("Homepage: "), HALIGN_RIGHT));
-        
-        BuildVList author(this, Rect(hmargin+(vshrink?55+5:110+10),vmargin,
-                vminfo->width-(hmargin+(vshrink?55+5:110+10))-(vshrink?5:10)-(vminfo->thumbw+(vshrink?5:10))-hmargin,vshrink?12:25), vspacing);
+
+        BuildVList author(this, Rect(hmargin + (vshrink ? 55 + 5 : 110 + 10), vmargin,
+                                     vminfo->width - (hmargin + (vshrink ? 55 + 5 : 110 + 10)) -
+                                         (vshrink ? 5 : 10) -
+                                         (vminfo->thumb.width + (vshrink ? 5 : 10)) - hmargin,
+                                     vshrink ? 12 : 25),
+                          vspacing);
         tmp = levelProxy->getTitle();
         tmp2 = levelProxy->getLocalizedString("title");
         if (tmp != tmp2)
@@ -580,12 +585,12 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
     }
     
     void LevelInspector::draw_background(ecl::GC &gc) {
-        const video::VMInfo *vminfo = video::GetInfo();
+        const VMInfo *vminfo = video_engine->GetInfo();
         const int vshrink = vminfo->width < 640 ? 1 : 0;
-        video::SetCaption((std::string("Enigma - Level ") + 
-            (isDeveloperMode ? "Developer " : "") + "Inspector").c_str());
+        set_caption((std::string("Enigma - Level ") + (isDeveloperMode ? "Developer " : "") +
+                     "Inspector").c_str());
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
-        blit(gc, vminfo->width-vminfo->thumbw-10-hmargin, vmargin, previewImage);
+        blit(gc, vminfo->width - vminfo->thumb.width - 10 - hmargin, vmargin, previewImage);
         Surface *img_hard = enigma::GetImage("completed");
         if (withEasy) {
             Surface *img_easy = enigma::GetImage("completed-easy");

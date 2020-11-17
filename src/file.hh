@@ -21,6 +21,7 @@
 #define FILE_HH_INCLUDED
 
 #include "ecl_error.hh"
+#include "video.hh"
 
 #include <iosfwd>
 #include <vector>
@@ -59,6 +60,14 @@ namespace enigma
         virtual bool get_next (DirEntry &entry) = 0;
     protected:
         DirIter();
+    };
+
+    enum FindImageReturnCode {
+        IMAGE_NOT_FOUND = 0,
+        IMAGE_FOUND, // might still be a different image, but no scaling necessary
+        IMAGE_NEEDS_SCALING_32_TO_16,
+        IMAGE_NEEDS_SCALING_48_TO_64,
+        IMAGE_NEEDS_SCALING_32_TO_64,
     };
 
     /**
@@ -139,11 +148,13 @@ namespace enigma
         std::list <std::string> findSubfolderFiles (const std::string &folder,
                 const std::string &filename) const;
                 
-        /** Find an image file named `f' in the resolution-dependent
-         * graphics directories "gfx??" or in "gfx" and store the
-         * path in `dst_path'.  Returns true if successful.
+        /** Find an image file named `f' in the tileset-dependent
+         * graphics directories (e.g. "gfx??") or in "gfx" and store
+         * the path in `dst_path' -- a different file might be chosen
+         * if file f was not found. Returns a return code encoding
+         * the necessary scaling.
          */
-        bool findImageFile (const FileName &f, std::string &dst_path);
+        FindImageReturnCode findImageFile (const FileName &f, std::string &dst_path);
 
     private:
         // Variables

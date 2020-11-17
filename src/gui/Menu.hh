@@ -20,7 +20,6 @@
 #define GUI_MENU_HH_INCLUDED
 
 #include "gui/widgets.hh"
-#include "gui/Menu.hh"
 #include "ecl_geom.hh"
 #include "SDL.h"
 #include <cmath>
@@ -32,6 +31,9 @@ namespace enigma { namespace gui {
     class Menu : public Container {
     public:
         Menu();
+        ~Menu() {
+            set_caption(previous_caption.c_str());
+        }
 
         //! true: ok, false: menu aborted by user
         virtual bool manage();
@@ -53,6 +55,10 @@ namespace enigma { namespace gui {
         void reset_active_widget() { active_widget = nullptr; }
         void reset_key_focus_widget() { key_focus_widget = nullptr; }
         
+
+        void set_caption(const std::string &text);
+        std::string get_caption() const;
+
         // Menu interface.
         virtual void draw_background(ecl::GC &/*gc*/) {}
 
@@ -67,6 +73,7 @@ namespace enigma { namespace gui {
         Widget *active_widget;
         Widget *key_focus_widget;
         bool quitp, abortp;
+        std::string previous_caption;
     };
 
     class BuildVList {

@@ -83,7 +83,6 @@ module ecl
 	void update_all();
 	void update_rect(const Rect& r);
 	void flush_updates();
-	void set_caption(const char* str);
     };
 
     class Font {

@@ -94,55 +94,40 @@ private:
 /* -------------------- SurfaceCache -------------------- */
 
 Surface *SurfaceCache_Alpha::acquire(const std::string &name) {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     std::string filename;
     std::unique_ptr<ecl::Surface> es;
 
-    if (app.resourceFS->findImageFile(name + ".png", filename))
+    FindImageReturnCode found = app.resourceFS->findImageFile(name + ".png", filename);
+    if (found != IMAGE_NOT_FOUND)
         es.reset(ecl::LoadImage(filename.c_str()));
-
-    if (es && vminfo->tt == video::VTS_64 && filename.find("gfx32") != std::string::npos)
-        return es->zoom(es->width() * 2, es->height() * 2);
-    if (es && vminfo->tt == video::VTS_16 && filename.find("gfx32") != std::string::npos)
+    if (found == IMAGE_NEEDS_SCALING_32_TO_16)
         return es->zoom(es->width() / 2, es->height() / 2);
-
+    if (found == IMAGE_NEEDS_SCALING_48_TO_64)
+        return es->zoom((es->width() * 4) / 3, (es->height() * 4) / 3);
+    if (found == IMAGE_NEEDS_SCALING_32_TO_64)
+        return es->zoom(es->width() * 2, es->height() * 2);
     return es.release();
 }
 
 Surface *SurfaceCache::acquire(const std::string &name) {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     std::string filename;
-    ecl::Surface *es = nullptr;
+    std::unique_ptr<ecl::Surface> es;
 
-    if (app.resourceFS->findImageFile(name + ".png", filename)) {
-        SDL_Surface *s = IMG_Load(filename.c_str());
-        if (s) {
-            SDL_Surface *img = nullptr;
-            if (s->flags & SDL_SRCALPHA) {
-                img = SDL_DisplayFormatAlpha(s);
-            } else {
-                SDL_SetColorKey(s, SDL_SRCCOLORKEY,  //|SDL_RLEACCEL,
-                                SDL_MapRGB(s->format, 255, 0, 255));
-                img = SDL_DisplayFormat(s);
-            }
-            if (img) {
-                SDL_FreeSurface(s);
-                es = Surface::make_surface(img);
-            } else {
-                es = Surface::make_surface(s);
-            }
-        }
+    FindImageReturnCode found = app.resourceFS->findImageFile(name + ".png", filename);
+    if (found != IMAGE_NOT_FOUND) {
+        // TODO(sdl2): is there a reason this is different from SurfaceCache_Alpha?
+        if (SDL_Surface *s = IMG_Load(filename.c_str()))
+            es.reset(ecl::LoadImage(filename.c_str()));
     }
-    if (es && vminfo->tt == video::VTS_64 && filename.find("gfx32") != std::string::npos) {
-        ecl::Surface *es_zoom = es->zoom(es->width() * 2, es->height() * 2);
-        delete es;
-        es = es_zoom;
-    } else if (es && vminfo->tt == video::VTS_16 && filename.find("gfx32") != std::string::npos) {
-        ecl::Surface *es_zoom = es->zoom(es->width() / 2, es->height() / 2);
-        delete es;
-        es = es_zoom;
-    }
-    return es;
+    if (found == IMAGE_NEEDS_SCALING_32_TO_16)
+        return es->zoom(es->width() / 2, es->height() / 2);
+    if (found == IMAGE_NEEDS_SCALING_48_TO_64)
+        return es->zoom((es->width() * 4) / 3, (es->height() * 4) / 3);
+    if (found == IMAGE_NEEDS_SCALING_32_TO_64)
+        return es->zoom(es->width() * 2, es->height() * 2);
+    return es.release();
 }
 
 /* -------------------- ModelManager -------------------- */
@@ -197,7 +182,7 @@ Anim2d *anim_templ = nullptr;
 /* -------------------- Functions -------------------- */
 
 void display::InitModels() {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VideoTileset *vts = video_engine->GetTileset();
 
     modelmgr = new ModelManager;
 
@@ -221,8 +206,8 @@ void display::InitModels() {
 
     string fname;
 
-    fname = app.systemFS->findFile(vminfo->initscript);
-    if (lua::DoSysFile(L, vminfo->initscript) != lua::NO_LUAERROR) {
+    fname = app.systemFS->findFile(vts->initscript);
+    if (lua::DoSysFile(L, vts->initscript) != lua::NO_LUAERROR) {
         std::string message = ecl::strf("Error loading '%s'\nError: '%s'\n", fname.c_str(),
                                         lua::LastError(L).c_str());
         fprintf(stderr, "%s", message.c_str());

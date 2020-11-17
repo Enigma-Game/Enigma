@@ -20,6 +20,7 @@
 #include "ecl_video.hh"
 #include "resource_cache.hh"
 #include "video.hh"
+#include "video_effects.hh"
 #include "nls.hh"
 
 using namespace ecl;
@@ -28,7 +29,7 @@ using namespace std;
 namespace enigma { namespace gui {
     InfoMenu::InfoMenu(const char **infotext, int pages) : info (infotext),
             curPage (0), numPages (pages) {
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
 
         but_ok = new StaticTextButton(N_("Ok"), this);
@@ -41,7 +42,7 @@ namespace enigma { namespace gui {
     }
     
     void InfoMenu::draw_background(ecl::GC &gc) {
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
         blit(gc, vminfo.mbg_offsetx, vminfo.mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
         

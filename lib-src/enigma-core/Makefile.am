@@ -3,8 +3,6 @@ AM_CFLAGS	 = @SDL_CFLAGS@
 AM_CXXFLAGS 	 = @SDL_CFLAGS@
 
 libecl_a_SOURCES = \
-	IMG_SavePNG.c 			\
-	IMG_SavePNG.h 			\
 	SDL_gfxPrimitives.c		\
 	SDL_gfxPrimitives.h		\
 	SDL_gfxPrimitives_font.h	\

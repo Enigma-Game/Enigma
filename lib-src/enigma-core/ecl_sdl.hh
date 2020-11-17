@@ -47,17 +47,6 @@ public:
     virtual bool on_event(SDL_Event & /*e*/) { return false; }
 };
 
-class TempInputGrab {
-public:
-    TempInputGrab(SDL_GrabMode m) : grabmode(SDL_WM_GrabInput(SDL_GRAB_QUERY)) {
-        SDL_WM_GrabInput(m);
-    }
-    ~TempInputGrab() { SDL_WM_GrabInput(grabmode); }
-
-private:
-    SDL_GrabMode grabmode;
-};
-
 inline void copy_rect(SDL_Rect &s, const ecl::Rect &from) {
     s.x = from.x;
     s.y = from.y;

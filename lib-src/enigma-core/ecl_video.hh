@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 #ifndef ECL_VIDEO_HH_INCLUDED
 #define ECL_VIDEO_HH_INCLUDED
@@ -119,6 +118,7 @@ public:
 
     void set_color_key(int r, int g, int b);
     void set_alpha(int a);
+    void set_brightness(int a);
 
     void lock();
     void unlock();
@@ -172,24 +172,38 @@ private:
 
 /* -------------------- Screen -------------------- */
 
+/* Screen is a wrapper for one SDL_Window and one SDL_Surface.
+   SDL_Window brings its own SDL_Surface which was identical to
+   the first one till Enigma 1.30, which introduced scaled
+   windows. Now "window" is an SDL_Window which refers to the
+   actual window on the screen, and its corresponding SDL_Surface.
+   It shows a scaled version of the SDL_Surface "m_surface".
+   "get_surface", "size", "width", "height" etc. refer to the
+   non-scaled m_surface. The scaling will be performed by
+   "flush_updates".
+*/
+
 class Screen {
 public:
-    Screen(Surface *s);
-    Screen(SDL_Surface *s);
+    Screen(SDL_Window *window, int surface_w, int surface_h);
     ~Screen();
 
     void update_all();
     void update_rect(const Rect &r);
     void flush_updates();
-    void set_caption(const char *str);
 
     /* ---------- Accessors ---------- */
 
+    SDL_Window *window() const { return m_window; }
     Surface *get_surface() const { return m_surface; }
 
     Rect size() const;
     int width() const;
     int height() const;
+
+    Rect window_size() const;
+    int window_width() const;
+    int window_height() const;
 
     /* ---------- Static methods ---------- */
 
@@ -199,6 +213,7 @@ private:
     // Variables.
     static Screen *m_instance;
 
+    SDL_Window *m_window;
     Surface *m_surface;
     SDL_Surface *m_sdlsurface;
     RectList m_dirtyrects;
@@ -285,18 +300,12 @@ inline void frame(const GC &gc, const Rect &r) {
 
 /* -------------------- Functions -------------------- */
 
-Screen *OpenScreen(int w, int h, int bipp);
-Screen *DisplayFormat(Screen *s);
-
 // Create a new surface.
-Surface *MakeSurface(int w, int h, int bipp, const RGBA_Mask &mask = RGBA_Mask());
+Surface *MakeSurface(int w, int h);
 
 // Create a surface from image data that is already somewhere in memory.
 Surface *MakeSurface(void *data, int w, int h, int bipp, int pitch,
                      const RGBA_Mask &mask = RGBA_Mask());
-
-// Create a new surface with the same image format as `surface'.
-Surface *MakeSurfaceLike(int w, int h, Surface *surface);
 
 // Create a copy of a surface.
 Surface *Duplicate(const Surface *s);
@@ -317,7 +326,6 @@ Surface *DisplayFormat(Surface *s);
 // Load an image using SDL_image and convert it to an optimized format.
 Surface *LoadImage(const char *filename);
 Surface *LoadImage(SDL_RWops *src, int freesrc);
-Surface *LoadImage(SDL_Surface *tmpImage);
 
 // Overlay a rectangle `rect' in `s' with a transparent colored box.
 void TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);

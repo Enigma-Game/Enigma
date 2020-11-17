@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 #include "game.hh"
 #include "errors.hh"
@@ -66,8 +65,8 @@ bool game::DrawLevelPreview(ecl::GC &gc, lev::Proxy *levelProxy) {
 void game::StartGame() {
     lev::Index *ind = lev::Index::getCurrentIndex();
 
-    video::HideMouse();
-    sdl::TempInputGrab grab(enigma::Nograb ? SDL_GRAB_OFF : SDL_GRAB_ON);
+    video_engine->HideMouse();
+    ScopedInputGrab grab(enigma::Nograb ? SDL_FALSE : SDL_TRUE);    
 
     //    Uint32 start_tick_time = SDL_GetTicks();
 
@@ -110,7 +109,7 @@ void game::StartGame() {
     // add last played level
     lev::PersistentIndex::addCurrentToHistory();
 
-    video::ShowMouse();
+    video_engine->ShowMouse();
 }
 
 void game::ResetGameTimer() {

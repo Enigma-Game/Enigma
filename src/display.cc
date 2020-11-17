@@ -101,7 +101,7 @@ StatusBarImpl::StatusBarImpl(const ScreenArea &area)
   playerImage(0),
   playerImageDuration(0),
   widthInit(false) {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     m_itemarea = vminfo->sb_itemarea;
 }
 
@@ -154,7 +154,7 @@ void StatusBarImpl::setBasicModes(std::string flags) {
 }
 
 void StatusBarImpl::redraw(ecl::GC &gc, const ScreenArea &r) {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     ScreenArea a = get_area();
     clip(gc, intersect(a, r));
 
@@ -388,7 +388,7 @@ TextDisplay::TextDisplay(Font &f)
   scrollspeed(DEFAULT_TextSpeed * FACTOR_TextSpeed),
   textsurface(nullptr),
   font(f) {
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     area = vminfo->sb_textarea;
     time = maxtime = 0;
     // Note: "scrollspeed" is not yet initialised with
@@ -493,7 +493,7 @@ DisplayEngine::DisplayEngine(int tilew, int tileh)
   m_width(0),
   m_height(0),
   m_redrawp(0, 0) {
-    m_area = video::GetScreen()->size();
+    m_area = video_engine->GetInfo()->area;
     m_screenoffset[0] = m_screenoffset[1] = 0;
 }
 
@@ -524,7 +524,7 @@ void DisplayEngine::move_offset(const ecl::V2 &off) {
   redraw.  This method assumes that the screen contents were not
   modified externally since the last call to update_offset(). */
 void DisplayEngine::update_offset() {
-    ecl::Screen *screen = video::GetScreen();
+    ecl::Screen *screen = video_engine->GetScreen();
 
     int oldx = m_screenoffset[0];
     int oldy = m_screenoffset[1];
@@ -532,6 +532,8 @@ void DisplayEngine::update_offset() {
     world_to_video(m_new_offset, &newx, &newy);
 
     if (newx != oldx || newy != oldy) {
+        // TODO: Up to Enigma 1.21, we used the following code:
+        /*
         const Rect &a = get_area();
         Rect oldarea(a.x + oldx, a.y + oldy, a.w, a.h);
         Rect newarea(a.x + newx, a.y + newy, a.w, a.h);
@@ -554,6 +556,18 @@ void DisplayEngine::update_offset() {
         rl.sub(blitrect);
         for (auto &rect : rl)
             mark_redraw_area(screen_to_world(rect));
+        */
+        // Unfortunately, switching to SDL 2 created problems with blitting
+        // from one surface to the same. For the time being, we simply
+        // redraw the whole surface:
+        set_offset(V2(newx / double(m_tilew), newy / double(m_tileh)));
+        mark_redraw_screen();
+        // This is very ressource hungry, but only marginally slower than 
+        // blitting first to a temporary surface, and then back to the
+        // video screen. Best solution would be to have two surfaces to
+        // blit to in class Screen, and smooth scrolling would alternate
+        // between these; or to keep the whole level in one surface and
+        // blit from there to the screen.
     }
 }
 
@@ -662,7 +676,7 @@ void DisplayEngine::draw_all(ecl::GC &gc) {
 }
 
 void DisplayEngine::update_layer(DisplayLayer *l, WorldArea wa) {
-    GC gc(video::GetScreen()->get_surface());
+    GC gc(video_engine->GetScreen()->get_surface());
 
     int x2 = wa.x + wa.w;
     int y2 = wa.y + wa.h;
@@ -690,7 +704,7 @@ void DisplayEngine::update_layer(DisplayLayer *l, WorldArea wa) {
 }
 
 void DisplayEngine::update_screen() {
-    ecl::Screen *screen = video::GetScreen();
+    ecl::Screen *screen = video_engine->GetScreen();
     GC gc(screen->get_surface());
 
     if (m_new_offset != m_offset) {
@@ -707,12 +721,14 @@ void DisplayEngine::update_screen() {
     }
     int x2 = wa.x + wa.w;
     int y2 = wa.y + wa.h;
-    for (int x = wa.x; x < x2; x++)
-        for (int y = wa.y; y < y2; y++)
+    for (int x = wa.x; x < x2; x++) {
+        for (int y = wa.y; y < y2; y++) {
             if (m_redrawp(x, y) >= 1) {
                 if ((m_redrawp(x, y) -= 1) == 0)
                     screen->update_rect(world_to_screen(WorldArea(x, y, 1, 1)));
             }
+        }
+    }
 }
 
 /* -------------------- ModelLayer -------------------- */
@@ -1270,23 +1286,35 @@ struct ImageQuad {
     Image *operator[](int idx) { return images[idx]; }
 };
 
-bool only_static_shadows(Model *models[4], ImageQuad &q) {
-    int nimages = 4;
+// Returns true if all four models are static ImageModels; fills ImageQuad
+// with the corresponding images in this case.
+bool only_static_shadows(Model *models[4], ImageQuad &quad) {
+    int num_static_shadows = 4;
 
     for (int i = 0; i < 4; ++i) {
         if (models[i] == nullptr) {
             // No model at all? -> static
-            q.images[i] = nullptr;
+            quad.images[i] = nullptr;
         } else if (Model *shadow = models[i]->get_shadow()) {
-            if (ImageModel *im = dynamic_cast<ImageModel *>(shadow))
+            if (ImageModel *im = dynamic_cast<ImageModel *>(shadow)) {
                 // We have a model with a static image shadow
-                q.images[i] = im->get_image();
-            else
-                q.images[i] = nullptr, nimages--;
+                quad.images[i] = im->get_image();
+            } else {
+                quad.images[i] = nullptr;
+                num_static_shadows--;
+            }
         } else
-            q.images[i] = nullptr;
+            quad.images[i] = 0;
     }
-    return nimages == 4;
+    return num_static_shadows == 4;
+}
+
+// Returns a new RGBA surface suitable for drawing shadows.
+SDL_Surface *CreateShadowSurface(int w, int h) {
+    SDL_Surface *ss = SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, 32,
+            0xff0000, 0xff00, 0xff, 0xff000000);
+    SDL_SetSurfaceAlphaMod(ss, 128);
+    return ss;
 }
 
 struct StoneShadow {
@@ -1312,22 +1340,23 @@ public:
     void clear();
 
 private:
-    // Variables
-    std::list<StoneShadow *> m_cache;
-    int m_tilew, m_tileh;
-    std::vector<Surface *> m_surface_avail;
-
     // Private methods.
     Surface *new_surface();
     StoneShadow *find_in_cache(const ImageQuad &images);
 
     void fill_image(StoneShadow *s);
     void fill_image(StoneShadow *sh, Model *models[4]);
+
+    // Variables
+    // Use std::list to maintain LRU cache.
+    std::list<StoneShadow *> m_cache;
+    int m_tilew, m_tileh;
+    std::vector<Surface *> m_surface_avail;
 };
 
 }  // namespace display
 
-StoneShadowCache::StoneShadowCache(int tilew, int tileh) : m_cache() {
+StoneShadowCache::StoneShadowCache(int tilew, int tileh) {
     m_tilew = tilew;
     m_tileh = tileh;
 }
@@ -1337,9 +1366,10 @@ StoneShadowCache::~StoneShadowCache() {
 }
 
 void StoneShadowCache::clear() {
-    for (auto &elem : m_cache)
+    for (auto &elem : m_cache) {
         delete elem->image;
-    delete_sequence(m_cache.begin(), m_cache.end());
+        delete elem;
+    }
     m_cache.clear();
     delete_sequence(m_surface_avail.begin(), m_surface_avail.end());
     m_surface_avail.clear();
@@ -1354,7 +1384,7 @@ void StoneShadowCache::fill_image(StoneShadow *sh) {
 
     Surface *s = new_surface();
     GC gc(s);
-    set_color(gc, 255, 255, 255);
+    set_color(gc, 255, 255, 255, 0);
     box(gc, s->size());
 
     if (Image *i = sh->images[0])
@@ -1365,18 +1395,13 @@ void StoneShadowCache::fill_image(StoneShadow *sh) {
         draw_image(i, gc, -m_tilew, 0);
     if (Image *i = sh->images[3])
         draw_image(i, gc, 0, 0);
-
-    SDL_Surface *ss = s->get_surface();
-    SDL_SetColorKey(ss, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(ss->format, 255, 255, 255));
-    SDL_SetAlpha(ss, SDL_SRCALPHA | SDL_RLEACCEL, 128);
-
     sh->image = s;
 }
 
 void StoneShadowCache::fill_image(StoneShadow *sh, Model *models[4]) {
     Surface *s = new_surface();
     GC gc(s);
-    set_color(gc, 255, 255, 255);
+    set_color(gc, 255, 255, 255, 0);
     box(gc, s->size());
     if (models[0])
         models[0]->draw_shadow(gc, -m_tilew, -m_tileh);
@@ -1386,9 +1411,6 @@ void StoneShadowCache::fill_image(StoneShadow *sh, Model *models[4]) {
         models[2]->draw_shadow(gc, -m_tilew, 0);
     if (models[3])
         models[3]->draw_shadow(gc, 0, 0);
-    SDL_Surface *ss = s->get_surface();
-    SDL_SetColorKey(ss, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(ss->format, 255, 255, 255));
-    SDL_SetAlpha(ss, SDL_SRCALPHA | SDL_RLEACCEL, 128);
     sh->image = s;
 }
 
@@ -1439,9 +1461,7 @@ void StoneShadowCache::release(StoneShadow *s) {
 Surface *StoneShadowCache::new_surface() {
     Surface *s = nullptr;
     if (m_surface_avail.empty()) {
-        // WARNING: Always make sure the surface format here matches
-        // the format of `buffer' in class DL_Shadows!!!
-        SDL_Surface *ss = SDL_CreateRGBSurface(SDL_SWSURFACE, m_tilew, m_tileh, 32, 0, 0, 0, 0);
+        SDL_Surface *ss = CreateShadowSurface(m_tilew, m_tileh);
         s = Surface::make_surface(ss);
     } else {
         s = m_surface_avail.back();
@@ -1472,12 +1492,8 @@ void DL_Shadows::new_world(int w, int h) {
     m_cache = new StoneShadowCache(tilew, tileh);
 
     delete buffer;
-    // WARNING: Always make sure the surface format here matches
-    // the format in `StoneShadowCache::new_surface' !!!
-    SDL_Surface *ss = SDL_CreateRGBSurface(SDL_SWSURFACE, tilew, tileh, 32, 0, 0, 0, 0);
-    SDL_SetAlpha(ss, SDL_SRCALPHA, 128);
-    SDL_SetColorKey(ss, SDL_SRCCOLORKEY, SDL_MapRGB(ss->format, 255, 255, 255));
 
+    SDL_Surface *ss = CreateShadowSurface(tilew, tileh);
     buffer = Surface::make_surface(ss);
 }
 
@@ -1559,7 +1575,7 @@ void DL_Shadows::draw(GC &gc, int xpos, int ypos, int x, int y) {
                 buffer->unlock();
                 s->unlock();
             } else {
-                set_color(gc2, 255, 255, 255);
+                set_color(gc2, 255, 255, 255, 0);
                 box(gc2, buffer->size());
             }
 
@@ -1589,8 +1605,8 @@ CommonDisplay::CommonDisplay(const ScreenArea &a) {
     m_engine = new DisplayEngine;
     m_engine->set_screen_area(a);
 
-    const video::VMInfo *vminfo = video::GetInfo();
-    m_engine->set_tilesize(vminfo->tile_size, vminfo->tile_size);
+    VideoTileset *vts = video_engine->GetTileset();
+    m_engine->set_tilesize(vts->tilesize, vts->tilesize);
 
     // Create and configure display layers
     floor_layer = new DL_Grid;
@@ -1854,10 +1870,10 @@ void GameDisplay::resize_game_area(int w, int h) {
     int neww = w * e->get_tilew();
     int newh = h * e->get_tileh();
 
-    const video::VMInfo *vidinfo = video::GetInfo();
+    VideoTileset *vts = video_engine->GetTileset();
 
-    int screenw = vidinfo->width;
-    int screenh = NTILESV * vidinfo->tile_size;
+    int screenw = NTILESH * vts->tilesize;
+    int screenh = NTILESV * vts->tilesize;
     if (neww > screenw || newh > screenh) {
         enigma::Log << "Illegal screen size (" << neww << "," << newh
                     << "): larger than physical display\n";
@@ -1875,7 +1891,7 @@ void display::Init(bool show_fps) {
         ShowFPS = true;
     InitModels();
 
-    const video::VMInfo *vminfo = video::GetInfo();
+    const VMInfo *vminfo = video_engine->GetInfo();
     gamedpy = new GameDisplay(vminfo->gamearea, vminfo->statusbararea);
 }
 

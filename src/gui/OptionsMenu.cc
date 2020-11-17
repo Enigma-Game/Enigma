@@ -14,33 +14,136 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
  
 #include "gui/OptionsMenu.hh"
+
+#include <cassert>
+#include <sstream>
+
+#include "LocalToXML.hh"
+#include "MusicManager.hh"
+#include "SoundEffectManager.hh"
+#include "SoundEngine.hh"
+#include "Utf8ToXML.hh"
+#include "XMLtoLocal.hh"
+#include "XMLtoUtf8.hh"
+#include "display.hh"
 #include "ecl_video.hh"
 #include "lev/ScoreManager.hh"
-#include "LocalToXML.hh"
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
-#include "display.hh"
 #include "oxyd.hh"
 #include "resource_cache.hh"
-#include "SoundEngine.hh"
-#include "SoundEffectManager.hh"
-#include "MusicManager.hh"
-#include "Utf8ToXML.hh"
 #include "video.hh"
-#include "XMLtoLocal.hh"
-#include "XMLtoUtf8.hh"
-
-#include <cassert>
 
 using namespace ecl;
 using namespace std;
 
 namespace enigma { namespace gui {
+
+/* -------------------- Options Buttons -------------------- */
+
+class FullscreenButton : public BoolOptionButton {
+public:
+    FullscreenButton(ActionListener *al = 0);
+};
+
+class FullscreenTilesetButton : public ValueButton {
+public:
+    FullscreenTilesetButton();
+    void reinit();
+
+private:
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+
+    std::vector<VideoTilesetId> tilesets;
+    int selectedSet = 0;
+};
+
+class FullscreenModeButton : public ValueButton {
+public:
+    FullscreenModeButton();
+    void reinit();
+    void SetDependentButton(FullscreenTilesetButton *button);
+
+private:
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+    FullscreenTilesetButton *dependent_button;
+
+    std::vector<FullscreenMode> displayModes;
+    int selectedMode = 0;
+};
+
+class WindowSizeButton : public ValueButton {
+public:
+    WindowSizeButton();
+    void reinit();
+
+private:
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+
+    std::vector<WindowSize> displayModes;
+    int selectedMode = 0;
+};
+
+class WindowTilesetButton : public ValueButton {
+public:
+    WindowTilesetButton();
+    void reinit();
+
+private:
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+
+    std::vector<VideoTilesetId> tilesets;
+    int selectedSet = 0;
+};
+
+class StereoButton : public ValueButton {
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+
+public:
+    StereoButton();
+};
+
+class SoundSetButton : public ValueButton {
+public:
+    SoundSetButton();
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+};
+
+class MenuMusicButton : public ValueButton {
+public:
+    MenuMusicButton();
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+};
+
+class LanguageButton : public ValueButton {
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+    bool inInit;
+    ActionListener *myListener;
+
+public:
+    // second user action listener: first one is misused by ValueButton
+    LanguageButton(ActionListener *al = 0);
+};
 
 /* -------------------- Buttons for Options -------------------- */
 
@@ -143,43 +246,182 @@ namespace enigma { namespace gui {
         ScoreUploadButton() : BoolOptionButton("ScoreAutoUpload", N_("Always"), N_("Never"), this) {}
     };
 
-
-    /* -------------------- VideoModeButton -------------------- */
+    /* -------------------- FullscreenButton -------------------- */
     
-    VideoModeButton::VideoModeButton() : ValueButton(0, 1) {
-        bool isFullScreen = app.prefs->getBool("FullScreen");
-        setMaxValue(video::GetNumAvailableModes(isFullScreen) - 1);
+    FullscreenButton::FullscreenButton(ActionListener *al)
+    : BoolOptionButton("FullScreen", N_("Yes"), N_("No"), al)        
+    {
+    }
+    
+    /* -------------------- FullscreenModeButton -------------------- */
+    
+    FullscreenModeButton::FullscreenModeButton() : ValueButton(0, 1) {
+        displayModes = video_engine->EnumerateFullscreenModes();
+        if (displayModes.size() == 0) {
+            selectedMode = 0;
+            setMaxValue(0);
+        } else {
+            auto pos = std::find(displayModes.begin(), displayModes.end(), app.selectedFullscreenMode);
+            if (pos == displayModes.end())
+                selectedMode = 0;
+            else
+                selectedMode = pos - displayModes.begin();
+            setMaxValue(displayModes.size() - 1);
+        }
+        dependent_button = nullptr;
         init();
     }
-    
-    void VideoModeButton::reinit() {
-        bool isFullScreen = app.prefs->getBool("FullScreen");
-        ValueButton::setMaxValue(video::GetNumAvailableModes(isFullScreen) - 1);
+
+    void FullscreenModeButton::reinit() {
+        displayModes = video_engine->EnumerateFullscreenModes();
+        selectedMode = 0;
+        if (displayModes.size() == 0)
+            setMaxValue(0);
+        else
+            setMaxValue(displayModes.size() - 1);
     }
 
-    int VideoModeButton::get_value() const {
-        bool isFullScreen = app.prefs->getBool("FullScreen");        
-        return video::GetModeNumber(static_cast<video::VideoModes>(app.selectedVideoMode), isFullScreen);
+    int FullscreenModeButton::get_value() const {
+        return selectedMode;
     }
 
-    void VideoModeButton::set_value(int value) {
-        bool isFullScreen = app.prefs->getBool("FullScreen");
-        video::VideoModes vm = video::GetVideoMode(value, isFullScreen);
-        app.selectedVideoMode = vm;
-
-        if (vm != video::GetBestUserMode(isFullScreen)) {
-            const video::VMInfo * info = video::GetInfo(vm);
-            app.prefs->setProperty(isFullScreen ? "VideoModesFullscreen" : "VideoModesWindow",
-                    isFullScreen ? info->fallback_fullscreen : info->fallback_window);
+    void FullscreenModeButton::set_value(int value) {
+        selectedMode = value;
+        if (displayModes.size() > 0) {
+            app.selectedFullscreenMode = displayModes[value];
+            if (dependent_button != nullptr)
+                dependent_button->reinit();
+            if (get_parent() != NULL)
+                get_parent()->invalidate_all();
+            const VMInfo* info = video_engine->GetInfo(displayModes[value]);
+            assert(info);
+            app.prefs->setProperty("VideoModesFullscreen", info->f_fallback);
         }
     }
 
-    string VideoModeButton::get_text(int value) const {
-        bool isFullScreen = app.prefs->getBool("FullScreen");        
-        const video::VMInfo * vi = video::GetInfo(video::GetVideoMode(value, isFullScreen));
-        return vi->name;
+    std::string FullscreenModeButton::get_text(int value) const {
+        std::stringstream ss;
+        if (displayModes.size() == 0)
+            ss << N_("None found");
+        else {
+            const VMInfo* info = video_engine->GetInfo(displayModes[value]);
+            assert(info);
+            ss << info->width << " x " << info->height;
+        }
+        return ss.str();
     }
 
+    void FullscreenModeButton::SetDependentButton(FullscreenTilesetButton *button) {
+        dependent_button = button;
+    }
+
+    /* -------------------- FullscreenTilesetButton -------------------- */
+    
+    FullscreenTilesetButton::FullscreenTilesetButton() : ValueButton(0, 1) {
+        tilesets = video_engine->EnumerateFittingTilesets(app.selectedFullscreenMode);
+        auto pos = std::find(tilesets.begin(), tilesets.end(), app.selectedFullscreenTilesetId);
+        if (pos == tilesets.end())
+            selectedSet = 0;
+        else
+            selectedSet = pos - tilesets.begin();
+        setMaxValue(tilesets.size() - 1);
+        init();
+    }
+
+    void FullscreenTilesetButton::reinit() {
+        tilesets = video_engine->EnumerateFittingTilesets(app.selectedFullscreenMode);
+        setMaxValue(tilesets.size() - 1);
+        selectedSet = 0;
+        app.selectedFullscreenTilesetId = (VideoTilesetId) tilesets[selectedSet];
+    }
+
+    int FullscreenTilesetButton::get_value() const {
+        return selectedSet;
+    }
+
+    void FullscreenTilesetButton::set_value(int value) {
+        selectedSet = value;
+        VideoTilesetId vtsid = (VideoTilesetId) tilesets[value];
+        app.selectedFullscreenTilesetId = vtsid;
+        app.prefs->setProperty("FullscreenTileset", VideoTilesetPrefName(vtsid));
+    }
+
+    std::string FullscreenTilesetButton::get_text(int value) const {
+        VideoTileset* vts = VideoTilesetById(tilesets[value]);
+        assert(vts);
+        return vts->name;
+    }
+
+    /* -------------------- WindowTilesetButton -------------------- */
+    
+    WindowTilesetButton::WindowTilesetButton() : ValueButton(0, 1) {
+        tilesets = video_engine->EnumerateAllTilesets();
+        auto pos = std::find(tilesets.begin(), tilesets.end(), app.selectedWindowTilesetId);
+        if (pos == tilesets.end())
+            selectedSet = 0;
+        else
+            selectedSet = pos - tilesets.begin();
+        setMaxValue(tilesets.size() - 1);
+        init();
+    }
+    
+    void WindowTilesetButton::reinit() {
+        tilesets = video_engine->EnumerateAllTilesets();
+        setMaxValue(tilesets.size() - 1);
+    }
+
+    int WindowTilesetButton::get_value() const {
+        return selectedSet;
+    }
+
+    void WindowTilesetButton::set_value(int value) {
+        selectedSet = value;
+        VideoTilesetId vtsid = (VideoTilesetId) tilesets[value];
+        app.selectedWindowTilesetId = vtsid;
+        app.prefs->setProperty("WindowTileset", VideoTilesetPrefName(vtsid));
+        if (get_parent() != NULL)
+            get_parent()->invalidate_all();
+    }
+
+    std::string WindowTilesetButton::get_text(int value) const {
+        VideoTileset* vts = VideoTilesetById(tilesets[value]);
+        assert(vts);
+        return vts->name;
+    }
+
+    /* -------------------- WindowSizeButton -------------------- */
+    
+    WindowSizeButton::WindowSizeButton() : ValueButton(0, 1) {
+        selectedMode = app.selectedWindowSizeFactor;
+        setMaxValue(3);
+        init();
+    }
+    
+    void WindowSizeButton::reinit() {
+        setMaxValue(3);
+    }
+
+    int WindowSizeButton::get_value() const {
+        return selectedMode;
+    }
+
+    void WindowSizeButton::set_value(int value) {
+        selectedMode = value;
+        app.selectedWindowSizeFactor = value;
+        app.prefs->setProperty("WindowSizeFactor", value);
+    }
+
+    std::string WindowSizeButton::get_text(int value) const {
+        VideoTileset* vts = VideoTilesetById(app.selectedWindowTilesetId);
+        assert(vts);
+        int tilesize = vts->tilesize;
+        std::stringstream ss;
+        if (value == 0)
+            ss << "Not fixed";
+        else
+            ss << value << "x (" << tilesize*20*value << "x" << tilesize*15*value << ")";
+        return ss.str();
+    }
 
     /* -------------------- SoundSetButton -------------------- */
     
@@ -257,14 +499,6 @@ namespace enigma { namespace gui {
         return string();
     }
     
-
-    /* -------------------- FullscreenButton -------------------- */
-    
-    FullscreenButton::FullscreenButton(ActionListener *al)
-    : BoolOptionButton("FullScreen", N_("Yes"), N_("No"), al)        
-    {
-    }
-    
     /* -------------------- LanguageButton -------------------- */
     
     int LanguageButton::get_value() const
@@ -307,57 +541,37 @@ namespace enigma { namespace gui {
         inInit = false;
     }
     
-    /* -------------------- GammaButton -------------------- */
-    
-    
-    GammaButton::GammaButton()
-    : ValueButton(1, 10)
-    {
-        init();
-    }
-    
-    void GammaButton::set_value(int value) 
-    { 
-        double gamma = double(value) / 5.0;
-        options::SetOption ("Gamma", gamma);
-        video::UpdateGamma();
-    }
-    
-    int GammaButton::get_value() const
-    { 
-        double gamma = options::GetDouble ("Gamma");
-        int value = round_down<int>(gamma * 5.0 + 0.1);
-        return value;
-    }
-    
-    string GammaButton::get_text(int value) const
-    {
-        return ecl::strf ("%d", value-5);
-    }
-    
-
     /* -------------------- Options Menu -------------------- */
-    
-    OptionsMenu::OptionsMenu(ecl::Surface *background_)
-    : pagesVList(NULL), commandHList(NULL), optionsVList(NULL), back(NULL), 
-      language(NULL), but_main_options(NULL), but_video_options(NULL),
-      but_audio_options(NULL), but_config_options(NULL), fullscreen(NULL),
-      videomode(NULL), userNameTF(NULL), userPathTF(NULL),
-      userImagePathTF(NULL), menuMusicTF(NULL), 
-      background(background_), previous_caption(video::GetCaption())
-    {
+
+    OptionsMenu::OptionsMenu(ecl::Surface *background_, bool gameIsOngoing_)
+    : pagesVList(NULL),
+      commandHList(NULL),
+      optionsVList(NULL),
+      back(NULL),
+      language(NULL),
+      but_main_options(NULL),
+      but_video_options(NULL),
+      but_audio_options(NULL),
+      but_config_options(NULL),
+      fullscreen(NULL),
+      fullscreenmode(NULL),
+      windowsize(NULL),
+      fullscreentileset(NULL),
+      windowtileset(NULL),
+      userNameTF(NULL),
+      userPathTF(NULL),
+      userImagePathTF(NULL),
+      menuMusicTF(NULL),
+      background(background_),
+      gameIsOngoing(gameIsOngoing_) {
         center();
         close_page();
         open_page(OPTIONS_MAIN);
     }
 
-    OptionsMenu::~OptionsMenu() {
-        video::SetCaption(previous_caption.c_str());
-    }
-
     void OptionsMenu::open_page(OptionsPage new_page) {
-        const video::VMInfo *vminfo = video::GetInfo();
-        video::VideoTileType vtt = vminfo->tt;
+        const VMInfo *vminfo = video_engine->GetInfo();
+        VideoTileType vtt = vminfo->tt;
         int vh = vminfo->area.x;
         int vv = (vminfo->height - vminfo->area.h)/2;
         static struct SpacingConfig {
@@ -485,8 +699,10 @@ namespace enigma { namespace gui {
         switch (new_page) {
             case OPTIONS_MAIN:
                 OPTIONS_NEW_LB(N_("Language: "), language = new LanguageButton(this))
-                OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton(this))
-                OPTIONS_NEW_LB(N_("Video mode: "), videomode = new VideoModeButton())
+                if (!gameIsOngoing) {
+                    OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton(this))
+                }
+                //OPTIONS_NEW_LB(N_("Fullscreen resolution: "), fullscreenmode = new FullscreenModeButton())
                 OPTIONS_NEW_LB(N_("Mouse speed: "), new MouseSpeedButton())
                 OPTIONS_NEW_LB(N_("Sound volume: "), new SoundVolumeButton())
                 OPTIONS_NEW_LB(N_("Music volume: "), new MusicVolumeButton())
@@ -501,10 +717,19 @@ namespace enigma { namespace gui {
                 OPTIONS_NEW_T(userNameTF)
                 break;
             case OPTIONS_VIDEO:
-                OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton())
-                fullscreen->set_listener(this);
-                OPTIONS_NEW_LB(N_("Video mode: "), videomode = new VideoModeButton())
-                OPTIONS_NEW_LB(N_("Gamma correction: "), new GammaButton())
+                if (gameIsOngoing) {
+                    OPTIONS_NEW_L(N_("Sorry, no video changes during an ongoing game."))
+                } else {
+                    OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton())
+                    fullscreen->set_listener(this);
+                    OPTIONS_NEW_L(N_("In fullscreen mode: "))
+                    OPTIONS_NEW_LB(N_("Screen resolution: "), fullscreenmode = new FullscreenModeButton())
+                    OPTIONS_NEW_LB(N_("Tileset: "), fullscreentileset = new FullscreenTilesetButton())
+                    OPTIONS_NEW_L(N_("In windowed mode: "))
+                    OPTIONS_NEW_LB(N_("Tileset: "), windowtileset = new WindowTilesetButton())
+                    OPTIONS_NEW_LB(N_("Window size: "), windowsize = new WindowSizeButton())
+                    fullscreenmode->SetDependentButton(fullscreentileset);
+                }
                 break;
             case OPTIONS_AUDIO:
                 OPTIONS_NEW_LB(N_("Sound set: "), new SoundSetButton())
@@ -550,6 +775,8 @@ namespace enigma { namespace gui {
     }
     
     void OptionsMenu::close_page() {
+        if (!gameIsOngoing)
+            video_engine->ApplySettings();
         // Reset active and key_focus widgets, they will be deleted soon,
         // and we don't want any ticks for them anymore.
         reset_active_widget();
@@ -608,7 +835,10 @@ namespace enigma { namespace gui {
         }
         language = NULL;
         fullscreen = NULL;
-        videomode = NULL;
+        fullscreenmode = NULL;
+        windowsize = NULL;
+        fullscreentileset = NULL;
+        windowtileset = NULL;
         menuMusicTF = NULL;
         userNameTF = NULL;
         userPathTF = NULL;
@@ -645,9 +875,10 @@ namespace enigma { namespace gui {
         else if (w == fullscreen) {
             // switch the fullscreen button and option
             fullscreen->on_action(fullscreen);
-            app.selectedVideoMode = video::GetBestUserMode(app.prefs->getBool("FullScreen"));
+            // TODO(sdl2): implement fullscreen toggling
+            // app.selectedVideoMode = video::GetBestUserMode(app.prefs->getBool("FullScreen"));
             // update the video mode button to the modes available
-            videomode->reinit();
+            // videomode->reinit();
             invalidate_all();
         } else if (w == but_main_options) {
             close_page();
@@ -669,18 +900,18 @@ namespace enigma { namespace gui {
     
     void OptionsMenu::draw_background(ecl::GC &gc)
     {
-        const video::VMInfo *vminfo = video::GetInfo();
-        video::SetCaption(("Enigma - Options Menu"));
+        const VMInfo *vminfo = video_engine->GetInfo();
+        set_caption(_("Enigma - Options Menu"));
     //     blit(gc, 0,0, enigma::GetImage("menu_bg"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, background);
     }
     
 /* -------------------- Functions -------------------- */
 
-    void ShowOptionsMenu(Surface *background) {
+    void ShowOptionsMenu(Surface *background, bool gameIsOngoing) {
         if (background == 0)
             background = enigma::GetImage("menu_bg", ".jpg");
-        OptionsMenu m(background);
+        OptionsMenu m(background, gameIsOngoing);
         m.manage();
     }
 

@@ -17,142 +17,24 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-// This file contains the code for initializing the video hardware and for
-// various visual effects in the widest sense. This includes
-//
-// a) managing and rendering the mouse cursor,
-// b) changing between windowed and fullscreen mode,
-// c) fading between different screen using one of a number of
-//    predefined effects.
-//
-// The code in this file is independent of the game. For game-specific display
-// code, refer to file display.cc
-
 #include "video.hh"
 
-#include "ecl_video.hh"
+#include <cassert>
+#include <cstdio>
+#include <memory>
+#include <sstream>
+
 #include "ecl_system.hh"
-#include "lua.hh"
+#include "ecl_video.hh"
+#include "enigma.hh"
 #include "main.hh"
 #include "options.hh"
 #include "resource_cache.hh"
-#include <cassert>
-#include <cstdio>
-#include <sstream>
-#include "config.h"
+#include "display.hh"
+#include "gui/LevelPreviewCache.hh"
 
-#define SCREEN ecl::Screen::get_instance()
-
-using namespace std;
 using namespace ecl;
-using namespace video;
 using namespace enigma;
-
-/* -------------------- Video Engine -------------------- */
-
-namespace {
-
-class Video_SDL {
-    SDL_Surface *sdlScreen;
-    string caption;
-    ecl::Screen *screen;
-    bool initialized;
-
-public:
-    Video_SDL();
-    ~Video_SDL();
-
-    bool init(int w, int h, int bpp, bool fullscreen);
-    void toggle_fullscreen();
-    void set_fullscreen(bool on_off);
-    bool is_fullscreen() const;
-    void set_caption(const char *str);
-    const string &get_caption() const { return caption; }
-    ecl::Screen *get_screen() { return screen; }
-};
-
-Video_SDL::Video_SDL() : sdlScreen(0), screen(0), initialized(false) {
-}
-
-Video_SDL::~Video_SDL() {
-    SDL_WM_GrabInput(SDL_GRAB_OFF);
-    delete screen;
-}
-
-void Video_SDL::set_caption(const char *str) {
-    caption = str;
-    if (initialized)
-        SDL_WM_SetCaption(str, 0);
-}
-
-bool Video_SDL::init(int w, int h, int bpp, bool fullscreen) {
-#ifndef MACOSX
-    static bool firstInit = true;
-    if (firstInit) {
-        // Set the caption icon -- due to SDL doc it has to be set before first SDL_SetVideoMode()
-        // !!
-        // In praxis this SetIcon does not work for Linux, nor is it necessary for OSX.
-        // Just XP with selected "WindowsXP Design" needs this SetIcon.
-        // See video::Init() for icon set for Linux and other Windows versions
-        // Mac icon is set via Makefile
-        firstInit = false;
-        std::string iconpath;
-        ecl::Surface *es = NULL;
-        if (app.resourceFS->findFile("gfx/enigma_marble.png",
-                                     iconpath)) {  // cannot use ecl::findImageFile !
-            es = ecl::LoadImage(iconpath.c_str());
-            if (es) {
-                SDL_WM_SetIcon(es->get_surface(), NULL);
-            }
-        }
-    }
-#endif
-
-    SDL_WM_SetCaption(caption.c_str(), 0);
-
-    Uint32 flags = SDL_SWSURFACE;
-    if (fullscreen)
-        flags |= SDL_FULLSCREEN;
-
-    // Try to initialize vide mode, return error code on failure
-    sdlScreen = 0;
-    bpp = SDL_VideoModeOK(w, h, bpp, flags);
-    if (bpp == 0)
-        return false;
-    sdlScreen = SDL_SetVideoMode(w, h, bpp, flags);
-    if (sdlScreen == 0)
-        return false;
-
-    // Video mode could be set
-    screen = new Screen(sdlScreen);
-    initialized = true;
-
-    // Hack to hide the cursor after switching between
-    // window/fullscreen mode.
-    SDL_ShowCursor(SDL_ENABLE);
-    SDL_ShowCursor(SDL_DISABLE);
-
-    SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY / 2, SDL_DEFAULT_REPEAT_INTERVAL / 2);
-
-    return true;
-}
-
-bool Video_SDL::is_fullscreen() const {
-    if (sdlScreen)
-        return (sdlScreen->flags & SDL_FULLSCREEN) != 0;
-    return false;
-}
-
-void Video_SDL::set_fullscreen(bool on_off) {
-    if (on_off != is_fullscreen())
-        toggle_fullscreen();
-}
-
-void Video_SDL::toggle_fullscreen() {
-    SDL_WM_ToggleFullScreen(sdlScreen);
-}
-
-}  // namespace
 
 /* -------------------- MouseCursor -------------------- */
 
@@ -160,8 +42,8 @@ namespace {
 
 class MouseCursor {
 public:
-    MouseCursor();
-    ~MouseCursor();
+    MouseCursor(ecl::Screen *screen) : screen(screen) { SDL_AddEventWatch(event_filter, this); }
+    ~MouseCursor() { SDL_DelEventWatch(event_filter, this); }
 
     void set_image(ecl::Surface *s, int hotx_, int hoty_);
     void move(int newx, int newy);
@@ -172,42 +54,43 @@ public:
     Rect get_rect() const;
     Rect get_oldrect() const;
 
-    bool has_changed() { return changedp; }
+    bool has_changed() { return changed; }
     int get_x() const { return x; }
     int get_y() const { return y; }
 
 private:
+    // This function is installed as an event watch by the constructor. It
+    // tracks mouse events to keep the position of the mouse cursor updated.
+    static int event_filter(void *data, SDL_Event *e) {
+        MouseCursor *cursor = static_cast<MouseCursor *>(data);
+        if (e->type == SDL_MOUSEMOTION) {
+            cursor->move(e->motion.x, e->motion.y);
+            cursor->redraw();
+        }
+        return 1;
+    }
+
     // Private methods
     void grab_bg();
     void init_bg();
     void restore_bg();
 
     // Variables
-    Surface *background;  // Copy of screen contents behind cursor
-    Surface *cursor;      // Pixmap of the cursor
+    ecl::Screen *screen;
+    std::unique_ptr<Surface> background;  // Copy of screen contents behind cursor
+    std::unique_ptr<Surface> cursor;      // Pixmap of the cursor
 
-    int x, y;
-    int oldx, oldy;
-    int hotx, hoty;  // Coordinates of hotspot inside cursor image
-    int visible;
-    bool changedp;
+    int x = 0, y = 0;
+    int oldx = 0, oldy = 0;
+
+    // Coordinates of hotspot inside cursor image
+    int hotx = 0, hoty = 0;
+    int visible = 0;
+    bool changed = true;
 };
 
-MouseCursor::MouseCursor() : background(0), cursor(0) {
-    oldx = oldy = 0;
-    hotx = hoty = 0;
-    visible = 0;
-    changedp = true;
-}
-
-MouseCursor::~MouseCursor() {
-    delete background;
-    delete cursor;
-}
-
 void MouseCursor::set_image(ecl::Surface *s, int hx, int hy) {
-    delete cursor;
-    cursor = s;
+    cursor.reset(s);
     hotx = hx;
     hoty = hy;
 
@@ -219,69 +102,64 @@ void MouseCursor::draw() {
     if (visible > 0) {
         grab_bg();
 
-        GC gc(SCREEN->get_surface());
-        blit(gc, x - hotx, y - hoty, cursor);
-        SCREEN->update_rect(get_rect());
+        GC gc(screen->get_surface());
+        blit(gc, x - hotx, y - hoty, cursor.get());
+        screen->update_rect(get_rect());
 
-        changedp = false;
+        changed = false;
     }
 }
 
 void MouseCursor::redraw() {
-    if (visible > 0 && changedp) {
+    if (visible > 0 && changed) {
         restore_bg();
         draw();
     }
 }
 
 void MouseCursor::move(int newx, int newy) {
-    x = newx;
-    y = newy;
-    changedp = true;
+    x = (int)((double) (newx * screen->size().w) / screen->window_size().w + 0.5);
+    y = (int)((double) (newy * screen->size().h) / screen->window_size().h + 0.5);
+    changed = true;
 }
 
 void MouseCursor::show() {
     if (++visible == 1) {
         init_bg();
-        changedp = true;
+        changed = true;
     }
 }
 
 void MouseCursor::hide() {
     if (--visible == 0) {
-        changedp = true;
+        changed = true;
         restore_bg();
-        delete background;
-        background = 0;
+        background.reset(nullptr);
     }
 }
 
 Rect MouseCursor::get_rect() const {
-    int scrx = x - hotx;
-    int scry = y - hoty;
-    return Rect(scrx, scry, cursor->width(), cursor->height());
+    return Rect(x - hotx, y - hoty, cursor->width(), cursor->height());
 }
 
 Rect MouseCursor::get_oldrect() const {
-    int scrx = oldx - hotx;
-    int scry = oldy - hoty;
-    return Rect(scrx, scry, cursor->width(), cursor->height());
+    return Rect(oldx - hotx, oldy - hoty, cursor->width(), cursor->height());
 }
 
 void MouseCursor::init_bg() {
     assert(visible > 0);
     assert(cursor != 0);
 
-    delete background;
-    background = ecl::MakeSurfaceLike(cursor->width(), cursor->height(), SCREEN->get_surface());
+    background.reset(ecl::MakeSurface(cursor->width(), cursor->height()));
+    assert(background);
     grab_bg();
 }
 
 void MouseCursor::grab_bg() {
     assert(background != 0);
 
-    GC gc(background);
-    blit(gc, 0, 0, SCREEN->get_surface(), get_rect());
+    GC gc(background.get());
+    blit(gc, 0, 0, screen->get_surface(), get_rect());
 
     oldx = x;
     oldy = y;
@@ -289,9 +167,9 @@ void MouseCursor::grab_bg() {
 
 void MouseCursor::restore_bg() {
     if (background) {
-        GC gc(SCREEN->get_surface());
-        blit(gc, oldx - hotx, oldy - hoty, background);
-        SCREEN->update_rect(get_oldrect());
+        GC gc(screen->get_surface());
+        blit(gc, oldx - hotx, oldy - hoty, background.get());
+        screen->update_rect(get_oldrect());
     }
 }
 
@@ -301,725 +179,825 @@ void MouseCursor::restore_bg() {
 
 namespace {
 
-Video_SDL *video_engine = 0;
-MouseCursor *cursor = 0;
-Surface *back_buffer = 0;
-
 /*! List of available video modes. */
-video::VMInfo video_modes[] = {{
-                                VM_640x480, 640, 480,       // id, w, h
-                                32, VTS_32,                 // tilesize, tiletype
-                                "640x480", "VGA", "4:3",    // name, fsname, fs only
-                                "models-32.lua", "gfx32/",  // initscript, dir
-                                Rect(0, 0, 640, 480),       // display area
-                                0, 0,                       // menu background image offsets
-                                120, 78, 4, "-120x78",      // thumbnail size/extension
-                                Rect(0, 0, 640, 416),       // game area
-                                Rect(0, 416, 640, 64),      // statusbar area
-                                Rect(10, 428, 117, 43),     // time area
-                                Rect(100, 422, 28, 43),     // modes area
-                                Rect(100, 425, 30, 43),     // moves area
-                                Rect(188, 433, 490, 52),    // inventory area
-                                Rect(180, 436, 444, 35),    // text area
-                                0,                          // statusbar coffsety
-                                true, true,                 // available window, fullscreen
-                                "-0-", "-0-"                // fallback modes window, fullscreen
-                               },
-                               {
-                                VM_640x512, 640, 512,         // id, w, h
-                                32, VTS_32,                   // tilesize, tiletype
-                                "640x512", "640x512", "5:4",  // name, fsname, fs only
-                                "models-32.lua", "gfx32/",    // initscript, dir
-                                Rect(0, 0, 640, 480),         // display area
-                                0, 0,                         // menu background image offsets
-                                120, 78, 4, "-120x78",        // thumbnail size/extension
-                                Rect(0, 0, 640, 416),         // game area
-                                Rect(0, 416, 640, 64),        // statusbar area
-                                Rect(15, 420, 110, 40),       // time area
-                                Rect(100, 420, 31, 40),       // modes area
-                                Rect(100, 420, 30, 40),       // moves area
-                                Rect(200, 433, 490, 52),      // inventory area
-                                Rect(150, 434, 475, 35),      // text area
-                                0,                            // statusbar coffsety
-                                false, false,                 // 640x512 is deprecated!
-                                "-0-", "-0-"                  // fallback modes window, fullscreen
-                               },
-                               {
-                                VM_800x600, 800, 600,       // id, w, h
-                                40, VTS_40,                 // tilesize, tiletype
-                                "800x600", "SVGA", "4:3",   // name, fsname, fs only
-                                "models-40.lua", "gfx40/",  // initscript, dir
-                                Rect(0, 0, 800, 600),       // display area
-                                0, 0,                       // menu background image offsets
-                                120, 78, 4, "-120x78",      // thumbnail size/extension
-                                Rect(0, 0, 800, 520),       // game area
-                                Rect(0, 520, 800, 80),      // statusbar area
-                                Rect(16, 540, 140, 40),     // time area
-                                Rect(140, 530, 31, 40),     // modes area
-                                Rect(140, 540, 30, 40),     // moves area
-                                Rect(235, 539, 610, 46),    // inventory area
-                                Rect(225, 547, 555, 39),    // text area
-                                0,                          // statusbar coffsety
-                                true, true,                 // available window, fullscreen
-                                "-2-0-", "-2-0-"            // fallback modes window, fullscreen
-                               },
-                               {
-                                VM_1024x768, 1024, 768,     // id, w, h
-                                48, VTS_48,                 // tilesize, tiletype
-                                "1024x768", "XGA", "4:3",   // name, fsname, fs only
-                                "models-48.lua", "gfx48/",  // initscript, dir
-                                Rect(32, 0, 960, 720),      // display area
-                                -128, -96,                  // menu background image offsets
-                                120, 78, 4, "-120x78",      // thumbnail size/extension
-                                Rect(32, 0, 960, 624),      // game area
-                                Rect(32, 624, 960, 96),     // statusbar area
-                                Rect(50, 640, 170, 60),     // time area
-                                Rect(198, 634, 34, 60),     // modes area
-                                Rect(185, 640, 30, 60),     // moves area
-                                Rect(314, 650, 710, 46),    // inventory area
-                                Rect(302, 655, 666, 40),    // text area
-                                0,                          // statusbar coffsety
-                                true, true,                 // available window, fullscreen
-                                "-3-2-0-", "-3-2-0-"        // fallback modes window, fullscreen
-                               },
-                               {
-                                VM_960x720, 960, 720,         // id, w, h
-                                48, VTS_48,                   // tilesize, tiletype
-                                "960x720", "960x720", "4:3",  // name, fsname, fs only
-                                "models-48.lua", "gfx48/",    // initscript, dir
-                                Rect(0, 0, 960, 720),         // display area
-                                -192, -144,                   // menu background image offsets
-                                120, 78, 4, "-120x78",        // thumbnail size/extension
-                                Rect(0, 0, 960, 624),         // game area
-                                Rect(0, 624, 960, 96),        // statusbar area
-                                Rect(18, 640, 170, 60),       // time area
-                                Rect(166, 636, 34, 60),       // modes area
-                                Rect(153, 640, 30, 60),       // moves area
-                                Rect(282, 650, 710, 46),      // inventory area
-                                Rect(270, 656, 666, 40),      // text area
-                                0,                            // statusbar coffsety
-                                true, true,                   // available window, fullscreen
-                                "-4-2-0-", "-4-2-0-"          // fallback modes window, fullscreen
-                               },
-                               {
-                                VM_1280x720, 1280, 720,        // id, w, h
-                                48, VTS_48,                    // tilesize, tiletype
-                                "1280x720", "HD720", "16:10",  // name, fsname, fs only
-                                "models-48.lua", "gfx48/",     // initscript, dir
-                                Rect(160, 0, 960, 720),        // display area
-                                -192, -96,                     // menu background image offsets
-                                120, 78, 4, "-120x78",         // thumbnail size/extension
-                                Rect(160, 0, 960, 624),        // game area
-                                Rect(160, 624, 960, 96),       // statusbar area
-                                Rect(178, 640, 170, 60),       // time area
-                                Rect(313, 640, 30, 60),        // modes area
-                                Rect(313, 640, 30, 60),        // moves area
-                                Rect(400, 650, 710, 46),       // inventory area
-                                Rect(388, 654, 710, 40),       // text area
-                                0,                             // statusbar coffsety
-                                false, true,                   // available window, fullscreen
-                                "-0-", "-5-0-"                 // fallback modes window, fullscreen
-                               },
-                               {
-                                VM_1280x960, 1280, 960,         // id, w, h
-                                64, VTS_64,                     // tilesize, tiletype
-                                "1280x960", "1280x960", "4:3",  // name, fsname, fs only
-                                "models-64.lua", "gfx64/",      // initscript, dir
-                                Rect(0, 0, 1280, 960),          // display area
-                                -400, -90,                      // menu background image offsets
-                                160, 104, 5, "-160x104",        // thumbnail size/extension
-                                Rect(0, 0, 1280, 832),          // game area
-                                Rect(0, 832, 1280, 128),        // statusbar area
-                                Rect(24, 857, 227, 80),         // time area //TODO
-                                Rect(204, 853, 40, 80),         // modes area //TODO
-                                Rect(204, 853, 40, 80),         // moves area //TODO
-                                Rect(376, 867, 947, 61),        // inventory area //TODO
-                                Rect(360, 884, 888, 53),        // text area //TODO
-                                1,                              // statusbar coffsety
-                                true, true,                     // available window, fullscreen
-                                "-6-4-2-0-", "-6-4-2-0-"        // fallback modes window, fullscreen
-                               },
-                               {
-                                VM_1440x960, 1440, 960,         // id, w, h
-                                64, VTS_64,                     // tilesize, tiletype
-                                "1440x960", "1440x960", "3:2",  // name, fsname, fs only
-                                "models-64.lua", "gfx64/",      // initscript, dir
-                                Rect(80, 0, 1280, 960),         // display area
-                                -400, -90,                      // menu background image offsets
-                                160, 104, 5, "-160x104",        // thumbnail size/extension
-                                Rect(80, 0, 1280, 832),         // game area
-                                Rect(80, 832, 1280, 128),       // statusbar area
-                                Rect(104, 853, 227, 80),        // time area //TODO
-                                Rect(284, 853, 40, 80),         // modes area //TODO
-                                Rect(284, 853, 40, 80),         // moves area //TODO
-                                Rect(480, 867, 947, 61),        // inventory area //TODO
-                                Rect(384, 873, 947, 53),        // text area //TODO
-                                0,                              // statusbar coffsety
-                                false, true,                    // available window, fullscreen
-                                "-0-", "-7-0-"                  // fallback modes window, fullscreen
-                               },
-                               {
-                                VM_1280x1024, 1280, 1024,    // id, w, h
-                                64, VTS_64,                  // tilesize, tiletype
-                                "1280x1024", "SXGA", "5:4",  // name, fsname, fs only
-                                "models-64.lua", "gfx64/",   // initscript, dir
-                                Rect(0, 0, 1280, 960),       // display area
-                                -400, -26,                   // menu background image offsets
-                                160, 104, 5, "-160x104",     // thumbnail size/extension
-                                Rect(0, 0, 1280, 832),       // game area
-                                Rect(0, 832, 1280, 128),     // statusbar area
-                                Rect(18, 640, 170, 60),      // time area //TODO
-                                Rect(153, 640, 30, 60),      // modes area //TODO
-                                Rect(153, 640, 30, 60),      // moves area //TODO
-                                Rect(324, 650, 710, 46),     // inventory area //TODO
-                                Rect(360, 655, 888, 40),     // text area //TODO
-                                0,                           // statusbar coffsety
-                                false, true,                 // available window, fullscreen
-                                "-0-", "-8-0-"               // fallback modes window, fullscreen
-                               },
-                               {
-                                VM_1680x1050, 1680, 1050,        // id, w, h
-                                64, VTS_64,                      // tilesize, tiletype
-                                "1680x1050", "WSXGA+", "16:10",  // name, fsname, fs only
-                                "models-64.lua", "gfx64/",       // initscript, dir
-                                Rect(200, 0, 1280, 960),         // display area
-                                -0, -0,                          // menu background image offsets
-                                160, 104, 5, "-160x104",         // thumbnail size/extension
-                                Rect(200, 0, 1280, 832),         // game area
-                                Rect(200, 832, 1280, 128),       // statusbar area
-                                Rect(224, 853, 227, 80),         // time area //TODO
-                                Rect(404, 853, 40, 80),          // modes area //TODO
-                                Rect(404, 853, 40, 80),          // moves area //TODO
-                                Rect(600, 867, 947, 61),         // inventory area //TODO
-                                Rect(504, 873, 947, 53),         // text area //TODO
-                                0,                               // statusbar coffsety
-                                false, true,                     // available window, fullscreen
-                                "-0-", "-9-0-"  // fallback modes window, fullscreen
-                               },
-                               {
-                                VM_320x240, 320, 240,       // id, w, h
-                                16, VTS_16,                 // tilesize, tiletype
-                                "320x240", "CGA", "4:3",    // name, fsname, fs only
-                                "models-16.lua", "gfx16/",  // initscript, dir
-                                Rect(0, 0, 320, 240),       // display area
-                                0, 0,                       // menu background image offsets
-                                60, 39, 2, "-60x39",        // thumbnail size/extension
-                                Rect(0, 0, 320, 208),       // game area
-                                Rect(0, 208, 320, 32),      // statusbar area
-                                Rect(3, 212, 65, 21),       // time area
-                                Rect(52, 210, 14, 21),      // modes area
-                                Rect(50, 220, 15, 21),      // moves area
-                                Rect(94, 216, 245, 26),     // inventory area
-                                Rect(90, 217, 222, 17),     // text area
-                                0,                          // statusbar coffsety
-                                true, true,                 // available window, fullscreen
-                                "-10-0-", "-10-0-"          // fallback modes window, fullscreen
-                               }};
+VMInfo video_modes[] = {
+    {
+     VM_320x240, 10, 320, 240,     // id, preffilenr, w, h
+     16, VTS_16,                   // tilesize, tiletype
+     "320x240", "CGA", "4:3",      // name, fsname, fs only
+     Rect(0, 0, 320, 240),         // display area
+     0, 0,                         // menu background image offsets
+     {60, 39, 2, "-60x39"},        // thumbnail size/extension
+     Rect(0, 0, 320, 208),         // game area
+     Rect(0, 208, 320, 32),        // statusbar area
+     Rect(3, 212, 65, 21),         // time area
+     Rect(52, 210, 14, 21),        // modes area
+     Rect(50, 220, 15, 21),        // moves area
+     Rect(94, 216, 245, 26),       // inventory area
+     Rect(90, 217, 222, 17),       // text area
+     0,                            // statusbar coffsety
+     true,                         // available fullscreen
+     "-10-0-"                      // fallback modes fullscreen
+    },
+    {
+     VM_640x480, 0, 640, 480,      // id, preffilenr, w, h
+     32, VTS_32,                   // tilesize, tiletype
+     "640x480", "VGA", "4:3",      // name, fsname, fs only
+     Rect(0, 0, 640, 480),         // display area
+     0, 0,                         // menu background image offsets
+     {120, 78, 4, "-120x78"},      // thumbnail size/extension
+     Rect(0, 0, 640, 416),         // game area
+     Rect(0, 416, 640, 64),        // statusbar area
+     Rect(10, 428, 117, 43),       // time area
+     Rect(100, 422, 28, 43),       // modes area
+     Rect(100, 425, 30, 43),       // moves area
+     Rect(188, 433, 490, 52),      // inventory area
+     Rect(180, 436, 444, 35),      // text area
+     0,                            // statusbar coffsety
+     true,                         // available fullscreen
+     "-0-"                         // fallback modes fullscreen
+    },
+    {
+     VM_640x512, 1, 640, 512,      // id, preffilenr, w, h
+     32, VTS_32,                   // tilesize, tiletype
+     "640x512", "640x512", "5:4",  // name, fsname, fs only
+     Rect(0, 0, 640, 480),         // display area
+     0, 0,                         // menu background image offsets
+     {120, 78, 4, "-120x78"},      // thumbnail size/extension
+     Rect(0, 0, 640, 416),         // game area
+     Rect(0, 416, 640, 64),        // statusbar area
+     Rect(15, 420, 110, 40),       // time area
+     Rect(100, 420, 31, 40),       // modes area
+     Rect(100, 420, 30, 40),       // moves area
+     Rect(200, 433, 490, 52),      // inventory area
+     Rect(150, 434, 475, 35),      // text area
+     0,                            // statusbar coffsety
+     false,                        // available fullscreen: 640x512 is deprecated!
+     "-0-"                         // fallback modes fullscreen
+    },
+    {
+     VM_800x600, 2, 800, 600,      // id, preffilenr, w, h
+     40, VTS_40,                   // tilesize, tiletype
+     "800x600", "SVGA", "4:3",     // name, fsname, fs only
+     Rect(0, 0, 800, 600),         // display area
+     0, 0,                         // menu background image offsets
+     {120, 78, 4, "-120x78"},      // thumbnail size/extension
+     Rect(0, 0, 800, 520),         // game area
+     Rect(0, 520, 800, 80),        // statusbar area
+     Rect(16, 540, 140, 40),       // time area
+     Rect(140, 530, 31, 40),       // modes area
+     Rect(140, 540, 30, 40),       // moves area
+     Rect(235, 539, 610, 46),      // inventory area
+     Rect(225, 547, 555, 39),      // text area
+     0,                            // statusbar coffsety
+     true,                         // available fullscreen
+     "-2-0-"                       // fallback modes fullscreen
+    },
+    {
+     VM_960x720, 4, 960, 720,      // id, preffilenr, w, h
+     48, VTS_48,                   // tilesize, tiletype
+     "960x720", "960x720", "4:3",  // name, fsname, fs only
+     Rect(0, 0, 960, 720),         // display area
+     -192, -144,                   // menu background image offsets
+     {120, 78, 4, "-120x78"},      // thumbnail size/extension
+     Rect(0, 0, 960, 624),         // game area
+     Rect(0, 624, 960, 96),        // statusbar area
+     Rect(18, 640, 170, 60),       // time area
+     Rect(166, 636, 34, 60),       // modes area
+     Rect(153, 640, 30, 60),       // moves area
+     Rect(282, 650, 710, 46),      // inventory area
+     Rect(270, 656, 666, 40),      // text area
+     0,                            // statusbar coffsety
+     true,                         // available fullscreen
+     "-4-2-0-"                     // fallback modes fullscreen
+    },
+    {
+     VM_1024x768, 3, 1024, 768,    // id, preffilenr, w, h
+     48, VTS_48,                   // tilesize, tiletype
+     "1024x768", "XGA", "4:3",     // name, fsname, fs only
+     Rect(32, 0, 960, 720),        // display area
+     -128, -96,                    // menu background image offsets
+     {120, 78, 4, "-120x78"},      // thumbnail size/extension
+     Rect(32, 0, 960, 624),        // game area
+     Rect(32, 624, 960, 96),       // statusbar area
+     Rect(50, 640, 170, 60),       // time area
+     Rect(198, 634, 34, 60),       // modes area
+     Rect(185, 640, 30, 60),       // moves area
+     Rect(314, 650, 710, 46),      // inventory area
+     Rect(302, 655, 666, 40),      // text area
+     0,                            // statusbar coffsety
+     false,                        // available fullscreen
+     "-3-2-0-"                     // fallback modes fullscreen
+    },
+    {
+     VM_1280x720, 5, 1280, 720,    // id, preffilenr, w, h
+     48, VTS_48,                   // tilesize, tiletype
+     "1280x720", "HD720", "16:10", // name, fsname, fs only
+     Rect(160, 0, 960, 720),       // display area
+     -192, -96,                    // menu background image offsets
+     {120, 78, 4, "-120x78"},      // thumbnail size/extension
+     Rect(160, 0, 960, 624),       // game area
+     Rect(160, 624, 960, 96),      // statusbar area
+     Rect(178, 640, 170, 60),      // time area
+     Rect(313, 640, 30, 60),       // modes area
+     Rect(313, 640, 30, 60),       // moves area
+     Rect(400, 650, 710, 46),      // inventory area
+     Rect(388, 654, 710, 40),      // text area
+     0,                            // statusbar coffsety
+     false,                        // available fullscreen
+     "-5-0-"                       // fallback modes fullscreen
+    },
+    {
+     VM_1280x960, 6, 1280, 960,     // id, preffilenr, w, h
+     64, VTS_64,                    // tilesize, tiletype
+     "1280x960", "1280x960", "4:3", // name, fsname, fs only
+     Rect(0, 0, 1280, 960),         // display area
+     -400, -90,                     // menu background image offsets
+     {160, 104, 5, "-160x104"},     // thumbnail size/extension
+     Rect(0, 0, 1280, 832),         // game area
+     Rect(0, 832, 1280, 128),       // statusbar area
+     Rect(24, 857, 227, 80),        // time area //TODO
+     Rect(204, 853, 40, 80),        // modes area //TODO
+     Rect(204, 853, 40, 80),        // moves area //TODO
+     Rect(376, 867, 947, 61),       // inventory area //TODO
+     Rect(360, 884, 888, 53),       // text area //TODO
+     1,                             // statusbar coffsety
+     true,                          // available fullscreen
+     "-6-4-2-0-"                    // fallback modes fullscreen
+    },
+    {
+     VM_1280x1024, 8, 1280, 1024,   // id, preffilenr, w, h
+     64, VTS_64,                    // tilesize, tiletype
+     "1280x1024", "SXGA", "5:4",    // name, fsname, fs only
+     Rect(0, 0, 1280, 960),         // display area
+     -400, -26,                     // menu background image offsets
+     {160, 104, 5, "-160x104"},     // thumbnail size/extension
+     Rect(0, 0, 1280, 832),         // game area
+     Rect(0, 832, 1280, 128),       // statusbar area
+     Rect(18, 640, 170, 60),        // time area //TODO
+     Rect(153, 640, 30, 60),        // modes area //TODO
+     Rect(153, 640, 30, 60),        // moves area //TODO
+     Rect(324, 650, 710, 46),       // inventory area //TODO
+     Rect(360, 655, 888, 40),       // text area //TODO
+     0,                             // statusbar coffsety
+     false,                         // available fullscreen
+     "-8-0-"                        // fallback modes fullscreen
+    },
+    {
+     VM_1440x960, 7, 1440, 960,     // id, preffilenr, w, h
+     64, VTS_64,                    // tilesize, tiletype
+     "1440x960", "1440x960", "3:2", // name, fsname, fs only
+     Rect(80, 0, 1280, 960),        // display area
+     -400, -90,                     // menu background image offsets
+     {160, 104, 5, "-160x104"},     // thumbnail size/extension
+     Rect(80, 0, 1280, 832),        // game area
+     Rect(80, 832, 1280, 128),      // statusbar area
+     Rect(104, 853, 227, 80),       // time area //TODO
+     Rect(284, 853, 40, 80),        // modes area //TODO
+     Rect(284, 853, 40, 80),        // moves area //TODO
+     Rect(480, 867, 947, 61),       // inventory area //TODO
+     Rect(384, 873, 947, 53),       // text area //TODO
+     0,                             // statusbar coffsety
+     false,                         // available fullscreen
+     "-7-0-"                        // fallback modes fullscreen
+    },
+    {
+     VM_1680x1050, 9, 1680, 1050,   // id, preffilenr, w, h
+     64, VTS_64,                    // tilesize, tiletype
+     "1680x1050", "WSXGA+", "16:10",// name, fsname, fs only
+     Rect(200, 0, 1280, 960),       // display area
+     -0, -0,                        // menu background image offsets
+     {160, 104, 5, "-160x104"},     // thumbnail size/extension
+     Rect(200, 0, 1280, 832),       // game area
+     Rect(200, 832, 1280, 128),     // statusbar area
+     Rect(224, 853, 227, 80),       // time area //TODO
+     Rect(404, 853, 40, 80),        // modes area //TODO
+     Rect(404, 853, 40, 80),        // moves area //TODO
+     Rect(600, 867, 947, 61),       // inventory area //TODO
+     Rect(504, 873, 947, 53),       // text area //TODO
+     0,                             // statusbar coffsety
+     false,                         // available fullscreen
+     "-9-0-"                        // fallback modes fullscreen
+    }
+};
 
-VideoModes current_video_mode = VM_None;
+/*! List of available tilesets. */
+std::vector<VideoTileset> video_tilesets {
+    // Id, name, tiletype, tilesize, optimal fullscreen mode, initscript, dir, fallback
+    {VTS_16_130, "16x16 Enigma 1.30", VTS_16, 16,  VM_320x240, "models-16.lua", "gfx16/", VTS_32_130, true},
+    {VTS_32_130, "32x32 Enigma 1.30", VTS_32, 32,  VM_640x480, "models-32.lua", "gfx32/", VTS_NONE,   true},
+    {VTS_40_130, "40x40 Enigma 1.30", VTS_40, 40,  VM_800x600, "models-40.lua", "gfx40/", VTS_NONE,   true},
+    {VTS_48_130, "48x48 Enigma 1.30", VTS_48, 48,  VM_960x720, "models-48.lua", "gfx48/", VTS_NONE,   true},
+    {VTS_64_130, "64x64 Enigma 1.30", VTS_64, 64, VM_1280x960, "models-64.lua", "gfx64/", VTS_48_130, true},
+};
 
 }  // namespace
 
-/* -------------------- Auxiliary functions -------------------- */
+namespace enigma {
 
-namespace {
+class VideoEngineImpl : public VideoEngine {
+public:
+    VideoEngineImpl();
+    ~VideoEngineImpl();
 
-bool vm_available(int w, int h, int &bpp, bool fullscreen) {
-    Uint32 flags = SDL_HWSURFACE;
-    if (fullscreen)
-        flags |= SDL_FULLSCREEN;
+    void Init() override;
 
-    int newbpp = SDL_VideoModeOK(w, h, bpp, flags);
-    if (newbpp != 0) {
-        bpp = newbpp;
-        return true;
-    }
-    return false;
+    void Shutdown() override;
+
+    ecl::Screen *GetScreen() override;
+
+    void SetCaption(const std::string &text) override;
+    const std::string &GetCaption() override;
+
+    std::vector<FullscreenMode> EnumerateFullscreenModes() override;
+    std::vector<VideoTilesetId> EnumerateAllTilesets() override;
+    std::vector<VideoTilesetId> EnumerateFittingTilesets(FullscreenMode fmode) override;
+    WindowSize ActiveDisplayMode() override;
+    WindowSize ActiveWindowSize() override;
+    void SetVideoTileset(VideoTileset* vts) override;
+    void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId id) override;
+    void ApplySettings() override;
+    void SaveWindowSizePreferences() override;
+    void Resize(Sint32 width, Sint32 height) override;
+    WindowSize SelectedWindowSize() override;
+    int ActiveWindowSizeFactor() override;
+
+    const VMInfo *GetInfo() override;
+    const VMInfo *GetInfo(FullscreenMode mode) override { return &video_modes[mode]; }
+    VideoTileset *GetTileset() override;
+    const VideoTilesetId GetTilesetId() override;
+
+    FullscreenMode FindFullscreenMode(const WindowSize &display_mode) override;
+    FullscreenMode FindClosestFullscreenMode(const WindowSize &display_mode) override;
+    FullscreenMode FullscreenModeByPrefNr(int prefnr) override;
+    FullscreenMode ParseVideomodesFallbackString(std::string modes, bool available_only, int seq = 1) override;
+
+    bool SetFullscreen(bool enabled) override;
+    bool ToggleFullscreen() override { return SetFullscreen(!IsFullscreen()); }
+    bool IsFullscreen() override;
+
+    ecl::Surface *BackBuffer() override;
+
+    void Screenshot(const std::string &file_name) override;
+
+    void SetMouseCursor(ecl::Surface *s, int hotx, int hoty) override;
+    void HideMouse() override;
+    void ShowMouse() override;
+    int Mousex() override { return cursor->get_x(); }
+    int Mousey() override { return cursor->get_y(); }
+
+    bool GetInputGrab() override { return SDL_GetWindowGrab(window) == SDL_TRUE; }
+    bool SetInputGrab(bool enabled) override;
+
+private:
+    bool OpenWindow(int width, int height, bool fullscreen);
+    void CloseWindow();
+
+    ecl::Screen *screen;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    std::unique_ptr<Surface> back_buffer;
+    std::unique_ptr<MouseCursor> cursor;
+    std::string window_caption;
+    VideoTileset *video_tileset;
+    VideoTilesetId video_tileset_id;
+};
+
+VideoEngineImpl::VideoEngineImpl() :
+    screen(NULL),
+    window(NULL),
+    renderer(NULL),
+    video_tileset(nullptr),
+    video_tileset_id(VTS_NONE)
+{}
+
+VideoEngineImpl::~VideoEngineImpl() {
+    CloseWindow();
 }
 
-// This function is installed as an event filter by video::Init. It intercepts
-// mouse motions, which are used to update the position of the mouse cursor
-// (but passed on to the event queue).
-int event_filter(const SDL_Event *e) {
-    if (e->type == SDL_MOUSEMOTION) {
-        cursor->move(e->motion.x, e->motion.y);
-        cursor->redraw();
+void VideoEngineImpl::Init() {
+    bool isFullScreen = app.prefs->getBool("FullScreen");
+    // Sanitize and save preferences for fullscreen mode.
+    FullscreenMode fmode = ParseVideomodesFallbackString(app.prefs->getString("VideoModesFullscreen"), true);
+    VideoTileset* fvts = VideoTilesetByName(app.prefs->getString("FullscreenTileset"));
+    std::vector<FullscreenMode> available_modes = EnumerateFullscreenModes();
+    auto modepos = std::find(available_modes.begin(), available_modes.end(), fmode);
+    if ((fmode == VM_NONE) || (modepos == available_modes.end())) {
+        // Fullscreen mode is not available
+        app.selectedFullscreenMode = VM_NONE;
+        app.selectedFullscreenTilesetId = VTS_NONE;
+        isFullScreen = false;
+    } else {
+        // Fullscreen mode is available
+        if ((fvts == nullptr) || (fvts->tt != video_modes[fmode].tt))
+            fvts = StandardTileset(video_modes[fmode].tt);
+        app.selectedFullscreenMode = fmode;
+        app.selectedFullscreenTilesetId = fvts->id;
     }
-    return 1;
+    // Sanitize and save preferences for window mode.
+    int w = app.prefs->getInt("WindowWidth");
+    int h = app.prefs->getInt("WindowHeight");
+    int sizefactor = app.prefs->getInt("WindowSizeFactor");
+    VideoTileset* wvts = VideoTilesetByName(app.prefs->getString("WindowTileset"));
+    if ((sizefactor > 0) && (wvts != nullptr)) {
+        w = sizefactor * wvts->tilesize * 20;
+        h = sizefactor * wvts->tilesize * 15;
+    }
+    if ((w <= 0) || (h <= 0) || (wvts == nullptr)) {
+        FullscreenMode wmode = ParseVideomodesFallbackString(app.prefs->getString("VideoModesWindow"), false);
+        if (wmode != VM_NONE) {
+            // Use older settings from 1.00..1.21.
+            // Guess the correct tile type, then resize.
+            // In most cases, this will result in the old window sizes,
+            // except 1024x768, which will be replaced by 960x780.
+            wvts = StandardTileset(video_modes[wmode].tt);
+            wmode = wvts->OptimalFullscreenMode;
+            w = video_modes[wmode].width;
+            h = video_modes[wmode].height;
+            sizefactor = 1;
+        } else {
+            // Nothing is set, or nothing set is working. Maybe first time?
+            // Just choose something sensible and halfway representable.
+            w = 800;
+            h = 600;
+            wvts = StandardTileset(VTS_40);
+            sizefactor = 1;
+        }
+    }
+    app.selectedWindowSizeFactor = sizefactor;
+    app.selectedWindowTilesetId = wvts->id;
+    // Try to activate the chosen mode.
+    bool success = false;
+    if (isFullScreen && (fmode != VM_NONE)) {
+        // Try fullscreen mode.
+        SetVideoTileset(fvts);
+        success = OpenWindow(video_modes[fmode].width, video_modes[fmode].height, true);
+        if (!success)
+            Log << "Preferred video mode (" << w << "x" << h << " "
+                << (isFullScreen?"fullscreen":"window") << " mode) failed.";
+    }
+    if (!success) {
+        // Probably just window mode; or maybe fullscreen mode failed.
+        SetVideoTileset(wvts);
+        success = OpenWindow(w, h, false);
+    }
+    if (!success) {
+        // Try two fallback solutions: 640x480, then 320x240, in windowed mode.
+        Log << "Preferred video mode (" << w << "x" << h << " "
+            << (isFullScreen?"fullscreen":"window") << " mode) failed.";
+        SetVideoTileset(StandardTileset(VTS_32));
+        if (!OpenWindow(640, 480, false)) {
+            SetVideoTileset(StandardTileset(VTS_16));
+            if (!OpenWindow(320, 240, false)) {
+                // Give up.
+                fprintf(stderr, "Could not find a working display mode during init, sorry.");
+                exit(1);
+            }
+        }
+    }
+    // Save the de-facto modes (just in "app", not as preference).    
+    if (video_engine->IsFullscreen()) {
+        app.selectedFullscreenMode = FindFullscreenMode(ActiveWindowSize());
+        app.selectedFullscreenTilesetId = GetTilesetId();
+    } else {
+        app.selectedWindowTilesetId == GetTilesetId();
+    }
+// Mac icon is set via Makefile
+#ifndef MACOSX
+    if (Surface *icon = enigma::GetImage("enigma_marble")) {
+        SDL_SetWindowIcon(window, icon->get_surface());
+    }
+#endif
 }
 
-}  // namespace
+void VideoEngineImpl::Shutdown() {
+    CloseWindow();
+}
 
-/* -------------------- Functions -------------------- */
+ecl::Screen *VideoEngineImpl::GetScreen() {
+    return screen;
+}
 
-void video::SetMouseCursor(ecl::Surface *s, int hotx, int hoty) {
+void VideoEngineImpl::SetCaption(const std::string &text) {
+    SDL_SetWindowTitle(window, text.c_str());
+    window_caption = text;
+}
+
+const std::string &VideoEngineImpl::GetCaption() {
+    return window_caption;
+}
+
+std::vector<FullscreenMode> VideoEngineImpl::EnumerateFullscreenModes() {
+    std::vector<FullscreenMode> modes;
+    const int display = 0;
+    const int num_modes = SDL_GetNumDisplayModes(display);
+    for (int i = 0; i < num_modes; ++i) {
+        SDL_DisplayMode mode;
+        if (SDL_GetDisplayMode(display, i, &mode) == 0) {
+            WindowSize new_mode = {mode.w, mode.h};
+            FullscreenMode fmode = FindFullscreenMode(new_mode);
+            if (   (fmode != VM_NONE)
+                && (video_modes[fmode].f_available)
+                && (std::find(modes.begin(), modes.end(), fmode) == modes.end()))
+            {
+                Log << "Found fullscreen mode: " << new_mode.width
+                    << "x" << new_mode.height << "\n";
+                modes.push_back(fmode);
+            }
+        }
+    }
+    return modes;
+}
+
+std::vector<VideoTilesetId> VideoEngineImpl::EnumerateAllTilesets() {
+    std::vector<VideoTilesetId> ids;
+    for (int i = VTSID_FIRST; i < VTSID_COUNT; i++) {
+        ids.push_back((VideoTilesetId) i);
+    }
+    return ids;
+}
+
+std::vector<VideoTilesetId> VideoEngineImpl::EnumerateFittingTilesets(FullscreenMode fmode) {
+    std::vector<VideoTilesetId> ids;
+    const VMInfo* vminfo = GetInfo(fmode);
+    assert(vminfo);
+    for (int i = VTSID_FIRST; i < VTSID_COUNT; i++) {
+        VideoTileset *vts = VideoTilesetById((VideoTilesetId) i);
+        assert(vts);
+        if (vts->tt == vminfo->tt)
+            ids.push_back((VideoTilesetId) i);
+    }
+    return ids;
+}
+
+WindowSize VideoEngineImpl::ActiveWindowSize() {
+    return {screen->window_width(), screen->window_height()};
+}
+
+WindowSize VideoEngineImpl::ActiveDisplayMode() {
+    return {screen->width(), screen->height()};
+}
+
+void VideoEngineImpl::SetVideoTileset(VideoTileset* vts) {
+    if (vts == nullptr) {
+        fprintf(stderr, "Error in video tileset selection, sorry.");
+        exit(1);
+    }
+    Log << "Set video tile set " << vts->name << ".\n";
+    video_tileset_id = vts->id;
+    video_tileset = vts;
+}
+
+void VideoEngineImpl::SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId vtsid) {
+    // Save old configuration in case the new one fails.
+    bool old_fs = IsFullscreen();
+    WindowSize old_mode = ActiveDisplayMode();
+    VideoTileset* vts = VideoTilesetById(vtsid);
+    VideoTileset* old_vts = GetTileset();
+    // Close old window, then try new config.
+    CloseWindow();
+    SetVideoTileset(vts);
+    if (OpenWindow(display_mode.width, display_mode.height, fullscreen))
+        return;
+    // Something went wrong with the new configuration -- try old config.
+    SetVideoTileset(old_vts);
+    if (OpenWindow(old_mode.width, old_mode.height, old_fs))
+        return;
+    // Try old config with window.
+    SetVideoTileset(old_vts);
+    if (OpenWindow(old_mode.width, old_mode.height, false))
+        return;
+    // Try two fallback solutions: 640x480, then 320x240, in windowed mode.
+    SetVideoTileset(StandardTileset(VTS_32));
+    if (OpenWindow(640, 480, false))
+        return;
+    SetVideoTileset(StandardTileset(VTS_16));
+    if (OpenWindow(320, 240, false))
+        return;
+    // Give up.
+    fprintf(stderr, "Could not find a working display mode, sorry.");
+    exit(1);
+}
+
+WindowSize VideoEngineImpl::SelectedWindowSize() {
+    VideoTileset* vts = VideoTilesetById(app.selectedWindowTilesetId);
+    assert(vts);
+    int tilesize = vts->tilesize;
+    if (app.selectedWindowSizeFactor == 0) {
+        return ActiveWindowSize();
+    }
+    return {app.selectedWindowSizeFactor * tilesize * 20, app.selectedWindowSizeFactor * tilesize * 15};
+}
+
+int VideoEngineImpl::ActiveWindowSizeFactor() {
+    VideoTileset* vts = VideoTilesetById(app.selectedWindowTilesetId);
+    assert(vts);
+    return (int) (ActiveWindowSize().width / 20 / vts->tilesize);
+}
+
+void VideoEngineImpl::ApplySettings() {
+    bool wantFullscreen = app.prefs->getBool("FullScreen");
+    if (wantFullscreen && !IsFullscreen())
+        SaveWindowSizePreferences();
+    // Do we have to change the display mode and/or active tileset?
+    if (wantFullscreen && IsFullscreen()
+        && (app.selectedFullscreenMode == FindFullscreenMode(ActiveWindowSize()))
+        && (app.selectedFullscreenTilesetId == GetTilesetId()))
+        return;
+    if (!wantFullscreen && !IsFullscreen()
+        && (SelectedWindowSize() == ActiveWindowSize())
+        && (app.selectedWindowTilesetId == GetTilesetId()))
+        return;
+    // Change display mode.
+    if (wantFullscreen) {
+        int w = video_modes[app.selectedFullscreenMode].width;
+        int h = video_modes[app.selectedFullscreenMode].height;
+        SetDisplayMode({w,h}, true, app.selectedFullscreenTilesetId);
+    } else {
+        SetDisplayMode(SelectedWindowSize(), false, app.selectedWindowTilesetId);
+    }
+    // The display might have been set to different settings. Save these.
+    app.prefs->setProperty("FullScreen", IsFullscreen());
+    if (IsFullscreen()) {
+        app.selectedFullscreenMode = FindFullscreenMode(ActiveWindowSize());
+    } else {
+        SaveWindowSizePreferences();
+    }
+    gui::LevelPreviewCache::instance()->clear();
+    display::Shutdown();
+    display::Init();
+}
+
+void VideoEngineImpl::SaveWindowSizePreferences() {
+    WindowSize ws = ActiveWindowSize();
+    app.prefs->setProperty("WindowWidth", ws.width);
+    app.prefs->setProperty("WindowHeight", ws.height);
+}
+
+void VideoEngineImpl::Resize(Sint32 width, Sint32 height) {
+    SDL_SetWindowSize(window, width, height);
+    SDL_RenderSetLogicalSize(renderer, width, height);
+}
+
+const VMInfo *VideoEngineImpl::GetInfo() {
+    FullscreenMode mode = FindClosestFullscreenMode(ActiveDisplayMode());
+    assert(mode != VM_NONE);
+    return &video_modes[mode];
+}
+
+VideoTileset *VideoEngineImpl::GetTileset() {
+    assert(video_tileset);
+    return video_tileset;
+}
+
+const VideoTilesetId VideoEngineImpl::GetTilesetId() {
+    return video_tileset_id;
+}
+
+bool VideoEngineImpl::SetFullscreen(bool enabled) {
+    // TODO(sdl2): change display mode if necessary
+    if (!IsFullscreen())
+        SaveWindowSizePreferences();
+
+    SDL_SetWindowFullscreen(window, enabled ? SDL_WINDOW_FULLSCREEN : 0);
+    return IsFullscreen();
+}
+
+bool VideoEngineImpl::IsFullscreen() {
+    Uint32 flags = SDL_GetWindowFlags(window);
+    return (flags & SDL_WINDOW_FULLSCREEN) != 0;
+}
+
+ecl::Surface *VideoEngineImpl::BackBuffer() {
+    if (!back_buffer) {
+        back_buffer.reset(Duplicate(screen->get_surface()));
+    }
+    return back_buffer.get();
+}
+
+void VideoEngineImpl::Screenshot(const std::string &file_name) {
+    // auto-create the directory if necessary
+    std::string directory;
+    if (ecl::split_path(file_name, &directory, 0) && !ecl::FolderExists(directory)) {
+        ecl::FolderCreate(directory);
+    }
+
+    ecl::Rect rect = GetInfo()->area;
+    ecl::SavePNG(ecl::Grab(screen->get_surface(), rect), file_name);
+    enigma::Log << "Wrote screenshot to '" << file_name << "'\n";
+}
+
+void VideoEngineImpl::SetMouseCursor(ecl::Surface *s, int hotx, int hoty) {
     cursor->set_image(s, hotx, hoty);
     cursor->redraw();
 }
 
-void video::HideMouse() {
+void VideoEngineImpl::HideMouse() {
     cursor->hide();
     cursor->redraw();
 }
 
-void video::ShowMouse() {
+void VideoEngineImpl::ShowMouse() {
     cursor->show();
     cursor->redraw();
 }
 
-int video::Mousex() {
-    return cursor->get_x();
+bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
+    Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
+    if (fullscreen)
+        flags |= SDL_WINDOW_FULLSCREEN;
+
+    // Try to initialize video mode, return error code on failure
+    Log << "Opening in " << (fullscreen?"fullscreen":"window") << " mode, "
+        << width << "x" << height << ".\n";
+    window = SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,
+                              flags);
+    if (!window)
+        return false;
+
+    assert(GetTileset());
+    int tilesize = GetTileset()->tilesize;
+    screen = new Screen(window, tilesize * 20, tilesize * 15);
+
+    renderer = SDL_CreateSoftwareRenderer(SDL_GetWindowSurface(window));
+    if (!renderer)
+        return false;
+
+    FullscreenMode video_mode = FindClosestFullscreenMode({width, height});
+    const VMInfo *vminfo = GetInfo(video_mode);
+    SDL_RenderSetLogicalSize(renderer, vminfo->width, vminfo->height);
+
+    cursor.reset(new MouseCursor(screen));
+    int x, y;
+    SDL_GetMouseState(&x, &y);
+    cursor->move(x, y);
+    cursor->set_image(enigma::LoadImage("cur-magic"), 4, 4);
+    video_engine->ShowMouse();
+    SDL_ShowCursor(0);
+
+    return true;
 }
 
-int video::Mousey() {
-    return cursor->get_y();
+void VideoEngineImpl::CloseWindow() {
+    assert(window);
+    assert(renderer);
+
+    SetInputGrab(false);
+    cursor = nullptr;
+    back_buffer = nullptr;
+    video_tileset = nullptr;
+    delete screen;
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
 }
 
-/* -------------------- Input grabbing -------------------- */
 
-TempInputGrab::TempInputGrab(bool onoff) {
-    old_onoff = SetInputGrab(onoff);
-}
-
-TempInputGrab::~TempInputGrab() {
-    SetInputGrab(old_onoff);
-}
-
-bool video::GetInputGrab() {
-    return SDL_WM_GrabInput(SDL_GRAB_QUERY) == SDL_GRAB_ON;
-}
-
-bool video::SetInputGrab(bool onoff) {
-    bool old_onoff = GetInputGrab();
-    if (onoff) {
-        Screen *screen = GetScreen();
-        SDL_WarpMouse(screen->width() / 2, screen->height() / 2);
-        SDL_Event e;
-        while (SDL_PollEvent(&e)) {
-            ;  // swallow mouse motion event
+FullscreenMode VideoEngineImpl::FindFullscreenMode(const WindowSize &display_mode) {
+    for (int i = VM_LAST; i >= VM_FIRST; --i) {
+        const VMInfo &info = video_modes[i];
+        if (info.width == display_mode.width && info.height == display_mode.height) {
+            return info.mode;
         }
-        SDL_WM_GrabInput(SDL_GRAB_ON);
-    } else
-        SDL_WM_GrabInput(SDL_GRAB_OFF);
-    return old_onoff;
-}
-
-Surface *video::BackBuffer() {
-    if (back_buffer == 0) {
-        back_buffer = Duplicate(SCREEN->get_surface());
     }
-    return back_buffer;
+    return VM_NONE;
 }
 
-const video::VMInfo *video::GetInfo(VideoModes vm) {
-    return &video_modes[vm];
-}
-
-const video::VMInfo *video::GetInfo() {
-    return GetInfo(current_video_mode);
-}
-
-void video::SetThumbInfo(int width, int height, std::string extension) {
-    video_modes[current_video_mode].thumbw = width;
-    video_modes[current_video_mode].thumbh = height;
-    video_modes[current_video_mode].thumbsext = extension;
-}
-
-int video::GetNumAvailableModes(bool isFullscreen) {
-    int avail = 0;
-    for (int i = VM_None + 1; i < VM_COUNT; i++)
-        if (isFullscreen ? video_modes[i].f_available : video_modes[i].w_available)
-            avail++;
-
-    return avail;
-}
-
-VideoModes video::GetVideoMode(int number, bool isFullscreen) {
-    int avail = 0;
-    for (int i = VM_None + 1; i < VM_COUNT; i++)
-        if (isFullscreen ? video_modes[i].f_available : video_modes[i].w_available) {
-            if (avail == number)
-                return static_cast<video::VideoModes>(i);
-            else
-                avail++;
+FullscreenMode VideoEngineImpl::FindClosestFullscreenMode(const WindowSize &display_mode) {
+    for (int i = VM_LAST; i >= VM_FIRST; --i) {
+        const VMInfo &info = video_modes[i];
+        if (info.width <= display_mode.width && info.height <= display_mode.height) {
+            return info.mode;
         }
-    return VM_None;
+    }
+    return VM_NONE;
 }
 
-VideoModes video::GetBestUserMode(bool isFullscreen, int seq) {
-    std::string modes =
-        app.prefs->getString(isFullscreen ? "VideoModesFullscreen" : "VideoModesWindow");
+FullscreenMode VideoEngineImpl::FullscreenModeByPrefNr(int prefnr) {
+    for (int i = VM_LAST; i >= VM_FIRST; --i) {
+        const VMInfo &info = video_modes[i];
+        if (info.preffilenr == prefnr)
+            return info.mode;
+    }
+    return VM_NONE;
+}
+
+/**
+ * Calculate the best fullscreen mode out of the users preferences that is
+ * available for the current configuration. As the user preference
+ * state a sequence of fallback modes this function returns a useful
+ * mode even if the user did run previously a future version of Enigma
+ * and selected a mode that is not available in this Enigma version.
+ * Note that the numbers in the sequence do not directly correspond
+ * to the video_modes-sequence, but rather to their "preffilenr".
+ * @arg  modes           string of modes to parse, typically from a pref file
+ * @arg  available_only  if true, only choose modes available for fullscreen
+ * @arg  seq             sequence number of best available mode, default to 1
+ * @return               the preferable video mode
+ */
+FullscreenMode VideoEngineImpl::ParseVideomodesFallbackString
+            (std::string modes, bool available_only, int seq) {
+    // seq defaults to 1.
+    // In Enigma 1.3, we actually use our own fallback system, so we only
+    // ever use the very first known and activated mode we find, and work
+    // through our own fallbacks from there on. Therefore, this function
+    // is used with seq = 1 only.
     if (modes.length() > 1) {
         std::istringstream ms(modes);
-        int m = VM_None;
+        FullscreenMode mode = VM_NONE;
+        int prefnr = -1;
         ms.ignore();  // leading '-'
         while (ms && seq > 0) {
-            ms >> std::dec >> m;
+            ms >> std::dec >> prefnr;
             ms.ignore();
-            if (m <= VM_COUNT && ((!isFullscreen && video_modes[m].w_available) ||
-                                  (isFullscreen && video_modes[m].f_available))) {
-                if (seq == 1) {
-                    return static_cast<video::VideoModes>(m);
-                }
+            mode = FullscreenModeByPrefNr(prefnr);
+            if ((!available_only) || video_modes[mode].f_available) {
+                if (seq == 1)
+                    return mode;
                 --seq;
             }
         }
     }
-    return VM_None;
+    return VM_NONE;
 }
 
-int video::GetModeNumber(VideoModes mode, bool isFullscreen) {
-    int avail = 0;
-    for (int i = VM_None + 1; i < mode; i++)
-        if (isFullscreen ? video_modes[i].f_available : video_modes[i].w_available)
-            avail++;
-    return avail;
+bool VideoEngineImpl::SetInputGrab(bool enabled) {
+    // From SDL 1 to SDL 2, the old grabbing commands were
+    // split up into two separate pairs, one setting the mouse mode,
+    // and one defining the window to be grabbed. As long as Enigma
+    // uses only one window, we use both SDL_Set... commands in parallel,
+    // but only SDL_GetWindowGrab to retrieve the current state. When
+    // Enigma starts using several windows, this needs to be adapted.
+    bool old_state = GetInputGrab();
+    SDL_SetWindowGrab(window, enabled ? SDL_TRUE : SDL_FALSE);
+    SDL_SetRelativeMouseMode(enabled ? SDL_TRUE : SDL_FALSE);
+    return old_state;
 }
 
-bool video::ModeAvailable(VideoModes vm) {
-    const VMInfo *vminfo = GetInfo(vm);
-    string fname;
-    return (vminfo->w_available && app.systemFS->findFile(vminfo->initscript, fname));
+// -------------------- Global variables & functions --------------------
+
+VideoEngine *video_engine = nullptr;
+
+void VideoInit() {
+    video_engine = new VideoEngineImpl;
+    video_engine->Init();
+    Log << "VideoInit done.\n";
 }
 
-void video::Init() {
-    static bool isInit = false;
-    static int bpp_default = 16;
-    int bpp = bpp_default;
+void ShowLoadingScreen(const char *text, int /* progress */) {
+    ecl::Screen *screen = video_engine->GetScreen();
+    ecl::GC gc(screen->get_surface());
 
-    if (!isInit) {
-        assert(NUMENTRIES(video_modes) == VM_COUNT);
-        isInit = true;
-        for (int i = VM_None + 1; i < VM_COUNT; i++) {
-            bpp = bpp_default;
-            if (video_modes[i].w_available &&
-                !vm_available(video_modes[i].width, video_modes[i].height, bpp, false)) {
-                video_modes[i].w_available = false;
-                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
-                    << " window not available\n";
-            }
-            if (bpp != bpp_default)
-                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
-                    << " window available with bpp " << bpp << "\n";
-            bpp = bpp_default;
-            if (video_modes[i].f_available &&
-                !vm_available(video_modes[i].width, video_modes[i].height, bpp, true)) {
-                video_modes[i].f_available = false;
-                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
-                    << " fullscreen not available\n";
-            }
-            if (bpp != bpp_default)
-                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
-                    << " fullscreen available with bpp " << bpp << "\n";
-        }
-    }
+    blit(gc, 0, 0, GetImage("menu_bg", ".jpg"));
 
-    bool isFullScreen = app.prefs->getBool("FullScreen");
-    int vidmode = -1;
-    if (app.prefs->getString("VideoModesFullscreen").empty()) {
-        // initialize from 1.0 mode if never set before
-        vidmode = app.prefs->getInt("VideoMode");
-        app.prefs->setProperty("VideoModesFullscreen", video_modes[vidmode].fallback_fullscreen);
-        app.prefs->setProperty("VideoModesWindow", video_modes[vidmode].fallback_window);
-    }
-    vidmode = video::GetBestUserMode(isFullScreen);
+    ecl::Surface *logo = GetImage("enigma_logo3");
+    const int x = (screen->width() - logo->width()) / 2;
+    const int y = (screen->height() - logo->height()) / 2;
+    blit(gc, x, y - logo->height(), logo);
 
-    video_engine = new Video_SDL();
+    ecl::Font *font = GetFont("menufontsel");
+    font->render(gc, (screen->width() - font->get_width(text)) / 2, y, text);
 
-    assert(bpp == 16 || bpp == 32);
-    int fallback_sequence = 1;
-    while (true) {
-        VMInfo *vminfo = &video_modes[vidmode];
-        int w = vminfo->width;
-        int h = vminfo->height;
-
-        if (ModeAvailable(static_cast<VideoModes>(vidmode)) &&
-            vm_available(w, h, bpp, isFullScreen) && video_engine->init(w, h, bpp, isFullScreen)) {
-            // Success!
-            break;
-        }
-
-        // Video mode not available? Try the next fallback video mode
-        vidmode = video::GetBestUserMode(isFullScreen, ++fallback_sequence);
-        if (vidmode == VM_None) {
-            // Give up :-(
-            fprintf(stderr, "Couldn't open screen: %s\n", SDL_GetError());
-            exit(1);
-        }
-    }
-
-    current_video_mode = static_cast<VideoModes>(vidmode);
-    app.selectedVideoMode = current_video_mode;
-
-// Set the caption icon -- this position after SDL_SetVideoMode() contradicts SDL doc!!
-// But it proves to be the only working position for Linux.
-// It works for Windows besides XP with selected "WindowsXP Design", too.
-// Mac icon is set via Makefile
-#ifndef MACOSX
-    Surface *icn = enigma::GetImage("enigma_marble");
-    if (icn)
-        SDL_WM_SetIcon(icn->get_surface(), NULL);
-#endif
-
-    cursor = new MouseCursor;
-    int x, y;
-    SDL_GetMouseState(&x, &y);
-    cursor->move(x, y);
-
-    SDL_SetEventFilter(event_filter);
-
-    UpdateGamma();
-}
-
-void video::Shutdown() {
-    SDL_SetEventFilter(0);
-    delete video_engine;
-    delete cursor;
-    delete back_buffer;
-    video_engine = 0;
-    cursor = 0;
-    back_buffer = 0;
-}
-
-void video::ChangeVideoMode() {
-    MouseCursor *oldcursor = cursor;
-    cursor = 0;
-    Shutdown();
-    Init();
-    delete cursor;
-    cursor = oldcursor;
-}
-
-ecl::Screen *video::GetScreen() {
-    return SCREEN;
-}
-
-VideoModes video::GetVideoMode() {
-    return current_video_mode;
-}
-
-bool video::IsFullScreen() {
-    return video_engine->is_fullscreen();
-}
-
-int video::GetColorDepth() {
-    return SCREEN->get_surface()->bipp();
-}
-
-bool video::SetFullscreen(bool on) {
-    if ((on && video_modes[current_video_mode].f_available) ||
-        (!on && video_modes[current_video_mode].w_available)) {
-        video_engine->set_fullscreen(on);
-        bool is_fullscreen = video_engine->is_fullscreen();
-        if (on == is_fullscreen) {
-            app.prefs->setProperty("FullScreen", is_fullscreen);
-        }
-    }
-    return video::IsFullScreen();
-}
-
-bool video::ToggleFullscreen() {
-    return SetFullscreen(!video_engine->is_fullscreen());
-}
-
-void video::SetCaption(const char *str) {
-    video_engine->set_caption(str);
-}
-
-const string &video::GetCaption() {
-    return video_engine->get_caption();
-}
-
-void video::UpdateGamma() {
-    float gamma = static_cast<float>(app.prefs->getDouble("Gamma"));
-    if (gamma < 0.25)
-        gamma = 0.25;  // Windows does not set gamma for values < 0.2271
-    SDL_SetGamma(gamma, gamma, gamma);
-}
-
-void video::Screenshot(const std::string &fname) {
-    // auto-create the directory if necessary
-    string directory;
-    if (ecl::split_path(fname, &directory, 0) && !ecl::FolderExists(directory)) {
-        ecl::FolderCreate(directory);
-    }
-
-    ecl::SavePNG(ecl::Grab(SCREEN->get_surface(), video_modes[current_video_mode].area), fname);
-    enigma::Log << "Wrote screenshot to '" << fname << "'\n";
-}
-
-/* -------------------- Special Effects -------------------- */
-
-void video::FX_Fade(FadeMode mode) {
-    ecl::Screen *screen = ecl::Screen::get_instance();
-    Surface *d = screen->get_surface();
-    const double fadesec = 0.6;
-    double v = 255 / fadesec;
-
-    ecl::Surface *buffer = Duplicate(d);
-    double dt;
-
-    double a = mode == FADEIN ? 0 : 255;
-
-    GC gc(d);
-
-    while (true) {
-        Uint32 otime = SDL_GetTicks();
-
-        box(gc, d->size());
-        buffer->set_alpha(int(a));
-        blit(gc, 0, 0, buffer);
-        screen->update_all();
-        screen->flush_updates();
-
-        dt = (SDL_GetTicks() - otime) / 1000.0;
-        if ((mode == FADEIN && (a += v * dt) > 255) || (mode == FADEOUT && (a -= v * dt) < 0))
-            break;
-    }
-
-    if (mode == FADEIN) {
-        buffer->set_alpha(255);
-        blit(gc, 0, 0, buffer);
-    } else {
-        box(gc, d->size());
-    }
     screen->update_all();
     screen->flush_updates();
-    delete buffer;
 }
 
-void video::FX_Fly(Surface *newscr, int originx, int originy) {
-    double rest_time = 0.5;
-
-    double velx = -originx / rest_time;
-    double vely = -originy / rest_time;
-
-    double origx = originx;
-    double origy = originy;
-
-    Screen *scr = SCREEN;
-    GC scrgc(scr->get_surface());
-
-    while (rest_time > 0) {
-        Uint32 otime = SDL_GetTicks();
-
-        Rect r(static_cast<int>(origx), static_cast<int>(origy), scr->width(), scr->height());
-        blit(scrgc, r.x, r.y, newscr);
-
-        scr->update_rect(r);
-        scr->flush_updates();
-
-        double dt = (SDL_GetTicks() - otime) / 1000.0;
-        if (dt > rest_time)
-            dt = rest_time;
-        rest_time -= dt;
-        origx += velx * dt;
-        origy += vely * dt;
-    }
-}
-
-namespace {
-
-class Effect_Push : public TransitionEffect {
-public:
-    Effect_Push(ecl::Surface *newscr, int originx, int originy);
-    void tick(double dtime);
-    bool finished() const;
-
-private:
-    double rest_time;
-    ecl::Surface *newscr;
-    std::unique_ptr<ecl::Surface> oldscr;
-    int originx, originy;
-    double velx, vely;
-    double accx, accy;
-    double x, y;
-    double t;
+VideoTileset* VideoTilesetById(VideoTilesetId id) {
+    for(auto it = std::begin(video_tilesets); it != std::end(video_tilesets); ++it)
+        if (it->id == id)
+            return &(*it);
+    return nullptr;
 };
 
-Effect_Push::Effect_Push(ecl::Surface *newscr_, int originx_, int originy_)
-: rest_time(0.7),
-  newscr(newscr_),
-  oldscr(Duplicate(SCREEN->get_surface())),
-  originx(originx_),
-  originy(originy_),
-  velx(-2 * originx / rest_time),
-  vely(-2 * originy / rest_time),
-  accx(-0.5 * velx / rest_time),
-  accy(-0.5 * vely / rest_time),
-  x(originx),
-  y(originy),
-  t(0) {
+VideoTileset* VideoTilesetByName(std::string name) {
+    if (name == "16x16 Standard")  return StandardTileset(VTS_16);
+    if (name == "32x32 Standard")  return StandardTileset(VTS_32);
+    if (name == "40x40 Standard")  return StandardTileset(VTS_40);
+    if (name == "48x48 Standard")  return StandardTileset(VTS_48);
+    if (name == "64x64 Standard")  return StandardTileset(VTS_64);
+    for(auto it = std::begin(video_tilesets); it != std::end(video_tilesets); ++it)
+        if (it->name == name)
+            return &(*it);
+    return nullptr;
 }
 
-void Effect_Push::tick(double dtime) {
-    Screen *scr = SCREEN;
-    GC scrgc(scr->get_surface());
-
-    if (rest_time > 0) {
-        if (dtime > rest_time)
-            dtime = rest_time;
-        rest_time -= dtime;
-        t += dtime;
-
-        x = (accx * t + velx) * t + originx;
-        y = (accy * t + vely) * t + originy;
-
-        blit(scrgc, (int)x - originx, (int)y, oldscr.get());
-        blit(scrgc, (int)x, (int)y - originy, oldscr.get());
-        blit(scrgc, (int)x - originx, (int)y - originy, oldscr.get());
-
-        blit(scrgc, (int)x, (int)y, newscr);
-
-        scr->update_all();
-        scr->flush_updates();
-    } else {
-        blit(scrgc, 0, 0, newscr);
-        scr->update_all();
-        scr->flush_updates();
-    }
+VideoTileset* StandardTileset(VideoTileType tt) {
+    for(auto it = std::begin(video_tilesets); it != std::end(video_tilesets); ++it)
+        if ((it->tt == tt) && it->is_standard)
+            return &(*it);
+    fprintf(stderr, "Error in choosing standard tileset, sorry.");
+    exit(1);
 }
 
-bool Effect_Push::finished() const {
-    return rest_time <= 0;
+std::string VideoTilesetPrefName(VideoTilesetId id) {
+    VideoTileset* vts = VideoTilesetById(id);
+    if (vts == nullptr)
+        return "Error while saving tileset preferences.";
+    std::stringstream ss;
+    if (vts->is_standard)
+        ss << (vts->tilesize) << "x" << (vts->tilesize) << " Standard";
+    else
+        ss << (vts->name);
+    return ss.str();
 }
 
-}  // namespace
-
-TransitionEffect *video::MakeEffect(TransitionModes tm, ecl::Surface *newscr) {
-    int scrw = SCREEN->width();
-    int scrh = SCREEN->height();
-
-    switch (tm) {
-    case TM_PUSH_RANDOM: {
-        int xo = 0, yo = 0;
-        while (xo == 0 && yo == 0) {
-            xo = enigma::IntegerRand(-1, 1, false) * scrw;
-            yo = enigma::IntegerRand(-1, 1, false) * scrh;
-        }
-        return new Effect_Push(newscr, xo, yo);
-    }
-    case TM_PUSH_N: return new Effect_Push(newscr, 0, -scrh);
-    case TM_PUSH_S: return new Effect_Push(newscr, 0, +scrh);
-    case TM_PUSH_E: return new Effect_Push(newscr, +scrw, 0);
-    case TM_PUSH_W: return new Effect_Push(newscr, -scrw, 0);
-    default: return 0;
-    };
-}
-
-void video::ShowScreen(TransitionModes tm, Surface *newscr) {
-    int scrw = SCREEN->width();
-    int scrh = SCREEN->height();
-
-    switch (tm) {
-    case TM_RANDOM: break;
-    case TM_FADEOUTIN: break;
-    case TM_SQUARES: break;
-    case TM_FLY_N: FX_Fly(newscr, 0, -scrh); break;
-    case TM_FLY_S: FX_Fly(newscr, 0, +scrh); break;
-    case TM_FLY_E: FX_Fly(newscr, +scrw, 0); break;
-    case TM_FLY_W: FX_Fly(newscr, -scrw, 0); break;
-
-    default: break;
-    }
-}
+}  // namespace enigma

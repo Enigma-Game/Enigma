@@ -37,9 +37,13 @@ using namespace std;
 
 namespace enigma { namespace gui {
     /* -------------------- Menu -------------------- */
-    
-    Menu::Menu()
-    : active_widget(NULL), key_focus_widget(NULL), quitp(false), abortp(false) {
+
+Menu::Menu()
+: active_widget(NULL),
+  key_focus_widget(NULL),
+  quitp(false),
+  abortp(false),
+  previous_caption(video_engine->GetCaption()) {
     }
     
     void Menu::add(Widget *w) {
@@ -71,7 +75,15 @@ namespace enigma { namespace gui {
     bool Menu::is_key_focus(Widget *focus) {
         return (key_focus_widget == focus);
     }
-    
+
+    void Menu::set_caption(const std::string &text) {
+        video_engine->SetCaption(text);
+    }
+
+    std::string Menu::get_caption() const {
+        return video_engine->GetCaption();
+    }
+
     bool Menu::manage() {
         quitp=abortp=false;
         SDL_Event e;
@@ -131,14 +143,14 @@ namespace enigma { namespace gui {
         // Alt && Return for Fullscreen Toggle on Linux only
         if (e.type == SDL_KEYDOWN &&  e.key.keysym.sym == SDLK_RETURN && 
                 e.key.keysym.mod & KMOD_ALT) {
-            video::ToggleFullscreen();
+            video_engine->ToggleFullscreen();
             return;
         }
         
         // Boss quit key Shift && ESC or Mac OS X application quit sequence
         if (e.type == SDL_KEYDOWN && ((e.key.keysym.sym == SDLK_ESCAPE && 
                 (e.key.keysym.mod & KMOD_SHIFT)) || (e.key.keysym.sym == SDLK_q && 
-                (e.key.keysym.mod & KMOD_META)))) {
+                        (e.key.keysym.mod & (KMOD_LGUI | KMOD_RGUI))))) {
             abort();
             app.bossKeyPressed = true;
             return;
@@ -181,15 +193,23 @@ namespace enigma { namespace gui {
                         break;
                     }
                 }
-        
                 break;
             case SDL_MOUSEBUTTONDOWN:
             case SDL_MOUSEBUTTONUP:
                 track_active_widget( e.button.x, e.button.y );
                 if (active_widget) active_widget->on_event(e);
                 break;
-            case SDL_VIDEOEXPOSE:
-                draw_all();
+            case SDL_WINDOWEVENT:
+                switch (e.window.event) {
+                case SDL_WINDOWEVENT_EXPOSED:
+                    draw_all();
+                    break;
+                case SDL_WINDOWEVENT_RESIZED:
+                    video_engine->Resize(e.window.data1, e.window.data2);
+                    // Drawing will be done by tick.
+                    draw_all();
+                    break;
+                }
                 break;
             default:
                 if (active_widget) active_widget->on_event(e);
@@ -206,7 +226,9 @@ namespace enigma { namespace gui {
         }
     }
     
-    void Menu::track_active_widget( int x, int y ) {
+    void Menu::track_active_widget( int window_x, int window_y ) {
+        int x = (int)((double) (window_x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
+        int y = (int)((double) (window_y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
         switch_active_widget(find_widget(x, y));
     }
     

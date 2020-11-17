@@ -215,7 +215,11 @@ namespace enigma
         DOMErrorReporter *domSerErrorHandler;
         bool errorInit;
         bool isMakePreviews;
-        video::VideoModes selectedVideoMode;
+        FullscreenMode selectedFullscreenMode = VM_NONE;
+        VideoTilesetId selectedFullscreenTilesetId = VTS_NONE;
+        VideoTilesetId selectedWindowTilesetId = VTS_NONE;
+        int selectedWindowSizeFactor = 0;
+        
         bool bossKeyPressed;
 
     private:
@@ -223,6 +227,8 @@ namespace enigma
         void initXerces();
         void initUserDatapaths();
         void updateMac1_00();
+        void createPreviews();
+
         double enigmaVersion;
         std::string systemAppDataPath;    // dir path to the apps data
         std::string systemCmdDataPath;    // commandline override of systemAppDataPath

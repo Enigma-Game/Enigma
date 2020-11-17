@@ -24,7 +24,6 @@
 #include "SDL_syswm.h"
 #include "SDL_gfxPrimitives.h"
 #include "SDL_rotozoom.h"
-#include "IMG_SavePNG.h"
 
 #include <cassert>
 #include <memory>
@@ -225,7 +224,8 @@ public:
 
 /* -------------------- Surface -------------------- */
 
-Surface::Surface(SDL_Surface *sfc) : m_surface(sfc) {
+Surface::Surface(SDL_Surface *surface) : m_surface(surface) {
+    assert(m_surface);
 }
 
 Surface::~Surface() {
@@ -295,11 +295,16 @@ void Surface::blit(const GS &gs, int x, int y, const Surface *src) {
 
 void Surface::set_color_key(int r, int g, int b) {
     Uint32 color = map_color(r, g, b);
-    SDL_SetColorKey(get_surface(), SDL_SRCCOLORKEY | SDL_RLEACCEL, color);
+    SDL_SetColorKey(get_surface(), SDL_TRUE, color);
+    SDL_SetSurfaceRLE(get_surface(), SDL_TRUE);
 }
 
 void Surface::set_alpha(int a) {
-    SDL_SetAlpha(get_surface(), SDL_SRCALPHA, a);
+    SDL_SetSurfaceAlphaMod(get_surface(), a);
+}
+
+void Surface::set_brightness(int a) {
+    SDL_SetSurfaceColorMod(get_surface(), a, a, a);
 }
 
 Surface *Surface::zoom(int w, int h) {
@@ -309,8 +314,7 @@ Surface *Surface::zoom(int w, int h) {
 }
 
 Surface *Surface::make_surface(SDL_Surface *sdls) {
-    if (sdls == 0)
-        return 0;
+    assert(sdls);
     switch (sdls->format->BitsPerPixel) {
     case 8: return new Surface8(sdls); break;
     case 16: return new Surface16(sdls); break;
@@ -333,14 +337,16 @@ ecl::Screen *ecl::Screen::get_instance() {
     return m_instance;
 }
 
-ecl::Screen::Screen(Surface *s)
-: m_surface(s), m_sdlsurface(s->get_surface()), update_all_p(false) {
-    assert(m_instance == 0);
-    m_instance = this;
-}
-
-ecl::Screen::Screen(SDL_Surface *s)
-: m_surface(Surface::make_surface(s)), m_sdlsurface(s), update_all_p(false) {
+ecl::Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
+: m_window(window),
+  //m_surface(Surface::make_surface(SDL_GetWindowSurface(window))),
+  //m_sdlsurface(SDL_GetWindowSurface(window)),
+  m_surface(Surface::make_surface(
+      SDL_CreateRGBSurface(0, surface_w, surface_h, 32, 0xff0000, 0xff00, 0xff, 0xff000000))),
+  m_sdlsurface(m_surface->get_surface()),
+  update_all_p(false) {
+    assert(m_window);
+    assert(m_surface);
     assert(m_instance == 0);
     m_instance = this;
 }
@@ -360,13 +366,10 @@ void ecl::Screen::update_rect(const Rect &r) {
         update_all();
 }
 
-void ecl::Screen::set_caption(const char *str) {
-    SDL_WM_SetCaption(str, 0);
-}
-
 void ecl::Screen::flush_updates() {
     if (update_all_p) {
-        SDL_UpdateRect(m_sdlsurface, 0, 0, 0, 0);  // update everything
+        SDL_BlitScaled(m_sdlsurface, NULL, SDL_GetWindowSurface(m_window), NULL);
+        SDL_UpdateWindowSurface(m_window);
         update_all_p = false;
     } else if (!m_dirtyrects.empty()) {
         m_dirtyrects.intersect(size());
@@ -374,8 +377,18 @@ void ecl::Screen::flush_updates() {
         std::vector<SDL_Rect> rects(m_dirtyrects.size());
         RectList::iterator j = m_dirtyrects.begin();
         for (unsigned i = 0; i < rects.size(); ++i, ++j)
-            sdl::copy_rect(rects[i], *j);
-        SDL_UpdateRects(m_sdlsurface, rects.size(), &rects[0]);
+        {
+            SDL_Rect sdlrect;
+            sdl::copy_rect(sdlrect, *j);
+            int nx = (int)((double) (j->x * window_size().w) / size().w + 0.5);
+            int ny = (int)((double) (j->y * window_size().h) / size().h + 0.5);
+            int nw = (int)((double) (j->w * window_size().w) / size().w + 0.5);
+            int nh = (int)((double) (j->h * window_size().h) / size().h + 0.5);
+            ecl::Rect scaledRect = Rect(nx, ny, nw, nh);
+            sdl::copy_rect(rects[i], scaledRect);
+            SDL_BlitScaled(m_sdlsurface, &sdlrect, SDL_GetWindowSurface(m_window), &rects[i]);
+        }
+        SDL_UpdateWindowSurfaceRects(m_window, &rects[0], rects.size());
     }
     m_dirtyrects.clear();
 }
@@ -392,28 +405,24 @@ int ecl::Screen::height() const {
     return m_sdlsurface->h;
 }
 
+Rect ecl::Screen::window_size() const {
+    return Rect(0, 0, window_width(), window_height());
+}
+
+int ecl::Screen::window_width() const {
+    return SDL_GetWindowSurface(m_window)->w;
+}
+
+int ecl::Screen::window_height() const {
+    return SDL_GetWindowSurface(m_window)->h;
+}
+
 /* -------------------- Functions -------------------- */
 
-Surface *ecl::DisplayFormat(Surface *s) {
-    if (SDL_Surface *s2 = SDL_DisplayFormat(s->get_surface()))
-        return Surface::make_surface(s2);
-    return 0;
-}
-
-ecl::Screen *ecl::OpenScreen(int w, int h, int bipp) {
-    SDL_Surface *sfc = SDL_SetVideoMode(w, h, bipp, SDL_SWSURFACE);
-    return new Screen(sfc);
-}
-
 Surface *ecl::Duplicate(const Surface *s) {
-    if (s == 0)
-        return 0;
+    assert(s);
     SDL_Surface *sdls = s->get_surface();
     SDL_Surface *copy = SDL_ConvertSurface(sdls, sdls->format, sdls->flags);
-
-    if (sdls->format->palette != 0)
-        SDL_SetColors(copy, sdls->format->palette->colors, 0, sdls->format->palette->ncolors);
-
     return Surface::make_surface(copy);
 }
 
@@ -433,104 +442,37 @@ void ecl::TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
     }
 }
 
-/*
- * (SDL_ConvertSurface with a few changes)
- */
-
 static SDL_Surface *CropSurface(SDL_Surface *surface, SDL_Rect rect, SDL_PixelFormat *format,
                                 Uint32 flags) {
-    SDL_Surface *convert;
-    Uint32 colorkey = 0;
-    Uint8 alpha = 0;
-    Uint32 surface_flags;
+    assert(format->palette == NULL);
+
+    SDL_Surface *cropped =
+        SDL_CreateRGBSurface(flags, rect.w, rect.h, format->BitsPerPixel, format->Rmask,
+                             format->Gmask, format->Bmask, format->Amask);
+    if (cropped == NULL)
+        return NULL;
+
     SDL_Rect bounds;
-
-    /* Check for empty destination palette! (results in empty image) */
-    if (format->palette != NULL) {
-        int i;
-        for (i = 0; i < format->palette->ncolors; ++i) {
-            if ((format->palette->colors[i].r != 0) || (format->palette->colors[i].g != 0) ||
-                (format->palette->colors[i].b != 0))
-                break;
-        }
-        if (i == format->palette->ncolors) {
-            SDL_SetError("Empty destination palette");
-            return (NULL);
-        }
-    }
-
-    /* Create a new surface with the desired format */
-    convert = SDL_CreateRGBSurface(flags, rect.w, rect.h, format->BitsPerPixel, format->Rmask,
-                                   format->Gmask, format->Bmask, format->Amask);
-    if (convert == NULL) {
-        return (NULL);
-    }
-
-    /* Copy the palette if any */
-    if (format->palette && convert->format->palette) {
-        memcpy(convert->format->palette->colors, format->palette->colors,
-               format->palette->ncolors * sizeof(SDL_Color));
-        convert->format->palette->ncolors = format->palette->ncolors;
-    }
-
-    /* Save the original surface color key and alpha */
-    surface_flags = surface->flags;
-    if ((surface_flags & SDL_SRCCOLORKEY) == SDL_SRCCOLORKEY) {
-        /* Convert colourkeyed surfaces to RGBA if requested */
-        if ((flags & SDL_SRCCOLORKEY) != SDL_SRCCOLORKEY && format->Amask) {
-            surface_flags &= ~SDL_SRCCOLORKEY;
-        } else {
-            colorkey = surface->format->colorkey;
-            SDL_SetColorKey(surface, 0, 0);
-        }
-    }
-    if ((surface_flags & SDL_SRCALPHA) == SDL_SRCALPHA) {
-        alpha = surface->format->alpha;
-        SDL_SetAlpha(surface, 0, 0);
-    }
-
-    /* Copy over the image data */
     bounds.x = 0;
     bounds.y = 0;
     bounds.w = rect.w;
     bounds.h = rect.h;
-    SDL_LowerBlit(surface, &rect, convert, &bounds);
+    SDL_LowerBlit(surface, &rect, cropped, &bounds);
 
-    if ((surface_flags & SDL_SRCCOLORKEY) == SDL_SRCCOLORKEY) {
-        Uint32 cflags = surface_flags & (SDL_SRCCOLORKEY | SDL_RLEACCELOK);
-        if (convert != NULL) {
-            Uint8 keyR, keyG, keyB;
-
-            SDL_GetRGB(colorkey, surface->format, &keyR, &keyG, &keyB);
-            SDL_SetColorKey(convert, cflags | (flags & SDL_RLEACCELOK),
-                            SDL_MapRGB(convert->format, keyR, keyG, keyB));
-        }
-        SDL_SetColorKey(surface, cflags, colorkey);
-    }
-    if ((surface_flags & SDL_SRCALPHA) == SDL_SRCALPHA) {
-        Uint32 aflags = surface_flags & (SDL_SRCALPHA | SDL_RLEACCELOK);
-        if (convert != NULL) {
-            SDL_SetAlpha(convert, aflags | (flags & SDL_RLEACCELOK), alpha);
-        }
-        SDL_SetAlpha(surface, aflags, alpha);
-    }
-
-    /* We're ready to go! */
-    return (convert);
+    return cropped;
 }
 
 Surface *ecl::Grab(const Surface *s, Rect &r) {
-    if (s == 0)
-        return 0;
-    SDL_Surface *sdls = s->get_surface();
+    if (s == NULL)
+        return NULL;
 
     int x = 0;
     int y = 0;
-
     clip_blit(s->size(), x, y, r);
 
     SDL_Rect rect;
     sdl::copy_rect(rect, r);
+    SDL_Surface *sdls = s->get_surface();
     SDL_Surface *copy = CropSurface(sdls, rect, sdls->format, sdls->flags);
     return Surface::make_surface(copy);
 }
@@ -539,36 +481,16 @@ Surface *ecl::Grab(const Surface *s, Rect &r) {
 #undef LoadImage
 
 Surface *ecl::LoadImage(const char *filename) {
-    return LoadImage(IMG_Load(filename));
+    return Surface::make_surface(IMG_Load(filename));
 }
 
 Surface *ecl::LoadImage(SDL_RWops *src, int freesrc) {
-    return LoadImage(IMG_Load_RW(src, freesrc));
+    return Surface::make_surface(IMG_Load_RW(src, freesrc));
 }
 
-Surface *ecl::LoadImage(SDL_Surface *tmp) {
-    if (tmp != NULL) {
-        SDL_Surface *img;
-
-        if (tmp->flags & SDL_SRCALPHA) {
-            SDL_SetAlpha(tmp, SDL_RLEACCEL, 0);
-            img = SDL_DisplayFormatAlpha(tmp);
-        } else if (tmp->flags & SDL_SRCCOLORKEY) {
-            SDL_SetColorKey(tmp, SDL_SRCCOLORKEY | SDL_RLEACCEL, tmp->format->colorkey);
-            img = SDL_DisplayFormat(tmp);
-        } else
-            img = SDL_DisplayFormat(tmp);
-        if (img == 0)
-            return Surface::make_surface(tmp);
-        SDL_FreeSurface(tmp);
-        return Surface::make_surface(img);
-    }
-    return 0;
-}
-
-Surface *ecl::MakeSurface(int w, int h, int bipp, const RGBA_Mask &mask) {
+Surface *ecl::MakeSurface(int w, int h) {
     SDL_Surface *surface =
-        SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, bipp, mask.r, mask.g, mask.g, mask.a);
+        SDL_CreateRGBSurface(0, w, h, 32, 0xff0000, 0xff00, 0xff, 0xff000000);
     if (surface == 0)
         return 0;
     return Surface::make_surface(surface);
@@ -580,16 +502,6 @@ Surface *ecl::MakeSurface(void *data, int w, int h, int bipp, int pitch, const R
     if (surface == 0)
         return 0;
     return Surface::make_surface(surface);
-}
-
-Surface *ecl::MakeSurfaceLike(int w, int h, Surface *surface) {
-    if (surface == 0)
-        return 0;
-    SDL_Surface *sdls = surface->get_surface();
-
-    return MakeSurface(w, h, sdls->format->BitsPerPixel,
-                       RGBA_Mask(sdls->format->Rmask, sdls->format->Gmask, sdls->format->Bmask,
-                                 sdls->format->Amask));
 }
 
 Surface *ecl::Resample(Surface *s, Rect rect, int neww, int newh) {

@@ -43,10 +43,15 @@ TextField::TextField(const std::string &t, ActionListener *al) : cursorTime(0),
         maxChars(-1), isLastActionReturn (false) {
     menufont = enigma::GetFont("menufont");
     
+    SDL_StartTextInput();
     set_listener(al);
     textPreCursor = t;
     ecl::utf8CharSizes(textPreCursor, charSizesPreCursor);
     textPostCursor= "";
+}
+
+TextField::~TextField() {
+    SDL_StopTextInput();
 }
 
 void TextField::activate() {
@@ -124,21 +129,54 @@ void TextField::draw(ecl::GC &gc, const ecl::Rect &r) {
 }
 
 bool TextField::on_event(const SDL_Event &e) {
-    bool handeled = false;
+    bool handled = false;
     bool modified = false;
     
     switch (e.type) {
         case SDL_MOUSEBUTTONDOWN:
             // set cursor
             break;
+        case SDL_TEXTINPUT: {
+            /* Add new text onto the end of our text */
+            //strcat(text, e.text.text);
+            std::string newText(e.text.text);
+            int totalLength = textPreCursor.length() + newText.length() + textPostCursor.length();
+            if (   (maxChars >= 0 && totalLength >= maxChars)
+                || (newText.length() == 1 && invalidChars.find((char)(newText[0])) != std::string::npos)) {
+                // string too long or invalid char
+                sound::EmitSoundEvent ("menustop");
+                break;
+            }
+            textPreCursor += newText;
+            charSizesPreCursor.push_back(newText.length());
+            invalidate();
+            handled = true;
+            break;
+        }
+        /* TODO: The following needs testing by someone from the CJK area.
+                 Also: charSizesPreCursor has to be adapted.
+        case SDL_TEXTEDITING: {
+            //Update the composition text.
+            //Update the cursor position.
+            //Update the selection length (if any).
+            const char *composition;
+            Sint32 cursor;
+            Sint32 selection_len;
+            composition = e.edit.text;
+            cursor = e.edit.start;
+            selection_len = e.edit.length;
+            invalidate();
+            handled = true;
+            break;
+        } */
         case SDL_KEYDOWN:
             switch (e.key.keysym.sym) {
                 case SDLK_RETURN:
                 case SDLK_KP_ENTER:
-                    handeled = true;
+                    handled = true;
                     isLastActionReturn = true;
                     invoke_listener();
-                    break;                    
+                    break;
                 case SDLK_RIGHT:
                     if(textPostCursor.size() > 0) {
                         int size = charSizesPostCursor.back();
@@ -148,7 +186,7 @@ bool TextField::on_event(const SDL_Event &e) {
                         textPostCursor.erase(0, size); 
                     }
                     invalidate();
-                    handeled = true;
+                    handled = true;
                     break;
                 case SDLK_LEFT:
                     if(textPreCursor.size() > 0) {
@@ -159,10 +197,10 @@ bool TextField::on_event(const SDL_Event &e) {
                         textPreCursor.erase(textPreCursor.size() - size); 
                     }
                     invalidate();
-                    handeled = true;
+                    handled = true;
                     break;
                 case SDLK_INSERT:
-                    handeled = true;
+                    handled = true;
                     break;
                 case SDLK_HOME:
                     if(textPreCursor.size() > 0) {
@@ -177,7 +215,7 @@ bool TextField::on_event(const SDL_Event &e) {
                         textPreCursor.clear(); 
                     }
                     invalidate();
-                    handeled = true;
+                    handled = true;
                     break;
                 case SDLK_END:
                     if(textPostCursor.size() > 0) {
@@ -193,7 +231,7 @@ bool TextField::on_event(const SDL_Event &e) {
                         textPostCursor.clear(); 
                     }
                     invalidate();
-                    handeled = true;
+                    handled = true;
                     break;
                 case SDLK_DELETE:
                     if(textPostCursor.size() > 0) {
@@ -202,75 +240,23 @@ bool TextField::on_event(const SDL_Event &e) {
                         charSizesPostCursor.pop_back();
                     }
                     invalidate();
-                    handeled = true;
+                    handled = true;
                     modified = true;
                     break;
                 case SDLK_BACKSPACE:
                     if(textPreCursor.size() > 0) {
-                       int size = charSizesPreCursor.back();
-                        textPreCursor.erase(textPreCursor.size() - size); 
+                        int size = charSizesPreCursor.back();
+                        textPreCursor.erase(textPreCursor.size() - size, size); 
                         charSizesPreCursor.pop_back();
                     }
                     invalidate();
-                    handeled = true;
+                    handled = true;
                     modified = true;
                     break;
                 case SDLK_ESCAPE:
                 case SDLK_DOWN:  
                 case SDLK_UP:
                     // menu active widget movements
-                    break;
-                default:
-                    // get char
-                    if (e.key.keysym.unicode != 0 ) {
-                        UTF16 realChar;
-                        if (e.key.keysym.unicode >= 0x20 && 
-                                (e.key.keysym.unicode < 0x80 ||   // key pad
-                                e.key.keysym.sym < 0x80)) {       // windows umlaute
-                            // the unicode is correct in these cases
-                            realChar = e.key.keysym.unicode;
-                        }
-                        else if (e.key.keysym.unicode >= 0x80 &&
-                                e.key.keysym.sym < 0x100) {
-                            // Linux: bad unicode but sym is ISO-8859-1
-                            
-                            // incomplete workaround - runs only for some lower
-                            // case umlauts
-                            // we would need to handle shift key in language
-                            // dependent manner -- or fix SDL Linux
-                            realChar = e.key.keysym.sym;
-                        }
-                        else {
-                            // chars like ctrl-a - ctrl-z
-                            sound::EmitSoundEvent ("menustop");
-                            break;
-                        }
-                        if (((maxChars >= 0 && (int)(charSizesPreCursor.size() + charSizesPostCursor.size()) >= maxChars)) ||
-                            (realChar < 0x100 && invalidChars.find((char)realChar) != std::string::npos)) {
-                            // string too long or invalid char
-                            sound::EmitSoundEvent ("menustop");
-                            break;
-                        }
-                        unsigned char utf8Char[4];
-                        UTF16 const * utf16Ptr = (UTF16 *)&realChar;
-                        UTF8 * utf8Ptr = utf8Char;
-                        ConversionResult result;
-                        result = ConvertUTF16toUTF8 (&utf16Ptr, utf16Ptr + 1,
-                                &utf8Ptr, utf8Char + 4, strictConversion);
-                        *utf8Ptr = 0;
-                        textPreCursor += (const char *)utf8Char;
-                        charSizesPreCursor.push_back(utf8Ptr - utf8Char);
-
-                        invalidate();
-                        handeled = true;
-                        modified = true;
-                        break;
-                    }
-                    if (e.key.keysym.sym < 300 || e.key.keysym.sym > 314 ){
-                        // chars like PageUp, F1 but not key state modifier
-                        // like shift, alt,...
-                        sound::EmitSoundEvent ("menustop");
-                    }
                     break;
             }
             break;
@@ -281,6 +267,6 @@ bool TextField::on_event(const SDL_Event &e) {
         isLastActionReturn = false;
         invoke_listener();
     }
-    return handeled;
+    return handled;
 }
 

@@ -31,7 +31,7 @@ using namespace std;
 
 namespace enigma { namespace gui {
     LPGroupConfig::LPGroupConfig(std::string groupName) : oldGroupName (groupName) {
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
 
         groups = lev::Index::getGroupNames();
@@ -224,9 +224,9 @@ namespace enigma { namespace gui {
     }
     
     void LPGroupConfig::draw_background(ecl::GC &gc) {
-        const video::VMInfo *vminfo = video::GetInfo();
+        const VMInfo *vminfo = video_engine->GetInfo();
 
-        video::SetCaption(("Enigma - Level Pack Group Configuration"));
+        set_caption(_("Enigma - Level Pack Group Configuration"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
     }
     

@@ -135,7 +135,7 @@ CFLAGS_NOSDL="$CFLAGS"
 CXXFLAGS_NOSDL="$CXXFLAGS"
 LIBS_NOSDL="$LIBS"
 
-AM_PATH_SDL(1.2.0)
+AM_PATH_SDL2(2.0.0)
 AC_SUBST(SDL_LIBS)
 AC_SUBST(SDL_CFLAGS)
 dnl The flags are now substituted inside the Makefile, but not used for the
@@ -147,63 +147,22 @@ CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
 LIBS="$LIBS $SDL_LIBS"
 
 dnl ----------------------------------------
-dnl Check for SDL image library
+dnl Check for SDL support libraries
 dnl ----------------------------------------
-AC_CHECK_LIB(SDL_image,main,,[AC_MSG_ERROR([SDL_image is required to compile Enigma])])
-
-SDL_LIBS="$SDL_LIBS -lSDL_image"
-
-AC_CHECK_LIB(SDL_image, IMG_Init, have_img_init="yes", have_img_init="no")
-if test "$have_img_init" = yes; then
-  AC_DEFINE(SDL_IMG_INIT, , [Whether SDL_image library provides init])
-fi
-
-dnl ----------------------------------------
-dnl Check for SDL mixer library
-dnl ----------------------------------------
-AC_CHECK_LIB(SDL_mixer,main,,[AC_MSG_ERROR([SDL_mixer is required to compile Enigma])])
-
-SDL_LIBS="$SDL_LIBS -lSDL_mixer"
-
-if test "$MINGW32" = no; then
-  AC_CHECK_LIB(SDL_mixer, Mix_QuickLoad_RAW, have_mix_quickload="yes", have_mix_quickload="no")
-  if test "$have_mix_quickload" = no; then
-    AC_MSG_ERROR([SDL_mixer >= 1.2.5 is required to compile Enigma])
-  fi
-fi
-
-AC_CHECK_LIB(SDL_mixer, Mix_Init, have_mix_init="yes", have_mix_init="no")
-if test "$have_mix_init" = yes; then
-  AC_DEFINE(SDL_MIX_INIT, , [Whether SDL_mixer library provides init])
-fi
-
-dnl ----------------------------------------
-dnl Check for SDL_ttf library
-dnl ---------------------------------------
-if test "$MINGW32" = no; then
-  AC_MSG_CHECKING([for SDL_ttf >=2.0.6])
-  AC_RUN_IFELSE([AC_LANG_SOURCE(
-      [[#include <SDL_ttf.h>
-        int main(int argc, char *argv[]) {
-        if (TTF_MAJOR_VERSION < 2)
-          return 1;
-        else if (TTF_MAJOR_VERSION == 2 && TTF_MINOR_VERSION == 0 && TTF_PATCHLEVEL < 6)
-          return 1;
-        return 0;}]])],
-    [AC_MSG_RESULT([found])],
-    [AC_MSG_ERROR([SDL_ttf >= 2.0.6 not found.])])
-fi
-AC_CHECK_LIB(SDL_ttf, main,,[AC_MSG_ERROR([SDL_ttf is required to compile Enigma])])
-
-SDL_LIBS="$SDL_LIBS -lSDL_ttf"
+AC_CHECK_LIB(SDL2_image,main,,[AC_MSG_ERROR([SDL2_image is required to compile Enigma])])
+SDL_LIBS="$SDL_LIBS -lSDL2_image"
+AC_CHECK_LIB(SDL2_mixer,main,,[AC_MSG_ERROR([SDL2_mixer is required to compile Enigma])])
+SDL_LIBS="$SDL_LIBS -lSDL2_mixer"
+AC_CHECK_LIB(SDL2_ttf, main,,[AC_MSG_ERROR([SDL2_ttf is required to compile Enigma])])
+SDL_LIBS="$SDL_LIBS -lSDL2_ttf"
 
 dnl Add special hack for Mac framework SDL after all other SDL stuff has been done
 dnl Note that SDL development environment must be installed for the build but SDL frameworks must also be installed for the build
 dnl If we had libSDLmain.a, which is not included in the framework, we should be able to get away with only installing framework
 if test "x$MACOSX" = xyes; then
- SDL_STATIC_PREFIX=`$SDL_CONFIG $sdl_config_args --prefix`
- SDL_LIBS="-Wl,-rpath,@loader_path/../Frameworks -framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL -framework SDL -framework SDL_mixer -framework SDL_image -framework SDL_ttf $SDL_STATIC_PREFIX/lib/libSDLmain.a"
-AC_SUBST(SDL_STATIC_PREFIX)
+ SDL_STATIC_PREFIX=`$SDL2_CONFIG $sdl2_config_args --prefix`
+ SDL_LIBS="-Wl,-rpath,@loader_path/../Frameworks -framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL -framework SDL2 -framework SDL2_mixer -framework SDL2_image -framework SDL2_ttf $SDL2_STATIC_PREFIX/lib/libSDL2main.a"
+AC_SUBST(SDL2_STATIC_PREFIX)
 fi
 
 dnl ---------------------------------------
@@ -219,8 +178,6 @@ dnl Check for libpng
 dnl ---------------------------------------
 if test "$MINGW32" = no; then
   AC_CHECK_LIB(png,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
-dnl else
-dnl   AC_CHECK_LIB(png12,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
 fi
 
 dnl ----------------------------------------
@@ -307,7 +264,7 @@ AC_ARG_ENABLE(tools,
 )
 
 AM_CONDITIONAL(BUILDTOOLS, [test "$enable_tools" = yes])
-AM_CONDITIONAL(BUILDTTF2BMF, [test "$have_sdlttf" = yes -a "$enable_tools" = yes])
+AM_CONDITIONAL(BUILDTTF2BMF, [test "$have_sdl2ttf" = yes -a "$enable_tools" = yes])
 
 dnl ----------------------------------------
 dnl Include experimental features?

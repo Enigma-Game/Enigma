@@ -36,6 +36,7 @@
 using namespace ecl;
 using namespace std;
 
+#define SCREEN ecl::Screen::get_instance()
 
 namespace enigma { namespace gui {
     /* -------------------- LevelWidget -------------------- */
@@ -45,11 +46,12 @@ namespace enigma { namespace gui {
             listener(0), width (0), height (0), m_areas(), 
             isInvalidateUptodate (true), lastUpdate (0)
     {
-        const video::VMInfo &vminfo = *video::GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
-    
-        buttonw = vminfo.thumbw + (vshrink?13:27);  // min should be +30 for all modes but 640x480
-        buttonh = vminfo.thumbh + (vshrink?14:28);
+
+        buttonw = vminfo.thumb.width +
+                  (vshrink ? 13 : 27);  // min should be +30 for all modes but 640x480
+        buttonh = vminfo.thumb.height + (vshrink ? 14 : 28);
         curIndex = lev::Index::getCurrentIndex();
         iselected = curIndex->getCurrentPosition();
         ifirst = curIndex->getScreenFirstPosition();
@@ -60,15 +62,15 @@ namespace enigma { namespace gui {
         img_feather     = enigma::GetImage("ic-feather");
         img_easy        = enigma::GetImage("completed-easy");
         img_hard        = enigma::GetImage("completed");
-        img_obsolete     = enigma::GetImage(("ic-obsolete" + vminfo.thumbsext).c_str());
-        img_outdated     = enigma::GetImage(("ic-outdated" + vminfo.thumbsext).c_str());
+        img_obsolete = enigma::GetImage(("ic-obsolete" + vminfo.thumb.suffix).c_str());
+        img_outdated = enigma::GetImage(("ic-outdated" + vminfo.thumb.suffix).c_str());
         img_unavailable = enigma::GetImage("unavailable");
         img_par         = enigma::GetImage("par");
         img_wrEasy      = enigma::GetImage("ic-wr-easy");
         img_wrDifficult = enigma::GetImage("ic-wr-difficult");
-        img_border      = enigma::GetImage(("thumbborder" + vminfo.thumbsext).c_str());
-        img_editborder  = enigma::GetImage(("editborder" + vminfo.thumbsext).c_str());
-        thumbmode       = (vminfo.thumbw == 160) ? 2 : ((vminfo.thumbw == 120) ? 1 : 0);
+        img_border = enigma::GetImage(("thumbborder" + vminfo.thumb.suffix).c_str());
+        img_editborder = enigma::GetImage(("editborder" + vminfo.thumb.suffix).c_str());
+        thumbmode = (vminfo.thumb.width == 160) ? 2 : ((vminfo.thumb.width == 120) ? 1 : 0);
     }
     
     void LevelWidget::syncFromIndexMgr() {
@@ -217,8 +219,10 @@ namespace enigma { namespace gui {
             lev::Proxy *proxy, bool selected, bool isCross, bool locked,
             bool allowGeneration, bool &didGenerate) { 
         // Draw button with level preview
-    
-        Surface *img = preview_cache->getPreview(proxy, allowGeneration, didGenerate);
+
+        const VMInfo *vminfo = video_engine->GetInfo();
+        Surface *img =
+            preview_cache->getPreview(proxy, vminfo->thumb, allowGeneration, didGenerate);
         if (img == NULL)
             return false;
    
@@ -226,9 +230,12 @@ namespace enigma { namespace gui {
             blit (gc, x - borderWidth, y - borderWidth, displayEditBorder ? img_editborder : img_border);
             blit (gc, x, y, img);
         } else {
-            img->set_alpha (127);
+            // With SDL2, set_alpha doesn't work properly anymore. We are therefore
+            // using set_brightness instead.
+            // TODO: Revert to set_alpha, once it's repaired.
+            img->set_brightness(127);
             blit (gc, x, y, img);
-            img->set_alpha(255);
+            img->set_brightness(255);
         }
 
         // Shade unavailable levels
@@ -294,11 +301,11 @@ namespace enigma { namespace gui {
     }
     
     void LevelWidget::draw(ecl::GC &gc, const ecl::Rect &r) {
-        const video::VMInfo &vminfo = *video::GetInfo();
-        const int imgw = vminfo.thumbw;       // Size of the preview images
-        const int imgh = vminfo.thumbh;
-        const int bwidth = vminfo.thumbborder_width;
-    
+        const VMInfo &vminfo = *video_engine->GetInfo();
+        const int imgw = vminfo.thumb.width;  // Size of the preview images
+        const int imgh = vminfo.thumb.height;
+        const int bwidth = vminfo.thumb.border_width;
+
         const int hgap = Max(0, (get_w() - width*buttonw) / (width));
         const int vgap = Max(0, (get_h() - height*buttonh)/ (height-1));
     
@@ -383,13 +390,17 @@ namespace enigma { namespace gui {
     
     bool LevelWidget::on_event(const SDL_Event &e) {
         bool handled = Widget::on_event(e);
+        int mouse_x = 0;
+        int mouse_y = 0;
     
         switch (e.type) {
             case SDL_MOUSEMOTION:
-                if (get_area().contains(e.motion.x, e.motion.y)) {
+                mouse_x = (int)((double) (e.motion.x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
+                mouse_y = (int)((double) (e.motion.y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
+                if (get_area().contains(mouse_x, mouse_y)) {
                     int newsel=iselected;
                     for (unsigned i=0; i<m_areas.size(); ++i)
-                        if (m_areas[i].contains(e.motion.x, e.motion.y))
+                        if (m_areas[i].contains(mouse_x, mouse_y))
                         {
                             newsel = ifirst+i;
                             break;
@@ -399,8 +410,20 @@ namespace enigma { namespace gui {
                 }
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                if (get_area().contains(e.button.x, e.button.y))
+                mouse_x = (int)((double) (e.button.x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
+                mouse_y = (int)((double) (e.button.y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
+                if (get_area().contains(mouse_x, mouse_y))
                     handled = handle_mousedown (&e);
+                break;
+            case SDL_MOUSEWHEEL:
+                if (e.wheel.y < 0) {
+                    scroll_up(1);
+                    handled = true;
+                }
+                if (e.wheel.y > 0) {
+                    scroll_down(1);
+                    handled = true;
+                }
                 break;
             case SDL_KEYDOWN:
                 handled = handle_keydown (&e);
@@ -411,10 +434,12 @@ namespace enigma { namespace gui {
     }
     
     bool LevelWidget::handle_mousedown(const SDL_Event *e) {
+        int mouse_x = (int)((double) (e->button.x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
+        int mouse_y = (int)((double) (e->button.y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
         switch (e->button.button) {
             case SDL_BUTTON_LEFT:
                 for (unsigned i=0; i<m_areas.size(); ++i)
-                    if (m_areas[i].contains(e->button.x, e->button.y))
+                    if (m_areas[i].contains(mouse_x, mouse_y))
                     {
                         sound::EmitSoundEvent ("menuok");
                         iselected = ifirst+i;
@@ -433,7 +458,7 @@ namespace enigma { namespace gui {
                 break;
             case SDL_BUTTON_RIGHT: 
                 for (unsigned i=0; i<m_areas.size(); ++i)
-                    if (m_areas[i].contains(e->button.x, e->button.y))
+                    if (m_areas[i].contains(mouse_x, mouse_y))
                     {
                         sound::EmitSoundEvent ("menuok");
                         iselected = ifirst+i;
@@ -444,8 +469,6 @@ namespace enigma { namespace gui {
                         return true;
                     }
                 break;
-            case 4: scroll_down(1); return true;
-            case 5: scroll_up(1); return true;
         }
         return false;
     }
@@ -454,7 +477,8 @@ namespace enigma { namespace gui {
         switch (e->key.keysym.sym) {
             case SDLK_t:
                 // Generate new level preview for current level
-                preview_cache->updatePreview(curIndex->getProxy(iselected));
+                preview_cache->updatePreview(curIndex->getProxy(iselected),
+                                             video_engine->GetInfo()->thumb);
                 invalidate();
                 break;
             

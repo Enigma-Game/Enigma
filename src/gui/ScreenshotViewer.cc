@@ -55,7 +55,7 @@ namespace enigma { namespace gui {
                 }
                 break;
             case SDL_KEYDOWN:
-                SDLKey keysym = e.key.keysym.sym;
+                SDL_Keycode keysym = e.key.keysym.sym;
                 switch (keysym) {
                 case SDLK_PAGEUP: 
                     if (shotNumber > 0 )
@@ -85,7 +85,7 @@ namespace enigma { namespace gui {
     }
     
     void ScreenshotViewer::draw_background (ecl::GC &gc) {
-        const video::VMInfo *vminfo = video::GetInfo();
+        const VMInfo *vminfo = video_engine->GetInfo();
         std::string filename = "screenshots/" + 
                 levelProxy->getLocalSubstitutionLevelPath() + 
                 (shotNumber > 0 ? ecl::strf("#%d", shotNumber) : "") + ".png";

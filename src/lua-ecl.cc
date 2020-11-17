@@ -1,6 +1,6 @@
 /*
 ** Lua binding: px
-** Generated automatically by tolua++-1.0.93 on Sun Sep 20 23:57:23 2015.
+** Generated automatically by tolua++-1.0.93 on Wed Oct 14 23:28:43 2015.
 */
 
 #ifndef __cplusplus
@@ -1304,39 +1304,6 @@ static int tolua_px_ecl_Screen_flush_updates00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* method: set_caption of class  Screen */
-#ifndef TOLUA_DISABLE_tolua_px_ecl_Screen_set_caption00
-static int tolua_px_ecl_Screen_set_caption00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isusertype(tolua_S,1,"Screen",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  Screen* self = (Screen*)  tolua_tousertype(tolua_S,1,0);
-  const char* str = ((const char*)  tolua_tostring(tolua_S,2,0));
-#ifndef TOLUA_RELEASE
-  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'set_caption'",NULL);
-#endif
-  {
-   self->set_caption(str);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'set_caption'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* method: delete of class  Font */
 #ifndef TOLUA_DISABLE_tolua_px_ecl_Font_delete00
 static int tolua_px_ecl_Font_delete00(lua_State* tolua_S)
@@ -1619,7 +1586,6 @@ TOLUA_API int tolua_px_open (lua_State* tolua_S)
     tolua_function(tolua_S,"update_all",tolua_px_ecl_Screen_update_all00);
     tolua_function(tolua_S,"update_rect",tolua_px_ecl_Screen_update_rect00);
     tolua_function(tolua_S,"flush_updates",tolua_px_ecl_Screen_flush_updates00);
-    tolua_function(tolua_S,"set_caption",tolua_px_ecl_Screen_set_caption00);
    tolua_endmodule(tolua_S);
    #ifdef __cplusplus
    tolua_cclass(tolua_S,"Font","Font","",tolua_collect_Font);

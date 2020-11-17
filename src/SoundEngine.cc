@@ -22,6 +22,7 @@
 #include "SoundEngine.hh"
 #include "main.hh"
 
+#include "SDL.h"
 #include "SDL_mixer.h"
 #include "SDL_mutex.h"
 
@@ -237,7 +238,7 @@ bool SoundEngine_SDL::init()
         Log <<  ecl::strf("SDL_mixer Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
 #ifdef SDL_MIX_INIT
         int mix_flags = MIX_INIT_OGG | MIX_INIT_MOD;
-        if (Mix_Init(mix_flags) & mix_flags != mix_flags) {
+        if ((Mix_Init(mix_flags) & mix_flags) != mix_flags) {
             Log << ecl::strf( "Couldn't initialize SDL_mixer: %s\n", Mix_GetError());
             return false;
         }
@@ -354,23 +355,32 @@ void SoundEngine_SDL::update_channel (int channel)
     SoundEvent &se = m_channelinfo[channel];
 
     double volume;
-    int    left;
-    int    right;
+    //int    left;
+    //int    right;
     if (se.has_position) {
         ecl::V2 distv = se.position - m_listenerpos;
-        int xdist = int(distv[0] * options::GetDouble("StereoSeparation"));
-        left  = ecl::Clamp (255 - xdist, 0, 255);
-        right = ecl::Clamp (255 + xdist, 0, 255);
+        //int xdist = int(distv[0] * options::GetDouble("StereoSeparation"));
+        //left  = ecl::Clamp (127 - xdist, 0, 254);
+        //right = ecl::Clamp (127 + xdist, 0, 254);
         volume = se.effectiveVolume(length(distv));
     }
     else
     {
         volume = se.volume;
-        left = se.left;
-        right = se.right;
+        //left = se.left;
+        //right = se.right;
     }
 
-    Mix_SetPanning (channel, left, right);
+    /* TODO(sdl2): Mix_SetPanning crashes under Linux (e.g. in just23, andreas31, ...)
+       Here is a backtrace:
+    #0  __lll_lock_wait (futex=futex@entry=0x555555c37bd0, private=0) at lowlevellock.c:52
+    #1  ... in __GI___pthread_mutex_lock (mutex=0x555555c37bd0) at ../nptl/pthread_mutex_lock.c:115
+    #2  ... in  () at /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0
+    #3  ... in Mix_SetPanning () at /usr/lib/x86_64-linux-gnu/libSDL2_mixer-2.0.so.0
+    #4  ... in sound::SoundEngine_SDL::update_channel(int) (this=<optimized out>, channel=5)
+       If you repair this, please decomment "xdist", "left" and "right" above. */
+
+    //Mix_SetPanning (channel, left, right);
 
     int mixvol = ecl::round_down<int>(volume * MIX_MAX_VOLUME);
     Mix_Volume(channel, ecl::Clamp(mixvol, 0, MIX_MAX_VOLUME));
@@ -393,21 +403,22 @@ Mix_Chunk *SoundEngine_SDL::cache_sound(const std::string &name)
 {
     ecl::Dict<Mix_Chunk*>::iterator i=wav_cache.find(name);
     if (i == wav_cache.end()) {
-        Mix_Chunk *ch = 0;
+        Mix_Chunk *chunk = nullptr;
         std::string filename;
         if (app.resourceFS->findFile("soundsets/" + name + ".wav", filename))
-             ch = Mix_LoadWAV(filename.c_str());
-        else 
-            // Sounds from other resources shoudl return correct error:
+             chunk = Mix_LoadWAV(filename.c_str());
+        else {
+            // Sounds from other resources should return correct error:
             Mix_SetError("Sound not found in resources.");
-        if (ch != 0)
-            wav_cache.insert(name, ch);
+        }
+        if (chunk)
+            wav_cache.insert(name, chunk);
         else
             enigma::Log << "Couldn't load sample '" << name << "': "
                         << Mix_GetError() << std::endl;
-        return ch;
-    } else
-        return i->second;
+        return chunk;
+    }
+    return i->second;
 }
 
 void SoundEngine_SDL::cache_sound(const SoundEffect &s) 
@@ -421,7 +432,7 @@ bool SoundEngine_SDL::play_sound (const SoundEvent &s)
 {
     int channel = already_playing (s);
     if (channel != -1) {
-        MutexLock (m_instance->m_mutex);
+        MutexLock lock(m_instance->m_mutex);
         SoundEvent &se = m_channelinfo [channel];
         if(se.merge(s)) {
             update_channel(channel);
@@ -436,7 +447,7 @@ bool SoundEngine_SDL::play_sound (const SoundEvent &s)
 
         if (channel != -1) {
             {
-                MutexLock (m_instance->m_mutex);
+                MutexLock lock(m_instance->m_mutex);
                 SoundEvent &se = m_channelinfo[channel];
                 se = s;
                 se.active       = true;
@@ -445,8 +456,8 @@ bool SoundEngine_SDL::play_sound (const SoundEvent &s)
             update_channel (channel);
         }
         return true; // even if no free channel was found
-    } else
-        return false;
+    }
+    return false;
 }
 
 bool SoundEngine_SDL::is_music_playing() {
@@ -455,7 +466,7 @@ bool SoundEngine_SDL::is_music_playing() {
 
 void SoundEngine_SDL::tick (double dtime)
 {
-    MutexLock (m_instance->m_mutex);
+    MutexLock lock(m_instance->m_mutex);
     for (size_t i=0; i<m_channelinfo.size(); ++i) {
         SoundEvent &se = m_channelinfo[i];
         if (se.active)
@@ -476,7 +487,7 @@ void SoundEngine_SDL::define_sound (
 
 void SoundEngine_SDL::channel_finished (int channel)
 {
-    MutexLock (m_instance->m_mutex);
+    MutexLock lock(m_instance->m_mutex);
     SoundEvent &se = m_instance->m_channelinfo[channel];
     se.active = false;
 }
@@ -539,8 +550,10 @@ Mix_Chunk* SoundEngine_SDL::ChunkFromRaw (const Uint8 *buf, Uint32 len,
     // Convert audio data
     SDL_AudioCVT cvt;
     if (!SDL_BuildAudioCVT (&cvt, sformat, schannels, dfreq,
-                            dformat, dchannels, dfreq))
-        return 0; // memory leak!
+                    dformat, dchannels, dfreq)) {
+        free(newbuf);
+        return 0;
+    }
 
     cvt.buf = (Uint8*) malloc(newlen * cvt.len_mult);
     cvt.len = newlen;
