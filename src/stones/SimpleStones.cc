@@ -328,6 +328,114 @@ void GrateStone::setAttr(const std::string& key, const Value &val) {
     
     DEF_TRAITSM(YinyangStone, "st_yinyang", st_yinyang, MOVABLE_PERSISTENT);
 
+/* -------------------- Document stone -------------------- */
+    DocumentStone::DocumentStone() : Stone ("st_document") {
+    }
+    
+    std::string DocumentStone::getClass() const {
+        return "st_document";
+    }
+
+    Value DocumentStone::message(const Message &m) {
+        if (m.message == "_scissors")
+            doBreak();
+        return Stone::message(m);
+    }
+
+    void DocumentStone::init_model() {
+        std::string base = get_traits().name;
+        if (state == BREAKING)
+            set_anim("st_document_breaking");
+        else
+            set_model("st_document");
+    }
+
+    void DocumentStone::animcb() {
+        GridPos p = get_pos();
+        KillStone(p);
+    }
+
+    void DocumentStone::actor_hit(const StoneContact &sc) {
+        if (state != IDLE)
+            return;
+        if (Value v = getAttr("text")) {
+            std::string txt(v);
+            // translate text
+            txt = server::LoadedProxy->getLocalizedString(txt);
+            client::Msg_ShowDocument(txt, true);
+        }
+        for (int i = WEST; i <= NORTH; i++) {
+            if (Stone *st = GetStone(move(get_pos(), (Direction)i))) {
+                SendMessage(st, "_paper");
+            }
+        }
+        ObjectList olist = getAttr("fellows");
+        for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it) {
+            Stone *fellow = dynamic_cast<Stone *>(*it);
+            if (fellow != NULL)
+                SendMessage(fellow, "_paper");
+        }
+    }
+
+    void DocumentStone::doBreak() {
+        if (state == IDLE) {
+            state = BREAKING;
+            sound_event("stonedestroy");
+            init_model();
+        }
+    }
+
+/* -------------------- Pebble stone -------------------- */
+    PebbleStone::PebbleStone() : Stone ("st_pebble") {
+    }
+    
+    std::string PebbleStone::getClass() const {
+        return "st_pebble";
+    }
+
+    Value PebbleStone::message(const Message &m) {
+        if (m.message == "_paper")
+            doBreak();
+        return Stone::message(m);
+    }
+
+    void PebbleStone::init_model() {
+        if (state == BREAKING)
+            set_anim("st_pebble_breaking");
+        else
+            set_model("st_pebble");
+    }
+
+    void PebbleStone::animcb() {
+        GridPos p = get_pos();
+        KillStone(p);
+    }
+
+    void PebbleStone::actor_hit(const StoneContact &sc) {
+        if (state != IDLE)
+            return;
+        for (int i = WEST; i <= NORTH; i++) {
+            if (Stone *st = GetStone(move(get_pos(), (Direction)i))) {
+                SendMessage(st, "_pebble");
+            }
+        }
+        ObjectList olist = getAttr("fellows");
+        for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it) {
+            Stone *fellow = dynamic_cast<Stone *>(*it);
+            if (fellow != NULL)
+                SendMessage(fellow, "_pebble");
+        }
+    }
+
+    void PebbleStone::doBreak() {
+        if (state == IDLE) {
+            state = BREAKING;
+            sound_event("stonedestroy");
+            init_model();
+        }
+    }
+
+
 
     BOOT_REGISTER_START
         BootRegister(new BlurStone(0), "st_blur");
@@ -349,6 +457,8 @@ void GrateStone::setAttr(const std::string& key, const Value &val) {
         BootRegister(new YinyangStone(0, true), "st_yinyang_instant");
         BootRegister(new YinyangStone(1), "st_yinyang_active");
         BootRegister(new YinyangStone(2), "st_yinyang_inactive");
+        BootRegister(new DocumentStone(), "st_document"); 
+        BootRegister(new PebbleStone(), "st_pebble"); 
     BOOT_REGISTER_END
 
 } // namespace enigma

@@ -30,18 +30,56 @@ namespace enigma {
     }
         
     void ScissorsStone::init_model() {
-        set_model("st_scissors");
+        std::string base = get_traits().name;
+        if (state == BREAKING)
+            set_anim(base + "_breaking");
+        else
+            set_model(base);
     }
     
     void ScissorsStone::animcb() {
-        init_model();
+        if (state == BREAKING) {
+            GridPos p = get_pos();
+            KillStone(p);
+        } else
+            init_model();
     }
     
+    Value ScissorsStone::message(const Message &m) {
+        if (m.message == "_pebble")
+            doBreak();
+        return Stone::message(m);
+    }
+
     void ScissorsStone::actor_hit(const StoneContact &sc) {
+        if (state != IDLE)
+            return;
         sound_event("scissors");
         set_anim("st_scissors_snip");
+        // Cut connections and (if successful) perform action-target pair.
         if (SendMessage(sc.actor, "disconnect").to_bool())
             performAction(true);
+        // Break adjacent st_document
+        for (int i = WEST; i <= NORTH; i++) {
+            if (Stone *st = GetStone(move(get_pos(), (Direction)i))) {
+                SendMessage(st, "_scissors");
+            }
+        }
+        // Break fellow st_document
+        ObjectList olist = getAttr("fellows");
+        for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it) {
+            Stone *fellow = dynamic_cast<Stone *>(*it);
+            if (fellow != NULL)
+                SendMessage(fellow, "_scissors");
+        }
+    }
+
+    void ScissorsStone::doBreak() {
+        if (state == IDLE) {
+            state = BREAKING;
+            sound_event("stonedestroy");
+            init_model();
+        }
     }
 
     DEF_TRAITS(ScissorsStone, "st_scissors", st_scissors);

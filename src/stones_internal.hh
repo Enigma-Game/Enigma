@@ -43,8 +43,6 @@ namespace enigma {
 
 /* -------------------- Auxiliary Functions -------------------- */
 
-    Direction get_push_direction (const StoneContact &sc);
-
     /* Move a stone (by sending an impulse) Called when actor hits a
        stone. */
     bool maybe_push_stone (const StoneContact &sc);

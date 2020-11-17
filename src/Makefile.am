@@ -163,6 +163,8 @@ enigma_SOURCES = 		\
 	floors/BridgeFloor.hh	\
 	floors/FloodStream.cc	\
 	floors/FloodStream.hh	\
+	floors/ForwardFloor.cc	\
+	floors/ForwardFloor.hh	\
 	floors/ScalesFloor.cc	\
 	floors/ScalesFloor.hh	\
 	floors/SimpleFloors.cc	\
@@ -357,6 +359,8 @@ enigma_SOURCES = 		\
 	stones/GreenBrownStone.hh	\
 	stones/IceBlock.cc	\
 	stones/IceBlock.hh	\
+	stones/InkwellStone.cc	\
+	stones/InkwellStone.hh	\
 	stones/JambStone.cc	\
 	stones/JambStone.hh	\
 	stones/KeySwitch.cc	\

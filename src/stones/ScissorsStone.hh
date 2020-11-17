@@ -35,8 +35,14 @@ namespace enigma {
     public:
         ScissorsStone();
         
+        enum iState {
+            IDLE,         ///< 
+            BREAKING      ///< 
+        };
+
         // Object interface
         virtual std::string getClass() const;
+        virtual Value message(const Message &m);
         
         // GridObject interface
         virtual void init_model();
@@ -46,6 +52,9 @@ namespace enigma {
         
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);
+
+    private:
+        void doBreak();
     };
 
 } // namespace enigma

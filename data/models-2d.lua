@@ -49,6 +49,12 @@ do
     DefShModel("ac_marble_white", "ac_marble_white1", "sh_marble")
     DefShModel("ac_marble_white-shine", "ac_marble_white2", "sh_marble")
 
+    -- Normal glass marble
+    shadows = SpriteImage("sh_marble_glass", 0.4, 0.29)
+    images = SpriteImages("ac_marble_glass", 2, 0.5, 0.31)
+    DefShModel("ac_marble_glass", "ac_marble_glass1", "sh_marble")
+    DefShModel("ac_marble_glass-shine", "ac_marble_glass2", "sh_marble")
+
     -- Falling black marble
     images = SpriteImages("ac_marble_black_fall", 10)
     shadows = SpriteImages("sh_marble_fall", 10, 0.4)
@@ -81,6 +87,22 @@ do
     DefAnim("ac_marble_white-appear", ReverseFrames(BuildFrames(frames, 25)))
     DefAnim("ac_marble_white-disappear", BuildFrames(frames, 25))
 
+    -- Falling glass marble
+    -- Use shadow from black marble
+    images = SpriteImages("ac_marble_glass_fall", 10)
+    frames = {}
+    for i=1,table.getn(images) do
+        DefShModel("ac_marble_glass-sink"..(i-1), images[i], shadows[i])
+        frames[i] = "ac_marble_glass-sink"..(i-1)
+    end
+    DefAnim("ac_marble_glass-fall", ComposeFrames(frames,{70,65,60,55,50,50,50,50,50,50,50}))
+    DefAlias("ac_marble_glass-fallen", "invisible")
+
+    -- Appearing / disappearing glass marble
+    -- use the images from falling glass marble
+    DefAnim("ac_marble_glass-appear", ReverseFrames(BuildFrames(frames, 25)))
+    DefAnim("ac_marble_glass-disappear", BuildFrames(frames, 25))
+
     -- Jumping black marble
     images  = SpriteImages("ac_marble_black_jump", 4)
     shadows = SpriteImages("sh_marble_jump", 4, 0.4)
@@ -101,6 +123,16 @@ do
     end
     DefAnim("ac_marble_white-jump", PingPong(BuildFrames(frames, 70)))
 
+    -- Jumping glass marble
+    -- Use shadow from black marble
+    images = SpriteImages("ac_marble_glass_jump", 4)
+    frames = {}
+    for i=1,4 do
+        DefShModel("gb-jump"..i, images[i], shadows[i])
+        table.insert(frames, "gb-jump"..i)
+    end
+    DefAnim("ac_marble_glass-jump", PingPong(BuildFrames(frames, 70)))
+
     -- Sinking black marble
     shadows = SpriteImages("sh_marble_sink", 7, 0.4)
     images = SpriteImages("ac_marble_black_sink", 7)
@@ -117,6 +149,14 @@ do
     end
     DefAlias("ac_marble_white-sunk", "invisible")
 
+    -- Sinking glass marble
+    -- Use shadow from black marble
+    images = SpriteImages("ac_marble_glass_sink", 7)
+    for i=1,table.getn(images) do
+        DefShModel("ac_marble_glass-sink"..(i-1), images[i], shadows[i])
+    end
+    DefAlias("ac_marble_glass-sunk", "invisible")
+
     -- Shattering black marble
     Sprite({name="ac_marble_black_shatter", nimages=5, framelen=60})
     DefAlias("ac_marble_black-shatter", "ac_marble_black_shatter")
@@ -126,6 +166,11 @@ do
     Sprite({name="ac_marble_white_shatter", nimages=5, framelen=60})
     DefAlias("ac_marble_white-shatter", "ac_marble_white_shatter")
     DefAlias("ac_marble_white-shattered", "ac_marble_white_shatter5")
+
+    -- Shattering glass marble
+    Sprite({name="ac_marble_glass_shatter", nimages=5, framelen=60})
+    DefAlias("ac_marble_glass-shatter", "ac_marble_glass_shatter")
+    DefAlias("ac_marble_glass-shattered", "ac_marble_glass_shatter5")
 end
 
 -- ac_pearl --
@@ -525,6 +570,25 @@ do
 
     display.DefineComposite("fl_scales_platinum_released", "fl_platinum", scales[1])
     display.DefineComposite("fl_scales_platinum_pressed", "fl_platinum", scales[2])
+end
+
+-- forward floor --
+do
+    local forward = DefSubimages("fl_forward", {w=4, h=6})
+    local flavors = {"darkgray", "platinum", "rough", "bright", "bridgewood"}
+    local backgrounds = {"darkgray", "platinum", "rough1", "bright", "bridge_bw_closed"}
+    local directions = {"n", "e", "s", "w"}
+    for b = 1, table.getn(backgrounds) do
+        for d = 1, 4 do
+            local basemodel = "fl_forward_"..flavors[b].."_"..directions[d]
+            local frames = {}
+            for j = 1, 6 do
+                display.DefineComposite(basemodel..j, "fl_"..backgrounds[b], forward[j + 6*(d-1)])
+                table.insert(frames, basemodel..j)
+            end
+            DefAnim(basemodel, ComposeFrames(frames, {110, 90, 90, 90, 90, 90}))
+        end
+    end
 end
 
 ------------------------
@@ -927,6 +991,8 @@ do
     DefStone("st_blur_straight", "sh_round")
     DefStone("st_blur_cross", "sh_round")
     DefStone("st_yinyang_inactive", "sh_round")
+    DefStone("st_document", "sh_round")
+    DefStone("st_pebble", "sh_round")
 end
 
 -- st_key --
@@ -1054,6 +1120,11 @@ do
     DefTiles("st_disco", {"st_disco0","st_disco1","st_disco2"})
 end
 
+-- st_document --
+do
+    DefAlias("st_document_breaking", "st_break_plain-anim", 10, 50)
+end
+
 -- st_death --
 do
     DefRoundStoneWithAnim ("st_death", 3, 140)
@@ -1111,6 +1182,26 @@ do
     frames = BuildFrames(images,200)
     DefAnim("st_ice_melt-anim", frames)
     DefShModel("st_ice_melting", "st_ice_melt-anim", "sh_rawglass")
+end
+
+-- st_inkwell --
+do
+    DefSubimages("st_inkwell", {h=9})
+    DefShModel("st_inkwell_black", "st_inkwell1", "sh_round")
+    DefShModel("st_inkwell_empty", "st_inkwell5", "sh_round")
+    DefShModel("st_inkwell_white", "st_inkwell9", "sh_round")
+    DefAnim("st_inkwell_2_to_4",
+        BuildFrames({"st_inkwell2", "st_inkwell3", "st_inkwell4"}, 100), false)
+    DefShModel("st_inkwell_black_to_empty", "st_inkwell_2_to_4", "sh_round")
+    DefAnim("st_inkwell_6_to_8",
+        BuildFrames({"st_inkwell6", "st_inkwell7", "st_inkwell8"}, 100), false)
+    DefShModel("st_inkwell_empty_to_white", "st_inkwell_6_to_8", "sh_round")
+    DefAnim("st_inkwell_8_to_6",
+        BuildFrames({"st_inkwell8", "st_inkwell7", "st_inkwell6"}, 100), false)
+    DefShModel("st_inkwell_white_to_empty", "st_inkwell_8_to_6", "sh_round")
+    DefAnim("st_inkwell_4_to_2",
+        BuildFrames({"st_inkwell4", "st_inkwell3", "st_inkwell2"}, 100), false)
+    DefShModel("st_inkwell_empty_to_black", "st_inkwell_4_to_2", "sh_round")
 end
 
 -- st_knight --
@@ -1211,6 +1302,11 @@ do
     for i=1,12 do DefFloatingStone(model_names[i], "st_onewayx"..i) end
 end
 
+-- st_pebble --
+do
+    DefAlias("st_pebble_breaking", "st_break_plain-anim", 10, 50)
+end
+
 -- st_pull, st_swap --
 do
     DefSubimages("st_pull",{modelname="st-pull-fg",h=5})
@@ -1276,6 +1372,7 @@ do
     DefRoundStone("st_scissors", images[1])
     DefAnim("st_scissors_snip_anim", {{images[2], 130}})
     DefShModel("st_scissors_snip", "st_scissors_snip_anim", "sh_round")
+    DefAlias("st_scissors_breaking", "st_break_plain-anim", 10, 50)
 end
 
 -- st-shogun* --

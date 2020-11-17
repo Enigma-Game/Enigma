@@ -1017,8 +1017,9 @@ void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1, St
     double x = ai.pos[0];
     double y = ai.pos[1];
     bool noCollisions = server::NoCollisions &&
-                        (a->get_traits().id_mask & (1 << ac_marble_white | 1 << ac_marble_black |
-                                                    1 << ac_pearl_white | 1 << ac_pearl_black));
+           (a->get_traits().id_mask & (1 << ac_marble_white | 1 << ac_marble_black |
+                                       1 << ac_marble_glass |
+                                       1 << ac_pearl_white | 1 << ac_pearl_black));
 
     // info about a Window stone on the Gridpos of the actor that may cause
     // contacts within the grid
@@ -1165,6 +1166,7 @@ void World::handle_stone_contact(StoneContact &sc) {
 
     if (server::NoCollisions && (sc.stoneid != st_borderstone) &&
         a->get_traits().id_mask & (1 << ac_marble_white | 1 << ac_marble_black |
+                                   1 << ac_marble_glass |
                                    1 << ac_pearl_white | 1 << ac_pearl_black))
         return;
 
@@ -1181,12 +1183,12 @@ void World::handle_stone_contact(StoneContact &sc) {
             bool slow_collision = length(ai.vel) < 0.3;
             if (!has_nearby_contact(ai.last_contacts, ai.last_contacts_count, contact)) {
                 if (Stone *stone = GetStone(sc.stonepos)) {
+                    a->beforeStoneBounce(sc);
                     if (slow_collision)
                         stone->actor_touch(sc);
                     else
                         stone->actor_hit(sc);
-
-                    a->stoneBounce(sc);
+                    a->afterStoneBounce(sc);
                     if (!slow_collision) {
                         client::Msg_Sparkle(sc.contact_point);
                         double volume = std::max(0.25, length(ai.vel) / 8);
@@ -1287,7 +1289,8 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2) {
             return;
 
         bool enforceCollision = actor1->on_collision(actor2);
-        enforceCollision = enforceCollision || actor2->on_collision(actor1);
+        // Use eager evaluation of OR; e.g. if two glass marbles collide, both might shatter.
+        enforceCollision = enforceCollision | actor2->on_collision(actor1);
 
         bool reboundp = (actor1->is_movable() && actor2->is_movable() &&
                          (enforceCollision || (actor1->is_on_floor() == actor2->is_on_floor())));
@@ -2324,6 +2327,20 @@ void ChangeMeditation(int diffMeditatists, int diffIndispensableHollows,
     //    Log << "chang meditation:  "<< level->numMeditatists << " " << level->indispensableHollows
     //    << " "<<level->engagedIndispensableHollows << " " << level->engagedDispensableHollows <<
     //    "\n";
+}
+
+/*! Determine whether the actor hitting a stone in a StoneContact
+  has enough velocity to move the stone. Return either the direction
+  the stone should move or NODIR. */
+Direction GetPushDirection (const StoneContact &sc) {
+    ActorInfo *ai  = sc.actor->get_actorinfo();
+    Direction  dir = contact_face(sc);
+
+    // Make sure the speed component towards the face of the stone is
+    // large enough and pointing towards the stone.
+    if (dir != enigma::NODIR && ai->vel * sc.normal < -4)
+        return reverse(dir);
+    return NODIR;
 }
 
 float GetVolume(const char *name, Object *obj, float def_volume) {

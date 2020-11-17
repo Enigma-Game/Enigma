@@ -204,7 +204,7 @@ namespace enigma {
             return;
 
         Direction rotate_dir = reverse(contact_face(sc));
-        Direction move_dir = get_push_direction(sc);
+        Direction move_dir = GetPushDirection(sc);
 
         if (getAttr("color") == YELLOW) {
             if (explodeCluster())

@@ -66,7 +66,8 @@ namespace enigma {
         }
     
         ActorsInRangeIterator air_it = ActorsInRangeIterator(this, range,
-                1<<ac_marble_white | 1<<ac_marble_black | 1<<ac_pearl_white | 1<<ac_pearl_black);
+                1 << ac_marble_white | 1 << ac_marble_black | 1 << ac_marble_glass
+              | 1 << ac_pearl_white  | 1 << ac_pearl_black);
         Actor *a;
         while((a = air_it.next()) != NULL) {
             if (a->is_movable() && !a->is_invisible()) {

@@ -30,17 +30,18 @@ enum ActorID {
     ac_FIRST = 0,
     ac_marble_black = 0,
     ac_marble_white = 1,
-    ac_pearl_black = 2,
-    ac_pearl_white = 3,
-    ac_killer_black = 4,
-    ac_killer_white = 5,
-    ac_rotor = 6,
-    ac_top = 7,
-    ac_horse = 8,
-    ac_bug = 9,
-    ac_cannonball = 10,
-    ac_spermbird = 11,
-    ac_LAST = 11,
+    ac_marble_glass = 2,
+    ac_pearl_black = 3,
+    ac_pearl_white = 4,
+    ac_killer_black = 5,
+    ac_killer_white = 6,
+    ac_rotor = 7,
+    ac_top = 8,
+    ac_horse = 9,
+    ac_bug = 10,
+    ac_cannonball = 11,
+    ac_spermbird = 12,
+    ac_LAST = 12,
     ac_COUNT
 };
 
@@ -165,7 +166,8 @@ public:
     void show();
 
     void add_force(const ecl::V2 &f);
-    virtual void stoneBounce(const StoneContact &) {}
+    virtual void beforeStoneBounce(const StoneContact &) {}
+    virtual void afterStoneBounce(const StoneContact &) {}
 
     /* ---------- Accessors ---------- */
     ActorInfo *get_actorinfo();

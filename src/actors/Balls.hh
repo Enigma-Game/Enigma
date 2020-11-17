@@ -73,14 +73,16 @@ namespace enigma {
         virtual bool can_pickup_items() const;
         virtual bool can_be_warped() const;
         virtual bool has_shield() const;
-        
+
+        virtual bool on_collision(Actor *a);
         virtual void on_creation(const ecl::V2 &pos);
         virtual void think (double dtime);
         virtual void on_respawn(const ecl::V2 &pos);
 
         virtual void move_screen();
         virtual void hide();
-        
+        virtual void beforeStoneBounce(const StoneContact &sc);
+                
         // ModelCallback interface  - Animation callback
         virtual void animcb();
 
@@ -120,7 +122,7 @@ namespace enigma {
 /* -------------------- Marble  -------------------- */
     class Marble : public BasicBall {
         CLONEACTOR(Marble);
-        DECL_ACTORTRAITS_ARRAY(2, traitsIdx());
+        DECL_ACTORTRAITS_ARRAY(3, traitsIdx());
         
     public:
         Marble(int color);

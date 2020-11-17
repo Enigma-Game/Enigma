@@ -160,13 +160,17 @@
     <msg name="_laserhit" type="nil"/>
     <msg name="_levelfinish" type="bool"/>
     <msg name="_model_reanimated" type="nil"/>
+    <msg name="_paper" type="nil"/>
     <msg name="_passed" type="nil"/>            <!-- check type-->
+    <msg name="_pebble" type="nil"/>
     <msg name="_performaction" type="nil"/>
     <msg name="_recheck" type="nil"/>
     <msg name="_resurrect" type="nil"/>
     <msg name="_revive" type="nil"/>
     <msg name="_rise" type="nil"/>
+    <msg name="_scissors" type="nil"/>
     <msg name="_scramble" type="int"/>
+    <msg name="_setcolor" type="nil"/>
     <msg name="_shatter" type="nil"/>
     <msg name="_shield" type="nil"/>
     <msg name="_shogun" type="int"/>
@@ -238,6 +242,7 @@
       <msg name="_levelfinish"/>
       <msg name="_resurrect"/>
       <msg name="_rise"/>
+      <msg name="_setcolor"/>
       <msg name="_shatter"/>
       <msg name="_shield"/>
       <msg name="_suicide"/>
@@ -247,6 +252,9 @@
     </object>
     <object name="ac_marble_white">
       <attr name="color" value="1"/>
+    </object>
+    <object name="ac_marble_glass">
+      <attr name="color" value="2"/>
     </object>
     <object name="ac_pearl">
       <attr name="color" default="1"/>
@@ -455,6 +463,36 @@
     </object>
     <object name="fl_fake_trigger">
       <attr name="flavor" value="trigger"/>
+    </object>
+    <object name="fl_forward">
+      <attr name="flavor" default="darkgray"/>
+      <attr name="friction" default="3.0"/>
+      <attr name="adhesion" default="1.6"/>
+      <attr name="orientation" default="0"/>
+      <msg name="flip"/>
+      <msg name="orientate"/>
+      <msg name="signal"/>
+    </object>
+    <object name="fl_forward_bridgewood">
+      <attr name="flavor" value="bridgewood"/>
+      <attr name="friction" value="5.0"/>
+      <attr name="adhesion" value="1.0"/>
+    </object>
+    <object name="fl_forward_bright">
+      <attr name="flavor" value="bright"/>
+      <attr name="friction" value="3.0"/>
+      <attr name="adhesion" value="1.5"/>
+    </object>
+    <object name="fl_forward_darkgray">
+      <attr name="flavor" value="darkgray"/>
+    </object>
+    <object name="fl_forward_platinum">
+      <attr name="flavor" value="platinum"/>
+    </object>
+    <object name="fl_forward_rough">
+      <attr name="flavor" value="rough"/>
+      <attr name="friction" value="7.0"/>
+      <attr name="adhesion" value="2.0"/>
     </object>
     <object name="fl_gravel" super="fl_standard">
       <attr name="faces"/>
@@ -1659,6 +1697,12 @@
     <object name="st_dispenser_extralife">
       <attr name="flavor" value="extralife"/>
     </object>
+    <object name="st_document">
+      <attr name="text"/>
+      <msg name="_paper"/>
+      <msg name="_pebble"/>
+      <msg name="_scissors"/>
+    </object>
     <object name="st_door">
       <attr name="faces" default="nesw"/>
       <attr name="flavor"/>
@@ -1793,6 +1837,10 @@
     <object name="st_invisible">
       <attr name="hollow" rw="r"/>
     </object>
+    <object name="st_inkwell"/>
+    <object name="st_inkwell_black"/>
+    <object name="st_inkwell_empty"/>
+    <object name="st_inkwell_white"/>
     <object name="st_invisible_hollow">
       <attr name="hollow" value="true"/>
     </object>
@@ -2041,6 +2089,11 @@
     <object name="st_passage_white">
       <attr name="color" value="1"/>
     </object>
+    <object name="st_pebble">
+      <msg name="_paper"/>
+      <msg name="_pebble"/>
+      <msg name="_scissors"/>
+    </object>
     <object name="st_pinkbumps"/>
     <object name="st_plaster">
       <attr name="hollow" rw="r"/>
@@ -2076,6 +2129,9 @@
     </object>
     <object name="st_portal_pearl">
       <attr name="flavor" value="pearl"/>
+    </object>
+    <object name="st_portal_glass">
+      <attr name="flavor" value="glass"/>
     </object>
     <object name="st_pull">
       <attr name="state" rw="r"/>
@@ -2145,7 +2201,11 @@
       <attr name="max"/>
       <attr name="scissor" default="true"/>
     </object>
-    <object name="st_scissors"/>
+    <object name="st_scissors">
+      <msg name="_paper"/>
+      <msg name="_pebble"/>
+      <msg name="_scissors"/>
+    </object>
     <object name="st_shogun">
       <attr name="state" max="16"/>
       <msg name="_shogun"/>
