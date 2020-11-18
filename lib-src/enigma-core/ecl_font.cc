@@ -28,7 +28,7 @@
 #include <ostream>
 #include <iostream>
 
-#include <config.h>
+#include "SDL_ttf.h"
 
 using namespace ecl;
 using namespace std;
@@ -193,7 +193,6 @@ Font *ecl::LoadBitmapFont(const char *imgname, const char *descrname) {
 //
 // TrueType fonts
 //
-#include "SDL_ttf.h"
 
 namespace {
 

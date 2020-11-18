@@ -1,0 +1,26 @@
+add_library(intl
+    bindtextdom.c
+    dcgettext.c
+    dgettext.c
+    gettext.c
+    finddomain.c
+    loadmsgcat.c
+    localealias.c
+    textdomain.c
+    l10nflist.c
+    explodename.c
+    dcigettext.c
+    dcngettext.c
+    dngettext.c
+    ngettext.c
+    plural.y
+    plural-exp.c
+    localcharset.c
+    relocatable.c
+    localename.c
+    log.c
+    printf.c
+    osdep.c
+    os2compat.c
+    intl-compat.c
+    )

@@ -28,8 +28,6 @@
 #include <unistd.h>
 #include <cassert>
 
-#include <config.h>
-
 #ifdef __MINGW32__
 #include <windows.h>
 #include <shellapi.h>

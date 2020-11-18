@@ -136,7 +136,7 @@ namespace enigma {
             exit (-1);
         }
         catch (...) {
-            cerr << "Unexpected Exception on load of preferences\n" ;
+            cerr << "Unexpected Exception while loading preferences\n" ;
             exit (-1);
         }        
     }
