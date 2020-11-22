@@ -41,6 +41,7 @@ include_directories(src/gui)
 include_directories(src/lev)
 
 add_subdirectory(lib-src)
+add_subdirectory(data)
 add_subdirectory(tools)
 
 configure_file(cmake-config.h.in config.h)
