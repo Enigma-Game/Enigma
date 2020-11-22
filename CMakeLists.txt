@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
-project(enigma_work)
+
+project(Enigma VERSION 1.3)
 
 set(CMAKE_CXX_STANDARD 14)
 
