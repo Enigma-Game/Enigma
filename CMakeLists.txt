@@ -10,9 +10,9 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
-find_package(xercesc REQUIRED)
-find_package(zlib REQUIRED)
-find_package(curl REQUIRED)
+find_package(XercesC REQUIRED)
+find_package(ZLIB REQUIRED)
+find_package(CURL REQUIRED)
 
 Include(FindIntl)
 
