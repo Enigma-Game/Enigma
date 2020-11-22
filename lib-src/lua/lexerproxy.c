@@ -8,6 +8,7 @@
 */
 
 #include <string.h>
+#include <stdbool.h>
 
 bool lua_evaluate_assert = false;
 

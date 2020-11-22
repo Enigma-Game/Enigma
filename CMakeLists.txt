@@ -27,7 +27,7 @@ include_directories(${SDL2_INCLUDE_DIR}
 add_compile_definitions(SYSTEM_DATA_DIR="")
 add_compile_definitions(DOCDIR="")
 add_compile_definitions(LOCALEDIR="")
-add_compile_definitions(CXXLUA=1)
+#add_compile_definitions(CXXLUA=1)
 
 include_directories(lib-src/enet/include)
 #include_directories(lib-src/enet/include/enet)
@@ -41,6 +41,7 @@ include_directories(src/gui)
 include_directories(src/lev)
 
 add_subdirectory(lib-src)
+add_subdirectory(tools)
 
 configure_file(cmake-config.h.in config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})

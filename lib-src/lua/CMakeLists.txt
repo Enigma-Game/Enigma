@@ -62,8 +62,8 @@ set(LUA_HDR
     tolua_event.h
     )
 
-set_source_files_properties(${LUA_SRC}
-    PROPERTIES LANGUAGE CXX)
+#set_source_files_properties(${LUA_SRC}
+#    PROPERTIES LANGUAGE CXX)
 
 add_library(lua ${LUA_SRC} ${LUA_HDR})
 
