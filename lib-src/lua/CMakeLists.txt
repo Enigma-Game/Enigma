@@ -66,4 +66,5 @@ set(LUA_HDR
 #    PROPERTIES LANGUAGE CXX)
 
 add_library(lua ${LUA_SRC} ${LUA_HDR})
+target_include_directories(lua PUBLIC .)
 

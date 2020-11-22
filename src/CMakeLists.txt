@@ -2,25 +2,25 @@ configure_file(config.h.cmake.in config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lua-display.cc
-  COMMAND tolua -o ${CMAKE_CURRENT_BINARY_DIR}/lua-display.cc -H lua-display.hh -n display ${CMAKE_CURRENT_SOURCE_DIR}/display-lua.pkg
-  DEPENDS tolua
-  )
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lua-display.cc
+    COMMAND tolua -o ${CMAKE_CURRENT_BINARY_DIR}/lua-display.cc -H lua-display.hh -n display ${CMAKE_CURRENT_SOURCE_DIR}/display-lua.pkg
+    DEPENDS tolua
+    )
 add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lua-enigma.cc
-  COMMAND tolua -o ${CMAKE_CURRENT_BINARY_DIR}/lua-enigma.cc -H lua-enigma.hh -n enigma ${CMAKE_CURRENT_SOURCE_DIR}/enigma-lua.pkg
-  DEPENDS tolua
-  )
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lua-enigma.cc
+    COMMAND tolua -o ${CMAKE_CURRENT_BINARY_DIR}/lua-enigma.cc -H lua-enigma.hh -n enigma ${CMAKE_CURRENT_SOURCE_DIR}/enigma-lua.pkg
+    DEPENDS tolua
+    )
 add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lua-global.cc
-  COMMAND tolua -o ${CMAKE_CURRENT_BINARY_DIR}/lua-global.cc -H lua-global.hh -n global ${CMAKE_CURRENT_SOURCE_DIR}/global-lua.pkg
-  DEPENDS tolua
-  )
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lua-global.cc
+    COMMAND tolua -o ${CMAKE_CURRENT_BINARY_DIR}/lua-global.cc -H lua-global.hh -n global ${CMAKE_CURRENT_SOURCE_DIR}/global-lua.pkg
+    DEPENDS tolua
+    )
 add_custom_command(
-  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lua-ecl.cc
-  COMMAND tolua -o ${CMAKE_CURRENT_BINARY_DIR}/lua-ecl.cc -H lua-ecl.hh -n px ${CMAKE_CURRENT_SOURCE_DIR}/ecl-lua.pkg
-  DEPENDS tolua
-  )
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lua-ecl.cc
+    COMMAND tolua -o ${CMAKE_CURRENT_BINARY_DIR}/lua-ecl.cc -H lua-ecl.hh -n px ${CMAKE_CURRENT_SOURCE_DIR}/ecl-lua.pkg
+    DEPENDS tolua
+    )
 
 add_executable(enigma
     actors/Balls.cc
@@ -428,7 +428,19 @@ add_executable(enigma
     XMLtoUtf8.hh
     )
 
-target_link_libraries(enigma ${SDL2_LIBRARY}
+target_include_directories(enigma
+    PRIVATE . gui lev ${CMAKE_SOURCE_DIR}/lib-src
+    ${SDL2_INCLUDE_DIR}
+    ${SDL2_IMAGE_INCLUDE_DIR}
+    ${SDL2_TTF_INCLUDE_DIR}
+    ${SDL2_MIXER_INCLUDE_DIR}
+    ${XercesC_INCLUDE_DIRS}
+    ${ZLIB_INCLUDE_DIRS}
+    ${CURL_INCLUDE_DIRS}
+    )
+
+target_link_libraries(enigma
+    ${SDL2_LIBRARY}
     ${SDL2_MIXER_LIBRARIES}
     ${SDL2_IMAGE_LIBRARIES}
     ${SDL2_TTF_LIBRARIES}

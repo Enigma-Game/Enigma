@@ -4,6 +4,7 @@ project(Enigma VERSION 1.3)
 
 set(CMAKE_CXX_STANDARD 14)
 
+# Search for additional cmake modules in cmake/
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 find_package(SDL2 REQUIRED)
@@ -16,29 +17,10 @@ find_package(CURL REQUIRED)
 
 Include(FindIntl)
 
-include_directories(${SDL2_INCLUDE_DIR}
-    ${SDL2_IMAGE_INCLUDE_DIR}
-    ${SDL2_TTF_INCLUDE_DIR}
-    ${SDL2_MIXER_INCLUDE_DIR}
-    ${XercesC_INCLUDE_DIRS}
-    ${ZLIB_INCLUDE_DIRS}
-    ${CURL_INCLUDE_DIRS})
-
 add_compile_definitions(SYSTEM_DATA_DIR="")
 add_compile_definitions(DOCDIR="")
 add_compile_definitions(LOCALEDIR="")
 #add_compile_definitions(CXXLUA=1)
-
-include_directories(lib-src/enet/include)
-#include_directories(lib-src/enet/include/enet)
-include_directories(lib-src/enigma-core)
-include_directories(lib-src/lua)
-include_directories(lib-src)
-include_directories(lib-src/zipios++/src)
-include_directories(lib-src/zipios++/)
-include_directories(src)
-include_directories(src/gui)
-include_directories(src/lev)
 
 add_subdirectory(lib-src)
 add_subdirectory(data)

@@ -49,4 +49,4 @@ add_library(zipios++
     )
 
 # Make sure that zipios-config.h is visible in all projects that link to zipios++
-target_include_directories(zipios++ PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(zipios++ PUBLIC ${CMAKE_CURRENT_BINARY_DIR} .)
