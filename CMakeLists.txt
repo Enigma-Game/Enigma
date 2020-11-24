@@ -35,14 +35,20 @@ set(CPACK_PACKAGE_VERSION_MINOR "${Enigma_VERSION_MINOR}")
 
 # Configure macOS packaging
 if (APPLE)
+    set(PACKAGE_VERSION "${Enigma_VERSION}")
+    configure_file(etc/Info.plist.in Info.plist)
     set(CPACK_GENERATOR Bundle ZIP)
     set(CPACK_BUNDLE_NAME "Enigma")
-    set(CPACK_BUNDLE_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/etc/Info.plist")
+    set(CPACK_BUNDLE_PLIST "${CMAKE_CURRENT_BINARY_DIR}/Info.plist")
     set(CPACK_BUNDLE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/etc/enigma.icns")
 endif()
 
 # Configure source packages
 set(CPACK_SOURCE_GENERATOR TGZ ZIP)
-set(CPACK_SOURCE_IGNORE_FILES "CmakeLists.txt.user;")
+set(CPACK_SOURCE_IGNORE_FILES
+    CMakeLists.txt.user
+    .git
+    .DS_Store
+    )
 
 include(CPack)

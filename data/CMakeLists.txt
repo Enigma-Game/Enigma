@@ -1,4 +1,6 @@
-#SUBDIRS = gfx fonts schemas levels music soundsets gfx16 gfx32 gfx40 gfx48 gfx64
+#SUBDIRS = gfx schemas levels music soundsets gfx16 gfx32 gfx40 gfx48 gfx64
+add_subdirectory(fonts)
+add_subdirectory(music)
 
 install(FILES
         api1init.lua
@@ -15,5 +17,5 @@ install(FILES
         compat.lua
         security.lua
         ratings.xml
-        DESTINATION "data")
+        DESTINATION data)
 
