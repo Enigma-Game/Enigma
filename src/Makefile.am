@@ -23,6 +23,10 @@ else
 CXXFLAGS += -I$(top_srcdir)/lib-src/enet/include
 endif
 
+if MINGW32
+CXXFLAGS += -static-libgcc -static-libstdc++
+endif
+
 CXXFLAGS += -I$(top_srcdir)/lib-src \
 	-I$(top_builddir)/intl @SDL_CFLAGS@
 
@@ -440,7 +444,7 @@ if MINGW32
 
   localedir_enigma := data/locale
   # mingw_ldadd := enigma_ico.o -lws2_32
-  mingw_ldadd := enigma_ico.o -lws2_32 -lSDL_image -ltiff -llzma -ljpeg -lpng15 -lSDL_mixer -lmikmod -lsmpeg -lstdc++ -lvorbisfile -lvorbis -logg -lSDL_ttf -lcurl -lidn -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lgcrypt -lgpg-error -lws2_32 -lfreetype -lintl
+  mingw_ldadd := enigma_ico.o -lws2_32 -lSDL2_image -ltiff -llzma -ljpeg -lpng16 -lSDL2_mixer -lmikmod -lsmpeg -lvorbisfile -lvorbis -logg -lSDL2_ttf -lcurl -lidn -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lgcrypt -lgpg-error -lws2_32 -lfreetype -lintl
   enigma_LDFLAGS := -mwindows -pthread
   enigma_ico.o: enigma.rc enigma.ico
 	$(WINDRES) $(srcdir)/enigma.rc --include-dir=$(srcdir) -O coff -o enigma_ico.o
