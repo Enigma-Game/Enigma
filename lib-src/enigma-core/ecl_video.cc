@@ -314,7 +314,10 @@ Surface *Surface::zoom(int w, int h) {
 }
 
 Surface *Surface::make_surface(SDL_Surface *sdls) {
-    assert(sdls);
+    if(!sdls) {
+        fprintf(stderr, "Could not create SDL surface, error message: %s\n", SDL_GetError());
+        assert(false);
+    }
     switch (sdls->format->BitsPerPixel) {
     case 8: return new Surface8(sdls); break;
     case 16: return new Surface16(sdls); break;

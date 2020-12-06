@@ -898,6 +898,8 @@ void Application::setUserImagePath(std::string newPath) {
 
 void Application::shutdown()
 {
+    if(strlen(SDL_GetError()) > 0)
+        Log << "Last SDL error: " << SDL_GetError() << "\n";
     oxyd::Shutdown();
     enigma::ShutdownWorld();
     display::Shutdown();

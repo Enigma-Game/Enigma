@@ -163,7 +163,7 @@ void BitmapFont::render(const GC &gc, int x, int y, std::string text, Font *altF
         }
 
         if (len > 1 || advance[int(*p)] == 0) {
-            if (altFont != NULL) {
+            if (altFont != nullptr) {
                 std::string utf8char(p, len);
                 int charWidth = altFont->get_width(utf8char.c_str());
                 width += charWidth;
@@ -219,6 +219,9 @@ public:
 
     Surface *render(const char *str);
     void render(const GC &gc, int x, int y, const char *str);
+
+private:
+    SDL_PixelFormat *pixel_format;
 };
 
 }  // namespace
@@ -227,9 +230,11 @@ TrueTypeFont::TrueTypeFont(TTF_Font *font_, int r, int g, int b) : font(font_) {
     fgcolor.r = r;
     fgcolor.g = g;
     fgcolor.b = b;
+    pixel_format = SDL_AllocFormat(SDL_PIXELFORMAT_RGB888);
 }
 
 TrueTypeFont::~TrueTypeFont() {
+    SDL_FreeFormat(pixel_format);
     TTF_CloseFont(font);
 }
 
@@ -248,8 +253,10 @@ int TrueTypeFont::get_width(char c) {
 
 Surface *TrueTypeFont::render(const char *str) {
     SDL_Color bgcolor = {0, 0, 0, 0};
-    SDL_Surface *s = TTF_RenderUTF8_Shaded(font, str, fgcolor, bgcolor);
-    if (s) {
+    SDL_Surface *si = TTF_RenderUTF8_Shaded(font, str, fgcolor, bgcolor);
+    if (si) {
+        SDL_Surface *s = SDL_ConvertSurface(si, pixel_format, 0);
+        SDL_FreeSurface(si);
         SDL_SetColorKey(s, SDL_TRUE, 0);
         return Surface::make_surface(s);
     }
