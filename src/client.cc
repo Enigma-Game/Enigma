@@ -247,6 +247,28 @@ void Client::on_mousebutton(SDL_Event &e) {
         } else if (e.button.button == SDL_BUTTON_RIGHT) {
             // right mousebutton -> rotate inventory
             rotate_inventory(+1);
+        } else if (e.button.button == SDL_BUTTON_MIDDLE) {
+            switch (options::GetInt("MiddleMouseButtonMode")) {
+            case options::MIDDLEMOUSEBUTTON_NoOp: {
+                 break;
+            }
+            case options::MIDDLEMOUSEBUTTON_Pause: {
+                // like ESC
+                show_menu(true);
+                break;
+            }
+            case options::MIDDLEMOUSEBUTTON_Restart: {
+                // force a reload from file, like F3
+                lev::Proxy::releaseCache();
+                server::Msg_Command("restart");
+                break;
+            }
+            default: {
+                // Unknown option from the future.
+                // Interpret as default (shouldn't hurt).
+                show_menu(true);
+                break;
+            }}
         }
     }
     update_mouse_button_state();

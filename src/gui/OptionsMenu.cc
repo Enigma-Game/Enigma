@@ -145,6 +145,16 @@ public:
     LanguageButton(ActionListener *al = 0);
 };
 
+class MiddleMouseButtonButton : public ValueButton {
+    int get_value() const;
+    void set_value(int value);
+    std::string get_text(int value) const;
+
+public:
+    MiddleMouseButtonButton();
+};
+
+
 /* -------------------- Buttons for Options -------------------- */
 
     class MouseSpeedButton : public ValueButton {
@@ -478,6 +488,7 @@ public:
         else
             return (separation > 0) ? 1 : -1; 
     }
+
     void StereoButton::set_value(int value)  
     {
         if (value == 0) 
@@ -539,6 +550,43 @@ public:
         inInit = true;
         init();
         inInit = false;
+    }
+    
+    /* -------------------- MiddleMouseButtonButton -------------------- */
+    
+    MiddleMouseButtonButton::MiddleMouseButtonButton() :
+    ValueButton(options::MIDDLEMOUSEBUTTON_MIN, options::MIDDLEMOUSEBUTTON_MAX)
+    {
+        init();
+    }
+    
+    int MiddleMouseButtonButton::get_value() const 
+    {
+        int value = options::GetInt("MiddleMouseButtonMode");
+        if (   (value < options::MIDDLEMOUSEBUTTON_MIN)
+            || (value > options::MIDDLEMOUSEBUTTON_MAX))
+            // Unknown option from the future. Interpret as default.
+            value = options::MIDDLEMOUSEBUTTON_Pause;
+        return value;
+    }
+
+    void MiddleMouseButtonButton::set_value(int value)  
+    {
+        options::SetOption("MiddleMouseButtonMode", value);
+    }
+    
+    string MiddleMouseButtonButton::get_text(int value) const 
+    {
+        switch (value) {
+        case options::MIDDLEMOUSEBUTTON_NoOp:    
+            return _("Deactivated");
+        case options::MIDDLEMOUSEBUTTON_Pause:
+            return _("Pause (ESC)");
+        case options::MIDDLEMOUSEBUTTON_Restart:
+            return _("Restart Level (F3)");
+        }
+        assert(0);
+        return string();
     }
     
     /* -------------------- Options Menu -------------------- */
@@ -742,6 +790,7 @@ public:
             case OPTIONS_CONFIG:
                 OPTIONS_NEW_LB(N_("Language: "), language = new LanguageButton(this))
                 OPTIONS_NEW_LB(N_("Mouse speed: "), new MouseSpeedButton())
+                OPTIONS_NEW_LB(N_("Middle mouse button: "), new MiddleMouseButtonButton())
                 OPTIONS_NEW_LB(N_("Text speed: "), new TextSpeedButton())
                 OPTIONS_NEW_LB(N_("Ratings update: "), new RatingsUpdateButton())
                 userNameTF = new TextField(app.state->getString("UserName"));

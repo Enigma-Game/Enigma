@@ -54,6 +54,11 @@ namespace options {
 
     const int MIN_MouseSpeed = 1;
     const int MAX_MouseSpeed = 15;
+    const int MIDDLEMOUSEBUTTON_MIN = -1;
+    const int MIDDLEMOUSEBUTTON_NoOp = -1;
+    const int MIDDLEMOUSEBUTTON_Pause = 0;
+    const int MIDDLEMOUSEBUTTON_Restart = 1;
+    const int MIDDLEMOUSEBUTTON_MAX = 1;
 
 /* -------------------- Variables -------------------- */
 
