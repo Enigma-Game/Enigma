@@ -36,9 +36,12 @@ namespace enigma {
         Stone::setAttr(key, val);
         if (key == "flavor") {
             std::string flavor = val.to_string();
-            Item *it = dynamic_cast<Item *>(GetObjectTemplate(val.to_string()));
-            ASSERT(flavor == "all" || (it != NULL && it->isPortable()), XLevelRuntime, 
+            Item *it = nullptr;
+            if (flavor != "all") {
+                it = dynamic_cast<Item *>(GetObjectTemplate(flavor));
+                ASSERT(it != NULL && it->isPortable(), XLevelRuntime,
                     ecl::strf("Barrier stone with illeagal flavor '%s'", flavor.c_str()).c_str());
+            }
             if (isDisplayable())
                 init_model();
         }
