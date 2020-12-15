@@ -34,11 +34,11 @@ namespace {
 // TimeHandlers.
 class Alarm {
 public:
-    Alarm(enigma::TimeHandler *h, double interval, bool repeatp);
+    Alarm(enigma::TimeHandler *h, double interval, bool repeatp, int alarmnr);
     void tick(double dtime);
     bool expired() const;
     void mark_removed();
-    bool has_handler(enigma::TimeHandler *th) const;
+    bool has_handler(enigma::TimeHandler *th, int n) const;
 
     // Variables
     enigma::TimeHandler *handler;
@@ -46,10 +46,11 @@ public:
     double timeleft;
     bool repeatp;
     bool removed;
+    int alarmnr;
 };
 
-Alarm::Alarm(TimeHandler *h, double i, bool r)
-: handler(h), interval(i), timeleft(i), repeatp(r), removed(false) {
+Alarm::Alarm(TimeHandler *h, double i, bool r, int n)
+: handler(h), interval(i), timeleft(i), repeatp(r), alarmnr(n), removed(false) {
 }
 
 bool Alarm::expired() const {
@@ -65,17 +66,19 @@ void Alarm::tick(double dtime) {
         timeleft -= dtime;
         if (repeatp) {
             while (timeleft <= 0) {
+                handler->distinguished_alarm(alarmnr);
                 handler->alarm();
                 timeleft += interval;
             }
         } else if (timeleft <= 0) {
+            handler->distinguished_alarm(alarmnr);
             handler->alarm();
         }
     }
 }
 
-bool Alarm::has_handler(TimeHandler *th) const {
-    return handler == th;
+bool Alarm::has_handler(TimeHandler *th, int n) const {
+    return (handler == th) && (alarmnr == n);
 }
 
 } // namespace
@@ -92,29 +95,23 @@ Timer::Timer() : self(new Rep) {
 
 Timer::~Timer() = default;
 
-void Timer::deactivate(TimeHandler *th) {
-    auto i = find(self->handlers.begin(), self->handlers.end(), th);
-    if (i != self->handlers.end())
-        *i = nullptr;
-}
-
 void Timer::activate(TimeHandler *th) {
     if (find(self->handlers.begin(), self->handlers.end(), th) == self->handlers.end())
         self->handlers.push_back(th);
 }
 
-void Timer::set_alarm(TimeHandler *th, double interval, bool repeatp) {
+void Timer::set_alarm(TimeHandler *th, double interval, bool repeatp, int alarmnr) {
     ASSERT(interval > 0, XLevelRuntime, "Timer error: timer with interval <= 0 seconds");
     ASSERT(!repeatp || interval >= 0.01, XLevelRuntime,
            "Timer error: looping timer with interval < 0.01 seconds");
     if (interval > 0)
-        self->alarms.push_back(Alarm(th, interval, repeatp));
+        self->alarms.push_back(Alarm(th, interval, repeatp, alarmnr));
 }
 
-double Timer::remove_alarm(TimeHandler *th) {
+double Timer::remove_alarm(TimeHandler *th, int alarmnr) {
     double timeleft = 0;
     for (auto &alarm : self->alarms) {
-        if (alarm.has_handler(th)) {
+        if (alarm.has_handler(th, alarmnr)) {
             alarm.mark_removed();
             timeleft = alarm.timeleft;
         }
