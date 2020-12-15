@@ -41,21 +41,16 @@ AM_CONDITIONAL(MINGW32, test x$MINGW32 = xyes)
 AM_CONDITIONAL(LINUX, test x$LINUX = xyes)
 
 dnl ----------------------------------------
+dnl This comment block is obsolete, but leaving it in until I or someone figures out if the script lines after can simply be removed.
+dnl  now that nothing needs to be done to try for a static link. Maybe we don't even need the with-linitl-prefix option anymore?
 dnl Mac requires libintl to be linked statically and doesn't make that easy
 dnl gettext project (for libintl) refuses to support use of pkg-config but doesn't provide an
 dnl equivalent way to get the lib directory it is installed in. This requires use of --with-libintl-prefix configure option.
 dnl ---------------------------------------
 if test "x$MACOSX" = xyes; then
   LIBS="$LIBS_NOGETTEXT"
-  if test -z "$with_libintl_prefix" ; then
-    AC_MSG_ERROR([On MacOS --with-libintl-prefix must be specified to find lib/libintl.a for static link])
-  fi
-  if test -d "${with_libintl_prefix}/lib" && test -f "${with_libintl_prefix}/lib/libintl.a" ; then
-    LIBINTL="${with_libintl_prefix}/lib/libintl.a"
-    LIBS="$LIBINTL /usr/lib/libiconv.dylib $LIBS"
-  else
-    AC_MSG_ERROR([The specified --with-libintl-prefix did not contain lib/libintl.a which is required on MacOS for static link])
-  fi
+  LIBINTL="-lintl"
+  LIBS="$LIBINTL /usr/lib/libiconv.dylib $LIBS"
 fi
 
 dnl ======================================================================
@@ -156,13 +151,10 @@ SDL_LIBS="$SDL_LIBS -lSDL2_mixer"
 AC_CHECK_LIB(SDL2_ttf, main,,[AC_MSG_ERROR([SDL2_ttf is required to compile Enigma])])
 SDL_LIBS="$SDL_LIBS -lSDL2_ttf"
 
-dnl Add special hack for Mac framework SDL after all other SDL stuff has been done
-dnl Note that SDL development environment must be installed for the build but SDL frameworks must also be installed for the build
-dnl If we had libSDLmain.a, which is not included in the framework, we should be able to get away with only installing framework
 if test "x$MACOSX" = xyes; then
- SDL_STATIC_PREFIX=`$SDL2_CONFIG $sdl2_config_args --prefix`
- SDL_LIBS="-Wl,-rpath,@loader_path/../Frameworks -framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL -framework SDL2 -framework SDL2_mixer -framework SDL2_image -framework SDL2_ttf $SDL2_STATIC_PREFIX/lib/libSDL2main.a"
-AC_SUBST(SDL2_STATIC_PREFIX)
+ SDL2_PREFIX=`$SDL2_CONFIG $sdl2_config_args --variable=libdir`
+ SDL_LIBS="-Wl,-rpath,@loader_path/../lib -framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf $SDL2_PREFIX/libSDL2main.a"
+AC_SUBST(SDL2_PREFIX)
 fi
 
 dnl ---------------------------------------
@@ -213,20 +205,11 @@ else
 fi
 
 dnl ----------------------------------------
-dnl Mac requires libintl, libpng, freetype  and xerces-c to be linked statically and doesn't make that easy
-dnl Handle it by reverting to LIBS before the AC_CHECK_LIBS of png and xerces-c and prepending the static libs
-dnl pkg-config is not convenient to use. This works around in a bug currently in freetype2.pc that puts in extra quotes
+dnl On Mac SDL flags are set up differently. This is a bit of a kludge for it
 dnl ---------------------------------------
 if test "x$MACOSX" = xyes; then
-  if test -z "$with_libintl_prefix" ; then
-    AC_MSG_ERROR([On MacOS --with-libintl-prefix must be specified to find lib/libintl.a for static link])
-  fi
   CFLAGS="$CFLAGS_NOSDL"
   CXXFLAGS="$CXXFLAGS_NOSDL"
-  FREETYPE_PREFIX=`$PKG_CONFIG freetype2 --variable libdir`
-  PNG_PREFIX=`$PKG_CONFIG libpng --variable libdir`
-  XERCESC_PREFIX=`$PKG_CONFIG xerces-c --variable libdir`
-  LIBS="-lz -lbz2 ${FREETYPE_PREFIX//\"/}/libfreetype.a ${PNG_PREFIX//\"/}/libpng.a ${XERCESC_PREFIX//\"/}/libxerces-c.a $LIBS_NOSDL"
 fi
 
 dnl ----------------------------------------

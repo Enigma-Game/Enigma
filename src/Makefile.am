@@ -544,10 +544,6 @@ bundle:
 .PHONY: bundle-fw
 bundle-fw:
 	cp enigma $(bundle_name)/Contents/MacOS/enigma
-	mkdir  $(bundle_name)/Contents/Frameworks
-	for i in SDL SDL_mixer SDL_image SDL_ttf ; do \
-	  cp -a /Library/Frameworks/$${i}.framework $(bundle_name)/Contents/Frameworks/; \
-	done
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to create the preview images into the app bundle
@@ -590,9 +586,3 @@ bundle-doc:
 	cp $(top_builddir)/doc/manual/*.html $(bundle_doc)/manual/
 	cp $(top_builddir)/doc/reference/images/*.png $(bundle_doc)/reference/images/
 	cp $(top_builddir)/doc/reference/*.html $(bundle_doc)/reference/
-
-# Special target to make a disk image of the bundled app
-.PHONY: bundle-dmg
-bundle-dmg:
-	hdiutil create  -ov -srcfolder $(bundle_root) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
-

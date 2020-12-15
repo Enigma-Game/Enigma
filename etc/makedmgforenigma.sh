@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# Script used on a Mac as part of the Enigma release process.
+# Run this on a machine that has Enigma installed by Hombrew to create a dmg suitable for distribution.
+
+# Fixes up the library dependencies in the Enigma application bundle that has been installed by Homebrew
+# and creates a Enigma.dmg file in the current directory suitable for distribution to systems without Homebrew
+# Generates a few warnings if the application bundle has already been fixed up, but doesn't break it
+# If there is an existing Enigma.dmg file in the current directory it will be deleted and a new one created
+# Result is a file Enigma.dmg in the directory that is current when this is run.
+
+# Note that this is taking a lazy way to do the graphics by taking an existing image file from doc/image directory
+# that happens to be suitable. If anyone ever changes or removes that file, this will have to be changed
+
+# check for required utilities that can be installed using brew
+hash convert 2>/dev/null  || { echo >&2 "This script requires ImageMagick convert but it's not installed. Install imagemagick from homebrew. Aborting."; exit 1; }
+for foo in fileicon create-dmg dylibbundler ; do
+    hash $foo 2>/dev/null || { echo >&2 "This script requires $foo but it's not installed. Install it from homebrew. Aborting."; exit 1; }
+done
+
+DEST=/tmp/Enigma_temp_dist_build
+DMG_FILE_NAME="Enigma.dmg"
+ENIGMA_APP_DIR=`brew --prefix enigma`
+ENIGMA_FOLDER="$ENIGMA_APP_DIR/Enigma"
+ENIGMA_APP_PATH="$DEST/Enigma/Enigma.app"
+BACKGROUND_IMAGE="$ENIGMA_APP_PATH/Contents/Resources/doc/images/menu_bg.jpg"
+MESSAGE_IN_FILE_NAME1=".dummy1"
+MESSAGE_IN_FILE_NAME2=".dummy2"
+
+if [ -z "$ENIGMA_APP_DIR" ]; then
+    echo "Error: No enigma installed"
+    exit 1
+fi
+
+if [ ! -d "$ENIGMA_APP_DIR" ]; then
+    echo "Error: No installed directory '$ENIGMA_APP_DIR'"
+    exit 1
+fi
+
+if [ ! -d "$ENIGMA_FOLDER" ]; then
+    echo "Error: No container directory '$ENIGMA_FOLDER'"
+    exit 1
+fi
+
+rm -rf "$DEST"
+mkdir -p "$DEST"
+cp -a "$ENIGMA_FOLDER" "$DEST/"
+
+if [ ! -d "$ENIGMA_APP_PATH" ]; then
+    echo "Error: No application path '$ENIGMA_APP_PATH'"
+    exit 1
+fi
+
+if [ ! -f "$BACKGROUND_IMAGE" ]; then
+    echo "Error: No background image file '$BACKGROUND_IMAGE'"
+    exit 1
+fi
+
+
+# if dylibbundler doesn't work right, take a look at github.com/chearon/macpack
+# setting DYLD_LIBRARY_PATH and the -i option allows this to be run more than once on the same file, with only a few warnings as a result
+DYLD_LIBRARY_PATH="$ENIGMA_APP_PATH/Contents/lib" dylibbundler -cd -x $ENIGMA_APP_PATH/Contents/MacOS/enigma -b -i $ENIGMA_APP_PATH/Contents/lib/ -d $ENIGMA_APP_PATH/Contents/lib/ -p @executable_path/../lib/
+
+# Create some files on the fly that will be used to put a message on the dmg folder
+rm -f "$DMG_FILE_NAME"
+touch "$DEST/$MESSAGE_IN_FILE_NAME1"
+touch "$DEST/$MESSAGE_IN_FILE_NAME2"
+convert -size 16x16 xc:transparent "$DEST/transparent.ico"
+fileicon set "$DEST/$MESSAGE_IN_FILE_NAME1" "$DEST/transparent.ico"
+fileicon set "$DEST/$MESSAGE_IN_FILE_NAME2" "$DEST/transparent.ico"
+
+create-dmg --no-internet-enable --volname Enigma --background "$BACKGROUND_IMAGE" --window-pos 50 60 --window-size 400 320 --icon-size 50 --icon "Enigma" 20 50 --app-drop-link 200 50 --add-file "Enigma folder contains app and manual" "$DEST/$MESSAGE_IN_FILE_NAME1" 10 130 --add-file "Drag it to Applications to install" "$DEST/$MESSAGE_IN_FILE_NAME2" 200 130 --text-size 14 "$DMG_FILE_NAME" "$DEST"
+
+rm -rf "$DEST"
