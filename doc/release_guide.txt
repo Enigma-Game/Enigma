@@ -9,7 +9,8 @@ Update contributors' lists:
   gui/MainMenu.cc
   doc/manual/*.texi
   homepage -> input/credits*.html
-
+Create a tagged release on the Enigma-Game/Enigma repo on GitHub,
+  but don't mark it as Published yet
 
   STEP 2  -  Make for Linux
 
@@ -45,7 +46,8 @@ cp -R --force /usr/local/share/enigma/levels data/
 
 make dist
 # This sets up ./enigma-VERSION.tar.gz, including previews.
-# You may distribute it this way (e.g. upload it to Sourceforge).
+# Add the file to the binaries attached to the release on GitHub
+# You may distribute it this way (e.g. upload it to Sourceforge [now GitHub?]).
 
 
   STEP 4  -  Make for Windows (with MXE)
@@ -86,17 +88,60 @@ cd etc
 # This sets up etc/Enigma-w32-VERSION.zip, with previews.
 # Use the Nullsoft Installer, and give it etc/enigma.nsi to process,
 # this generates the Autoinstaller Enigma-VERSION.exe.
-# Distribute it.
+# Distribute it. (Add file to the release on GitHub).
 
 
   STEP 6  -  Make and package for MacOS
 
-See README.macosx.
+First prepare the Homebrew distribution:
+
+Because this references the Linux distribution file, this must be done after the Linux dist.
+Create a tagged release on the Enigma-Game/Enigma repo on GitHub with the Linux enigma-VERSION.tar.gz
+dist file attached as a binary distribution file. Note that the GitHub releases automatically
+attach zip and tar.gz copies of the files in the repo, but that is not the same as our dist tarball.
+
+In the homebrew-enigma repo on GitHub, edit Formula/enigma.rb to put in the
+url of the enigma-VERSION.tar.gz file that was prepared for the Linux dist (and added to the GitHub release)
+and its sha256 checksum, in the "url" and "sha256" lines near the top of the file.
+
+Verify that the following properly builds from source and installs the release on a macOS,
+first removing an existing install if there is one.
+
+  brew remove enigma
+  brew install -v -s enigma-game/enigma/enigma
+
+If this is a stable release (not alpha, beta, etc.), submit a PR to homebrew-core for the changes
+to enigma.rb. When it is accepted, the new release of Enigma is officially available from Homebrew.
+
+Second, prepare the non-Homebrew distribution:
+
+On a Mac running the oldest version of macOS currently supported by Apple, install this version of Enigma.
+
+If this step is done after homebrew-core has accepted the PR for the new version and has had time to
+build the bottled binary on their CI servers, then we can build our distribution using the result of
+running on a Mac running the oldest suitable version of macOS, which can even be a VirtualBox VM,
+
+  brew install -v enigma
+
+This will ensure that all bundled libraries have been properly built on CPU and OS version for widest
+compatibilty, as that is how HomeBrew has set up their servers for creating bottles.
+
+If it is not in Homebrew core, for example if an alpha or beta release, build it from our
+enigma-game/enigma/enigma testing tap as shown above.
+
+Run the makedmgforenigma.sh script which is in the etc directory of our source tree.
+This will create the file Enigma.dmg which can be uploaded for distribution, containing a portable
+version of Enigma.app that does not require the Homebrew environment to run.
+
+Add Enigma.dmg to the files in the release on GitHub.
+
+See README.macosx for more detailed information on the macOS build process.
 
 
-  STEP 7  -  Update Sourceforge
+  STEP 7  -  Update Sourceforge (now GitHub?)
 
-Update Sourceforge to acknowledge the newly uploaded files.
+In GitHub, publish the release.
+Update Sourceforge (GitHub?) to acknowledge the newly uploaded files.
 
 
   STEP 8  -  Tell everyone
