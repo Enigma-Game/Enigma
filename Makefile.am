@@ -35,10 +35,6 @@ macapp:
 macpreview:
 	cd src && $(MAKE) $(AM_MAKEFLAGS) bundle-preview
 
-.PHONY: macdmg
-macdmg:
-	cd src && $(MAKE) $(AM_MAKEFLAGS) bundle-dmg
-
 .PHONY: pdf
 pdf:
 	cd doc/manual/images && $(MAKE) pdf
