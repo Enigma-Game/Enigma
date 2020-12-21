@@ -70,6 +70,9 @@ namespace enigma {
                     change_state(DISAPPEARING);
                     handled = true;
                 } else if (m.message == "_setcolor") {
+                    if (   ((get_id (this) == ac_pearl_black) && (m.value == GLASS))
+                        || ((get_id (this) == ac_pearl_white) && (m.value == GLASS))) 
+                        throw XLevelRuntime("ac_pearl_glass not yet defined (will come soon).");
                     setAttr("color", m.value);
                     update_model();
                     return true;
