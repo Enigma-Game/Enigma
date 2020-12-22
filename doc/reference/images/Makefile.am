@@ -17,7 +17,7 @@ SIMPLEPNG = \
 	ac_pearl_white.png \
 	ac_rotor.png \
 	ac_top.png \
-        fl_abyss.png \
+	fl_abyss.png \
 	fl_adhesionless.png \
 	fl_bridge_bw_closed.png \
 	fl_bridge_gc_closed.png \
@@ -332,12 +332,34 @@ FRAMABLEFLOORS = \
 	fl_white.png \
 	fl_woven.png
 
+FORWARDFLOORS = \
+	fl_forward_a_bridge_bw_closed.png \
+	fl_forward_a_bright.png \
+	fl_forward_a_darkgray.png \
+	fl_forward_a_platinum.png \
+	fl_forward_a_rough.png \
+	fl_forward_b_bridge_bw_closed.png \
+	fl_forward_b_bright.png \
+	fl_forward_b_darkgray.png \
+	fl_forward_b_platinum.png \
+	fl_forward_b_rough.png \
+	fl_forward_c_bridge_bw_closed.png \
+	fl_forward_c_bright.png \
+	fl_forward_c_darkgray.png \
+	fl_forward_c_platinum.png \
+	fl_forward_c_rough.png \
+	fl_forward_d_bridge_bw_closed.png \
+	fl_forward_d_bright.png \
+	fl_forward_d_darkgray.png \
+	fl_forward_d_platinum.png \
+	fl_forward_d_rough.png
+
 FRAMEDFLOORS = $(addsuffix _framed.png, $(basename $(FRAMABLEFLOORS)))
 
 THIEVES = st_thief.png st_thief_capture.png st_thief_drunken.png \
 	fl_thief.png fl_thief_capture.png fl_thief_drunken.png
 
-PNGLIST = $(SIMPLEPNG) $(FRAMABLEFLOORS) $(FRAMEDFLOORS) $(THIEVES)
+PNGLIST = $(SIMPLEPNG) $(FRAMABLEFLOORS) $(FRAMEDFLOORS) $(THIEVES) $(FORWARDFLOORS)
 
 pngdir = @docdir@/reference/images
 png_DATA = $(PNG) $(PNGLIST)
@@ -349,6 +371,30 @@ all: $(PNGLIST)
 
 fl_scales_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_scales.png
 	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 -composite $< $(GFXDIR)/fl_scales.png  $@
+
+fl_forward_a_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_forward.png
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 $(GFXDIR)/fl_forward.png forward_arrow_$@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 $< base_$@
+	$(CONVERT) $(CONVERTOPT) -composite base_$@ forward_arrow_$@ $@
+	rm base_$@ forward_arrow_$@
+
+fl_forward_b_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_forward.png
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+48+0 $(GFXDIR)/fl_forward.png forward_arrow_$@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 $< base_$@
+	$(CONVERT) $(CONVERTOPT) -composite base_$@ forward_arrow_$@ $@
+	rm base_$@ forward_arrow_$@
+
+fl_forward_c_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_forward.png
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+96+0 $(GFXDIR)/fl_forward.png forward_arrow_$@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 $< base_$@
+	$(CONVERT) $(CONVERTOPT) -composite base_$@ forward_arrow_$@ $@
+	rm base_$@ forward_arrow_$@
+
+fl_forward_d_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_forward.png
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+144+0 $(GFXDIR)/fl_forward.png forward_arrow_$@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 $< base_$@
+	$(CONVERT) $(CONVERTOPT) -composite base_$@ forward_arrow_$@ $@
+	rm base_$@ forward_arrow_$@
 
 %_thief.png: $(GFXDIR)/%_bluegray.png $(GFXDIR)/thief_template.png
 	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+288 $(GFXDIR)/thief_template.png template_$@

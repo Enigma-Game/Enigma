@@ -1,5 +1,5 @@
 \input texinfo                              @c -*- texinfo -*-
-@set VERSION 1.21
+@set VERSION 1.30
 @setfilename enigma-ref.info
 @settitle Enigma Reference Manual
 @documentencoding US-ASCII
@@ -9957,51 +9957,56 @@ Positive numbers are attracting, negative numbers are repelling.
 @tab @image{images/fl_dark, 12mm} @tab @yref{fl_dark}
 @tab @image{images/fl_dunes, 12mm} @tab @yref{fl_dunes}
 @item @image{images/fl_fake_trigger, 12mm} @tab @yref{fl_fake}_trigger
-@tab @image{images/fl_gravel, 12mm} @tab @yref{fl_gravel}
+@tab @image{images/fl_forward_a_bridge_bw_closed, 12mm} @tab @yref{fl_forward}_bridgewood
+@tab @image{images/fl_forward_a_bright, 12mm} @tab @yref{fl_forward}_bright
+@item @image{images/fl_forward_a_darkgray, 12mm} @tab @yref{fl_forward}_darkgray
+@tab @image{images/fl_forward_a_platinum, 12mm} @tab @yref{fl_forward}_platinum
+@tab @image{images/fl_forward_a_rough, 12mm} @tab @yref{fl_forward}_rough
+@item @image{images/fl_gravel, 12mm} @tab @yref{fl_gravel}
 @tab @image{images/fl_gray, 12mm} @tab @yref{fl_gray}
-@item @image{images/fl_hay, 12mm} @tab @yref{fl_hay}
-@tab @image{images/fl_himalaya, 12mm} @tab @yref{fl_himalaya}
+@tab @image{images/fl_hay, 12mm} @tab @yref{fl_hay}
+@item @image{images/fl_himalaya, 12mm} @tab @yref{fl_himalaya}
 @tab @image{images/fl_ice, 12mm} @tab @yref{fl_ice}
-@item @image{images/fl_inverse_gray, 12mm} @tab @yref{fl_inverse}_gray
-@tab @image{images/fl_inverse_white, 12mm} @tab @yref{fl_inverse}_white
+@tab @image{images/fl_inverse_gray, 12mm} @tab @yref{fl_inverse}_gray
+@item @image{images/fl_inverse_white, 12mm} @tab @yref{fl_inverse}_white
 @tab @image{images/fl_ivory, 12mm} @tab @yref{fl_ivory}
-@item @image{images/fl_lawn, 12mm} @tab @yref{fl_lawn}
-@tab @image{images/fl_marble, 12mm} @tab @yref{fl_marble}
+@tab @image{images/fl_lawn, 12mm} @tab @yref{fl_lawn}
+@item @image{images/fl_marble, 12mm} @tab @yref{fl_marble}
 @tab @image{images/fl_metal, 12mm} @tab @yref{fl_metal}
-@item @image{images/fl_mortar, 12mm} @tab @yref{fl_mortar}
-@tab @image{images/fl_pinkbumps, 12mm} @tab @yref{fl_pinkbumps}
+@tab @image{images/fl_mortar, 12mm} @tab @yref{fl_mortar}
+@item @image{images/fl_pinkbumps, 12mm} @tab @yref{fl_pinkbumps}
 @tab @image{images/fl_plank, 12mm} @tab @yref{fl_plank}
-@item @image{images/fl_platinum, 12mm} @tab @yref{fl_platinum}
-@tab @image{images/fl_red, 12mm} @tab @yref{fl_red}
+@tab @image{images/fl_platinum, 12mm} @tab @yref{fl_platinum}
+@item @image{images/fl_red, 12mm} @tab @yref{fl_red}
 @tab @image{images/fl_redslab, 12mm} @tab @yref{fl_redslab}
-@item @image{images/fl_rock, 12mm} @tab @yref{fl_rock}
-@tab @image{images/fl_rough, 12mm} @tab @yref{fl_rough}
+@tab @image{images/fl_rock, 12mm} @tab @yref{fl_rock}
+@item @image{images/fl_rough, 12mm} @tab @yref{fl_rough}
 @tab @image{images/fl_sahara, 12mm} @tab @yref{fl_sahara}
-@item @image{images/fl_samba, 12mm} @tab @yref{fl_samba}
-@tab @image{images/fl_sand, 12mm} @tab @yref{fl_sand}
+@tab @image{images/fl_samba, 12mm} @tab @yref{fl_samba}
+@item @image{images/fl_sand, 12mm} @tab @yref{fl_sand}
 @tab @image{images/fl_scales_brick, 12mm} @tab @yref{fl_scales}_brick
-@item @image{images/fl_scales_bridge_bw_closed, 12mm} @tab @yref{fl_scales}_bridgewood
-@tab @image{images/fl_scales_concrete, 12mm} @tab @yref{fl_scales}_concrete
+@tab @image{images/fl_scales_bridge_bw_closed, 12mm} @tab @yref{fl_scales}_bridgewood
+@item @image{images/fl_scales_concrete, 12mm} @tab @yref{fl_scales}_concrete
 @tab @image{images/fl_scales_darkgray, 12mm} @tab @yref{fl_scales}_darkgray
-@item @image{images/fl_scales_gray, 12mm} @tab @yref{fl_scales}_gray
-@tab @image{images/fl_scales_platinum, 12mm} @tab @yref{fl_scales}_platinum
+@tab @image{images/fl_scales_gray, 12mm} @tab @yref{fl_scales}_gray
+@item @image{images/fl_scales_platinum, 12mm} @tab @yref{fl_scales}_platinum
 @tab @image{images/fl_slope_f, 12mm} @tab @yref{fl_slope}
-@item @image{images/fl_slope, 12mm} @tab @yref{fl_slope}_ps
-@tab @image{images/fl_slope_c, 12mm} @tab @yref{fl_slope}_ise
+@tab @image{images/fl_slope, 12mm} @tab @yref{fl_slope}_ps
+@item @image{images/fl_slope_c, 12mm} @tab @yref{fl_slope}_ise
 @tab @image{images/fl_slope_b, 12mm} @tab @yref{fl_slope}_ose
-@item @image{images/fl_space, 12mm} @tab @yref{fl_space}
-@tab @image{images/fl_stone, 12mm} @tab @yref{fl_stone}
+@tab @image{images/fl_space, 12mm} @tab @yref{fl_space}
+@item @image{images/fl_stone, 12mm} @tab @yref{fl_stone}
 @tab @image{images/fl_swamp, 12mm} @tab @yref{fl_swamp}
-@item @image{images/fl_thief, 12mm} @tab @yref{fl_thief}
-@tab @image{images/fl_thief_capture, 12mm} @tab @yref{fl_thief}
+@tab @image{images/fl_thief, 12mm} @tab @yref{fl_thief}
+@item @image{images/fl_thief_capture, 12mm} @tab @yref{fl_thief}
 @tab @image{images/fl_thief_drunken, 12mm} @tab @yref{fl_thief}
-@item @image{images/fl_tigris, 12mm} @tab @yref{fl_tigris}
-@tab @image{images/fl_water, 12mm} @tab @yref{fl_water}
+@tab @image{images/fl_tigris, 12mm} @tab @yref{fl_tigris}
+@item @image{images/fl_water, 12mm} @tab @yref{fl_water}
 @tab @image{images/fl_white, 12mm} @tab @yref{fl_white}
-@item @image{images/fl_wood, 12mm} @tab @yref{fl_wood}
-@tab @image{images/fl_woven, 12mm} @tab @yref{fl_woven}
+@tab @image{images/fl_wood, 12mm} @tab @yref{fl_wood}
+@item @image{images/fl_woven, 12mm} @tab @yref{fl_woven}
 @tab @image{images/fl_yinyang_yang, 12mm} @tab @yref{fl_yinyang}_yang
-@item @image{images/fl_yinyang_yin, 12mm} @tab @yref{fl_yinyang}_yin
+@tab @image{images/fl_yinyang_yin, 12mm} @tab @yref{fl_yinyang}_yin
 @end multitable
 
 @c ----------------- Floor Attributes --------------------
@@ -11150,6 +11155,7 @@ Diagonal woven white floor with black shadows.
 * fl_abyss::          Deep black Chasm
 * fl_bridge::         Abyss Bridge
 * fl_fake::           Fake mimicking other Floors
+* fl_forward::        Conveyor Floor
 * fl_hay::            Floodable Hay
 * fl_ice::            Slippery frozen water
 * fl_inverse::        Accelerate into the inverse direction
@@ -11307,6 +11313,95 @@ True if flavor is @code{"trigger"}, false otherwise.
 @item @image{images/fl_abyss, 12mm} @b{fl_fake_abyss}: flavor = @code{"abyss"}
 @item @image{images/fl_fake_trigger, 12mm} @b{fl_fake_trigger}: flavor = @code{"trigger"}
 @end table
+@end table
+
+@c ----------------- Forward Floor --------------------
+@node fl_forward
+@subsection fl_forward
+@obindex fl_forward
+
+The forward floor pushes stones on it in the direction it shows. In this
+respect, it is similar to @ref{st_rotator}. Actors and items on it are
+not pushed. 
+
+Forward floors come in several flavors, which define the base floor,
+adhesion, friction and burnability. They all share a flashing violet
+double chevron, showing in the direction stones are pushed.
+
+If the stone on top of the forward floor is blocked by another stone,
+it will not move. This might create race conditions. Please be very
+careful when using forward floors and @ref{st_boulder} or @ref{st_stoneimpulse},
+because race conditions might be resolved in a different way in 
+future versions of Enigma.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@atindex orientation
+@item @b{flavor}, @ @ @i{values}: @code{bridgewood}, @code{bright}, @code{darkgray}, @code{platinum}, @code{rough}
+@i{default}: @code{darkgray}.
+The base floor type.
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: depends on @code{flavor}
+@xref{adhesion}.
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: depends on @code{flavor}
+@xref{friction}.
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: depends on @code{flavor}
+@xref{burnable}.
+
+True if flavor is @code{"bridgewood"}, false otherwise.
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{0.6}
+Number of seconds between two pushes. The interval might be 0.0, in which case the
+forward floor is deactivated. Otherwise, the interval must be larger or equal 0.2 seconds.
+@item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{WEST}
+The direction the chevron points and stones are pushed.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@msindex orientate
+@item @b{orientate}, @ @ @i{value type}: direction
+Change the current direction. The @ref{st_fourswitch}
+provides a compatible action which allows you to set a forward floor as
+target and this message as action.
+@item @b{flip}
+Turn direction into the reverse of the current direction.
+@end table
+
+@item @b{Action:}
+none
+
+@item @b{Variants:}
+@multitable @columnfractions .90
+@item @image{images/fl_forward_d_darkgray, 12mm} @b{fl_forward}
+@item @image{images/fl_forward_d_bridge_bw_closed, 12mm} @b{fl_forward_bridgewood}: flavor = @code{"bridgewood"}
+@item @image{images/fl_forward_a_bridge_bw_closed, 12mm} @b{fl_forward_bridgewood_n}: flavor = @code{"bridgewood"}, orientation = @code{"NORTH"}
+@item @image{images/fl_forward_b_bridge_bw_closed, 12mm} @b{fl_forward_bridgewood_e}: flavor = @code{"bridgewood"}, orientation = @code{"EAST"}
+@item @image{images/fl_forward_c_bridge_bw_closed, 12mm} @b{fl_forward_bridgewood_s}: flavor = @code{"bridgewood"}, orientation = @code{"SOUTH"}
+@item @image{images/fl_forward_d_bridge_bw_closed, 12mm} @b{fl_forward_bridgewood_w}: flavor = @code{"bridgewood"}, orientation = @code{"WEST"}
+@item @image{images/fl_forward_d_bright, 12mm} @b{fl_forward_bright}: flavor = @code{"bright"}
+@item @image{images/fl_forward_a_bright, 12mm} @b{fl_forward_bright_n}: flavor = @code{"bright"}, orientation = @code{"NORTH"}
+@item @image{images/fl_forward_b_bright, 12mm} @b{fl_forward_bright_e}: flavor = @code{"bright"}, orientation = @code{"EAST"}
+@item @image{images/fl_forward_c_bright, 12mm} @b{fl_forward_bright_s}: flavor = @code{"bright"}, orientation = @code{"SOUTH"}
+@item @image{images/fl_forward_d_bright, 12mm} @b{fl_forward_bright_w}: flavor = @code{"bright"}, orientation = @code{"WEST"}
+@item @image{images/fl_forward_d_darkgray, 12mm} @b{fl_scales_darkgray}: flavor = @code{"darkgray"}
+@item @image{images/fl_forward_a_darkgray, 12mm} @b{fl_scales_darkgray_n}: flavor = @code{"darkgray"}, orientation = @code{"NORTH"}
+@item @image{images/fl_forward_b_darkgray, 12mm} @b{fl_scales_darkgray_e}: flavor = @code{"darkgray"}, orientation = @code{"EAST"}
+@item @image{images/fl_forward_c_darkgray, 12mm} @b{fl_scales_darkgray_s}: flavor = @code{"darkgray"}, orientation = @code{"SOUTH"}
+@item @image{images/fl_forward_d_darkgray, 12mm} @b{fl_scales_darkgray_w}: flavor = @code{"darkgray"}, orientation = @code{"WEST"}
+@item @image{images/fl_forward_d_platinum, 12mm} @b{fl_scales_platinum}: flavor = @code{"platinum"}
+@item @image{images/fl_forward_a_platinum, 12mm} @b{fl_scales_platinum_n}: flavor = @code{"platinum"}, orientation = @code{"NORTH"}
+@item @image{images/fl_forward_b_platinum, 12mm} @b{fl_scales_platinum_e}: flavor = @code{"platinum"}, orientation = @code{"EAST"}
+@item @image{images/fl_forward_c_platinum, 12mm} @b{fl_scales_platinum_s}: flavor = @code{"platinum"}, orientation = @code{"SOUTH"}
+@item @image{images/fl_forward_d_platinum, 12mm} @b{fl_scales_platinum_w}: flavor = @code{"platinum"}, orientation = @code{"WEST"}
+@item @image{images/fl_forward_d_rough, 12mm} @b{fl_scales_rough}: flavor = @code{"rough"}
+@item @image{images/fl_forward_a_rough, 12mm} @b{fl_scales_rough_n}: flavor = @code{"rough"}, orientation = @code{"NORTH"}
+@item @image{images/fl_forward_b_rough, 12mm} @b{fl_scales_rough_e}: flavor = @code{"rough"}, orientation = @code{"EAST"}
+@item @image{images/fl_forward_c_rough, 12mm} @b{fl_scales_rough_s}: flavor = @code{"rough"}, orientation = @code{"SOUTH"}
+@item @image{images/fl_forward_d_rough, 12mm} @b{fl_scales_rough_w}: flavor = @code{"rough"}, orientation = @code{"WEST"}
+@end multitable
+
 @end table
 
 @c ----------------- Hay Floor --------------------
