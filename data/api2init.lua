@@ -107,9 +107,15 @@ CCW = 1
 -- color
 BLACK  = 0
 WHITE  = 1
-BLUE   = 2
-YELLOW = 3
+GLASS  = 2
+BLUE   = 3
+YELLOW = 4
 NOCOLOR = nil
+
+-- inkwell state
+INKWELL_BLACK = 0
+INKWELL_WHITE = 1
+INKWELL_EMPTY = 2
 
 -- controllers
 CTRL_NONE    = 0
