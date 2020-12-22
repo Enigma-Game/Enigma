@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+<el:protected >
+<el:info el:type="level">
+<el:identity el:title="Coal Mining" el:id="20150127jl0007"/>
+<el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+<el:author el:name="Jürgen Lange"/>
+<el:copyright>Copyright © 2015 Jürgen Lange</el:copyright>
+<el:license el:type="GPL v2.0 or above" el:open="true"/>
+<el:compatibility el:enigma="1.20"/>
+<el:modes el:easy="false" el:single="true" el:network="false"/>
+<el:comments>
+<el:credits el:showinfo="false" el:showstart="false"></el:credits>
+</el:comments>
+<el:score el:easy="-" el:difficult="-"/>
+</el:info>
+<el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+ti["s"] = {"fl_slope", burnable=true, eternal=true}
+ti["a"] = {"fl_lawn", burnable=true}
+ti["i"] = {"fl_himalaya"}
+ti["="] = {"fl_metal"}
+ti["w"] = {"fl_water"}
+ti["?"] = {"fl_fake_abyss"}
+ti["@"] = {"#ac_marble"} .. ti["a"]
+ti["S"] = {"st_oxyd_a", oxydcolor=OXYD_BLUE}
+ti["O"] = {"st_oxyd_a", oxydcolor=OXYD_RED}
+ti["F"] = {"st_oxyd_a", oxydcolor=OXYD_GREEN}
+ti["K"] = {"st_oxyd_a", oxydcolor=OXYD_YELLOW}
+ti["b"] = {"st_flat_cracked"} ..  ti["s"]
+ti["C"] = {"st_flat_cracked"} ..  ti["i"]
+ti[" "] = {"st_granite"} ..  ti["s"]
+ti["e"] = {"st_box_rock"} ..  ti["s"]
+ti["W"] = {"st_box"} .. ti["s"]
+ti["d"] = {"st_dispenser_dynamite", stock=3}
+ti["j"] = {"st_key", code="kc", target="dc"}
+ti["J"] = {"st_door_d", faces="ew", name="dc"} .. ti["a"]
+ti["k"] = {"it_key", code="kc"}
+ti["u"] = {"it_coffee"} .. ti["a"]
+ti["n"] = {"st_mail"} .. ti({"it_pipe_ns"})
+ti["N"] = {"st_mail_s"} .. ti({"it_pipe_ns"})
+ti["#"] = {"it_pipe_ns"} .. ti["a"]
+ti["+"] = {"it_spade"}
+ti["1"] = {"it_death"}
+ti["3"] = {"st_boulder_n"} .. ti["a"]
+ti["!"] = {"st_boulder_n"}
+ti["0"] = {"st_boulder_w"} .. ti["1"] .. ti["?"]
+ti["("] = {"st_boulder_s"}
+ti["4"] = {"st_break_boulder"}
+ti["2"] = ti["4"] .. ti["1"] .. ti["?"]
+ti["5"] = {"it_magicwand"} .. ti["a"]
+ti["7"] = {"it_vortex", name="a2", destination="a1"} .. ti["i"]
+ti["8"] = {"it_vortex", name="a1", destination="a2"}
+ti["9"] = {"st_flat_cracked"} .. ti["8"]
+ti["t"] = {"it_burnable_oil"} .. ti({"fl_scales_bridgewood", eternal=true})
+ti["R"] = {"it_extinguisher_full"}
+ti["X"] = {"it_extinguisher_medium"} .. ti["i"]
+ti["h"] = {"ac_bug"} .. ti["i"]
+ti["H"] = {"st_break_bug"} .. ti["i"]
+ti["l"] = {"st_rotator", movable=true}
+ti["f"] = {"st_rotator_ccw", movable=true}
+ti["L"] = {"st_laser_s", state=OFF, name="laser"}
+ti["M"] = {"st_laser_s", state=OFF, name="laser2"}
+ti["V"] = {"st_magic_oxydc"}
+ti["Q"] = {"st_break_laser"}
+ti["T"] = {"it_trigger", target="laser"}
+ti["Z"] = {"st_switch", target="laser2"}
+
+wo(ti, " ", {
+	"FJuw=aaa S@5#aaaaa3a",
+	" MjZ b4b    L  N  4 ",
+	"QQQ  b4b kKTV  sO 4 ",
+	"QQQ  b4bHsssV 9nb 4 ",
+	"QQQ ss4   RsV bsb 4 ",
+	"QFQ sW4   s K bbb 4 ",
+	" d    4s  H       4 ",
+	"44444444444444444440",
+	"s+s Ws(   H s     2 ",
+	"s   W   7ii ssesese ",
+	"Cttttttt ih slsesesS",
+	"ittttttt Oi sseseee ",
+	"iiiXiiiiiii sfsesss "
+
+})
+
+]]></el:luamain>
+<el:i18n/>
+</el:protected>
+</el:level>

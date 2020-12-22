@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Spy vs. Spy" el:subtitle="" el:id="gorg099_3"/>
+      <el:version el:score="3" el:release="3" el:revision="4" el:status="released"/>
+      <el:author el:name="gorg" el:email=""/>
+      <el:copyright>Copyright © 2019 Georg Honold</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.30"/>
+      <el:modes el:easy="true" el:single="false" el:network="true"/>
+      <el:score el:easy="02:58" el:difficult="04:10"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ProvideExtralifes"]=false
+wo["AutoRespawn"]=true
+wo["SlopeStrength"]=cond(wo["IsDifficult"], 30.0, 15.0)
+
+ti[" "] = {"fl_abyss"}
+ti["-"] = {"fl_water"}
+ti["."] = {"fl_swamp"}
+ti[","] = {"fl_slope"}
+ti["/"] = {"fl_abyss"}
+ti["#"] = {"st_purplegray"}
+ti["W"] = ti[","]..{"st_passage_white", "pass1#", flavor="cross"}
+ti["B"] = ti[","]..{"st_passage_black", "pass1#", flavor="cross"}
+ti["V"] = ti[","]..{"st_passage_white", "pass2#", flavor="frame"}
+ti["o"] = ti[","]..ti{"st_passage_black", "pass2#", flavor="frame"}..ti{"it_extralife"}
+ti["H"] = ti[","]..{"st_passage_black", "pass2#", flavor="frame"}
+ti["v"] = cond(wo["IsDifficult"], ti["V"]..{"it_umbrella"}, ti["H"]..{"it_umbrella"})
+ti["S"] = {"st_switch_white", "switch1#", target={"pass1#*", "replaceswitch", "bridge#*"}, action={"signal", "callback", "toggle"}, safeaction=true}
+ti["s"] = ti["-"]..{"it_bottle_broken"}
+ti["T"] = {"st_switch_black", "switch#", target={"pass2#*", "replaceswitch", "bridge#*"}, action={"signal", "callback", "toggle"}, safeaction=true}
+ti["Y"] = cond(wo["IsDifficult"], {"st_switch", "switch2#", target={"pass2#*", "replaceswitch", "bridge#*"}, action={"signal", "callback", "toggle"}, safeaction=true}, ti["#"])
+ti["l"] = {"st_laser_s", state=ON}
+ti["L"] = {"st_laser_w", "laserw", state=ON}
+ti["O"] = {"st_oxyd_e", "ox1#"}
+ti["P"] = {"st_oxyd_e", "ox2#"}
+ti["Q"] = {"st_oxyd_e", "ox3#"}
+ti["w"] = {"st_inkwell_white"}
+ti["h"] = {"st_inkwell_black"}
+ti["g"] = {"st_inkwell_empty"}
+ti["G"] = ti["-"]..{"st_grate_framed"}
+ti["J"] = ti[","]..{"st_grate_framed"}
+ti["1"] = {"fl_slope_inw"}
+ti["2"] = {"fl_slope_ine"}
+ti["3"] = {"fl_slope_isw"}
+ti["4"] = {"fl_slope_ise"}
+ti["5"] = {"fl_slope_ose"}
+ti["6"] = {"fl_slope_osw"}
+ti["7"] = {"fl_slope_one"}
+ti["8"] = {"fl_slope_onw"}
+ti["a"] = {"fl_slope_ps"}
+ti["b"] = {"fl_slope_pe"}
+ti["c"] = {"fl_slope_pw"}
+ti["d"] = {"fl_slope_pn"}
+ti["@"] = ti[","]..{"ac_marble", 1.0, 0.0, owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["&"] = ti[","]..{"#ac_marble_white", 1.0, 0.0, owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+ti["u"] = ti["-"]..{"it_umbrella"}
+ti["r"] = ti{"fl_slope", "spring1"}
+ti["R"] = ti{"fl_water", "spring2"}..{"it_springboard"}
+ti["X"] = ti[","]..{"st_box_rock"}
+ti["e"] = {"fl_bridge", "bridge#", state=CLOSED}
+ti["!"] = {"st_floppy", state=ON, target="switchboard"}
+ti["?"] = cond(wo["IsDifficult"], ti["#"], {"st_floppy", target="switchboard"})
+ti[";"] = cond(wo["IsDifficult"], {"st_floppy", target="switchboard"}, ti["#"])
+
+wo(ti, " ",{
+"#O#####lPg#          #lg#Q#            ",
+"#5aa6#J,,J######     #5aa6#            ",
+"#b@,c#,,X,#,,,,Q     #b&,c##h#Q######P#",
+"gb,,cV,,,,L,--,#     #b,,c#....GG#J,,J#",
+"#7dd8#J,,JW,--,#     #7dd8B.12.#G#,56,#",
+"###-##B#TG#,,,,#     #-#Y##.34.ov-,78,#",
+"  #,,,,##G#W####   ###-##S#....#h#J,,JO",
+"  #,12,#....##!g## Q....#W##H#----#####",
+"  #,34,#.56.#5aa6# #.12.W5aa6#-12-Q    ",
+"  O,,,,H.78.Vbeec###.34.#beecg-34-#    ",
+"  #O#h##....#beersRu....Vbeec#----#    ",
+"       ##Pw##7dd8####?w##7dd8##;#T#    ",
+"            ##Qg##      ####Q#         "})
+
+function replaceswitch (value, sender)
+          if value == true then
+            wo[sender]={"st_break"}
+        end
+end
+
+function switchboard (value, sender)
+      if value == true then
+       wo[no["spring1"]] = {"fl_slope", "spring1"}..ti{"it_nil"}
+        wo[no["spring2"]] = {"fl_water", "spring2"}..ti{"it_springboard"}
+else
+       wo[no["spring1"]] = {"fl_slope", "spring1"}..ti{"it_springboard"}
+        wo[no["spring2"]] = {"fl_water", "spring2"}..ti{"it_nil"}
+    end 
+end
+
+if not wo["IsDifficult"] then 
+ wo:add(YIN, {"it_extralife"}) 
+  wo:add(YANG, {"it_extralife"})
+end
+
+wo:shuffleOxyd({"ox1#*", min=2}, {"ox3#*", min=3} )
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+
+

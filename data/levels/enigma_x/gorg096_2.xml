@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Ink Barriers" el:subtitle="" el:id="gorg096_2"/>
+      <el:version el:score="3" el:release="2" el:revision="12" el:status="released"/>
+      <el:author el:name="gorg" el:email=""/>
+      <el:copyright>Copyright © 2020 Georg Honold</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.30"/>
+      <el:modes el:easy="true" el:single="false" el:network="true"/>
+      <el:score el:easy="02:21" el:difficult="02:24"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["AutoRespawn"]=true
+wo["SwampSinkTime"]=2.0
+
+ti["  "] = {"fl_abyss"}
+ti[". "] = cond(wo["IsDifficult"], {"fl_swamp"}, {"fl_bluegreen"})
+ti["B "] = ti[". "]..{"st_passage_black", "pass#", flavor="frame"}
+ti["W "] = ti[". "]..{"st_passage_white", "pass#", flavor="frame"}
+ti["G "] = ti[". "]..{"st_portal_glass"}
+ti["ig"] = {"st_inkwell_empty"}
+ti["iw"] = {"st_inkwell_white"}
+ti["ib"] = {"st_inkwell_black"}
+ti["S "] = {"st_switch", "switch#", target={"pass#*", "replaceswitch"}, action={"signal", "callback"}, safeaction=true}
+ti["O "] = {"st_oxyd_c", oxydcolor=OXYD_BLACK}
+ti["P "] = {"st_oxyd_c", oxydcolor=OXYD_WHITE}
+ti["Q "] = {"st_oxyd_c", oxydcolor=OXYD_GRAY}
+ti["@ "] = ti[". "]..{"#ac_marble_black", owner=YIN, controllers=CTRL_YIN}
+ti["& "] = ti[". "]..{"#ac_marble_white", owner=YANG, controllers=CTRL_YANG}
+ti["x "] = {"fl_bluegreen"}..ti{"st_box_rock"}
+
+if wo["IsDifficult"] then wo(ti, "  ",{
+"                                        ",
+"                                        ",
+"      ib        ig    Q       S         ",
+"    O @ B x   W x     G     x   B       ",
+"      ig    G ibS   x   iwx B   x P     ",
+"        x B x x     B     W . G .       ",
+"      . .       . ibW x x   .   .       ",
+"      G         G   .   .     ib.       ",
+"    O . iw  ig  . x     B   G . B       ",
+"      W   G . . B   W   .   .   ig      ",
+"        x W       . x x .   x W & Q     ",
+"      S         P .   S         iw      ",
+"                                        "})
+else wo(ti, "  ",{
+"                                        ",
+"                                        ",
+"      ib        ig    P       S         ",
+"    O @ B x   W x     G     x   B       ",
+"      ig    G ibS   x   iwx B   x O     ",
+"        x B x x     B     W . G .       ",
+"      . .       . ibW x x   .   .       ",
+"      G         G   .   .     ib.       ",
+"    P . iw  ig  . x     B   G . B       ",
+"      B   G . . B   W   .   .   ig      ",
+"        x W       . x x .   x W & Q     ",
+"      S         Q .   S         iw      ",
+"                                        "})
+end
+
+function replaceswitch (value, sender)
+          if value == true then
+            wo[sender]={"st_break"}
+        end
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+
+
+
+
+

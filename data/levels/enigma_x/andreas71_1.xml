@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Careful, glass!" el:subtitle="" el:id="andreas71"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2019 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.30">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="2:23"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_aquamarine"}
+ti["#"] = {"st_brick", "wall#", cluster = 1}
+ti["-"] = {"st_nil"}
+
+local width = 9
+local height = 6
+
+themaze = res.maze(ti, {area = {po(1,1), width, height},
+                        render = {{"-", " "}, "#", " "}})
+wo(themaze, " ", 2*width+1, 2*height+1)
+wo:drawBorder(po(0,0), wo["Width"], wo["Height"], ti["#"])
+wo[po(1,0).. po(1,2*height) .. po(2*width-1,0) .. po(2*width-1,2*height)] = {"st_oxyd"}
+wo[po(2*random(width)-1, 2*random(height)-1)] = {"#ac_marble_glass"}
+
+wo:shuffleOxyd()
+
+laserlist = {}
+
+for wall in no["wall#*"] do
+    if random(2) == 1 then
+        wall["cluster"] = 2
+    end
+    x,y = wall:xy()
+    if (x > 1) and (y > 1) and (x < 2*width-1) and (y < 2*height-1) then
+        if (x % 2 == 1) and (y % 2 == 0) then
+            if st(po(x,y+4)):exists() then
+                table.insert(laserlist, {po(x,y), SOUTH})
+            end
+            if st(po(x,y-4)):exists() then
+                table.insert(laserlist, {po(x,y), NORTH})
+            end
+        end
+        if (x % 2 == 0) and (y % 2 == 1) then
+            if st(po(x+4,y)):exists() then
+                table.insert(laserlist, {po(x,y), EAST})
+            end
+            if st(po(x-4,y)):exists() then
+                table.insert(laserlist, {po(x,y), WEST})
+            end
+        end
+    end
+end
+
+p = lib.math.permutation(#laserlist)
+
+for j = 1, 8 do
+    entry = laserlist[p[j]]
+    wo[entry[1]] = {"st_laser", "laser"..j, orientation = entry[2], state = OFF}
+    wo:add({"ot_timer", state = ON, interval = 2.0 + 0.1*random(50),
+            loop = true, target = "laser"..j, action = "toggle"})
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

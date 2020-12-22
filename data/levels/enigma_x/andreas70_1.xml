@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Assembly Line" el:subtitle="" el:id="andreas70"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2019 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.30"></el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+
+flavor = "platinum"
+if wo["IsDifficult"] then
+    ffi = 0.8
+else
+    ffi = 0.0
+end
+
+ti[" "] = {"fl_"..flavor}
+--ti[">"] = {"fl_forward_"..flavor, interval = ffi, orientation = EAST}
+--ti["<"] = {"fl_forward_"..flavor, interval = ffi, orientation = WEST}
+--ti["^"] = {"fl_forward_"..flavor, interval = ffi, orientation = NORTH}
+--ti["v"] = {"fl_forward_"..flavor, interval = ffi, orientation = SOUTH}
+ti[">"] = {"fl_forward_"..flavor, "ff#", interval = ffi, orientation = EAST}
+ti["<"] = {"fl_forward_"..flavor, "ff#", interval = ffi, orientation = WEST}
+ti["^"] = {"fl_forward_"..flavor, "ff#", interval = ffi, orientation = NORTH}
+ti["v"] = {"fl_forward_"..flavor, "ff#", interval = ffi, orientation = SOUTH}
+ti["M"] = {"st_mirror_slab", state = WEST, transparent = false, movable = true}
+ti["m"] = {"st_mirror_slab", state = WEST, transparent = true, movable = true}
+ti["1"] = ti["M"] .. ti[">"]
+ti["2"] = ti["M"] .. ti["<"]
+ti["3"] = ti["M"] .. ti["^"]
+ti["4"] = ti["M"] .. ti["v"]
+ti["5"] = ti["m"] .. ti[">"]
+ti["6"] = ti["m"] .. ti["<"]
+ti["7"] = ti["m"] .. ti["^"]
+ti["8"] = ti["m"] .. ti["v"]
+ti["#"] = {"st_lightglass"}
+ti["G"] = {"st_lightglass_movable"} .. ti[">"]
+ti["@"] = {"#ac_marble_glass"}
+ti["E"] = {"st_dispenser_extralife"}
+ti["O"] = {"st_oxyd", oxydcolor = OXYD_PURPLE}
+ti["L"] = {"st_laser", "laser", orientation = NORTH, state = OFF}
+ti["D"] = {"it_death"} .. ti[">"]
+ti["P"] = {"st_puzzle_yellow", connections = "n", hollow = false}
+ti["Q"] = {"st_puzzle_yellow", connections = "s", hollow = false} .. ti["v"]
+ti["S"] = {"st_switch", target = "laser"}
+if wo["IsDifficult"] then
+    ti["T"] = ti["#"]
+else
+    ti["T"] = {"st_switch", target = "forward"}
+end
+
+w, h = wo(ti, " ", {
+ -- 01234567890123456789
+   "########################T############",
+   "#  1>>v                             #",
+   "# >^  v >>>1>>>>4   >>>1v S ######  #",
+   "# 7   8 ^       v   ^   v  ##O##O## #",
+   "# ^<  v 7  v<<2 v   ^ @ v  #>v>>vO# #",
+   "#  ^  >>^  8  ^ v   3 E >>>D^>^v<O# #",
+   "#  ^       v  ^ 8   ^     #P<<#>vO# #",
+   "# >3  5>v  v  ^ v   ^<2<< #L>^v<vO# #",
+   "# ^ GG^ Q  v  3<<       ^ ##^<<^<O# #",
+   "# 3     v  4     >1>>>4 3  #####O## #",
+   "# ^<<2<<2  >>>1>>^    v ^<<<6  ###  #",
+   "#                     >>1>>>^       #",
+   "#####################################"
+})
+
+function forward(onoff, sender)
+  no["ff#*"]["interval"] = 0.3
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

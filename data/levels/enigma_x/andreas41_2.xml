@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="A Barn in Summer" el:subtitle="" el:id="andreas41"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2015-2019 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.21"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="5:42" el:difficult="5:20"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_hay", "maybeburnme#"}
+ti["."] = {"fl_hay", "burnme#"}
+ti["~"] = {"fl_dunes"}
+ti["-"] = {"fl_abyss"}
+ti["#"] = ti["~"] .. {"st_brick"}
+ti["H"] = {"st_box_hay", "burnme#"}
+ti["W"] = {"st_box_wood", "burnme#"}
+ti["O"] = ti["~"] .. {"st_oxyd", "oxyd#", flavor="e", target="burn"}
+if wo["IsDifficult"] then
+    ti["E"] = {"st_box_wood", "burnme#"}
+else
+    ti["E"] = {"st_box_hay", "burnme#"}
+end
+ti["@"] = {"#ac_marble_black"}
+
+w, h = wo(res.composer(ti), " ", {
+   "#########O#######################O###",
+   "#~~.   #~~#. # #..#  .      .# ~#~ .#",
+   "O~. WH##-##  -  WH-   ##-### #  - H #",
+   "#.    -      #    #   - .O # #  #####",
+   "###-###. W HH##-####-##HH  - - . H .#",
+   "#    O#  W   #  .#~  #~~  .#-#   W  #",
+   "#  .  # W   .# WW#  .####### #####-##",
+   "#-#   ####-###   W        ~#  .#   ~O",
+   "#.# HW   -   . WWW O   @   -   - . ~#",
+   "#~#  W   #           .   . ##-## WE #",
+   "#~########  #H-###-####-####  .# H  #",
+   "#~~~~~~. -  #. #~  . H   .-    # .~~#",
+   "#####O#################O#####O#######",
+})
+
+wo:shuffleOxyd()
+
+function burn(value, sender)
+    burngroup = no["burnme#*"]
+    burngroup:setfire()
+    maybeburngroup = no["maybeburnme#*"]
+    maybeburngroup:shuffle()
+    if #maybeburngroup > 30 then
+        n = 30
+    else
+        n = #maybeburngroup
+    end
+    for j = 1, n do
+        fl(maybeburngroup[j]):setfire()
+    end
+end  
+
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

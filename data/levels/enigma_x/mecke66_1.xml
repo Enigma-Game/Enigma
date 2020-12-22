@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Enigmaparcour IV" el:subtitle="Open the Doors" el:id="mecke66"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 4 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2019 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.30"/>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">"Thanks for some ink"
+    </el:credits>
+      </el:comments>
+      <el:score el:easy="17:22" el:difficult="19:53"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+if wo ["IsDifficult"] then
+        ti["  "] = {"fl_fake_abyss"}
+        ti["J "] = {"it_extralife"}
+		ti["T "] = {"st_thief"}
+		ti["w "] = {"st_death_movable"}
+    else
+	    ti["  "] = {"fl_rough"}
+	    ti["J "] = {"it_umbrella"}
+		ti["T "] = {"st_dispenser_extralife"}
+		ti["w "] = {"st_camouflage_movable"}
+end
+
+
+--ti["  "] = {"fl_fake_abyss"}
+ti[" v"] = {"fl_ice"}
+ti[" '"] = {"fl_rough"}
+ti["+ "] = ti[" v"] ..{"ac_rotor", 0.5, 0.5,}
+
+ti[" ~"] = {"fl_water"}
+ti[" _"] = {"fl_swamp"}
+ti[" ."] = {"fl_space"}
+ti[" ("] = {"fl_slope_pe"}
+ti["t "] = {"st_break_oxydc"}
+ti["# "] = {"st_lightpassenger"}
+ti["K "] = {"st_ghost_break"}   --{"st_break_oxydc"}
+ti["B "] = {"st_magic_brick"}
+ti["O "] = {"st_rotator_ccw", movable=true}
+ti["R "] = {"st_camouflage_movable"}
+ti["W "] = {"st_death_movable"}
+ti["Y "] = {"st_rawglass"}
+ti["r "] = {"st_granite"}
+ti["U1"] = {"st_portal_glass"}
+ti["U2"] = ti["U1"] .. {"it_extralife"}
+ti[" i"] = ti["U1"] .. {"fl_inverse"}
+ti[" w"] = ti["U1"] .. {"fl_water"}
+ti[" e"] = ti[" i"] .. {"it_hammer"}
+ti["u "] = ti[" _"] .. {"st_grate_framed"}
+ti["x "] = ti[" ("] .. {"it_brush"}
+ti["D1"] = {"st_yellow"}
+ti["D2"] = {"st_death_invisible"}
+ti["D3"] = ti["D2"] .. {"it_umbrella_new"}
+ti["H "] = ti[" i"] .. {"st_key", code=1, target={"door#5"}}
+ti["G "] = ti[" _"] .. {"st_rawglass"}
+ti["L "] = ti[" _"] .. {"st_laser_e", name="laser", state=OFF}
+ti["LX"] = ti[" _"] .. {"st_laser_w", name="lasex", state=ON}
+ti["ee"] = ti["  "] .. {"it_extralife"}
+ti["h1"] = {"st_bluegray_hollow"}
+ti["A "] = ti[" ~"] .. {"st_actorimpulse"}
+ti["I "] = {"st_oneway_w"}
+ti["^1"] = {"st_boulder_n"}
+ti["^2"] = ti[" ~"] .. {"st_boulder_n"}
+--ti["^3"] = ti["^2"] .. {"it_cross"}
+ti["> "] = ti["  "] .. {"st_boulder_e"}
+ti["< "] = {"st_boulder_w"}
+ti["3 "] = ti[" v"] .. {"st_box_wood"}
+ti["2 "] = {"st_oneway_s"}
+ti[" f"] = {"it_wrench"}
+ti["4 "] = ti[" f"] ..{"st_oneway_w"}
+ti["6 "] = {"st_oneway_e"}
+ti["8 "] = {"st_oneway_black_n"}
+ti["Q "] = {"st_break_oxydc"}
+ti["m "] = ti[" _"] .. {"st_mirror_slab", movable=false, transparent=true, orientation=0}
+ti["M1"] = ti[" _"] .. {"st_mirror_slab", movable=false, transparent=false, orientation=2}
+ti["M2"] = ti[" _"] .. {"st_mirror_slab", movable=false, orientation=1}
+ti["X "] = ti[" ~"] .. {"st_oxyd", flavor="a"}
+ti["S "] = ti[" _"] .. {"st_laserswitch", target={"door#7", "door#8"}}
+ti[":1"] = ti[" ~"] .. {"st_door", name="door#1", flavor="d", faces="ew"}
+ti[":2"] = ti[" ~"] .. {"st_door", name="door#2", flavor="d", faces="ew"}
+ti[":3"] = ti[" ~"] .. {"st_door", name="door#3", flavor="d", faces="ew"}
+ti[":4"] = {"st_door", name="door#4", flavor="d", faces="ew"}
+ti[":5"] = {"st_door", name="door#5", flavor="d", faces="ew"}
+ti[":6"] = {"st_door", name="door#6", flavor="d", faces="ew"}
+ti[":7"] = {"st_door", name="door#7", flavor="d", faces="ew"}
+ti[":8"] = ti[" ~"] .. {"st_door", name="door#8", flavor="d", faces="ew"}
+--ti[":9"] = ti[" ~"] .. {"st_door", name="door#9", flavor="d", faces="ew"}
+ti["? "] = ti[" ~"] .. {"st_actorimpulse_invisible"}
+ti["z "] = ti[" v"] .. {"st_break_oxydc"}
+ti["N "] = ti[" v"] .. {"st_break_oxydc"}
+ti["- "] = ti[" ~"] .. {"it_strip_ew"}
+ti["h2"] = ti["  "] .. {"it_cherry"}
+ti["h3"] = ti["h1"] .. {"it_glasses"}
+ti["5 "] = {"it_key", code=1}
+ti["o "] = {"it_drop"}
+ti["j "] = {"it_magicwand"}
+ti[" z"] = {"st_passage_white_frame"}
+ti["P "] = {"st_grate_cross"}
+ti["9 "] = {"st_turnstile"}
+ti["a "] = {"st_turnstilearm", orientation=NORTH}
+ti["q "] = {"st_turnstilearm", orientation=SOUTH}
+ti["k "] = {"st_turnstilearm", orientation=WEST}
+ti["l "] = {"st_turnstilearm", orientation=EAST}
+ti[" *"] = {"it_crack_l"}
+ti["* "] = ti[" *"] ..  {"#ac_marble_glass"}
+--ti["J "] = {"#ac_top", range=1, strength=1}
+ti["= "] = {"#ac_horse"}
+ti["$1"] = {"it_trigger", target="door#2"}
+ti["$2"] = {"it_trigger", target="door#1"}
+ti["$3"] = {"it_trigger", target="laser"}
+ti["$4"] = {"it_trigger", target="door#3"}
+ti["$5"] = {"it_trigger", target="door#4"}
+--ti["$6"] = {"it_trigger", target="door#9"}
+ti["$7"] = {"it_trigger", target="door#6"}
+ti[" >"] = {"fl_forward_darkgray", orientation = EAST}
+ti[" <"] = {"fl_forward_darkgray", orientation = WEST}
+ti[" ^"] = {"fl_forward_darkgray", orientation = NORTH}
+ti[" /"] = {"fl_forward_darkgray", orientation = SOUTH}
+ti["V1"] = ti[" '"] .. {"it_vortex_open", name="vortex1", destination="vortex2"}
+ti["V2"] = ti[" '"] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
+ti["X1"] = {"st_inkwell_black"}
+ti["X2"] = {"st_inkwell_empty"}
+ti["X3"] = {"st_inkwell_white"}
+ti["X4"] = ti[" v"] ..  {"st_window_s", secure=true} 
+
+
+
+local resolver = res.composer(ti)
+
+w, h = wo(resolver, "  ", {
+-- 00010203040506070809101112131415161718192021222324
+  "# # # # # # # # # # # # # # # # # # # # # # # # # ",
+  "#  iH r  i i eD1D1D3D1D1r x  .  =    .$1#  v v v# ",
+  "#  ir r  ir r   h1h3h1  r  ~ ~ .D1 . ~ ~#  vX  v# ",
+  "#  i ir V2 ir   X1T X2  $3      #   ee  LX v v v# ",
+  "# r  iV1r  i i    *     D1A A A A A 2 r #  vX  v# ",
+  "# M2G G m G M2-   a~  - 6 +  v vX4 v6v$2#  v v v# ",
+  "#  _ _G G G G  ~ ~9  ~D1D1# # # X3# # # #  vX  v# ",
+  "# L  _G M1G M2-   q~  :1:2:3:4:5:6 z:7:8        # ",
+  "#  _ _G G G G  ~k~9 l~D1D1# # # X1# # # #  vX  v# ",
+  "# S u G m G M2-    ~  - 4  / < <w< < <o #  v v v# ",
+  "# > ^1^2^2$4Y   J   J   D1 / > >R> / ^$7#  vX  v# ",
+  "# ^1^1^1^1U1U1  h1K h1  B  / ^ <R< < ^$5#  v v v# ",
+  "# j       U2U2  X1h2X1  B  > > > > > ^5 #  vX  v# ",
+  "# # # # # # # # # # # # # # # # # # # # # # # # # "
+})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Öffne die Tore</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

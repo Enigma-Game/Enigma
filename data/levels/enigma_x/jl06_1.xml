@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+<el:protected >
+<el:info el:type="level">
+<el:identity el:title="Gold Digger" el:subtitle="Become an Underground Miner" el:id="20150124jl0006"/>
+<el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+<el:author el:name="Jürgen Lange"/>
+<el:copyright>Copyright © 2015 Jürgen Lange</el:copyright>
+<el:license el:type="GPL v2.0 or above" el:open="true"/>
+<el:compatibility el:enigma="1.20"/>
+<el:modes el:easy="false" el:single="true" el:network="false"/>
+<el:comments>
+<el:credits el:showinfo="false" el:showstart="false"></el:credits>
+</el:comments>
+<el:score el:easy="-" el:difficult="-"/>
+</el:info>
+<el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+wo["AutoRespawn"] = true
+wo["WormholeStrength"] = 1.0
+wo["WormholeRange"] = 1.0
+
+ti["&"] = {"it_extralife"}
+ti["o"] = {"st_oxyd_c"}
+ti["O"] = {"st_oxyd_a"}
+ti["a"] = {"fl_lawn"}
+ti["s"] = {"fl_slope"}
+ti["S"] = {"fl_slope_ps"}
+ti["b"] = {"st_break_oxydc"} ..  ti["s"]
+ti["E"] = {"st_break_oxydc"} ..  ti["S"]
+ti["1"] = {"it_meditation"}
+ti["2"] = {"it_meditation_hill"}
+ti["-"] = {"st_break_oxydc"} ..  ti["1"]
+ti[" "] = {"st_fake_oxydc"} ..  ti["s"]
+ti["Y"] = {"st_fake_oxyda"} ..  ti["s"]
+ti["@"] = {"#ac_marble"} .. ti["a"]
+ti["c"] = {"it_hammer"} .. ti["s"]
+ti["C"] = {"it_umbrella"} .. ti["s"]
+ti["d"] = {"it_dynamite"} .. ti["s"]
+ti["D"] = {"it_dynamite"} .. ti["a"]
+ti["F"] = {"fl_abyss"}
+ti["f"] = {"it_bomb"}
+ti["e"] = {"fl_swamp"}
+ti["B"] = {"st_break_oxydc"} ..  ti["e"]
+ti["_"] = {"fl_inverse"}
+ti["*"] = {"st_break_oxydc"} ..  ti["_"]
+ti["w"] = {"fl_water"}
+ti["W"] = {"st_box"} .. ti["s"]
+ti["g"] = {"st_death"}
+ti["h"] = {"ac_bug"}
+ti["H"] = {"st_break_bug"} .. ti["s"]
+ti["l"] = {"st_break_bug"} .. ti["a"]
+ti["i"] = {"ac_rotor"} .. ti["w"]
+ti["v"] = {"fl_thief"}
+ti["j"] = {"st_key", code="kc", target="dc"}
+ti["J"] = {"st_door_d", faces="ns", name="dc"} .. ti["v"]
+ti["k"] = {"it_key", code="kc"} .. ti["a"]
+ti["m"] = {"it_spring_keep"} .. ti["s"]
+ti["x"] = {"it_crack"}
+ti["u"] = {"it_coffee"} .. ti["a"]
+ti["n"] = {"st_mail"} .. ti({"it_pipe_ns"})
+ti["N"] = {"st_mail_s"} .. ti({"it_pipe_ns"})
+ti["#"] = {"it_pipe_ns"}
+ti["+"] = {"it_spade"}
+ti["3"] = {"st_boulder_e"}
+ti["4"] = {"st_break_boulder"}
+ti["5"] = {"it_magicwand"}
+ti["7"] = {"it_wormhole", destination="right"}
+ti["8"] = {"it_wormhole", name="right", destination="left"}
+ti["9"] = {"fl_slope", name="right"}
+ti["0"] = {"fl_slope", name="left"}
+ti["6"] = {"st_magic_oxydc"} .. ti["0"]
+ti["V"] = {"st_magic_oxydc"}
+ti["Q"] = {"it_document", text="\"A gold mine is a hole in the ground with a liar on top\" (Mark Twain)"} .. ti["a"]
+ti["q"] = {"st_break"} .. ti["a"]
+ti["R"] = {"st_oneway", orientation=EAST} .. ti["a"]
+ti["t"] = {"it_seed"} .. ti["s"]
+
+wo(ti, " ", {
+	"jaaaaaaaaaaQDk@RaquO",
+	" J N                ",
+	" s # O FFF FFFF oEE ",
+	" + n CFF F F  F  E  ",
+	" dssb    F F oCSSSSS",
+	"    bf   FFF   SSSSS",
+	"mgggbbbt     & ssssS",
+	"BBFbb&coYbbbbb gggg2",
+	"o -        V bb    1",
+	" &wWb**B**Bb 4444443",
+	" sh b      6       s",
+	" w5ob wwwo 7 89sxxss",
+	"  HHH owiw s   o    "
+
+})
+
+]]></el:luamain>
+<el:i18n/>
+</el:protected>
+</el:level>

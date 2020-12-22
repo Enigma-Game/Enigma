@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+<el:protected >
+<el:info el:type="level">
+<el:identity el:title="Salt Mining" el:id="20150130jl0010"/>
+<el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+<el:author el:name="Jürgen Lange"/>
+<el:copyright>Copyright © 2015 Jürgen Lange</el:copyright>
+<el:license el:type="GPL v2.0 or above" el:open="true"/>
+<el:compatibility el:enigma="1.20"/>
+<el:modes el:easy="false" el:single="true" el:network="true"/>
+<el:comments>
+<el:credits el:showinfo="false" el:showstart="false"></el:credits>
+</el:comments>
+<el:score el:easy="-" el:difficult="-"/>
+</el:info>
+<el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+
+ti["s"] = {"fl_slope"}
+ti["a"] = {"fl_lawn"}
+ti["9"] = {"fl_slope", name="down"}
+ti["t"] = {"fl_slope_ps"}
+ti["A"] = {"#ac_marble_black"} .. ti["a"]
+ti["U"] = {"#ac_marble_white"} .. ti["a"]
+ti["b"] = {"st_flat_cracked"} ..  ti["s"]
+ti["S"] = {"st_oxyd_a"}
+ti[" "] = {"st_redrock"} ..  ti["s"]
+ti["u"] = {"it_coffee"} .. ti["a"]
+ti["n"] = {"st_mail_e"} .. ti({"it_pipe_ew"})
+ti["N"] = {"st_mail_s"} .. ti({"it_pipe_ns"})
+ti["G"] = {"it_pipe_ns"} .. ti["a"]
+ti["E"] = {"it_pipe_nw"} .. ti["a"]
+ti["F"] = {"it_pipe_ne"} .. ti["a"]
+ti["B"] = {"it_pipe_es"} .. ti["a"]
+ti["C"] = {"it_pipe_ew"} .. ti["a"]
+ti["D"] = {"it_pipe_sw"} .. ti["a"]
+ti["c"] = {"it_hammer"} .. ti["s"]
+ti["L"] = {"st_laser_s", state=OFF, name="laser"}
+ti["Y"] = {"st_break_laser"} .. ti["s"]
+ti["Z"] = {"st_switch", target="laser"}
+ti["l"] = {"st_mirror_triangle", state=NORTH, transparent = true, movable = true} .. ti["s"]
+ti["o"] = {"it_bag"}
+ti["j"] = {"st_key", code="kc", target="dc"}
+ti["J"] = {"st_door_d", faces="ew", name="dc"} .. ti["o"] .. ti["a"]
+ti["k"] = {"it_key", code="kc"}
+ti["M"] = {"it_banana"}
+ti["e"] = {"st_knight"} .. ti["s"]
+ti["O"] = {"st_knight"} .. ti["M"] .. ti["s"]
+ti["K"] = {"st_box_hay"}
+ti["m"] = {"st_rawglass"} .. ti["s"]
+ti["p"] = {"st_death"}
+
+
+wo(ti, " ", {
+	"SuJAEGFGD UECDFGGBmS",
+	"   jslsls   ZL c N  ",
+	"      sls  S Y  Ss  ",
+	"  YY  s    Y Y sssk ",
+	"SYYY sss  sY Y s    ",
+	" YYYYssssssssY ssss ",
+	" sYY    s  Y   s s  ",
+	"        s  Y   s ss ",
+	"  KKsKbss  Y      s ",
+	" SbeKeKss SYYYYYnss ",
+	" SKKeKOss  Y   b b  ",
+	"  sKKsKss      bbb  ",
+	"                    "
+
+})
+
+]]></el:luamain>
+<el:i18n/>
+</el:protected>
+</el:level>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Sokoban 1D" el:subtitle="" el:id="20110407ais523001"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10" />
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:58" el:difficult="1:11"/>
+    </el:info>
+    <el:luamain><![CDATA[
+-- Globals
+wo["ConserveLevel"] = false -- prevent F3-based shortcuts
+wo["ShowMoves"] = true
+dstate = CLOSED
+if wo["IsDifficult"] then dstate = OPEN end
+-- Tiles
+ti[" "]={"fl_concrete", freeze_check=true}
+ti["#"]={"st_invisible"} .. ti({"fl_abyss"})
+ti["0"]={"st_oxyd_b"}
+ti["A"]={"st_door_a", "door_a"}
+ti["B"]={"st_door_a", "door_b", state=dstate}
+ti["C"]={"st_door_a", "door_c", state=dstate}
+ti["D"]={"st_door_a", "door_d", state=dstate}
+ti["v"]={"it_vortex", state=CLOSED, autoclose=true}
+ti["a"]={"fl_scales_concrete", target="door_a", action="signal"} .. ti["v"]
+ti["b"]={"fl_scales_concrete", target="door_b", action="signal"} .. ti["v"]
+ti["c"]={"fl_scales_concrete", target="door_c", action="signal"} .. ti["v"]
+ti["d"]={"fl_scales_concrete", target="door_d", action="signal"} .. ti["v"]
+ti["+"]={"st_rawglass_movable", freeze_check=true}
+ti["~"]={"st_timer", "timer", interval=4, target="vortex*", action="signal"}
+if wo["IsDifficult"] then
+    ti["@"]={"#ac_marble"} .. ti["v"]
+else
+    ti["@"]={"#ac_marble"} .. ti["v"] .. ti["a"]
+end
+-- The level map
+if wo["IsDifficult"] then
+    w, h = wo(ti," ",{
+    "####################",
+    "~0@vavvbvcvvvdvABCD0",
+    "####################"
+    })
+else
+    w, h = wo(ti," ",{
+    "####################",
+    "~0@vbvvcvvvdvvvABCD0",
+    "####################"
+    })
+end
+wo:shuffleOxyd()
+-- Vortex connection
+local p = po(no["timer"]) + {2,0}
+function px(x) return p+{x,0} end
+for n = 0,12 do no["vortex"..n] = it(px(n)) end
+if wo["IsDifficult"] then
+    no["vortex0"].destination = "vortex5"
+    no["vortex1"].destination = "vortex6"
+    no["vortex2"].destination = "vortex10"
+    no["vortex3"].destination = "vortex12"
+    no["vortex4"].destination = "vortex2"
+    no["vortex5"].destination = "vortex4"
+    no["vortex6"].destination = "vortex8"
+    no["vortex7"].destination = "vortex9"
+    no["vortex8"].destination = "vortex7"
+    no["vortex9"].destination = "vortex10"
+    no["vortex10"].destination = "vortex3"
+    no["vortex11"].destination = "vortex0"
+    no["vortex12"].destination = "vortex7"
+    wo[px(5)] = ti["+"]
+    wo[px(7)] = ti["+"]
+    wo[px(9)] = ti["+"]
+    wo[px(11)] = ti["+"]
+else
+    no["vortex0"].destination = "vortex5"
+    no["vortex1"].destination = "vortex6"
+    no["vortex2"].destination = "vortex1"
+    no["vortex3"].destination = "vortex7"
+    no["vortex4"].destination = "vortex2"
+    no["vortex5"].destination = "vortex4"
+    no["vortex6"].destination = "vortex11"
+    no["vortex7"].destination = "vortex12"
+    no["vortex8"].destination = "vortex11"
+    no["vortex9"].destination = "vortex0"
+    no["vortex10"].destination = "vortex2"
+    no["vortex11"].destination = "vortex1"
+    no["vortex12"].destination = "vortex10"
+    wo[px(1)] = ti["+"]
+    wo[px(4)] = ti["+"]
+    wo[px(6)] = ti["+"]
+    wo[px(8)] = ti["+"]
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true" />
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
