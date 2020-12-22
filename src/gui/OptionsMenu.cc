@@ -583,7 +583,7 @@ public:
         case options::MIDDLEMOUSEBUTTON_Pause:
             return _("Pause (ESC)");
         case options::MIDDLEMOUSEBUTTON_Restart:
-            return _("Restart Level (F3)");
+            return _("Restart Level (Shift-F3)");
         }
         assert(0);
         return string();
