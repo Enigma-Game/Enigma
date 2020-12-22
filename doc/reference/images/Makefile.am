@@ -167,6 +167,7 @@ SIMPLEPNG = \
 	st_dispenser_bombwhite.png \
 	st_dispenser_dynamite.png \
 	st_dispenser_extralife.png \
+	st_document.png \
 	st_door_d_ew.png st_door_d_ew_g.png \
 	st_door_d_ns.png st_door_d_ns_7.png \
 	st_flash.png \
@@ -237,6 +238,7 @@ SIMPLEPNG = \
 	st_passage_white_frame.png \
 	st_passage_white_slash.png \
 	st_passage_white_square.png \
+	st_pebble.png \
 	st_pinkbumps.png \
 	st_plaster.png \
 	st_plop_slate.png \

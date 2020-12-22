@@ -12470,7 +12470,7 @@ displayed by activating the item. It is destroyed by explosions from
 The document is sensitive to laser light and dissolves with an
 @ref{it_explosion}_nil leaving no remnants when being hit by light.
 
-Another message carrying item is the @ref{it_bottle}.
+Other message carrying objects are @ref{st_document} and @ref{it_bottle}.
 
 @table @asis
 
@@ -14723,108 +14723,110 @@ Switches the wormhole off.
 @tab @image{images/st_disco, 12mm} @tab @yref{st_disco}_light
 @item @image{images/st_disco_2, 12mm} @tab @yref{st_disco}_medium
 @tab @image{images/st_disco_3, 12mm} @tab @yref{st_disco}_dark
-@tab @image{images/st_door_d_ew_g, 12mm} @tab @yref{st_door}_d (ew)
-@item @image{images/st_door_d_ns_7, 12mm} @tab @yref{st_door}_d (ns)
+@tab @image{images/st_document, 12mm} @tab @yref{st_document}
+@item @image{images/st_door_d_ew_g, 12mm} @tab @yref{st_door}_d (ew)
+@tab @image{images/st_door_d_ns_7, 12mm} @tab @yref{st_door}_d (ns)
 @tab @image{images/st_dispenser_bombblack, 12mm} @tab @yref{st_dispenser}_bombblack
-@tab @image{images/st_dispenser_bombwhite, 12mm} @tab @yref{st_dispenser}_bombwhite
-@item @image{images/st_dispenser_dynamite, 12mm} @tab @yref{st_dispenser}_dynamite
+@item @image{images/st_dispenser_bombwhite, 12mm} @tab @yref{st_dispenser}_bombwhite
+@tab @image{images/st_dispenser_dynamite, 12mm} @tab @yref{st_dispenser}_dynamite
 @tab @image{images/st_dispenser_extralife, 12mm} @tab @yref{st_dispenser}_extralife
-@tab @image{images/st_oxydc_open, 12mm} @tab @yref{st_fake}_oxydc (open)
-@item @image{images/st_flash, 12mm} @tab @yref{st_flash}
+@item @image{images/st_oxydc_open, 12mm} @tab @yref{st_fake}_oxydc (open)
+@tab @image{images/st_flash, 12mm} @tab @yref{st_flash}
 @tab @image{images/st_flat, 12mm} @tab @yref{st_flat}
-@tab @image{images/st_floppy_off, 12mm} @tab @yref{st_floppy}_off
-@item @image{images/st_floppy_on, 12mm} @tab @yref{st_floppy}_on
+@item @image{images/st_floppy_off, 12mm} @tab @yref{st_floppy}_off
+@tab @image{images/st_floppy_on, 12mm} @tab @yref{st_floppy}_on
 @tab @image{images/st_fourswitch, 12mm} @tab @yref{st_fourswitch}
-@tab @image{images/st_granite, 12mm} @tab @yref{st_granite}
-@item @image{images/st_grate_cross, 12mm} @tab @yref{st_grate}_cross
+@item @image{images/st_granite, 12mm} @tab @yref{st_granite}
+@tab @image{images/st_grate_cross, 12mm} @tab @yref{st_grate}_cross
 @tab @image{images/st_grate_framed, 12mm} @tab @yref{st_grate}_framed
-@tab @image{images/st_greenbrown, 12mm} @tab @yref{st_greenbrown}
-@item @image{images/st_greengray, 12mm} @tab @yref{st_greengray}
+@item @image{images/st_greenbrown, 12mm} @tab @yref{st_greenbrown}
+@tab @image{images/st_greengray, 12mm} @tab @yref{st_greengray}
 @tab @image{images/st_ice, 12mm} @tab @yref{st_ice}
-@tab                            @tab @yref{st_invisible} or @yref{st_ghost}
-@item @image{images/st_inkwell, 12mm} @tab @yref{st_inkwell_black}
+@item                            @tab @yref{st_invisible} or @yref{st_ghost}
+@tab @image{images/st_inkwell, 12mm} @tab @yref{st_inkwell_black}
 @tab @image{images/st_inkwell_5, 12mm} @tab @yref{st_inkwell_empty}
-@tab @image{images/st_inkwell_9, 12mm} @tab @yref{st_inkwell_white}
-@item @image{images/st_jamb_black, 12mm} @tab @yref{st_jamb}_black
+@item @image{images/st_inkwell_9, 12mm} @tab @yref{st_inkwell_white}
+@tab @image{images/st_jamb_black, 12mm} @tab @yref{st_jamb}_black
 @tab @image{images/st_jamb_white, 12mm} @tab @yref{st_jamb}_white
-@tab @image{images/st_key_off, 12mm} @tab @yref{st_key}_off
-@item @image{images/st_key_on, 12mm} @tab @yref{st_key}_on
+@item @image{images/st_key_off, 12mm} @tab @yref{st_key}_off
+@tab @image{images/st_key_on, 12mm} @tab @yref{st_key}_on
 @tab @image{images/st_knight, 12mm} @tab @yref{st_knight}
-@tab @image{images/st_laser_d, 12mm} @tab @yref{st_laser}
-@item @image{images/st_lightglass, 12mm} @tab @yref{st_lightglass}
+@item @image{images/st_laser_d, 12mm} @tab @yref{st_laser}
+@tab @image{images/st_lightglass, 12mm} @tab @yref{st_lightglass}
 @tab @image{images/st_lightpassenger, 12mm} @tab @yref{st_lightpassenger}
-@tab @image{images/st_mail, 12mm} @tab @yref{st_mail}
-@item @image{images/st_metal, 12mm} @tab @yref{st_metal}
+@item @image{images/st_mail, 12mm} @tab @yref{st_mail}
+@tab @image{images/st_metal, 12mm} @tab @yref{st_metal}
 @tab @image{images/st_mirror_static_2, 12mm} @tab @yref{st_mirror}_triangle
-@tab @image{images/st_mirror_static_b2, 12mm} @tab @yref{st_mirror}_triangle
-@item @image{images/st_mirror_static_c2, 12mm} @tab @yref{st_mirror}_slab
+@item @image{images/st_mirror_static_b2, 12mm} @tab @yref{st_mirror}_triangle
+@tab @image{images/st_mirror_static_c2, 12mm} @tab @yref{st_mirror}_slab
 @tab @image{images/st_mirror_static_d2, 12mm} @tab @yref{st_mirror}_slab
-@tab @image{images/st_mirror_static_e2, 12mm} @tab @yref{st_mirror}_sheets
-@item @image{images/st_monoflop, 12mm} @tab @yref{st_monoflop}
+@item @image{images/st_mirror_static_e2, 12mm} @tab @yref{st_mirror}_sheets
+@tab @image{images/st_monoflop, 12mm} @tab @yref{st_monoflop}
 @tab @image{images/st_monoflop_2, 12mm} @tab @yref{st_monoflop}
-@tab @image{images/st_oneway, 12mm} @tab @yref{st_oneway}
-@item @image{images/st_oneway_b, 12mm} @tab @yref{st_oneway}_black
+@item @image{images/st_oneway, 12mm} @tab @yref{st_oneway}
+@tab @image{images/st_oneway_b, 12mm} @tab @yref{st_oneway}_black
 @tab @image{images/st_oneway_c, 12mm} @tab @yref{st_oneway}_white
-@tab @image{images/st_oxyda, 12mm} @tab @yref{st_oxyd}_a
-@item @image{images/st_oxydb, 12mm} @tab @yref{st_oxyd}_b or @yref{st_quake} @* or @yref{st_laserswitch}
+@item @image{images/st_oxyda, 12mm} @tab @yref{st_oxyd}_a
+@tab @image{images/st_oxydb, 12mm} @tab @yref{st_oxyd}_b or @yref{st_quake} @* or @yref{st_laserswitch}
 @tab @image{images/st_oxydc, 12mm} @tab @yref{st_oxyd}_c
-@tab @image{images/st_oxydd, 12mm} @tab @yref{st_oxyd}_d
-@item @image{images/st_oxyde, 12mm} @tab @yref{st_oxyd}_e
+@item @image{images/st_oxydd, 12mm} @tab @yref{st_oxyd}_d
+@tab @image{images/st_oxyde, 12mm} @tab @yref{st_oxyd}_e
 @tab @image{images/st_panel, 12mm} @tab @yref{st_panel}
-@tab @image{images/st_passage_black_square, 12mm} @tab @yref{st_passage}_black
-@item @image{images/st_passage_black_slash, 12mm} @tab @yref{st_passage}_black
+@item @image{images/st_passage_black_square, 12mm} @tab @yref{st_passage}_black
+@tab @image{images/st_passage_black_slash, 12mm} @tab @yref{st_passage}_black
 @tab @image{images/st_passage_black_cross, 12mm} @tab @yref{st_passage}_black
-@tab @image{images/st_passage_black_frame, 12mm} @tab @yref{st_passage}_black
-@item @image{images/st_passage_white_square, 12mm} @tab @yref{st_passage}_white
+@item @image{images/st_passage_black_frame, 12mm} @tab @yref{st_passage}_black
+@tab @image{images/st_passage_white_square, 12mm} @tab @yref{st_passage}_white
 @tab @image{images/st_passage_white_slash, 12mm} @tab @yref{st_passage}_white
-@tab @image{images/st_passage_white_cross, 12mm} @tab @yref{st_passage}_white
-@item @image{images/st_passage_white_frame, 12mm} @tab @yref{st_passage}_white
-@tab @image{images/st_pinkbumps, 12mm} @tab @yref{st_pinkbumps}
+@item @image{images/st_passage_white_cross, 12mm} @tab @yref{st_passage}_white
+@tab @image{images/st_passage_white_frame, 12mm} @tab @yref{st_passage}_white
+@tab @image{images/st_pebble, 12mm} @tab @yref{st_pebble}
+@item @image{images/st_pinkbumps, 12mm} @tab @yref{st_pinkbumps}
 @tab @image{images/st_plaster, 12mm} @tab @yref{st_plaster}
-@item @image{images/st_plop_slate, 12mm} @tab @yref{st_plop}_slate
-@tab @image{images/st_portal_horse, 12mm} @tab @yref{st_portal}
+@tab @image{images/st_plop_slate, 12mm} @tab @yref{st_plop}_slate
+@item @image{images/st_portal_horse, 12mm} @tab @yref{st_portal}
 @tab @image{images/st_pull, 12mm} @tab @yref{st_pull}
-@item @image{images/st_purplegray, 12mm} @tab @yref{st_purplegray}
-@tab @image{images/st_purplemarble, 12mm} @tab @yref{st_purplemarble}
+@tab @image{images/st_purplegray, 12mm} @tab @yref{st_purplegray}
+@item @image{images/st_purplemarble, 12mm} @tab @yref{st_purplemarble}
 @tab @image{images/st_puzzle_blue_3, 12mm} @tab @yref{st_puzzle}_blue or @yref{st_turnstilearm}_n
-@item @image{images/st_puzzle_blue_d3, 12mm} @tab @yref{st_puzzle}_blue
-@tab @image{images/st_puzzle_blue_hollow_d3, 12mm} @tab @yref{st_puzzle}_blue
+@tab @image{images/st_puzzle_blue_d3, 12mm} @tab @yref{st_puzzle}_blue
+@item @image{images/st_puzzle_blue_hollow_d3, 12mm} @tab @yref{st_puzzle}_blue
 @tab @image{images/st_puzzle_yellow_d3, 12mm} @tab @yref{st_puzzle}_yellow
-@item @image{images/st_puzzle_yellow_hollow_d3, 12mm} @tab @yref{st_puzzle}_yellow
-@tab @image{images/st_rawglass, 12mm} @tab @yref{st_rawglass}
+@tab @image{images/st_puzzle_yellow_hollow_d3, 12mm} @tab @yref{st_puzzle}_yellow
+@item @image{images/st_rawglass, 12mm} @tab @yref{st_rawglass}
 @tab @image{images/st_rawglass_quad, 12mm} @tab @yref{st_rawglass}_quad
-@item @image{images/st_redbrown, 12mm} @tab @yref{st_redbrown}
-@tab @image{images/st_redfiber, 12mm} @tab @yref{st_redfiber}
+@tab @image{images/st_redbrown, 12mm} @tab @yref{st_redbrown}
+@item @image{images/st_redfiber, 12mm} @tab @yref{st_redfiber}
 @tab @image{images/st_redmarble, 12mm} @tab @yref{st_redmarble}
-@item @image{images/st_redrock, 12mm} @tab @yref{st_redrock}
-@tab @image{images/st_rotator_ccw, 12mm} @tab @yref{st_rotator}_ccw
+@tab @image{images/st_redrock, 12mm} @tab @yref{st_redrock}
+@item @image{images/st_rotator_ccw, 12mm} @tab @yref{st_rotator}_ccw
 @tab @image{images/st_rotator_cw, 12mm} @tab @yref{st_rotator}_cw
-@item @image{images/st_rubberband, 12mm} @tab @yref{st_rubberband}
-@tab @image{images/st_scissors, 12mm} @tab @yref{st_scissors}
+@tab @image{images/st_rubberband, 12mm} @tab @yref{st_rubberband}
+@item @image{images/st_scissors, 12mm} @tab @yref{st_scissors}
 @tab @image{images/st_shogun, 12mm} @tab @yref{st_shogun}_s
-@item @image{images/st_shogun_2, 12mm} @tab @yref{st_shogun}_m
-@tab @image{images/st_shogun_4, 12mm} @tab @yref{st_shogun}_l
+@tab @image{images/st_shogun_2, 12mm} @tab @yref{st_shogun}_m
+@item @image{images/st_shogun_4, 12mm} @tab @yref{st_shogun}_l
 @tab @image{images/st_spitter_idle, 12mm} @tab @yref{st_spitter}
-@item @image{images/st_stoneimpulse, 12mm} @tab @yref{st_stoneimpulse}
-@tab @image{images/st_stoneimpulse_hollow, 12mm} @tab @yref{st_stoneimpulse}_hollow
+@tab @image{images/st_stoneimpulse, 12mm} @tab @yref{st_stoneimpulse}
+@item @image{images/st_stoneimpulse_hollow, 12mm} @tab @yref{st_stoneimpulse}_hollow
 @tab @image{images/st_surprise, 12mm} @tab @yref{st_surprise}
-@item @image{images/st_swap, 12mm} @tab @yref{st_swap}
-@tab @image{images/st_switch, 12mm} @tab @yref{st_switch}
+@tab @image{images/st_swap, 12mm} @tab @yref{st_swap}
+@item @image{images/st_switch, 12mm} @tab @yref{st_switch}
 @tab @image{images/st_switch_black, 12mm} @tab @yref{st_switch}_black
-@item @image{images/st_switch_white, 12mm} @tab @yref{st_switch}_white
-@tab @image{images/st_thief, 12mm} @tab @yref{st_thief}
+@tab @image{images/st_switch_white, 12mm} @tab @yref{st_switch}_white
+@item @image{images/st_thief, 12mm} @tab @yref{st_thief}
 @tab @image{images/st_thief_capture, 12mm} @tab @yref{st_thief}
-@item @image{images/st_thief_drunken, 12mm} @tab @yref{st_thief}
-@tab @image{images/st_tigris, 12mm} @tab @yref{st_tigris}
+@tab @image{images/st_thief_drunken, 12mm} @tab @yref{st_thief}
+@item @image{images/st_tigris, 12mm} @tab @yref{st_tigris}
 @tab @image{images/st_timer_3, 12mm} @tab @yref{st_timer}
-@item @image{images/st_timer, 12mm} @tab @yref{st_timer}
-@tab @image{images/st_turnstile, 12mm} @tab @yref{st_turnstile}
+@tab @image{images/st_timer, 12mm} @tab @yref{st_timer}
+@item @image{images/st_turnstile, 12mm} @tab @yref{st_turnstile}
 @tab @image{images/st_turnstile_green, 12mm} @tab @yref{st_turnstile}_green
-@item @image{images/st_window_blue_3, 12mm} @tab @yref{st_window}
-@tab @image{images/st_window_green_3, 12mm} @tab @yref{st_window}
+@tab @image{images/st_window_blue_3, 12mm} @tab @yref{st_window}
+@item @image{images/st_window_green_3, 12mm} @tab @yref{st_window}
 @tab @image{images/st_woven, 12mm} @tab @yref{st_woven}
-@item @image{images/st_yellow, 12mm} @tab @yref{st_yellow}
-@tab @image{images/st_yinyang, 12mm} @tab @yref{st_yinyang}
+@tab @image{images/st_yellow, 12mm} @tab @yref{st_yellow}
+@item @image{images/st_yinyang, 12mm} @tab @yref{st_yinyang}
 @tab @image{images/st_yinyang_inactive, 12mm} @tab @yref{st_yinyang}_inactive
 @end multitable
 
@@ -15468,6 +15470,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_death::           Skull Stone
 * st_disco::           Light shading Stone
 * st_dispenser::       Item Dispenser
+* st_document::        Text displaying Stone
 * st_door::            Door of various Flavors
 * st_fake::            Fake mimicking other Stones
 * st_flash::           Partner Marble pushing Stone
@@ -15494,6 +15497,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_oneway::          Oneway Passage
 * st_oxyd::            Game Target Stone
 * st_passage::         Color dependent Passage
+* st_pebble::          Third in the Rock-Paper-Scissors Trio
 * st_plaster::         Gypsum sculptured Stone
 * st_plop::            Movable stone ceasing by a Plop
 * st_polarswitch::     Transparency Switch for Light Beams
@@ -16438,6 +16442,40 @@ beams.
 @item @image{images/st_dispenser_extralife, 12mm} @b{st_dispenser_extralife}: flavor=@code{"extralife"}
 @end table
 
+@end table
+
+@c ----------------- Document Stone --------------------
+@node st_document
+@subsection st_document
+@obindex st_document
+
+This stone can display a text message when touched. Other message
+carrying items are @ref{it_document} and @ref{it_bottle}.
+
+In addition, this is the paper member of the rock-paper-scissors trio,
+the other two stones being @ref{st_scissors} and @ref{st_pebble}.
+When @code{st_document} is touched, each @code{st_pebble} bordering
+it or being connected to it by a wire is destroyed. Similarly,
+when an @code{st_scissors} is touched, that borders or is connected to
+an @code{st_document}, the @code{st_document} will break.
+
+@table @asis
+
+@item @b{Attributes:}
+@table @asis
+@item @b{text}, @ @ @i{values}: string;
+Either the text to be displayed or just a key word for identification on
+@ref{Internationalization (i18n)}. It may be empty (then no text is displayed).
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_document, 12mm} @b{st_document}
+@end table
 @end table
 
 @c ----------------- Door Stone --------------------
@@ -18078,6 +18116,32 @@ Switch color of the passage.
 
 @end table
 
+@c ----------------- Pebble Stone --------------------
+@node st_pebble
+@subsection st_pebble
+@obindex st_pebble
+
+This is the rock member of the rock-paper-scissors trio,
+the other two stones being @ref{st_document} and @ref{st_scissors}.
+When @code{st_pebble} is touched, each @code{st_scissors} bordering
+it or being connected to it by a wire is destroyed. Similarly,
+when an @code{st_document} is touched, that borders or is connected to
+an @code{st_pebble}, the @code{st_pebble} will break.
+
+@table @asis
+
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_pebble, 12mm} @b{st_pebble}
+@end table
+@end table
+
 @c ----------------- Plaster Stone --------------------
 @node st_plaster
 @subsection st_plaster
@@ -18688,6 +18752,13 @@ Rubberband cutting behaviour on connection.
 This stone cuts all @ref{ot_rubberband}s attached to an actor that touches it.
 When at least one rubber band is cut, it performs the action given in the
 action/target-pair.
+
+In addition, this is the scissors member of the rock-paper-scissors trio,
+the other two stones being @ref{st_pebble} and @ref{st_document}.
+When @code{st_scissors} is touched, each @code{st_document} bordering
+it or being connected to it by a wire is destroyed. Similarly,
+when an @code{st_pebble} is touched, that borders or is connected to
+an @code{st_scissors}, the @code{st_scissors} will break.
 
 @table @asis
 @item @b{Attributes:} none
