@@ -14742,6 +14742,9 @@ Switches the wormhole off.
 @item @image{images/st_greengray, 12mm} @tab @yref{st_greengray}
 @tab @image{images/st_ice, 12mm} @tab @yref{st_ice}
 @tab                            @tab @yref{st_invisible} or @yref{st_ghost}
+@item @image{images/st_inkwell, 12mm} @tab @yref{st_inkwell_black}
+@tab @image{images/st_inkwell_5, 12mm} @tab @yref{st_inkwell_empty}
+@tab @image{images/st_inkwell_9, 12mm} @tab @yref{st_inkwell_white}
 @item @image{images/st_jamb_black, 12mm} @tab @yref{st_jamb}_black
 @tab @image{images/st_jamb_white, 12mm} @tab @yref{st_jamb}_white
 @tab @image{images/st_key_off, 12mm} @tab @yref{st_key}_off
@@ -15475,6 +15478,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_grate::           Hovering metal Grate
 * st_greenbrown::      Mainly brown seedable stone
 * st_ice::             Item and Floor freezing Ice block
+* st_inkwell::         Marble Recoloring Stone
 * st_jamb::            Colored Door Jamb
 * st_key::             Key Driven Switch
 * st_knight::          Sword Bearing Knight Stone
@@ -17006,6 +17010,58 @@ Melt the ice block
 @end table
 @end table
 
+@c ----------------- Inkwell Stone --------------------
+@node st_inkwell
+@subsection st_inkwell
+@obindex st_inkwell
+
+The inkwell stone can recolor marbles. The color change on the marble
+is instant. The following transformations are possible, each transformation
+is reversible:
+
+@code{st_inkwell_empty} + @code{ac_marble_black}
+-> @code{st_inkwell_black} + @code{ac_marble_glass}
+
+@code{st_inkwell_black} + @code{ac_marble_glass}
+-> @code{st_inkwell_empty} + @code{ac_marble_black}
+
+@code{st_inkwell_empty} + @code{ac_marble_white}
+-> @code{st_inkwell_white} + @code{ac_marble_glass}
+
+@code{st_inkwell_white} + @code{ac_marble_glass}
+-> @code{st_inkwell_empty} + @code{ac_marble_white}
+
+In particular, a colored marble will not tranform if it touches a
+full @code{st_inkwell}; and a glass marble will not transform if it
+touches an empty @code{st_inkwell}. If you want to transform a black
+marble into a white one or vice versa, you will need two @code{st_inkwell}s.
+
+Please note that inkwell stones will recolor @ref{ac_pearl} as well, as soon
+as they are introduced to Enigma. As of now, an error will be shown when
+@ref{ac_pearl} touches an inkwell stone.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state} @ @ @i{values}: @code{INKWELL_BLACK}, @code{INKWELL_EMPTY}, @code{INKWELL_WHITE}; @ @ @i{default}: @code{INKWELL_EMPTY}
+@end table
+
+@table @asis
+@item @b{Messages:}
+
+none
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_inkwell_5, 12mm} @b{st_inkwell}
+@item @image{images/st_inkwell, 12mm} @b{st_inkwell_black}
+@item @image{images/st_inkwell_5, 12mm} @b{st_inkwell_empty}
+@item @image{images/st_inkwell_9, 12mm} @b{st_inkwell_white}
+@end table
+@end table
+
 @c ----------------- Jamb Stone --------------------
 @node st_jamb
 @subsection st_jamb
@@ -18147,12 +18203,17 @@ The flavor @code{"horse"} lets just pass an @ref{ac_horse}.
 
 The flavor @code{"pearl"} lets just pass an @ref{ac_pearl}.
 
+The flavor @code{"glass"} lets just pass the glass flavor of @ref{ac_marble}.
+
+As of Enigma 1.30, all of these flavors share a common image.
+Please note however, that future versions of Enigma might introduce
+different images for different flavors of @samp{st_portal}.
 
 @table @asis
 @item @b{Attributes:}
 
 @table @asis
-@item @b{flavor} @ @ @i{values}: @code{"horse"}, @code{"pearl"}; @ @ @i{default}: @code{"horse"}; @ @ @i{access}: read only
+@item @b{flavor} @ @ @i{values}: @code{"horse"}, @code{"pearl"}, @code{"glass"}; @ @ @i{default}: @code{"horse"}; @ @ @i{access}: read only
 @end table
 
 @item @b{Messages:} none
@@ -18164,6 +18225,7 @@ The flavor @code{"pearl"} lets just pass an @ref{ac_pearl}.
 @item @image{images/st_portal_horse, 12mm} @b{st_portal}: flavor=@code{"horse"}
 @item @image{images/st_portal_horse, 12mm} @b{st_portal_horse}: flavor=@code{"horse"}
 @item @image{images/st_portal_horse, 12mm} @b{st_portal_pearl}: flavor=@code{"pearl"}
+@item @image{images/st_portal_horse, 12mm} @b{st_portal_glass}: flavor=@code{"glass"}
 @end table
 
 @end table
@@ -19707,7 +19769,7 @@ an actor can not be changed, it is a read only attribute.
 
 @table @asis
 @item @b{Type:} @ @ number
-@item @b{Values:} @ @ @code{BLACK}, @code{WHITE}, @code{nil}
+@item @b{Values:} @ @ @code{BLACK}, @code{WHITE}, @code{GLASS}, @code{nil}
 @item @b{Default:} @ @ @code{nil}
 @item @b{Access:} @ @ read only
 @end table
@@ -19989,29 +20051,40 @@ The color of the killer.
 @subsection ac_marble
 @obindex ac_marble
 
-The main actor in the shape of a large ball, either black or white. Marbles are
-versatile actors that can jump, pass @ref{it_vortex}, but on the other hand they
+The main actor in the shape of a large ball, black, white or transparent (glass).
+Marbles are versatile actors that can jump, pass @ref{it_vortex}, but on the other hand they
 can sink, fall and shatter, too.
 
 As long as the @samp{owner} has an @ref{it_extralife} in his inventory a dying
 marble will be resurrected. If no extra life is available a dying actor ends
 up in the @samp{state} dead and can no longer be controlled.
 
-The marbles are preset to their standard attribute values. A recoloring of
-marbles is not possible. The marble's state changes due to events and can be
-read only, too.
+The marbles are preset to their standard attribute values. Marbles can be
+recolored by using @ref{st_inkwell}, but not by addressing the @samp{color} attribute directly.
+The marble's state changes due to events and can be read only, too.
+
+Laser beams shatter black and white marbles, unless they are protected by @ref{it_umbrella}.
+Glass marbles are not harmed by laser beams, but break on harsh impacts (particularly
+on edges) and therefore cannot push movable stones (unless protected by @ref{it_umbrella}).
+Black and white marbles drown in @ref{fl_water} and (though slowly) in @ref{fl_swamp}.
+Glass marbles do not drown.
 
 @table @asis
 @item @b{Attributes:}
 
 @table @asis
-@item @b{state}, @ @ @i{values}: @code{ALIVE}, @code{DEAD}; @ @ @i{default}: @code{ALIVE}; @ @ @xref{state}; @ @ @i{access}: read only
-@item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{BLACK}; @ @ @i{access}: read only
+@item @b{state}, @ @ @i{values}: @code{ALIVE}, @code{DEAD}; @ @ @i{default}: @code{ALIVE}; @ @ @i{access}: read only
+@xref{state}.
+@item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}, @code{GLASS}; @ @ @i{default}: @code{BLACK}; @ @ @i{access}: read only
 The color of the marble.
-@item @b{adhesion} @ @ @i{values}: number; @ @ @i{default}: @code{1.0}; @ @ @xref{adhesion}
-@item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}; @ @ @xref{controllers}
-@item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
-@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{1.0}; @ @ @i{access}: read only
+@item @b{adhesion} @ @ @i{values}: number; @ @ @i{default}: @code{1.0}
+@xref{adhesion}.
+@item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}
+@xref{controllers}.
+@item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}
+@i{default}: @code{nil}; @ @ @xref{owner}.
+@item @b{mass} @ @ @i{values}: positive float number
+@i{default}: @code{1.0} for black and white marbles, @code{0.5} for glass marbles; @ @ @i{access}: read only
 @end table
 
 @item @b{Messages:} none
@@ -20022,6 +20095,7 @@ The color of the marble.
 @item @image{images/ac_marble_black, 14mm}  @b{ac_marble}: color = @code{BLACK}, controllers = @code{CTRL_YIN}, owner = @code{YIN}
 @item @image{images/ac_marble_black, 14mm} @b{ac_marble_black}: color = @code{BLACK}, controllers = @code{CTRL_YIN}, owner = @code{YIN}
 @item @image{images/ac_marble_white, 14mm} @b{ac_marble_white}: color = @code{WHITE}, controllers = @code{CTRL_YANG}, owner = @code{YANG}
+@item @image{images/ac_marble_glass, 14mm} @b{ac_marble_glass}: color = @code{GLASS}, controllers = @code{CTRL_YIN}, owner = @code{YIN}
 @end table
 
 @end table
@@ -20031,8 +20105,9 @@ The color of the marble.
 @subsection ac_pearl
 @obindex ac_pearl
 
-The main actor for meditation levels in the shape of a small ball, currently
-just in white color available. Pearls are like marbles versatile actors that
+The main actor for meditation levels in the shape of a small ball, available
+in black and white; glass pearls are planned for 1.30.
+Pearls are like marbles versatile actors that
 can jump, pass @ref{it_vortex}, but on the other hand they can sink, fall and
 shatter, too.
 

@@ -13,6 +13,7 @@ SIMPLEPNG = \
 	ac_horse.png \
 	ac_marble_black.png \
 	ac_marble_white.png \
+	ac_marble_glass.png \
 	ac_pearl_black.png \
 	ac_pearl_white.png \
 	ac_rotor.png \
@@ -182,6 +183,9 @@ SIMPLEPNG = \
 	st_greenbrown.png st_greenbrown_4.png \
 	st_greengray.png \
 	st_ice.png \
+	st_inkwell.png \
+	st_inkwell_5.png \
+	st_inkwell_9.png \
 	st_jamb_black.png \
 	st_jamb_white.png \
 	st_key_off.png \
@@ -434,6 +438,12 @@ ac_%.png: $(GFXDIR)/ac_%.png
 
 %_7.png: $(GFXDIR)/%.png
 	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+288 $< $@
+
+%_8.png: $(GFXDIR)/%.png
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+336 $< $@
+
+%_9.png: $(GFXDIR)/%.png
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+384 $< $@
 
 %_b.png: $(GFXDIR)/%.png
 	$(CONVERT) $(CONVERTOPT) -crop 48x48+48+0 $< $@
