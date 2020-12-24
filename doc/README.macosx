@@ -63,29 +63,17 @@ The above instructions result in a copy of Enigma.app that requires the Homebrew
 To make an Enigma.app that can be run on macOS without Homebrew installed, perform the following steps.
 
 Note that the resulting build may experience problems running on an older version of macOS than it
-was built on. For the best assurance of compatibilty on other systems, build Enigma on the oldest version
-of macOS that is currently supported by Apple.
+was built on. For the best assurance of compatibilty on other systems, build Enigma on the oldest
+version of macOS that is currently supported by Apple.
 
-To prepare your Homebrew environment for running this procedure, install packages with the command
+To prepare your Homebrew environment for running this procedure, after installing Enigma using the
+previous instructions, install the Enigma development tools using
 
-  brew install -v imagemagick fileicon create-dmg dylibbundler
+  brew install -v enigma-game/homebrew-enigma/enigma-dev-tools
 
-Then from the Enigma source repository on GitHub get the file makedmgforenigma.sh in the etc directory.
-The direct download link for the file from the master branch on GitHub is
-https://raw.githubusercontent.com/Enigma-Game/Enigma/master/etc/makedmgforenigma.sh
+Then cd to the directory where you want to put the dmg and run the command
 
-Place the file in a suitable place on your computer, for example in a directory named ~/bin or anywhere
-convenient. Make the file executable with a command such as
-
-  chmod +x ~/bin/makedmgforenigma.sh
-
-If you have not already, install Enigma
-
-  brew install -v enigma
-
-Then in the directory in which you will create the distribution dmg file, run the command using for example
-
-  ~/bin/makedmgforenigma.sh
+  enigmabuilddmg
 
 This will read the copy of Enigma that Homebrew installed in /usr/local/opt/enigma/Enigma and
 create a file in the current directory named Enigma.dmg. That file can be cpoied to a suitable

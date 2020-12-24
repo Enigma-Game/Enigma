@@ -2,6 +2,8 @@
 
 # Script used on a Mac as part of the Enigma release process.
 # Run this on a machine that has Enigma installed by Hombrew to create a dmg suitable for distribution.
+# The script will determine if Enigma is installed in the older format that put Enigma.app /usr/local/opt/enigma
+# or the newer format that puts the app and a link to docs in a subfolder named Enigma
 
 # Fixes up the library dependencies in the Enigma application bundle that has been installed by Homebrew
 # and creates a Enigma.dmg file in the current directory suitable for distribution to systems without Homebrew
@@ -12,7 +14,11 @@
 # Note that this is taking a lazy way to do the graphics by taking an existing image file from doc/image directory
 # that happens to be suitable. If anyone ever changes or removes that file, this will have to be changed
 
+# This should be installed by a Homebrew formula to ensure that tools it depends on are installed
+# enigma osxutils imagemagick fileicon create-dmg dylibbundler
+
 # check for required utilities that can be installed using brew
+hash mkalias 2>/dev/null  || { echo >&2 "This script requires mkalias from osxutils but it's not installed. Install osxutils from homebrew. Aborting."; exit 1; }
 hash convert 2>/dev/null  || { echo >&2 "This script requires ImageMagick convert but it's not installed. Install imagemagick from homebrew. Aborting."; exit 1; }
 for foo in fileicon create-dmg dylibbundler ; do
     hash $foo 2>/dev/null || { echo >&2 "This script requires $foo but it's not installed. Install it from homebrew. Aborting."; exit 1; }
@@ -43,8 +49,17 @@ if [ ! -d "$ENIGMA_FOLDER" ]; then
 fi
 
 rm -rf "$DEST"
-mkdir -p "$DEST"
-cp -a "$ENIGMA_FOLDER" "$DEST/"
+if [ -d "$ENIGMA_FOLDER" ]; then
+  mkdir -p "$DEST"
+  cp -a "$ENIGMA_FOLDER" "$DEST/"
+elif [ -e "$ENIGMA_APP_DIR/Enigma.app" ]; then
+  mkdir -p "$DEST/Enigma"
+  cp -a "$ENIGMA_APP_DIR/Enigma.app" "$DEST/Enigma/"
+  mkalias -r "$ENIGMA_APP_PATH/Contents/Resources/doc/index.html" "$DEST/Enigma/EnigmaDocs.html"
+else
+    echo "Error: No Enigma app or folder found in '$ENIGMA_APP_DIR'"
+    exit 1    
+fi
 
 if [ ! -d "$ENIGMA_APP_PATH" ]; then
     echo "Error: No application path '$ENIGMA_APP_PATH'"
@@ -65,10 +80,11 @@ DYLD_LIBRARY_PATH="$ENIGMA_APP_PATH/Contents/lib" dylibbundler -cd -x $ENIGMA_AP
 rm -f "$DMG_FILE_NAME"
 touch "$DEST/$MESSAGE_IN_FILE_NAME1"
 touch "$DEST/$MESSAGE_IN_FILE_NAME2"
-convert -size 16x16 xc:transparent "$DEST/transparent.ico"
-fileicon set "$DEST/$MESSAGE_IN_FILE_NAME1" "$DEST/transparent.ico"
-fileicon set "$DEST/$MESSAGE_IN_FILE_NAME2" "$DEST/transparent.ico"
+convert -size 16x16 xc:transparent "$DEST/.transparent.ico"
+fileicon set "$DEST/$MESSAGE_IN_FILE_NAME1" "$DEST/.transparent.ico"
+fileicon set "$DEST/$MESSAGE_IN_FILE_NAME2" "$DEST/.transparent.ico"
 
-create-dmg --no-internet-enable --volname Enigma --background "$BACKGROUND_IMAGE" --window-pos 50 60 --window-size 400 320 --icon-size 50 --icon "Enigma" 20 50 --app-drop-link 200 50 --add-file "Enigma folder contains app and manual" "$DEST/$MESSAGE_IN_FILE_NAME1" 10 130 --add-file "Drag it to Applications to install" "$DEST/$MESSAGE_IN_FILE_NAME2" 200 130 --text-size 14 "$DMG_FILE_NAME" "$DEST"
+# spaces at start of message file names are there to get Finder list view sorted by name to display them in proper order. The coordinates in the command place them for icon view
+create-dmg --no-internet-enable --volname Enigma --background "$BACKGROUND_IMAGE" --window-pos 50 60 --window-size 400 320 --icon-size 50 --icon "Enigma" 20 50 --app-drop-link 200 50 --add-file "  Enigma folder contains app and manual" "$DEST/$MESSAGE_IN_FILE_NAME1" 10 130 --add-file " Drag it to Applications to install" "$DEST/$MESSAGE_IN_FILE_NAME2" 210 130 --text-size 14 "$DMG_FILE_NAME" "$DEST"
 
 rm -rf "$DEST"
