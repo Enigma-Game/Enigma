@@ -307,8 +307,8 @@ namespace enigma { namespace gui {
         lev::ScoreManager *scm = lev::ScoreManager::instance();
         lev::Proxy *curProxy = ind->getCurrent();
         int difficulty = app.state->getInt("Difficulty");
-        
-        lbl_lpinfo->set_text(ecl::strf(_("%s: %d levels"),
+
+        lbl_lpinfo->set_text(ecl::strf(ngettext("%s: %d level", "%s: %d levels", size),
                 ind->getName().c_str(), size));
     
         if (size == 0) {
