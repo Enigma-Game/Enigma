@@ -10,6 +10,7 @@ pkgdata_DATA = \
 	models-32.lua \
 	models-40.lua \
 	models-48.lua \
+    models-64.lua \
 	startup.lua \
 	sound-defaults.lua \
 	compat.lua \
