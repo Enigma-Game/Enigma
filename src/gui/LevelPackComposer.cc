@@ -345,7 +345,7 @@ namespace enigma { namespace gui {
         int size = ind->size();
         lev::Proxy *curProxy = ind->getCurrent();
 
-        lbl_lpinfo->set_text(ecl::strf(_("%s: %d levels"),
+        lbl_lpinfo->set_text(ecl::strf(ngettext("%s: %d level", "%s: %d levels", size),
                 ind->getName().c_str(), size));
 
         if (size == 0) {
@@ -359,7 +359,7 @@ namespace enigma { namespace gui {
         }
 
         int csize = clipboard->size();
-        lbl_clipinfo->set_text(ecl::strf(_("Clipboard: %d levels"), csize));
+        lbl_clipinfo->set_text(ecl::strf(ngettext("Clipboard: %d level", "Clipboard: %d levels", csize), csize));
         if (csize == 0) {
             // empty level pack
             lbl_clipcontent->set_text ("-");
