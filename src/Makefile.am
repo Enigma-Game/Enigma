@@ -503,7 +503,7 @@ bundle:
 	echo "APPL????" > $(bundle_name)/Contents/PkgInfo
 	cp $(top_builddir)/etc/Info.plist $(bundle_name)/Contents/
 	cp $(top_builddir)/etc/enigma.icns $(bundle_name)/Contents/Resources/
-	tar --exclude .svn -c -f - -C $(top_builddir)/data levels | tar xpf - -C $(bundle_name)/Contents/Resources/data
+	tar --exclude .svn --exclude Makefile --exclude Makefile.in --exclude Makefile.am -c -f - -C $(top_builddir)/data levels | tar xpf - -C $(bundle_name)/Contents/Resources/data
 	cp $(top_builddir)/data/*.lua $(bundle_name)/Contents/Resources/data/
 	cp $(top_builddir)/data/*.xml $(bundle_name)/Contents/Resources/data/
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx
