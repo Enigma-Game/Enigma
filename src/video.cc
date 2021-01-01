@@ -416,7 +416,8 @@ public:
     WindowSize ActiveWindowSize() override;
     void SetVideoTileset(VideoTileset* vts) override;
     void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId id) override;
-    void ApplySettings() override;
+    bool ApplySettings() override;
+    void ResetSettings() override;
     void SaveWindowSizePreferences() override;
     void Resize(Sint32 width, Sint32 height) override;
     WindowSize SelectedWindowSize() override;
@@ -695,7 +696,9 @@ int VideoEngineImpl::ActiveWindowSizeFactor() {
     return (int) (ActiveWindowSize().width / 20 / vts->tilesize);
 }
 
-void VideoEngineImpl::ApplySettings() {
+// ApplySettings tries to apply the current settings set in app.prefs.
+// Returns false, if nothing has been changed, true else.
+bool VideoEngineImpl::ApplySettings() {
     bool wantFullscreen = app.prefs->getBool("FullScreen");
     if (wantFullscreen && !IsFullscreen())
         SaveWindowSizePreferences();
@@ -703,11 +706,11 @@ void VideoEngineImpl::ApplySettings() {
     if (wantFullscreen && IsFullscreen()
         && (app.selectedFullscreenMode == FindFullscreenMode(ActiveWindowSize()))
         && (app.selectedFullscreenTilesetId == GetTilesetId()))
-        return;
+        return false;
     if (!wantFullscreen && !IsFullscreen()
         && (SelectedWindowSize() == ActiveWindowSize())
         && (app.selectedWindowTilesetId == GetTilesetId()))
-        return;
+        return false;
     // Change display mode.
     if (wantFullscreen) {
         int w = video_modes[app.selectedFullscreenMode].width;
@@ -726,6 +729,17 @@ void VideoEngineImpl::ApplySettings() {
     gui::LevelPreviewCache::instance()->clear();
     display::Shutdown();
     display::Init();
+    return true;
+}
+
+void VideoEngineImpl::ResetSettings() {
+    app.prefs->setProperty("FullScreen", false);
+    app.prefs->setProperty("WindowWidth", 640);
+    app.prefs->setProperty("WindowHeight", 480);
+    app.prefs->setProperty("WindowTileset", StandardTileset(VTS_32)->id);
+    app.prefs->setProperty("WindowSizeFactor", 1);
+    app.selectedWindowSizeFactor = 1;
+    app.selectedWindowTilesetId = StandardTileset(VTS_32)->id;
 }
 
 void VideoEngineImpl::SaveWindowSizePreferences() {

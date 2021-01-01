@@ -412,7 +412,7 @@ namespace enigma { namespace gui {
 /* -------------------- ValueButton -------------------- */
     class ValueButton: public TextButton {
     public:
-        ValueButton(int min_value_, int max_value_);
+        ValueButton(int min_value_, int max_value_, ActionListener *al = NULL);
 
         virtual int get_value() const     = 0;
         virtual void set_value(int value) = 0;
@@ -425,6 +425,11 @@ namespace enigma { namespace gui {
 
         // Widget interface.
         virtual void on_action(Widget *w) override;
+
+        // ValueButton uses listener in another way, so for event
+        // handling we have to introduce a second ActionListener here.
+        ActionListener *secondaryListener;
+
     protected:
         void init(); // called in ctor of derived
         virtual bool soundOk() override; 

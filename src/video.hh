@@ -144,7 +144,8 @@ public:
     virtual WindowSize ActiveWindowSize() = 0;
     virtual void SetVideoTileset(VideoTileset* vts) = 0;
     virtual void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId vtsid) = 0;
-    virtual void ApplySettings() = 0;
+    virtual bool ApplySettings() = 0;
+    virtual void ResetSettings() = 0;
     virtual void SaveWindowSizePreferences() = 0;
     virtual void Resize(Sint32 width, Sint32 height) = 0;
     virtual WindowSize SelectedWindowSize() = 0;
