@@ -42,7 +42,7 @@ namespace enigma { namespace gui {
         
         // Menu interface.
         void draw_background(ecl::GC &gc);
-        void tick(double dtime) {}
+        void tick(double dtime);
 
         // Page structure.
         enum OptionsPage { OPTIONS_MAIN, OPTIONS_VIDEO, OPTIONS_AUDIO,
@@ -67,6 +67,7 @@ namespace enigma { namespace gui {
         gui::WindowTilesetButton *windowtileset;
         gui::StaticTextButton *videocheck_button_yes;
         gui::StaticTextButton *videocheck_button_no;
+        gui::Label *videocheck_tick_down;
         gui::TextField *userNameTF;
         gui::TextField *userPathTF;
         gui::TextField *userImagePathTF;

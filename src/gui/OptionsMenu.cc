@@ -152,6 +152,16 @@ public:
     MiddleMouseButtonButton();
 };
 
+class VideoCheckTickDown : public Label {
+
+public:
+    VideoCheckTickDown(ActionListener *al);
+    void tick(double dtime) override;
+
+private:
+    double time_till_reset;
+    bool active;
+};
 
 /* -------------------- Buttons for Options -------------------- */
 
@@ -551,7 +561,7 @@ public:
     }
 
     /* -------------------- MiddleMouseButtonButton -------------------- */
-    
+
     MiddleMouseButtonButton::MiddleMouseButtonButton() :
     ValueButton(options::MIDDLEMOUSEBUTTON_MIN, options::MIDDLEMOUSEBUTTON_MAX)
     {
@@ -587,6 +597,27 @@ public:
         return string();
     }
     
+    /* -------------------- Video Check Tick Down -------------------- */
+
+    VideoCheckTickDown::VideoCheckTickDown(ActionListener *al) : Label("")
+    {
+        time_till_reset = 10.0;
+        active = true;
+        set_listener(al);
+    }
+
+    void VideoCheckTickDown::tick(double dtime)
+    {
+        time_till_reset -= dtime;
+        if ((int)(time_till_reset + dtime) != (int)(time_till_reset)) {
+            set_text(ecl::strf(_("Resetting video settings in %is ..."), (int)(time_till_reset)));
+        }
+        if (active && (time_till_reset < 0.0)) {
+            active = false;
+            invoke_listener();
+        }
+    }
+
     /* -------------------- Options Menu -------------------- */
 
     OptionsMenu::OptionsMenu(ecl::Surface *background_, bool gameIsOngoing_)
@@ -606,6 +637,7 @@ public:
       windowtileset(NULL),
       videocheck_button_yes(NULL),
       videocheck_button_no(NULL),
+      videocheck_tick_down(NULL),
       userNameTF(NULL),
       userPathTF(NULL),
       userImagePathTF(NULL),
@@ -823,7 +855,13 @@ public:
                 videocheck_button_no = new StaticTextButton(N_("No"), this);
                 OPTIONS_NEW_LB(N_("Use these video settings?"), videocheck_button_yes);
                 OPTIONS_NEW_LB(   "",                           videocheck_button_no);
-                //OPTIONS_NEW_L(N_("(Will automatically reset in 10 seconds.)")
+                lb = new HList;
+                lb->set_spacing(param[vtt].hoption_option);
+                lb->set_alignment(HALIGN_LEFT, VALIGN_TOP);
+                lb->set_default_size(2*param[vtt].optionb_width + param[vtt].hoption_option,
+                                     param[vtt].button_height);
+                lb->add_back(videocheck_tick_down = new VideoCheckTickDown(this));
+                optionsVList->add_back(lb);
                 break;
         }
 
@@ -886,6 +924,7 @@ public:
         but_video_options = NULL;
         but_audio_options = NULL;
         but_config_options = NULL;
+        but_paths_options = NULL;
         if (commandHList != NULL) {
             commandHList->clear();
             remove_child(commandHList);
@@ -905,10 +944,15 @@ public:
         windowsize = NULL;
         fullscreentileset = NULL;
         windowtileset = NULL;
+        videocheck_button_yes = NULL;
+        videocheck_button_no = NULL;
+        videocheck_tick_down = NULL;
         menuMusicTF = NULL;
         userNameTF = NULL;
         userPathTF = NULL;
         userImagePathTF = NULL;
+        pageAfterVideoCheck = OPTIONS_MAIN;
+        showVideoCheck = false;
         if (videoSettingsTouched && !gameIsOngoing)
             showVideoCheck = video_engine->ApplySettings();
         videoSettingsTouched = false;
@@ -987,7 +1031,8 @@ public:
             } else {
                 open_page(pageAfterVideoCheck);
             }
-        } else if (w == videocheck_button_no) {
+        } else if (   (w == videocheck_button_no)
+                   || (w == videocheck_tick_down)) {
             videoSettingsTouched = false;
             close_page();
             video_engine->ResetSettings();
@@ -1003,7 +1048,13 @@ public:
     //     blit(gc, 0,0, enigma::GetImage("menu_bg"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, background);
     }
-    
+
+    void OptionsMenu::tick(double dtime)
+    {
+        if (videocheck_tick_down != NULL)
+            videocheck_tick_down->tick(dtime);
+    }
+
 /* -------------------- Functions -------------------- */
 
     void ShowOptionsMenu(Surface *background, bool gameIsOngoing) {
