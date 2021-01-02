@@ -64,7 +64,7 @@ public:
     }
 
     /* Define a new option. */
-    void def(int id, const std::string &name, char abbr = 0, bool param = false);
+    void def(int id, const std::string &name, bool param = false, char abbr = 0);
     void def(bool *boolvar, const std::string &name, char abbr = 0);
 
     /* Parse all command line arguments, calling the appropriate

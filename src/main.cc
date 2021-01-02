@@ -128,6 +128,7 @@ static void usage()
            "    --data -d path Load data from additional directory\n"
            "    --help -h      Show this help\n"
            "    --lang -l lang Set game language\n"
+           "    --l10n path    Set path to translation/localization files\n"
            "    --log          Turn on logging to the standard output\n"
            "    --nograb       Do not use exclusive mouse/keyboard access\n"
            "    --nomusic      Disable music\n"
@@ -160,7 +161,7 @@ namespace
 
     private:
         enum {
-            OPT_WINDOW, OPT_GAME, OPT_DATA, OPT_LANG, OPT_PREF
+            OPT_WINDOW, OPT_GAME, OPT_DATA, OPT_LANG, OPT_PREF, OPT_LOCALE
         };
 
         // ArgParser interface.
@@ -197,9 +198,10 @@ AP::AP() : ArgParser (app.args.begin(), app.args.end())
     def (&Robinson,             "robinson");
     def (&force_window,         "window", 'w');
     def (OPT_GAME,              "game", true);
-    def (OPT_DATA,              "data", 'd', true);
-    def (OPT_LANG,              "lang", 'l', true);
-    def (OPT_PREF,              "pref", 'p', true);
+    def (OPT_DATA,              "data", true, 'd');
+    def (OPT_LANG,              "lang", true, 'l');
+    def (OPT_PREF,              "pref", true, 'p');
+    def (OPT_LOCALE,            "l10n", true);
 }
 
 void AP::on_option (int id, const string &param)
@@ -221,6 +223,8 @@ void AP::on_option (int id, const string &param)
     case OPT_PREF:
         preffilename = param;
         break;
+    case OPT_LOCALE:
+        app.l10nPath = param;
     }
 }
 
@@ -236,7 +240,7 @@ void AP::on_argument (const string &arg)
 
 Application::Application() : wizard_mode (false), nograb (false), language (""),
         defaultLanguage (""), argumentLanguage (""), errorInit (false),
-        isMakePreviews (false), bossKeyPressed (false) {
+        isMakePreviews (false), bossKeyPressed (false), l10nPath("") {
 }
 
 void Application::init(int argc, char **argv)
@@ -555,15 +559,17 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     docPath = progDir + "/../Resources/doc";
 #endif
 
-    // l10nPath
-    l10nPath = LOCALEDIR;    // defined in src/Makefile.am
+    // l10nPath, might already be defined by command line option
+    if (l10nPath == "") {
+        l10nPath = LOCALEDIR;    // defined in src/Makefile.am
 #ifdef __MINGW32__
-    if (progDirExists) {
-        l10nPath = progDir + "/" + l10nPath;
-    }
+        if (progDirExists) {
+            l10nPath = progDir + "/" + l10nPath;
+        }
 #elif MACOSX
-    l10nPath = progDir + "/../Resources/locale";
+        l10nPath = progDir + "/../Resources/locale";
 #endif
+    }
 
     // prefPath
     if (prefFilename.find_first_of(ecl::PathSeparators) != std::string::npos) {

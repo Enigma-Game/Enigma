@@ -38,7 +38,7 @@ void ArgParser::on_argument(const std::string & /*arg*/) {
 void ArgParser::on_option(int /*id*/, const std::string & /*param*/) {
 }
 
-void ArgParser::def(int id, const std::string &name, char abbr, bool takesparam) {
+void ArgParser::def(int id, const std::string &name, bool takesparam, char abbr) {
     m_opts.push_back(Option(id, abbr, string("--") + name, takesparam));
 }
 
