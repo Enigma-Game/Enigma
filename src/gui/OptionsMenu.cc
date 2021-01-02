@@ -956,6 +956,9 @@ private:
         if (videoSettingsTouched && !gameIsOngoing)
             showVideoCheck = video_engine->ApplySettings();
         videoSettingsTouched = false;
+        // If settings were changed, change the background as well.
+        if (showVideoCheck)
+            background = enigma::GetImage("menu_bg", ".jpg");
     }
 
     void OptionsMenu::quit() {
@@ -1037,6 +1040,7 @@ private:
             close_page();
             video_engine->ResetSettings();
             video_engine->ApplySettings();
+            background = enigma::GetImage("menu_bg", ".jpg");
             open_page(OPTIONS_VIDEO);
         }
     }
@@ -1045,7 +1049,6 @@ private:
     {
         const VMInfo *vminfo = video_engine->GetInfo();
         set_caption(_("Enigma - Options Menu"));
-    //     blit(gc, 0,0, enigma::GetImage("menu_bg"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, background);
     }
 
