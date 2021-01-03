@@ -330,7 +330,6 @@ void Application::init(int argc, char **argv)
     Log << "Enigma " << getVersionInfo() << "\n";
     Log << "systemFS = \"" << systemFS->getDataPath() << "\"\n";
     Log << "docPath = \"" << docPath << "\"\n";
-    Log << "l10nPath = \"" << l10nPath << "\"\n";
     Log << "prefPath = \"" << prefPath << "\"\n";
 
     // initialize XML -- needs log, datapaths
@@ -558,18 +557,6 @@ void Application::initSysDatapaths(const std::string &prefFilename)
 #elif MACOSX
     docPath = progDir + "/../Resources/doc";
 #endif
-
-    // l10nPath, might already be defined by command line option
-    if (l10nPath == "") {
-        l10nPath = LOCALEDIR;    // defined in src/Makefile.am
-#ifdef __MINGW32__
-        if (progDirExists) {
-            l10nPath = progDir + "/" + l10nPath;
-        }
-#elif MACOSX
-        l10nPath = progDir + "/../Resources/locale";
-#endif
-    }
 
     // prefPath
     if (prefFilename.find_first_of(ecl::PathSeparators) != std::string::npos) {
@@ -821,6 +808,28 @@ void Application::init_i18n()
 {
     // Initialize the internationalization subsystem
 
+    // l10nPath, might already be defined by command line option
+    if (l10nPath == "") {
+        app.prefs->getProperty("LocalizationPath", l10nPath);
+        if (l10nPath == "") {
+            l10nPath = LOCALEDIR;    // defined in src/Makefile.am
+#ifdef __MINGW32__
+            std::string progDir;          // directory path part of args[0]
+            std::string progName;         // filename part of args[0]
+            bool progDirExists = split_path(progCallPath, &progDir, &progName);
+            if (progDirExists) {
+                l10nPath = progDir + "/" + l10nPath;
+            }
+#elif MACOSX
+            std::string progDir;          // directory path part of args[0]
+            std::string progName;         // filename part of args[0]
+            bool progDirExists = split_path(progCallPath, &progDir, &progName);
+            l10nPath = progDir + "/../Resources/locale";
+#endif
+        }
+    }
+    Log << "l10nPath = \"" << l10nPath << "\"\n";
+
     // priorities:
     // language: command-line --- user option --- system (environment)
     // defaultLanguage: command-line --- system (environment)
@@ -840,6 +849,8 @@ void Application::init_i18n()
 
     nls::SetMessageLocale (app.language);
 
+    // TODO: Make sure that bindtextdomain accepts UTF-8, then replace
+    // by XMLtoUtf8(LocalToXML(app.l10nPath.c_str()).x_str()).c_str().
     bindtextdomain (PACKAGE_NAME, app.l10nPath.c_str());
 
     // SDL_ttf does not handle arbitrary encodings, so use UTF-8

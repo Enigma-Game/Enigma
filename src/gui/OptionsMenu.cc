@@ -609,6 +609,7 @@ public:
       userNameTF(NULL),
       userPathTF(NULL),
       userImagePathTF(NULL),
+      localizationPathTF(NULL),
       menuMusicTF(NULL),
       background(background_),
       gameIsOngoing(gameIsOngoing_) {
@@ -806,6 +807,9 @@ public:
                 userImagePathTF = new TextField(XMLtoUtf8(LocalToXML(app.userImagePath.c_str()).x_str()).c_str());
                 OPTIONS_NEW_L(N_("User image path: "))
                 OPTIONS_NEW_T(userImagePathTF)
+                localizationPathTF = new TextField(XMLtoUtf8(LocalToXML(app.l10nPath.c_str()).x_str()).c_str());
+                OPTIONS_NEW_L(N_("Localization/translation path: "))
+                OPTIONS_NEW_T(localizationPathTF)
                 break;
         }
 #undef OPTIONS_NEW_L
@@ -858,6 +862,14 @@ public:
                 lev::ScoreManager::instance()->markModified();
             app.setUserImagePath(tfUserImageLocal.c_str());
         }
+        if(localizationPathTF) {
+            std::string tfLocalization = XMLtoLocal(Utf8ToXML(localizationPathTF->getText().c_str()).x_str()).c_str();
+            if (app.l10nPath != tfLocalization) {
+                app.l10nPath = tfLocalization;
+                bindtextdomain (PACKAGE_NAME, app.l10nPath.c_str());
+                app.prefs->setProperty("LocalizationPath", app.l10nPath);
+            }
+        }
         // Delete widgets.
         if (pagesVList != NULL) {
             pagesVList->clear();
@@ -892,6 +904,7 @@ public:
         userNameTF = NULL;
         userPathTF = NULL;
         userImagePathTF = NULL;
+        localizationPathTF = NULL;
     }
 
     void OptionsMenu::quit() {
