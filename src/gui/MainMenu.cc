@@ -18,6 +18,7 @@
 
 #include "gui/MainMenu.hh"
 #include "gui/LevelMenu.hh"
+#include "gui/SearchMenu.hh"
 #include "gui/OptionsMenu.hh"
 #include "gui/InfoMenu.hh"
 #include "gui/LevelPackMenu.hh"
@@ -400,20 +401,23 @@ namespace enigma { namespace gui {
         const VMInfo *vminfo = video_engine->GetInfo();
         const int vshrink = vminfo->width < 640 ? 1 : 0;
         const int vsmall = vminfo->width < 800 ? 1 : 0;
-        int y[] = {75, 170, 190, 220, 220};
+        int y[] = {75, 170, 205, 220, 220}; // y[0] and y[1] are actually not used
         // parameters to use when flags are not at top: {75, 150, 170, 200, 200};
-#ifdef ENABLE_EXPERIMENTAL
-        y[1] = 150;
-#endif
-        BuildVList b(this, Rect(vshrink?40:(vminfo->width - 160)/2, vshrink?120:y[vminfo->tt], vshrink?100:160, vshrink?25:40), vshrink?3:6);
-        BuildVList br = vshrink? BuildVList(this, Rect(180, 120, 100, 25), 3) : BuildVList(this, Rect(0, 0, 0, 0), 0);
-        BuildVList *brp = vshrink? &br : &b;
+        BuildVList  b(this, vshrink ? Rect(40, 120, 100, 25)
+                           : vsmall ? Rect(80, 200, 200, 50)
+                                    : Rect((vminfo->width - 160)/2, y[vminfo->tt], 160, 40),
+                            vshrink ? 4 : vsmall ? 10 : 8);
+        BuildVList br(this, vshrink ? Rect(180, 120, 100, 25)
+                                    : Rect(360, 200, 200, 50),
+                            vshrink ? 4 : vsmall ? 10 : 8);
+        BuildVList *brp = vsmall ? &br : &b;
         startgame = b.add(new StaticTextButton(N_("Start Game"), this));
         levelpack = b.add(new StaticTextButton(N_("Level Pack"), this));
 #ifdef ENABLE_EXPERIMENTAL
         m_netgame   = b.add(new StaticTextButton(N_("Network Game"), this));
 #endif
-        options     = b.add(new StaticTextButton(N_("Options"), this));
+        search      = b.add(new StaticTextButton(N_("Search"), this));
+        options     = brp->add(new StaticTextButton(N_("Options"), this));
 #if 0
         update      = brp->add(new StaticTextButton(N_("Update"), this));
 #endif
@@ -460,10 +464,10 @@ namespace enigma { namespace gui {
         Font *f = enigma::GetFont("levelmenu");
         Surface * logo(enigma::GetImage("enigma_logo3"));
         int x0=(vminfo->width - logo->width())/2;
-        int y0[] = {0, 50, 60, 70, 80};
+        int y0[] = {0, 57, 60, 70, 80};
         // parameters to use when flags are not at top: {0, 30, 40, 50, 60};
 #ifdef ENABLE_EXPERIMENTAL
-        y0[1] = 30;
+        y0[1] = 57;  // might need adaptation when more buttons are added
 #endif
         blit(gc, x0, y0[vminfo->tt], logo);
         f->render (gc, 5, vminfo->height - 20, app.getVersionInfo().c_str());
@@ -497,6 +501,20 @@ namespace enigma { namespace gui {
         } else if (w == levelpack) {
             LevelPackMenu m;
             m.manage();
+        } else if (w == search) {
+            SearchMenu m;
+            m.manage();
+            if (m.isSearchQuit()) {
+                // show search result levelpack
+                LevelMenu ml;
+                if (ml.manage() && !ml.isMainQuit()) {
+                    // ESC in LevelMenu in cade we are a submenu of LevelMenu or
+                    // Main button has been pressed in LevelMenu
+                    LevelPackMenu mlp;
+                    mlp.manage();
+                }
+            }
+            invalidate_all();
         } else if (w == options) {
             ShowOptionsMenu(0, false);
             clear();
