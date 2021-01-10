@@ -78,6 +78,11 @@ inline const T &Clamp(const T &a, const T &min, const T &max) {
         return a;
 }
 
+template <class T>
+inline const bool isOrdered(const T &a, const T &b, const T &c) {
+    return (a <= b) && (b <= c);
+}
+
 // Split a string at every occurrence of 'sep' and store the resulting strings
 // using the iterator 'out'.
 //

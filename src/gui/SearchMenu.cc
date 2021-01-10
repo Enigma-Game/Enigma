@@ -35,7 +35,7 @@ using namespace std;
 namespace enigma { namespace gui {
 
      SearchMenu::SearchMenu() : didSearch (false) {
-         const VMInfo &vminfo = *video_engine->GetInfo();
+        const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
         ecl::Font *menufont = enigma::GetFont("menufont");
         
@@ -80,7 +80,7 @@ namespace enigma { namespace gui {
     void SearchMenu::on_action(Widget *w) {
         if (w == but_search || 
                 (w == shallowSearch && shallowSearch->wasLastActionReturn())) {
-            lev::Index::setCurrentIndex(lev::Proxy::search(shallowSearch->getText()));
+            lev::Index::setCurrentIndex(lev::Proxy::search_shallow(shallowSearch->getText()));
             didSearch = true;
             Menu::quit();
         } else if (w == but_ignore) {

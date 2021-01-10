@@ -18,6 +18,8 @@
 
 #include "lev/Proxy.hh"
 #include "lev/SubProxy.hh"
+#include "lev/RatingManager.hh"
+#include "lev/ScoreManager.hh"
 
 #include "ecl_system.hh"
 #include "errors.hh"
@@ -65,6 +67,54 @@ using namespace enigma;
 XERCES_CPP_NAMESPACE_USE
 
 namespace enigma { namespace lev {
+
+    lev::RatingManager *theRatingMgr;
+    lev::ScoreManager *theScoreMgr;
+    SearchCombination::SearchCombination(std::string s) : searchText(s) {
+        int_min = 1;      int_max = 5;
+        dex_min = 1;      dex_max = 5;
+        pat_min = 1;      pat_max = 5;
+        kno_min = 1;      kno_max = 6;
+        spe_min = 1;      spe_max = 5;
+        dif_min = 0;      dif_max = 100;
+        avr_min = 0;      avr_max = 100;
+        checkRatings = false;
+        onlyUnsolvedEasy = false;
+        onlyUnsolvedHard = false;
+        onlyMainPacks = false;
+        theRatingMgr = lev::RatingManager::instance();
+    }
+
+    bool SearchCombination::fits(Proxy *p) {
+        // All criteria have to fit.
+        // Numerical criteria:
+        if (checkRatings) {
+            Rating * r = theRatingMgr->findRating(p);
+            if (   (r == NULL)
+                || !ecl::isOrdered(int_min, r->intelligence,  int_max)
+                || !ecl::isOrdered(dex_min, r->dexterity,     dex_max)
+                || !ecl::isOrdered(pat_min, r->patience,      pat_max)
+                || !ecl::isOrdered(kno_min, r->knowledge,     kno_max)
+                || !ecl::isOrdered(spe_min, r->speed,         spe_max)
+                || !ecl::isOrdered(dif_min, r->difficulty(),  dif_max)
+                || !ecl::isOrdered(avr_min, r->averageRating, avr_max))
+                return false;
+        }
+        // Boolean criteria:
+        if (onlyUnsolvedEasy && theScoreMgr->isSolved(p, DIFFICULTY_EASY))
+            return false;
+        if (onlyUnsolvedHard && theScoreMgr->isSolved(p, DIFFICULTY_HARD))
+            return false;
+        // TODO: if (!onlyMainPacks || ...)
+        //    return false;
+        // Textual criteria:
+        return (   searchText.low.empty()
+                || searchText.containedBy(p->getNormFilePath())
+                || searchText.containedBy(p->getTitle())
+                || searchText.containedBy(p->getId())
+                || searchText.containedBy(p->getAuthor()));
+    }
+
     // http://enigma-game.org/schema/level/1
     const XMLCh Proxy::levelNS[] = {
             chLatin_h, chLatin_t, chLatin_t, chLatin_p, chColon, chForwardSlash,
@@ -249,37 +299,22 @@ namespace enigma { namespace lev {
         return theProxy;
     }
 
-    struct LowerCaseString {
-        std::string low;
-        LowerCaseString(const std::string& s) : low(s) {
-            for (std::string::iterator i = low.begin(); i != low.end(); ++i)
-                *i = tolower(*i);
-        }
-        bool containedBy(LowerCaseString other) const {
-            return other.low.find(low) != string::npos;
-        }
-    };
-
     Index * searchIndex;
-    LowerCaseString searchText("");
-    void do_search(const std::map<std::string, Proxy *>::value_type pair) {
-        Proxy * candidate = pair.second;
-        if (searchText.containedBy(candidate->getNormFilePath()) ||
-                searchText.containedBy(candidate->getTitle()) ||
-                searchText.containedBy(candidate->getId()) ||
-                searchText.containedBy(candidate->getAuthor())) {
-            searchIndex->appendProxy(candidate);
-//            Log << "Search result: " << pair.first << " - is - " << candidate->getTitle() << "\n";
-        }
-    }
-
-    std::string Proxy::search(std::string text) {
+    std::string Proxy::search(SearchCombination* sc) {
         searchIndex = Index::findIndex("Search Result");
         // assert searchIndex
         searchIndex->clear();
-        searchText = LowerCaseString(text);
-        std::for_each(cache.begin(), cache.end(), do_search);
+        for (auto i = cache.begin(); i != cache.end(); i++) {
+            Proxy * candidate = (*i).second;
+            if (sc->fits(candidate))
+                searchIndex->appendProxy(candidate);
+        }
         return (searchIndex->size() > 0) ? searchIndex->getName() : "";
+    }
+
+    std::string Proxy::search_shallow(std::string text) {
+        SearchCombination * sc = new SearchCombination(text);
+        return search(sc);
     }
 
     void Proxy::countLevels() {

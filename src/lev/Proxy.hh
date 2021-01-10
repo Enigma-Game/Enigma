@@ -38,7 +38,50 @@ namespace enigma { namespace lev {
         STATUS_EXPERIMENTAL,
         STATUS_UNKNOWN
     };
-    
+
+    class Proxy;
+
+    class SearchCombination {
+    public:
+        // Constructor
+        SearchCombination(std:: string s);
+
+        // Methods
+        bool fits(Proxy *p);
+    private:
+        struct LowerCaseString {
+            std::string low;
+            LowerCaseString(const std::string& s) : low(s) {
+                for (std::string::iterator i = low.begin(); i != low.end(); ++i)
+                    *i = tolower(*i);
+            }
+            bool containedBy(LowerCaseString other) const {
+                return other.low.find(low) != std::string::npos;
+            }
+        };
+
+        // Search parameters
+        short int_min;  // intelligence
+        short int_max;
+        short dex_min;  // dexterity
+        short dex_max;
+        short pat_min;  // patience
+        short pat_max;
+        short kno_min;  // knowledge
+        short kno_max;
+        short spe_min;  // speed
+        short spe_max;
+        short dif_min;  // overall difficulty
+        short dif_max;
+        short avr_min;  // average rating * 10
+        short avr_max;
+        bool checkRatings;
+        bool onlyUnsolvedEasy;
+        bool onlyUnsolvedHard;
+        bool onlyMainPacks;
+        LowerCaseString searchText;
+    };
+
     /**
      * A standin for an addressable level file and its level metadata.
      * Every level index and the commandline register their levels with the
@@ -84,7 +127,8 @@ namespace enigma { namespace lev {
         
         static Proxy *autoRegisterLevel(std::string indexPath, std::string filename, int subNum);
 
-        static std::string search(std::string text);
+        static std::string search(SearchCombination* sc);
+        static std::string search_shallow(std::string text);
         static void countLevels();
         static std::set<std::string> getLevelIds(bool withEasy);
         static std::set<Proxy *> getProxies();

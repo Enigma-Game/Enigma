@@ -458,7 +458,7 @@ void Msg_Command_jumpto(const string &dest) {
 }
 
 void Msg_Command_find(const string &text) {
-    std::string indName = lev::Proxy::search(text);
+    std::string indName = lev::Proxy::search_shallow(text);
     if (!indName.empty()) {
         lev::Index::setCurrentIndex(indName);
         lev::Index *searchResult = lev::Index::getCurrentIndex();
