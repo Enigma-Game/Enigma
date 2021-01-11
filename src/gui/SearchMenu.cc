@@ -23,6 +23,7 @@
 #include "errors.hh"
 #include "lev/Index.hh"
 #include "lev/Proxy.hh"
+#include "lev/SearchCombination.hh"
 #include "nls.hh"
 #include "resource_cache.hh"
 #include "video.hh"

@@ -20,6 +20,7 @@
 #define LEV_PROXY_HH_INCLUDED
 
 #include "enigma.hh"
+#include "lev/SearchCombination.hh"
 
 #include <map>
 #include <set>
@@ -37,60 +38,6 @@ namespace enigma { namespace lev {
         STATUS_TEST,
         STATUS_EXPERIMENTAL,
         STATUS_UNKNOWN
-    };
-
-    class Proxy;
-
-    enum SCValueKey { SC_INT, SC_DEX, SC_PAT, SC_KNO, SC_SPE, SC_DIF, SC_AVR };
-    enum SCValueMinMax { SC_MIN, SC_MAX };
-
-    class SearchCombination {
-    public:
-        // Constructor
-        SearchCombination(std::string s = std::string(""));
-
-        // Methods
-        void setSearchText(std::string text);
-        void setValue(SCValueKey key, SCValueMinMax type, short value);
-        short getValue(SCValueKey key, SCValueMinMax type);
-        void setOnlyUnsolved(Difficulty diff, bool value);
-        bool getOnlyUnsolved(Difficulty diff);
-        bool toggleOnlyUnsolved(Difficulty diff);
-        void prepareForSearch();
-        bool fits(Proxy *p);
-
-    private:
-        struct LowerCaseString {
-            std::string low;
-            LowerCaseString(const std::string& s) : low(s) {
-                for (std::string::iterator i = low.begin(); i != low.end(); ++i)
-                    *i = tolower(*i);
-            }
-            bool containedBy(LowerCaseString other) const {
-                return other.low.find(low) != std::string::npos;
-            }
-        };
-
-        // Search parameters
-        short int_min;  // intelligence
-        short int_max;
-        short dex_min;  // dexterity
-        short dex_max;
-        short pat_min;  // patience
-        short pat_max;
-        short kno_min;  // knowledge
-        short kno_max;
-        short spe_min;  // speed
-        short spe_max;
-        short dif_min;  // overall difficulty
-        short dif_max;
-        short avr_min;  // average rating * 10
-        short avr_max;
-        bool checkRatings;
-        bool onlyUnsolvedEasy;
-        bool onlyUnsolvedHard;
-        bool onlyMainPacks;
-        LowerCaseString searchText;
     };
 
     /**

@@ -299,6 +299,8 @@ enigma_SOURCES = 		\
 	lev/Proxy.hh		\
 	lev/ScoreManager.cc	\
 	lev/ScoreManager.hh	\
+	lev/SearchCombination.cc    \
+	lev/SearchCombination.hh    \
 	lev/SubProxy.cc		\
 	lev/SubProxy.hh		\
 	lev/VolatileIndex.cc	\

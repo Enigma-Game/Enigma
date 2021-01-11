@@ -22,6 +22,7 @@
 #include "gui/Menu.hh"
 #include "gui/TextField.hh"
 #include "lev/Proxy.hh"
+#include "lev/SearchCombination.hh"
 
 namespace enigma { namespace gui {
 
