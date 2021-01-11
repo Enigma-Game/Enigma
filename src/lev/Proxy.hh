@@ -41,13 +41,24 @@ namespace enigma { namespace lev {
 
     class Proxy;
 
+    enum SCValueKey { SC_INT, SC_DEX, SC_PAT, SC_KNO, SC_SPE, SC_DIF, SC_AVR };
+    enum SCValueMinMax { SC_MIN, SC_MAX };
+
     class SearchCombination {
     public:
         // Constructor
-        SearchCombination(std:: string s);
+        SearchCombination(std::string s = std::string(""));
 
         // Methods
+        void setSearchText(std::string text);
+        void setValue(SCValueKey key, SCValueMinMax type, short value);
+        short getValue(SCValueKey key, SCValueMinMax type);
+        void setOnlyUnsolved(Difficulty diff, bool value);
+        bool getOnlyUnsolved(Difficulty diff);
+        bool toggleOnlyUnsolved(Difficulty diff);
+        void prepareForSearch();
         bool fits(Proxy *p);
+
     private:
         struct LowerCaseString {
             std::string low;

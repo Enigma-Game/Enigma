@@ -21,6 +21,7 @@
 
 #include "gui/Menu.hh"
 #include "gui/TextField.hh"
+#include "lev/Proxy.hh"
 
 namespace enigma { namespace gui {
 
@@ -34,9 +35,35 @@ namespace enigma { namespace gui {
         
     private:
         TextField   *shallowSearch;
+        Label       *lbInt;
+        Label       *lbDex;
+        Label       *lbPat;
+        Label       *lbKno;
+        Label       *lbSpe;
+        Label       *lbDif;
+        Label       *lbAvr;
+        Label       *lbUnsolvEasy;
+        Label       *lbUnsolvHard;
         Widget      *but_ignore;
         Widget      *but_search;
+        Widget      *but_int_min;
+        Widget      *but_int_max;
+        Widget      *but_dex_min;
+        Widget      *but_dex_max;
+        Widget      *but_pat_min;
+        Widget      *but_pat_max;
+        Widget      *but_kno_min;
+        Widget      *but_kno_max;
+        Widget      *but_spe_min;
+        Widget      *but_spe_max;
+        Widget      *but_dif_min;
+        Widget      *but_dif_max;
+        Widget      *but_avr_min;
+        Widget      *but_avr_max;
+        Widget      *but_only_ue;
+        Widget      *but_only_uh;
         bool         didSearch;
+        lev::SearchCombination *sc;
     };
 
 }} // namespace enigma::gui

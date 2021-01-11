@@ -31,15 +31,58 @@
 
 using namespace ecl;
 using namespace std;
+using namespace enigma::lev;
 
 namespace enigma { namespace gui {
 
-     SearchMenu::SearchMenu() : didSearch (false) {
+    class RatingSearchButton : public ValueButton {
+        int get_value() const {  return sc->getValue(key, mm);  }
+        void set_value(int value) {  sc->setValue(key, mm, value);  }
+        string get_text(int value) const {  return strf("%d", value);  }
+    public:
+        RatingSearchButton(SearchCombination *sc_, SCValueKey key_,
+                SCValueMinMax mm_, short min_, short max_) : ValueButton(min_, max_) {
+            sc = sc_;
+            key = key_;
+            mm = mm_;
+            init();
+        }
+
+    private:
+        SearchCombination *sc;
+        SCValueKey key;
+        SCValueMinMax mm;
+    };
+
+    class UnsolvedSearchButton : public TextButton {
+    public:
+        UnsolvedSearchButton(SearchCombination *sc_, Difficulty diff_)
+                : TextButton(this) {
+            sc = sc_;
+            diff = diff_;
+        }
+
+        void on_action(Widget *) { sc->toggleOnlyUnsolved(diff); invalidate(); }
+
+        string get_text() const {
+            return sc->getOnlyUnsolved(diff) ? _("Yes") : _("No");
+        }
+
+    private:
+        SearchCombination *sc;
+        Difficulty diff;
+    };
+
+    /* -------------------- Search Menu -------------------- */
+
+    SearchMenu::SearchMenu() : didSearch(false) {
+        sc = new SearchCombination();
+
         const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
         ecl::Font *menufont = enigma::GetFont("menufont");
-        
-        Label * shallowTitle = new Label(N_("Shallow Search:"), HALIGN_LEFT);
+
+        Label * shallowTitle = new Label(N_("Text Search:"), HALIGN_LEFT);
 // TRANSLATORS: the translation can have double size of the english text 
         std::string helpText = _("case independent search in title, author, filename");
         std::string workString = helpText;
@@ -48,12 +91,74 @@ namespace enigma { namespace gui {
         Label * shallowHelp1 = new UntranslatedLabel(workString.substr(0,breakPos), HALIGN_LEFT);
         Label * shallowHelp2 = new UntranslatedLabel(workString.substr(breakPos), HALIGN_LEFT);
         shallowSearch = new TextField("", this);
-        
-        this->add(shallowTitle, Rect(vminfo.width/2 - (vshrink?95:190), vminfo.height/2 - (vshrink?50:100), vshrink?190:380, vshrink?17:35));
-        this->add(shallowHelp1, Rect(vminfo.width/2 - (vshrink?95:190), vminfo.height/2 - (vshrink?20:40), vshrink?190:380, vshrink?12:25));
-        this->add(shallowHelp2, Rect(vminfo.width/2 - (vshrink?95:190), vminfo.height/2 - (vshrink?5:10), vshrink?190:380, vshrink?12:25));
-        this->add(shallowSearch, Rect(vminfo.width/2 - (vshrink?95:190), vminfo.height/2 + (vshrink?27:55), vshrink?190:380, vshrink?17:35));
-       
+
+        if(!vshrink) {
+            lbInt = new Label(N_("Intelligence: "), HALIGN_RIGHT);
+            lbDex = new Label(N_("Dexterity: "), HALIGN_RIGHT);
+            lbPat = new Label(N_("Patience: "), HALIGN_RIGHT);
+            lbKno = new Label(N_("Knowledge: "), HALIGN_RIGHT);
+            lbSpe = new Label(N_("Speed: "), HALIGN_RIGHT);
+            lbDif = new Label(N_("Difficulty: "), HALIGN_RIGHT);
+            lbAvr = new Label(N_("Average Rating: "), HALIGN_RIGHT);
+
+            lbUnsolvEasy = new Label(N_("Only levels that are unsolved in easy mode:"), HALIGN_RIGHT);
+            lbUnsolvHard = new Label(N_("Only levels that are unsolved in normal mode:"), HALIGN_RIGHT);
+
+            but_int_min = new RatingSearchButton(sc, SC_INT, SC_MIN, 1, 5);
+            but_int_max = new RatingSearchButton(sc, SC_INT, SC_MAX, 1, 5);
+            but_dex_min = new RatingSearchButton(sc, SC_DEX, SC_MIN, 1, 5);
+            but_dex_max = new RatingSearchButton(sc, SC_DEX, SC_MAX, 1, 5);
+            but_pat_min = new RatingSearchButton(sc, SC_PAT, SC_MIN, 1, 5);
+            but_pat_max = new RatingSearchButton(sc, SC_PAT, SC_MAX, 1, 5);
+            but_kno_min = new RatingSearchButton(sc, SC_KNO, SC_MIN, 1, 6);
+            but_kno_max = new RatingSearchButton(sc, SC_KNO, SC_MAX, 1, 6);
+            but_spe_min = new RatingSearchButton(sc, SC_SPE, SC_MIN, 1, 5);
+            but_spe_max = new RatingSearchButton(sc, SC_SPE, SC_MAX, 1, 5);
+            but_dif_min = new RatingSearchButton(sc, SC_DIF, SC_MIN, 0, 100);
+            but_dif_max = new RatingSearchButton(sc, SC_DIF, SC_MAX, 0, 100);
+            but_avr_min = new RatingSearchButton(sc, SC_AVR, SC_MIN, 0, 100);
+            but_avr_max = new RatingSearchButton(sc, SC_AVR, SC_MAX, 0, 100);
+
+            but_only_ue = new UnsolvedSearchButton(sc, DIFFICULTY_EASY);
+            but_only_uh = new UnsolvedSearchButton(sc, DIFFICULTY_HARD);
+        }
+
+        int x = vminfo.width/2;
+        int y = vminfo.height/2;
+        this->add(shallowTitle, Rect(0, vshrink?0:0, vshrink?190:380, vshrink?17:35));
+        this->add(shallowHelp1, Rect(0, vshrink?30:60, vshrink?190:380, vshrink?12:25));
+        this->add(shallowHelp2, Rect(0, vshrink?45:90, vshrink?190:380, vshrink?12:25));
+        this->add(shallowSearch, Rect(0, vshrink?77:155, vshrink?190:380, vshrink?17:35));
+        if(!vshrink) {
+            this->add(lbInt,       Rect(400,   0, 100, 35));
+            this->add(but_int_min, Rect(520,   0,  50, 35));
+            this->add(but_int_max, Rect(610,   0,  50, 35));
+            this->add(lbDex,       Rect(400,  50, 100, 35));
+            this->add(but_dex_min, Rect(520,  50,  50, 35));
+            this->add(but_dex_max, Rect(610,  50,  50, 35));
+            this->add(lbPat,       Rect(400, 100, 100, 35));
+            this->add(but_pat_min, Rect(520, 100,  50, 35));
+            this->add(but_pat_max, Rect(610, 100,  50, 35));
+            this->add(lbKno,       Rect(400, 150, 100, 35));
+            this->add(but_kno_min, Rect(520, 150,  50, 35));
+            this->add(but_kno_max, Rect(610, 150,  50, 35));
+            this->add(lbSpe,       Rect(400, 200, 100, 35));
+            this->add(but_spe_min, Rect(520, 200,  50, 35));
+            this->add(but_spe_max, Rect(610, 200,  50, 35));
+            this->add(lbDif,       Rect(400, 250, 100, 35));
+            this->add(but_dif_min, Rect(520, 250,  50, 35));
+            this->add(but_dif_max, Rect(610, 250,  50, 35));
+            this->add(lbAvr,       Rect(350, 300, 150, 35));
+            this->add(but_avr_min, Rect(520, 300,  50, 35));
+            this->add(but_avr_max, Rect(610, 300,  50, 35));
+
+            this->add(lbUnsolvEasy, Rect(  0, 350, 590, 35));
+            this->add(but_only_ue,  Rect(610, 350,  50, 35));
+            this->add(lbUnsolvHard, Rect(  0, 400, 590, 35));
+            this->add(but_only_uh,  Rect(610, 400,  50, 35));
+        }
+        center();
+
         // Create buttons - positioning identical to Levelmenu
         Label * dummy1 = new Label();
         Label * dummy2 = new Label();
@@ -80,7 +185,8 @@ namespace enigma { namespace gui {
     void SearchMenu::on_action(Widget *w) {
         if (w == but_search || 
                 (w == shallowSearch && shallowSearch->wasLastActionReturn())) {
-            lev::Index::setCurrentIndex(lev::Proxy::search_shallow(shallowSearch->getText()));
+            sc->setSearchText(shallowSearch->getText());
+            lev::Index::setCurrentIndex(lev::Proxy::search(sc));
             didSearch = true;
             Menu::quit();
         } else if (w == but_ignore) {

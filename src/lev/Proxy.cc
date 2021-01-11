@@ -83,6 +83,113 @@ namespace enigma { namespace lev {
         onlyUnsolvedHard = false;
         onlyMainPacks = false;
         theRatingMgr = lev::RatingManager::instance();
+        theScoreMgr = lev::ScoreManager::instance();
+    }
+
+    void SearchCombination::setSearchText(std::string text) {
+        searchText = (LowerCaseString) (text);
+    }
+
+    void SearchCombination::setValue(SCValueKey key, SCValueMinMax mm, short value) {
+        switch(key) {
+        case SC_INT: {
+            if(mm == SC_MIN)
+                int_min = ecl::Clamp<short>(value, 1, int_max);
+            else
+                int_max = ecl::Clamp<short>(value, int_min, 5);
+            break; }
+        case SC_DEX: {
+            if(mm == SC_MIN)
+                dex_min = ecl::Clamp<short>(value, 1, dex_max);
+            else
+                dex_max = ecl::Clamp<short>(value, dex_min, 5);
+            break; }
+        case SC_PAT: {
+            if(mm == SC_MIN)
+                pat_min = ecl::Clamp<short>(value, 1, pat_max);
+            else
+                pat_max = ecl::Clamp<short>(value, pat_min, 5);
+            break; }
+        case SC_KNO: {
+            if(mm == SC_MIN)
+                kno_min = ecl::Clamp<short>(value, 1, kno_max);
+            else
+                kno_max = ecl::Clamp<short>(value, kno_min, 6);
+            break; }
+        case SC_SPE: {
+            if(mm == SC_MIN)
+                spe_min = ecl::Clamp<short>(value, 1, spe_max);
+            else
+                spe_max = ecl::Clamp<short>(value, spe_min, 5);
+            break; }
+        case SC_DIF: {
+            if(mm == SC_MIN)
+                dif_min = ecl::Clamp<short>(value, 0, dif_max);
+            else
+                dif_max = ecl::Clamp<short>(value, dif_min, 100);
+            break; }
+        case SC_AVR: {
+            if(mm == SC_MIN)
+                avr_min = ecl::Clamp<short>(value, 0, avr_max);
+            else
+                avr_max = ecl::Clamp<short>(value, avr_min, 100);
+            break; }
+        default: {
+            Log << "Warning: SearchCombination::setValue called with invalid key combination!\n";
+            break; }
+        }
+    }
+
+    short SearchCombination::getValue(SCValueKey key, SCValueMinMax mm) {
+        switch(key) {
+        case SC_INT: { return (mm == SC_MIN) ? int_min : int_max; break; }
+        case SC_DEX: { return (mm == SC_MIN) ? dex_min : dex_max; break; }
+        case SC_PAT: { return (mm == SC_MIN) ? pat_min : pat_max; break; }
+        case SC_KNO: { return (mm == SC_MIN) ? kno_min : kno_max; break; }
+        case SC_SPE: { return (mm == SC_MIN) ? spe_min : spe_max; break; }
+        case SC_DIF: { return (mm == SC_MIN) ? dif_min : dif_max; break; }
+        case SC_AVR: { return (mm == SC_MIN) ? avr_min : avr_max; break; }
+        default: {
+            Log << "Warning: SearchCombination::getValue called with invalid key combination!\n";
+            break; }
+        }
+        return 0;
+    }
+
+    void SearchCombination::setOnlyUnsolved(Difficulty diff, bool value) {
+        switch(diff) {
+        case DIFFICULTY_EASY: { onlyUnsolvedEasy = value; break; }
+        case DIFFICULTY_HARD: { onlyUnsolvedHard = value; break; }
+        default: {
+            Log << "Warning: SearchCombination::setOnlyUnsolved called with invalid key!\n";
+            break; }
+        }
+    }
+
+    bool SearchCombination::getOnlyUnsolved(Difficulty diff) {
+        switch(diff) {
+        case DIFFICULTY_EASY: { return onlyUnsolvedEasy; break; }
+        case DIFFICULTY_HARD: { return onlyUnsolvedHard; break; }
+        default: {
+            Log << "Warning: SearchCombination::getOnlyUnsolved called with invalid key!\n";
+            break; }
+        }
+        return false;
+    }
+
+    bool SearchCombination::toggleOnlyUnsolved(Difficulty diff) {
+        setOnlyUnsolved(diff, !getOnlyUnsolved(diff));
+        return getOnlyUnsolved(diff);
+    }
+
+    void SearchCombination::prepareForSearch() {
+        checkRatings = !(   (int_min == 1) && (int_max == 5)
+                         && (dex_min == 1) && (dex_max == 5)
+                         && (pat_min == 1) && (pat_max == 5)
+                         && (kno_min == 1) && (kno_max == 6)
+                         && (spe_min == 1) && (spe_max == 5)
+                         && (dif_min == 0) && (dif_max == 100)
+                         && (avr_min == 0) && (avr_max == 100));
     }
 
     bool SearchCombination::fits(Proxy *p) {
@@ -101,7 +208,7 @@ namespace enigma { namespace lev {
                 return false;
         }
         // Boolean criteria:
-        if (onlyUnsolvedEasy && theScoreMgr->isSolved(p, DIFFICULTY_EASY))
+        if (onlyUnsolvedEasy && ((!p->hasEasyMode()) || theScoreMgr->isSolved(p, DIFFICULTY_EASY)))
             return false;
         if (onlyUnsolvedHard && theScoreMgr->isSolved(p, DIFFICULTY_HARD))
             return false;
@@ -304,6 +411,7 @@ namespace enigma { namespace lev {
         searchIndex = Index::findIndex("Search Result");
         // assert searchIndex
         searchIndex->clear();
+        sc->prepareForSearch();
         for (auto i = cache.begin(); i != cache.end(); i++) {
             Proxy * candidate = (*i).second;
             if (sc->fits(candidate))
