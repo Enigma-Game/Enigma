@@ -425,6 +425,17 @@ namespace enigma { namespace lev {
         return search(sc);
     }
 
+    int Proxy::countSearchResults(SearchCombination* sc) {
+        int count = 0;
+        sc->prepareForSearch();
+        for (auto i = cache.begin(); i != cache.end(); i++) {
+            Proxy * candidate = (*i).second;
+            if (sc->fits(candidate))
+                count++;
+        }
+        return count;
+    }
+
     void Proxy::countLevels() {
         int countProxy = 0;
         int countLegacy = 0;

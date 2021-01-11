@@ -140,6 +140,7 @@ namespace enigma { namespace lev {
 
         static std::string search(SearchCombination* sc);
         static std::string search_shallow(std::string text);
+        static int countSearchResults(SearchCombination* sc);
         static void countLevels();
         static std::set<std::string> getLevelIds(bool withEasy);
         static std::set<Proxy *> getProxies();

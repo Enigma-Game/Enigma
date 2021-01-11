@@ -81,6 +81,7 @@ void TextField::setInvalidChars(std::string forbiddenChars) {
 void TextField::setMaxChars(int max) {
     maxChars = max;
 }
+
 bool TextField::wasLastActionReturn() {
     return isLastActionReturn;
 }
@@ -150,6 +151,7 @@ bool TextField::on_event(const SDL_Event &e) {
             textPreCursor += newText;
             charSizesPreCursor.push_back(newText.length());
             invalidate();
+            modified = true;
             handled = true;
             break;
         }
@@ -166,6 +168,7 @@ bool TextField::on_event(const SDL_Event &e) {
             cursor = e.edit.start;
             selection_len = e.edit.length;
             invalidate();
+            modified = true;
             handled = true;
             break;
         } */

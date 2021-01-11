@@ -44,6 +44,7 @@ namespace enigma { namespace gui {
         Label       *lbAvr;
         Label       *lbUnsolvEasy;
         Label       *lbUnsolvHard;
+        Label       *lbLevelCount;
         Widget      *but_ignore;
         Widget      *but_search;
         Widget      *but_int_min;
