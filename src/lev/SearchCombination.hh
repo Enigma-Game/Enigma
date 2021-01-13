@@ -26,6 +26,7 @@
 namespace enigma { namespace lev {
     enum SCValueKey { SC_INT, SC_DEX, SC_PAT, SC_KNO, SC_SPE, SC_DIF, SC_AVR };
     enum SCValueMinMax { SC_MIN, SC_MAX };
+    enum SCSortMethod { SC_SORT_NONE, SC_SORT_RANDOM, SC_SORT_DIF, SC_SORT_AVR, SC_SORT_LAST };
 
     class Proxy;
 
@@ -43,6 +44,8 @@ namespace enigma { namespace lev {
         bool toggleOnlyUnsolved(Difficulty diff);
         void prepareForSearch();
         bool fits(Proxy *p);
+        inline SCSortMethod getSortMethod() { return sortMethod; }
+        inline void setSortMethod(SCSortMethod sort) { sortMethod = sort; }
 
     private:
         struct LowerCaseString {
@@ -51,7 +54,7 @@ namespace enigma { namespace lev {
                 for (std::string::iterator i = low.begin(); i != low.end(); ++i)
                     *i = tolower(*i);
             }
-            bool containedBy(LowerCaseString other) const {
+            inline bool containedBy(LowerCaseString other) const {
                 return other.low.find(low) != std::string::npos;
             }
         };
@@ -76,6 +79,9 @@ namespace enigma { namespace lev {
         bool onlyUnsolvedHard;
         bool onlyMainPacks;
         LowerCaseString searchText;
+
+        // Other parameters
+        SCSortMethod sortMethod;
     };
 }} // namespace enigma::lev
 #endif

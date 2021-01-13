@@ -45,6 +45,7 @@ namespace enigma { namespace gui {
         Label       *lbAvr;
         Label       *lbUnsolvEasy;
         Label       *lbUnsolvHard;
+        Label       *lbSortMethod;
         Label       *lbLevelCount;
         Widget      *but_ignore;
         Widget      *but_search;
@@ -64,6 +65,7 @@ namespace enigma { namespace gui {
         Widget      *but_avr_max;
         Widget      *but_only_ue;
         Widget      *but_only_uh;
+        Widget      *but_sortmethod;
         bool         didSearch;
         lev::SearchCombination *sc;
     };

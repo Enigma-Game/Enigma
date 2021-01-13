@@ -20,6 +20,7 @@
 #define LEV_INDEX_HH_INCLUDED
 
 #include "lev/Proxy.hh"
+#include "lev/SearchCombination.hh"
 
 #include <map>
 #include <string>
@@ -127,6 +128,7 @@ namespace enigma { namespace lev {
                 scoreUnitType varUnit = duration, std::string varTarget = "time",
                 std::map<std::string, std::string> varExtensions = nullExtensions);
         virtual void clear();
+        virtual void sort(SCSortMethod s);
         void updateFromProxies();
         virtual void updateFromFolder() = 0;
 

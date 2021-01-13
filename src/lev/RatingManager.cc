@@ -696,4 +696,25 @@ namespace enigma { namespace lev {
         }
         return s;
     }
+
+    bool RatingManager::compareByDifficulty(Proxy *proxy1, Proxy *proxy2) {
+        Rating *r1 = instance()->findRating(proxy1);
+        Rating *r2 = instance()->findRating(proxy2);
+        if (r1 == NULL)
+            return false;
+        if (r2 == NULL)
+            return true;
+        return r1->difficulty() < r2->difficulty();
+    }
+
+    bool RatingManager::compareByAverageRating(Proxy *proxy1, Proxy *proxy2) {
+        Rating *r1 = instance()->findRating(proxy1);
+        Rating *r2 = instance()->findRating(proxy2);
+        if (r1 == NULL)
+            return false;
+        if (r2 == NULL)
+            return true;
+        return r1->averageRating < r2->averageRating;
+    }
+
 }} // namespace enigma::lev

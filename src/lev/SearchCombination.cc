@@ -27,6 +27,7 @@ namespace enigma { namespace lev {
 
     lev::RatingManager *theRatingMgr;
     lev::ScoreManager *theScoreMgr;
+
     SearchCombination::SearchCombination(std::string s) : searchText(s) {
         int_min = 1;      int_max = 5;
         dex_min = 1;      dex_max = 5;
@@ -39,6 +40,7 @@ namespace enigma { namespace lev {
         onlyUnsolvedEasy = false;
         onlyUnsolvedHard = false;
         onlyMainPacks = false;
+        sortMethod = SC_SORT_NONE;
         theRatingMgr = lev::RatingManager::instance();
         theScoreMgr = lev::ScoreManager::instance();
     }
@@ -146,7 +148,8 @@ namespace enigma { namespace lev {
                          && (kno_min == 1) && (kno_max == 6)
                          && (spe_min == 1) && (spe_max == 5)
                          && (dif_min == 0) && (dif_max == 100)
-                         && (avr_min == 0) && (avr_max == 100));
+                         && (avr_min == 0) && (avr_max == 100)
+                         && (sortMethod != SC_SORT_DIF));
     }
 
     bool SearchCombination::fits(Proxy *p) {
@@ -171,6 +174,10 @@ namespace enigma { namespace lev {
             return false;
         // TODO: if (!onlyMainPacks || ...)
         //    return false;
+        // Criteria needed by sorting methods (for SC_SORT_DIF see prepareForSearch):
+        if (   (sortMethod == SC_SORT_AVR)
+            && (theRatingMgr->getDAverageRating(p) == -1))
+            return false;
         // Textual criteria:
         return (   searchText.low.empty()
                 || searchText.containedBy(p->getNormFilePath())

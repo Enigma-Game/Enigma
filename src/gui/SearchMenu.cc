@@ -84,15 +84,41 @@ namespace enigma { namespace gui {
         ActionListener *secondaryListener;
     };
 
-    /*class LevelCountLabel : public Label {
+    class SortMethodButton : public ValueButton {
     public:
-        LevelCountLabel(SearchCombination* sc_) : Label("") {
+        SortMethodButton(ActionListener *al, SearchCombination *sc_)
+                : ValueButton(SC_SORT_NONE, SC_SORT_LAST-1, this) {
             sc = sc_;
+            secondaryListener = al;
+        }
+
+        int get_value() const {
+            return sc->getSortMethod();
+        }
+
+        void set_value(int value) {
+            int s = ecl::Clamp(value, (int)SC_SORT_NONE, (int)SC_SORT_LAST-1);
+            sc->setSortMethod((SCSortMethod) (s));
+        }
+
+        std::string get_text(int value) const {
+            switch(value) {
+            case SC_SORT_NONE: { return _("None"); break; }
+// TRANSLATORS: Would be shown as "Sort by: Random".
+            case SC_SORT_RANDOM: { return _("Random"); break; }
+// TRANSLATORS: Would be shown as "Sort by: Difficulty".
+            case SC_SORT_DIF: { return _("Difficulty"); break; }
+// TRANSLATORS: Would be shown as "Sort by: Average rating".
+            case SC_SORT_AVR: { return _("Average rating"); break; }
+            }
+// TRANSLATORS: Would be shown as "Sort by: Unknown [method]".
+            Log << "Unknown sort method number " << value << ".\n";
+            return _("Unknown");
         }
 
     private:
         SearchCombination *sc;
-    };*/
+    };
 
 
     /* -------------------- Search Menu -------------------- */
@@ -122,10 +148,9 @@ namespace enigma { namespace gui {
             lbSpe = new Label(N_("Speed: "), HALIGN_RIGHT);
             lbDif = new Label(N_("Difficulty: "), HALIGN_RIGHT);
             lbAvr = new Label(N_("Average Rating: "), HALIGN_RIGHT);
-
             lbUnsolvEasy = new Label(N_("Only levels that are unsolved in easy mode:"), HALIGN_RIGHT);
             lbUnsolvHard = new Label(N_("Only levels that are unsolved in normal mode:"), HALIGN_RIGHT);
-
+            lbSortMethod = new Label(N_("Sort by: "), HALIGN_RIGHT);
             but_int_min = new RatingSearchButton(this, sc, SC_INT, SC_MIN, 1, 5);
             but_int_max = new RatingSearchButton(this, sc, SC_INT, SC_MAX, 1, 5);
             but_dex_min = new RatingSearchButton(this, sc, SC_DEX, SC_MIN, 1, 5);
@@ -143,6 +168,7 @@ namespace enigma { namespace gui {
 
             but_only_ue = new UnsolvedSearchButton(this, sc, DIFFICULTY_EASY);
             but_only_uh = new UnsolvedSearchButton(this, sc, DIFFICULTY_HARD);
+            but_sortmethod = new SortMethodButton(this, sc);
         }
 
         int x = vminfo.width/2;
@@ -151,6 +177,8 @@ namespace enigma { namespace gui {
         this->add(lbInfo1, Rect(0, vshrink?30:60, vshrink?190:380, vshrink?12:25));
         this->add(lbInfo2, Rect(0, vshrink?45:90, vshrink?190:380, vshrink?12:25));
         this->add(shallowSearch, Rect(0, vshrink?77:155, vshrink?190:380, vshrink?17:35));
+        this->add(lbSortMethod, Rect(0, vshrink?110:210, vshrink?80:180, vshrink?17:35));
+        this->add(but_sortmethod, Rect(vshrink?90:200, vshrink?110:210, vshrink?100:180, vshrink?17:35));
         if(!vshrink) {
             this->add(lbInt,       Rect(400,   0, 100, 35));
             this->add(but_int_min, Rect(520,   0,  50, 35));
@@ -195,8 +223,9 @@ namespace enigma { namespace gui {
         commandHList->add_back(dummy2);
         commandHList->add_back(but_ignore);
         commandHList->add_back(but_search);
-        this->add(commandHList, Rect(vshrink?5:10, vminfo.height-(vshrink?25:50), vminfo.width-(vshrink?10:20), vshrink?17:35));
-        
+        this->add(commandHList, Rect(vshrink?5:10, vminfo.height-(vshrink?25:50),
+                                     vminfo.width-(vshrink?10:20), vshrink?17:35));
+
         set_key_focus(shallowSearch);
     }
 

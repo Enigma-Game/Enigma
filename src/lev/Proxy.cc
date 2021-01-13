@@ -18,7 +18,6 @@
 
 #include "lev/Proxy.hh"
 #include "lev/SubProxy.hh"
-#include "lev/RatingManager.hh"
 
 #include "ecl_system.hh"
 #include "errors.hh"
@@ -262,7 +261,10 @@ namespace enigma { namespace lev {
             if (sc->fits(candidate))
                 searchIndex->appendProxy(candidate);
         }
-        return (searchIndex->size() > 0) ? searchIndex->getName() : "";
+        if (searchIndex->size() == 0)
+            return "";
+        searchIndex->sort(sc->getSortMethod());
+        return searchIndex->getName();
     }
 
     std::string Proxy::search_shallow(std::string text) {

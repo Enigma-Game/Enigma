@@ -37,7 +37,13 @@ namespace enigma { namespace lev {
         Rating();
 
         // Functions
-        short   difficulty() {
+        inline short difficulty() {
+            if (   (intelligence == 0)
+                || (dexterity == 0)
+                || (patience == 0)
+                || (knowledge == 0)
+                || (speed == 0))
+                return 0;
             return 7*intelligence + 6*dexterity + 4*patience + 3*knowledge + 4*speed - 23;
         }
 
@@ -150,6 +156,13 @@ namespace enigma { namespace lev {
         short getDAverageRating(Proxy *levelProxy);
         std::string getAverageRating(Proxy *levelProxy);
         Rating * findRating(Proxy *levelProxy);
+
+        /**
+         * Operators for sorting proxies.
+         */
+        static bool compareByDifficulty(Proxy *proxy1, Proxy *proxy2);
+        static bool compareByAverageRating(Proxy *proxy1, Proxy *proxy2);
+
     protected:
         RatingManager();
     private:
