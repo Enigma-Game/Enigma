@@ -39,10 +39,12 @@ namespace enigma { namespace gui {
     class RatingSearchButton : public ValueButton {
     public:
         RatingSearchButton(ActionListener *al,SearchCombination *sc_, SCValueKey key_,
-                SCValueMinMax mm_, short min_, short max_) : ValueButton(min_, max_, al) {
+                SCValueMinMax mm_, short min_, short max_, short divisor_ = 1)
+                 : ValueButton(min_, max_, al) {
             sc = sc_;
             key = key_;
             mm = mm_;
+            divisor = divisor_;
             init();
         }
 
@@ -50,12 +52,23 @@ namespace enigma { namespace gui {
 
         void set_value(int value) {  sc->setValue(key, mm, value);  }
 
-        string get_text(int value) const {  return strf("%d", value);  }
+        string get_text(int value) const {
+            if (divisor == 10) {
+                std::string s;
+                s = ecl::strf("%3.2d", value);
+                s.insert(2,1,'.');
+                return s;
+            }
+            if (divisor != 1)
+                Log << "Warning: divisor should be 1 or 10 only.\n";
+            return strf("%d", value);
+        }
 
     private:
         SearchCombination *sc;
         SCValueKey key;
         SCValueMinMax mm;
+        short divisor;
     };
 
     class UnsolvedSearchButton : public TextButton {
@@ -163,8 +176,8 @@ namespace enigma { namespace gui {
             but_spe_max = new RatingSearchButton(this, sc, SC_SPE, SC_MAX, 1, 5);
             but_dif_min = new RatingSearchButton(this, sc, SC_DIF, SC_MIN, 0, 100);
             but_dif_max = new RatingSearchButton(this, sc, SC_DIF, SC_MAX, 0, 100);
-            but_avr_min = new RatingSearchButton(this, sc, SC_AVR, SC_MIN, 0, 100);
-            but_avr_max = new RatingSearchButton(this, sc, SC_AVR, SC_MAX, 0, 100);
+            but_avr_min = new RatingSearchButton(this, sc, SC_AVR, SC_MIN, 0, 100, 10);
+            but_avr_max = new RatingSearchButton(this, sc, SC_AVR, SC_MAX, 0, 100, 10);
 
             but_only_ue = new UnsolvedSearchButton(this, sc, DIFFICULTY_EASY);
             but_only_uh = new UnsolvedSearchButton(this, sc, DIFFICULTY_HARD);
