@@ -33,10 +33,12 @@ namespace enigma { namespace lev {
     class SearchCombination {
     public:
         // Constructor
-        SearchCombination(std::string s = std::string(""));
+        SearchCombination();
 
         // Methods
+        void reset();
         void setSearchText(std::string text);
+        std::string getSearchText();
         void setValue(SCValueKey key, SCValueMinMax type, short value);
         short getValue(SCValueKey key, SCValueMinMax type);
         void setOnlyUnsolved(Difficulty diff, bool value);
@@ -46,6 +48,12 @@ namespace enigma { namespace lev {
         bool fits(Proxy *p);
         inline SCSortMethod getSortMethod() { return sortMethod; }
         inline void setSortMethod(SCSortMethod sort) { sortMethod = sort; }
+
+        // A singleton used by the search menu.
+        // Calling "find" in the command line will not make use of it.
+        static SearchCombination* getSingleton();
+
+        inline bool isFresh() { return is_fresh; }
 
     private:
         struct LowerCaseString {
@@ -79,10 +87,15 @@ namespace enigma { namespace lev {
         bool onlyUnsolvedHard;
         bool onlyMainPacks;
         LowerCaseString searchText;
+        std::string originalSearchText;
 
         // Other parameters
         SCSortMethod sortMethod;
+
+        static SearchCombination* theSingleton;
+        bool is_fresh;
     };
+
 }} // namespace enigma::lev
 #endif
 

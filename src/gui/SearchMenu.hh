@@ -35,7 +35,7 @@ namespace enigma { namespace gui {
         bool isSearchQuit();
         
     private:
-        TextField   *shallowSearch;
+        TextField   *tf_search_text;
         Label       *lbInt;
         Label       *lbDex;
         Label       *lbPat;
@@ -47,6 +47,7 @@ namespace enigma { namespace gui {
         Label       *lbUnsolvHard;
         Label       *lbSortMethod;
         Label       *lbLevelCount;
+        Widget      *but_reset;
         Widget      *but_ignore;
         Widget      *but_search;
         Widget      *but_int_min;

@@ -137,7 +137,8 @@ namespace enigma { namespace gui {
     /* -------------------- Search Menu -------------------- */
 
     SearchMenu::SearchMenu() : didSearch(false) {
-        sc = new SearchCombination();
+        sc = SearchCombination::getSingleton();
+        bool sc_is_fresh = sc->isFresh();
 
         const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
@@ -150,7 +151,7 @@ namespace enigma { namespace gui {
         std::string::size_type breakPos = breakString(menufont, workString, " ", vshrink?190:380);
         Label * lbInfo1 = new UntranslatedLabel(workString.substr(0,breakPos), HALIGN_LEFT);
         Label * lbInfo2 = new UntranslatedLabel(workString.substr(breakPos), HALIGN_LEFT);
-        shallowSearch = new TextField("", this);
+        tf_search_text = new TextField(sc->getSearchText(), this);
         lbLevelCount = new Label("");
 
         if(!vshrink) {
@@ -189,7 +190,7 @@ namespace enigma { namespace gui {
         this->add(lbTitle, Rect(0, vshrink?0:0, vshrink?190:380, vshrink?17:35));
         this->add(lbInfo1, Rect(0, vshrink?30:60, vshrink?190:380, vshrink?12:25));
         this->add(lbInfo2, Rect(0, vshrink?45:90, vshrink?190:380, vshrink?12:25));
-        this->add(shallowSearch, Rect(0, vshrink?77:155, vshrink?190:380, vshrink?17:35));
+        this->add(tf_search_text, Rect(0, vshrink?77:155, vshrink?190:380, vshrink?17:35));
         this->add(lbSortMethod, Rect(0, vshrink?110:210, vshrink?80:180, vshrink?17:35));
         this->add(but_sortmethod, Rect(vshrink?90:200, vshrink?110:210, vshrink?100:180, vshrink?17:35));
         if(!vshrink) {
@@ -223,8 +224,8 @@ namespace enigma { namespace gui {
         center();
 
         // Create buttons on the bottom - positioning identical to Levelmenu
-        Label * dummy1 = new Label();
-        Label * dummy2 = new Label();
+        Label * dummy = new Label();
+        but_reset = new StaticTextButton(N_("Reset"), this);
         but_ignore = new StaticTextButton(N_("Undo"), this);
         but_search = new StaticTextButton(N_("Search"), this);
         
@@ -232,14 +233,17 @@ namespace enigma { namespace gui {
         commandHList->set_spacing(10);
         commandHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
         commandHList->set_default_size(vshrink?70:140, vshrink?17:35);
-        commandHList->add_back(dummy1);
-        commandHList->add_back(dummy2);
+        commandHList->add_back(but_reset);
+        commandHList->add_back(dummy);
         commandHList->add_back(but_ignore);
         commandHList->add_back(but_search);
         this->add(commandHList, Rect(vshrink?5:10, vminfo.height-(vshrink?25:50),
                                      vminfo.width-(vshrink?10:20), vshrink?17:35));
 
-        set_key_focus(shallowSearch);
+        set_key_focus(tf_search_text);
+
+        if (!sc_is_fresh)
+            on_action(NULL); // this will show/update the level count
     }
 
     bool SearchMenu::isSearchQuit() {
@@ -247,20 +251,26 @@ namespace enigma { namespace gui {
     }
 
     void SearchMenu::on_action(Widget *w) {
-        if (w == but_search || (w == shallowSearch && shallowSearch->wasLastActionReturn())) {
-            sc->setSearchText(shallowSearch->getText());
+        if (w == but_search || (w == tf_search_text && tf_search_text->wasLastActionReturn())) {
+            sc->setSearchText(tf_search_text->getText());
             lev::Index::setCurrentIndex(lev::Proxy::search(sc));
             didSearch = true;
             Menu::quit();
+            return; // do not show new level count
         } else if (w == but_ignore) {
             Menu::quit();
-        } else {
-            if (lbLevelCount != NULL) {
-                sc->setSearchText(shallowSearch->getText());
-                int count = Proxy::countSearchResults(sc);
-                std::string text = ecl::strf(_("Levels fitting these criteria: %d"), count);
-                lbLevelCount->set_text(text);
-            }
+            return; // do not show new level count
+        } else if (w == but_reset) {
+            sc->reset();
+            tf_search_text->set_text("");
+            invalidate_all();
+        }
+        // update level count
+        if (lbLevelCount != NULL) {
+            sc->setSearchText(tf_search_text->getText());
+            int count = Proxy::countSearchResults(sc);
+            std::string text = ecl::strf(_("Levels fitting these criteria: %d"), count);
+            lbLevelCount->set_text(text);
         }
     }
 

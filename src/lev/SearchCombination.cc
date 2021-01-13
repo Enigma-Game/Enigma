@@ -28,7 +28,15 @@ namespace enigma { namespace lev {
     lev::RatingManager *theRatingMgr;
     lev::ScoreManager *theScoreMgr;
 
-    SearchCombination::SearchCombination(std::string s) : searchText(s) {
+    SearchCombination::SearchCombination() : searchText(std::string("")) {
+        reset();
+        is_fresh = true;
+        theRatingMgr = lev::RatingManager::instance();
+        theScoreMgr = lev::ScoreManager::instance();
+    }
+
+    void SearchCombination::reset() {
+        setSearchText(std::string(""));
         int_min = 1;      int_max = 5;
         dex_min = 1;      dex_max = 5;
         pat_min = 1;      pat_max = 5;
@@ -41,15 +49,20 @@ namespace enigma { namespace lev {
         onlyUnsolvedHard = false;
         onlyMainPacks = false;
         sortMethod = SC_SORT_NONE;
-        theRatingMgr = lev::RatingManager::instance();
-        theScoreMgr = lev::ScoreManager::instance();
     }
 
     void SearchCombination::setSearchText(std::string text) {
+        is_fresh = false;
         searchText = (LowerCaseString) (text);
+        originalSearchText = text;
+    }
+
+    std::string SearchCombination::getSearchText() {
+        return originalSearchText;
     }
 
     void SearchCombination::setValue(SCValueKey key, SCValueMinMax mm, short value) {
+        is_fresh = false;
         switch(key) {
         case SC_INT: {
             if(mm == SC_MIN)
@@ -116,6 +129,7 @@ namespace enigma { namespace lev {
     }
 
     void SearchCombination::setOnlyUnsolved(Difficulty diff, bool value) {
+        is_fresh = false;
         switch(diff) {
         case DIFFICULTY_EASY: { onlyUnsolvedEasy = value; break; }
         case DIFFICULTY_HARD: { onlyUnsolvedHard = value; break; }
@@ -137,6 +151,7 @@ namespace enigma { namespace lev {
     }
 
     bool SearchCombination::toggleOnlyUnsolved(Difficulty diff) {
+        is_fresh = false;
         setOnlyUnsolved(diff, !getOnlyUnsolved(diff));
         return getOnlyUnsolved(diff);
     }
@@ -184,5 +199,14 @@ namespace enigma { namespace lev {
                 || searchText.containedBy(p->getTitle())
                 || searchText.containedBy(p->getId())
                 || searchText.containedBy(p->getAuthor()));
+    }
+
+    SearchCombination* SearchCombination::theSingleton = 0;
+
+    SearchCombination* SearchCombination::getSingleton() {
+        if (theSingleton == 0) {
+            theSingleton = new SearchCombination();
+        }
+        return theSingleton;
     }
 }} // namespace enigma::lev

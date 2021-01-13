@@ -268,7 +268,8 @@ namespace enigma { namespace lev {
     }
 
     std::string Proxy::search_shallow(std::string text) {
-        SearchCombination * sc = new SearchCombination(text);
+        SearchCombination * sc = new SearchCombination();
+        sc->setSearchText(text);
         return search(sc);
     }
 
