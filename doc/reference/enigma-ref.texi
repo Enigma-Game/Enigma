@@ -11385,21 +11385,21 @@ none
 @item @image{images/fl_forward_b_bright, 12mm} @b{fl_forward_bright_e}: flavor = @code{"bright"}, orientation = @code{"EAST"}
 @item @image{images/fl_forward_c_bright, 12mm} @b{fl_forward_bright_s}: flavor = @code{"bright"}, orientation = @code{"SOUTH"}
 @item @image{images/fl_forward_d_bright, 12mm} @b{fl_forward_bright_w}: flavor = @code{"bright"}, orientation = @code{"WEST"}
-@item @image{images/fl_forward_d_darkgray, 12mm} @b{fl_scales_darkgray}: flavor = @code{"darkgray"}
-@item @image{images/fl_forward_a_darkgray, 12mm} @b{fl_scales_darkgray_n}: flavor = @code{"darkgray"}, orientation = @code{"NORTH"}
-@item @image{images/fl_forward_b_darkgray, 12mm} @b{fl_scales_darkgray_e}: flavor = @code{"darkgray"}, orientation = @code{"EAST"}
-@item @image{images/fl_forward_c_darkgray, 12mm} @b{fl_scales_darkgray_s}: flavor = @code{"darkgray"}, orientation = @code{"SOUTH"}
-@item @image{images/fl_forward_d_darkgray, 12mm} @b{fl_scales_darkgray_w}: flavor = @code{"darkgray"}, orientation = @code{"WEST"}
-@item @image{images/fl_forward_d_platinum, 12mm} @b{fl_scales_platinum}: flavor = @code{"platinum"}
-@item @image{images/fl_forward_a_platinum, 12mm} @b{fl_scales_platinum_n}: flavor = @code{"platinum"}, orientation = @code{"NORTH"}
-@item @image{images/fl_forward_b_platinum, 12mm} @b{fl_scales_platinum_e}: flavor = @code{"platinum"}, orientation = @code{"EAST"}
-@item @image{images/fl_forward_c_platinum, 12mm} @b{fl_scales_platinum_s}: flavor = @code{"platinum"}, orientation = @code{"SOUTH"}
-@item @image{images/fl_forward_d_platinum, 12mm} @b{fl_scales_platinum_w}: flavor = @code{"platinum"}, orientation = @code{"WEST"}
-@item @image{images/fl_forward_d_rough, 12mm} @b{fl_scales_rough}: flavor = @code{"rough"}
-@item @image{images/fl_forward_a_rough, 12mm} @b{fl_scales_rough_n}: flavor = @code{"rough"}, orientation = @code{"NORTH"}
-@item @image{images/fl_forward_b_rough, 12mm} @b{fl_scales_rough_e}: flavor = @code{"rough"}, orientation = @code{"EAST"}
-@item @image{images/fl_forward_c_rough, 12mm} @b{fl_scales_rough_s}: flavor = @code{"rough"}, orientation = @code{"SOUTH"}
-@item @image{images/fl_forward_d_rough, 12mm} @b{fl_scales_rough_w}: flavor = @code{"rough"}, orientation = @code{"WEST"}
+@item @image{images/fl_forward_d_darkgray, 12mm} @b{fl_forward_darkgray}: flavor = @code{"darkgray"}
+@item @image{images/fl_forward_a_darkgray, 12mm} @b{fl_forward_darkgray_n}: flavor = @code{"darkgray"}, orientation = @code{"NORTH"}
+@item @image{images/fl_forward_b_darkgray, 12mm} @b{fl_forward_darkgray_e}: flavor = @code{"darkgray"}, orientation = @code{"EAST"}
+@item @image{images/fl_forward_c_darkgray, 12mm} @b{fl_forward_darkgray_s}: flavor = @code{"darkgray"}, orientation = @code{"SOUTH"}
+@item @image{images/fl_forward_d_darkgray, 12mm} @b{fl_forward_darkgray_w}: flavor = @code{"darkgray"}, orientation = @code{"WEST"}
+@item @image{images/fl_forward_d_platinum, 12mm} @b{fl_forward_platinum}: flavor = @code{"platinum"}
+@item @image{images/fl_forward_a_platinum, 12mm} @b{fl_forward_platinum_n}: flavor = @code{"platinum"}, orientation = @code{"NORTH"}
+@item @image{images/fl_forward_b_platinum, 12mm} @b{fl_forward_platinum_e}: flavor = @code{"platinum"}, orientation = @code{"EAST"}
+@item @image{images/fl_forward_c_platinum, 12mm} @b{fl_forward_platinum_s}: flavor = @code{"platinum"}, orientation = @code{"SOUTH"}
+@item @image{images/fl_forward_d_platinum, 12mm} @b{fl_forward_platinum_w}: flavor = @code{"platinum"}, orientation = @code{"WEST"}
+@item @image{images/fl_forward_d_rough, 12mm} @b{fl_forward_rough}: flavor = @code{"rough"}
+@item @image{images/fl_forward_a_rough, 12mm} @b{fl_forward_rough_n}: flavor = @code{"rough"}, orientation = @code{"NORTH"}
+@item @image{images/fl_forward_b_rough, 12mm} @b{fl_forward_rough_e}: flavor = @code{"rough"}, orientation = @code{"EAST"}
+@item @image{images/fl_forward_c_rough, 12mm} @b{fl_forward_rough_s}: flavor = @code{"rough"}, orientation = @code{"SOUTH"}
+@item @image{images/fl_forward_d_rough, 12mm} @b{fl_forward_rough_w}: flavor = @code{"rough"}, orientation = @code{"WEST"}
 @end multitable
 
 @end table
