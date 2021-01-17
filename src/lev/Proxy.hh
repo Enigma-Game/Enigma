@@ -149,6 +149,7 @@ namespace enigma { namespace lev {
          */
         Proxy::pathType getNormPathType();
         virtual std::string getAbsLevelPath();
+        virtual std::string getNextScreenshotPath();
         void loadDependency(std::string depId);
         double getLoadtime();
     

@@ -390,6 +390,19 @@ namespace enigma { namespace lev {
         return absLevelPath;
     }
 
+    std::string Proxy::getNextScreenshotPath() {
+        // If you want to change the screenshot paths, adapt ScreenshotViewer.cc accordingly.
+        std::string basename = std::string("screenshots/") + getLocalSubstitutionLevelPath();
+        std::string fname = basename + ".png";
+        std::string fullPath;
+        int i = 1;
+        while (app.resourceFS->findFile(fname, fullPath)) {
+            fname = basename + ecl::strf("#%d", i++) + ".png";
+        }
+        std::string savePath = app.userImagePath + "/" + fname;
+        return savePath;
+    }
+
     void Proxy::loadLevel() {
         load(false, true);
     }

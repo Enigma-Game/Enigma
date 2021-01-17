@@ -439,7 +439,7 @@ public:
 
     ecl::Surface *BackBuffer() override;
 
-    void Screenshot(const std::string &file_name) override;
+    void Screenshot(const std::string &file_name, ecl::Surface *s = 0) override;
 
     void SetMouseCursor(ecl::Surface *s, int hotx, int hoty) override;
     void HideMouse() override;
@@ -789,15 +789,18 @@ ecl::Surface *VideoEngineImpl::BackBuffer() {
     return back_buffer.get();
 }
 
-void VideoEngineImpl::Screenshot(const std::string &file_name) {
+void VideoEngineImpl::Screenshot(const std::string &file_name, ecl::Surface *s) {
     // auto-create the directory if necessary
     std::string directory;
     if (ecl::split_path(file_name, &directory, 0) && !ecl::FolderExists(directory)) {
         ecl::FolderCreate(directory);
     }
-
-    ecl::Rect rect = GetInfo()->area;
-    ecl::SavePNG(ecl::Grab(screen->get_surface(), rect), file_name);
+    if (!s) {
+        ecl::Rect rect = GetInfo()->area;
+        ecl::SavePNG(ecl::Grab(screen->get_surface(), rect), file_name);
+    } else {
+        ecl::SavePNG(s, file_name);
+    }
     enigma::Log << "Wrote screenshot to '" << file_name << "'\n";
 }
 

@@ -174,7 +174,7 @@ public:
     virtual ecl::Surface *BackBuffer() = 0;
 
     // Take a screenshot and save it as a PNG to the specified file.
-    virtual void Screenshot(const std::string &file_name) = 0;
+    virtual void Screenshot(const std::string &file_name, ecl::Surface *s = NULL) = 0;
 
     // ---------- Mouse cursor ----------
     virtual void SetMouseCursor(ecl::Surface *s, int hotx, int hoty) = 0;
