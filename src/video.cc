@@ -406,6 +406,8 @@ public:
 
     ecl::Screen *GetScreen() override;
 
+    void UpdateBrightness() override;
+
     void SetCaption(const std::string &text) override;
     const std::string &GetCaption() override;
 
@@ -563,6 +565,8 @@ void VideoEngineImpl::Init() {
     } else {
         app.selectedWindowTilesetId == GetTilesetId();
     }
+    // Set window brightness according to options.
+    UpdateBrightness();
 // Mac icon is set via Makefile
 #ifndef MACOSX
     if (Surface *icon = enigma::GetImage("enigma_marble")) {
@@ -577,6 +581,14 @@ void VideoEngineImpl::Shutdown() {
 
 ecl::Screen *VideoEngineImpl::GetScreen() {
     return screen;
+}
+
+void VideoEngineImpl::UpdateBrightness() {
+    float gamma = static_cast<float> (options::GetDouble("Gamma"));
+    // gamma is a float between 0.2 and 2.0, with 1.0 meaning: normal.
+    // We renormalize it to 0.6 to 1.5:
+    gamma = gamma/2.0 + 0.5;
+    SDL_SetWindowBrightness(window, gamma);
 }
 
 void VideoEngineImpl::SetCaption(const std::string &text) {

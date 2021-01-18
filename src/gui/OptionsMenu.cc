@@ -108,6 +108,15 @@ private:
     int selectedSet = 0;
 };
 
+class BrightnessButton : public ValueButton {
+public:
+    BrightnessButton();
+
+    void set_value(int value);
+    int get_value() const;
+    string get_text(int value) const;
+};
+
 class StereoButton : public ValueButton {
     int get_value() const;
     void set_value(int value);
@@ -439,6 +448,28 @@ private:
         else
             ss << value << "x (" << tilesize*20*value << "x" << tilesize*15*value << ")";
         return ss.str();
+    }
+
+    /* -------------------- BrightnessButton -------------------- */
+
+    BrightnessButton::BrightnessButton() : ValueButton(1, 10) {
+        init();
+    }
+
+    void BrightnessButton::set_value(int value) {
+        double gamma = double(value) / 5.0;
+        options::SetOption("Gamma", gamma);
+        video_engine->UpdateBrightness();
+    }
+
+    int BrightnessButton::get_value() const {
+        double gamma = options::GetDouble("Gamma");
+        int value = round_down<int>(gamma * 5.0);
+        return value;
+    }
+
+    string BrightnessButton::get_text(int value) const {
+        return ecl::strf("%d", value-5);
     }
 
     /* -------------------- SoundSetButton -------------------- */
@@ -811,6 +842,7 @@ private:
                 if (gameIsOngoing) {
                     OPTIONS_NEW_L(N_("Sorry, no video changes during an ongoing game."))
                 } else {
+                    OPTIONS_NEW_LB(N_("Screen brightness: "), new BrightnessButton())
                     OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton())
                     fullscreen->set_listener(this);
                     OPTIONS_NEW_L(N_("In fullscreen mode: "))

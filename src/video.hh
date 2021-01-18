@@ -134,6 +134,9 @@ public:
     // ---------- Main window ----------
     virtual ecl::Screen *GetScreen() = 0;
 
+    /*! Update gamma correction using current options. */
+    virtual void UpdateBrightness() = 0;
+
     virtual void SetCaption(const std::string &text) = 0;
     virtual const std::string &GetCaption() = 0;
 
