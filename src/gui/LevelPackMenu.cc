@@ -82,31 +82,37 @@ namespace enigma { namespace gui {
             int packcolumns, rows;
             int vmargin, vrow_row;
             int hmargin, hgroup_pack, hscrollbutton, hscroll_pack, hpack_pack;
+            int tut_voffset, tut_rows, tut_upperrowlength, tut_upperrowheight;
         } param[] = {
             {  // VTS_16 (320x240)
                 2, 9,
                 7, 5,
-                10, 18, 11, 5, 10
+                10, 18, 11, 5, 10,
+                80, 4, 160, 10
             },
             {  // VTS_32 (640x480)
                 2, 9,
                 15, 10,
-                20, 36, 22, 10, 20
+                20, 36, 22, 10, 20,
+                160, 4, 400, 20
             },
             {  // VTS_40 (800x600)
                 3, 11,
                 15, 13,
-                15, 36, 22, 10, 15
+                15, 36, 22, 10, 15,
+                160, 6, 600, 20
             },
             {  // VTS_48 (960x720)  VM_1024x768
                 3, 14,
                 15, 10,
-                70, 56, 22, 20, 20
+                70, 56, 22, 20, 20,
+                160, 12, 700, 20
             },
             {  // VTS_64 (1280x960)
                 5, 17,
                 25, 14,
-                60, 40, 22, 18, 20
+                60, 40, 22, 18, 20,
+                160, 15, 1000, 20
             }
         };
         
@@ -180,8 +186,9 @@ namespace enigma { namespace gui {
                 }
             }
         }
-        
-        
+
+        // ---- build list of groups on the left side of the screen ----
+
         groupsVList = new VList; 
         groupsVList->set_spacing(param[vtt].vrow_row);
         groupsVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
@@ -205,11 +212,37 @@ namespace enigma { namespace gui {
         this->add(groupsVList, Rect(param[vtt].hmargin + vh, param[vtt].vmargin + vv, 
                 vtt==0 ? 80 : 160, param[vtt].rows * (vtt==0 ? 17 : 35) + 
                 (param[vtt].rows - 1) * param[vtt].vrow_row));
-        
+
         lastGroupName = curGroupName;
+
+        // ---- build list of level packs of current group in the middle of the screen ----
+
+        int numRows = param[vtt].rows;
+        int vOffset = 0;
+
+        if (curGroupName == INDEX_TUTORIALS_GROUP) {
+            numRows = param[vtt].tut_rows;
+            vOffset = param[vtt].tut_voffset;
+            std::string tutText1 = _("Welcome to Enigma! Please note that the game makes use of your mouse in another way than usual, and there will be no mouse cursor during the game. You can press the ESC key or the middle mouse button to pause the game and exit (or continue). You can also always press the F1 key to see available shortcut keys.");
+            std::string tutText2 = _("If you are an experienced gamer and prefer a challenging start from the beginning, please click here:");
+            std::string tutText3 = _("If you prefer a more gentle introduction, please click here:");
+            std::string tutText4 = _("If you feel you need some more training with handling your mouse, you might find some helpful landscapes here:");
+            std::string workString = tutText1;
+            ecl::Font *menufont = enigma::GetFont("menufont");
+            std::string::size_type breakPos = breakString(menufont, workString, " ", vtt==0 ? 190 : 380);
+            Label * lbText1a = new UntranslatedLabel(workString.substr(0,breakPos), HALIGN_LEFT);
+            Label * lbText1b = new UntranslatedLabel(workString.substr(breakPos), HALIGN_LEFT);
+            this->add(lbText1a, Rect(param[vtt].hmargin + vh + (vtt==0 ? 80 : 160) + param[vtt].hgroup_pack +
+                param[vtt].hscrollbutton + param[vtt].hscroll_pack,
+                param[vtt].vmargin + vv,
+                param[vtt].packcolumns * (vtt==0 ? 80 : 160) + (param[vtt].packcolumns - 1) *
+                param[vtt].tut_upperrowlength, param[vtt].tut_upperrowheight));
+            // TODO
+        }
+
         std::vector<lev::Index *> * group = lev::Index::getGroup(curGroupName);
         ASSERT(group != NULL, XFrontend,"");
-        unsigned packCount = group->size();
+        unsigned packCount = group->size(); // TODO: Minus 2
         
         int posCurrentIndex = getIndexPosition(group, lev::Index::getCurrentIndex()->getName());
         int selectedColumn = lev::Index::getGroupSelectedColumn(curGroupName);
@@ -218,35 +251,34 @@ namespace enigma { namespace gui {
         
         if (selectedColumn != INDEX_GROUP_COLUMN_UNKNOWN || 
                 groupLastSelectedIndex.find(curGroupName) == groupLastSelectedIndex.end()) {
-            colCurrentIndex = checkColumn(param[vtt].rows, param[vtt].packcolumns,
+            colCurrentIndex = checkColumn(numRows, param[vtt].packcolumns,
                     packCount, posCurrentIndex, selectedColumn);
-            nextPack = (posCurrentIndex / param[vtt].rows - colCurrentIndex) * param[vtt].rows;
+            nextPack = (posCurrentIndex / numRows - colCurrentIndex) * numRows;
         } else {
             // the user selected a new level pack and the column was not yet
             // calculated: we try to keep the display unchanged in respect of
             // of the last selected pack and if necessary scroll minimum amount
             // of columns 
             int posLastIndex = getIndexPosition(group,groupLastSelectedIndex[curGroupName]);
-            int colLastIndex = checkColumn(param[vtt].rows, param[vtt].packcolumns,
+            int colLastIndex = checkColumn(numRows, param[vtt].packcolumns,
                     packCount, posLastIndex, groupLastSelectedColumn[curGroupName]);
-            nextPack = (posLastIndex / param[vtt].rows - colLastIndex) * param[vtt].rows;
+            nextPack = (posLastIndex / numRows - colLastIndex) * numRows;
             if (posCurrentIndex < nextPack) {
                 // current index would be left of display - we need to scroll left
-                nextPack -= (((nextPack - posCurrentIndex - 1)/param[vtt].rows) + 1) *
-                        param[vtt].rows;
+                nextPack -= (((nextPack - posCurrentIndex - 1)/numRows) + 1) * numRows;
                 colCurrentIndex = 0;
-            } else if (posCurrentIndex < nextPack + param[vtt].rows * param[vtt].packcolumns) {
+            } else if (posCurrentIndex < nextPack + numRows * param[vtt].packcolumns) {
                 // current index is still visible - keep nextPack
-                colCurrentIndex = (posCurrentIndex - nextPack) / param[vtt].rows;
+                colCurrentIndex = (posCurrentIndex - nextPack) / numRows;
             } else {
                 // current index would be right of display - we need to scroll right
-                nextPack += (((posCurrentIndex - nextPack)/param[vtt].rows) - 
-                        (param[vtt].packcolumns - 1)) * param[vtt].rows;
+                nextPack += (((posCurrentIndex - nextPack)/numRows) -
+                        (param[vtt].packcolumns - 1)) * numRows;
                 colCurrentIndex = param[vtt].packcolumns - 1;                
             }
         }
         
-        bool needRightScroll = ((int)packCount > nextPack + param[vtt].rows * param[vtt].packcolumns);
+        bool needRightScroll = ((int)packCount > nextPack + numRows * param[vtt].packcolumns);
         bool needLeftScroll = (nextPack > 0);
 
         lev::Index::setGroupSelectedColumn(curGroupName, colCurrentIndex);
@@ -256,9 +288,9 @@ namespace enigma { namespace gui {
         packsHList = new HList; 
         packsHList->set_spacing(param[vtt].hpack_pack);
         packsHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
-        packsHList->set_default_size(vtt==0 ? 80 : 160, param[vtt].rows*(vtt==0 ? 17 : 35) + 
-                (param[vtt].rows - 1) * param[vtt].vrow_row);
-        
+        packsHList->set_default_size(vtt==0 ? 80 : 160, numRows*(vtt==0 ? 17 : 35) +
+                (numRows - 1) * param[vtt].vrow_row);
+
         for (int col = 0; col < param[vtt].packcolumns; col++) {
             if (packCount - nextPack > 0) {
                 VList * pl = new VList;
@@ -266,7 +298,7 @@ namespace enigma { namespace gui {
                 // first column is centered - if it is full it is like top alignment:
                 pl->set_alignment (HALIGN_LEFT, col == 0 ? VALIGN_CENTER : VALIGN_TOP);
                 pl->set_default_size (vtt==0 ? 80 : 160, vtt==0 ? 17 : 35);
-                for (int row = 0; row < param[vtt].rows; row++) {
+                for (int row = 0; row < numRows; row++) {
                     if (nextPack < packCount) {
                         lev::Index *ind = (*group)[nextPack];
                         TextButton * button = new UntranslatedStaticTextButton(ind->getName(), this);
@@ -276,23 +308,23 @@ namespace enigma { namespace gui {
                     } else
                         break;
                 }
-                packsHList->add_back(pl);               
+                packsHList->add_back(pl);
             } else
                 break;
         }
 
         this->add(packsHList, Rect(param[vtt].hmargin + vh + (vtt==0 ? 80 : 160) + param[vtt].hgroup_pack +
-                param[vtt].hscrollbutton + param[vtt].hscroll_pack, 
-                param[vtt].vmargin + vv, 
-                param[vtt].packcolumns * (vtt==0 ? 80 : 160) + (param[vtt].packcolumns - 1) * 
-                param[vtt].hpack_pack, 
-                param[vtt].rows * (vtt==0 ? 17 : 35) + 
-                (param[vtt].rows - 1) * param[vtt].vrow_row));
+                param[vtt].hscrollbutton + param[vtt].hscroll_pack,
+                param[vtt].vmargin + vv + vOffset,
+                param[vtt].packcolumns * (vtt==0 ? 80 : 160) + (param[vtt].packcolumns - 1) *
+                param[vtt].hpack_pack,
+                numRows * (vtt==0 ? 17 : 35) +
+                (numRows - 1) * param[vtt].vrow_row));
         
         if (needLeftScroll) {
             scrollLeft = new ImageButton("ic-left", "ic-left1", this);
             this->add(scrollLeft, Rect(param[vtt].hmargin + vh + (vtt==0 ? 80 : 160) + param[vtt].hgroup_pack,
-                    param[vtt].vmargin + vv + param[vtt].rows / 2 * ((vtt==0 ? 17 : 35) + param[vtt].vrow_row),
+                    param[vtt].vmargin + vv + vOffset + numRows / 2 * ((vtt==0 ? 17 : 35) + param[vtt].vrow_row),
                     param[vtt].hscrollbutton, (vtt==0 ? 17 : 35)));
         }
                 
@@ -302,11 +334,11 @@ namespace enigma { namespace gui {
                     param[vtt].hscrollbutton + 2 * param[vtt].hscroll_pack +
                     param[vtt].packcolumns * (vtt==0 ? 80 : 160) + (param[vtt].packcolumns - 1) * 
                     param[vtt].hpack_pack,
-                    param[vtt].vmargin + vv+ param[vtt].rows / 2 * ((vtt==0 ? 17 : 35) + param[vtt].vrow_row),
+                    param[vtt].vmargin + vv + vOffset + numRows / 2 * ((vtt==0 ? 17 : 35) + param[vtt].vrow_row),
                     param[vtt].hscrollbutton, (vtt==0 ? 17 : 35)));
         }
     }
-    
+
     void LevelPackMenu::manageLevelMenu() {
         bool finished = false;
         while (!finished) {
