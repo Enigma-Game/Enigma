@@ -60,6 +60,17 @@ std::string::size_type ecl::breakString(Font *font, const std::string &str,
     }
 }
 
+std::vector<std::string> ecl::breakToLines(Font *font, const std::string &str,
+                                   const std::string &breakChars, int targetWidth) {
+    std::vector<std::string> lines;
+    if (str.size() == 0)
+        return lines;
+    std::string::size_type breakPos = breakString(font, str, breakChars, targetWidth);
+    lines = breakToLines(font, str.substr(breakPos), breakChars, targetWidth);
+    lines.insert(lines.begin(), str.substr(0, breakPos).c_str());
+    return lines;
+}
+
 //
 // Bitmap fonts
 //

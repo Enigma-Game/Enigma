@@ -229,14 +229,16 @@ namespace enigma { namespace gui {
             std::string tutText4 = _("If you feel you need some more training with handling your mouse, you might find some helpful landscapes here:");
             std::string workString = tutText1;
             ecl::Font *menufont = enigma::GetFont("menufont");
-            std::string::size_type breakPos = breakString(menufont, workString, " ", vtt==0 ? 190 : 380);
-            Label * lbText1a = new UntranslatedLabel(workString.substr(0,breakPos), HALIGN_LEFT);
-            Label * lbText1b = new UntranslatedLabel(workString.substr(breakPos), HALIGN_LEFT);
-            this->add(lbText1a, Rect(param[vtt].hmargin + vh + (vtt==0 ? 80 : 160) + param[vtt].hgroup_pack +
-                param[vtt].hscrollbutton + param[vtt].hscroll_pack,
-                param[vtt].vmargin + vv,
-                param[vtt].packcolumns * (vtt==0 ? 80 : 160) + (param[vtt].packcolumns - 1) *
-                param[vtt].tut_upperrowlength, param[vtt].tut_upperrowheight));
+            std::vector<std::string> lines1 = breakToLines(menufont, tutText1, " ", vtt==0 ? 190 : 380);
+            int y = param[vtt].vmargin + vv;
+            for (auto it = lines1.begin(); it != lines1.end(); it++) {
+                Label * lbText = new UntranslatedLabel(*it, HALIGN_LEFT);
+                this->add(lbText, Rect(param[vtt].hmargin + vh + (vtt==0 ? 80 : 160) + param[vtt].hgroup_pack +
+                    param[vtt].hscrollbutton + param[vtt].hscroll_pack, y,
+                    param[vtt].packcolumns * (vtt==0 ? 80 : 160) + (param[vtt].packcolumns - 1) *
+                    param[vtt].tut_upperrowlength, param[vtt].tut_upperrowheight));
+                y += param[vtt].tut_upperrowheight;
+            }
             // TODO
         }
 
