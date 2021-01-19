@@ -50,6 +50,7 @@ namespace enigma { namespace gui {
         Widget *startgame;
         Widget *levelpack;
         Widget *m_netgame;
+        Widget *search;
         Widget *options;
         Widget *update;
         Widget *help;

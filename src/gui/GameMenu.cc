@@ -40,26 +40,42 @@ namespace enigma { namespace gui {
 /* -------------------- GameMenu -------------------- */
     
     GameMenu::GameMenu (int zoomxpos_, int zoomypos_)
-    : zoomed(0),
+    : zoomed(0), complete(0),
       zoomxpos(zoomxpos_),
       zoomypos(zoomypos_)
     {
-        resume  = new gui::StaticTextButton(N_("Resume Level"), this);
-        restart = new gui::StaticTextButton(N_("Restart Level"), this);
+        const VMInfo *vminfo = video_engine->GetInfo();
+
+        resume  = new gui::StaticTextButton(N_("Resume Level (ESC)"), this);
+        restart = new gui::StaticTextButton(N_("Restart Level (Shift-F3)"), this);
         options = new gui::StaticTextButton(N_("Options"), this);
         info    = new gui::StaticTextButton(N_("Level Info"), this);
+        scrshot = new gui::StaticTextButton(N_("Screenshot (F10)"), this);
         abort   = new gui::StaticTextButton(N_("Abort Level"), this);
-    
-        add(resume,     Rect(0,0,200,40));
-        add(restart,    Rect(0,45,200,40));
-        add(options,    Rect(0,90,200,40));
-        add(info,       Rect(0,135,200,40));
-        add(abort,      Rect(0,180,200,40));
+        bosskey = new gui::StaticTextButton(N_("Exit Enigma (Shift-ESC)"), this);
+
+        if (vminfo->width < 640) {
+            add(resume,     Rect(0,0,145,40));
+            add(restart,    Rect(0,45,145,40));
+            add(options,    Rect(0,90,145,40));
+            add(info,       Rect(150,0,145,40));
+            add(abort,      Rect(150,45,145,40));
+            add(bosskey,    Rect(150,90,145,40));
+        } else {
+            add(resume,     Rect(0,0,220,40));
+            add(restart,    Rect(0,45,220,40));
+            add(options,    Rect(0,90,220,40));
+            add(info,       Rect(0,135,220,40));
+            add(scrshot,    Rect(0,180,220,40));
+            add(abort,      Rect(0,270,220,40));
+            add(bosskey,    Rect(0,315,220,40));
+        }
         center();
     }
     
     GameMenu::~GameMenu() {
         delete zoomed;
+        delete complete;
     }
     
     void GameMenu::draw_background(ecl::GC &gc) 
@@ -68,6 +84,7 @@ namespace enigma { namespace gui {
 
         if (!zoomed) {
             Rect game_area   = display::GetGameArea();
+            complete = Grab(video_engine->GetScreen()->get_surface(), game_area);
             int  part_width  = game_area.w/3;
             int  part_height = (part_width*vminfo->height)/vminfo->width;
     
@@ -122,11 +139,32 @@ namespace enigma { namespace gui {
     
     bool GameMenu::on_event (const SDL_Event &e) 
     {
-        if (e.type == SDL_MOUSEBUTTONDOWN
-            && e.button.button == SDL_BUTTON_RIGHT)
-        {
+        if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_RIGHT) {
             Menu::quit();
             return true;
+        }
+        if (e.type == SDL_KEYDOWN) {
+            Uint16 keymod = e.key.keysym.mod;
+            SDL_Keycode keysym = e.key.keysym.sym;
+            switch (keysym) {
+            case SDLK_F3: {
+                lev::Index *ind = lev::Index::getCurrentIndex();
+                if (keymod & KMOD_SHIFT & KMOD_CTRL) {
+                    lev::Proxy::releaseCache();
+                    client::Stop ();
+                    server::Msg_LoadLevel(ind->getCurrent(), false);
+                } else if (keymod & KMOD_SHIFT) {
+                    client::Stop ();
+                    server::Msg_LoadLevel(ind->getCurrent(), false);
+                } else {
+                    server::Msg_Command("suicide");
+                }
+                Menu::quit();
+                return true;
+                break;
+            }
+            default: break;
+            };
         }
         return false;
     }
@@ -148,7 +186,6 @@ namespace enigma { namespace gui {
             client::Stop ();
             server::Msg_LoadLevel(ind->getCurrent(), false);
             Menu::quit();
-            
         }
         else if (w == options) {
             enigma::gui::ShowOptionsMenu (0, true);
@@ -160,6 +197,13 @@ namespace enigma { namespace gui {
             m.manage();
             invalidate_all();
 //            Menu::quit();
+        }
+        else if (w == bosskey) {
+            client::Msg_Command("abort");
+            app.bossKeyPressed = true;
+        }
+        else if (w == scrshot) {
+            video_engine->Screenshot(server::LoadedProxy->getNextScreenshotPath(), complete);
         }
     }
 }} // namespace enigma::gui

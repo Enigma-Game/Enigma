@@ -511,12 +511,12 @@ namespace enigma { namespace lev {
     }
 
     short RatingManager::getDifficulty(Proxy *levelProxy) {
-        int difficulty = 7*getIntelligence(levelProxy) + 
-                6*getDexterity(levelProxy) +
-                4*getPatience(levelProxy) +
-                3*getKnowledge(levelProxy) +
-                4*getSpeed(levelProxy) - 23;
-        return difficulty > 0 ? difficulty : 0;
+        Rating * theRating = findRating(levelProxy);
+        if (theRating != NULL) {
+            return theRating->difficulty();
+        }
+
+        return 0;
     }
     
     short RatingManager::getBestScore(Proxy *levelProxy, int difficulty) {
@@ -696,4 +696,25 @@ namespace enigma { namespace lev {
         }
         return s;
     }
+
+    bool RatingManager::compareByDifficulty(Proxy *proxy1, Proxy *proxy2) {
+        Rating *r1 = instance()->findRating(proxy1);
+        Rating *r2 = instance()->findRating(proxy2);
+        if (r1 == NULL)
+            return false;
+        if (r2 == NULL)
+            return true;
+        return r1->difficulty() < r2->difficulty();
+    }
+
+    bool RatingManager::compareByAverageRating(Proxy *proxy1, Proxy *proxy2) {
+        Rating *r1 = instance()->findRating(proxy1);
+        Rating *r2 = instance()->findRating(proxy2);
+        if (r1 == NULL)
+            return false;
+        if (r2 == NULL)
+            return true;
+        return r1->averageRating < r2->averageRating;
+    }
+
 }} // namespace enigma::lev

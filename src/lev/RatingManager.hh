@@ -36,17 +36,28 @@ namespace enigma { namespace lev {
         // Constructor
         Rating();
 
+        // Functions
+        inline short difficulty() {
+            if (   (intelligence == 0)
+                || (dexterity == 0)
+                || (patience == 0)
+                || (knowledge == 0)
+                || (speed == 0))
+                return 0;
+            return 7*intelligence + 6*dexterity + 4*patience + 3*knowledge + 4*speed - 23;
+        }
+
         // Constants
         enum { DEFAULT_TIME = 99*60+59 };
 
-        // Variables.
-        short      intelligence;
-        short      dexterity;
-        short      patience;
-        short      knowledge;
-        short      speed;
-        short           bestScoreEasy;         // Best time in seconds or Minimum moves to solve level(for easy mode) 
-        short           bestScoreDifficult;    // Best time in seconds or Minimum moves to solve level(for normal mode)
+        // Variables
+        short   intelligence;
+        short   dexterity;
+        short   patience;
+        short   knowledge;
+        short   speed;
+        short   bestScoreEasy;         // Best time in seconds or Minimum moves to solve level(for easy mode)
+        short   bestScoreDifficult;    // Best time in seconds or Minimum moves to solve level(for normal mode)
         std::string   bestScoreEasyHolder;       // player name(s) for 'best_time_easy'
         std::string   bestScoreDifficultHolder;  // same for 'best_time_normal'
         short   parScoreEasy;
@@ -144,6 +155,14 @@ namespace enigma { namespace lev {
         std::string getPcSolvedDifficult(Proxy *levelProxy);
         short getDAverageRating(Proxy *levelProxy);
         std::string getAverageRating(Proxy *levelProxy);
+        Rating * findRating(Proxy *levelProxy);
+
+        /**
+         * Operators for sorting proxies.
+         */
+        static bool compareByDifficulty(Proxy *proxy1, Proxy *proxy2);
+        static bool compareByAverageRating(Proxy *proxy1, Proxy *proxy2);
+
     protected:
         RatingManager();
     private:
@@ -155,8 +174,7 @@ namespace enigma { namespace lev {
         std::string urlFullUpdate;
         std::string urlIncrementalUpdate;
         short updateMinDelay;
-        Rating * findRating(Proxy * levelProxy);
-        Rating * registerNewRating(Proxy * levelProxy);
+        Rating * registerNewRating(Proxy *levelProxy);
         std::string cutHolders(std::string org, int factor);
         
         /**

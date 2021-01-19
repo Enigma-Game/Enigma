@@ -52,7 +52,7 @@ public:
 
 class FullscreenTilesetButton : public ValueButton {
 public:
-    FullscreenTilesetButton();
+    FullscreenTilesetButton(ActionListener *al = 0);
     void reinit();
 
 private:
@@ -66,7 +66,7 @@ private:
 
 class FullscreenModeButton : public ValueButton {
 public:
-    FullscreenModeButton();
+    FullscreenModeButton(ActionListener *al = 0);
     void reinit();
     void SetDependentButton(FullscreenTilesetButton *button);
 
@@ -82,7 +82,7 @@ private:
 
 class WindowSizeButton : public ValueButton {
 public:
-    WindowSizeButton();
+    WindowSizeButton(ActionListener *al = 0);
     void reinit();
 
 private:
@@ -96,7 +96,7 @@ private:
 
 class WindowTilesetButton : public ValueButton {
 public:
-    WindowTilesetButton();
+    WindowTilesetButton(ActionListener *al = 0);
     void reinit();
 
 private:
@@ -106,6 +106,15 @@ private:
 
     std::vector<VideoTilesetId> tilesets;
     int selectedSet = 0;
+};
+
+class BrightnessButton : public ValueButton {
+public:
+    BrightnessButton();
+
+    void set_value(int value);
+    int get_value() const;
+    string get_text(int value) const;
 };
 
 class StereoButton : public ValueButton {
@@ -138,10 +147,8 @@ class LanguageButton : public ValueButton {
     void set_value(int value);
     std::string get_text(int value) const;
     bool inInit;
-    ActionListener *myListener;
 
 public:
-    // second user action listener: first one is misused by ValueButton
     LanguageButton(ActionListener *al = 0);
 };
 
@@ -154,6 +161,16 @@ public:
     MiddleMouseButtonButton();
 };
 
+class VideoCheckTickDown : public Label {
+
+public:
+    VideoCheckTickDown(ActionListener *al);
+    void tick(double dtime) override;
+
+private:
+    double time_till_reset;
+    bool active;
+};
 
 /* -------------------- Buttons for Options -------------------- */
 
@@ -265,7 +282,7 @@ public:
     
     /* -------------------- FullscreenModeButton -------------------- */
     
-    FullscreenModeButton::FullscreenModeButton() : ValueButton(0, 1) {
+    FullscreenModeButton::FullscreenModeButton(ActionListener *al) : ValueButton(0, 1, al) {
         displayModes = video_engine->EnumerateFullscreenModes();
         if (displayModes.size() == 0) {
             selectedMode = 0;
@@ -327,7 +344,7 @@ public:
 
     /* -------------------- FullscreenTilesetButton -------------------- */
     
-    FullscreenTilesetButton::FullscreenTilesetButton() : ValueButton(0, 1) {
+    FullscreenTilesetButton::FullscreenTilesetButton(ActionListener *al) : ValueButton(0, 1, al) {
         tilesets = video_engine->EnumerateFittingTilesets(app.selectedFullscreenMode);
         auto pos = std::find(tilesets.begin(), tilesets.end(), app.selectedFullscreenTilesetId);
         if (pos == tilesets.end())
@@ -364,7 +381,7 @@ public:
 
     /* -------------------- WindowTilesetButton -------------------- */
     
-    WindowTilesetButton::WindowTilesetButton() : ValueButton(0, 1) {
+    WindowTilesetButton::WindowTilesetButton(ActionListener *al) : ValueButton(0, 1, al) {
         tilesets = video_engine->EnumerateAllTilesets();
         auto pos = std::find(tilesets.begin(), tilesets.end(), app.selectedWindowTilesetId);
         if (pos == tilesets.end())
@@ -401,7 +418,7 @@ public:
 
     /* -------------------- WindowSizeButton -------------------- */
     
-    WindowSizeButton::WindowSizeButton() : ValueButton(0, 1) {
+    WindowSizeButton::WindowSizeButton(ActionListener *al) : ValueButton(0, 1, al) {
         selectedMode = app.selectedWindowSizeFactor;
         setMaxValue(3);
         init();
@@ -431,6 +448,28 @@ public:
         else
             ss << value << "x (" << tilesize*20*value << "x" << tilesize*15*value << ")";
         return ss.str();
+    }
+
+    /* -------------------- BrightnessButton -------------------- */
+
+    BrightnessButton::BrightnessButton() : ValueButton(1, 10) {
+        init();
+    }
+
+    void BrightnessButton::set_value(int value) {
+        double gamma = double(value) / 5.0;
+        options::SetOption("Gamma", gamma);
+        video_engine->UpdateBrightness();
+    }
+
+    int BrightnessButton::get_value() const {
+        double gamma = options::GetDouble("Gamma");
+        int value = round_down<int>(gamma * 5.0);
+        return value;
+    }
+
+    string BrightnessButton::get_text(int value) const {
+        return ecl::strf("%d", value-5);
     }
 
     /* -------------------- SoundSetButton -------------------- */
@@ -511,7 +550,15 @@ public:
     }
     
     /* -------------------- LanguageButton -------------------- */
-    
+
+    LanguageButton::LanguageButton (ActionListener *al)
+    : ValueButton(0, NUMENTRIES(nls::languages)-1, al)
+    {
+        inInit = true;
+        init();
+        inInit = false;
+    }
+
     int LanguageButton::get_value() const
     {
         string localename; //  = ecl::DefaultMessageLocale ();
@@ -524,7 +571,7 @@ public:
         }
         return lang;
     }
-    
+
     void LanguageButton::set_value(int value)
     {
         options::SetOption ("Language", nls::languages[value].localename);
@@ -532,10 +579,10 @@ public:
         if (not inInit) {
             // change language only on user action
             app.setLanguage(nls::languages[value].localename);
-            myListener->on_action(this);
+            secondaryListener->on_action(this);
         }
     }
-    
+
     string LanguageButton::get_text(int value) const
     {
         if (value == -1)
@@ -543,17 +590,9 @@ public:
         else
             return nls::languages[value].name;
     }
-    
-    LanguageButton::LanguageButton (ActionListener *al)
-    : ValueButton(0, NUMENTRIES(nls::languages)-1), myListener(al)
-    {
-        inInit = true;
-        init();
-        inInit = false;
-    }
-    
+
     /* -------------------- MiddleMouseButtonButton -------------------- */
-    
+
     MiddleMouseButtonButton::MiddleMouseButtonButton() :
     ValueButton(options::MIDDLEMOUSEBUTTON_MIN, options::MIDDLEMOUSEBUTTON_MAX)
     {
@@ -589,6 +628,27 @@ public:
         return string();
     }
     
+    /* -------------------- Video Check Tick Down -------------------- */
+
+    VideoCheckTickDown::VideoCheckTickDown(ActionListener *al) : Label("")
+    {
+        time_till_reset = 10.0;
+        active = true;
+        set_listener(al);
+    }
+
+    void VideoCheckTickDown::tick(double dtime)
+    {
+        time_till_reset -= dtime;
+        if ((int)(time_till_reset + dtime) != (int)(time_till_reset)) {
+            set_text(ecl::strf(_("Resetting video settings in %is ..."), (int)(time_till_reset)));
+        }
+        if (active && (time_till_reset < 0.0)) {
+            active = false;
+            invoke_listener();
+        }
+    }
+
     /* -------------------- Options Menu -------------------- */
 
     OptionsMenu::OptionsMenu(ecl::Surface *background_, bool gameIsOngoing_)
@@ -606,13 +666,19 @@ public:
       windowsize(NULL),
       fullscreentileset(NULL),
       windowtileset(NULL),
+      videocheck_button_yes(NULL),
+      videocheck_button_no(NULL),
+      videocheck_tick_down(NULL),
       userNameTF(NULL),
       userPathTF(NULL),
       userImagePathTF(NULL),
       localizationPathTF(NULL),
       menuMusicTF(NULL),
       background(background_),
-      gameIsOngoing(gameIsOngoing_) {
+      gameIsOngoing(gameIsOngoing_),
+      videoSettingsTouched(false),
+      showVideoCheck(false),
+      pageAfterVideoCheck(OPTIONS_VIDEOCHECK) {
         center();
         close_page();
         open_page(OPTIONS_MAIN);
@@ -661,48 +727,56 @@ public:
             }
         };
         
-        // These are exactly the same preferences as in LevelPackMenu.cc
-        // Left side: Availabe submenus ("pages")
-        pagesVList = new VList; 
-        pagesVList->set_spacing(param[vtt].vrow_row);
-        pagesVList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
-        pagesVList->set_default_size(param[vtt].pageb_width, param[vtt].button_height);
-        but_main_options = new StaticTextButton(N_("Main"), this);
-        but_main_options->setHighlight(new_page == OPTIONS_MAIN);
-        but_video_options = new StaticTextButton(N_("Video"), this);
-        but_video_options->setHighlight(new_page == OPTIONS_VIDEO);
-        but_audio_options = new StaticTextButton(N_("Audio"), this);
-        but_audio_options->setHighlight(new_page == OPTIONS_AUDIO);
-        but_config_options = new StaticTextButton(N_("Config"), this);
-        but_config_options->setHighlight(new_page == OPTIONS_CONFIG);
-        but_paths_options = new StaticTextButton(N_("Paths"), this);
-        but_paths_options->setHighlight(new_page == OPTIONS_PATHS);
-        pagesVList->add_back(but_main_options);
-        pagesVList->add_back(new Label(""));
-        pagesVList->add_back(but_video_options);
-        pagesVList->add_back(but_audio_options);
-        pagesVList->add_back(but_config_options);
-        pagesVList->add_back(but_paths_options);
-        this->add(pagesVList, Rect(param[vtt].hmargin + vh,
-                                   param[vtt].vmargin + vv, 
-                                   param[vtt].pageb_width,
-                                   param[vtt].rows * param[vtt].button_height + 
-                                       (param[vtt].rows - 1) * param[vtt].vrow_row));
+        if (showVideoCheck) {
+            pageAfterVideoCheck = new_page;
+            new_page = OPTIONS_VIDEOCHECK;
+            showVideoCheck = false;
+        }
 
-        // At the bottom: Currently only "Back"
-        commandHList = new HList;
-        commandHList->set_spacing(param[vtt].hoption_option);
-        commandHList->set_alignment(HALIGN_LEFT, VALIGN_TOP);
-        commandHList->set_default_size(param[vtt].commandb_width, param[vtt].button_height);
-        commandHList->add_back(back = new StaticTextButton(N_("Ok"), this));
-        this->add(commandHList, Rect(vminfo->width + vh - param[vtt].hmargin
-                                         - 1*param[vtt].commandb_width  // number of buttons
-                                         - 0*param[vtt].hoption_option, // number - 1
-                                     param[vtt].vmargin + param[vtt].rows*
-                                         (param[vtt].vrow_row + param[vtt].button_height)
-                                         + param[vtt].vrow_row + vv,
-                                     vminfo->width-2*param[vtt].hmargin,
-                                     param[vtt].button_height));
+        if (new_page != OPTIONS_VIDEOCHECK) {
+            // These are exactly the same preferences as in LevelPackMenu.cc
+            // Left side: Availabe submenus ("pages")
+            pagesVList = new VList;
+            pagesVList->set_spacing(param[vtt].vrow_row);
+            pagesVList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
+            pagesVList->set_default_size(param[vtt].pageb_width, param[vtt].button_height);
+            but_main_options = new StaticTextButton(N_("Main"), this);
+            but_main_options->setHighlight(new_page == OPTIONS_MAIN);
+            but_video_options = new StaticTextButton(N_("Video"), this);
+            but_video_options->setHighlight(new_page == OPTIONS_VIDEO);
+            but_audio_options = new StaticTextButton(N_("Audio"), this);
+            but_audio_options->setHighlight(new_page == OPTIONS_AUDIO);
+            but_config_options = new StaticTextButton(N_("Config"), this);
+            but_config_options->setHighlight(new_page == OPTIONS_CONFIG);
+            but_paths_options = new StaticTextButton(N_("Paths"), this);
+            but_paths_options->setHighlight(new_page == OPTIONS_PATHS);
+            pagesVList->add_back(but_main_options);
+            pagesVList->add_back(new Label(""));
+            pagesVList->add_back(but_video_options);
+            pagesVList->add_back(but_audio_options);
+            pagesVList->add_back(but_config_options);
+            pagesVList->add_back(but_paths_options);
+            this->add(pagesVList, Rect(param[vtt].hmargin + vh,
+                                       param[vtt].vmargin + vv,
+                                       param[vtt].pageb_width,
+                                       param[vtt].rows * param[vtt].button_height +
+                                           (param[vtt].rows - 1) * param[vtt].vrow_row));
+
+            // At the bottom: Currently only "Back"
+            commandHList = new HList;
+            commandHList->set_spacing(param[vtt].hoption_option);
+            commandHList->set_alignment(HALIGN_LEFT, VALIGN_TOP);
+            commandHList->set_default_size(param[vtt].commandb_width, param[vtt].button_height);
+            commandHList->add_back(back = new StaticTextButton(N_("Ok"), this));
+            this->add(commandHList, Rect(vminfo->width + vh - param[vtt].hmargin
+                                             - 1*param[vtt].commandb_width  // number of buttons
+                                             - 0*param[vtt].hoption_option, // number - 1
+                                         param[vtt].vmargin + param[vtt].rows*
+                                             (param[vtt].vrow_row + param[vtt].button_height)
+                                             + param[vtt].vrow_row + vv,
+                                         vminfo->width-2*param[vtt].hmargin,
+                                         param[vtt].button_height));
+        }
 
         optionsVList = new VList;
         optionsVList->set_spacing(param[vtt].vrow_row);
@@ -769,14 +843,15 @@ public:
                 if (gameIsOngoing) {
                     OPTIONS_NEW_L(N_("Sorry, no video changes during an ongoing game."))
                 } else {
+                    OPTIONS_NEW_LB(N_("Screen brightness: "), new BrightnessButton())
                     OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton())
                     fullscreen->set_listener(this);
                     OPTIONS_NEW_L(N_("In fullscreen mode: "))
-                    OPTIONS_NEW_LB(N_("Screen resolution: "), fullscreenmode = new FullscreenModeButton())
-                    OPTIONS_NEW_LB(N_("Tileset: "), fullscreentileset = new FullscreenTilesetButton())
+                    OPTIONS_NEW_LB(N_("Screen resolution: "), fullscreenmode = new FullscreenModeButton(this))
+                    OPTIONS_NEW_LB(N_("Tileset: "), fullscreentileset = new FullscreenTilesetButton(this))
                     OPTIONS_NEW_L(N_("In windowed mode: "))
-                    OPTIONS_NEW_LB(N_("Tileset: "), windowtileset = new WindowTilesetButton())
-                    OPTIONS_NEW_LB(N_("Window size: "), windowsize = new WindowSizeButton())
+                    OPTIONS_NEW_LB(N_("Tileset: "), windowtileset = new WindowTilesetButton(this))
+                    OPTIONS_NEW_LB(N_("Window size: "), windowsize = new WindowSizeButton(this))
                     fullscreenmode->SetDependentButton(fullscreentileset);
                 }
                 break;
@@ -811,7 +886,21 @@ public:
                 OPTIONS_NEW_L(N_("Localization/translation path: "))
                 OPTIONS_NEW_T(localizationPathTF)
                 break;
+            case OPTIONS_VIDEOCHECK:
+                videocheck_button_yes = new StaticTextButton(N_("Yes"), this);
+                videocheck_button_no = new StaticTextButton(N_("No"), this);
+                OPTIONS_NEW_LB(N_("Use these video settings?"), videocheck_button_yes);
+                OPTIONS_NEW_LB(   "",                           videocheck_button_no);
+                lb = new HList;
+                lb->set_spacing(param[vtt].hoption_option);
+                lb->set_alignment(HALIGN_LEFT, VALIGN_TOP);
+                lb->set_default_size(2*param[vtt].optionb_width + param[vtt].hoption_option,
+                                     param[vtt].button_height);
+                lb->add_back(videocheck_tick_down = new VideoCheckTickDown(this));
+                optionsVList->add_back(lb);
+                break;
         }
+
 #undef OPTIONS_NEW_L
 #undef OPTIONS_NEW_LB
 #undef OPTIONS_NEW_T
@@ -826,10 +915,8 @@ public:
                     (param[vtt].rows - 1) * param[vtt].vrow_row));
         invalidate_all();
     }
-    
+
     void OptionsMenu::close_page() {
-        if (!gameIsOngoing)
-            video_engine->ApplySettings();
         // Reset active and key_focus widgets, they will be deleted soon,
         // and we don't want any ticks for them anymore.
         reset_active_widget();
@@ -881,6 +968,7 @@ public:
         but_video_options = NULL;
         but_audio_options = NULL;
         but_config_options = NULL;
+        but_paths_options = NULL;
         if (commandHList != NULL) {
             commandHList->clear();
             remove_child(commandHList);
@@ -900,16 +988,31 @@ public:
         windowsize = NULL;
         fullscreentileset = NULL;
         windowtileset = NULL;
+        videocheck_button_yes = NULL;
+        videocheck_button_no = NULL;
+        videocheck_tick_down = NULL;
         menuMusicTF = NULL;
         userNameTF = NULL;
         userPathTF = NULL;
         userImagePathTF = NULL;
         localizationPathTF = NULL;
+        pageAfterVideoCheck = OPTIONS_MAIN;
+        showVideoCheck = false;
+        if (videoSettingsTouched && !gameIsOngoing)
+            showVideoCheck = video_engine->ApplySettings();
+        videoSettingsTouched = false;
+        // If settings were changed, change the background as well.
+        if (showVideoCheck)
+            background = enigma::GetImage("menu_bg", ".jpg");
     }
 
     void OptionsMenu::quit() {
         close_page();
-        Menu::quit();
+        // Show the video check button if necessary.
+        if (showVideoCheck)
+            open_page(OPTIONS_VIDEOCHECK);
+        else
+            Menu::quit();
     }
 
     bool OptionsMenu::on_event (const SDL_Event &e)
@@ -929,6 +1032,14 @@ public:
     
     void OptionsMenu::on_action(Widget *w)
     {
+        // Common action for all video settings.
+        if (   (w == fullscreen)
+            || (w == fullscreenmode)
+            || (w == windowsize)
+            || (w == fullscreentileset)
+            || (w == windowtileset))
+            videoSettingsTouched = true;
+        // Individual actions.
         if (w == back)
             quit();
         else if (w == language)
@@ -957,17 +1068,41 @@ public:
         } else if (w == but_paths_options) {
             close_page();
             open_page(OPTIONS_PATHS);
+        } else if (w == videocheck_button_yes) {
+            close_page();
+            if (pageAfterVideoCheck == OPTIONS_VIDEOCHECK) {
+                // This happens when video check has been called
+                // from OptionsMenu::quit() or pageAfterVideoCheck
+                // has not been set at all. Either way, we should
+                // exit the menu.
+                quit();
+            } else {
+                open_page(pageAfterVideoCheck);
+            }
+        } else if (   (w == videocheck_button_no)
+                   || (w == videocheck_tick_down)) {
+            videoSettingsTouched = false;
+            close_page();
+            video_engine->ResetSettings();
+            video_engine->ApplySettings();
+            background = enigma::GetImage("menu_bg", ".jpg");
+            open_page(OPTIONS_VIDEO);
         }
     }
-    
+
     void OptionsMenu::draw_background(ecl::GC &gc)
     {
         const VMInfo *vminfo = video_engine->GetInfo();
         set_caption(_("Enigma - Options Menu"));
-    //     blit(gc, 0,0, enigma::GetImage("menu_bg"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, background);
     }
-    
+
+    void OptionsMenu::tick(double dtime)
+    {
+        if (videocheck_tick_down != NULL)
+            videocheck_tick_down->tick(dtime);
+    }
+
 /* -------------------- Functions -------------------- */
 
     void ShowOptionsMenu(Surface *background, bool gameIsOngoing) {

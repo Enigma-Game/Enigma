@@ -406,6 +406,8 @@ public:
 
     ecl::Screen *GetScreen() override;
 
+    void UpdateBrightness() override;
+
     void SetCaption(const std::string &text) override;
     const std::string &GetCaption() override;
 
@@ -416,7 +418,8 @@ public:
     WindowSize ActiveWindowSize() override;
     void SetVideoTileset(VideoTileset* vts) override;
     void SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId id) override;
-    void ApplySettings() override;
+    bool ApplySettings() override;
+    void ResetSettings() override;
     void SaveWindowSizePreferences() override;
     void Resize(Sint32 width, Sint32 height) override;
     WindowSize SelectedWindowSize() override;
@@ -438,7 +441,7 @@ public:
 
     ecl::Surface *BackBuffer() override;
 
-    void Screenshot(const std::string &file_name) override;
+    void Screenshot(const std::string &file_name, ecl::Surface *s = 0) override;
 
     void SetMouseCursor(ecl::Surface *s, int hotx, int hoty) override;
     void HideMouse() override;
@@ -562,6 +565,8 @@ void VideoEngineImpl::Init() {
     } else {
         app.selectedWindowTilesetId == GetTilesetId();
     }
+    // Set window brightness according to options.
+    UpdateBrightness();
 // Mac icon is set via Makefile
 #ifndef MACOSX
     if (Surface *icon = enigma::GetImage("enigma_marble")) {
@@ -576,6 +581,14 @@ void VideoEngineImpl::Shutdown() {
 
 ecl::Screen *VideoEngineImpl::GetScreen() {
     return screen;
+}
+
+void VideoEngineImpl::UpdateBrightness() {
+    float gamma = static_cast<float> (options::GetDouble("Gamma"));
+    // gamma is a float between 0.2 and 2.0, with 1.0 meaning: normal.
+    // We renormalize it to 0.6 to 1.5:
+    gamma = gamma/2.0 + 0.5;
+    SDL_SetWindowBrightness(window, gamma);
 }
 
 void VideoEngineImpl::SetCaption(const std::string &text) {
@@ -695,7 +708,9 @@ int VideoEngineImpl::ActiveWindowSizeFactor() {
     return (int) (ActiveWindowSize().width / 20 / vts->tilesize);
 }
 
-void VideoEngineImpl::ApplySettings() {
+// ApplySettings tries to apply the current settings set in app.prefs.
+// Returns false, if nothing has been changed, true else.
+bool VideoEngineImpl::ApplySettings() {
     bool wantFullscreen = app.prefs->getBool("FullScreen");
     if (wantFullscreen && !IsFullscreen())
         SaveWindowSizePreferences();
@@ -703,11 +718,11 @@ void VideoEngineImpl::ApplySettings() {
     if (wantFullscreen && IsFullscreen()
         && (app.selectedFullscreenMode == FindFullscreenMode(ActiveWindowSize()))
         && (app.selectedFullscreenTilesetId == GetTilesetId()))
-        return;
+        return false;
     if (!wantFullscreen && !IsFullscreen()
         && (SelectedWindowSize() == ActiveWindowSize())
         && (app.selectedWindowTilesetId == GetTilesetId()))
-        return;
+        return false;
     // Change display mode.
     if (wantFullscreen) {
         int w = video_modes[app.selectedFullscreenMode].width;
@@ -726,6 +741,17 @@ void VideoEngineImpl::ApplySettings() {
     gui::LevelPreviewCache::instance()->clear();
     display::Shutdown();
     display::Init();
+    return true;
+}
+
+void VideoEngineImpl::ResetSettings() {
+    app.prefs->setProperty("FullScreen", false);
+    app.prefs->setProperty("WindowWidth", 640);
+    app.prefs->setProperty("WindowHeight", 480);
+    app.prefs->setProperty("WindowTileset", StandardTileset(VTS_32)->id);
+    app.prefs->setProperty("WindowSizeFactor", 1);
+    app.selectedWindowSizeFactor = 1;
+    app.selectedWindowTilesetId = StandardTileset(VTS_32)->id;
 }
 
 void VideoEngineImpl::SaveWindowSizePreferences() {
@@ -775,15 +801,18 @@ ecl::Surface *VideoEngineImpl::BackBuffer() {
     return back_buffer.get();
 }
 
-void VideoEngineImpl::Screenshot(const std::string &file_name) {
+void VideoEngineImpl::Screenshot(const std::string &file_name, ecl::Surface *s) {
     // auto-create the directory if necessary
     std::string directory;
     if (ecl::split_path(file_name, &directory, 0) && !ecl::FolderExists(directory)) {
         ecl::FolderCreate(directory);
     }
-
-    ecl::Rect rect = GetInfo()->area;
-    ecl::SavePNG(ecl::Grab(screen->get_surface(), rect), file_name);
+    if (!s) {
+        ecl::Rect rect = GetInfo()->area;
+        ecl::SavePNG(ecl::Grab(screen->get_surface(), rect), file_name);
+    } else {
+        ecl::SavePNG(s, file_name);
+    }
     enigma::Log << "Wrote screenshot to '" << file_name << "'\n";
 }
 
