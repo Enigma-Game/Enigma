@@ -29,6 +29,7 @@
 #define INDEX_DEFAULT_GROUP "User"
 #define INDEX_EVERY_GROUP "Every Group"
 #define INDEX_ALL_PACKS "All Packs"
+#define INDEX_TUTORIALS_GROUP "Tutorials"
 
 #define INDEX_STARTUP_PACK_NAME   "Startup Levels"
 #define INDEX_AUTO_PACK_NAME      "Auto Folder"
