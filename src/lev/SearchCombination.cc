@@ -178,8 +178,13 @@ namespace enigma { namespace lev {
                 || !ecl::isOrdered(pat_min, r->patience,      pat_max)
                 || !ecl::isOrdered(kno_min, r->knowledge,     kno_max)
                 || !ecl::isOrdered(spe_min, r->speed,         spe_max)
-                || !ecl::isOrdered(dif_min, r->difficulty(),  dif_max)
-                || !ecl::isOrdered(avr_min, r->averageRating, avr_max))
+                || !ecl::isOrdered(dif_min, r->difficulty(),  dif_max))
+                return false;
+            // If noone rated the level, average rating is set to -1,
+            // which is fairly outside the interval [0; 100].
+            // We therefore have to handle this case separately.
+            if (   (avr_min != 0) || (avr_max != 100)
+                && !ecl::isOrdered(avr_min, r->averageRating, avr_max))
                 return false;
         }
         // Boolean criteria:
