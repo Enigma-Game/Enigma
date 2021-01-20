@@ -1,4 +1,4 @@
-SUBDIRS = tutorial_basic tutorial_advanced \
+SUBDIRS = tutorial_advanced tutorial_basic tutorial_training \
 	enigma_i enigma_ii enigma_iii enigma_iv enigma_v \
 	enigma_vi enigma_vii enigma_viii enigma_ix enigma_x \
 	enigma_esprit enigma_oxyd enigma_peroxyd enigma_oxydmagnum enigma_oxydextra \
