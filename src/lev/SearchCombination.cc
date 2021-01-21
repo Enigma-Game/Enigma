@@ -45,6 +45,7 @@ namespace enigma { namespace lev {
         dif_min = 0;      dif_max = 100;
         avr_min = 0;      avr_max = 100;
         checkRatings = false;
+        checkAVR = false;
         onlyUnsolvedEasy = false;
         onlyUnsolvedHard = false;
         onlyMainPacks = false;
@@ -163,15 +164,17 @@ namespace enigma { namespace lev {
                          && (kno_min == 1) && (kno_max == 6)
                          && (spe_min == 1) && (spe_max == 5)
                          && (dif_min == 0) && (dif_max == 100)
-                         && (avr_min == 0) && (avr_max == 100)
                          && (sortMethod != SC_SORT_DIF));
+        checkAVR = !((avr_min == 0) && (avr_max == 100));
     }
 
     bool SearchCombination::fits(Proxy *p) {
         // All criteria have to fit.
         // Numerical criteria:
+        Rating *r = NULL;  // get rating only if we really need it, and only once
+        if (checkRatings || checkAVR)
+            r = theRatingMgr->findRating(p);
         if (checkRatings) {
-            Rating * r = theRatingMgr->findRating(p);
             if (   (r == NULL)
                 || !ecl::isOrdered(int_min, r->intelligence,  int_max)
                 || !ecl::isOrdered(dex_min, r->dexterity,     dex_max)
@@ -180,12 +183,11 @@ namespace enigma { namespace lev {
                 || !ecl::isOrdered(spe_min, r->speed,         spe_max)
                 || !ecl::isOrdered(dif_min, r->difficulty(),  dif_max))
                 return false;
-            // If noone rated the level, average rating is set to -1,
-            // which is fairly outside the interval [0; 100].
-            // We therefore have to handle this case separately.
-            if (   (avr_min != 0) || (avr_max != 100)
-                && !ecl::isOrdered(avr_min, r->averageRating, avr_max))
-                return false;
+        }
+        if (checkAVR) {
+            if (   (r == NULL)
+                || !ecl::isOrdered(avr_min, r->averageRating, avr_max))
+            return false;
         }
         // Boolean criteria:
         if (onlyUnsolvedEasy && ((!p->hasEasyMode()) || theScoreMgr->isSolved(p, DIFFICULTY_EASY)))

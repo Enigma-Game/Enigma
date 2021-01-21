@@ -83,6 +83,7 @@ namespace enigma { namespace lev {
         short avr_min;  // average rating * 10
         short avr_max;
         bool checkRatings;
+        bool checkAVR;
         bool onlyUnsolvedEasy;
         bool onlyUnsolvedHard;
         bool onlyMainPacks;

@@ -164,6 +164,7 @@ namespace enigma { namespace gui {
             lbAvr = new Label(N_("Average Rating: "), HALIGN_RIGHT);
             lbUnsolvEasy = new Label(N_("Only levels that are unsolved in easy mode:"), HALIGN_RIGHT);
             lbUnsolvHard = new Label(N_("Only levels that are unsolved in normal mode:"), HALIGN_RIGHT);
+            // new Label(N_("Only levels of level pack group:"), HALIGN_RIGHT);
             lbSortMethod = new Label(N_("Sort by: "), HALIGN_RIGHT);
             but_int_min = new RatingSearchButton(this, sc, SC_INT, SC_MIN, 1, 5);
             but_int_max = new RatingSearchButton(this, sc, SC_INT, SC_MAX, 1, 5);
