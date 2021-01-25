@@ -257,14 +257,6 @@ private:
         { }
     };
 
-    struct SkipSolvedButton : public BoolOptionButton {
-        SkipSolvedButton() : BoolOptionButton("SkipSolvedLevels", N_("Yes"), N_("No"), this) {}
-    };
-
-    struct TimeHuntButton : public BoolOptionButton {
-        TimeHuntButton() : BoolOptionButton("TimeHunting", N_("Yes"), N_("No"), this) {}
-    };
-
     struct RatingsUpdateButton : public BoolOptionButton {
         RatingsUpdateButton() : BoolOptionButton("RatingsAutoUpdate", N_("Auto"), N_("Never"), this) {}
     };
