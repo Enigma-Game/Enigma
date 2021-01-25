@@ -21,6 +21,7 @@
 #include "gui/GameMenu.hh"
 #include "gui/OptionsMenu.hh"
 #include "gui/LevelInspector.hh"
+#include "gui/HelpMenu.hh"
 #include "client.hh"
 #include "display.hh"
 #include "ecl_video.hh"
@@ -136,7 +137,19 @@ namespace enigma { namespace gui {
     
         ecl::blit(gc, 0,0, zoomed);
     }
-    
+
+    static const char *helptext_gamemenu[] = {
+        N_("F1:"), N_("Show this help"),
+        N_("F3:"), N_("Kill current marble"),
+        N_("Shift+F3:"), N_("Restart the current level"),
+        N_("Shift+Ctrl+F3:"), N_("Reload and restart the current level"),
+        N_("Right mouse button:"), N_("Return to level"),
+        " ", " ",
+        "FREE TEXT FOLLOWS",
+        N_("For a list of shortcut keys during the game, press F1 during the game."),
+        0
+    };
+
     bool GameMenu::on_event (const SDL_Event &e) 
     {
         if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_RIGHT) {
@@ -161,8 +174,11 @@ namespace enigma { namespace gui {
                 }
                 Menu::quit();
                 return true;
-                break;
-            }
+                break; }
+            case SDLK_F1: {
+                displayHelp(helptext_gamemenu, 200);
+                draw_all();
+                break; }
             default: break;
             };
         }

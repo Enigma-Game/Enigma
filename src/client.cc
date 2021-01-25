@@ -504,12 +504,19 @@ void Client::on_keydown(SDL_Event &e) {
 
 static const char *helptext_ingame[] = {
     N_("Left mouse button:"), N_("Activate/drop leftmost inventory item"),
-    N_("Right mouse button:"), N_("Rotate inventory items"), N_("Escape:"), N_("Show game menu"),
-    N_("Shift+Escape:"), N_("Quit game immediately"), N_("F1:"), N_("Show this help"), N_("F3:"),
-    N_("Kill current marble"), N_("Shift+F3:"), N_("Restart the current level"), N_("F4:"),
-    N_("Skip to next level"), N_("F5:"), 0,  // see below
-    N_("F6:"), N_("Jump back to last level"), N_("F10:"), N_("Make screenshot"),
-    N_("Left/right arrow:"), N_("Change mouse speed"), N_("Alt+x:"), N_("Return to level menu"),
+    N_("Right mouse button:"), N_("Rotate inventory items"),
+    N_("Escape:"), N_("Show game menu"),
+    N_("Shift+Escape:"), N_("Quit game immediately"),
+    N_("F1:"), N_("Show this help"),
+    N_("F3:"), N_("Kill current marble"),
+    N_("Shift+F3:"), N_("Restart the current level"),
+    N_("Shift+Ctrl+F3:"), N_("Reload and restart the current level"),
+    N_("F4:"), N_("Skip to next level"),
+    N_("F5:"), 0,  // see below
+    N_("F6:"), N_("Jump back to last level"),
+    N_("F10:"), N_("Make screenshot"),
+    N_("Left/right arrow:"), N_("Change mouse speed"),
+    N_("Alt+x:"), N_("Return to level menu"),
     //    N_("Alt+Return:"),              N_("Switch between fullscreen and window"),
     0};
 
@@ -517,7 +524,7 @@ void Client::show_help() {
     server::Msg_Pause(true);
     ScopedInputGrab grab(false);
 
-    helptext_ingame[17] = app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST
+    helptext_ingame[19] = app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST
                               ? _("Skip to next level for best score hunt")
                               : _("Skip to next unsolved level");
 

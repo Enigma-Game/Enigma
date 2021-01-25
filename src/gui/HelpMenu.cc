@@ -80,9 +80,15 @@ namespace enigma { namespace gui {
             // If assert stops here, and you've worked on the game
             // help menu, check Client::show_help(): Here one of
             // the text lines is redefined. Correct the line number.
-            f->render (gc, cfg.x0/(vshrink?2:1) + x, y, _(helptext[i]));    // translate
-            f->render (gc, cfg.x1/(vshrink?2:1) + x, y, _(helptext[i+1]));  // translate
-            y += cfg.yskip/(vshrink?2:1);
+            if (helptext[i] == "FREE TEXT FOLLOWS") {
+                // TODO: Break helptext[i+1], use ecl::breakStringToLines
+                f->render (gc, cfg.x0/(vshrink?2:1) + x, y, _(helptext[i+1]));  // translate
+                y += cfg.yskip/(vshrink?2:1);
+            } else {
+                f->render (gc, cfg.x0/(vshrink?2:1) + x, y, _(helptext[i]));    // translate
+                f->render (gc, cfg.x1/(vshrink?2:1) + x, y, _(helptext[i+1]));  // translate
+                y += cfg.yskip/(vshrink?2:1);
+            }
         }
     }
     
