@@ -104,7 +104,13 @@ namespace enigma { namespace lev {
                 group = new std::vector<Index *>;
                 indexGroups.insert(std::make_pair(groupName, group));
                 app.state->addGroup(groupName, anIndex->getName(), 0);
-                
+
+                // If this is the "Tutorials" group, move it to the front.
+                // (This is needed on transitioning from 1.21 to 1.30.)
+                if (groupName == INDEX_TUTORIALS_GROUP) {
+                    moveGroup(groupName, 0);
+                }
+
                 // fill group with indices that appear in every group
                 std::map<std::string, Index *>::iterator iti;
                 for (iti = indices.begin(); iti != indices.end(); iti++)

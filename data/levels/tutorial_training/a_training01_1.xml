@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Double Pendulum" el:subtitle="Aiming in Space" el:id="a_training01"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2020 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="2:06"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+wo["GlobalForce"] = po(0.0, 40.0)
+
+ti[" "] = {"fl_space"}
+ti["."] = {"fl_samba"}
+ti["#"] = {"st_brownpyramid"}
+ti["A"] = {"st_brownpyramid", "anchor1"}
+ti["B"] = ti{"#ac_pearl_white", "anchor2"}
+ti["C"] = ti{"#ac_marble_white", "anchor3"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"} .. ti["."]
+
+w, h = wo(ti, " ", {
+ -- 01234567890123456789
+   "...               O#",
+   "...               ##",
+   "...       B C     O#",
+   "...               ##",
+   "...               O#",
+   "...               ##",
+   "@..       A       ##",
+   "...               ##",
+   "...               O#",
+   "...               ##",
+   "...               O#",
+   "...               ##",
+   "...               O#",
+})
+
+wo:shuffleOxyd()
+
+wo:add({"ot_rubberband", anchor1 = "anchor2", anchor2 = "anchor1", length = 4, min = 3.98, max = 4.01})
+wo:add({"ot_rubberband", anchor1 = "anchor2", anchor2 = "anchor3", length = 2, min = 1.98, max = 2.01})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

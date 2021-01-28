@@ -593,16 +593,11 @@ void Client::draw_screen() {
         int yskip = 25;
         const VMInfo *vminfo = video_engine->GetInfo();
         int width = vminfo->width - 120;
-        for (unsigned i = 0; i < lines.size();) {
-            std::string::size_type breakPos = ecl::breakString(f, lines[i], " ", width);
-            f->render(gc, x, y, lines[i].substr(0, breakPos).c_str());
-            y += yskip;
-            if (breakPos != lines[i].size()) {
-                // process rest of line
-                lines[i] = lines[i].substr(breakPos);
-            } else {
-                // process next line
-                i++;
+        for (unsigned i = 0; i < lines.size(); i++) {
+            std::vector<std::string> subLines = ecl::breakToLines(f, lines[i], " ", width);
+            for (auto it = subLines.begin(); it != subLines.end(); it++) {
+                f->render(gc, x, y, *it);
+                y += yskip;
             }
         }
         scr->update_all();
