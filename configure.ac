@@ -394,6 +394,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/tutorial_advanced/Makefile
            data/levels/tutorial_basic/Makefile
            data/levels/tutorial_training/Makefile
+           data/levels/tutorial_old/Makefile
            data/levels/enigma_i/Makefile
            data/levels/enigma_ii/Makefile
            data/levels/enigma_iii/Makefile

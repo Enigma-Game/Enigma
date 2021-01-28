@@ -282,6 +282,7 @@ namespace enigma { namespace gui {
             int w = param[vtt].tut_upperrowlength;
             int h = param[vtt].tut_upperrowheight;
             int v_text_button = (vtt == 0) ? 8 : 16;
+            // welcome text and information about ESC and F1
             workString = (vtt <= 1) ? tutTextShort[0] : tutTextLong[0];
             lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
             for (auto it = lines.begin(); it != lines.end(); it++) {
@@ -291,6 +292,8 @@ namespace enigma { namespace gui {
                 y += h+1;
             }
             y += 4;
+#ifdef ENABLE_EXPERIMENTAL
+            // recommendation for advanced tutorial pack
             workString = (vtt <= 1) ? tutTextShort[1] : tutTextLong[1];
             lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
             for (auto it = lines.begin(); it != lines.end(); it++) {
@@ -300,12 +303,13 @@ namespace enigma { namespace gui {
                 y += h+1;
             }
             y += v_text_button;
+            // button for advanced tutorial pack
             lev::Index *ind1 = (*group)[0];
             but_tutorial1 = new StaticTextButton(ind1->getName(), this);
-            //but_tutorial1->set_text(ind1->getName());
             packButtons.push_back(but_tutorial1);
             this->add(but_tutorial1, Rect(x + (w - buttonWidth)/2 - 1, y, buttonWidth, buttonHeight));
             y += buttonHeight + v_text_button;
+            // recommendation for basic tutorial pack
             workString = (vtt <= 1) ? tutTextShort[2] : tutTextLong[2];
             lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
             for (auto it = lines.begin(); it != lines.end(); it++) {
@@ -315,12 +319,13 @@ namespace enigma { namespace gui {
                 y += h+1;
             }
             y += v_text_button;
+            // button for basic tutorial pack
             lev::Index *ind2 = (*group)[1];
             but_tutorial2 = new StaticTextButton(ind2->getName(), this);
-            //but_tutorial2->set_text(ind2->getName());
             packButtons.push_back(but_tutorial2);
             this->add(but_tutorial2, Rect(x + (w - buttonWidth)/2 - 1, y, buttonWidth, buttonHeight));
             y += buttonHeight + v_text_button;
+            // recommendation for remaining level pack(s)
             workString = (vtt <= 1) ? tutTextShort[3] : tutTextLong[3];
             lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
             for (auto it = lines.begin(); it != lines.end(); it++) {
@@ -329,6 +334,7 @@ namespace enigma { namespace gui {
                 tutorialLines.push_back(lbText);
                 y += h+1;
             }
+#endif
             numRows = param[vtt].tut_rows;
             vOffset = y + v_text_button;
             packCount -= 2;
