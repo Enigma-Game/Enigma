@@ -78,6 +78,7 @@ namespace enigma { namespace gui {
         bool videoSettingsTouched;
         bool showVideoCheck;
         OptionsPage pageAfterVideoCheck;
+        OptionsPage currentPage;
     };
 
 

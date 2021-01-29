@@ -37,11 +37,69 @@
 #include "oxyd.hh"
 #include "resource_cache.hh"
 #include "video.hh"
+#include "gui/InfoMenu.hh"
 
 using namespace ecl;
 using namespace std;
 
 namespace enigma { namespace gui {
+
+/* -------------------- Help Texts -------------------- */
+
+    static const char *helptext_options_main[] = {
+        N_("This is a selection of the most important options. Each of them can be found in one of the submenues. For help on a specific option, please press F1 in its original submenue."),
+        0
+    };
+    static const char *helptext_options_video[] = {
+        N_("Screen brightness:"),
+        N_("This changes the brightness of the entire screen on which Enigma's window is positioned. Default is '0'."),
+        N_("Fullscreen:"),
+        N_("Choose 'yes' if you want Enigma to be displayed on the whole screen instead of within a window."),
+        N_("In fullscreen mode:"),
+        N_("Screen resolution: This lists all resolutions that are supported both by your monitor and by Enigma. It is only used in fullscreen mode."),
+        N_("Tileset: The set of images used in the menues and in the game. In fullscreen mode, this depends on the chosenscreen resolution."),
+        N_("In windowed mode:"),
+        N_("Tileset: In windowed mode, you choose the tileset first. The tileset then defines the default size of Enigma's window."),
+        N_("Window size: While the tileset determines the default size of your window, you can scale it up by a factor. You can choose this factor in this field. You can still resize the window manually, however, when you restart Enigma, the size defined by this field is reinstated again. You can choose 'Not fixed', in which case Enigma will restart with the same window size you previously chose."),
+        0
+    };
+    static const char *helptext_options_audio[] = {
+        N_("Sound set:"),
+        N_("The collection of sounds used by Enigma. Unless you install a user sound set or other source of sound sets, only default ('Enigma') is available."),
+        N_("Menu music:"),
+        N_("The selection of music that is played in menues. 'In game' means that the same music is played as would be during the play."),
+        N_("Music ingame:"),
+        N_("Whether you want to hear Enigma's music while playing."),
+        N_("Sound volume / Music volume:"),
+        N_("Loudness of sound effects / music. Please note that the volume settings of your operating system applies as well."),
+        N_("Stereo:"),
+        N_("If active (by default), sound effects are changed to reflect the direction of their sources in a level. Choose 'mono' to deactivate this. In some setups, left and right speaker are swapped; you might choose 'reverse' then. (Stereo effects might not work.)"),
+        0
+    };
+    static const char *helptext_options_config[] = {
+        N_("Language:"),
+        N_("You can choose the language here. You can also choose language by clicking on the flags above the main menue, if Enigma's window (or fullscreen resolution) is large enough to show them."),
+        N_("Mouse speed:"),
+        N_("A factor which decides how fast you have to move your mouse to achieve a certain force on the marble. You can choose this factor during the game as well, by pressing the left and right arrow keys."),
+        N_("Middle mouse button:"),
+        N_("What happens when you click your mouse's middle button in the game, 'Pause' by default."),
+        N_("Text speed:"),
+        N_("The speed with which text flies by in the game. You can press the down arrow to display a text again, if you missed it."),
+        N_("Ratings update:"),
+        N_("Whether Enigma should automatically download the latest rating file, with world records, user ratings of levels etc."),
+        N_("User name:"),
+        N_("If you want to submit your scores, you should enter a user name here. This is the name shown to other players if you hold a world record for a level, and on the leaderboard on our web site. On our web site, you will find a list of all user names currently in use (and known to us)."),
+        0
+    };
+    static const char *helptext_options_paths[] = {
+        N_("User path:"),
+        N_("Location of your scores, some settings, and user level packs."),
+        N_("User image path:"),
+        N_("Location of level screenshots (user F10 during the game to make a screenshot), and of level thumbnails. By default, this is the same as your user path."),
+        N_("Localization/translation path:"),
+        N_("Location of translations to all languages Enigma uses."),
+        0
+    };
 
 /* -------------------- Options Buttons -------------------- */
 
@@ -670,7 +728,8 @@ private:
       gameIsOngoing(gameIsOngoing_),
       videoSettingsTouched(false),
       showVideoCheck(false),
-      pageAfterVideoCheck(OPTIONS_VIDEOCHECK) {
+      pageAfterVideoCheck(OPTIONS_VIDEOCHECK),
+      currentPage(OPTIONS_MAIN) {
         center();
         close_page();
         open_page(OPTIONS_MAIN);
@@ -906,6 +965,7 @@ private:
                 param[vtt].rows * param[vtt].button_height + 
                     (param[vtt].rows - 1) * param[vtt].vrow_row));
         invalidate_all();
+        currentPage = new_page;
     }
 
     void OptionsMenu::close_page() {
@@ -989,6 +1049,7 @@ private:
         userImagePathTF = NULL;
         localizationPathTF = NULL;
         pageAfterVideoCheck = OPTIONS_MAIN;
+        currentPage = OPTIONS_MAIN;
         showVideoCheck = false;
         if (videoSettingsTouched && !gameIsOngoing)
             showVideoCheck = video_engine->ApplySettings();
@@ -1011,12 +1072,39 @@ private:
     {
         bool handled=false;
         if (e.type == SDL_KEYUP) {
-            if ((e.key.keysym.sym==SDLK_RETURN) &&
+            if ((e.key.keysym.sym == SDLK_RETURN) &&
                 (e.key.keysym.mod & KMOD_ALT))
             {
                 // update state of FullscreenButton :
                 fullscreen->invalidate();
                 handled = true;
+            }
+            if (e.key.keysym.sym == SDLK_F1) {
+                switch (currentPage) {
+                case OPTIONS_MAIN: {
+                    displayInfo(helptext_options_main, 1);
+                    draw_all();
+                    break; }
+                case OPTIONS_VIDEO: {
+                    displayInfo(helptext_options_video, 1);
+                    draw_all();
+                    break; }
+                case OPTIONS_AUDIO: {
+                    displayInfo(helptext_options_audio, 1);
+                    draw_all();
+                    break; }
+                case OPTIONS_CONFIG: {
+                    displayInfo(helptext_options_config, 1);
+                    draw_all();
+                    break; }
+                case OPTIONS_PATHS: {
+                    displayInfo(helptext_options_paths, 1);
+                    draw_all();
+                    break; }
+                case OPTIONS_VIDEOCHECK:
+                    // no op
+                    break;
+                }
             }
         }
         return handled;
