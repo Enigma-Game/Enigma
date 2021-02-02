@@ -1311,8 +1311,9 @@ can use the composer only for copying levels to the clipboard.
 
 The clipboard allows you to select levels in one or several levelpacks and to
 insert these levels as reference or as copy to your own levelpacks. First, clear
-the clipboard by @samp{Shift delete}. Then select any levelpack you want from within the
-composer levels. Add them by @samp{Shift click}. They will appear
+the clipboard by @samp{Shift delete}. Then select any levels you want from within the
+composer levels, and add them by @samp{Shift click}; or use @samp{F6} to add all
+levels from the current levelpack to the clipboard. They will appear
 in the upper text lines in the composer. Return to the levelpack where you want
 to add the levels. Select the level behind which you want to add the levels. Use
 @samp{F8} to insert the levels of the clipboard as references. If you edit a
@@ -1340,6 +1341,11 @@ follows: Create a new levelpack, add the level files to the @samp{auto}
 folder, restart Enigma, add the levels from the @samp{auto} folder to the clipboard,
 use the composer to insert the levelpack to your levelpack as a copy, and delete the
 unused level file copies from the @samp{auto} folder.
+
+Outside the composer, you can use @samp{F6} in a normal level menu as well. This way
+you can swiftly create level packs from search results: Make sure the clipboard is
+empty, enter your search criteria in the search menu, start the search, press
+@samp{F6}, create a new level pack, go to its composer, and press @samp{F8}.
 
 @c ===================  Level Basics  =======================
 
