@@ -37,6 +37,8 @@ namespace enigma { namespace gui {
         bool on_event (const SDL_Event &e);
         void on_action(Widget *w);
         void draw_background(ecl::GC &gc);
+        static void addAllFromIndexToClipboard(lev::Index *index);
+
     private:
         void update_info();
 

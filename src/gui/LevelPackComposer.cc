@@ -41,6 +41,7 @@ namespace enigma { namespace gui {
     static const char *helptext[] = {
         N_("Shift-click:"),         N_("Add to clipboard"),
         N_("Shift-delete:"),        N_("Clear clipboard"),
+        N_("F6:"),                  N_("Add all to clipboard"),
         N_("F8:"),                  N_("Insert clipboard as reference"),
         N_("F9:"),                  N_("Insert clipboard as copy"),
 //        N_("F10:"),                 N_("Move clipboard levels"),
@@ -187,6 +188,10 @@ namespace enigma { namespace gui {
                             handled=true;
                         }
                     }
+                    break;
+                case SDLK_F6:
+                    addAllFromIndexToClipboard(lev::Index::getCurrentIndex());
+                    handled = true;
                     break;
                 case SDLK_F8:
                     if (isEditable) {
@@ -386,5 +391,19 @@ namespace enigma { namespace gui {
             blit(gc, 0, 0, enigma::GetImage(("ic-obsolete" + vminfo->thumb.suffix).c_str()));
     }
 
+    void LevelPackComposer::addAllFromIndexToClipboard(lev::Index *index) {
+        lev::PersistentIndex *pIndex = dynamic_cast<lev::PersistentIndex *>(index);
+        lev::Variation var;
+        if (pIndex != NULL) {
+            for (int pos = 0; pos < pIndex->size(); pos++) {
+                var = pIndex->getVariation(pos);
+                clipboard->appendProxy(pIndex->getProxy(pos), var.ctrl,
+                        var.unit, var.target, var.extensions);
+            }
+        } else {
+            for (int pos = 0; pos < index->size(); pos++)
+                clipboard->appendProxy(index->getProxy(pos));
+        }
+    }
 
 }} // namespace enigma::gui
