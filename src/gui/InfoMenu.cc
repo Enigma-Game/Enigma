@@ -36,8 +36,8 @@ namespace enigma { namespace gui {
         pgup     = new ImageButton("ic-up", "ic-up1", this);
         pgdown   = new ImageButton("ic-down", "ic-down1", this);
 
+        add(but_ok, Rect(vminfo.width-(vshrink?80:130), vminfo.height-(vshrink?30:60), vshrink?70:110, vshrink?20:40));
         if (pages > 1) {
-            add(but_ok, Rect(vminfo.width-(vshrink?80:130), vminfo.height-(vshrink?30:60), vshrink?70:110, vshrink?20:40));
             add(pgup, Rect(vminfo.width-(vshrink?15:30), vminfo.height/2, vshrink?10:20, vshrink?25:50));
             add(pgdown, Rect(vminfo.width-(vshrink?15:30), vminfo.height/2 +(vshrink?35:70), vshrink?10:20, vshrink?25:50));
         }

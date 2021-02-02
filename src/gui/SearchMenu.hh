@@ -30,6 +30,7 @@ namespace enigma { namespace gui {
     public:
         SearchMenu ();
         
+        bool on_event(const SDL_Event &e);
         void on_action(Widget *w);
         void draw_background(ecl::GC &gc);
         bool isSearchQuit();
