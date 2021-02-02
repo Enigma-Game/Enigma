@@ -78,7 +78,7 @@ namespace enigma { namespace gui {
     };
     static const char *helptext_options_config[] = {
         N_("Language:"),
-        N_("You can choose the language here. You can also choose language by clicking on the flags above the main menue, if Enigma's window (or fullscreen resolution) is large enough to show them."),
+        N_("You can choose the language here. You can also choose a language by clicking on the flags above the main menue, if Enigma's window (or fullscreen resolution) is large enough to show them."),
         N_("Mouse speed:"),
         N_("A factor which decides how fast you have to move your mouse to achieve a certain force on the marble. You can choose this factor during the game as well, by pressing the left and right arrow keys."),
         N_("Middle mouse button:"),
@@ -95,7 +95,7 @@ namespace enigma { namespace gui {
         N_("User path:"),
         N_("Location of your scores, some settings, and user level packs."),
         N_("User image path:"),
-        N_("Location of level screenshots (user F10 during the game to make a screenshot), and of level thumbnails. By default, this is the same as your user path."),
+        N_("Location of level screenshots (use F10 during the game to make a screenshot), and of level thumbnails. By default, this is the same as your user path."),
         N_("Localization/translation path:"),
         N_("Location of translations to all languages Enigma uses."),
         0
