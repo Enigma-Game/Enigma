@@ -60,10 +60,7 @@ namespace enigma { namespace gui {
 
     LevelPackComposer::LevelPackComposer(bool enableEdit) :
             isEditable (enableEdit), isModified (false) {
-        if (clipboard == NULL) {
-            std::vector<std::string> dummy;
-            clipboard = new lev::PersistentIndex(" ", false); // mark as incomplete
-        }
+        maybeInitClipboard();
 
         curIndex = dynamic_cast<lev::PersistentIndex *>(lev::Index::getCurrentIndex());
 
@@ -391,9 +388,17 @@ namespace enigma { namespace gui {
             blit(gc, 0, 0, enigma::GetImage(("ic-obsolete" + vminfo->thumb.suffix).c_str()));
     }
 
+    void LevelPackComposer::maybeInitClipboard() {
+        if (clipboard == NULL) {
+            std::vector<std::string> dummy;
+            clipboard = new lev::PersistentIndex(" ", false); // mark as incomplete
+        }
+    }
+
     void LevelPackComposer::addAllFromIndexToClipboard(lev::Index *index) {
         lev::PersistentIndex *pIndex = dynamic_cast<lev::PersistentIndex *>(index);
         lev::Variation var;
+        maybeInitClipboard();
         if (pIndex != NULL) {
             for (int pos = 0; pos < pIndex->size(); pos++) {
                 var = pIndex->getVariation(pos);

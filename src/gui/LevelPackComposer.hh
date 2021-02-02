@@ -38,6 +38,7 @@ namespace enigma { namespace gui {
         void on_action(Widget *w);
         void draw_background(ecl::GC &gc);
         static void addAllFromIndexToClipboard(lev::Index *index);
+        static void maybeInitClipboard();
 
     private:
         void update_info();
