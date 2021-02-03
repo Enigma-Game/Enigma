@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Enigma" el:subtitle="" el:id="a_tut08"/>
+      <el:version el:score="1" el:release="1" el:revision="8" el:status="stable"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2013, 2021 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_lawn_b"}
+ti["1"] = {"fl_lawn_c1"}
+ti["2"] = {"fl_lawn_c2"}
+ti["3"] = {"fl_lawn_c3"}
+ti["4"] = {"fl_lawn_c4"}
+ti["5"] = {"fl_lawn_b", "point5"}
+ti["6"] = {"fl_lawn_b", "point6"}
+ti["7"] = {"fl_lawn_b", "point7"}
+ti["8"] = {"fl_lawn_b", "point8"}
+ti["9"] = {"fl_lawn_b", "point9#"} .. ti{"st_fake_oxyda"}
+ti["C"] = {"fl_lawn_c3", "corner"}
+ti["."] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+ti["#"] = ti[" "] .. {"st_fake_oxyda"}
+ti["@"] = ti["."] .. {"#ac_marble_black"}
+ti["T"] = {"fl_lawn", "teacher_start"} .. ti{"#ac_horse", "teacher",
+                strength=4.0, destination={"corner", "oxyd_a", "oxyd_b"}, loop=false}
+ti["w"] = ti[" "] .. {"st_oxyd", flavor="d", oxydcolor=OXYD_BLUE, target="first_oxyds"}
+ti["x"] = ti[" "] .. {"st_oxyd", flavor="d", oxydcolor=OXYD_RED, target="first_oxyds"}
+ti["y"] = ti[" "] .. {"st_oxyd", flavor="d", oxydcolor=OXYD_GREEN}
+ti["z"] = ti[" "] .. {"st_oxyd", flavor="d", oxydcolor=OXYD_YELLOW}
+ti["A"] = ti[" "] .. {"st_oxyd", name="oxyd_a", flavor="d", oxydcolor=OXYD_BLACK, target="first_oxyds"}
+ti["B"] = ti[" "] .. {"st_oxyd", name="oxyd_b", flavor="d", oxydcolor=OXYD_BLACK, target="first_oxyds"}
+ti["D"] = ti["."] .. {"st_fake_oxyda", "future_doc"}
+ti["E"] = ti["."] .. {"st_fake_oxyda", "future_peb"}
+
+ti["f"] = {"fl_hay", eternal = true, initfire = true}
+ti["p"] = {"fl_lawn"} .. ti{"it_burnable_fireproof"}
+ti["q"] = {"fl_lawn"} .. ti{"it_burnable_fireproof"} .. ti{"st_brake"}
+ti["K"] = {"st_brick", cluster = 1}
+ti["e"] = {"it_extinguisher"}
+ti["r"] = {"#ac_rotor", range = 8.0, strength = 20.0}
+ti["s"] = {"it_spring"}
+ti["S"] = {"st_swap"}
+ti["G"] = {"st_grate"}
+ti["b"] = {"st_box_wood"}
+ti["v"] = {"fl_slope_ps", friction = 0.0} .. ti{"#ac_marble_white"}
+ti["^"] = {"fl_slope_pn", friction = 0.0}
+ti["a"] = {"fl_space"}
+ti["u"] = ti["a"] .. ti{"st_pull"}
+ti["L"] = {"st_laser", orientation=EAST, state=ON}
+ti["M"] = {"st_mirror_slab_w"}
+ti["R"] = {"st_laserswitch"}
+ti["i"] = {"st_inkwell_black"}
+ti["g"] = {"st_rawglass"}
+ti["W"] = {"st_brownie"}
+ti["j"] = {"it_floppy"} .. ti{"fl_space"}
+ti["J"] = {"st_floppy"}
+ti["n"] = {"st_coinslot"}
+ti["N"] = {"st_switch"}
+ti["+"] = {"st_puzzle_blue", connections = "s"}
+ti["|"] = {"st_puzzle_blue", connections = "ns"}
+ti["]"] = {"st_puzzle_blue", connections = "e"}
+ti["["] = {"st_puzzle_blue", connections = "nw"}
+ti["t"] = {"it_magicwand"}
+ti["k"] = {"it_key"}
+ti["l"] = {"it_dynamite"}
+
+w, h = wo(ti, " ", {
+ -- 01234567890123456789
+   "####################",
+   "#      #           #",
+   "# 1.3  # 1.3       #",
+   "# .w.  # .T.....C  #",
+   "# 2.4  # 2.4   1.3 #",
+   "#      #       .A. #",
+   "#  1.3 ####### 2.4 #",
+   "#  .x.       #  .  #",
+   "#  ... 1...3 # 1.3 #",
+   "#  .@. .w.x. # .B. #",
+   "#  2.4 2...4 # 2.4 #",
+   "#       5678 #     #",
+   "#########99#########",
+   "# ppp   #..# L    M#",
+   "#~pfp e #..#    v  #",
+   "#~ffKKK #ED#  t a  #",
+   "#~~ffp  #..#k   j  #",
+   "#~~~ppp #..#W   u  #",
+   "#~~pqppp#..#  + a  #",
+   "#~  ppp #..#  | J  #",
+   "#~   p  #..#  | igg#",
+   "#  S bb #..# [] N  #",
+   "#   GbGr#..# l    R#",
+   "#s   G  #..#    n  #",
+   "#########..#########",
+   "#       2..4       #",
+   "#                  #",
+   "#   1.3      1.3   #",
+   "#   .y.      .z.   #",
+   "#   2.4      2.4   #",
+   "#                  #",
+   "#   1.3      1.3   #",
+   "#   .z.      .y.   #",
+   "#   2.4      2.4   #",
+   "#                  #",
+   "#                  #",
+   "####################",
+})
+
+wo:add({"ot_timer", interval = 10.0, loop = true, target = "redo_teacher"})
+
+oxydcount = 0
+function first_oxyds(onoff, sender)
+    if sender.state == OXYDPAIR then
+        oxydcount = oxydcount + 1
+    end
+    if oxydcount == 3 then
+        -- do this only once!
+        oxydcount = oxydcount + 1
+        wo[no["future_doc"]] = ti{"st_document", text="welcome"}
+        wo[no["future_peb"]] = ti{"st_pebble"}
+        wo[no["point5"]] = ti["1"]
+        wo[no["point6"]] = ti["."]
+        wo[no["point7"]] = ti["."]
+        wo[no["point8"]] = ti["3"]
+        wo[no["point9#*"]] = ti["."] .. ti{"st_nil"}
+    end
+end
+
+teacher_state = 0
+function redo_teacher(onoff, sender)
+    if oxydcount < 3 then
+        if teacher_state == 0 then
+            no["teacher"].strength = 1.0
+            no["teacher"].destination = {"teacher_start"}
+        else
+            no["teacher"].strength = 4.0
+            no["teacher"].destination = {"corner", "oxyd_a", "oxyd_b"}
+        end
+        teacher_state = 1 - teacher_state
+    end
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+      </el:string>
+      <el:string el:key="welcome">
+        <el:english el:translate="true">Welcome!    Enigma features hundreds of different objects and ideas. Do not mind them for now---we will show you some in this tutorial, but most of the time the fun actually is in discovering these objects for yourself. The stones with colored spots and shapes you matched in the room above are called Oxyd stones. Most of the time, your goal is to find and open them. Since this level is not solved yet, there might be more Oxyd stones ahead? When you want to pause or quit, just press the ESC key.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
