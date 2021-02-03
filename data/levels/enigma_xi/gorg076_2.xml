@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Enclosed Suites" el:subtitle=""
+el:id="gorg076_2"/> <el:version el:score="1" el:release="2" el:revision="2"
+el:status="stable"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2019 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.30"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="03:30"/> </el:info>
+<el:luamain><![CDATA[
+
+ti["  "] = {"fl_bluegray"}
+ti["# "] = {"st_flat"}
+ti["H "] = {"st_flat_hollow"}
+ti["G "] = {"st_greenbrown_hollow"}
+ti["I "] = {"st_greenbrown"}
+ti["i "] = {"st_stoneimpulse_movable"}
+ti["h "] = {"st_break_laser"}
+ti["O "] = {"st_oxyd", oxydcolor=OXYD_CYAN}
+ti["1 "] = {"st_door_c", "doors1#"} 
+ti["2 "] = {"st_door_c", "doors2#"}
+ti["3 "] = {"st_door_c", "door3"}
+ti["4 "] = {"st_door_c", "door4"}
+ti["L "] = {"st_laser_e", "laser"}
+ti["S "] = {"fl_scales_platinum", target="counter1", action="signal"}
+ti["W "] = {"fl_scales_platinum", target="counter2", action="signal"}
+ti["Q "] = {"fl_scales_platinum", target="door3"}
+ti["R "] = {"fl_scales_platinum", target="door4"}
+ti[" t"] = {"fl_scales_platinum", target="counter3", action="signal"}
+ti["F "] = {"st_switch", target="laser", action="toggle"} 
+ti["B "] = {"st_barrier", flavor="it_seed"}
+ti[" s"] = {"it_seed"}
+ti[" f"] = {"it_flag"}
+ti["d "] = {"st_document", text="text1"}
+ti[" p"] = {"it_puller_e"}
+ti["X "] = {"st_box"}
+ti["@ "] = {"#ac_marble_black"}
+ti["b "] = {"it_bag"}
+
+wo(res.composer(ti), "  ", {
+    "I I I I I I I I I I I I I I I I I I I I F I I I I I I I I I I I I I I I I L I ",
+    "I S i   i   #                         I     if  # R #       # # # # # # # H I ",
+    "I  s  i     #                         I     i W #         H # # # # # # # H I ",
+    "I S i  s  i 2                         I W i   i #     #     # # # # # # # H I ",
+    "I  s  i   i #                         I   i i   # # # #   # # H G H G H Gth I ",
+    "I S i   i i #                         I # 3 # # # H Hs      1 H   H G H Gth I ",
+    "I # # # # # O       @       d       b B             X #     1 H GtH   H Gth O ",
+    "I i S i  s  #                         I # 4 # # # H Hs      1 H   H G H G h I ",
+    "I     i   i #                         I W i   i # # # #   # # H GtH GtH Gth I ",
+    "I  si   S i 2                         I i i i   #     #     # # # # # # # # I ",
+    "I i   i   i #                         I     ipW #         H # # # # # # # # I ",
+    "I   S    s  #                         I i     i # Q #       # # # # # # # # I ",
+    "I I I I I I I I I I I I I I I I I I I I I I I I I I I I I I I I I I I I I I I "
+})
+
+wo:add({"ot_counter", "counter1", target = "doors1#*", action_5 = "close", action_6 = "open"})
+wo:add({"ot_counter", "counter2", target = "doors2#*", action_3 = "close", action_4 = "open"})
+wo:add({"ot_counter", "counter3", target = "laser", action_6 = "nop", action_7 = "turn"})
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="text1">
+<el:english el:translate="true">Opening instructions: The clue lies within. On your marks!</el:english>
+ <el:translation el:lang="de">Öffnungsanweisung: Der Tipp ist inklusive. Zeichen setzen!</el:translation>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Di niente!" el:subtitle="" el:id="devnull13"/>
+      <el:version el:score="1" el:release="1" el:revision="9" el:status="experimental"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009, 2010, 2011, 2012, 2013, 2014 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Clifford J. Tasner for input and insight and to mecke for testplaying.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="83:38"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["FallenPuzzle"] = "=hay"
+wo["MaxOxydColor"] = OXYD_PINE
+
+ti["  "] = {"fl_rock"}
+ti["# "] = {"st_redrock"}
+ti["+ "] = {"st_granite_movable"}
+ti["X "] = {"st_grate_cross"}
+ti[" ~"] = {"fl_water"}
+ti["hay"] = {"fl_rock_framed"}
+ti["W "] = {"st_box_rock"}
+ti["a "] = {"st_blocker"}
+ti[" a"] = {"it_blocker"}
+ti["A "] = {"st_boulder_e", name = "boulderA"}
+ti["B "] = {"st_boulder_e", name = "boulderB"}
+ti["b "] = {"it_trigger", target = "boulderB", action_1 = "turn", invisible = true}
+ti["N "] = {"st_boulder_e", name = "boulderN"}
+ti["n "] = {"it_trigger", target = "boulderN", action_1 = "turn", invisible = true}
+ti[" b"] = {"it_blocker"}
+ti["R "] = {"st_rotator"}
+ti["r "] = {"st_rotator", movable = true}
+ti[">B"] = {"st_oneway_black_e"}
+ti["<B"] = {"st_oneway_black_w"}
+ti[">W"] = {"st_oneway_white_e"}
+ti["<W"] = {"st_oneway_white_w"}
+ti["P"] = {"st_puzzle_blue", intensity = 0}
+ti["doorC"] = {"st_door", name = "doorC%%", faces = "ew", state = CLOSED} -- C
+ti["doorD"] = {"st_door", name = "doorD%%", faces = "ew", state = CLOSED} -- D
+ti["doorE"] = {"st_door", name = "doorE%%", faces = "ns", state = OPEN}   -- E F
+ti["doorG"] = {"st_door", name = "doorG%%", faces = "ns", state = CLOSED} -- G H
+ti["Z0"] = {"st_door", name = "doorZ#", faces = "ew", state = CLOSED}
+ti["Z1"] = {"st_door", name = "doorZ#", faces = "ew", state = OPEN}
+ti["blockerI"] = {"st_blocker", name = "blockerI%%"} -- I 
+ti["blockerJ"] = {"st_blocker", name = "blockerJ%%"} -- J 
+ti["S "] = {"st_shogun_s"}
+ti["M "] = {"st_shogun_m"}
+ti["shogunC"] = {"it_shogun_s", target = "doorC%%"}
+ti["toggleC"] = {"it_trigger", target = "doorC%%"}
+ti["toggleD"] = {"it_trigger", target = "doorD%%"}
+ti["toggleE"] = ti["W "] .. {"it_trigger", target = "doorE%%"}
+ti["toggleF"] = {"it_trigger", target = {"doorE%%", "doorG%%"}}
+ti["q2"] = {"it_shogun_s", target = "doorG%2"}
+ti["U6"] = {"it_shogun_m", target = "doorD%6"}
+ti["shogunGM"] = {"it_shogun_m", target = "doorG%%"}
+ti["toggleG"] = ti["W "] .. {"it_trigger", target = "doorG%%"}
+ti["toggleI"] = {"it_trigger", target = "blockerI%%"}
+ti["t0"] = {"it_trigger", target = {"doorG%0", "doorD%0"}}
+ti["t2"] = ti["W "] .. {"it_trigger", target = {"doorE%2", "doorC%2"}}
+ti["t1"] = {"it_trigger", target = {"doorC%4", "doorG%1"}}
+ti["t4"] = {"it_trigger", target = "doorG%4"}
+ti["t5"] = {"it_trigger", target = "doorG%5"}
+ti["z "] = {"it_trigger", target = "doorZ#*", action_0 = "toggle", action_1 = "nop", invisible = true}
+ti["T3"] = {"st_switch_black", target = {"doorC%3", "doorE%3"}}
+ti["T5"] = {"st_switch_black", target = {"doorC%5", "doorC%6"}}
+ti["T8"] = {"st_switch_white", target = {"doorD%2", "doorE%6"}}
+ti["T9"] = {"st_switch_white", target = {"doorD%5", "doorE%5"}}
+ti["k1"] = ti["+ "] .. {"it_key", code = 1, invisible = false}
+ti["k2"] = ti["+ "] .. {"it_key", code = 2, invisible = false}
+ti["k3"] = ti["+ "] .. {"it_key", code = 3, invisible = false}
+ti["k4"] = ti["+ "] .. {"it_key", code = 4, invisible = false}
+ti["k5"] = ti["+ "] .. {"it_key", code = 5, invisible = false}
+ti["k6"] = ti["+ "] .. {"it_key", code = 6, invisible = false}
+ti["k7"] = ti["+ "] .. {"it_key", code = 7, invisible = false}
+ti["k8"] = ti["+ "] .. {"it_key", code = 8, invisible = false}
+ti["K0"] = {"st_key", code = 1, target = {"blockerI%0", "blockerI%2"}, invisible = false}
+ti["K1"] = {"st_key", code = 1, target = {"blockerI%1", "blockerI%2"}, invisible = false}
+ti["K2"] = {"st_key", code = 2, target = {"blockerI%3", "blockerI%4"}, invisible = false}
+ti["K3"] = {"st_key", code = 3, target = {"blockerI%5", "blockerI%6"}, invisible = false}
+ti["K4"] = {"st_key", code = 4, target = {"blockerI%7", "blockerI%8"}, invisible = false}
+ti["K5"] = {"st_key", code = 5, target = {"blockerJ%0", "blockerJ%1"}, invisible = false}
+ti["K6"] = {"st_key", code = 6, target = {"blockerJ%6", "blockerJ%7"}, invisible = false}
+ti["K7"] = {"st_key", code = 7, target = {"blockerJ%4", "blockerJ%5"}, invisible = false}
+ti["K8"] = {"st_key", code = 8, target = {"blockerJ%2", "blockerJ%3"}, invisible = false} 
+ti[" s"] = {"it_springboard"}
+ti[" l"] = {"it_extralife"}
+ti["docs"] = {"it_document", text = "doc%%"}
+ti[" !"] = {"it_document", text = "BzG"}
+ti["@0"] = {"#ac_marble_black", essential = INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", essential = INDISPENSABLE}
+ti["OB"] = {"st_oxyd_a", name = "oxydsBlack#"} -- 7
+ti["OW"] = {"st_oxyd_a", name = "oxydsWhite#"} -- 7
+ti["O7"] = {"st_oxyd_a", name = "oxyds7#"}
+ti["O9"] = {"st_oxyd_a", name = "oxyds9#"}
+
+local resPuzzle = res.puzzle(ti, "P")
+local resAutotile = res.autotile(resPuzzle, 
+  {"C", "doorC"},   {"D", "doorD"},   {"E", "doorE"},                     {"G", "doorG"},   {"I", "blockerI"}, {"J", "blockerJ"}, 
+  {"c", "toggleC"}, {"d", "toggleD"}, {"e", "toggleE"}, {"f", "toggleF"}, {"g", "toggleG"}, {"i", "toggleI"},
+  {"Q", "shogunGM"}, {"s", "shogunC"}, 
+  {"Y", "docs"})
+wo(res.composer(resAutotile), "  ", {
+  "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
+  "#                                                                            ~ ~ ~ ~ ~                          #     # K4# K3# K2# b~ ~ ~ ~ ~      B      b ~b~#  ~ ~ ~      #      ~    # OB# ",
+  "#   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #  ~                                           ~          # z~# # # #  b# # # # W +b+           W I0  K0W~W~W~W~  #   # ",
+  "#   #                                         #       #                 # W~# # # # # # # W~W~# # # # # # # # # #     #   #   #   # b~ ~ ~ ~ ~             b ~b~#  ~          I1 ~ ~         ~# ",
+  "#   #   # # # # # # # # # # # #   # # # # # # #   #   #   # # # # # #   #                                  ~          #   #   # G3# # # # # #  b# # # WbX~ ~# # # # f9# I2# # # # # # # # # X # ",
+  "#   #   #           #   #         #           #   #       #             # G1# # # # # # # # # # # # # #    ~          #   #  ~               ~ ~ ~W  ~s4    #  ~ ~# K1#  ~W     I4W       # E9# ",
+  "#   #   #   #   W   #   #   # # # #   # # #   #   # # # # # # # #   #   #                             #   # # # # # # #   #  ~  W   W   r      ~ ~ ~  W     #  ~W   M I6W   W   #   W W   #   # ",
+  "#   #   #   #   k3       ~            #           #       #         # # # # # # # # # # # #   # # #   # W #               #   # # # # # # # #    ~ ~ ~W W W #  ~ ~W   #         #         # O9# ",
+  "#   #   #   # # # # # # # # # # # # # #   # # # # #   #   #   # # # #                         #   #   #   #   # # # # # # #                 # S  ~ ~ ~      # # # # # # # # # # # # # # # # # # ",
+  "#   #   #       #                         #           #   #         # W # # # # # #   # # # # #   #   #   #               #   # # # # # #   #      ~ ~ ~ ~ ~ ~ ~ ~ ~#        ~ ~X~            # ",
+  "#   #   # # #   #   # # # # # # # # # # # #   # # # # #   #   # #   #  ~          #   #       #   #   #   # # # # # # #   #   #             #      ~ ~ ~ ~ ~ ~W  ~ ~    q2W  ~ ~I3    W   Qz  # ",
+  "#   #   #       #                             #               #     # # # # # #   #   #   #   #   #   #  ~ ~          #   #   #   # # # # # #      ~ ~ ~ ~ ~ ~   ~ ~#        ~ ~X~            # ",
+  "#   #   #   # # # # # # # # # # # # # # # #   # G4# # # # #   #   # #         #   #   #   #   #   #   #  ~ ~# # # #   #       #             # W # # # # # # # W # # # # # # # # # # # #  ~# E4# ",
+  "#   #   # E3#                                 #           #   #   >B ~  k1W   #   #   #   #   #   #   # T3# #     #   # # # # # # # # # #   # c5 ~W                               C5     ~#   # ",
+  "#   # # #  ~#   # # # # # # # # # # # # # # # # # # # #   #   # # #               #   #   #   #   #   C3    X k2  #                         # # # # # # # # #   # # # # # # # # # # W #  ~#   # ",
+  "#   # O9# Yb#                   #              ~ ~W   #   #       #   # # # # # # #   #   #   #   #   # # # # W   # # # # #   # # # # # # # # X  ~ ~    C6   ~   ~ s    C4        #   #  ~#   # ",
+  "#   #       # # # # # # # # #   # W # # # # # # W #   #   # # #   # t1#               #   #       #               X~ ~ ~#  ~   ~#  ~ ~ ~ ~ ~#   #   #   #   #   # # # # # # # #   #   #  ~#   # ",
+  "#   #   #   #                   #             #       #       #   # # #   # # # # # # #   # # # # # # # # # # #   X~ ~ ~#  ~ s ~#  ~ ~ ~ ~ ~#   #   W~  #   #   #  ~             ~#   g3  #   # ",
+  "#   #   #   #   # # # # # # # # #   # # # #   # # #  ~# # #   #     <B    #                                   #   X~ ~ ~# #  ~# #  ~ ~# # # #   #   W~  # Wl#   #   # # # W W W # #   e2  #   # ",
+  "#   #   #   #                   #  ~      W   #   W~ ~ ~  #   # # # # # # #   # # # # # #   # # # # # # # #   #        s ~ ~ ~ ~ ~ s            #   # Ya#  ~#   #   #    ~ ~     ~#   e4  #   # ",
+  "#   #   #   # W~# # # # # # # # #   # # # # # #    ~W  ~  #                   #         #                 #   #  ~X~ ~ ~# #  ~# #  ~ ~# # # # # #   # G2#   #   #   # T5 ~ ~ ~ ~ ~#   I5  #   # ",
+  "#   #   #      ~# OW            D0            #  ~       ~# # # # # # # # # # #     W W # # # # # # # # W #   #   X~ ~ ~#  ~ s ~#  ~ ~#             #   #   #   #   # # # # # # # #       #   # ",
+  "#   #   #  ~ ~  # # # # # # # # #  ~# # # # # # W~# # #  ~W  ~     ~ ~    +  ~  W W W       +   #    ~ ~I7W   #   X~ ~ ~#  ~   ~#  ~ ~#   # # # # # #   #   #   #   +   +   +    ~  W         # ",
+  "#   #   #       #                               W        ~#  ~       ~ ~   ~ ~              #       #     #   # t4X~ ~ ~# #   # #  ~ ~#                 #       #                ~   ~   ~#   # ",
+  "#   #   # # W # #   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # E1# # # # # # # # # # # # # # # #   # # # # # # # # # # # # # #   # ",
+  "#       # t0    #                           #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#  ~              #       W~ ~W  ~ ~ ~#   e1      # OB ~ ~# c8 ~     ~ ~ ~ ~ ~ ~#   #                             # ",
+  "# # # # # #   W # # # # G0#   # # # # #   # #  ~ ~ ~ ~ ~ ~X~ ~ ~Pb   ~ ~ ~ ~#  ~          Pe  #   #   W~ ~W~ ~ ~ ~#   W   R   #  ~ ~W  ~ ~ ~              Yc#   #   # # # # # # # # # # # R # # ",
+  "# OB#  ~ ~#      ~#       #   #  ~ ~ ~#   #  ~Yd   ~X~ ~ ~ ~    Pa       ~ ~I9 ~    W       # #   #   W  ~W~ ~W  ~    W       # OW ~ ~# c9 ~      W   W   W a~  a~  a~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#   #  ~ ~# W    ~    +   #   #  ~ ~ ~#   #  ~s1 ~ ~ ~ ~X~ ~  PiPn   ~ ~ ~ ~#  ~  W s1@0 ~M~#  ~  # Pe# # # # # # # # # # #  ~# # # # # # # # #  ~+ # W #  ~#   #   #  ~ ~n~ ~ ~N~ ~ ~n~ ~ ~ ~# ",
+  "# G9#    ~#      ~# # # # #   #  ~ ~ ~#   #  ~U6 ~ ~ ~ ~ ~ ~    Pd   ~ ~ ~ ~#  ~    W       W~W  ~  W             #       #  ~#   W    ~  #       t2   ~# # #   #   T8    a                   # ",
+  "#  ~# W   #     # #           #  ~ ~ ~#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~  Pe   ~ ~ ~ ~# # # #  ~      #      ~     ~ ~W Pe  #   #   # W     W    ~      # W       C2      #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  # ",
+  "#  ~#     # W   #  ~  # # # Gz#  ~ ~ ~#   #  ~ ~ ~X~ ~ ~ ~ ~ ~       ~ ~ ~ ~# OB ~#    ~    # #   #   #  ~ ~ ~ ~ ~#  ~#   #   # # # # # # # # # E2# # # # # # # #   #                 a       # ",
+  "#  ~W   W #     #  ~      #   #  ~ ~ ~#   #  ~ ~ ~ ~ ~X~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#  ~  #      ~S   C1  #  ~          W   W #   W                      ~I8            W   #    ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#   #     # # # # # # #   #   #  ~ ~ ~# Xl#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#  ~  # #      ~  #  ~# # # # # # # # #  ~# # # W # # # # # # # # # # # E6# # # # # # # #     a    ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#   # W # #       +       # k6#  ~ ~ ~#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#  ~    # #   #   #  ~ ~           ~ ~   ~          +       #       +     #       #   OB#  ~ ~n~   ~ ~ ~ ~n~ ~ ~ ~# ",
+  "#         +       #  ~ ~ ~#   #  ~ ~ ~#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# OW ~    D6      #  ~ ~    i9     ~ ~              #       +       #     C8  # YOZ0    #  ~ ~ ~   ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "# # # # # # # # # # # # # # Xl# # # # # + # # # # # # # # # # # # # # # # # # # # # # # # # # #!# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # E5# # # # # # a~# # ",
+  "#                    ~ ~ ~#   #  ~ ~ ~#   #              ~ ~      X      ~OW# OB ~    C9 ~W  ~J6 ~  OW#   D2              #       #       #       # K6#  ~ ~     ~ ~ ~K8#  ~   ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#   Pd# Pc# Pl# Pa   ~ ~ ~# k4#  ~ ~ ~#   #   # # W # #   # # # # # # # W~# #  ~    # # W #   #   # # #   #   # # G5# #       #       #       #   #   #  ~ ~  W   X~W  ~#  ~   ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#                    ~ ~ ~#   #  ~ ~ ~# Xl#   #             W      ~  W     #  ~  # #     W   #   #       #   #       # # # # # # # # # # # # #   #   W   J0 ~W   X~ ~ ~#  ~   ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#     # #           X~ ~ ~#   #  ~ ~ ~#   #   #   # # #     #     #   # #   #  ~  #     # #   #   #   # # #   #   #   #  ~ ~ ~ ~    W  ~      #   #   #  ~ ~  W   X~W  ~#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#       # Pe#  ~ ~ ~ ~X~ ~# GZ#  ~ ~ ~#   #   #   W      ~ ~#     #         # OW ~#   # #  ~  #   #   #       #   #   #  ~d1 ~ ~    W  ~  +   #       #  ~ ~     ~ ~ ~O7#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#     Pe    #  ~ ~ ~ ~ ~X~ ~ ~ ~ ~ ~ ~#   #   # # # # #   # # W # # # # # # # # # #   #  ~ ~  #   #   #   # # #   #   #  ~ ~ ~ ~    W  ~# # # # # # G8# # # # # # # # # #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#   #   # # #  ~ ~ ~ ~ ~ ~X~          #       W         J7     ~    #       #         #  ~ ~ ~#   #   #   #       #   #  ~ ~ ~ ~                                  #  ~ ~ ~     ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#   #   #      ~ ~ ~ ~ ~X~ ~   ~ ~ ~  # # #   # # # # #   # # # # # #   #   #   # #   # W W~W~#   #   #   #   # # #   # # # # # # # # # # # # # # # # # # # # #   # #       r  ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#   #          ~ ~ ~ ~X~  W~ ~ ~ ~ ~      #           #  ~             ~W       #     #  ~ ~ ~#   #   #   #   #                                               #     X   W      ~ ~ ~ ~   ~ ~ ~# ",
+  "#              ~ ~ ~X~ ~   ~   ~ ~ ~ ~#   # # # # #   # # # # # # # # W~# # # # #   # # W~W~W #   #   #   #   #   # # # # # # # # # # # # # # # # # # # # #   # # + # # # #    ~ ~ ~ ~  W     # ",
+  "#           #  ~ ~ ~ ~ ~   ~   ~ ~ ~ ~#               #                 #       #             #   #   #   #   #   #                                       #       YAD5 s ~ ~   ~ ~ ~ ~    W  ~# ",
+  "#   # # # # # # # # # # # # W # # # # # # # # # # # # #   # # # #   # # #   #   # # # # # # # #   #   #   #   #   #   # # # # # # # # # # # # # # # # #   # # # # k5# # # #   # # # #    ~a~# # ",
+  "#   #      ~X  ~W  ~W  ~ ~   ~ ~ ~ ~ ~#       #       #         #       #   #                     #   #   #   #   #                 #~ ~ ~ ~ ~ ~ ~ ~ ~#               X~ ~ ~   ~ ~ ~ ~   ~ ~ ~# ",
+  "#   #   W   W   W   W  ~ ~ ~ ~ ~ ~ ~ ~#   #   #   #   # # # #   # # #   #   # # # # # # # # # #   #   #   #   #   # # # # # # # #   #~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~X~T9X  ~ ~ ~   ~ ~ ~ ~W  ~ ~ ~# ",
+  "#   #      ~W  ~W  ~X  ~ ~ ~ ~ ~ ~ ~ ~#   #   #   #         #       #   #   #                     #   #   #   #                     #~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~X~ ~ ~X~ ~ ~ ~     ~         ~ ~ ~# ",
+  "#   #   # # # # # # # # # # # # # # # #   #   #   # # # #   # # #   #   #   #   # # # # # # # # # #   #   #   # # # # # # # # # # # #~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~X~ ~X~ ~ ~X~ ~ ~   ~W  ~X~ ~Wl ~ ~ ~# ",
+  "#   #                                     #   #         #           #   #   #                         #   #          ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~X~ ~ ~ ~ ~ ~ ~X~ ~ ~W    ~ ~X~   ~ ~ ~# ",
+  "#   # # # # # # # # # # # # # # # # # # # #   # # # #   # # # # # # #   #   # # # # # # # # # # # # E8#   # # #   #           #  ~ ~ ~ ~ ~  Wl ~W W W X~ ~iA              W    s ~ ~ ~ ~ ~J1 ~# ",
+  "#  ~             ~                        #   YOZ1  #       #           # + #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# M #       #   #   # W W   #  ~ ~ ~ ~ ~ ~W   W  ~W  ~W X~      W  ~ ~ ~ ~ ~ ~ ~ ~ ~X~ ~   ~# ",
+  "#  ~# # # # # #   # W # # # # # # # # #   #   # #   # # #   #   # # # # #  ~#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~X~  # # #   #   #   #   #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~W W IA ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~X~ ~ ~   ~# ",
+  "#    ~#       #   #   #                   #     # OB#       #   #  ~ ~#   W #  ~ ~ ~ ~ ~ ~ ~ ~ ~X~ ~    OW#   #   #       #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~W    ~ ~ ~ ~ ~ ~ ~ ~ ~ ~X~ ~ ~ ~   ~# ",
+  "#    ~#   #   #   #   #   # # # # # # # # # # X # # # Wl#   #   X   QZ      J5                X   W J4    #   #   # # #   #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~X~ ~ ~ ~ ~   ~# ",
+  "#    ~#   #   #   #   #   #                s ~ ~ ~ s   ~W  ~#   #  ~ ~#     #  ~ ~ ~ ~ ~ ~ ~ ~ ~     ~W   >W  #       # K5#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~X~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~X~ ~ ~     ~W  ~# ",
+  "#    ~#   #   #   #   #   #   # # # # # # # #  ~# # # # # W~# E7# # # #   # # # # # # # #    ~# # # # # # #   # # #   # # # k8# # # # # # # # # # # # #   X~ ~ ~ ~ ~ ~ ~ ~ ~X~ ~ ~  # # W~J2 ~# ",
+  "# W  ~#   #   #   #   #   #           #     #  ~#  ~W  ~#  ~    #     #     #        ~ ~ ~  # #~ ~ ~ ~ ~ ~#     t5#          ~W~                      W  ~  X~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~      W W   # ",
+  "#    ~#   #   #   #   #   # # # # #   #   W W~ ~# W W W # G7#   #    ~W     #  ~  @1   ~ ~  #       W            ~# # # # # # # # # # #   # # # # # # # # #  ~X~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~    W   # ",
+  "#    ~#   #   #   #   #           #   #     #  ~#  ~W       #   #     #   # #  ~ ~    W  ~          #   # # W     D1                      #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~X~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#    ~#   #   #   #   # # # # #   #   #     #  ~#  ~W W W W #   # #   #     #  ~ ~ ~ ~ ~ ~      s7 ~ ~  #     W  ~# # # # # # # # # # # # d3 ~ ~ ~ ~ ~ ~ ~ ~ ~R~ ~X~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+  "#    ~#   #   #   #           #   #   W~ ~    W    ~ ~ ~ ~ ~#       W W   # #  ~ ~ ~ ~ ~ ~# # # # # #  ~W   W    ~#       D3     ~      R a                   a    ~             ~       ~ ~ ~# ",
+  "#     W   #   # W # # # # #   #   #   #  ~  X W X  ~ ~ ~ ~X~# # # #   #  ~  #  ~ ~ ~      #  ~ ~ ~ ~# # f8#      ~+ W W W #  ~   ~   ~  #    ~ ~ ~ ~ ~ ~ ~ ~      #         #    ~   ~ ~ ~ ~ ~# ",
+  "#         #  ~   ~        W   #   #   #  ~ ~  X  ~ ~ ~ ~X~ ~#     #   # #   #  ~ ~     ~  #  ~ ~ ~ ~      #  ~ ~ ~#  ~    #  ~       ~  #    ~ ~X X X X X X #  ~W # #   #   #    ~   ~ ~ ~ ~ ~# ",
+  "# # # # # # # # # # # # # #   #   #   #  ~ ~X~ ~X~ ~ ~X~ ~ ~#    ~  W       #  ~ ~   ~S~ ~    W     W   W #  ~ ~ ~# W #    ~ ~ ~ ~ ~ ~ ~ ~a  ~ ~ ~         ~      k7  W   W   YB ~a   A W  ~  # ",
+  "#                    ~     ~  #   #   #  ~X~ ~ ~ ~X~X~ ~ ~ ~# #   #   # #  ~#  ~ ~     ~  #  ~ ~ ~ ~   ~  #    ~ ~#   C7  #  ~ ~ ~ ~ ~  #         W W X W # #  ~W # #   #   #    ~ ~ ~W  ~ ~  # ",
+  "#   # # W # # W # # W # # # # #   #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#     # W   #   #  ~ ~ ~                   ~  # W  ~ ~# K7# J3#  ~ ~ ~ ~ ~               ~      #     #         #    ~ ~ ~   ~ ~W # ",
+  "#          ~                          #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#    ~      # f7#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~     ~ ~# O7   ~#  ~ ~ ~ ~ ~    X                 #      ~             ~ ~ ~ ~W    ~# ",
+  "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # "
+})
+wo:shuffleOxyd({"oxydsBlack#*", max = 0}, {"oxydsWhite#*", max = 0}, {"oxyds7#*", min = 1}, {"oxyds9#*", min = 1})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="doc%a">
+        <el:english>Closed door? ... Moving the shogun stone to the next little blue circle will help.</el:english>
+        <el:translation el:lang="de">Zutritt verboten? ... Den Shogun-Stein zum nächsten kleinen blauen Kreis schieben, hilft weiter.</el:translation>
+      </el:string>
+      <el:string el:key="doc%b">
+        <el:english>Closed door? ... A switch is set wrong.</el:english>
+        <el:translation el:lang="de">Zutritt verboten? ... Da ist ein Schalter falsch gestellt.</el:translation>
+      </el:string>
+      <el:string el:key="doc%c">
+        <el:english>Did the white marble send the boulder your way?</el:english>
+        <el:translation el:lang="de">Hat die weiße Murmel den Boulder geschickt?</el:translation>
+      </el:string>
+      <el:string el:key="doc%d">
+        <el:english>Don't panic. The little blue circle has the same job as the one in the starting room.</el:english>
+        <el:translation el:lang="de">Keine Panik. Der kleine blaue Kreis funktioniert wie derjenige im Startraum.</el:translation>
+      </el:string>
+      <el:string el:key="doc%A">
+        <el:english>Take care not to block your path when breaking the walls!</el:english>
+        <el:translation el:lang="de">Vorsicht! Vor den Mauerdurchbrüchen darauf achten, die Wege nicht zu verbauen.</el:translation>
+      </el:string>
+      <el:string el:key="doc%B">
+        <el:english>Boulder and rotator action. In the end use the rotator to send the boulder to the far north.</el:english>
+        <el:translation el:lang="de">Boulder- und Rotatorarbeit. Ganz zum Schluss den Boulder in den hohen Norden schicken.</el:translation>
+      </el:string>
+      <el:string el:key="doc%O">
+        <el:english>Closed door? ... It was a really bad idea of the black marble to move a specific boulder out of the way.</el:english>
+        <el:translation el:lang="de">Zutritt verboten? ... Da hätte die schwarze Murmel wohl einen Boulder besser nicht aus dem Weg geräumt.</el:translation>
+      </el:string>
+      <el:string el:key="BzG">
+        <el:english el:translate="false">"Moanin'" ... it lasts ...</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

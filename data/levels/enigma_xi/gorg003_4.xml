@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Firecracker" el:subtitle=""
+el:id="gorg003_4"/> <el:version el:score="3" el:release="4" el:revision="12"
+el:status="stable"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2016 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="true" el:single="true"
+el:network="false"/> <el:comments> <el:credits el:showinfo="true" el:showstart="false">Thanks to Ale and ItTheIt for detailed feedback</el:credits>
+</el:comments> <el:score el:easy="-" el:difficult="-"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+wo["CrackSpreading"] = 1.0
+wo["SwampSinkTime"]=1.55
+
+ti[","]=cond(wo["IsDifficult"], {"fl_pinkbumps"}, {"fl_pinkbumps", adhesion=1.5})
+ti[";"]=cond(wo["IsDifficult"], {"fl_gravel"}, {"fl_gravel", friction=5.0})
+ti["#"]={"st_redrock"}
+ti["O"]={"st_oxyd"}
+ti["N"]={"st_oxyd", "rightoxyds#"}
+ti["~"]={"fl_water"}
+ti["*"]=cond(wo["IsDifficult"], {"fl_red", ignitable=true, secure=true, eternal=true}, {"fl_red", adhesion=1.5, friction=5.0, ignitable=true, secure=true, eternal=true})
+ti["?"]=cond(wo["IsDifficult"], {"fl_red", "burn#", ignitable=true, eternal=true}, ti["*"])
+ti["H"]= {"fl_red", initfire=true, secure=true, eternal=true}
+ti["@"]=ti["?"] .. {"#ac_marble_black", owner=YIN}
+ti["_"]={"fl_abyss"}
+ti["S"]={"st_scissors"}
+ti["X"]={"st_grate"}
+ti["K"]={"st_chess_white"}
+ti["T"]={"st_thief"}
+ti["D"]={"st_dispenser_dynamite", stock=5}
+ti["x"]={"st_box_wood"}
+ti["R"]={"st_box_rock"}
+ti["^"]={"st_rubberband", length=0,5, strength=15.0}
+ti["C"]={"it_crack_m", flavor="water"}
+ti["c"]={"it_crack_s", flavor="water"}
+ti["o"]=cond(wo["IsDifficult"], {"st_laserswitch", target="feurio", action="signal"}, {"st_laserswitch", target="doorb", action="signal"})
+ti["."]={"st_mirror_slab", transparent=true, orientation=RANDOMDIR, movable=true}
+ti["Y"]={"st_mirror_slab", orientation=RANDOMDIR, movable=true}
+ti["q"]={"st_mirror_triangle", orientation=RANDOMDIR, movable=true}
+ti["M"]=ti["R"] .. {"it_magicwand"}
+ti["J"]=ti["R"] .. {"it_crack_m", flavor="water"}
+ti["I"]={"st_ice"}
+ti["A"]={"st_door_d", "doors#", faces="ew"}
+ti["a"]={"fl_scales_bridgewood", min= 0.9, target="@doors#*"}
+ti["B"]={"st_door_d", "roomdoor#", faces="ew"}
+ti["b"]={"fl_scales_bridgewood", min= 0.9, target="roomdoor#*"}
+ti["L"]={"st_laser_n", "laser"}
+ti["l"]={"fl_scales_bridgewood", min=0.9, target="laser"}
+ti["F"]={"fl_bridge_bw", "bridge#"}..ti{"it_seed"}
+ti["f"]={"fl_scales_bridgewood", min= 0.9, target="bridge#*"}
+ti["G"]={"st_door_d", "laserdoors#", faces="ew"}
+ti["g"]={"fl_scales_bridgewood", min= 0.9, target="laserdoors#*"}
+ti["9"]={"it_extinguisher_full"}
+ti["!"]={"it_squashed"}
+ti["y"]={"it_cherry"}
+ti["z"]={"it_coffee"}
+ti["7"]={"it_extralife"}
+ti["8"]=ti["?"] .. {"it_extralife"}
+ti["doc"]={"it_document", text="hint%%"}
+
+if wo["IsDifficult"]then wo(res.autotile(res.random(ti, " ", {",", ";"}), {"t", "w", "doc"}), " ", {  
+    "####################O###a############^#",
+    "O    #  #  #       #c#   #*##*  ~x ~IuN",
+    "D    A  #     #  z #w# #  ****#****##*#",
+    "######     ?  ^    #     #*~~~~~~~*#**#",
+    "#  #    ##   #######   # ~*~~ ?*~~*A*##",
+    "#*      ####           #x ~# ~##~~*#*9#",
+    "#  #^^^#^^^^ ?^  #  ^# x @t# g ~~~**###",
+    "#a##^^^   ^^    ###  ## #   #  ? ~~***#",
+    "#^^   ^ ^ ^^  ?#   # #  x~~~~~~# ~~#^*#",
+    "#^  ^ ^ ^ ^^  v#   #    #~##**#  x !#*#",
+    "#  ^^ ^ ^ XX?  AK  #a#    #**~ * X ~**#",
+    "O ^^^   ^^^^   ## ##   #~!C ~~#?  ?C~*#",
+    "########o###XX###########S#######T##N##",
+    "O  oX!    ##    J  #H   H    H H X  H N",
+    "#  G .Y zX#~~ ~ Mx~#    HR x HzR  xX  #",
+    "#  #q #L.##~~~**~~~###?*~?~??~yC***?###",
+    "#  o Y.!C o~~~*~~~~#~~######~~~#####~~#",
+    "# ##* #####~~~***~~#~~~~~~~##~##~~~~~~#",
+    "#  G*X#####~~  ~~~ #???????#~~~#~~~~~~#",
+    "#  ### ~*~~*~c~~   #~~~~~~~~#a#~~~~~~~#",
+    "#   ___*****~~~~~x7BC!C!CC!Cb##~~~~~~~#",
+    "#? ????~~~~~    xR #~~~~~~~~###~~~~~~~#",
+    "#_#??~~R~# R Rxx?x##?????????????????##",
+    "Ol F_    #f#  ?   ##????????????????~AN",
+    "#################O#####################"
+})
+else wo(res.autotile(res.random(ti, " ", {",", ";"}), {"t", "w", "doc"}), " ", {  
+    "####################O###a############^#",
+    "O    #  #  #       # #   #*##*  ~x ~  N",
+    "D    A  #     #  z # # #  ****#****##*#",
+    "######     ?  ^    #     #*~~~~~~~*#**#",
+    "#  #    ##   #######   # ~*~  ?*~~*A*##",
+    "#*      ####           #x ~# ~##~~*#*9#",
+    "#  #^^^##### ?^  #  ^# x @t# g ~~~**###",
+    "#a#####   ##    ###  ## #   #  ? ~~***#",
+    "###   # # ##  ?#   # #  x~~~~~~# ~~#^*#",
+    "##  # # # ##  v#   #    #~##**#  x !#*#",
+    "#  ## # # XX?  AK  #a#    #**~ * X ~**#",
+    "O ###   ####   ## ##   #~!C ~~#?  #C~*#",
+    "########o###XX###########S#######T##N##",
+    "O  oX!    ##   wJ  #H   H    H H X  H N",
+    "#  G .Y zX#~~ ~ Mx~#    HR x HzR  xX  #",
+    "#  #q #L.##~~~**~~~###?*~?~??~yC***?###",
+    "#  o Y.!  o~~~*~~~~#~~######~~~#####~~#",
+    "# ##* #####~~~***~~#~~~~~~~##~##~~~~~~#",
+    "#  G*X#####~~  ~~~ #???????#~~~#~~~~~~#",
+    "#  ### ~*~~*~c~~   #~~~?~~~~#a#~~~~~~~#",
+    "#   ___*****~~~~~x7BC!C!CC!C###~~~~~~~#",
+    "#? ????~~~~~    xR #~~~~~~~~###~~~~~~~#",
+    "#_#??~~~~# R Rxx?x##?????????????????##",
+    "Ol F_    #f#  ?   ##????????????????~AN",
+    "#################O#####################"
+})
+end
+
+wo:add({"ot_counter", "feurio", state=0, target="burn#*", action_3="nop", action_4="setfire"})
+wo:add({"ot_counter", "doorb", state=0, target="roomdoor#*", action_3="close", action_4="open"})
+wo:shuffleOxyd({"rightoxyds#*", min=2})
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="hint%1">
+<el:english el:translate="true">Use the wooden boxes for bridge building!</el:english>
+ <el:translation el:lang="de">Benutze die Holzkisten zum Brückenbau!</el:translation>
+</el:string>
+<el:string el:key="hint%2">
+<el:english el:translate="true">You will need two dynamite sticks in this room.</el:english>
+<el:translation el:lang="de">In diesem Raum benötigt man zwei Dynamitstangen.</el:translation>
+</el:string>
+<el:string el:key="hint%3">
+<el:english el:translate="true">Red floors will ignite.</el:english>
+<el:translation el:lang="de">Rote Böden sind entflammbar.</el:translation>
+</el:string>
+<el:string el:key="hint%4">
+<el:english el:translate="true">Avoid crack spreading!</el:english>
+<el:translation el:lang="de">Vermeide die Ausbreitung von Bodenrissen!</el:translation>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

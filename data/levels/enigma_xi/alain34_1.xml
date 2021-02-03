@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Hobbyte II, the return" el:subtitle="The hobbyte and Sarumarble the White" el:id="alain15"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:18"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_lawn_b"}
+ti["."] = {"fl_lawn_b", name="toburn#"}
+ti["-"] = {"fl_water"}
+ti["s"] = {"fl_sand"}
+ti["#"] = {"st_ancient"}
+ti["+"] = {"st_granite"}
+ti["D"] = {"st_death"}
+ti["K"] = {"st_knight"}
+ti["B"] = {"st_chess", color=BLACK}
+ti["H"] = {"st_passage_white"}..ti["s"]
+ti["S"] = {"st_passage_black"}
+ti["M"] = {"st_yinyang_inactive",name="altar"}
+ti["j"] = {"it_sword"}
+ti["d"] = {"it_document", text="text1"}
+ti["r"] = {"it_ring"}
+ti["^"] = {"it_drop"}
+ti["t"] = {"it_trigger", invisible=true, action="setfire", target="toburn#*"}
+ti["z"] = {"it_trigger", invisible=true, action="callback", target="wakeup"}
+ti["O"] = {"st_oxyd", flavor="a",oxydcolor=OXYD_BLUE}
+ti["R"] = {"st_oxyd", flavor="a",oxydcolor=OXYD_RED}
+ti["@"] = {"#ac_marble"}
+ti["W"] = {"#ac_marble_white"}..ti["r"]
+
+wo(ti," ",{
+    "####################",
+    "#RK              KO#",
+    "#KK--------------KK#",
+    "#DDDDDDDDDDDDDD-DDD#",
+    "#------------------#",
+    "#D-DDDDDDDDDDDDDDDD#",
+    "#                 z#",
+    "#  @  d            #",
+    "#            ------#",
+    "#SSS   M    ttttHHH#",
+    "#  S        +.+-HW^#",
+    "#O S        +.+-HjR#",
+    "#############B######"})
+    
+ function wakeup()
+ 	wo[no["altar"]]={"st_yinyang"}
+ end
+    
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true" el:comment="In Tolkien's 'the Lord of the Rings', the white magician is called 'Saruman'. Gandalf is gray so does not fit in this story, sorry. Saruman can transform himself in whatever he wants.">Up there in Orthanc I see Sarumarble the White, the mightiest magician of this Country. He made the Ring. He masters metamorphosis. He could help me. If only I could enter the Castle!</el:english>
+        <el:translation el:lang="fr">Là-bas en Orthanc est Sarouballe le Blanc, grand parmi les magiciens. C'est lui qui a fabriqué l'Anneau. On le dit capable de se transformer. Il saurait sûrement comment m'aider. Si seulement je pouvais entrer en son Castel!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

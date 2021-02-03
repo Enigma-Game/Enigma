@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Screen Flip" el:id="pzykosiz09_1"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:author  el:name="pzykosiz"/>
+      <el:copyright>Copyright 2014 pzykosiz</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+       <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+     </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_abyss"}
+ti["f"] = {"fl_concrete"}
+ti["o"] = {"st_oxyd"}
+ti["b"] = ti["f"] .. {"#ac_marble_black"}
+ti["d"] = ti["f"] .. {"st_death", invisible=true}
+ti["O"] = {"st_fake_oxydb"}
+ti["n"] = ti["b"] .. {"it_document", text = "text1"}
+ti["N"] = ti["b"] .. {"it_document", text = "text2"}
+
+
+if wo["IsDifficult"] then
+    wo(ti, " ", {
+        "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "fO                OfO                OfO                OfO                Of",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "fO                Odo                odo                odO                Of",
+        "ffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdffffffffffffffffff",
+        "fO                ofo                ofo                ofo                Of",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "fO                ofo                ofo                ofo                Of",
+        "ffffffffffffffffffdfffffffffffffffffffnfffffffffffffffffffdffffffffffffffffff",
+        "fO                ofo                ofo                ofo                Of",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "fO                ofo                ofo                ofo                Of",
+        "ffffffffffffffffffdfffffffffffffffffffffffffffffffffffffffdffffffffffffffffff",
+        "fO                Odo                odo                odO                Of",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "f                  f                  f                  f                  f",
+        "fO                OfO                OfO                OfO                Of",
+        "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"})
+else    
+    wo(ti, " ", {
+        "                   o                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "offffffffffffffffffNffffffffffffffffffo",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   f                   ",
+        "                   o                   "})
+end
+
+wo:shuffleOxyd({no["oxyds#*"]:sort("linear"), linear=true})
+    
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="text1">
+        <el:english el:translate="false">pzykosiz tip: this is the centre</el:english>
+      </el:string> 
+      <el:string el:key="text2">
+        <el:english el:translate="false">pzykosiz tip: too easy huh? try hard</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

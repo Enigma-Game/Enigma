@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Penguin Run" el:subtitle="Mark The Passage"
+el:id="gorg012_2"/> <el:version el:score="1" el:release="3" el:revision="5"
+el:status="stable"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2016 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="true" el:single="true"
+el:network="false"/> <el:score el:easy="07:23" el:difficult="-"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["ProvideExtralifes"] = false
+wo["CrackSpreading"] = 0.0
+
+ti[" "] = {"fl_white"}
+ti["#"] = {"st_bluesand", cluster="1"}
+ti["@"] = {"#ac_marble_black", owner=YIN}
+ti["~"] = {"fl_water"}
+ti["I"] = {"st_ice"}
+ti["D"] = {"st_door", "door"}
+ti["O"] = {"st_oxyd"}
+ti["R"] = {"st_rawglass"}
+ti["T"] = {"it_document", text="text"}
+ti["C"] = {"st_coinslot", target="door",interval_l=COIN_IGNORE }
+ti["s"] = {"it_seed_hay"}
+ti["p"] = {"it_pencil"}
+ti["d"] = {"it_dynamite"}
+ti["b"] = {"st_box_hay"}
+ti["B"] = {"it_bomb"}
+ti["c"] = {"it_cherry"}
+ti[">"] = {"st_oneway", orientation=EAST}
+ti["<"] = {"st_oneway", orientation=WEST}
+ti["x"] = {"st_grate"}
+ti["X"] = ti["~"] .. {"st_grate"}
+ti["$"] = ti["x"] .. {"it_coin_m"}
+ti["!"] = ti["~"] .. {"it_bottle_broken"}
+ti["?"] = {"st_barrier", flavor="it_cherry"}
+
+wo(ti, " ", {
+    "###########C##O###O#",
+    "#I~ IIsI~I~TI#     #",
+    "#~IIx~ ~I~I~~#O#D#O#",
+    "#~I~~II~I I ~##I?I##",
+    "#~~ ~I ~II~I ##IbR##",
+    "#@II~~~~I~I~I#~BB<##",
+    "#I ###II~III ~I~#BI#",
+    "#B## ~ ~II~I~~~~#$~#",
+    "#  >I~~pI~I ~xI~!I #",
+    "# ~#I I~II bI ~Ib~I#",
+    "# I#~II~I~I~~~~ I~s#",
+    "# I~~ c~ I~II#~s#~X#",
+    "####################"
+})
+
+if not wo["IsDifficult"] then wo:add(YIN, {"it_pin"}) end
+wo:shuffleOxyd()
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="text">
+<el:english el:translate="true">Exact change only.</el:english>
+ <el:translation el:lang="de">Bitte passend bezahlen.</el:translation>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

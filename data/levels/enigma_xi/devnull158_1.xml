@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="More Oxyds ..." el:subtitle="" el:id="devnull158"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2013 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="2:22" el:difficult="4:44"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["WormholeStrength"] = 0.0
+wo["MaxOxydColor"] = OXYD_BROWN
+
+ti["  "] = {"fl_rock"}
+ti[" b"] = {"fl_rock", name = "destBlack"}
+ti[" w"] = {"fl_rock", name = "destWhite"}
+ti[" ~"] = {"fl_water"}
+ti[" ^"] = {"fl_slope_pn"}
+ti[" n"] = cond(wo["IsDifficult"], ti[" ^"], ti["  "])
+ti[" v"] = {"fl_slope_ps"}
+ti[" V"] = cond(wo["IsDifficult"], ti["  "], ti[" v"]) 
+ti[" <"] = {"fl_slope_pw"}
+ti[" >"] = cond(wo["IsDifficult"], ti["  "], {"fl_slope_pe"})
+ti[" 1"] = {"fl_slope_one"}
+ti[" 3"] = {"fl_slope_onw"}
+ti["T "] = {"fl_scales_concrete", target = "laserWest"}
+ti[" T"] = {"fl_scales_concrete", target = "doorDiff"}
+ti["# "] = {"st_redbrown"}
+ti["E "] = cond(wo["IsDifficult"], ti[" ~"], ti["# "])
+ti["= "] = {"st_redbrown_hollow"}
+ti["* "] = cond(wo["IsDifficult"], {"st_redbrown_movable"}, ti["# "])
+ti["I "] = {"st_stoneimpulse"}
+ti["F "] = cond(wo["IsDifficult"], {"st_laserswitch", target = "doors#*"}, {"st_laserflop", target = "doors#*"})
+ti["LN"] = {"st_laser_n", state = ON}
+ti["LE"] = {"st_laser_w", name = "laserWest", state = OFF}
+ti["+ "] = {"st_box_rock"}
+ti["M "] = {"st_mail_e"}
+ti["X "] = {"st_portal_pearl"}
+ti["B "] = {"st_passage_black", flavor = "frame"}
+ti["W "] = {"st_passage_white", flavor = "frame"}
+ti["DB"] = {"st_door_a", name = "doors#"} .. ti({"it_wormhole", destination = "destBlack"})
+ti["DW"] = {"st_door_a", name = "doors#"} .. ti({"it_wormhole", destination = "destWhite"})
+ti["DD"] = {"st_door_a", name = "doorDiff"}
+ti["b "] = {"st_break_black"}
+ti["w "] = {"st_break_white"}
+ti[" h"] = {"it_hammer"}
+ti[" H"] = cond(wo["IsDifficult"], ti["  "], ti[" h"])
+ti[" _"] = {"it_pipe_ew"}
+ti[" |"] = {"it_pipe_sw"}
+ti[" c"] = cond(wo["IsDifficult"], {"it_coffee"}, ti["  "])
+ti[" ;"] = {"it_crack_l", flavor = "water"}
+ti[" g"] = {"it_bag"}
+ti[" d"] = cond(wo["IsDifficult"], ti["  "], {"it_document", text = "doc1"})
+ti[" y"] = ti[" ^"] .. {"it_yinyang"}
+ti["OB"] = {"st_oxyd_a", name = "oxydsBlack#"}
+ti["OW"] = {"st_oxyd_a", name = "oxydsWhite#"}
+ti["OO"] = cond(wo["IsDifficult"], {"st_oxyd_a", name = "oxydsDiff#"}, ti["# "])
+ti["@0"] = {"#ac_marble_black", essential = INDISPENSABLE}
+ti["@1"] = ti["+ "] .. {"#ac_pearl_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+ti["@2"] = cond(wo["IsDifficult"], ti["+ "] .. {"it_weight"}, ti["+ "] .. {"#ac_pearl_black", owner = nil, controllers = CTRL_NONE, essential = INDISPENSABLE})
+
+wo(res.composer(ti), "  ", {
+  "# # # # # M_#_#_#_#_#_I|I I I I I I I I OOOOOOOO# ", 
+  "#  ~   ;=  n# OB ~OB#                 I  ~W W B OO", 
+  "# @2+  ~# =y# OB+ OB#  ~E~E~E~E~E~DB+ I  ; ~ ~B OO", 
+  "#      ~# w^# OBBbOB#  ~+HW>    B     I I +    ~# ", 
+  "# +~ ~ ~# w^#  ~ ~ ~# Xv# E~XvXvB  ~ ~# I + +  ~# ", 
+  "#  ~    # w^# OWWwOW# wv#  ~ ~ ~b~ ~ ~# I I I   # ", 
+  "# BV ~@2# w^# OW+ OW# wv#  ~@0+ #  ~ ~# I  ~ T+ # ", 
+  "#  ~+~ ~# w^# OW ~OW# wv#  ~ d ~b~#  ~*g+  ~ ~DD# ", 
+  "#   T W # =^# # # # # wv#  ~  +h+ @1+ #  ~ ~    # ", 
+  "#   DW  #  1w<w<w<w<=< 3#  ~+   +  ~ ~#     +  ~# ", 
+  "# # # # # # # # # # # # #  ~ ~+  ~+~+~#    ~+~+ # ", 
+  " ~ ~F~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  +  ~ ~ cLEB  ~+~ ~# ", 
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# # # # # # LN# # # # " 
+})
+if wo["IsDifficult"] then
+  wo:shuffleOxyd({"oxydsBlack#*", max = 0}, {"oxydsWhite#*", max = 0}, {"oxydsDiff#*", min = 3})
+else
+  wo:shuffleOxyd({"oxydsBlack#*", max = 0}, {"oxydsWhite#*", max = 0})
+end
+wo:add(YANG, {"it_yinyang"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="doc1">
+        <el:english>More oxyds are available in difficult mode only.</el:english>
+        <el:translation el:lang="de">Mehr Oxydsteine gibt's nur im schwierigen Modus</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

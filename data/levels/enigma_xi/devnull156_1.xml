@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Nice chicken line" el:subtitle="" el:id="devnull156"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2013 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="1:23" el:difficult="2:10"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["ProvideExtralifes"] = cond(wo["IsDifficult"], false, true)
+
+ti["  "] = {"fl_rock"}
+ti[" ~"] = {"fl_water"}
+ti["# "] = {"st_granite"}
+ti["- "] = cond(wo["IsDifficult"], {"st_granite_movable"}, ti["# "])
+ti["* "] = cond(wo["IsDifficult"], {"st_death"}, ti[" ~"])
+ti["+ "] = {"st_box_rock"}
+ti["B "] = {"st_passage_black", name = "passage#", flavor = "frame"}
+ti["W "] = {"st_passage_white", name = "passage#", flavor = "frame"}
+ti[">B"] = {"st_oneway_black_e"}
+ti[">W"] = {"st_oneway_white_e"}
+ti["F "] = {"st_monoflop", target = "@passage#*"}
+ti["D "] = cond(wo["IsDifficult"], {"st_door_a", name = "door#"}, {"st_oxyd_a", oxydcolor = OXYD_GRAY})
+ti[" _"] = {"fl_scales_concrete", target = "door#*"}
+ti[" -"] = ti[" ~"] .. {"it_strip_ew"}
+ti[" ;"] = cond(wo["IsDifficult"], {"it_crack_l", flavor = "water"}, {"it_crack_m", flavor = "water"})
+ti[" ,"] = cond(wo["IsDifficult"], {"it_crack_m", flavor = "water"}, {"it_burnable"})
+ti[" d"] = cond(wo["IsDifficult"], {"it_document", text = "doc0"}, ti["  "])
+ti["OB"] = {"st_oxyd_a", oxydcolor = OXYD_WHITE}
+ti["OW"] = {"st_oxyd_a", oxydcolor = OXYD_BLACK}
+ti["OG"] = cond(wo["IsDifficult"], {"st_oxyd_a", oxydcolor = OXYD_GRAY}, ti[" ~"])
+ti["@0"] = cond(wo["IsDifficult"], {"ac_marble_black", 0.5, essential = INDISPENSABLE}, {"ac_pearl_black", 0.5, owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE})
+ti["@1"] = cond(wo["IsDifficult"], {"ac_marble_white", 0.5, essential = INDISPENSABLE}, {"ac_pearl_white", 0.5, owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE})
+
+wo(res.composer(ti), "  ", {
+  "#~#~#~#~#~#~#~#~#~#~ ~*~*~*~*~ ~#~#~#~#~ ~", 
+  "OWW  ~+  ~+  ~ ~ ~ ~ ~ ; , , ;*~ ~ ~ ~#~ ~", 
+  "OBB  ~+  ~+ +  ~ ~ ~ ~B;*~*~ ; ,>W+d ~D OG", 
+  "#~*~ ~ ~ ~ ~B  ~ ~ ~ ~ ~ ~ ~*~ ,*~ ~ ~#~ ~", 
+  "*~  W-   ~ ~  F~ ~ ~ ~+   +~ ~ , ~ ~ ~#~ ~", 
+  "*~  +~ ~ ~          +    ~ ~ , ~ ~ ~ ~#~ ~", 
+  "*~@0#~#~+~+~ ~ ~ ~ ~ ~+~ ~+~ ~ ~ ~ ~ ~#~ ~", 
+  "*~@1+~ ~   ~        +  ~+~ ~ , ~ ~ ~ ~#~ ~", 
+  "*~  B-   ~ ~  F~ ~ ~ ~+   +~ ~ , ~ ~ ~#~ ~", 
+  "#~*~ ~ ~ ~ ~W  ~ ~ ~ ~ ~ ~ ~*~ ,*~ ~ ~#~ ~", 
+  "OBB  ~+  ~+ +  ~ ~ ~ ~W;*~*~ ; ,>B+d ~D OG", 
+  "OWW   +~ ~ ~ ~ ~ ~ ~ ~ ; , , ;*~ ~ ~ ~#~ ~", 
+  "#~#~#~#~#~#~-~#~#~#~ ~*~*~*~*~ ~#~#~#~#~ ~",
+  " ~ ~ ~ ~ ~ ~ _ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~"
+})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="doc0">
+        <el:english>Doors ahead! Closed? Then restart.</el:english>
+        <el:translation el:lang="de">Türe voraus! Geschlossen? Dann Neustart.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

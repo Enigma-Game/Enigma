@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Volcano Run" el:id="pzykosiz04_1"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:author  el:name="pzykosiz"/>
+      <el:copyright>Copyright 2013 pzykosiz</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_red", burnable=true, eternal=true}
+ti["#"] = {"st_flat"}
+ti["$"] = {"st_flat_burnable"}
+ti["h"] = {"st_flat_hollow"}
+ti["@"] = {"#ac_marble_black"}
+ti["i"] = {"it_burnable_ignited"}
+ti["o"] = {"st_oxyd"}
+ti["d"] = ti["h"] .. {"it_document", text = "text1"}
+    
+wo(ti, " ", {
+    "#o###############d#####################",
+    "o $         #@  $   $   $             #",
+    "# $ $$$$$$$ # # $ $ $ $ $ $$$$$$$$$$$ #",
+    "#   $       #i#   $   $   $           #",
+    "#$$$$ $$$$$$##############$ $$$$$$$$$$#",
+    "#   $ $         #         $       $   #",
+    "# $ $ $ $$$$$$$ # $$$$$$$ $$$$$$$ $ $ #",
+    "# $   $       $ # $     $     $   $ $ #",
+    "# $$$$$$$$$$$ $ # $ $$$ $$$$$ $ $$$ $ #",
+    "# $           $ # $ $   $   $ $     $ #",
+    "# $ $$$$$$$$$$$ # $ $ $$$ $ $ $$$$$$$ #",
+    "# $     $       #   $     $ $         #",
+    "# $$$$$ $ $$$$###$$$$$$$$$$ $$$$$$$$$$#",
+    "#       $ $   #           $   $       #",
+    "#$$$$$$$$ $ $ # $$$$$$$$$ $$$ $ $$$$$ #",
+    "#       $ $ $ #         $     $ $   $ #",
+    "# $$$$$ $ $ $ #$$$$$$$$ $$$$$$$ $ $ $ #",
+    "# $   $ $ $ $ #       $         $ $   #",
+    "# $ $ $ $ $ $ # $$$$$ $$$$$$$$$$$ $$$$#",
+    "# $ $ $   $ $   $   $ $           $   #",
+    "# $ $ $$$$$ $$$$$ $ $ $ $$$$$$$$$$$ $ #",
+    "# $ $ $   $       $ $ $             $ #",
+    "# $ $ $ $ $$$$$$$$$ $ $$$$$$$$$$$$$$$ #",
+    "#   $   $           $                 #",
+    "#######################################"})
+    
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="text1">
+        <el:english el:translate="false">pzykosiz tip: stop reading and keep running</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>
