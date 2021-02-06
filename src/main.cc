@@ -53,6 +53,7 @@
 #include <locale.h>
 #include <cstdio>
 #include <cstdlib>
+#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <xercesc/dom/DOM.hpp>
@@ -819,12 +820,14 @@ void Application::createPreviews() {
 
 void Application::measurePerformance() {
     if (lev::Index::setCurrentIndex(INDEX_STARTUP_PACK_NAME)) {
-        lev::Index *ind = lev::Index::getCurrentIndex();
-        for (int ilevel = 0; ilevel < (int)ind->size(); ilevel++) {
-            ind->setCurrentPosition(ilevel);
+        std::clock_t c_start, c_end;
+        while (!app.bossKeyPressed) {
+            lev::Index::getCurrentIndex()->setCurrentPosition(0);
+            c_start = std::clock();
             game::StartGame();
+            c_end = std::clock();
+            fprintf(stdout, "%.1f ms\n", 1000.0 * (c_end - c_start) / CLOCKS_PER_SEC);
         }
-        Log << "Performance test finished successfully.\n";
     } else {
         fprintf(stderr, "No levels defined for performance test. Please provide them as arguments to the command line.\n");
     }
