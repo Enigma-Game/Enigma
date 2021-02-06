@@ -15,7 +15,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
- 
+
 #include "gui/OptionsMenu.hh"
 
 #include <cassert>
@@ -57,7 +57,7 @@ namespace enigma { namespace gui {
         N_("Choose 'yes' if you want Enigma to be displayed on the whole screen instead of within a window."),
         N_("In fullscreen mode:"),
         N_("Screen resolution: This lists all resolutions that are supported both by your monitor and by Enigma. It is only used in fullscreen mode."),
-        N_("Tileset: The set of images used in the menues and in the game. In fullscreen mode, this depends on the chosenscreen resolution."),
+        N_("Tileset: The set of images used in the menues and in the game. In fullscreen mode, this depends on the chosen screen resolution."),
         N_("In windowed mode:"),
         N_("Tileset: In windowed mode, you choose the tileset first. The tileset then defines the default size of Enigma's window."),
         N_("Window size: While the tileset determines the default size of your window, you can scale it up by a factor. You can choose this factor in this field. You can still resize the window manually, however, when you restart Enigma, the size defined by this field is reinstated again. You can choose 'Not fixed', in which case Enigma will restart with the same window size you previously chose."),
@@ -233,10 +233,10 @@ private:
 /* -------------------- Buttons for Options -------------------- */
 
     class MouseSpeedButton : public ValueButton {
-        int get_value() const     { 
+        int get_value() const     {
             return ecl::round_nearest<int>(options::GetMouseSpeed());
         }
-        void set_value(int value) { 
+        void set_value(int value) {
             options::SetMouseSpeed (value);
         }
 
@@ -250,10 +250,10 @@ private:
     };
 
     class TextSpeedButton : public ValueButton {
-        int get_value() const     { 
+        int get_value() const     {
             return display::GetTextSpeed();
         }
-        void set_value(int value) { 
+        void set_value(int value) {
             display::SetTextSpeed(value);
         }
 
@@ -265,10 +265,10 @@ private:
         : ValueButton(display::MIN_TextSpeed, display::MAX_TextSpeed)
         { init(); }
     };
-    
+
     class SoundVolumeButton : public ValueButton {
-        int get_value() const     { 
-            return round_nearest<int>(options::GetDouble("SoundVolume")*10.0); 
+        int get_value() const     {
+            return round_nearest<int>(options::GetDouble("SoundVolume")*10.0);
         }
         void set_value(int value) {
             options::SetOption("SoundVolume", value/10.0);
@@ -288,8 +288,8 @@ private:
     };
 
     class MusicVolumeButton : public ValueButton {
-        int get_value() const { 
-            return round_nearest<int> (options::GetDouble("MusicVolume")*10.0); 
+        int get_value() const {
+            return round_nearest<int> (options::GetDouble("MusicVolume")*10.0);
         }
         void set_value(int value) {
             options::SetOption("MusicVolume", value/10.0);
@@ -324,14 +324,14 @@ private:
     };
 
     /* -------------------- FullscreenButton -------------------- */
-    
+
     FullscreenButton::FullscreenButton(ActionListener *al)
-    : BoolOptionButton("FullScreen", N_("Yes"), N_("No"), al)        
+    : BoolOptionButton("FullScreen", N_("Yes"), N_("No"), al)
     {
     }
-    
+
     /* -------------------- FullscreenModeButton -------------------- */
-    
+
     FullscreenModeButton::FullscreenModeButton(ActionListener *al) : ValueButton(0, 1, al) {
         displayModes = video_engine->EnumerateFullscreenModes();
         if (displayModes.size() == 0) {
@@ -393,7 +393,7 @@ private:
     }
 
     /* -------------------- FullscreenTilesetButton -------------------- */
-    
+
     FullscreenTilesetButton::FullscreenTilesetButton(ActionListener *al) : ValueButton(0, 1, al) {
         tilesets = video_engine->EnumerateFittingTilesets(app.selectedFullscreenMode);
         auto pos = std::find(tilesets.begin(), tilesets.end(), app.selectedFullscreenTilesetId);
@@ -430,7 +430,7 @@ private:
     }
 
     /* -------------------- WindowTilesetButton -------------------- */
-    
+
     WindowTilesetButton::WindowTilesetButton(ActionListener *al) : ValueButton(0, 1, al) {
         tilesets = video_engine->EnumerateAllTilesets();
         auto pos = std::find(tilesets.begin(), tilesets.end(), app.selectedWindowTilesetId);
@@ -441,7 +441,7 @@ private:
         setMaxValue(tilesets.size() - 1);
         init();
     }
-    
+
     void WindowTilesetButton::reinit() {
         tilesets = video_engine->EnumerateAllTilesets();
         setMaxValue(tilesets.size() - 1);
@@ -467,13 +467,13 @@ private:
     }
 
     /* -------------------- WindowSizeButton -------------------- */
-    
+
     WindowSizeButton::WindowSizeButton(ActionListener *al) : ValueButton(0, 1, al) {
         selectedMode = app.selectedWindowSizeFactor;
         setMaxValue(3);
         init();
     }
-    
+
     void WindowSizeButton::reinit() {
         setMaxValue(3);
     }
@@ -494,7 +494,7 @@ private:
         int tilesize = vts->tilesize;
         std::stringstream ss;
         if (value == 0)
-            ss << "Not fixed";
+            ss << N_("Not fixed");
         else
             ss << value << "x (" << tilesize*20*value << "x" << tilesize*15*value << ")";
         return ss.str();
@@ -523,7 +523,7 @@ private:
     }
 
     /* -------------------- SoundSetButton -------------------- */
-    
+
     SoundSetButton::SoundSetButton() : ValueButton(0, 1) {
         int numAvail = sound::GetOptionSoundSetCount();
         setMaxValue(numAvail - 1);
@@ -543,7 +543,7 @@ private:
     }
 
     /* -------------------- MenuMusicButton -------------------- */
-    
+
     MenuMusicButton::MenuMusicButton() : ValueButton(0, 1) {
         int numAvail = sound::GetOptionMenuMusicCount();
         setMaxValue(numAvail - 1);
@@ -563,32 +563,32 @@ private:
     }
 
     /* -------------------- StereoButton -------------------- */
-    
+
     StereoButton::StereoButton() : ValueButton(-1, 1)
     {
         init();
     }
-    
-    int StereoButton::get_value() const 
+
+    int StereoButton::get_value() const
     {
         double separation = options::GetDouble("StereoSeparation");
         if (separation == 0)
             return 0;
         else
-            return (separation > 0) ? 1 : -1; 
+            return (separation > 0) ? 1 : -1;
     }
 
-    void StereoButton::set_value(int value)  
+    void StereoButton::set_value(int value)
     {
-        if (value == 0) 
+        if (value == 0)
             options::SetOption("StereoSeparation", 0.0);
-        else if (value > 0) 
+        else if (value > 0)
             options::SetOption("StereoSeparation", 10.0);
-        else 
+        else
             options::SetOption("StereoSeparation", -10.0);
     }
-    
-    string StereoButton::get_text(int value) const 
+
+    string StereoButton::get_text(int value) const
     {
         switch (value) {
         case -1: return _("reversed");
@@ -598,7 +598,7 @@ private:
         assert(0);
         return string();
     }
-    
+
     /* -------------------- LanguageButton -------------------- */
 
     LanguageButton::LanguageButton (ActionListener *al)
@@ -613,7 +613,7 @@ private:
     {
         string localename; //  = ecl::DefaultMessageLocale ();
         options::GetOption ("Language", localename);
-    
+
         int lang = 0;                  // unknown language
         for (size_t i=0; i<NUMENTRIES(nls::languages); ++i) {
             if (localename == nls::languages[i].localename)
@@ -625,7 +625,7 @@ private:
     void LanguageButton::set_value(int value)
     {
         options::SetOption ("Language", nls::languages[value].localename);
-        
+
         if (not inInit) {
             // change language only on user action
             app.setLanguage(nls::languages[value].localename);
@@ -648,8 +648,8 @@ private:
     {
         init();
     }
-    
-    int MiddleMouseButtonButton::get_value() const 
+
+    int MiddleMouseButtonButton::get_value() const
     {
         int value = options::GetInt("MiddleMouseButtonMode");
         if (   (value < options::MIDDLEMOUSEBUTTON_MIN)
@@ -659,15 +659,15 @@ private:
         return value;
     }
 
-    void MiddleMouseButtonButton::set_value(int value)  
+    void MiddleMouseButtonButton::set_value(int value)
     {
         options::SetOption("MiddleMouseButtonMode", value);
     }
-    
-    string MiddleMouseButtonButton::get_text(int value) const 
+
+    string MiddleMouseButtonButton::get_text(int value) const
     {
         switch (value) {
-        case options::MIDDLEMOUSEBUTTON_NoOp:    
+        case options::MIDDLEMOUSEBUTTON_NoOp:
             return _("Deactivated");
         case options::MIDDLEMOUSEBUTTON_Pause:
             return _("Pause (ESC)");
@@ -677,7 +677,7 @@ private:
         assert(0);
         return string();
     }
-    
+
     /* -------------------- Video Check Tick Down -------------------- */
 
     VideoCheckTickDown::VideoCheckTickDown(ActionListener *al) : Label("")
@@ -777,7 +777,7 @@ private:
                 60, 58, 20
             }
         };
-        
+
         if (showVideoCheck) {
             pageAfterVideoCheck = new_page;
             new_page = OPTIONS_VIDEOCHECK;
@@ -962,7 +962,7 @@ private:
                     + param[vtt].hpage_option,
                 param[vtt].vmargin + vv,
                 2*param[vtt].optionb_width + param[vtt].hoption_option,
-                param[vtt].rows * param[vtt].button_height + 
+                param[vtt].rows * param[vtt].button_height +
                     (param[vtt].rows - 1) * param[vtt].vrow_row));
         invalidate_all();
         currentPage = new_page;
@@ -1110,7 +1110,7 @@ private:
         }
         return handled;
     }
-    
+
     void OptionsMenu::on_action(Widget *w)
     {
         // Common action for all video settings.
