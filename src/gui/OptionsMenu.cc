@@ -47,7 +47,7 @@ namespace enigma { namespace gui {
 /* -------------------- Help Texts -------------------- */
 
     static const char *helptext_options_main[] = {
-        N_("This is a selection of the most important options. Each of them can be found in one of the submenues. For help on a specific option, please press F1 in its original submenue."),
+        N_("This is a selection of the most important options. Each of them can be found in one of the submenus. For help on a specific option, please press F1 in its original submenu."),
         0
     };
     static const char *helptext_options_video[] = {
@@ -57,7 +57,7 @@ namespace enigma { namespace gui {
         N_("Choose 'yes' if you want Enigma to be displayed on the whole screen instead of within a window."),
         N_("In fullscreen mode:"),
         N_("Screen resolution: This lists all resolutions that are supported both by your monitor and by Enigma. It is only used in fullscreen mode."),
-        N_("Tileset: The set of images used in the menues and in the game. In fullscreen mode, this depends on the chosen screen resolution."),
+        N_("Tileset: The set of images used in the menus and in the game. In fullscreen mode, this depends on the chosen screen resolution."),
         N_("In windowed mode:"),
         N_("Tileset: In windowed mode, you choose the tileset first. The tileset then defines the default size of Enigma's window."),
         N_("Window size: While the tileset determines the default size of your window, you can scale it up by a factor. You can choose this factor in this field. You can still resize the window manually, however, when you restart Enigma, the size defined by this field is reinstated again. You can choose 'Not fixed', in which case Enigma will restart with the same window size you previously chose."),
@@ -67,7 +67,7 @@ namespace enigma { namespace gui {
         N_("Sound set:"),
         N_("The collection of sounds used by Enigma. Unless you install a user sound set or other source of sound sets, only default ('Enigma') is available."),
         N_("Menu music:"),
-        N_("The selection of music that is played in menues. 'In game' means that the same music is played as would be during the play."),
+        N_("The selection of music that is played in menus. 'In game' means that the same music is played as would be during the play."),
         N_("Music ingame:"),
         N_("Whether you want to hear Enigma's music while playing."),
         N_("Sound volume / Music volume:"),
@@ -78,7 +78,7 @@ namespace enigma { namespace gui {
     };
     static const char *helptext_options_config[] = {
         N_("Language:"),
-        N_("You can choose the language here. You can also choose a language by clicking on the flags above the main menue, if Enigma's window (or fullscreen resolution) is large enough to show them."),
+        N_("You can choose the language here. You can also choose a language by clicking on the flags above the main menu, if Enigma's window (or fullscreen resolution) is large enough to show them."),
         N_("Mouse speed:"),
         N_("A factor which decides how fast you have to move your mouse to achieve a certain force on the marble. You can choose this factor during the game as well, by pressing the left and right arrow keys."),
         N_("Middle mouse button:"),
