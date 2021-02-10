@@ -215,6 +215,7 @@ namespace enigma
         DOMErrorReporter *domSerErrorHandler;
         bool errorInit;
         bool isMakePreviews;
+        bool isMeasurePerformance;
         FullscreenMode selectedFullscreenMode = VM_NONE;
         VideoTilesetId selectedFullscreenTilesetId = VTS_NONE;
         VideoTilesetId selectedWindowTilesetId = VTS_NONE;
@@ -228,6 +229,7 @@ namespace enigma
         void initUserDatapaths();
         void updateMac1_00();
         void createPreviews();
+        void measurePerformance();
 
         double enigmaVersion;
         std::string systemAppDataPath;    // dir path to the apps data

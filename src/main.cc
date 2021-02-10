@@ -35,6 +35,7 @@
 #include "ecl_system.hh"
 #include "errors.hh"
 #include "world.hh"
+#include "game.hh"
 #include "nls.hh"
 #include "LocalToXML.hh"
 #include "ObjectValidator.hh"
@@ -52,6 +53,7 @@
 #include <locale.h>
 #include <cstdio>
 #include <cstdlib>
+#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <xercesc/dom/DOM.hpp>
@@ -153,7 +155,7 @@ namespace
 
         // Variables.
         bool nosound, nomusic, show_help, show_version, do_log, do_assert, force_window;
-        bool dumpinfo, makepreview, show_fps, redirect;
+        bool dumpinfo, makepreview, measureperformance, show_fps, redirect;
         string gamename;
         string datapath;
         string preffilename;
@@ -178,7 +180,7 @@ namespace
 AP::AP() : ArgParser (app.args.begin(), app.args.end())
 {
     nosound  = nomusic = show_help = show_version = do_log = do_assert = force_window = false;
-    dumpinfo = makepreview = show_fps = redirect = false;
+    dumpinfo = makepreview = measureperformance = show_fps = redirect = false;
     gamename = "";
     datapath = "";
     preffilename = PREFFILENAME;
@@ -193,6 +195,7 @@ AP::AP() : ArgParser (app.args.begin(), app.args.end())
     def (&do_assert,            "assert");
     def (&dumpinfo,             "dumpinfo");
     def (&makepreview,          "makepreview");
+    def (&measureperformance,   "measureperformance");
     def (&show_fps,             "showfps");
     def (&redirect,             "redirect");
     def (&Robinson,             "robinson");
@@ -240,7 +243,8 @@ void AP::on_argument (const string &arg)
 
 Application::Application() : wizard_mode (false), nograb (false), language (""),
         defaultLanguage (""), argumentLanguage (""), errorInit (false),
-        isMakePreviews (false), bossKeyPressed (false), l10nPath("") {
+        isMakePreviews (false), isMeasurePerformance (false),
+        bossKeyPressed (false), l10nPath("") {
 }
 
 void Application::init(int argc, char **argv)
@@ -285,6 +289,11 @@ void Application::init(int argc, char **argv)
         ap.nosound = true;
         ap.nomusic = true;
         isMakePreviews = true;
+    }
+
+    //
+    if (ap.measureperformance) {
+        isMeasurePerformance = true;
     }
 
     // initialize assertion stop flag
@@ -478,6 +487,11 @@ void Application::init(int argc, char **argv)
 
     if (isMakePreviews) {
         createPreviews();
+        return;
+    }
+
+    if (isMeasurePerformance) {
+        measurePerformance();
         return;
     }
 
@@ -801,7 +815,22 @@ void Application::createPreviews() {
             i++;
         }
     }
-    Log << "Make preview finished succesfully\n";
+    Log << "Make preview finished successfully.\n";
+}
+
+void Application::measurePerformance() {
+    if (lev::Index::setCurrentIndex(INDEX_STARTUP_PACK_NAME)) {
+        std::clock_t c_start, c_end;
+        while (!app.bossKeyPressed) {
+            lev::Index::getCurrentIndex()->setCurrentPosition(0);
+            c_start = std::clock();
+            game::StartGame();
+            c_end = std::clock();
+            fprintf(stdout, "%.1f ms\n", 1000.0 * (c_end - c_start) / CLOCKS_PER_SEC);
+        }
+    } else {
+        fprintf(stderr, "No levels defined for performance test. Please provide them as arguments to the command line.\n");
+    }
 }
 
 void Application::init_i18n()
@@ -952,7 +981,7 @@ int main(int argc, char **argv)
 {
     try {
         app.init(argc,argv);
-        if (!app.isMakePreviews)
+        if (!app.isMakePreviews && !app.isMeasurePerformance)
             gui::ShowMainMenu();
         app.shutdown();
         return 0;
