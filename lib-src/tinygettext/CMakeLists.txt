@@ -59,7 +59,7 @@ mark_as_advanced(
 )
 
 ## Reveal library type choice to users
-option(BUILD_SHARED_LIBS "Produce dynamic library instead of static archive" ON)
+option(BUILD_SHARED_LIBS "Produce dynamic library instead of static archive" OFF)
 
 # TinyGetText library compilation
 
