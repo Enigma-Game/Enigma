@@ -4,7 +4,7 @@
 #include "tinygettext/include/tinygettext/file_system.hpp"
 
 #include <locale.h>
-#include <iostream>
+#include <fstream>
 #include <string>
 #include <cstdlib>
 
@@ -74,10 +74,7 @@ std::vector<std::string> TinyGetTextFileSystem::open_directory(const std::string
 }
 
 std::unique_ptr<std::istream> TinyGetTextFileSystem::open_file(const std::string& filename) {
-    std::unique_ptr<std::istream> result;
-    std::string dest;
-    if (!enigma::app.l10nFS->findFile(filename, dest, result)) {
-        enigma::Log << "Error: Could not open file: " << filename << "\n";
-    }
-    return result;
+    std::basic_ifstream<char> ifs(filename, ios::binary | ios::in);
+    unique_ptr<std::basic_ifstream<char>> isptr = make_unique<std::basic_ifstream<char>>(move(ifs));
+    return isptr;
 }

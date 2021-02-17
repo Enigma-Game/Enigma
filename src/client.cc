@@ -525,8 +525,8 @@ void Client::show_help() {
     ScopedInputGrab grab(false);
 
     helptext_ingame[19] = app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST
-                              ? _("Skip to next level for best score hunt")
-                              : _("Skip to next unsolved level");
+                              ? N_("Skip to next level for best score hunt")
+                              : N_("Skip to next unsolved level");
 
     video_engine->ShowMouse();
     gui::displayHelp(helptext_ingame, 200);
