@@ -435,13 +435,12 @@ namespace enigma { namespace gui {
         BuildHList l_lower(this, Rect(xoffset_lower, 25, 30, 35), 5);
         flags.clear();  // remove old flags on screen resolution changes
         if(!vshrink) {
-            std::string curname = ecl::SysMessageLocaleName();
-            curname = curname.substr(0, curname.find('.'));
+            std::string curname = app.language;
             for (size_t i=1; i<=num_flags; ++i) {
                 BorderlessImageButton *but = new BorderlessImageButton(
                     nls::languages[i].flagimage + string("-shaded"),
-                    nls::languages[i].flagimage,
-                    nls::languages[i].flagimage, curname == nls::languages[i].localename, this);
+                    nls::languages[i].flagimage, nls::languages[i].flagimage,
+                    curname == nls::languages[i].localename, this);
                 if (i <= upper_count) {
                     l_upper.add(but);
                 } else {
@@ -540,8 +539,7 @@ namespace enigma { namespace gui {
         } else
             return;
         // need to update flags
-        std::string curname = ecl::SysMessageLocaleName();
-        curname = curname.substr(0, curname.find('.'));
+        std::string curname = app.language;
         for (unsigned int i = 0; i < flags.size(); i++)
             flags[i]->setState(curname == nls::languages[i+1].localename);
 
