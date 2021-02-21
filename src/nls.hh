@@ -78,6 +78,9 @@ namespace nls
         std::vector<std::string> open_directory(const std::string& pathname) override;
         std::unique_ptr<std::istream> open_file(const std::string& filename) override;
     };
+
+    void tinygettext_log_callback(const std::string& str);
+    void tinygettext_error_callback(const std::string& str);
 }
 
 #endif

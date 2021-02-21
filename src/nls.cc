@@ -78,3 +78,12 @@ std::unique_ptr<std::istream> TinyGetTextFileSystem::open_file(const std::string
     unique_ptr<std::basic_ifstream<char>> isptr = make_unique<std::basic_ifstream<char>>(move(ifs));
     return isptr;
 }
+
+void nls::tinygettext_log_callback(const std::string& str) {
+    enigma::Log << "tinygettext: " << str;
+}
+
+void nls::tinygettext_error_callback(const std::string& str) {
+    fputs("tinygettext: ", stderr);
+    fputs(str.c_str(), stderr);
+}

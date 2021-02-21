@@ -50,6 +50,8 @@
 
 #include "enet/enet.h"
 
+#include "tinygettext/include/tinygettext/log.hpp"
+
 #include <locale.h>
 #include <cstdio>
 #include <cstdlib>
@@ -878,24 +880,12 @@ void Application::init_i18n()
 
     l10nFS = new GameFS();
     l10nFS->append_dir(l10nPath);
-    //auto l10nPtr = make_unique<GameFS>(l10nFS);
     nls::theDictionaryManager.reset(new tinygettext::DictionaryManager(std::make_unique<nls::TinyGetTextFileSystem>(), "UTF-8"));
     nls::theDictionaryManager->add_directory(l10nPath);
 
-//    tinygettext::Log::set_log_info_callback(log_info_callback);
-//    tinygettext::Log::set_log_warning_callback(log_warning_callback);
-//    tinygettext::Log::set_log_error_callback(log_error_callback);
-
-//    // Config setting "locale" overrides language detection
-//    if (!g_config->locale.empty()) {
-//        g_dictionary_manager->set_language(tinygettext::Language::from_name(g_config->locale));
-//    } else {
-//      FL_Locale *locale;
-//      FL_FindLocale(&locale);
-//      tinygettext::Language language = tinygettext::Language::from_spec( locale->lang?locale->lang:"", locale->country?locale->country:"", locale->variant?locale->variant:"");
-//      FL_FreeLocale(&locale);
-//      g_dictionary_manager->set_language(language);
-//    }
+    tinygettext::Log::set_log_info_callback(nullptr);
+    tinygettext::Log::set_log_warning_callback(&nls::tinygettext_log_callback);
+    tinygettext::Log::set_log_error_callback(&nls::tinygettext_error_callback);
 
     nls::SetMessageLocale (app.language);
 
