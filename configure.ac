@@ -13,9 +13,6 @@ AC_GNU_SOURCE
 ALL_LINGUAS="de fr nl it es sv ru hu pt fi uk be el pl cs gd hr sk da"
 AC_SUBST(ALL_LINGUAS)
 
-dnl Save a _NOGETTEXT state for possible MacOS special case
-LIBS_NOGETTEXT="$LIBS"
-
 AM_GNU_GETTEXT
 
 case $host_os in
@@ -39,19 +36,6 @@ esac
 
 AM_CONDITIONAL(MINGW32, test x$MINGW32 = xyes)
 AM_CONDITIONAL(LINUX, test x$LINUX = xyes)
-
-dnl ----------------------------------------
-dnl This comment block is obsolete, but leaving it in until I or someone figures out if the script lines after can simply be removed.
-dnl  now that nothing needs to be done to try for a static link. Maybe we don't even need the with-linitl-prefix option anymore?
-dnl Mac requires libintl to be linked statically and doesn't make that easy
-dnl gettext project (for libintl) refuses to support use of pkg-config but doesn't provide an
-dnl equivalent way to get the lib directory it is installed in. This requires use of --with-libintl-prefix configure option.
-dnl ---------------------------------------
-if test "x$MACOSX" = xyes; then
-  LIBS="$LIBS_NOGETTEXT"
-  LIBINTL="-lintl"
-  LIBS="$LIBINTL /usr/lib/libiconv.dylib $LIBS"
-fi
 
 dnl ======================================================================
 dnl Check for programs
