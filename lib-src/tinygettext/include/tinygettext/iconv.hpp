@@ -17,6 +17,9 @@
 //    misrepresented as being the original software.
 // 3. This notice may not be removed or altered from any source distribution.
 
+// Minor change by Andreas Lochmann, 2021-02-27:
+//   Use WINICONV_CONST instead of ICONV_CONST when compiling with MINGW32.
+
 #ifndef HEADER_TINYGETTEXT_ICONV_HPP
 #define HEADER_TINYGETTEXT_ICONV_HPP
 
@@ -34,7 +37,11 @@
 #  include <iconv.h>
 
 #  ifdef HAVE_ICONV_CONST
-#    define tinygettext_ICONV_CONST ICONV_CONST
+#    ifdef __MINGW32__
+#      define tinygettext_ICONV_CONST WINICONV_CONST
+#    else
+#      define tinygettext_ICONV_CONST ICONV_CONST
+#    endif // __MINGW32__
 #  else
 #    define tinygettext_ICONV_CONST
 #  endif
