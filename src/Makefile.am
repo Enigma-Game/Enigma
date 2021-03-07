@@ -188,6 +188,8 @@ enigma_SOURCES = 		\
 	gui/HelpMenu.hh		\
 	gui/InfoMenu.cc		\
 	gui/InfoMenu.hh		\
+	gui/LanguageMenu.cc	\
+	gui/LanguageMenu.hh	\
 	gui/LevelInspector.cc	\
 	gui/LevelInspector.hh	\
 	gui/LevelMenu.cc	\
