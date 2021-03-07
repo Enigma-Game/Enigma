@@ -428,7 +428,15 @@ namespace enigma { namespace gui {
         const int xoffset_upper = vminfo->width - 65;
         BuildHList l_upper(this, Rect(xoffset_upper, 10, 60, 40), 5);
         flags.clear();
-        if(!vshrink) {
+        if(vshrink) {
+            BorderlessImageButton *but = new BorderlessImageButton(
+                string("translation_icon_shrink"),
+                string("translation_icon_shrink_hl"),
+                string("translation_icon_shrink_hl"),
+                true, this);
+            l_upper.add(but);
+            flags.push_back(but);
+        } else {
             BorderlessImageButton *but = new BorderlessImageButton(
                 string("translation_icon"),
                 string("translation_icon_hl"),
@@ -477,9 +485,9 @@ namespace enigma { namespace gui {
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
 
         Font *f = enigma::GetFont("levelmenu");
-        Surface * logo(enigma::GetImage("enigma_logo3"));
+        Surface * logo(enigma::GetImage((vminfo->width < 640) ? "enigma_logo3_shrink" : "enigma_logo3"));
         int x0=(vminfo->width - logo->width())/2;
-        int y0[] = {0, 57, 60, 70, 80};
+        int y0[] = {30, 57, 60, 70, 80};
         // parameters to use when flags are not at top: {0, 30, 40, 50, 60};
 #ifdef ENABLE_EXPERIMENTAL
         y0[1] = 57;  // might need adaptation when more buttons are added
