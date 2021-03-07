@@ -51,7 +51,8 @@ namespace nls
         { "Svenska",    "sv_SE", "flags25x15/se" },
         { "Slovenčina", "sk_SK", "flags25x15/sk" },
         { "українська", "uk_UA", "flags25x15/ua" },
-    };
+        { "中文字",      "zh_CN", "flags25x15/zh-cn" },
+     };
 
     static inline std::string translate(const std::string& msg) {
     #if defined(ENABLE_NLS)
