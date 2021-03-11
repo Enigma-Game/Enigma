@@ -64,8 +64,11 @@ namespace nls
 
     static inline std::string ntranslate(const std::string& msg, const std::string& msg_plural, int num) {
     #if defined(ENABLE_NLS)
-        if (theDictionaryManager)
-            return theDictionaryManager->get_dictionary().translate_plural(msg, msg_plural, num);
+        if (theDictionaryManager) {
+            std::string msgt = theDictionaryManager->get_dictionary().translate(msg);
+            std::string msgt_plural = theDictionaryManager->get_dictionary().translate(msg_plural);
+            return theDictionaryManager->get_dictionary().translate_plural(msgt, msgt_plural, num);
+        }
     #endif
         if (num == 1)
             return msg;
