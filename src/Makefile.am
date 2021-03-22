@@ -15,7 +15,7 @@ CXXFLAGS = @CXXFLAGS@\
 	-I$(top_srcdir)/lib-src/zipios++  \
 	-I$(top_builddir)/lib-src/zipios++ \
 	-I$(top_srcdir)/lib-src/lua \
-	-I$(top_srcdir)/lib-src/tinygettext/build \
+	-I$(top_srcdir)/lib-src/tinygettext \
 	-I$(top_srcdir)/lib-src/enigma-core
 
 if SYSTEM_ENET
@@ -474,7 +474,7 @@ endif
 
 enigma_LDADD += $(top_builddir)/lib-src/oxydlib/liboxyd.a \
 	$(top_builddir)/lib-src/zipios++/src/libzipios.a \
-	$(top_builddir)/lib-src/tinygettext/build/libtinygettext.a \
+	$(top_builddir)/lib-src/tinygettext/libtinygettext.a \
 	-lz \
 	$(mingw_ldadd) \
 	@SDL_LIBS@
