@@ -30,23 +30,11 @@ Changes to the original version
 - Addition of the following files to enable compilation with autotools:
     Makefile.am
     tinygettext_Export.h
-- Addition of the following file to enable cross-compilation:
+- Addition of the following file to enable cross-compilation with cmake:
     Toolchain-cross-mingw32-linux.cmake
 - include/tinygettext/iconv.hpp: Use WINICONV_CONST when
   compiling with MINGW32.
 - README.enigma
-
-
-How to cross-compile
---------------------
-
-rm -Rf build
-mkdir build
-cd build
-cmake -DCMAKE_TOOLCHAIN_FILE=../Toolchain-cross-mingw32-linux.cmake ..
-
-These steps are automated by Enigma when calling:
-  etc/mxe-configure.sh
 
 
 License

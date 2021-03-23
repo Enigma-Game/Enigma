@@ -1,6 +1,7 @@
 EXTRA_DIST = README.md README.enigma 
 AUTOMAKE_OPTIONS = subdir-objects
 CXXFLAGS = @CXXFLAGS@\
+        -fpermissive \
         -I$(top_srcdir)/lib-src/tinygettext/include
 
 noinst_LIBRARIES = libtinygettext.a
