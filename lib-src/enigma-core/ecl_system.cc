@@ -127,7 +127,7 @@ bool ecl::BrowseUrl(const std::string url) {
     CFURLRef cfurl = CFURLCreateWithString(NULL, cfurlStr, NULL);
 
     // Open the URL:
-    LSOpenCFURLRef(cfurl, NULL);
+    result = LSOpenCFURLRef(cfurl, NULL) == noErr;
 
     // Release the created resources:
     CFRelease(cfurl);
