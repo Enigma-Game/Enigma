@@ -224,12 +224,18 @@ public:
 
 /* -------------------- Surface -------------------- */
 
-Surface::Surface(SDL_Surface *surface) : m_surface(surface) {
+Surface::Surface(SDL_Surface *surface) {
+    // If you change the pixel format, remember to replace Surface32
+    // for another SurfaceXY in Surface::make_surface.
+    pixel_format = SDL_AllocFormat(SDL_PIXELFORMAT_ARGB8888);
+    assert(surface);
+    m_surface = SDL_ConvertSurface(surface, pixel_format, 0);
     assert(m_surface);
 }
 
 Surface::~Surface() {
     SDL_FreeSurface(m_surface);
+    SDL_FreeFormat(pixel_format);
 }
 
 void Surface::lock() {
@@ -318,15 +324,8 @@ Surface *Surface::make_surface(SDL_Surface *sdls) {
         fprintf(stderr, "Could not create SDL surface, error message: %s\n", SDL_GetError());
         assert(false);
     }
-    switch (sdls->format->BitsPerPixel) {
-    case 8: return new Surface8(sdls); break;
-    case 16: return new Surface16(sdls); break;
-    case 32: return new Surface32(sdls); break;
-    case 24: return new Surface24(sdls); break;
-    default:
-        fprintf(stderr, "Invalid bit depth in surface.\n");
-        return 0;  // throw XVideo("Invalid bit depth in surface.");
-    }
+    // The constructor will change the surface's pixel format to a 32-bit one.
+    return new Surface32(sdls);
 }
 
 /* -------------------- Screen -------------------- */
