@@ -469,6 +469,7 @@
       <attr name="friction" default="3.0"/>
       <attr name="adhesion" default="1.6"/>
       <attr name="orientation" default="0"/>
+      <attr name="interval" default="0.6"/>
       <msg name="flip"/>
       <msg name="orientate"/>
       <msg name="signal"/>

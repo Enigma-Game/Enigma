@@ -247,6 +247,28 @@ void Client::on_mousebutton(SDL_Event &e) {
         } else if (e.button.button == SDL_BUTTON_RIGHT) {
             // right mousebutton -> rotate inventory
             rotate_inventory(+1);
+        } else if (e.button.button == SDL_BUTTON_MIDDLE) {
+            switch (options::GetInt("MiddleMouseButtonMode")) {
+            case options::MIDDLEMOUSEBUTTON_NoOp: {
+                 break;
+            }
+            case options::MIDDLEMOUSEBUTTON_Pause: {
+                // like ESC
+                show_menu(true);
+                break;
+            }
+            case options::MIDDLEMOUSEBUTTON_Restart: {
+                // force a reload from file, like F3
+                lev::Proxy::releaseCache();
+                server::Msg_Command("restart");
+                break;
+            }
+            default: {
+                // Unknown option from the future.
+                // Interpret as default (shouldn't hurt).
+                show_menu(true);
+                break;
+            }}
         }
     }
     update_mouse_button_state();
@@ -450,17 +472,7 @@ void Client::on_keydown(SDL_Event &e) {
         case SDLK_F6: Msg_JumpBack(); break;
 
         case SDLK_F10: {
-            lev::Proxy *level = server::LoadedProxy;
-            std::string basename =
-                std::string("screenshots/") + level->getLocalSubstitutionLevelPath();
-            std::string fname = basename + ".png";
-            std::string fullPath;
-            int i = 1;
-            while (app.resourceFS->findFile(fname, fullPath)) {
-                fname = basename + ecl::strf("#%d", i++) + ".png";
-            }
-            std::string savePath = app.userImagePath + "/" + fname;
-            video_engine->Screenshot(savePath);
+            video_engine->Screenshot(server::LoadedProxy->getNextScreenshotPath());
             break;
         }
         case SDLK_RETURN: process_userinput(); break;
@@ -492,12 +504,19 @@ void Client::on_keydown(SDL_Event &e) {
 
 static const char *helptext_ingame[] = {
     N_("Left mouse button:"), N_("Activate/drop leftmost inventory item"),
-    N_("Right mouse button:"), N_("Rotate inventory items"), N_("Escape:"), N_("Show game menu"),
-    N_("Shift+Escape:"), N_("Quit game immediately"), N_("F1:"), N_("Show this help"), N_("F3:"),
-    N_("Kill current marble"), N_("Shift+F3:"), N_("Restart the current level"), N_("F4:"),
-    N_("Skip to next level"), N_("F5:"), 0,  // see below
-    N_("F6:"), N_("Jump back to last level"), N_("F10:"), N_("Make screenshot"),
-    N_("Left/right arrow:"), N_("Change mouse speed"), N_("Alt+x:"), N_("Return to level menu"),
+    N_("Right mouse button:"), N_("Rotate inventory items"),
+    N_("Escape:"), N_("Show game menu"),
+    N_("Shift+Escape:"), N_("Quit game immediately"),
+    N_("F1:"), N_("Show this help"),
+    N_("F3:"), N_("Kill current marble"),
+    N_("Shift+F3:"), N_("Restart the current level"),
+    N_("Shift+Ctrl+F3:"), N_("Reload and restart the current level"),
+    N_("F4:"), N_("Skip to next level"),
+    N_("F5:"), 0,  // see below
+    N_("F6:"), N_("Jump back to last level"),
+    N_("F10:"), N_("Make screenshot"),
+    N_("Left/right arrow:"), N_("Change mouse speed"),
+    N_("Alt+x:"), N_("Return to level menu"),
     //    N_("Alt+Return:"),              N_("Switch between fullscreen and window"),
     0};
 
@@ -505,7 +524,7 @@ void Client::show_help() {
     server::Msg_Pause(true);
     ScopedInputGrab grab(false);
 
-    helptext_ingame[17] = app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST
+    helptext_ingame[19] = app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST
                               ? _("Skip to next level for best score hunt")
                               : _("Skip to next unsolved level");
 
@@ -574,16 +593,11 @@ void Client::draw_screen() {
         int yskip = 25;
         const VMInfo *vminfo = video_engine->GetInfo();
         int width = vminfo->width - 120;
-        for (unsigned i = 0; i < lines.size();) {
-            std::string::size_type breakPos = ecl::breakString(f, lines[i], " ", width);
-            f->render(gc, x, y, lines[i].substr(0, breakPos).c_str());
-            y += yskip;
-            if (breakPos != lines[i].size()) {
-                // process rest of line
-                lines[i] = lines[i].substr(breakPos);
-            } else {
-                // process next line
-                i++;
+        for (unsigned i = 0; i < lines.size(); i++) {
+            std::vector<std::string> subLines = ecl::breakToLines(f, lines[i], " ", width);
+            for (auto it = subLines.begin(); it != subLines.end(); it++) {
+                f->render(gc, x, y, *it);
+                y += yskip;
             }
         }
         scr->update_all();

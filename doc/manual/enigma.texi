@@ -1,10 +1,10 @@
 \input texinfo                              @c -*- texinfo -*-
 @afourpaper
 
-@set VERSION 1.21
+@set VERSION 1.30
 
 @copying
-Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 Daniel Heck and other contributors
+Copyright @copyright{} 2003--2020 Daniel Heck and other contributors
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -19,7 +19,7 @@ notice and this notice are preserved.
 @center @titlefont{Enigma Manual}
 @center for version @value{VERSION}
 @sp 2
-@c @center Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 Daniel Heck (@email{dheck@@gmx.de})
+@c @center Copyright @copyright{} 2003--2020 Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -34,7 +34,7 @@ notice and this notice are preserved.
 This manual describes how to install and play Enigma, and corresponds
 to Enigma version @value{VERSION}.
 
-Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 Daniel Heck (@email{dheck@@gmx.de}) and other contributors
+Copyright @copyright{} 2003--2020 Daniel Heck (@email{dheck@@gmx.de}) and other contributors
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -322,6 +322,8 @@ Level Packs}.
 @subsection Game Options
 
 The options menu allows you to adapt Enigma to your preferences.
+It consists of four pages (video, audio, config, paths) and a start page
+presenting the most important settings.
 
 @table @strong
 @item Language
@@ -331,16 +333,36 @@ in-level documents.
 @item Fullscreen
 Toggles between full screen and windowed display.  You can also use
 @kbd{Alt-@key{RET}} to do this, even when you are not in the options
-menu.  @emph{Note:} On some systems you must return to the main menu
+menu; in this case, some of the settings might get
+ignored.  @emph{Note:} On some systems you must return to the main menu
 to switch from window to full screen or vice versa.
 
-@item Video mode
-This button lets you change the video mode used by Enigma. Enigma does
-not switch the video mode immediately, but waits until you return to the
-main menu.
+@item Screen resolution
+In fullscreen mode, this is the screen resolution (video mode)
+Enigma tries to use. Enigma does not switch the video mode immediately,
+but waits until you leave or change the page of the options menu.
+You cannot change resolution from the game menu.
 
-@item Gamma correction
-If necessary, adjust the brightness of the display here.
+@item Window size
+In windowed mode, this is the size of Enigma's window. You can
+resize it, but Enigma will return to this format on restart,
+unless you choose ``Not fixed'' on this button. The available
+window sizes depend on the chosen tileset.
+
+@item Tileset
+This option opens the possibility to use different graphics (``tilesets'')
+for the game. As of now, only the same tilesets in different resolutions
+are available. In fullscreen mode, the available tilesets depend on the
+chosen resolution. In windowed mode, the predefined window sizes are
+calculated based on the chosen tileset.
+
+@item Middle mouse button
+You can choose how the middle mouse button is to be interpreted.
+It defaults to ``Pause (ESC)'', allowing for an easy access to the
+game menu, without using the keyboard. Alternatively, you can choose
+``Restart (Shift-F3)'', which restarts the current game (e.g. for
+hunting world records), and ``Deactivated'' (ignoring each click
+of the middle mouse button).
 
 @item Mouse speed
 Determines how quickly your marble accelerates when you move the
@@ -518,6 +540,9 @@ Use first item in inventory
 
 @item Right mouse button/mouse wheel
 Rotate inventory items
+
+@item Middle mouse button
+Customizable in the options menu, defaults to @key{ESC} (pause/game menu)
 
 @item @key{ESC}
 Display game menu

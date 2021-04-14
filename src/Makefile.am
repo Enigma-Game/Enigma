@@ -23,6 +23,10 @@ else
 CXXFLAGS += -I$(top_srcdir)/lib-src/enet/include
 endif
 
+if MINGW32
+CXXFLAGS += -static-libgcc -static-libstdc++
+endif
+
 CXXFLAGS += -I$(top_srcdir)/lib-src \
 	-I$(top_builddir)/intl @SDL_CFLAGS@
 
@@ -295,6 +299,8 @@ enigma_SOURCES = 		\
 	lev/Proxy.hh		\
 	lev/ScoreManager.cc	\
 	lev/ScoreManager.hh	\
+	lev/SearchCombination.cc    \
+	lev/SearchCombination.hh    \
 	lev/SubProxy.cc		\
 	lev/SubProxy.hh		\
 	lev/VolatileIndex.cc	\
@@ -440,7 +446,7 @@ if MINGW32
 
   localedir_enigma := data/locale
   # mingw_ldadd := enigma_ico.o -lws2_32
-  mingw_ldadd := enigma_ico.o -lws2_32 -lSDL_image -ltiff -llzma -ljpeg -lpng15 -lSDL_mixer -lmikmod -lsmpeg -lstdc++ -lvorbisfile -lvorbis -logg -lSDL_ttf -lcurl -lidn -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lgcrypt -lgpg-error -lws2_32 -lfreetype -lintl
+  mingw_ldadd := enigma_ico.o -lws2_32 -lSDL2_image -ltiff -llzma -ljpeg -lpng16 -lSDL2_mixer -lmikmod -lsmpeg -lvorbisfile -lvorbis -logg -lSDL2_ttf -lcurl -lidn -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lgcrypt -lgpg-error -lws2_32 -lfreetype -lintl
   enigma_LDFLAGS := -mwindows -pthread
   enigma_ico.o: enigma.rc enigma.ico
 	$(WINDRES) $(srcdir)/enigma.rc --include-dir=$(srcdir) -O coff -o enigma_ico.o
@@ -499,7 +505,7 @@ bundle:
 	echo "APPL????" > $(bundle_name)/Contents/PkgInfo
 	cp $(top_builddir)/etc/Info.plist $(bundle_name)/Contents/
 	cp $(top_builddir)/etc/enigma.icns $(bundle_name)/Contents/Resources/
-	tar --exclude .svn -c -f - -C $(top_builddir)/data levels | tar xpf - -C $(bundle_name)/Contents/Resources/data
+	tar --exclude .svn --exclude Makefile --exclude Makefile.in --exclude Makefile.am -c -f - -C $(top_builddir)/data levels | tar xpf - -C $(bundle_name)/Contents/Resources/data
 	cp $(top_builddir)/data/*.lua $(bundle_name)/Contents/Resources/data/
 	cp $(top_builddir)/data/*.xml $(bundle_name)/Contents/Resources/data/
 	mkdir -p $(bundle_name)/Contents/Resources/data/gfx
@@ -540,10 +546,6 @@ bundle:
 .PHONY: bundle-fw
 bundle-fw:
 	cp enigma $(bundle_name)/Contents/MacOS/enigma
-	mkdir  $(bundle_name)/Contents/Frameworks
-	for i in SDL SDL_mixer SDL_image SDL_ttf ; do \
-	  cp -a /Library/Frameworks/$${i}.framework $(bundle_name)/Contents/Frameworks/; \
-	done
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to create the preview images into the app bundle
@@ -586,9 +588,3 @@ bundle-doc:
 	cp $(top_builddir)/doc/manual/*.html $(bundle_doc)/manual/
 	cp $(top_builddir)/doc/reference/images/*.png $(bundle_doc)/reference/images/
 	cp $(top_builddir)/doc/reference/*.html $(bundle_doc)/reference/
-
-# Special target to make a disk image of the bundled app
-.PHONY: bundle-dmg
-bundle-dmg:
-	hdiutil create  -ov -srcfolder $(bundle_root) -volname Enigma -imagekey zlib-level=6 $(top_builddir)/etc/enigma.dmg
-

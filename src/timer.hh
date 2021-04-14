@@ -28,6 +28,7 @@ class TimeHandler {
 public:
     virtual ~TimeHandler() {}
     virtual void tick(double /*dtime*/) {}
+    virtual void distinguished_alarm(int alarmnr) {}
     virtual void alarm() {}
 };
 
@@ -37,7 +38,9 @@ public:
  * the TimeHandler is registered using #activate, it is invoked at
  * every tick, the #set_alarm method can be used to register a
  * time handler that is invoked (either once or repeatedly) after
- * a specified time interval.
+ * a specified time interval. Each TimeHandler may request several
+ * timers by choosing different alarmnr. This will be returned
+ * via the TimeHandlers #alarm method.
  */
 class Timer : public ecl::Nocopy {
 public:
@@ -45,9 +48,8 @@ public:
     ~Timer();
 
     void activate(TimeHandler *th);
-    void deactivate(TimeHandler *th);
-    void set_alarm(TimeHandler *th, double interval, bool repeatp = false);
-    double remove_alarm(TimeHandler *th);
+    void set_alarm(TimeHandler *th, double interval, bool repeatp = false, int alarmnr = 0);
+    double remove_alarm(TimeHandler *th, int alarmnr = 0);
     void clear();
 
     void tick(double dtime);

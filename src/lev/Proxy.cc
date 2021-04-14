@@ -65,6 +65,7 @@ using namespace enigma;
 XERCES_CPP_NAMESPACE_USE
 
 namespace enigma { namespace lev {
+
     // http://enigma-game.org/schema/level/1
     const XMLCh Proxy::levelNS[] = {
             chLatin_h, chLatin_t, chLatin_t, chLatin_p, chColon, chForwardSlash,
@@ -249,37 +250,38 @@ namespace enigma { namespace lev {
         return theProxy;
     }
 
-    struct LowerCaseString {
-        std::string low;
-        LowerCaseString(const std::string& s) : low(s) {
-            for (std::string::iterator i = low.begin(); i != low.end(); ++i)
-                *i = tolower(*i);
-        }
-        bool containedBy(LowerCaseString other) const {
-            return other.low.find(low) != string::npos;
-        }
-    };
-
     Index * searchIndex;
-    LowerCaseString searchText("");
-    void do_search(const std::map<std::string, Proxy *>::value_type pair) {
-        Proxy * candidate = pair.second;
-        if (searchText.containedBy(candidate->getNormFilePath()) ||
-                searchText.containedBy(candidate->getTitle()) ||
-                searchText.containedBy(candidate->getId()) ||
-                searchText.containedBy(candidate->getAuthor())) {
-            searchIndex->appendProxy(candidate);
-//            Log << "Search result: " << pair.first << " - is - " << candidate->getTitle() << "\n";
-        }
-    }
-
-    std::string Proxy::search(std::string text) {
+    std::string Proxy::search(SearchCombination* sc) {
         searchIndex = Index::findIndex("Search Result");
         // assert searchIndex
         searchIndex->clear();
-        searchText = LowerCaseString(text);
-        std::for_each(cache.begin(), cache.end(), do_search);
-        return (searchIndex->size() > 0) ? searchIndex->getName() : "";
+        sc->prepareForSearch();
+        for (auto i = cache.begin(); i != cache.end(); i++) {
+            Proxy * candidate = (*i).second;
+            if (sc->fits(candidate))
+                searchIndex->appendProxy(candidate);
+        }
+        if (searchIndex->size() == 0)
+            return "";
+        searchIndex->sort(sc->getSortMethod());
+        return searchIndex->getName();
+    }
+
+    std::string Proxy::search_shallow(std::string text) {
+        SearchCombination * sc = new SearchCombination();
+        sc->setSearchText(text);
+        return search(sc);
+    }
+
+    int Proxy::countSearchResults(SearchCombination* sc) {
+        int count = 0;
+        sc->prepareForSearch();
+        for (auto i = cache.begin(); i != cache.end(); i++) {
+            Proxy * candidate = (*i).second;
+            if (sc->fits(candidate))
+                count++;
+        }
+        return count;
     }
 
     void Proxy::countLevels() {
@@ -386,6 +388,19 @@ namespace enigma { namespace lev {
 
     std::string Proxy::getAbsLevelPath() {
         return absLevelPath;
+    }
+
+    std::string Proxy::getNextScreenshotPath() {
+        // If you want to change the screenshot paths, adapt ScreenshotViewer.cc accordingly.
+        std::string basename = std::string("screenshots/") + getLocalSubstitutionLevelPath();
+        std::string fname = basename + ".png";
+        std::string fullPath;
+        int i = 1;
+        while (app.resourceFS->findFile(fname, fullPath)) {
+            fname = basename + ecl::strf("#%d", i++) + ".png";
+        }
+        std::string savePath = app.userImagePath + "/" + fname;
+        return savePath;
     }
 
     void Proxy::loadLevel() {

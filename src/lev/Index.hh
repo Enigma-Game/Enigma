@@ -20,6 +20,7 @@
 #define LEV_INDEX_HH_INCLUDED
 
 #include "lev/Proxy.hh"
+#include "lev/SearchCombination.hh"
 
 #include <map>
 #include <string>
@@ -28,6 +29,7 @@
 #define INDEX_DEFAULT_GROUP "User"
 #define INDEX_EVERY_GROUP "Every Group"
 #define INDEX_ALL_PACKS "All Packs"
+#define INDEX_TUTORIALS_GROUP "Tutorials"
 
 #define INDEX_STARTUP_PACK_NAME   "Startup Levels"
 #define INDEX_AUTO_PACK_NAME      "Auto Folder"
@@ -127,6 +129,7 @@ namespace enigma { namespace lev {
                 scoreUnitType varUnit = duration, std::string varTarget = "time",
                 std::map<std::string, std::string> varExtensions = nullExtensions);
         virtual void clear();
+        virtual void sort(SCSortMethod s);
         void updateFromProxies();
         virtual void updateFromFolder() = 0;
 

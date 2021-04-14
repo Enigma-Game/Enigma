@@ -38,20 +38,25 @@ namespace enigma {
         virtual void setAttr(const std::string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
-        
+
         // StateObject interface
         virtual int maxState() const;
 
         // GridObject interface
         virtual void init_model();
-                
+        virtual void on_creation(GridPos p);
+
         // ModelCallback interface
         virtual void animcb();
 
         // TimeHandler interface
-        virtual void alarm();
+        virtual void update_alarm();
+        virtual void distinguished_alarm(int alarmnr);
 
     private:
+        const int ALARM_PREPARE = 0;
+        const int ALARM_PUSH = 1;
+
         void send_impulses();
     };
 

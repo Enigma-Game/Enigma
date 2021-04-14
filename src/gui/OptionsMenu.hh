@@ -42,11 +42,11 @@ namespace enigma { namespace gui {
         
         // Menu interface.
         void draw_background(ecl::GC &gc);
-        void tick(double dtime) {}
+        void tick(double dtime);
 
         // Page structure.
         enum OptionsPage { OPTIONS_MAIN, OPTIONS_VIDEO, OPTIONS_AUDIO,
-                           OPTIONS_CONFIG, OPTIONS_PATHS };
+                           OPTIONS_CONFIG, OPTIONS_PATHS, OPTIONS_VIDEOCHECK };
         void open_page(OptionsPage new_page);
         void close_page();
 
@@ -65,12 +65,20 @@ namespace enigma { namespace gui {
         gui::WindowSizeButton *windowsize;
         gui::FullscreenTilesetButton *fullscreentileset;
         gui::WindowTilesetButton *windowtileset;
+        gui::StaticTextButton *videocheck_button_yes;
+        gui::StaticTextButton *videocheck_button_no;
+        gui::Label *videocheck_tick_down;
         gui::TextField *userNameTF;
         gui::TextField *userPathTF;
         gui::TextField *userImagePathTF;
+        gui::TextField *localizationPathTF;
         gui::TextField *menuMusicTF;
         ecl::Surface *background;
         bool gameIsOngoing;
+        bool videoSettingsTouched;
+        bool showVideoCheck;
+        OptionsPage pageAfterVideoCheck;
+        OptionsPage currentPage;
     };
 
 

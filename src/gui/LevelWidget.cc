@@ -233,7 +233,7 @@ namespace enigma { namespace gui {
             // With SDL2, set_alpha doesn't work properly anymore. We are therefore
             // using set_brightness instead.
             // TODO: Revert to set_alpha, once it's repaired.
-            img->set_brightness(127);
+            img->set_brightness(170);
             blit (gc, x, y, img);
             img->set_brightness(255);
         }

@@ -26,6 +26,8 @@
 
 namespace enigma {
     Rubberband::Rubberband() : strength (10), outerThreshold (1), innerThreshold (0), minLength (0), maxLength (0) {
+        anchor1 = NULL;
+        anchor2.ac = NULL;
     }
 
     std::string Rubberband::getClass() const {

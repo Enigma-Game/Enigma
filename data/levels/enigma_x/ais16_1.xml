@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Dichotomy II" el:subtitle="" el:id="20090421ais523001"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+-- For aesthetics; make it harder to tell whether we're playing as YIN
+-- or YANG by removing the extra lifes from the inventory. (There's no
+-- way to die other than F3, anyway; and we don't want players to F3
+-- on this level, it would be a shortcut.)
+wo["ProvideExtralifes"] = false
+
+-- Camera trickery. We want to follow the apparently "active" ball at
+-- all times. But only the black ball can cross the centre lines, so
+-- let's let it do the scrolling.
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_FLIP
+wo["FollowThreshold"] = 0.5
+
+-- invisible sensor to prevent the dropping of items
+ti[" "] = {"fl_rock",adhesion=0} .. ti({"it_sensor", invisible=true})
+ti["!"] = {"fl_water"}
+ti["x"] = {"st_oxyd_a", name="oxyd_#"}
+ti["#"] = ti[" "] .. {"st_granite"}
+ti["`"] = ti[" "] .. {"fl_slope_onw", name="nw_mainslope_#", adhesion=0}
+ti[","] = ti[" "] .. {"fl_slope_osw", name="sw_mainslope_#", adhesion=0}
+ti["."] = ti[" "] .. {"fl_slope_ose", name="se_mainslope_#", adhesion=0}
+ti["'"] = ti[" "] .. {"fl_slope_one", name="ne_mainslope_#", adhesion=0}
+ti[")"] = ti[" "] .. {"fl_slope_tel", adhesion=0}
+ti["("] = ti[" "] .. {"fl_slope_twl", adhesion=0}
+ti["]"] = ti[" "] .. {"fl_slope_ter", adhesion=0}
+ti["["] = ti[" "] .. {"fl_slope_twr", adhesion=0}
+ti["u"] = ti[" "] .. {"fl_slope_tsr", adhesion=0}
+ti["n"] = (ti[" "] .. {"fl_slope_tnl", adhesion=0})
+                   .. {"it_sensor", invisible=true, action="callback", target="callback_1"}
+ti["U"] = (ti[" "] .. {"fl_slope_tsl", adhesion=0})
+                   .. {"it_sensor", invisible=true, action="callback", target="callback_4"}
+ti["N"] = ti[" "] .. {"fl_slope_tnr", adhesion=0}
+ti["1"] = ti[" "] .. {"fl_slope_onw", adhesion=0, slope=NORTH}
+ti["2"] = ti[" "] .. {"fl_slope_one", adhesion=0, slope=NORTH}
+ti["3"] = ti[" "] .. {"fl_slope_osw", adhesion=0, slope=SOUTH}
+ti["4"] = ti[" "] .. {"fl_slope_ose", adhesion=0, slope=SOUTH}
+ti["5"] = ti[" "] .. {"fl_slope_onw", adhesion=0, slope=WEST}
+ti["6"] = ti[" "] .. {"fl_slope_one", adhesion=0, slope=EAST}
+ti["7"] = ti[" "] .. {"fl_slope_osw", adhesion=0, slope=WEST}
+ti["8"] = ti[" "] .. {"fl_slope_ose", adhesion=0, slope=EAST}
+ti["A"] = (ti[" "] .. {"st_oneway_black", orientation=NORTH}) .. {"fl_slope_pn", adhesion=0}
+ti["V"] = (ti[" "] .. {"st_oneway_black", orientation=SOUTH}) .. {"fl_slope_ps", adhesion=0}
+ti["C"] = (ti[" "] .. {"st_oneway_black", orientation=WEST}) .. {"fl_slope_pw", adhesion=0}
+ti["D"] = (ti[" "] .. {"st_oneway_black", orientation=EAST}) .. {"fl_slope_pe", adhesion=0}
+ti["^"] = (ti[" "] .. {"st_oneway_white", orientation=NORTH}) .. {"fl_slope_pn", adhesion=0}
+ti["v"] = (ti[" "] .. {"st_oneway_white", orientation=SOUTH}) .. {"fl_slope_ps", adhesion=0}
+ti["<"] = (ti[" "] .. {"st_oneway_white", orientation=WEST}) .. {"fl_slope_pw", adhesion=0}
+ti[">"] = (ti[" "] .. {"st_oneway_white", orientation=EAST}) .. {"fl_slope_pe", adhesion=0}
+ti["O"] = ((ti[" "] ..
+           {"#ac_marble_white", essential=INDISPENSABLE}) ..
+           {"fl_slope_onw", name="centreslope", adhesion=0, friction=50, strength=100}) ..
+           {"st_granite_hollow"}
+ti["a"] = ti["A"] .. {"it_sensor", action="callback", target="callback_1"}
+ti["b"] = ti["A"] .. {"it_sensor", action="callback", target="callback_2"}
+ti["c"] = ti["V"] .. {"it_sensor", action="callback", target="callback_3"}
+ti["d"] = ti["V"] .. {"it_sensor", action="callback", target="callback_4"}
+ti["e"] = ti["C"] .. {"it_sensor", action="callback", target="callback_1"}
+ti["f"] = ti["C"] .. {"it_sensor", action="callback", target="callback_3"}
+ti["g"] = ti["D"] .. {"it_sensor", action="callback", target="callback_4"}
+ti["h"] = ti["D"] .. {"it_sensor", action="callback", target="callback_2"}
+ti["o"] = ti["'"] .. {"#ac_marble_black", essential=INDISPENSABLE}
+
+if wo["IsDifficult"] then
+    ti["r"] = ti[">"]
+    ti["R"] = ti["<"]
+    ti["s"] = ti["^"]
+    ti["S"] = ti["v"]
+else
+    ti["r"] = ti["#"]
+    ti["R"] = ti["#"]
+    ti["s"] = ti["#"]
+    ti["S"] = ti["#"]
+end
+
+-- For the camera trick to work properly, this map has to be exactly 2x2 screens.
+w, h = wo(ti, " ", {
+    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+    "!#s#S#s#S#s#S#s#S#s#S#s#S#s#S#s#S#s#S#!",
+    "!r'D.>'D.>'D.>'D.>'h.>'D.>'D.>'D.>'D.r!",
+    "!#AxV#A#V#A#V#A#V#AxV#A#V#A#V#A#V#AxV#!",
+    "!R`C,<`C,<`C,<`C,<`e,<`C,<`C,<`C,<`C,R!",
+    "!#^#v#^#v#^#v#^#v#^#v#^#v#^#v#^#v#^#v#!",
+    "!r'D.>'D.>'D.>'D.>'h.>'D.>'D.>'D.>'D.r!",
+    "!#A#V#A#V#A#V#A#V#A#V#A#V#A#V#A#V#A#V#!",
+    "!R`C,<`C,<`C,<`C,<`e,<`C,<`C,<`C,<`C,R!",
+    "!#^#v#^#v#^#v#^#v#^#v#^#v#^#v#^#v#^#v#!",
+    "!r'D.>'D.>'D.>'D.>o#.>'D.>'D.>'D.>'D.r!",
+    "!#axc#a#c#a#c#a#c##O##b#d#b#d#b#d#bxd#!",
+    "!R`C,<`C,<`C,<`C,<`#,<`C,<`C,<`C,<`C,R!",
+    "!#^#v#^#v#^#v#^#v#^#v#^#v#^#v#^#v#^#v#!",
+    "!r'D.>'D.>'D.>'D.>'g.>'D.>'D.>'D.>'D.r!",
+    "!#A#V#A#V#A#V#A#V#A#V#A#V#A#V#A#V#A#V#!",
+    "!R`C,<`C,<`C,<`C,<`f,<`C,<`C,<`C,<`C,R!",
+    "!#^#v#^#v#^#v#^#v#^#v#^#v#^#v#^#v#^#v#!",
+    "!r'D.>'D.>'D.>'D.>'g.>'D.>'D.>'D.>'D.r!",
+    "!#AxV#A#V#A#V#A#V#AxV#A#V#A#V#A#V#AxV#!",
+    "!R`C,<`C,<`C,<`C,<`f,<`C,<`C,<`C,<`C,R!",
+    "!#s#S#s#S#s#S#s#S#s#S#s#S#s#S#s#S#s#S#!",
+    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"})
+
+wo:add(YIN, {"it_ring"})
+wo:shuffleOxyd({no["oxyd_#*"]:sort("circular"), circular=true})
+
+-- Shuffle around the arrow colours in II, otherwise it's the same as I,
+-- but the two versions play rather differently
+for nw in no["nw_mainslope_#*"] do
+    if random(2) == 1 then
+        x = st(nw+{-1,0})
+        y = st(nw+{0,-1})
+        if x:is("st_oneway") and y:is("st_oneway") then
+            x.color = cond(x.color==BLACK,WHITE,BLACK)
+            y.color = cond(y.color==BLACK,WHITE,BLACK)
+        end
+    end
+end
+
+for ne in no["ne_mainslope_#*"] do
+    if random(2) == 1 then
+        x = st(ne+{1,0})
+        y = st(ne+{0,-1})
+        if x:is("st_oneway") and y:is("st_oneway") then
+            x.color = cond(x.color==BLACK,WHITE,BLACK)
+            y.color = cond(y.color==BLACK,WHITE,BLACK)
+        end
+    end
+end
+
+for sw in no["sw_mainslope_#*"] do
+    if random(2) == 1 then
+        x = st(sw+{-1,0})
+        y = st(sw+{0,1})
+        if x:is("st_oneway") and y:is("st_oneway") then
+            x.color = cond(x.color==BLACK,WHITE,BLACK)
+            y.color = cond(y.color==BLACK,WHITE,BLACK)
+        end
+    end
+end
+
+for se in no["se_mainslope_#*"] do
+    if random(2) == 1 then
+        x = st(se+{1,0})
+        y = st(se+{0,1})
+        if x:is("st_oneway") and y:is("st_oneway") then
+            x.color = cond(x.color==BLACK,WHITE,BLACK)
+            y.color = cond(y.color==BLACK,WHITE,BLACK)
+        end
+    end
+end
+
+-- Callbacks. These don't affect gameplay, just set up camera trickery.
+function callback_1()
+    no["centreslope"].slope = NORTHWEST
+end
+
+function callback_2()
+    no["centreslope"].slope = NORTHEAST
+end
+
+function callback_3()
+    no["centreslope"].slope = SOUTHWEST
+end
+
+function callback_4()
+    no["centreslope"].slope = SOUTHEAST
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

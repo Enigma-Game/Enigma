@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Development" location="70300" network="false" owner="Enigma Team" release="1" revision="10" title="Experimental"/>
+  <info enigma="1.00" group="Development" location="70300" network="false" owner="Enigma Team" release="1" revision="11" title="Experimental"/>
 
   <attributes/>
 
@@ -12,7 +12,9 @@
     <level _seq="4" _title="All Stones as of Enigma 1.20" _xpath="./stones_1" author="Raoul Bourquin" ctrl="force" easy="false" id="stones" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="All Floors as of Enigma 1.20" _xpath="./floors_1" author="Raoul Bourquin" ctrl="force" easy="false" id="floors" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="All Items as of Enigma 1.20" _xpath="./items_1" author="Raoul Bourquin" ctrl="force" easy="false" id="items" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="7" _title="TODO" _xpath="lib/todo" author="Martin Hawlisch" ctrl="force" easy="false" id="todo" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Selfsolving: Screen Flipping" _xpath="./selfsolving_screenflipping" author="Andreas Lochmann" ctrl="force" easy="false" id="selfsolving_flipping" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Selfsolving: Smooth Scrolling" _xpath="./selfsolving_smooth" author="Andreas Lochmann" ctrl="force" easy="false" id="selfsolving_smooth" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="TODO" _xpath="lib/todo" author="Martin Hawlisch" ctrl="force" easy="false" id="todo" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

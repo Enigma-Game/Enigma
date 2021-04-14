@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Suckerfish II" el:subtitle="" el:id="devnull164"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2013, 2014 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="20:02"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["SubSoil"] = SUBSOIL_WATER
+wo["FallenPuzzle"] = "=  "
+wo["MaxOxydColor"] = OXYD_BROWN
+
+ti["  "] = {"fl_red", friction = 5.0, adhesion = 2.0}
+ti[" ;"] = {"fl_dark"}
+ti[" ,"] = {"fl_hay"}
+ti[" ~"] = {"fl_water"}
+ti[" ."] = {"fl_abyss"}
+ti["# "] = {"st_rawglass_quad"}
+ti["- "] = {"st_rawglass_movable"}
+ti["+ "] = {"st_box_hay"}
+ti["* "] = {"st_granite_movable"}
+ti["= "] = {"st_granite_hollow"}
+ti["/ "] = {"st_mirror"}
+ti["G "] = {"st_ghost_break"}
+ti["K "] = {"st_plaster_breakable"}
+ti["S "] = {"st_plaster"}
+ti["Z "] = {"st_plaster_movable"}
+ti["X "] = {"st_grate"}
+ti["R "] = {"st_rotator"}
+ti["RR"] = {"st_rotator", movable = true}
+ti["D "] = {"st_boulder_e"}
+ti["d "] = {"st_blocker"}
+ti["<B"] = {"st_oneway_black_w", name = "oneWayBlackWest#", color = BLACK}
+ti[">B"] = {"st_oneway_black_e", name = "oneWayBlackEast#", color = BLACK}
+ti["<W"] = {"st_oneway_white_w", name = "oneWayWhiteWest#", color = WHITE}
+ti[">W"] = {"st_oneway_white_e", name = "oneWayWhiteEast#", color = WHITE}
+ti["Q"] = {"st_puzzle"}
+ti["P"] = {"st_puzzle", intensity = 0}
+ti[" b"] = {"it_brush"}
+ti[" :"] = {"it_squashed"}
+ti[": "] = ti[" :"]
+ti[" m"] = {"it_magicwand"}
+ti["l "] = {"it_extralife"}
+ti[" c"] = {"it_coin_m"}
+ti[" h"] = {"it_hammer"}
+ti["Me"] = {"st_mail_e"} .. ti({"it_pipe_ew"})
+ti["Mw"] = {"st_mail_w"} .. ti({"it_pipe_ew"})
+ti["Tw"] = {"st_switch_white", target = "laserWest"}
+ti["Te"] = {"st_switch_black", target = "laserEast"}
+ti["Lw"] = {"st_laser_w", name = "laserWest", state = OFF}
+ti["Le"] = {"st_laser_e", name = "laserEast", state = OFF}
+ti["blockers"] = {"st_blocker", name = "doorK%%#"}
+ti["laserFlops"] = {"st_laserflop", target = "doorK%%#*"}
+ti["triggers"] = {"fl_scales_concrete", target = "doorK%%#*"}
+ti["keys"] = ti["  "] .. {"it_key", code = "%%", invisible = false}
+ti["lockB"] = {"st_key", code = "%%", target = "bridgeB%%#*", invisible = false}
+ti["lockW"] = {"st_key", code = "%%", target = "bridgeW%%#*", invisible = false}
+ti["vortex"] = ti[" ;"] .. {"it_vortex", name = "vortex%%", autoclose = true, autoopen = true, destination = "v%%"}
+ti["vortexDest"] = {"fl_dark", name = "v%%", friction = 5.0, adhesion = 2.0}
+ti["bridgesBlack"] = {"fl_bridge_gc", name = "bridgeB%%#", adhesion = 1.8}
+ti["bridgesWhite"] = {"fl_bridge_gc", name = "bridgeW%%#", adhesion = 1.8}
+ti["Q8"] = {"st_quake"} .. ti[" ;"] .. ti({"it_vortex", autoclose = true, autoopen = true, destination = "v%8"})
+ti["Q9"] = {"st_quake"} .. ti[" ;"] .. ti({"it_vortex", autoclose = true, autoopen = true, destination = "v%9"})
+ti["Ob"] = ti[" ."] .. {"st_oxyd_a", name = "oxydsBlack#"}
+ti["Ow"] = ti[" ."] .. {"st_oxyd_a", name = "oxydsWhite#"}
+ti["@0"] = {"#ac_pearl_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE} .. ti({"fl_dark", name = "v%0"})
+ti["@1"] = {"#ac_pearl_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE} .. ti({"fl_dark", name = "v%1"})
+
+wo(res.composer(res.autotile(res.puzzle(ti, "Q", "P"), 
+  {"b", "bridgesBlack"}, {"B", "lockB"}, {"w", "bridgesWhite"}, {"W", "lockW"}, {"k", "keys"}, 
+  {"V", "vortex"}, {"v", "vortexDest"},
+  {"F", "laserFlops"}, {"_", "triggers"}, {"|", "blockers"})), "  ", {
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . .Q8b8b6b4b2w1w3w5w7@0V2 . . . . . . . . .V3@1b8b6b4b2w1w3w5w7Q9 . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . .S.S.S.S.S.S.S. . . . . . . .=.=.=.=.=.=.=c=.=.=.=.=.=.=.=. .",
+    " . . . . . . . .S.            S. . . . . . . .=. ~  PaPd ~ ~ ~          _A=. .",
+    " .B8|CX       K. .d.      +.  S. . . . . . . .=.  |bPh ~ ~ ~ ~  Q1Q1Q2    W1 .",
+    " . . . . . .K G.   .d.    +.  S. .V0 . . .V5 .=.    Pb   ~|a ~  Q1k8Q2    =. .",
+    " . . . . . .G K.     .X     D X <B ;l;Mw ; ;>W=mPdPa ~=~ ~ ~ ~  Q2Q2Q2    =. .",
+    " . .k1    |E  G |B ._B .Te .X.S. .v2 . . .v7 .=.=~ ~=b ~ ~ ~ ~ ~ ~ ~ ~ ~ ~=. .",
+    " . . . . . .G K.     .X       X >B ; ;Mel; ;<W=   =~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~=. .",
+    " . . . . . .K G.   .d.  RR+   S. .V4 . . .V1 .=.   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~=. .",
+    " .W7|DX       K. .d.      +   S. . . . . . . .=. ~ ~ ~ ~            +     B2 .",
+    " . . . . . . . .S.            S. . . . . . . .=. ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~=. .",
+    " . . . . . . . . .S.S.S.S.S.S.S. . . . . . . .=.=.=.=.=.=.=.=.=.=.=.=.=.=.=. .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " .=.=.=.=.=.=.=.=.=.=.=.=.=.=.=. . . . . . . . . . . . . . . . . . . . . . . .",
+    " ./.        G + G G      . .=:=. . . . . . . . . .:.:.+.:.>W+  .G:        Lw .",
+    " .=. ~ ~    G~  = Q1Q1   . .  =. . . . . . . . . .+.+  .   .+.+.+.+.+.+.+  . .",
+    " .=. ~ ~ ~  +~  =  .Q1    * + =. .V2 . . .V3 . . .    +. . . . . . . . . . . .",
+    " .=. ~ ~ ~   ~ ~=. .Q1Q1=     * <B ; . . . ;>W    +. .+. . .+  . . . . . . . .",
+    " .FDB4_c ~ ~ ~ ~_d . . . . .|A=. .v4 . . .v5 . .|E+  .+  . . .|ek4 ._e .W5FC .",
+    " .=.       ~  + =  . . . . . .= >B ; . . . ;<W    +. .+. . .   . . .  +    . .",
+    " .=.+ + +    ~ ~=  . . . .   .=. .V6 . . .V7 . . .    +. . .               . .",
+    " .=. ~   ~ ~ ~ ~=  . . .  +   =. . . . . . . . . .+.+  .   .+.+.+.+.+.+.+  . .",
+    " .Le ~ ~ ~ ~ ~ ~ ~          k2=. . . . . . . . . .:.:.+.:.<W . .:. . . . ./. .",
+    " .=.=.=.=.=.=.=.=.=.=.=.=.=.=.=. . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . .X.X.X.X.X.X.X.X.X. . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . .X PaPd .k6 . .+  .X. . . . . . . . .K.K K K S K K K.K K K K.k3 . .",
+    " . . . . . .   . . .  X.+ +.  X. . . . . . . . .K K K.K Z.K.K K K K.K K.K  . .",
+    " . . . . .    R. . .   . .+ + X. .V4 . . .V1 . .|cK.K.K K K K K.K.K.K K.K  . .",
+    " . . . .         . .  X.  +.    <B ; ;Mel; ;>WK K K.K.K K.K K.K.K.K.K.K K  . .",
+    " . .W3 ._b  X +  . ._aX. . .X.X. .v6 . . .v3 .K.K.K.K.K K.K K.K |dTwK.Z B6 . .",
+    " . . . .         . .  X.  +.    >B ;l;Mw ; ;<WK K K.K.K.K.K K.K K.K.K.K K  . .",
+    " . . . . .    R. . .   . .   .X. .V0 . . .V5 . .K K.K.K K K K K K K K K K  . .",
+    " . . . . . .   . . .  X.+ -.+ X. . . . . . . . .K RRK K K.S K.K.K.K K.K.K  . .",
+    " . . . . . .X PaPd .k5 . .+  .X. . . . . . . . .K K K K.K._EK.K K K K K k7 . .",
+    " . . . . . . .X.X.X.X.X.X.X.X.X. . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .", 
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . .Ob . . . . . . . . . . . . . . . . . .Ow . . . . . . . . . .",
+    " . . . . . . . .Ob  Ob . . . . . . . . . . . . . . . .Ow  Ow . . . . . . . . .",
+    " . . . . . . .Ob      Ob . . . . . . . . . . . . . .Ow      Ow . . . . . . . .",
+    " . . . . . .Ob    v8    Ob . . . . . . . . . . . .Ow    v9    Ow . . . . . . .",
+    " . . . . . . .Ob      Ob . . . . . . . . . . . . . .Ow      Ow . . . . . . . .",
+    " . . . . . . . .Ob  Ob . . . . . . . . . . . . . . . .Ow  Ow . . . . . . . . .",
+    " . . . . . . . . .Ob . . . . . . . . . . . . . . . . . .Ow . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."})
+wo:shuffleOxyd({"oxydsBlack#*", max = 0}, {"oxydsWhite#*", max = 0})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

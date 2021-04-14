@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Seance" el:subtitle="" el:id="gorg098_1"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="gorg" el:email=""/>
+      <el:copyright>Copyright © 2019 Georg Honold</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.30"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="02:40"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti["  "] = {"fl_abyss"}
+ti["e "] = {"fl_forward_rough", "floor#", orientation=EAST}
+ti["w "] = {"fl_forward_rough", "floor#", orientation=WEST}
+ti["n "] = {"fl_forward_rough", "floor#", orientation=NORTH}
+ti["s "] = {"fl_forward_rough", "floor#", orientation=SOUTH}
+ti[". "] = {"fl_rough"}
+ti[" @"] = {"#ac_marble_white", owner=YIN, controllers=CTRL_YIN}..ti{"st_grate"}
+ti[" !"] = {"st_brake"}..ti{"it_sensor_exit", target="floor#*", action="flip"}
+ti[" D"] = {"st_death_movable"}
+ti[" R"] = {"st_rotator", movable=true}
+ti["# "] = {"st_passage_black"}
+ti["b "] = {"fl_bridge", "bridge#"}
+ti[" t"] = {"it_trigger", target="counter", action="signal"}
+ti[" d"] = {"st_door_a", "door#"}
+ti["O "] ={"st_oxyd_a", oxydcolor=OXYD_PURPLE}
+
+wo(res.composer(ti), "  ",{
+"# # # # # # # # #     # # # # # # # # # ",
+"# eDe e e e e s #     # s w w w w w w # ",
+"# n  R  n     s #     # s     s     n # ",
+"# n   eDe s   s # # # # s    tw  t  n # ",
+"# n # n .@s # s e e e e s # s .!n # n # ",
+"# n   n w wD  s # # # # s    te  t  n # ",
+"# n     s    Rs #     # s     n     n # ",
+"# n w w w w w wD#     # e e e e e e n # ",
+"# # # # bd# # # #     # # # # bd# # # # ",
+"        b                     b         ",
+"        b                     b         ",
+"        O                     O         ",
+"                                        "})
+
+wo:add({"ot_counter", "counter", target={"door#*", "bridge#*"}, action_3={"close", "open"}, action_4={"open", "close"}})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+
+
+
+
+

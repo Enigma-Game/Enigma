@@ -863,10 +863,11 @@ string BoolOptionButton::get_text() const {
 
 /* -------------------- ValueButton -------------------- */
 
-ValueButton::ValueButton(int min_value_, int max_value_)
+ValueButton::ValueButton(int min_value_, int max_value_, ActionListener *al)
 : TextButton(this),
   min_value(min_value_),
-  max_value(max_value_)
+  max_value(max_value_),
+  secondaryListener(al)
 {
 }
 
@@ -904,7 +905,6 @@ bool ValueButton::update_value(int old_value, int new_value) {
     return false;
 }
 
-
 void ValueButton::on_action(Widget *) {
     // Mouse wheel has already been interpreted as a button click.
     int incr = (getLastUpSym() == SDLK_PAGEDOWN ||
@@ -926,6 +926,8 @@ void ValueButton::on_action(Widget *) {
                 update_value(get_value(), max_value);
         }
     }
+    if (secondaryListener != NULL)
+        secondaryListener->on_action(this);
 }
 
 bool ValueButton::soundOk() {

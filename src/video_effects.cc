@@ -103,7 +103,7 @@ public:
 private:
     double rest_time;
     ecl::Surface *newscr;
-    std::auto_ptr<ecl::Surface> oldscr;
+    std::unique_ptr<ecl::Surface> oldscr;
     int originx, originy;
     double velx, vely;
     double accx, accy;

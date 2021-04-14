@@ -64,6 +64,8 @@ namespace enigma { namespace gui {
         but_search = new StaticTextButton(N_("Search"), this);
         but_level = new StaticTextButton(N_("Start Game"), this);
         but_main = new StaticTextButton(N_("Main Menu"), this);
+        but_tutorial1 = NULL;
+        but_tutorial2 = NULL;
         
         commandHList = new HList;
         commandHList->set_spacing(vshrink ? 5 : 10);
@@ -73,8 +75,10 @@ namespace enigma { namespace gui {
         commandHList->add_back(but_search);
         commandHList->add_back(but_level);
         commandHList->add_back(but_main);
-        this->add(commandHList, Rect(vshrink ? 5 : 10, vminfo.height-(vshrink ? 25 : 50), vminfo.width-(vshrink ? 10 : 20), vminfo.height < 320 ? 17 : 35));
-        
+        this->add(commandHList, Rect(vshrink ? 5 : 10,
+                                     vminfo.height-(vshrink ? 25 : 50),
+                                     vminfo.width-(vshrink ? 10 : 20),
+                                     vminfo.height < 320 ? 17 : 35));
     }
     
     void LevelPackMenu::setupMenu() {
@@ -82,34 +86,62 @@ namespace enigma { namespace gui {
             int packcolumns, rows;
             int vmargin, vrow_row;
             int hmargin, hgroup_pack, hscrollbutton, hscroll_pack, hpack_pack;
+            int tut_rows, tut_upperrowlength, tut_upperrowheight;
         } param[] = {
             {  // VTS_16 (320x240)
                 2, 9,
                 7, 5,
-                10, 18, 11, 5, 10
+                10, 18, 11, 5, 10,
+                1, 205, 10
             },
             {  // VTS_32 (640x480)
                 2, 9,
                 15, 10,
-                20, 36, 22, 10, 20
+                20, 36, 22, 10, 20,
+                1, 406, 20
             },
             {  // VTS_40 (800x600)
                 3, 11,
                 15, 13,
-                15, 36, 22, 10, 15
+                15, 36, 22, 10, 15,
+                1, 576, 20
             },
             {  // VTS_48 (960x720)  VM_1024x768
                 3, 14,
                 15, 10,
-                70, 56, 22, 20, 20
+                70, 56, 22, 20, 20,
+                3, 606, 20
             },
             {  // VTS_64 (1280x960)
                 5, 17,
                 25, 14,
-                60, 40, 22, 18, 20
+                60, 40, 22, 18, 20,
+                7, 962, 20
             }
         };
-        
+
+        static const char *tutTextLong[] = {
+// TRANSLATORS: This is the longer of two versions, used on larger screens. Your translation can be longer.
+            N_("Welcome to Enigma! Please note that the game makes use of your mouse in another way than usual, and there will be no mouse cursor during the game. You can press the ESC key or the middle mouse button to pause the game and exit (or continue). You can also always press the F1 key to see available shortcut keys."),
+// TRANSLATORS: This is the longer of two versions, used on larger screens. Your translation can be longer.
+            N_("If you are an experienced gamer and prefer a challenge for a start, please click here:"),
+// TRANSLATORS: This is the longer of two versions, used on larger screens. Your translation can be longer.
+            N_("If you prefer a more gentle introduction, please click here:"),
+// TRANSLATORS: This is the longer of two versions, used on larger screens. Your translation can be longer.
+            N_("If you feel you need some more training with handling your mouse, you might find some helpful landscapes here:"),
+        };
+
+        static const char *tutTextShort[] = {
+// TRANSLATORS: This is the shorter of two versions, used on smaller screens. Please try to keep it short.
+            N_("Welcome to Enigma! Please note that there will be no mouse cursor during the game. You can press ESC or the middle mouse button to pause or exit. Use F1 to see available shortcut keys."),
+// TRANSLATORS: This is the shorter of two versions, used on smaller screens. Please try to keep it short.
+            N_("If you are an experienced gamer and prefer a challenge for a start, please click here:"),
+// TRANSLATORS: This is the shorter of two versions, used on smaller screens. Please try to keep it short.
+            N_("For a more gentle introduction, please click here:"),
+// TRANSLATORS: This is the shorter of two versions, used on smaller screens. Please try to keep it short.
+            N_("You will find more training landscapes here:"),
+        };
+
         if (groupsVList != NULL) {
             groupsVList->clear();
             remove_child(groupsVList);
@@ -125,7 +157,7 @@ namespace enigma { namespace gui {
             delete packsHList;
             packsHList = NULL;
         }
-        
+
         if (scrollLeft != NULL) {
             remove_child(scrollLeft);
             delete scrollLeft;
@@ -134,12 +166,28 @@ namespace enigma { namespace gui {
         if (scrollRight != NULL) {
             remove_child(scrollRight);
             delete scrollRight;
-            scrollRight =  NULL;
+            scrollRight = NULL;
         }
-        
+
+        if (but_tutorial1 != NULL) {
+            remove_child(but_tutorial1);
+            delete but_tutorial1;
+            but_tutorial1 = NULL;
+        }
+        if (but_tutorial2 != NULL) {
+            remove_child(but_tutorial2);
+            delete but_tutorial1;
+            but_tutorial2 = NULL;
+        }
+
+        for (auto it = tutorialLines.begin(); it != tutorialLines.end(); it++)
+            if (*it != NULL)
+                remove_child(*it);
+        tutorialLines.clear();
+
         packButtons.clear();
         groupButtons.clear();
-        
+
         std::vector<std::string> groupNames = lev::Index::getGroupNames();
         int groupCount = groupNames.size();
         std::string curGroupName = lev::Index::getCurrentGroup();
@@ -180,12 +228,16 @@ namespace enigma { namespace gui {
                 }
             }
         }
-        
-        
+
+        // ---- build list of groups on the left side of the screen ----
+
+        int buttonWidth = (vtt==0) ? 80 : 160;
+        int buttonHeight = (vtt==0) ? 17 : 35;
+
         groupsVList = new VList; 
         groupsVList->set_spacing(param[vtt].vrow_row);
         groupsVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
-        groupsVList->set_default_size(vtt==0 ? 80 : 160, vtt==0 ? 17 : 35);
+        groupsVList->set_default_size(buttonWidth, buttonHeight);
         
         for (int i = 0; i < usedGroupRows; i++) {
             if (i == 0 && needUpScroll) {
@@ -202,51 +254,123 @@ namespace enigma { namespace gui {
             }
         }
 
-        this->add(groupsVList, Rect(param[vtt].hmargin + vh, param[vtt].vmargin + vv, 
-                vtt==0 ? 80 : 160, param[vtt].rows * (vtt==0 ? 17 : 35) + 
+        this->add(groupsVList, Rect(param[vtt].hmargin + vh, param[vtt].vmargin + vv,
+                buttonWidth, param[vtt].rows * buttonHeight +
                 (param[vtt].rows - 1) * param[vtt].vrow_row));
-        
+
         lastGroupName = curGroupName;
+
+        // ---- build list of level packs of current group in the middle of the screen ----
+
         std::vector<lev::Index *> * group = lev::Index::getGroup(curGroupName);
-        ASSERT(group != NULL, XFrontend,"");
+        ASSERT(group != NULL, XFrontend, "curGroupName corresponds to NULL group");
         unsigned packCount = group->size();
-        
+        int packOffset = 0;
         int posCurrentIndex = getIndexPosition(group, lev::Index::getCurrentIndex()->getName());
         int selectedColumn = lev::Index::getGroupSelectedColumn(curGroupName);
         int colCurrentIndex = 0;
         int nextPack = 0;        // pack displayed at top of first display column
-        
+        int numRows = param[vtt].rows;
+        int vOffset = param[vtt].vmargin + vv;
+
+        if ((curGroupName == INDEX_TUTORIALS_GROUP) && (packCount >= 2)) {
+            std::string workString;
+            std::vector<std::string> lines;
+            ecl::Font *menufont = enigma::GetFont("menufont");
+            int x = param[vtt].hmargin + vh + buttonWidth + param[vtt].hgroup_pack;
+            int y = vOffset;
+            int w = param[vtt].tut_upperrowlength;
+            int h = param[vtt].tut_upperrowheight;
+            int v_text_button = (vtt == 0) ? 8 : 16;
+            // welcome text and information about ESC and F1
+            workString = (vtt <= 1) ? tutTextShort[0] : tutTextLong[0];
+            lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
+            for (auto it = lines.begin(); it != lines.end(); it++) {
+                Label * lbText = new UntranslatedLabel(*it, HALIGN_LEFT);
+                this->add(lbText, Rect(x, y, w, h));
+                tutorialLines.push_back(lbText);
+                y += h+1;
+            }
+            y += 4;
+#ifdef ENABLE_EXPERIMENTAL
+            // recommendation for advanced tutorial pack
+            workString = (vtt <= 1) ? tutTextShort[1] : tutTextLong[1];
+            lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
+            for (auto it = lines.begin(); it != lines.end(); it++) {
+                Label * lbText = new UntranslatedLabel(*it, HALIGN_LEFT);
+                this->add(lbText, Rect(x, y, w, h));
+                tutorialLines.push_back(lbText);
+                y += h+1;
+            }
+            y += v_text_button;
+            // button for advanced tutorial pack
+            lev::Index *ind1 = (*group)[0];
+            but_tutorial1 = new StaticTextButton(ind1->getName(), this);
+            packButtons.push_back(but_tutorial1);
+            this->add(but_tutorial1, Rect(x + (w - buttonWidth)/2 - 1, y, buttonWidth, buttonHeight));
+            y += buttonHeight + v_text_button;
+            // recommendation for basic tutorial pack
+            workString = (vtt <= 1) ? tutTextShort[2] : tutTextLong[2];
+            lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
+            for (auto it = lines.begin(); it != lines.end(); it++) {
+                Label * lbText = new UntranslatedLabel(*it, HALIGN_LEFT);
+                this->add(lbText, Rect(x, y, w, h));
+                tutorialLines.push_back(lbText);
+                y += h+1;
+            }
+            y += v_text_button;
+            // button for basic tutorial pack
+            lev::Index *ind2 = (*group)[1];
+            but_tutorial2 = new StaticTextButton(ind2->getName(), this);
+            packButtons.push_back(but_tutorial2);
+            this->add(but_tutorial2, Rect(x + (w - buttonWidth)/2 - 1, y, buttonWidth, buttonHeight));
+            y += buttonHeight + v_text_button;
+            // recommendation for remaining level pack(s)
+            workString = (vtt <= 1) ? tutTextShort[3] : tutTextLong[3];
+            lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
+            for (auto it = lines.begin(); it != lines.end(); it++) {
+                Label * lbText = new UntranslatedLabel(*it, HALIGN_LEFT);
+                this->add(lbText, Rect(x, y, w, h));
+                tutorialLines.push_back(lbText);
+                y += h+1;
+            }
+#endif
+            numRows = param[vtt].tut_rows;
+            vOffset = y + v_text_button;
+            packCount -= 2;
+            packOffset = 2;
+        }
+
         if (selectedColumn != INDEX_GROUP_COLUMN_UNKNOWN || 
                 groupLastSelectedIndex.find(curGroupName) == groupLastSelectedIndex.end()) {
-            colCurrentIndex = checkColumn(param[vtt].rows, param[vtt].packcolumns,
+            colCurrentIndex = checkColumn(numRows, param[vtt].packcolumns,
                     packCount, posCurrentIndex, selectedColumn);
-            nextPack = (posCurrentIndex / param[vtt].rows - colCurrentIndex) * param[vtt].rows;
+            nextPack = (posCurrentIndex / numRows - colCurrentIndex) * numRows;
         } else {
             // the user selected a new level pack and the column was not yet
             // calculated: we try to keep the display unchanged in respect of
             // of the last selected pack and if necessary scroll minimum amount
             // of columns 
             int posLastIndex = getIndexPosition(group,groupLastSelectedIndex[curGroupName]);
-            int colLastIndex = checkColumn(param[vtt].rows, param[vtt].packcolumns,
+            int colLastIndex = checkColumn(numRows, param[vtt].packcolumns,
                     packCount, posLastIndex, groupLastSelectedColumn[curGroupName]);
-            nextPack = (posLastIndex / param[vtt].rows - colLastIndex) * param[vtt].rows;
+            nextPack = (posLastIndex / numRows - colLastIndex) * numRows;
             if (posCurrentIndex < nextPack) {
                 // current index would be left of display - we need to scroll left
-                nextPack -= (((nextPack - posCurrentIndex - 1)/param[vtt].rows) + 1) *
-                        param[vtt].rows;
+                nextPack -= (((nextPack - posCurrentIndex - 1)/numRows) + 1) * numRows;
                 colCurrentIndex = 0;
-            } else if (posCurrentIndex < nextPack + param[vtt].rows * param[vtt].packcolumns) {
+            } else if (posCurrentIndex < nextPack + numRows * param[vtt].packcolumns) {
                 // current index is still visible - keep nextPack
-                colCurrentIndex = (posCurrentIndex - nextPack) / param[vtt].rows;
+                colCurrentIndex = (posCurrentIndex - nextPack) / numRows;
             } else {
                 // current index would be right of display - we need to scroll right
-                nextPack += (((posCurrentIndex - nextPack)/param[vtt].rows) - 
-                        (param[vtt].packcolumns - 1)) * param[vtt].rows;
+                nextPack += (((posCurrentIndex - nextPack)/numRows) -
+                        (param[vtt].packcolumns - 1)) * numRows;
                 colCurrentIndex = param[vtt].packcolumns - 1;                
             }
         }
         
-        bool needRightScroll = ((int)packCount > nextPack + param[vtt].rows * param[vtt].packcolumns);
+        bool needRightScroll = ((int)packCount > nextPack + numRows * param[vtt].packcolumns);
         bool needLeftScroll = (nextPack > 0);
 
         lev::Index::setGroupSelectedColumn(curGroupName, colCurrentIndex);
@@ -256,19 +380,19 @@ namespace enigma { namespace gui {
         packsHList = new HList; 
         packsHList->set_spacing(param[vtt].hpack_pack);
         packsHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
-        packsHList->set_default_size(vtt==0 ? 80 : 160, param[vtt].rows*(vtt==0 ? 17 : 35) + 
-                (param[vtt].rows - 1) * param[vtt].vrow_row);
-        
+        packsHList->set_default_size(buttonWidth, numRows * buttonHeight +
+                (numRows - 1) * param[vtt].vrow_row);
+
         for (int col = 0; col < param[vtt].packcolumns; col++) {
             if (packCount - nextPack > 0) {
                 VList * pl = new VList;
                 pl->set_spacing (param[vtt].vrow_row);
                 // first column is centered - if it is full it is like top alignment:
                 pl->set_alignment (HALIGN_LEFT, col == 0 ? VALIGN_CENTER : VALIGN_TOP);
-                pl->set_default_size (vtt==0 ? 80 : 160, vtt==0 ? 17 : 35);
-                for (int row = 0; row < param[vtt].rows; row++) {
+                pl->set_default_size (buttonWidth, buttonHeight);
+                for (int row = 0; row < numRows; row++) {
                     if (nextPack < packCount) {
-                        lev::Index *ind = (*group)[nextPack];
+                        lev::Index *ind = (*group)[nextPack + packOffset];
                         TextButton * button = new UntranslatedStaticTextButton(ind->getName(), this);
                         packButtons.push_back(button);
                         pl->add_back(button);
@@ -276,37 +400,35 @@ namespace enigma { namespace gui {
                     } else
                         break;
                 }
-                packsHList->add_back(pl);               
+                packsHList->add_back(pl);
             } else
                 break;
         }
 
-        this->add(packsHList, Rect(param[vtt].hmargin + vh + (vtt==0 ? 80 : 160) + param[vtt].hgroup_pack +
-                param[vtt].hscrollbutton + param[vtt].hscroll_pack, 
-                param[vtt].vmargin + vv, 
-                param[vtt].packcolumns * (vtt==0 ? 80 : 160) + (param[vtt].packcolumns - 1) * 
-                param[vtt].hpack_pack, 
-                param[vtt].rows * (vtt==0 ? 17 : 35) + 
-                (param[vtt].rows - 1) * param[vtt].vrow_row));
+        this->add(packsHList, Rect(param[vtt].hmargin + vh + buttonWidth + param[vtt].hgroup_pack +
+                param[vtt].hscrollbutton + param[vtt].hscroll_pack,
+                vOffset,
+                param[vtt].packcolumns * buttonWidth + (param[vtt].packcolumns - 1) *
+                param[vtt].hpack_pack,
+                numRows * buttonHeight + (numRows - 1) * param[vtt].vrow_row));
         
         if (needLeftScroll) {
             scrollLeft = new ImageButton("ic-left", "ic-left1", this);
-            this->add(scrollLeft, Rect(param[vtt].hmargin + vh + (vtt==0 ? 80 : 160) + param[vtt].hgroup_pack,
-                    param[vtt].vmargin + vv + param[vtt].rows / 2 * ((vtt==0 ? 17 : 35) + param[vtt].vrow_row),
-                    param[vtt].hscrollbutton, (vtt==0 ? 17 : 35)));
+            this->add(scrollLeft, Rect(param[vtt].hmargin + vh + buttonWidth + param[vtt].hgroup_pack,
+                    vOffset + numRows / 2 * (buttonHeight + param[vtt].vrow_row),
+                    param[vtt].hscrollbutton, buttonHeight));
         }
                 
         if (needRightScroll) {
             scrollRight = new ImageButton("ic-right", "ic-right1", this);
-            this->add(scrollRight, Rect(param[vtt].hmargin + vh + (vtt==0 ? 80 : 160) + param[vtt].hgroup_pack +
+            this->add(scrollRight, Rect(param[vtt].hmargin + vh + buttonWidth + param[vtt].hgroup_pack +
                     param[vtt].hscrollbutton + 2 * param[vtt].hscroll_pack +
-                    param[vtt].packcolumns * (vtt==0 ? 80 : 160) + (param[vtt].packcolumns - 1) * 
-                    param[vtt].hpack_pack,
-                    param[vtt].vmargin + vv+ param[vtt].rows / 2 * ((vtt==0 ? 17 : 35) + param[vtt].vrow_row),
-                    param[vtt].hscrollbutton, (vtt==0 ? 17 : 35)));
+                    param[vtt].packcolumns * buttonWidth + (param[vtt].packcolumns - 1) * param[vtt].hpack_pack,
+                    vOffset + numRows / 2 * (buttonHeight + param[vtt].vrow_row),
+                    param[vtt].hscrollbutton, buttonHeight));
         }
     }
-    
+
     void LevelPackMenu::manageLevelMenu() {
         bool finished = false;
         while (!finished) {
@@ -415,7 +537,9 @@ namespace enigma { namespace gui {
             setupMenu();
             updateHighlight();
             invalidate_all();
-        } else if (w->get_parent()->get_parent() == packsHList){
+        } else if (   (w->get_parent()->get_parent() == packsHList)
+                   || (w == but_tutorial1)
+                   || (w == but_tutorial2)) {
             lev::Index::setCurrentIndex(dynamic_cast<TextButton *>(w)->get_text());
             if (w->lastMouseButton() == SDL_BUTTON_RIGHT ||
                      w->lastModifierKeys() & KMOD_CTRL) {

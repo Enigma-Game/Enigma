@@ -159,6 +159,9 @@ protected:
 
     // Variables
     SDL_Surface *m_surface;
+
+private:
+    SDL_PixelFormat *pixel_format;
 };
 
 class SurfaceLock {

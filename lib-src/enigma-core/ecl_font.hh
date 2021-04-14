@@ -20,6 +20,7 @@
 #define ECL_FONT_HH
 
 #include <string>
+#include <vector>
 
 namespace ecl {
 
@@ -44,6 +45,10 @@ public:
 
 std::string::size_type breakString(Font *font, const std::string &theString,
                                    const std::string &breakChars, int targetWidth);
+
+std::vector<std::string> breakToLines(Font *font, const std::string &theString,
+                                   const std::string &breakChars, int targetWidth);
+
 
 /** Load a bitmap font with image FILENAME and font metric
   DESCRNAME. */

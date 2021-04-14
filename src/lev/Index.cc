@@ -28,6 +28,10 @@
 #include "lev/RatingManager.hh"
 
 #include <cstdio>
+// We do not use the random algorithm from enigma.cc, because we are
+// only concerned with shuffling a level index here -- this should not
+// interfere with the random algorithms used in the game.
+#include <random>
 
 namespace enigma { namespace lev {
 
@@ -100,7 +104,13 @@ namespace enigma { namespace lev {
                 group = new std::vector<Index *>;
                 indexGroups.insert(std::make_pair(groupName, group));
                 app.state->addGroup(groupName, anIndex->getName(), 0);
-                
+
+                // If this is the "Tutorials" group, move it to the front.
+                // (This is needed on transitioning from 1.21 to 1.30.)
+                if (groupName == INDEX_TUTORIALS_GROUP) {
+                    moveGroup(groupName, 0);
+                }
+
                 // fill group with indices that appear in every group
                 std::map<std::string, Index *>::iterator iti;
                 for (iti = indices.begin(); iti != indices.end(); iti++)
@@ -696,7 +706,28 @@ namespace enigma { namespace lev {
     void Index::clear() {
 //        proxies.clear();
     }
-    
+
+    void Index::sort(SCSortMethod s) {
+        switch (s) {
+            case SC_SORT_NONE: break;
+            case SC_SORT_RANDOM: {
+                std::random_device rd;
+                auto rng = std::default_random_engine { rd() };
+                std::shuffle(proxies.begin(), proxies.end(), rng);
+                break;
+            }
+            case SC_SORT_DIF: {
+                std::sort(proxies.begin(), proxies.end(), lev::RatingManager::compareByDifficulty);
+                break;
+            }
+            case SC_SORT_AVR: {
+                std::sort(proxies.begin(), proxies.end(), lev::RatingManager::compareByAverageRating);
+                break;
+            }
+            default: break;
+        }
+    }
+
     void Index::updateFromProxies() {
         Proxy::releaseCache();   // enforce a reload from file
         for (int i = 0, l = proxies.size();  i < l; i++) {

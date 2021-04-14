@@ -53,6 +53,9 @@ namespace enigma {
         } else if (key == "orientation") {
             if (val >= minState() && val <= maxState())
                 setState(val);
+        } else if (key == "interval") {
+            Floor::setAttr(key, val);
+            update_alarm();
         } else
             Floor::setAttr(key, val);
     }
@@ -87,22 +90,42 @@ namespace enigma {
 
     void ForwardFloor::animcb() {
         init_model();
-        send_impulses();
     }
 
-    void ForwardFloor::alarm() {
-        if (Value theid = getAttr("$stoneabove")) {
-            GridPos p = get_pos();
-            Stone *st = GetStone(p);
-            if (st != NULL && theid == st->getId())
-                send_impulse(p, (Direction)state);
+    void ForwardFloor::on_creation (GridPos p) {
+        update_alarm();
+        Floor::on_creation(p);
+    }
+
+    void ForwardFloor::update_alarm() {
+        double i = (double)getAttr("interval");
+        GameTimer.remove_alarm(this, ALARM_PREPARE);
+        if (i == 0.0)
+            return;  // interval 0 means: off.
+        if (i >= 0.2) {
+            GameTimer.set_alarm(this, i, true, ALARM_PREPARE);
+        } else {
+            throw XLevelRuntime(std::string("fl_forward needs interval >= 0.2"));
+        }
+    }
+
+    void ForwardFloor::distinguished_alarm(int alarmnr) {
+        if (alarmnr == ALARM_PREPARE) {
+            send_impulses();
+        } else {  // alarmnr == ALARM_PUSH
+            if (Value theid = getAttr("$stoneabove")) {
+                GridPos p = get_pos();
+                Stone *st = GetStone(p);
+                if (st != NULL && theid == st->getId())
+                    send_impulse(p, (Direction)state);
+            }
         }
     }
 
     void ForwardFloor::send_impulses() {
         Stone *st = GetStone(get_pos());
         Floor::setAttr("$stoneabove", (st == NULL) ? Value() : Value(st->getId()));
-        GameTimer.set_alarm(this, 0.1);
+        GameTimer.set_alarm(this, 0.08, false, ALARM_PUSH);
     }
 
     BOOT_REGISTER_START

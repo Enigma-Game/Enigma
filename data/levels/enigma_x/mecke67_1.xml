@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="San Francisco Bay Area" el:subtitle="A Journey to Random Colours" el:id="mecke67"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:15 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2020 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+	  <el:compatibility el:enigma="1.3">
+	    <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libtrain" el:id="lib/libtrain" el:release="1" el:preload="true"/>
+		<el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>	     
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force"
+        el:scoreunit="duration" el:scoretarget="time"/>
+	  <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Georg Honold for testing</el:credits>
+      </el:comments>
+	  <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["AutoRespawn"] = true
+
+if wo ["IsDifficult"] then
+    ti["  "] = {"fl_red"}
+    ti[" T"] = {"st_thief"}
+	ti[" m"] = {"it_seed_volcano"}
+	ti[" n"] = {"fl_thief"}
+	ti[" p"] = {"it_bottle"}
+else
+    ti["  "] = {"fl_lawn"}
+    ti[" T"] = {"st_dispenser_extralife"}
+	ti[" m"] = {"it_umbrella"}
+	ti[" n"] = {"it_flag"}
+	ti[" p"] = {"it_drop"}
+end
+
+ti["~ "] = {"fl_water"}
+--ti["  "] = {"fl_lawn"}
+ti["- "] = {"fl_sand", burnable=false}
+ti[". "] = {"fl_abyss"}
+ti["+ "] = {"fl_red"}
+ti["q "] = {"it_wrench"}
+ti[", "] = ti[". "] .. {"it_strip_ns"}
+
+ti[" >"] = {"fl_forward_darkgray", orientation = EAST}
+ti[" <"] = {"fl_forward_darkgray", orientation = WEST}
+ti[" ^"] = {"fl_forward_darkgray", orientation = NORTH}
+ti[" v"] = {"fl_forward_darkgray", orientation = SOUTH}
+
+ti[" B"] = {"st_box_wood"}
+ti["M "] = ti["- "] .. {"st_box_wood"}
+ti[" b"] = {"st_barrier"}
+ti[" N"] = {"st_grate_cross"}
+ti["oo"] = {"st_passage_black"}
+
+ti["XX"] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti[" D"] = ti["  "] .. {"it_document", text = "Welcome to San Francisco, Sausalito"}
+ti["@ "] = {"#ac_marble"}
+
+ti["S0"] = ti["  "] .. {"st_switch",  target="franz0"}
+ti["S1"] = ti["  "] .. {"st_switch",  target="franz1"}
+ti["L0"] = ti["  "] .. {"st_laser_n", state=OFF, name="franz0"}
+ti["L1"] = ti["  "] .. {"st_laser_n", state=OFF, name="franz1"}
+
+
+wo(res.composer(ti), "  ", {
+--0                                    19                                    38                                  56                                        77
+
+
+"~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",  --00
+"~ ~ ~ ~ ~ ~   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",  
+"~ ~ ~ ~ ~   q   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",
+"~ ~ ~ ~ ~  m n p~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",
+"~ ~ ~ ~ ~    b  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",
+"~ ~ ~ ~ ~ XX  XX~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",
+"~ ~ ~ ~ ~  B   B~ - - - -N- ~ M - - - - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",
+"~ ~ ~ ~ ~    B  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",
+"~ ~ ~ ~ ~  B   B~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",
+"~ ~ ~ ~ ~    B  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",
+"~ ~ ~ ~  T   D    ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",
+"~ ~ ~ ~ ~         oooo~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",
+"                                      . . . . . . . . . , , . . . . . . . . . ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",  --12
+"                                      . . . . . . . . . S0S1. . . . . . . . . ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ",
+"                                      . . . . . . . . . . . . . . . . . . . . - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"                                      . . . . + . . . . . . . . . . + . . . . - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"                                      . . . , + , . . . . . . . . , + , . . . - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"                                      . . , , + , , . . . . . . , , + , , . . - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"                                      . , , , + , , , . . . . , , , + , , , . - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"                                      , , , , + , , , , . . , , , , + , , , , - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"                                       v < < < < < < < < < < < < < < < < < < <- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"                                       > > > > > > > > >@> > > > > > > > > > ^- - - - - - - - - - - ~ - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"                                      . . . . + . . . . . . . . . . + . . . . - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"                                      ~ ~ ~ ~ + ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ + ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"                                      - - - - L0- - - - - - - - - - L1- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "}) --24
+
+
+
+--------------------------------------------------------------------------------
+--- hippie room ---
+--------------------------------------------------------------------------------
+ti["h "] = {"fl_bluegray"}
+ti["h1"] = {"fl_sand", name="floor#"}
+ti["h2"] = {"fl_inverse", name="floor#"}
+ti["h3"] = {"fl_red", name="floor#"}
+ti["h4"] = {"fl_metal", name="floor#"}
+ti["h5"] = {"fl_ice", name="floor#"}
+ti["h6"] = {"fl_space", name="floor#"}
+ti["h7"] = {"fl_aquamarine", name="floor#"}
+ti["h8"] = {"fl_lawn", name="floor#"}
+ti["h9"] = {"fl_adhesionless", name="floor#"}
+ti["h~"] = {"fl_water"}
+ti["hr"] = {"fl_red"}
+--ti[" -"] = {"fl_lawn"}
+ti["ha"] = {"fl_sahara"}
+ti["h#"] = {"st_lightpassenger"}
+ti["hD"] = {"st_actorimpulse", name="stone#"}
+ti["ho"] = {"st_passage_black"}
+ti["hG"] = {"st_rawglass", name="stone#"}
+ti["hB"] = {"st_beads", name="stone#"}
+ti["hC"] = {"st_rawglass_quad", name="stone#"}
+ti["hO"] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti["hS"] = ti["ha"] .. {"st_switch", name="psy1", target="las1#*"}
+ti["hm"] = ti["  "] .. {"st_laser_e", state=ON, name="las1#"}
+ti["hn"] = ti["  "] .. {"st_laser_w", state=ON, name="las1#"}
+ti["hy"] = ti["  "] .. {"st_laser_n", state=ON, name="las1#"}
+ti["hz"] = ti["  "] .. {"st_laser_s", state=ON, name="las1#"}
+ti["hc"] = ti["ha"] .. {"it_cherry"}
+ti["hp"] = {"it_puller_n"}
+
+--ti["hu"] = ti["hr"] .. {"it_document", text = "Welcome to San Francisco, Sausalito"}
+
+
+
+
+
+wo:add({"ot_timer", target="colorthefloor"})
+wo:add({"ot_timer", target="colorthestones"})
+
+
+
+
+
+
+pmap_hippie= {
+    "#########  #########",
+    "#------------------#",
+    "#-maaaaaaaaaaaaaaz-#",
+    "#--xt            --#",
+    "#-- #++++++++++# --#",
+    "#-- +----oo----+ --#",
+    "#-- +-ScoOOoc--+ --#",
+    "#-- +----oo----+ --#",
+    "#-- #++++++++++# --#",
+    "#--             x--#",
+    "#-y--------------n-#",
+    "#-----c------c-----#",
+    "####################"}
+	
+
+	
+
+
+
+
+map_hippie = wo:newMap(" ", pmap_hippie)
+
+local resolver1 = res.random(ti, "h-",{{"h1", 3/108}, {"h2", 3/108}, {"h3", 6/108}, {"h4", 3/108}, {"h5", 3/108}, {"h6", 6/108}, {"h7", 3/108}, {"h8", 3/108}, {"h9", 6/108}})
+local resolver2 = res.random(resolver1, "h+",{{"hD", 3/10}, {"hC", 3/10}, {"hB", 2/10}, {"hG", 2/10}})
+local railway1 = res.train(resolver2, {"hx", edge=true}, {"ht", train={"h~", "hr", orientation=WEST, length=18}})
+wo:drawMap(res.composer(railway1), po(0,12), "h?", "h" * map_hippie)
+
+function colorthefloor()
+    objs = no["floor#*"]:shuffle():sub(25)
+    for obj in objs do
+        wo:drawRect(obj, obj, "h-", resolver1)
+    end
+end
+
+function colorthestones()
+    objs = no["stone#*"]:shuffle():sub(25)
+    for obj in objs do
+        wo:drawRect(obj, obj, "h+", resolver2)
+    end
+end
+
+
+--end Hippie-Room
+
+--------------------------------------------------------------------------------
+--- Russian Hill ---
+--------------------------------------------------------------------------------
+ti["r "] = {"fl_bluegray"}
+ti["r."] = {"fl_bluegray"}
+ti["r-"] = {"st_brownie"}
+ti["rA"] = {"st_laser_n", state=ON}
+ti["rR"] = {"st_rotator_cw", movable=true}
+ti["r#"] = {"st_lightpassenger"}
+ti["rI"] = {"st_inkwell"}
+ti["rY"] = {"st_yellow"}
+ti["r,"] = {"it_drop"}
+ti["rF"] = ti["r,"] .. {"st_death_invisible"} --fake
+ti["rB"] = {"st_barrier"}
+ti["re"] = {"st_oneway_e"}
+ti["rf"] = {"st_oneway_w"}
+ti["rO"] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti["rP"] = {"st_pull"}
+--ti["hk"] = ti["ha"] .. {"it_key", name="psy1"}
+ti["rp"] = {"it_puller_n"}
+
+ti["r1"] = ti["r."] .. {"it_trigger", target="dou1"}
+ti["r2"] = ti["r."] .. {"it_trigger", target="dou2"}
+ti["r3"] = ti["r."] .. {"it_trigger", target="dou3"}
+ti["r4"] = ti["r."] .. {"it_trigger", target="dou4"}
+ti["r5"] = {"st_door_a", name="dou1"}
+ti["r6"] = {"st_door_a", name="dou2"}
+ti["r7"] = {"st_door_a", name="dou3"}
+ti["r8"] = {"st_door_a", name="dou4"}
+
+ti["ru"] = ti["r."] .. {"it_document", text = "Welcome to San Francisco, Russian Hill"}
+
+pmap_russhill= {
+    "#YY8YY7YYYYYY5YY6YY#",
+    "#Y1              3Y#",
+    "#Y2              4Y#",
+    "#Y                Y#",
+    "#Y                Y#",
+    "#Y        u       Y#",
+    "#Y                Y#",
+    "#I                Y#",
+    "#P     ----       ef",
+    "#B  --------pYp R Y#",
+    "#O---F-----O------I#",
+    "#Y---------------   ",
+    "#YYYYYYYYYYYYYYYYYA#"}
+
+map_russhill = wo:newMap(" ", pmap_russhill)
+
+wo:drawMap(ti, po(38,12), "r?", "r" * map_russhill)
+
+
+--end Russian Hill -Room
+
+--------------------------------------------------------------------------------
+--- Fishermens ---
+--------------------------------------------------------------------------------
+ti["f~"] = {"fl_water"}
+ti["f "] = {"fl_sahara"}
+ti["f-"] = {"st_box_wood"}
+ti["fA"] = {"st_rotator_ccw",movable=true }
+ti["fR"] = {"st_rotator_cw", movable=true}
+ti["f#"] = {"st_lightpassenger"}
+ti["fI"] = {"st_inkwell"}
+ti["fY"] = {"st_brick"}
+ti["fM"] = {"st_magic_brick"}
+ti["fG"] = {"st_darkgray"}
+ti["fO"] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti["fo"] = {"st_oxyd_a", oxydcolor = OXYD_RED}
+ti["fP"] = {"st_pull"}
+ti["f/"] = {"it_magicwand"}
+ti["fc"] = {"it_cherry"}
+ti["fw"] = ti["f "] .. {"it_wormhole", destination="psy1"}
+ti["fq"] = ti["f "] .. {"fl_red", name="psy1"}
+ti["fL"] = ti["f "] .. {"st_laser_n", state=OFF, name="franz3"}
+ti["fD"] = {"st_actorimpulse", name="stone#"}
+ti["ft"] = {"it_trigger", target="franz3"}
+ti["f9"] = ti["f "] .. {"it_bag"}
+
+ti["fu"] = ti["f "] .. {"it_document", text = "Welcome to San Francisco, Fishermans Wharf"}
+
+
+pmap_fish= {
+    "GqGGGGGGGLG#GGGGGGG",
+    "G-G~~~~~~~~w~~~~~~~",
+    "~t~~~~~~~~~~~~~~~~~",
+    "~c~~~~~~~~~~~~~~~~D",
+    "~c~~~~~~~~~~~~~~~~~",
+    "~c~~~~~~/~~~~~~~~~~",
+    "~~~~~~ YYY~~~~~~~~#",
+    " 9     Y Y     YYY#",
+    " u    -Y-Y     MOY#",
+    "   - - - -     YYY#",
+    "~~- - - - -Y- - - #",
+    "~~ - - - - - - -  o",
+    "YYYYYYYYYYYYYYYYYY#"}
+
+map_fish = wo:newMap(" ", pmap_fish)
+
+wo:drawMap(ti, po(58,12), "f?", "f" * map_fish)
+
+
+
+--end Fishermens -Room
+
+--------------------------------------------------------------------------------
+--- Alcatraz ---
+--------------------------------------------------------------------------------
+ti["a#"] = {"fl_water"}
+ti["a "] = {"fl_rough"}
+ti["a-"] = {"fl_brick"}
+ti["aA"] = {"st_rotator_ccw",movable=true }
+--ti["fR"] = {"st_rotator_cw", movable=true}
+ti["al"] = {"st_magic_brick"}
+
+ti["ak"] = {"ac_top"}
+
+ti["aa"] = {"st_bluesand", cluster=1}
+ti["aR"] = {"st_bluesand", cluster=1}
+ti["aT"] = {"st_bluesand", cluster=1, "repanel1"}
+ti["aV"] = {"st_bluesand", cluster=1, "repanel2"}
+ti["aD"] = {"st_actorimpulse", name="stone#"}
+ti["aE"] = {"st_death"}
+ti["aF"] = {"st_thief"}
+ti["a+"] = {"st_bluesand", cluster=2}
+ti["ac"] = {"st_bluesand"}
+ti["aI"] = {"st_death"}
+ti["a?"] = {"st_bluesand_s","repanel1"}
+ti["aS"] = {"st_swap"}
+ti["aO"] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti["a1"] = {"st_switch", target="fire"}
+ti["a4"] = {"st_switch", target="recluster"}
+ti["ax"] = {"st_knight"}
+ti["a!"] = {"st_passage_black"}
+ti["a5"] = {"st_door_a", name="fire"}
+ti["at"] = {"it_hammer"}
+ti["aj"] = {"it_sword"}
+ti["a9"] = ti["a-"] .. {"st_quake"}
+
+ti["au"] = ti["a-"] .. {"it_document", text = "Alcatraz!!!"}
+
+
+pmap_alcatr= {
+    "####################",
+    "#---------------x--#",
+    "#--aaaaa1FF4aaaaa--#",
+    "#--x         Icxx--#",
+    "#-- #++++++++++!!S-#",
+    "#9- +---------!RV!-#",
+    "59# +--cOccOc-!!RD #",
+    "#9- +---------!RT!-#",
+    "#-- #++++++++++!!E-#",
+    "#--  ! u !t k cxx--#",
+    "#--caaaa alaaaac---#",
+    "#!!---c--!---c---!!#",}
+    
+ j = 0
+function recluster(value, sender)
+    j = j+1
+    if (j <= 1) then
+      wo[no["repanel1"]] = {"st_bluesand"}
+      wo[no["repanel2"]] = {"st_bluesand"}
+    end
+end  
+
+
+map_alcatr = wo:newMap(" ", pmap_alcatr)
+
+wo:drawMap(ti, po(57,0), "a?", "a" * map_alcatr)
+
+
+
+--end Alcatraz -Room
+
+--------------------------------------------------------------------------------
+--- Lombard ---
+--------------------------------------------------------------------------------
+
+ti["l "] = {"fl_slope_ose"}
+ti["l-"] = {"fl_brick"}
+ti["l."] = {"fl_slope_ose"}
+
+ti["lY"] = {"st_panel", cluster=1}
+ti["l#"] = {"st_brick", cluster=1}
+ti["l+"] = {"st_bluesand", cluster=2}
+ti["lc"] = {"st_bluesand"}
+ti["lI"] = {"st_inkwell"}
+ti["lg"] = ti["l."] .. {"it_squashed"}
+ti["lS"] = {"st_granite"}
+--ti["lO"] = {"st_oxyd_a",oxydcolor = OXYD_RED}
+ti["l1"] = {"st_floppy", target="doo1"}
+ti["l2"] = {"st_floppy", target="doo2"}
+ti["l3"] = {"st_floppy", target="doo3"}
+ti["l4"] = {"st_floppy", target="doo4"}
+ti["l5"] = ti["l."] .. {"st_door_d",faces="ew", name="doo1"}
+ti["l6"] = ti["l."] .. {"st_door_d",faces="ew", name="doo2"}
+ti["l7"] = ti["l."] .. {"st_door_d",faces="ew", name="doo3"}
+ti["l8"] = ti["l."] .. {"st_door_d",faces="ew", name="doo4"}
+ti["lx"] = {"st_knight"}
+ti["l!"] = {"st_passage_black"}
+ti["l;"] = {"st_actorimpulse_invisible"}
+ti["lt"] = ti["l;"] .. {"it_banana"}
+ti["lj"] = {"it_floppy"}
+
+ti["lu"] = ti["l."] .. {"it_document", text = "Welcome to San Francisco, Lombard St"}
+
+
+pmap_lombi= {
+    "YYYYYYYYYYYYYYYYYY#",
+    "Y  Y +1Y2+3Y4Y   Y#",
+    "Y  Y +ggg+gggY   Y#",
+    "Y  Y +g#g+g#gY   Y#",
+    "Y  Y##g+g#g#gYttYY#",
+    "YYYYg#gYg#g#gYYYYY#",
+    "5678ggg#ggg+ggguggg",
+    "YYYY###YYYY###YYYY#",
+	"Y  Y   Y  Y   Y  Y#",
+    "Y  Y   Y  Y   YttY#",
+    "Y  Y   Y  Y   Yj Y#",
+    "YYjYYjYYYYYYjYY YY#"}
+ 
+
+
+map_lombi = wo:newMap(" ", pmap_lombi)
+
+wo:drawMap(ti, po(39,0), "l?", "l" * map_lombi)
+
+
+
+--end Lombard -Room
+
+
+--------------------------------------------------------------------------------
+--- cablecar room ---
+--------------------------------------------------------------------------------
+ti["k  "] = {"fl_bluegray"}
+
+ti["k~ "] = {"fl_adhesionless"}
+ti["kr "] = {"fl_aquamarine"}
+ti["k- "] = {"fl_lawn"}
+ti["kb "] = {"fl_abyss"}
+ti["ka "] = {"st_panel", cluster=1}
+ti["k# "] = {"fl_aquamarine"}
+ti["kA "] = ti["k# "] .. {"st_fake_oxydd"}
+ti["kB "] = ti["k# "] .. {"st_quake"}
+
+ti["k1 "] = {"fl_space"}
+ti["k2 "] = {"fl_red"}
+ti["k3 "] = {"fl_himalaya"}
+ti["kD "] = {"st_actorimpulse", name="stone#"}
+ti["k+ "] = {"st_passage_black"}
+
+ti["kO "] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti["kk "] = ti["ka "] .. {"it_key", name="p2"}
+ti["kc "] = ti["kr "] .. {"it_cherry"}
+ti["kC "] = {"st_knight"}
+ti["k4"] = {"st_puzzle_blue",  intensity=10}
+--ti["k% "] = {"st_oxyd_a", oxydcolor = OXYD_BLUE, name="ox1"}
+--ti["kv "] = ti["kr "] .. {"it_trigger", target="ox1"}
+ti["k% "] = {"st_oxyd_a", oxydcolor = OXYD_RED, name="ox1"}
+ti["kv "] = ti["kr "] .. {"it_trigger", target="ox1"}
+
+
+
+
+pmap_car= {
+
+    "A A A A A A A A A A A A A A A A A A A A ",
+    "A - - - - - - - - - - - - - - - - - - A ",
+    "A - - a a a a a a a a a a a a a a - - A ",
+    "A - -                   b b b b b - - + ",
+    "A - -   # + + + + + + + + + + # b - - + ",
+    "A - -   + 4f4g4e4g4a    b b b + b - - + ",
+    "+ - #   D 4n4kO 4j      b % b D b # - + ",
+    "A - -   + 4l4m4e4m4a    b b b + b - - + ",
+    "A - -   # + + + + + + + + + + # b - - + ",
+    "A - -                   b b b v b - - + ",
+    "A - - - - - - - - - - - - - - b - - - + ",
+    "A A A C B C A A A B B A A A C B C A A A "}
+	
+
+
+map_car = wo:newMap("  ", pmap_car)
+
+local resolver = res.puzzle(ti, "4")
+
+wo:drawMap(res.puzzle(ti, "k4"), po(19,0), "k??", "k" * map_car)
+
+
+
+
+
+
+
+--end cable car-Room
+
+
+
+--wo:shuffleOxyd()
+
+    ]]></el:luamain>
+      <el:i18n>
+        <el:string el:key="title">
+          <el:english el:translate="false"/>
+        </el:string>
+        <el:string el:key="subtitle">
+          <el:english el:translate="false"/>
+		</el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

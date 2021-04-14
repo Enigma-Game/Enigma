@@ -1,3 +1,24 @@
+Changes in Version 1.30-alpha
+=============================
+
+User-Visible Changes
+--------------------
+
+    - New game objects: forward floors, glass marble, st_inkwell,
+        st_portal_glass, st_document, st_pebble
+    - 22 new main-pack levels (now a total of 1006 main-pack levels,
+        plus 21 tutorials, 1119 sokoballs, 95 pentominoes, and
+        268 dejavus; altogether 2509)
+    - window can be resized
+    - middle mouse key can be customized
+
+Internal changes
+----------------
+
+    - switched from SDL 1.2 to SDL 2.0
+    - several bug fixes
+    - support for additional tilesets
+
 Changes in Version 1.21
 =======================
 

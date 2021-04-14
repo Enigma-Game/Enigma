@@ -20,6 +20,7 @@
 #define LEV_PROXY_HH_INCLUDED
 
 #include "enigma.hh"
+#include "lev/SearchCombination.hh"
 
 #include <map>
 #include <set>
@@ -38,7 +39,7 @@ namespace enigma { namespace lev {
         STATUS_EXPERIMENTAL,
         STATUS_UNKNOWN
     };
-    
+
     /**
      * A standin for an addressable level file and its level metadata.
      * Every level index and the commandline register their levels with the
@@ -84,7 +85,9 @@ namespace enigma { namespace lev {
         
         static Proxy *autoRegisterLevel(std::string indexPath, std::string filename, int subNum);
 
-        static std::string search(std::string text);
+        static std::string search(SearchCombination* sc);
+        static std::string search_shallow(std::string text);
+        static int countSearchResults(SearchCombination* sc);
         static void countLevels();
         static std::set<std::string> getLevelIds(bool withEasy);
         static std::set<Proxy *> getProxies();
@@ -146,6 +149,7 @@ namespace enigma { namespace lev {
          */
         Proxy::pathType getNormPathType();
         virtual std::string getAbsLevelPath();
+        virtual std::string getNextScreenshotPath();
         void loadDependency(std::string depId);
         double getLoadtime();
     
