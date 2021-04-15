@@ -214,6 +214,8 @@ void gametick(double dtime) {
         LevelTime += timestep;
         WorldTick(timestep);
     }
+    display::GetStatusBar()->set_counter(server::GetMoveCounter());
+    player::MessagePlayerPositionsToClient();
     TickFinished(count * timestep);
 }
 

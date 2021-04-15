@@ -475,21 +475,20 @@ Actor *player::GetMainActor(unsigned iplayer) {
 }
 
 void player::Tick(double dtime) {
-    display::GetStatusBar()->set_counter(server::GetMoveCounter());
-
-    // Tell clients about position of main actor for stereo sound and
-    // screen position
-    for (unsigned iplayer = 0; iplayer < players.size(); ++iplayer) {
-        if (Actor *ac = GetMainActor(iplayer))
-            client::Msg_PlayerPosition(iplayer, ac->get_pos());
-    }
-
     // Respawn actors that have been dead for a certain amount of time
     leveldat.respawn_dead_actors(dtime);
 
     // Update the respawn list or restart the game when all actors are
     // dead and no extra lifes are left.
     CheckDeadActors();
+}
+
+/*! Tell clients about position of main actor for stereo sound and
+   screen position. */
+void player::MessagePlayerPositionsToClient() {
+    for (unsigned iplayer = 0; iplayer < players.size(); ++iplayer)
+        if (Actor *ac = player::GetMainActor(iplayer))
+            client::Msg_PlayerPosition(iplayer, ac->get_pos());
 }
 
 void player::InhibitPickup(bool flag) {
