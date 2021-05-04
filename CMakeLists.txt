@@ -20,6 +20,8 @@ Include(FindIntl)
 add_compile_definitions(SYSTEM_DATA_DIR="")
 add_compile_definitions(DOCDIR="")
 add_compile_definitions(LOCALEDIR="")
+add_compile_definitions(ENABLE_NLS="")
+add_compile_definitions(PACKAGE_NAME="Enigma")
 #add_compile_definitions(CXXLUA=1)
 
 add_subdirectory(lib-src)
