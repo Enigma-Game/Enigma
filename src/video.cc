@@ -389,6 +389,7 @@ std::vector<VideoTileset> video_tilesets {
     {VTS_40_130, "40x40 Enigma 1.30", VTS_40, 40,  VM_800x600, "models-40.lua", "gfx40/", VTS_NONE,   true},
     {VTS_48_130, "48x48 Enigma 1.30", VTS_48, 48,  VM_960x720, "models-48.lua", "gfx48/", VTS_NONE,   true},
     {VTS_64_130, "64x64 Enigma 1.30", VTS_64, 64, VM_1280x960, "models-64.lua", "gfx64/", VTS_48_130, true},
+    {VTS_32_050, "32x32 Enigma 0.50", VTS_32, 32,  VM_640x480, "models-32.lua", "gfx32-050/", VTS_32_130, false},
 };
 
 }  // namespace

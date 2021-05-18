@@ -1,4 +1,4 @@
-SUBDIRS = gfx fonts schemas levels music soundsets gfx16 gfx32 gfx40 gfx48 gfx64
+SUBDIRS = gfx fonts schemas levels music soundsets gfx16 gfx32 gfx40 gfx48 gfx64 gfx32-050
 
 pkgdata_DATA = \
 	api1init.lua \
