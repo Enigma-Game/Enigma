@@ -231,9 +231,9 @@ Menu::Menu()
         int y = (int)((double) (window_y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
         switch_active_widget(find_widget(x, y));
     }
-    
-    
-    void Menu::center() {
+
+    // Center all widgets on the screen, with given margins (default 0).
+    void Menu::center(int top, int bottom, int left, int right) {
         if (m_widgets.size() > 0) {
             using std::min;
             using std::max;
@@ -247,7 +247,12 @@ Menu::Menu()
                 a.w += max(0, r.x+r.w-a.x-a.w);
                 a.h += max(0, r.y+r.h-a.y-a.h);
             }
-            Rect c=ecl::center(SCREEN->size(), a);
+            Rect b = SCREEN->size();
+            b.x += left;
+            b.y += top;
+            b.w -= left + right;
+            b.h -= top + bottom;
+            Rect c = ecl::center(b, a);
             int dx = c.x-a.x;
             int dy = c.y-a.y;
     
@@ -261,7 +266,7 @@ Menu::Menu()
             }
         }
     }
-    
+
     void Menu::draw (ecl::GC &gc, const ecl::Rect &r)
     {
         clip(gc, r);

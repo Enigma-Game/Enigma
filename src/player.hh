@@ -94,6 +94,7 @@ void ActivateFirstItem();
 ItemAction ActivateItem(Item *it);
 
 void Tick(double dtime);
+void MessagePlayerPositionsToClient();
 void CheckDeadActors();
 void PlayerShutdown();
 

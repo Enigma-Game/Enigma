@@ -41,9 +41,12 @@ enum FullscreenMode {
     VM_1280x960 = 7,   ///< 64x64 basic    -  4:3  - none
     VM_1280x1024 = 8,  ///< 64x64 embedded -  5:4  - SXGA
     VM_1440x960 = 9,   ///< 64x64 embedded -  3:2  - none
-    VM_1680x1050 = 10,  ///< 64x64 embedded - 16:10 - WSXGA+
-    VM_LAST = 10,
-    VM_COUNT = 11
+    VM_1680x1050 = 10, ///< 64x64 embedded - 16:10 - WSXGA+
+    VM_1920x1080 = 11, ///< 64x64 embedded - 16:9  - FHD
+    VM_2560x1440 = 12, ///< 64x64 embedded - 16:9  - WQHD
+    VM_3840x2160 = 13, ///< 64x64 embedded - 16:9  - UHD
+    VM_LAST = 13,
+    VM_COUNT = 14
 };
 
 struct WindowSize {
@@ -76,6 +79,7 @@ enum VideoTilesetId {
     VTS_40_130 = 2,
     VTS_48_130 = 3,
     VTS_64_130 = 4,
+    VTS_32_050 = 5,
     VTSID_COUNT
 };
 

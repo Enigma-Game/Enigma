@@ -155,6 +155,7 @@ namespace enigma { namespace gui {
         bool sc_is_fresh = sc->isFresh();
 
         const VMInfo &vminfo = *video_engine->GetInfo();
+        const int vsmall = vminfo.width < 800 ? 1 : 0;
         const int vshrink = vminfo.width < 640 ? 1 : 0;
         ecl::Font *menufont = enigma::GetFont("menufont");
 
@@ -168,75 +169,83 @@ namespace enigma { namespace gui {
         tf_search_text = new TextField(sc->getSearchText(), this);
         lbLevelCount = new Label("");
 
-        if(!vshrink) {
-            lbInt = new Label(N_("Intelligence: "), HALIGN_RIGHT);
-            lbDex = new Label(N_("Dexterity: "), HALIGN_RIGHT);
-            lbPat = new Label(N_("Patience: "), HALIGN_RIGHT);
-            lbKno = new Label(N_("Knowledge: "), HALIGN_RIGHT);
-            lbSpe = new Label(N_("Speed: "), HALIGN_RIGHT);
-            lbDif = new Label(N_("Difficulty: "), HALIGN_RIGHT);
-            lbAvr = new Label(N_("Average Rating: "), HALIGN_RIGHT);
-            lbUnsolvEasy = new Label(N_("Only levels that are unsolved in easy mode:"), HALIGN_RIGHT);
-            lbUnsolvHard = new Label(N_("Only levels that are unsolved in normal mode:"), HALIGN_RIGHT);
-            // new Label(N_("Only levels of level pack group:"), HALIGN_RIGHT);
-            lbSortMethod = new Label(N_("Sort by: "), HALIGN_RIGHT);
-            but_int_min = new RatingSearchButton(this, sc, SC_INT, SC_MIN, 1, 5);
-            but_int_max = new RatingSearchButton(this, sc, SC_INT, SC_MAX, 1, 5);
-            but_dex_min = new RatingSearchButton(this, sc, SC_DEX, SC_MIN, 1, 5);
-            but_dex_max = new RatingSearchButton(this, sc, SC_DEX, SC_MAX, 1, 5);
-            but_pat_min = new RatingSearchButton(this, sc, SC_PAT, SC_MIN, 1, 5);
-            but_pat_max = new RatingSearchButton(this, sc, SC_PAT, SC_MAX, 1, 5);
-            but_kno_min = new RatingSearchButton(this, sc, SC_KNO, SC_MIN, 1, 6);
-            but_kno_max = new RatingSearchButton(this, sc, SC_KNO, SC_MAX, 1, 6);
-            but_spe_min = new RatingSearchButton(this, sc, SC_SPE, SC_MIN, 1, 5);
-            but_spe_max = new RatingSearchButton(this, sc, SC_SPE, SC_MAX, 1, 5);
-            but_dif_min = new RatingSearchButton(this, sc, SC_DIF, SC_MIN, 0, 100);
-            but_dif_max = new RatingSearchButton(this, sc, SC_DIF, SC_MAX, 0, 100);
-            but_avr_min = new RatingSearchButton(this, sc, SC_AVR, SC_MIN, 0, 100, 10);
-            but_avr_max = new RatingSearchButton(this, sc, SC_AVR, SC_MAX, 0, 100, 10);
+        lbInt = new Label(N_("Intelligence: "), HALIGN_RIGHT);
+        lbDex = new Label(N_("Dexterity: "), HALIGN_RIGHT);
+        lbPat = new Label(N_("Patience: "), HALIGN_RIGHT);
+        lbKno = new Label(N_("Knowledge: "), HALIGN_RIGHT);
+        lbSpe = new Label(N_("Speed: "), HALIGN_RIGHT);
+        lbDif = new Label(N_("Difficulty: "), HALIGN_RIGHT);
+        lbAvr = new Label(N_("Average Rating: "), HALIGN_RIGHT);
+        lbUnsolvEasy = new Label(N_("Only levels that are unsolved in easy mode:"), HALIGN_RIGHT);
+        lbUnsolvHard = new Label(N_("Only levels that are unsolved in normal mode:"), HALIGN_RIGHT);
+        // new Label(N_("Only levels of level pack group:"), HALIGN_RIGHT);
+        lbSortMethod = new Label(N_("Sort by: "), HALIGN_RIGHT);
+        but_int_min = new RatingSearchButton(this, sc, SC_INT, SC_MIN, 1, 5);
+        but_int_max = new RatingSearchButton(this, sc, SC_INT, SC_MAX, 1, 5);
+        but_dex_min = new RatingSearchButton(this, sc, SC_DEX, SC_MIN, 1, 5);
+        but_dex_max = new RatingSearchButton(this, sc, SC_DEX, SC_MAX, 1, 5);
+        but_pat_min = new RatingSearchButton(this, sc, SC_PAT, SC_MIN, 1, 5);
+        but_pat_max = new RatingSearchButton(this, sc, SC_PAT, SC_MAX, 1, 5);
+        but_kno_min = new RatingSearchButton(this, sc, SC_KNO, SC_MIN, 1, 6);
+        but_kno_max = new RatingSearchButton(this, sc, SC_KNO, SC_MAX, 1, 6);
+        but_spe_min = new RatingSearchButton(this, sc, SC_SPE, SC_MIN, 1, 5);
+        but_spe_max = new RatingSearchButton(this, sc, SC_SPE, SC_MAX, 1, 5);
+        but_dif_min = new RatingSearchButton(this, sc, SC_DIF, SC_MIN, 0, 100);
+        but_dif_max = new RatingSearchButton(this, sc, SC_DIF, SC_MAX, 0, 100);
+        but_avr_min = new RatingSearchButton(this, sc, SC_AVR, SC_MIN, 0, 100, 10);
+        but_avr_max = new RatingSearchButton(this, sc, SC_AVR, SC_MAX, 0, 100, 10);
 
-            but_only_ue = new UnsolvedSearchButton(this, sc, DIFFICULTY_EASY);
-            but_only_uh = new UnsolvedSearchButton(this, sc, DIFFICULTY_HARD);
-            but_sortmethod = new SortMethodButton(this, sc);
-        }
+        but_only_ue = new UnsolvedSearchButton(this, sc, DIFFICULTY_EASY);
+        but_only_uh = new UnsolvedSearchButton(this, sc, DIFFICULTY_HARD);
+        but_sortmethod = new SortMethodButton(this, sc);
 
         int x = vminfo.width/2;
         int y = vminfo.height/2;
-        this->add(lbTitle, Rect(0, vshrink?0:0, vshrink?190:380, vshrink?17:35));
-        this->add(lbInfo1, Rect(0, vshrink?30:60, vshrink?190:380, vshrink?12:25));
-        this->add(lbInfo2, Rect(0, vshrink?45:90, vshrink?190:380, vshrink?12:25));
-        this->add(tf_search_text, Rect(0, vshrink?77:155, vshrink?190:380, vshrink?17:35));
-        this->add(lbSortMethod, Rect(0, vshrink?110:210, vshrink?80:180, vshrink?17:35));
-        this->add(but_sortmethod, Rect(vshrink?90:200, vshrink?110:210, vshrink?100:180, vshrink?17:35));
+        int h = vsmall ? (vshrink ? 17 : 25) : 35;
+        
+        this->add(lbTitle, Rect(0, vshrink?0:0, vshrink?190:380, h));
+        this->add(lbInfo1, Rect(0, vshrink?30:50, vshrink?190:380, vshrink?12:25));
+        this->add(lbInfo2, Rect(0, vshrink?45:80, vshrink?190:380, vshrink?12:25));
+        this->add(tf_search_text, Rect(0, vshrink?77:145, vshrink?190:380, vshrink?17:35));
+        this->add(lbSortMethod, Rect(0, vshrink?110:200, vshrink?80:180, h));
+        this->add(but_sortmethod, Rect(vshrink?90:200, vshrink?110:200, vshrink?100:180, h));
+
         if(!vshrink) {
-            this->add(lbInt,       Rect(400,   0, 100, 35));
-            this->add(but_int_min, Rect(520,   0,  50, 35));
-            this->add(but_int_max, Rect(610,   0,  50, 35));
-            this->add(lbDex,       Rect(400,  50, 100, 35));
-            this->add(but_dex_min, Rect(520,  50,  50, 35));
-            this->add(but_dex_max, Rect(610,  50,  50, 35));
-            this->add(lbPat,       Rect(400, 100, 100, 35));
-            this->add(but_pat_min, Rect(520, 100,  50, 35));
-            this->add(but_pat_max, Rect(610, 100,  50, 35));
-            this->add(lbKno,       Rect(400, 150, 100, 35));
-            this->add(but_kno_min, Rect(520, 150,  50, 35));
-            this->add(but_kno_max, Rect(610, 150,  50, 35));
-            this->add(lbSpe,       Rect(400, 200, 100, 35));
-            this->add(but_spe_min, Rect(520, 200,  50, 35));
-            this->add(but_spe_max, Rect(610, 200,  50, 35));
-            this->add(lbDif,       Rect(400, 250, 100, 35));
-            this->add(but_dif_min, Rect(520, 250,  50, 35));
-            this->add(but_dif_max, Rect(610, 250,  50, 35));
-            this->add(lbAvr,       Rect(350, 300, 150, 35));
-            this->add(but_avr_min, Rect(520, 300,  50, 35));
-            this->add(but_avr_max, Rect(610, 300,  50, 35));
-            this->add(lbUnsolvEasy, Rect(  0, 350, 590, 35));
-            this->add(but_only_ue,  Rect(610, 350,  50, 35));
-            this->add(lbUnsolvHard, Rect(  0, 400, 590, 35));
-            this->add(but_only_uh,  Rect(610, 400,  50, 35));
-            this->add(lbLevelCount, Rect(  0, 445, 590, 35));
+            int xTxt = vsmall ? 400 : 400;
+            int xBt1 = vsmall ? 510 : 520;
+            int xBt2 = vsmall ? 570 : 610;
+            int dy = vsmall ? 40 : 50;
+            int w = vsmall ? 40 : 50;
+            int wTxt = vsmall ? 550 : 590;
+            this->add(lbInt,        Rect(xTxt,    0, 100, h));
+            this->add(but_int_min,  Rect(xBt1,    0,   w, h));
+            this->add(but_int_max,  Rect(xBt2,    0,   w, h));
+            this->add(lbDex,        Rect(xTxt,   dy, 100, h));
+            this->add(but_dex_min,  Rect(xBt1,   dy,   w, h));
+            this->add(but_dex_max,  Rect(xBt2,   dy,   w, h));
+            this->add(lbPat,        Rect(xTxt, 2*dy, 100, h));
+            this->add(but_pat_min,  Rect(xBt1, 2*dy,   w, h));
+            this->add(but_pat_max,  Rect(xBt2, 2*dy,   w, h));
+            this->add(lbKno,        Rect(xTxt, 3*dy, 100, h));
+            this->add(but_kno_min,  Rect(xBt1, 3*dy,   w, h));
+            this->add(but_kno_max,  Rect(xBt2, 3*dy,   w, h));
+            this->add(lbSpe,        Rect(xTxt, 4*dy, 100, h));
+            this->add(but_spe_min,  Rect(xBt1, 4*dy,   w, h));
+            this->add(but_spe_max,  Rect(xBt2, 4*dy,   w, h));
+            this->add(lbDif,        Rect(xTxt, 5*dy, 100, h));
+            this->add(but_dif_min,  Rect(xBt1, 5*dy,   w, h));
+            this->add(but_dif_max,  Rect(xBt2, 5*dy,   w, h));
+            this->add(lbAvr,        Rect(xTxt-50, 6*dy, 150, h));
+            this->add(but_avr_min,  Rect(xBt1, 6*dy,   w, h));
+            this->add(but_avr_max,  Rect(xBt2, 6*dy,   w, h));
+            this->add(lbUnsolvEasy, Rect(   0, 7*dy, wTxt, h));
+            this->add(but_only_ue,  Rect(xBt2, 7*dy,   w, h));
+            this->add(lbUnsolvHard, Rect(   0, 8*dy, wTxt, h));
+            this->add(but_only_uh,  Rect(xBt2, 8*dy,   w, h));
+            this->add(lbLevelCount, Rect(   0, 9*dy, wTxt, h));
         }
-        center();
+        // Center everything, leaving a margin at the bottom for three more buttons
+        center(0, vshrink ? 25 : 50, 0, 0);
 
         // Create buttons on the bottom - positioning identical to Levelmenu
         Label * dummy = new Label();

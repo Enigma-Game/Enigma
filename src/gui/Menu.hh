@@ -40,7 +40,7 @@ namespace enigma { namespace gui {
 
         void add(Widget *w);
         void add(Widget *w, ecl::Rect r);
-        void center();
+        void center(int top = 0, int bottom = 0, int left = 0, int right = 0);
 
         void draw (ecl::GC &gc, const ecl::Rect &r) override;
 
