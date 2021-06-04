@@ -80,6 +80,8 @@ enum VideoTilesetId {
     VTS_48_130 = 3,
     VTS_64_130 = 4,
     VTS_32_050 = 5,
+    VTS_32_RETRO1 = 6,
+    VTS_32_RETRO2 = 7,
     VTSID_COUNT
 };
 

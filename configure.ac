@@ -375,6 +375,8 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/gfx48/Makefile
            data/gfx64/Makefile
            data/gfx32-050/Makefile
+           data/gfx32-retro/Makefile
+           data/gfx32-retro2/Makefile
            data/levels/Makefile
            data/levels/tutorial_advanced/Makefile
            data/levels/tutorial_basic/Makefile
