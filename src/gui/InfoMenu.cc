@@ -62,7 +62,7 @@ namespace enigma { namespace gui {
         int x = (vminfo.width - linewidth)/2;
         int y = (vshrink?10:20) + yoff[vminfo.tt] + (vminfo.height-(vshrink?240:480))/2;
         for (int i = 0; info[row]; row++, i++) {
-            const char *t = _(info[row]);
+            std::string t = _(info[row]);
             std::vector<std::string> lines = ecl::breakToLines(f, t, " ", linewidth);
             for (auto it = lines.begin(); it != lines.end(); it++) {
                 f->render (gc, x, y, *it);

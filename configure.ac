@@ -439,6 +439,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
 	   etc/Makefile
            lib-src/Makefile
 	   lib-src/oxydlib/Makefile
+	   lib-src/tinygettext/Makefile
 	   lib-src/lua/Makefile
            lib-src/enigma-core/Makefile
 	   src/Makefile

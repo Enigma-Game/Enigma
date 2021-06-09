@@ -50,6 +50,8 @@
 
 #include "enet/enet.h"
 
+#include "tinygettext/include/tinygettext/log.hpp"
+
 #include <locale.h>
 #include <cstdio>
 #include <cstdlib>
@@ -875,6 +877,15 @@ void Application::init_i18n()
     }
 
 #if defined(ENABLE_NLS)
+
+    l10nFS = new GameFS();
+    l10nFS->append_dir(l10nPath);
+    nls::theDictionaryManager.reset(new tinygettext::DictionaryManager(std::make_unique<nls::TinyGetTextFileSystem>(), "UTF-8"));
+    nls::theDictionaryManager->add_directory(l10nPath);
+
+    tinygettext::Log::set_log_info_callback(nullptr);
+    tinygettext::Log::set_log_warning_callback(&nls::tinygettext_log_callback);
+    tinygettext::Log::set_log_error_callback(&nls::tinygettext_error_callback);
 
     nls::SetMessageLocale (app.language);
 

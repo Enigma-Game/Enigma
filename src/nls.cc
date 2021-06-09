@@ -1,15 +1,19 @@
 #include "nls.hh"
 #include "main.hh"
 #include "ecl_system.hh"
+#include "tinygettext/include/tinygettext/file_system.hpp"
 
 #include <locale.h>
-#include <iostream>
+#include <fstream>
 #include <string>
 #include <cstdlib>
 
 #include <config.h>
 
 using namespace std;
+using namespace nls;
+
+unique_ptr<tinygettext::DictionaryManager> nls::theDictionaryManager = nullptr;
 
 #if !defined (HAVE_SETENV) && defined (HAVE_PUTENV)
 static char lang_env[256];
@@ -30,6 +34,7 @@ static void my_setenv (const char* var, const char* val)
 void nls::SetMessageLocale (const std::string &language)
 {
     if (language != "") {
+        theDictionaryManager->set_language(tinygettext::Language::from_name(language));
 #if defined (WIN32) || defined (MACOSX)
         my_setenv ("LANG", language.c_str());
 #else // not WIN32 or MACOSX
@@ -57,3 +62,28 @@ void nls::SetMessageLocale (const std::string &language)
     enigma::Log << "language code: " << ecl::GetLanguageCode (li) << endl;
 }
 
+std::vector<std::string> TinyGetTextFileSystem::open_directory(const std::string& pathname) {
+    std::vector<std::string> result;
+    enigma::DirIter * dirIter = enigma::DirIter::instance(pathname);
+    enigma::DirEntry dirEntry;
+    while (dirIter->get_next(dirEntry))
+        if (!dirEntry.is_dir)
+            result.push_back(dirEntry.name);
+    delete dirIter;
+    return result;
+}
+
+std::unique_ptr<std::istream> TinyGetTextFileSystem::open_file(const std::string& filename) {
+    std::basic_ifstream<char> ifs(filename, ios::binary | ios::in);
+    unique_ptr<std::basic_ifstream<char>> isptr = make_unique<std::basic_ifstream<char>>(move(ifs));
+    return isptr;
+}
+
+void nls::tinygettext_log_callback(const std::string& str) {
+    enigma::Log << "tinygettext: " << str;
+}
+
+void nls::tinygettext_error_callback(const std::string& str) {
+    fputs("tinygettext: ", stderr);
+    fputs(str.c_str(), stderr);
+}

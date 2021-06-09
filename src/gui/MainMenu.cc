@@ -21,6 +21,7 @@
 #include "gui/SearchMenu.hh"
 #include "gui/OptionsMenu.hh"
 #include "gui/InfoMenu.hh"
+#include "gui/LanguageMenu.hh"
 #include "gui/LevelPackMenu.hh"
 #include "gui/LevelPreviewCache.hh"
 #include "display.hh"
@@ -424,6 +425,28 @@ namespace enigma { namespace gui {
         help        = brp->add(new StaticTextButton(N_("Help"), this));
         quit        = brp->add(new StaticTextButton(N_("Quit"), this));
 
+        const int xoffset_upper = vminfo->width - 65;
+        BuildHList l_upper(this, Rect(xoffset_upper, 10, 60, 40), 5);
+        flags.clear();
+        if(vshrink) {
+            BorderlessImageButton *but = new BorderlessImageButton(
+                string("translation_icon_shrink"),
+                string("translation_icon_shrink_hl"),
+                string("translation_icon_shrink_hl"),
+                true, this);
+            l_upper.add(but);
+            flags.push_back(but);
+        } else {
+            BorderlessImageButton *but = new BorderlessImageButton(
+                string("translation_icon"),
+                string("translation_icon_hl"),
+                string("translation_icon_hl"),
+                true, this);
+            l_upper.add(but);
+            flags.push_back(but);
+        }
+
+#if 0
         // We assume that we don't need more than two lines of flags.
         const int num_flags = NUMENTRIES(nls::languages) - 1;
         const int max_flags_per_line = (vminfo->width - 10) / 35;
@@ -435,13 +458,12 @@ namespace enigma { namespace gui {
         BuildHList l_lower(this, Rect(xoffset_lower, 25, 30, 35), 5);
         flags.clear();  // remove old flags on screen resolution changes
         if(!vshrink) {
-            std::string curname = ecl::SysMessageLocaleName();
-            curname = curname.substr(0, curname.find('.'));
+            std::string curname = app.language;
             for (size_t i=1; i<=num_flags; ++i) {
                 BorderlessImageButton *but = new BorderlessImageButton(
                     nls::languages[i].flagimage + string("-shaded"),
-                    nls::languages[i].flagimage,
-                    nls::languages[i].flagimage, curname == nls::languages[i].localename, this);
+                    nls::languages[i].flagimage, nls::languages[i].flagimage,
+                    curname == nls::languages[i].localename, this);
                 if (i <= upper_count) {
                     l_upper.add(but);
                 } else {
@@ -450,6 +472,7 @@ namespace enigma { namespace gui {
                 flags.push_back(but);
             }
         }
+#endif
     }
 
     void MainMenu::draw_background(ecl::GC &gc)
@@ -462,9 +485,9 @@ namespace enigma { namespace gui {
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
 
         Font *f = enigma::GetFont("levelmenu");
-        Surface * logo(enigma::GetImage("enigma_logo3"));
+        Surface * logo(enigma::GetImage((vminfo->width < 640) ? "enigma_logo3_shrink" : "enigma_logo3"));
         int x0=(vminfo->width - logo->width())/2;
-        int y0[] = {0, 57, 60, 70, 80};
+        int y0[] = {30, 57, 60, 70, 80};
         // parameters to use when flags are not at top: {0, 30, 40, 50, 60};
 #ifdef ENABLE_EXPERIMENTAL
         y0[1] = 57;  // might need adaptation when more buttons are added
@@ -532,16 +555,22 @@ namespace enigma { namespace gui {
         } else if (w == quit) {
             Menu::quit();
         } else if (flags.size() > 0) {
+            if (w == flags[0]) {
+                LanguageMenu m;
+                m.manage();
+                invalidate_all();
+            }
+#if 0
             for (size_t i=1; i<NUMENTRIES(nls::languages); ++i)
                 if (w == flags[i-1]) {
                     options::SetOption ("Language", nls::languages[i].localename);
                     app.setLanguage(nls::languages[i].localename);
                 }
+#endif
         } else
             return;
         // need to update flags
-        std::string curname = ecl::SysMessageLocaleName();
-        curname = curname.substr(0, curname.find('.'));
+        std::string curname = app.language;
         for (unsigned int i = 0; i < flags.size(); i++)
             flags[i]->setState(curname == nls::languages[i+1].localename);
 

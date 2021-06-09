@@ -48,7 +48,8 @@ namespace enigma { namespace gui {
         case VALIGN_CENTER: y += (get_h()-h)/2; break;
         }
         // translate if not an empty string
-        const char * translation = _(m_text.c_str());
+        std::string mtextt = nls::translate(m_text);
+        const char * translation = mtextt.c_str();
         int len = strlen(translation);
         int monoWidth = m_font->get_width(sampleChar);
         char c[] = " ";
@@ -57,7 +58,7 @@ namespace enigma { namespace gui {
             if (monoChars.empty() || monoChars.find_first_of(c[0]) != 
                     std::string::npos) {
                 int charWidth = m_font->get_width(c[0]);
-                // centere char into monoWodth
+                // center char into monoWidth
                 f->render (gc, x + (monoWidth-charWidth)/2, y, c);
                 x += monoWidth;
             } else {
@@ -70,7 +71,8 @@ namespace enigma { namespace gui {
     void MonospacedLabel::naturalsize (int &w, int &h) const {
         h = m_font->get_height();
         w = 0; 
-        const char * translation = _(m_text.c_str());
+        std::string mtextt = nls::translate(m_text);
+        const char * translation = mtextt.c_str();
         int len = strlen(translation);
         int monoWidth = m_font->get_width(sampleChar);
         for (int i = 0; i<len; i++) {

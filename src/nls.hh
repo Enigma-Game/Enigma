@@ -4,7 +4,8 @@
 
 #if defined(ENABLE_NLS)
 #  include <libintl.h>
-#  define _(String) gettext(String)
+#  define _(String) nls::translate(String).c_str()
+//#  define _(String) gettext(String)
 #  define gettext_noop(String) (String)
 #  define N_(String) gettext_noop(String)
 #else // !defined(ENABLE_NLS) 
@@ -13,9 +14,13 @@
 #endif
 
 #include <string>
+#include "tinygettext/include/tinygettext/tinygettext.hpp"
+#include "tinygettext/include/tinygettext/file_system.hpp"
 
 namespace nls
 {
+    extern std::unique_ptr<tinygettext::DictionaryManager> theDictionaryManager;
+
     void SetMessageLocale (const std::string &language);
 
     struct Language {
@@ -46,7 +51,40 @@ namespace nls
         { "Svenska",    "sv_SE", "flags25x15/se" },
         { "Slovenčina", "sk_SK", "flags25x15/sk" },
         { "українська", "uk_UA", "flags25x15/ua" },
+        { "中文",       "zh_CN", "flags25x15/zh-cn" },
+     };
+
+    static inline std::string translate(const std::string& msg) {
+    #if defined(ENABLE_NLS)
+        if (theDictionaryManager)
+            return theDictionaryManager->get_dictionary().translate(msg);
+    #endif
+        return msg;
+    }
+
+    static inline std::string ntranslate(const std::string& msg, const std::string& msg_plural, int num) {
+    #if defined(ENABLE_NLS)
+        if (theDictionaryManager) {
+            std::string msgt = theDictionaryManager->get_dictionary().translate(msg);
+            std::string msgt_plural = theDictionaryManager->get_dictionary().translate(msg_plural);
+            return theDictionaryManager->get_dictionary().translate_plural(msgt, msgt_plural, num);
+        }
+    #endif
+        if (num == 1)
+            return msg;
+        else
+            return msg_plural;
+    }
+
+    // Interface for tinygettext
+    class TinyGetTextFileSystem : public tinygettext::FileSystem {
+    public:
+        std::vector<std::string> open_directory(const std::string& pathname) override;
+        std::unique_ptr<std::istream> open_file(const std::string& filename) override;
     };
+
+    void tinygettext_log_callback(const std::string& str);
+    void tinygettext_error_callback(const std::string& str);
 }
 
 #endif

@@ -39,6 +39,11 @@ inline T round_down(V v) {
     return static_cast<T>(floor(v));
 }
 
+template <class T, class V>
+inline T round_up(V v) {
+    return static_cast<T>(ceil(v));
+}
+
 /* -------------------- Vector class -------------------- */
 
 template <typename T, int N>
