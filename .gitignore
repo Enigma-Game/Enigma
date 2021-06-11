@@ -19,4 +19,5 @@ Makefile.in
 doc/reference/images/*.png
 lib-src/enet/compile
 lib-src/zipios++/compile
+lib-src/tinygettext/libtinygettext.a
 .DS_Store
