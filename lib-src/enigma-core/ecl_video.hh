@@ -22,6 +22,9 @@
 
 #include "SDL.h"
 
+#define WITH_ALPHA true
+#define NO_ALPHA false
+
 namespace ecl {
 
 /* -------------------- Colors -------------------- */
@@ -151,17 +154,18 @@ public:
     /* ---------- Static methods ---------- */
 
     // Create a new surface.
-    static Surface *make_surface(SDL_Surface *s);
+    static Surface *make_surface(SDL_Surface *s, bool _has_alpha = true);
 
 protected:
     // Constructor.
-    Surface(SDL_Surface *sfc);
+    Surface(SDL_Surface *sfc, bool _has_alpha = true);
 
     // Variables
     SDL_Surface *m_surface;
 
 private:
     SDL_PixelFormat *pixel_format;
+    bool has_alpha;
 };
 
 class SurfaceLock {
