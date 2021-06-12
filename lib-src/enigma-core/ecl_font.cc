@@ -173,7 +173,7 @@ Surface *BitmapFont::render(const char *text, Font *altFont, int maxwidth) {
                 int charWidth = altFont->get_width(utf8char.c_str());
                 width += charWidth;
                 if (maxwidth <= 0 || width < maxwidth) {
-                    altFont->render(GC(s), x, 0, utf8char.c_str());
+                    altFont->render(GC(s), x, 1, utf8char.c_str());
                     x += altFont->get_width(utf8char.c_str());
                 }
             }
