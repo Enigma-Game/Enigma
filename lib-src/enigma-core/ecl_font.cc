@@ -34,7 +34,7 @@ using namespace ecl;
 using namespace std;
 
 void Font::render(const GC &gc, int x, int y, std::string text, Font *altFont, int maxwidth) {
-    render(gc, x, y, text.c_str());
+    render(gc, x, y, text.c_str(), altFont, maxwidth);
 }
 
 std::string::size_type ecl::breakString(Font *font, const std::string &str,
@@ -92,7 +92,7 @@ public:
     virtual int get_width(const char *str, Font *altFont = NULL);
     int get_height();
 
-    virtual Surface *render(const char *str);
+    virtual Surface *render(const char *str, Font *altFont = nullptr, int maxwidth = -1);
     virtual void render(const GC &gc, int x, int y, const char *str);
     virtual void render(const GC &gc, int x, int y, std::string text, Font *altFont = NULL,
                         int maxwidth = -1);
@@ -136,7 +136,7 @@ int BitmapFont::get_width(const char *str, Font *altFont) {
         }
 
         if (len > 1 || advance[int(*p)] == 0) {
-            if (altFont != NULL) {
+            if (altFont != nullptr) {
                 std::string utf8char(p, len);
                 width += altFont->get_width(utf8char.c_str());
             }
@@ -152,20 +152,14 @@ int BitmapFont::get_height() {
     return surface->height();
 }
 
-Surface *BitmapFont::render(const char *str) {
-    Surface *s = MakeSurface(get_width(str), get_height());
+Surface *BitmapFont::render(const char *text, Font *altFont, int maxwidth) {
+    Surface *s = MakeSurface(get_width(text, altFont), get_height());
     s->set_color_key(0, 0, 0);
-    render(GC(s), 0, 0, str);
-    return s;
-}
 
-void BitmapFont::render(const GC &gc, int x, int y, const char *str) {
-    render(gc, x, y, std::string(str));
-}
-
-void BitmapFont::render(const GC &gc, int x, int y, std::string text, Font *altFont, int maxwidth) {
+    //render(GC(s), 0, 0, str);
     int width = 0;
-    for (const char *p = text.c_str(); *p; ++p) {
+    int x = 0;
+    for (const char *p = text; *p; ++p) {
         // utf-8 char handling
         int len = utf8NextCharSize(p);  // num of bytes that represents one real character
         if (len == 0) {
@@ -179,7 +173,7 @@ void BitmapFont::render(const GC &gc, int x, int y, std::string text, Font *altF
                 int charWidth = altFont->get_width(utf8char.c_str());
                 width += charWidth;
                 if (maxwidth <= 0 || width < maxwidth) {
-                    altFont->render(gc, x, y, utf8char.c_str());
+                    altFont->render(GC(s), x, 0, utf8char.c_str());
                     x += altFont->get_width(utf8char.c_str());
                 }
             }
@@ -188,11 +182,22 @@ void BitmapFont::render(const GC &gc, int x, int y, std::string text, Font *altF
             int charWidth = get_width(*p);
             width += charWidth;
             if (maxwidth <= 0 || width < maxwidth) {
-                blit(gc, x, y, surface, char_rects[int(*p)]);
+                blit(GC(s), x, 0, surface, char_rects[int(*p)]);
                 x += charWidth;
             }
         }
     }
+    return s;
+}
+
+void BitmapFont::render(const GC &gc, int x, int y, const char *str) {
+    render(gc, x, y, std::string(str));
+}
+
+void BitmapFont::render(const GC &gc, int x, int y, std::string text, Font *altFont, int maxwidth) {
+    Surface *s = render(text.c_str(), altFont, maxwidth);
+    blit(gc, x, y, s);
+    delete s;
 }
 
 Font *ecl::LoadBitmapFont(const char *imgname, const char *descrname) {
@@ -228,7 +233,7 @@ public:
     int get_width(char c);
     virtual int get_width(const char *str, Font *altFont = NULL);
 
-    Surface *render(const char *str);
+    Surface *render(const char *str, Font *altFont = nullptr, int maxwidth = -1);
     void render(const GC &gc, int x, int y, const char *str);
 
 private:
@@ -262,7 +267,9 @@ int TrueTypeFont::get_width(char c) {
     return advance;
 }
 
-Surface *TrueTypeFont::render(const char *str) {
+Surface *TrueTypeFont::render(const char *str, Font *altFont, int maxwidth) {
+    // Note: altFont is only used by BitmapFont.
+    // TODO: Implement maxwidth. (Not actually used right now.)
     SDL_Color bgcolor = {0, 0, 0, 0};
     SDL_Surface *si = TTF_RenderUTF8_Shaded(font, str, fgcolor, bgcolor);
     if (si) {
