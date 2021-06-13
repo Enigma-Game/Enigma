@@ -59,11 +59,11 @@ namespace enigma { namespace gui {
                     std::string::npos) {
                 int charWidth = m_font->get_width(c[0]);
                 // center char into monoWidth
-                f->render (gc, x + (monoWidth-charWidth)/2, y, c);
+                f->render (gc, x + (monoWidth-charWidth)/2, y, std::string(c));
                 x += monoWidth;
             } else {
-                f->render (gc, x, y, c);
-                x += m_font->get_width(c);
+                f->render (gc, x, y, std::string(c));
+                x += m_font->get_width(std::string(c));
             }
         }
     }

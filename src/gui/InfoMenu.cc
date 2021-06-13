@@ -65,7 +65,7 @@ namespace enigma { namespace gui {
             std::string t = _(info[row]);
             std::vector<std::string> lines = ecl::breakToLines(f, t, " ", linewidth);
             for (auto it = lines.begin(); it != lines.end(); it++) {
-                f->render (gc, x, y, *it);
+                f->render (gc, x, y, std::string(*it));
                 y += f->get_height() + ygap[vminfo.tt];
             }
         }

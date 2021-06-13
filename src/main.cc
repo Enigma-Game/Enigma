@@ -792,7 +792,7 @@ void Application::createPreviews() {
     Screen *scr = video_engine->GetScreen();
     GC gc(scr->get_surface());
     Font *f = enigma::GetFont("menufont");
-    f->render(gc, 80, 240, message.c_str());
+    f->render(gc, 80, 240, message);
     set_color(gc, 200, 200, 200);
 
     const int kProgressWidth = 300;

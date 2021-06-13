@@ -596,7 +596,7 @@ void Client::draw_screen() {
         for (unsigned i = 0; i < lines.size(); i++) {
             std::vector<std::string> subLines = ecl::breakToLines(f, lines[i], " ", width);
             for (auto it = subLines.begin(); it != subLines.end(); it++) {
-                f->render(gc, x, y, *it);
+                f->render(gc, x, y, std::string(*it));
                 y += yskip;
             }
         }

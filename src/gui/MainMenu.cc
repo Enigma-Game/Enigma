@@ -493,7 +493,7 @@ namespace enigma { namespace gui {
         y0[1] = 57;  // might need adaptation when more buttons are added
 #endif
         blit(gc, x0, y0[vminfo->tt], logo);
-        f->render (gc, 5, vminfo->height - 20, app.getVersionInfo().c_str());
+        f->render (gc, 5, vminfo->height - 20, app.getVersionInfo());
     }
 
     bool MainMenu::on_event (const SDL_Event &e) {
