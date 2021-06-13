@@ -27,50 +27,95 @@ using namespace ecl;
 using namespace std;
 
 namespace enigma { namespace gui {
-    InfoMenu::InfoMenu(const char **infotext, int pages) : info (infotext),
-            curPage (0), numPages (pages) {
+    static struct {
+        int linesPerColumn, columnsPerPage, xOffset, lineWidth, columnGap, yOffset, yGap;
+    } pInfo[] = {
+        {  // VTS_16 (320x240)
+            18, 1, 10, 290,  0, 7, 0
+        },
+        {  // VTS_32 (640x480)
+            21, 1, 20, 580,  0, 14, 0
+        },
+        {  // VTS_40 (800x600)
+            21, 1, 35, 720,  0, 35, 4
+        },
+        {  // VTS_48 (960x720)  VM_1024x768
+            24, 2, 25, 445, 15, 40, 6
+        },
+        {  // VTS_64 (1280x960)
+            33, 2, 25, 580, 20, 40, 6
+        }
+    };
+
+    InfoMenu::InfoMenu(const char **infotext) : info (infotext),
+            curPage (0), current_gc (0) {
         const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
+
+        numPages = process_infotext(false);
 
         but_ok   = new StaticTextButton(N_("Ok"), this);
         pgup     = new ImageButton("ic-up", "ic-up1", this);
         pgdown   = new ImageButton("ic-down", "ic-down1", this);
 
         add(but_ok, Rect(vminfo.width-(vshrink?80:130), vminfo.height-(vshrink?30:60), vshrink?70:110, vshrink?20:40));
-        if (pages > 1) {
+        if (numPages > pInfo[vminfo.tt].columnsPerPage) {
             add(pgup, Rect(vminfo.width-(vshrink?15:30), vminfo.height/2, vshrink?10:20, vshrink?25:50));
             add(pgdown, Rect(vminfo.width-(vshrink?15:30), vminfo.height/2 +(vshrink?35:70), vshrink?10:20, vshrink?25:50));
         }
     }
-    
+
     void InfoMenu::draw_background(ecl::GC &gc) {
         const VMInfo &vminfo = *video_engine->GetInfo();
-        const int vshrink = vminfo.width < 640 ? 1 : 0;
         blit(gc, vminfo.mbg_offsetx, vminfo.mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
-        
-        Font *f = enigma::GetFont("menufont");
-        int row = 0;
-        int yoff[] = {0, 0, -20, -40, -40};
-        int ygap[] = {0, 0, 4, 6, 6};
-        for (int p=0; p<curPage; p++) {
-            while (info[row])
-                row++;
-            // select first row of next page
-            row++;
-        }
-        int linewidth = vshrink ? 290 : 580;
-        int x = (vminfo.width - linewidth)/2;
-        int y = (vshrink?10:20) + yoff[vminfo.tt] + (vminfo.height-(vshrink?240:480))/2;
-        for (int i = 0; info[row]; row++, i++) {
-            std::string t = _(info[row]);
-            std::vector<std::string> lines = ecl::breakToLines(f, t, " ", linewidth);
-            for (auto it = lines.begin(); it != lines.end(); it++) {
-                f->render (gc, x, y, std::string(*it));
-                y += f->get_height() + ygap[vminfo.tt];
-            }
-        }
+        current_gc = &gc;
+        process_infotext(true);
     }
-    
+
+    // process_infotext is used during construction to count the
+    // total number of pages, and later in draw_background to actually
+    // render the current page.
+    int InfoMenu::process_infotext(bool render) {
+        VideoTileType vtt = (video_engine->GetInfo())->tt;
+        Font *f = enigma::GetFont("menufont");
+        int page = 1;
+        int column = 0;
+        int linecount = 0;
+        int linewidth = pInfo[vtt].lineWidth;
+        int colwidth = linewidth + pInfo[vtt].columnGap;
+        int x = pInfo[vtt].xOffset;
+        int y = pInfo[vtt].yOffset;
+        for (int row = 0; info[row]; row++)
+            if (info[row] == "\n") {
+                column += 1;
+                linecount = 0;
+                y = pInfo[vtt].yOffset;
+                if (column > pInfo[vtt].columnsPerPage - 1) {
+                    page += 1;
+                    column = 0;
+                }
+            } else {
+                std::string t = _(info[row]);
+                std::vector<std::string> lines = ecl::breakToLines(f, t, " ", linewidth);
+                for (auto it = lines.begin(); it != lines.end(); it++) {
+                    linecount += 1;
+                    if (linecount > pInfo[vtt].linesPerColumn) {
+                        column += 1;
+                        linecount = 1;
+                        y = pInfo[vtt].yOffset;
+                        if (column > pInfo[vtt].columnsPerPage - 1) {
+                            page += 1;
+                            column = 0;
+                        }
+                    }
+                    if (render && (page == curPage + 1))
+                        f->render (*current_gc, x + column * colwidth, y, *it);
+                    y += f->get_height() + pInfo[vtt].yGap;
+                }
+            }
+        return page;
+    }
+
     void InfoMenu::on_action (gui::Widget *w) {
         if (w == but_ok) {
             Menu::quit();
@@ -87,9 +132,9 @@ namespace enigma { namespace gui {
         }
     }
     
-    void displayInfo(const char **infotext, int pages) {
+    void displayInfo(const char **infotext) {
         FX_Fade (video::FADEOUT);
-        InfoMenu menu(infotext, pages);
+        InfoMenu menu(infotext);
         menu.draw_all();
         FX_Fade (video::FADEIN);
         menu.manage();

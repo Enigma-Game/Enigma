@@ -105,11 +105,9 @@ namespace enigma { namespace gui {
         N_("Home Page: http://www.nongnu.org/enigma"),
         N_("Contact: enigma-devel@nongnu.org"),
         " ",
-        N_("Enigma is free software and may be distributed under the"),
-        N_("terms of the GNU General Public License, version 2."),
-        " ",
+        N_("Enigma is free software and may be distributed under the terms of the GNU General Public License, version 2."),
         N_("Copyright (C) 2002-2014 Daniel Heck and contributors."),
-        0,
+        "\n",
         N_("Main developers of all releases:"),
         " ",
         "  Thomas Bernhardt  (Level design and testing, movies)",
@@ -125,7 +123,7 @@ namespace enigma { namespace gui {
         "  Jacob Scott  (Level design)",
         "  Sven Siggelkow  (Level design and special Oxyd expertise)",
         "  Ralf Westram  (Programming, level design)",
-        0,
+        "\n",
         N_("Special Thanks:"),
         " ",
         "  Johannes Fortmann  (Mac OS X port, some programming, graphics)",
@@ -138,11 +136,9 @@ namespace enigma { namespace gui {
         "  Andrew \'Necros\' Sega  (menu music \'Pentagonal Dreams\')",
         "  David W. Skinner  (many Sokoban Levels)",
         "  Clifford J. Tasner  (music second generation, proof reading)",
-        "  Michał Trzebiatowski  (translation administration, German and",
-        "    Polish translations)",
-        "  Юрий Жиромский - Yuriy Zhyromskiy  (Russian and Ukrainian translations,",
-        "    Russian manual and homepage translation, Slackware package)",
-        0,
+        "  Michał Trzebiatowski  (translation administration, German and Polish translations)",
+        "  Юрий Жиромский - Yuriy Zhyromskiy  (Russian and Ukrainian translations, Russian manual and homepage translation, Slackware package)",
+        "\n",
         N_("Contributors"),
         " ",
         "  Andreas Abraham  (German translation)",
@@ -163,7 +159,6 @@ namespace enigma { namespace gui {
         "  Manfredi Carta  (Level design)",
         "  Christoph & Anita  (Level design)",
         "  Dawid  (Polish translation)",
-        0,
         "  Дремук Сергей - Serge Dremuk  (Russian and Ukrainian translations)",
         "  Joseph Dunne  (Level design)",
         "  Xerxes M. Dynatos  (Level design)",
@@ -184,7 +179,6 @@ namespace enigma { namespace gui {
         "  Hairball  (Level design)",
         "  Joe Hansen  (Danish translation)",
         "  hasufell  (Improved enet support)",
-        0,
         "  Immanuel Herrmann  (Level design)",
         "  Zoltan Hoppár  (Hungarian translation)",
         "  Tea Horvatic  (Croatian translation)",
@@ -205,7 +199,6 @@ namespace enigma { namespace gui {
         "  Ryan Lerch  (AppData file)",
         "  Edward Leuf  (Feedback, bug reports)",
         "  Christophe Lherieau  (French translation)",
-        0,
         "  Lasse Liehu  (Finnish translation)",
         "  Ingo van Lil  (Feedback, bug reports)",
         "  Frank van der Loo  (Dutch translation)",
@@ -226,7 +219,6 @@ namespace enigma { namespace gui {
         "  Markéta Pecoldová  (Czech translation)",
         "  Andreas Persenius  (Level design)",
         "  Grzegorz Pruchniakowski  (Polish translation)",
-        0,
         "  Mark Pulley  (Level design)",
         "  pzykosiz  (Level design)",
         "  Bruno Queiros  (Portuguese translation)",
@@ -247,7 +239,6 @@ namespace enigma { namespace gui {
         "  Ulf Stegemann  (Level design)",
         "  Jürgen Sticht  (Level design)",
         "  Mikke Surakka  (Finnish translation)",
-        0,
         "  Andrzej Szombierski  (Level design)",
         "  Tacvek  (Lua 5.1 upgrade)",
         "  James Taylor  (Level design)",
@@ -303,7 +294,7 @@ namespace enigma { namespace gui {
             video_engine->SetFullscreen(false);
             ecl::ExploreFolder(ecl::BeautifyPath(app.userPath));
         } else if (w == credits) {
-            displayInfo(credit_text, 9);
+            displayInfo(credit_text);
         } else if (w == back) {
             Menu::quit();
         } else
@@ -388,7 +379,7 @@ namespace enigma { namespace gui {
             i++;
         } while(!work.empty() );
         pathtext[i++] = 0;
-        displayInfo(pathtext, 1);
+        displayInfo(pathtext);
     }
 
     /* -------------------- Main menu -------------------- */

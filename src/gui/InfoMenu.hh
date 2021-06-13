@@ -24,7 +24,7 @@
 namespace enigma { namespace gui {
     class InfoMenu : public gui::Menu {
     public:
-        InfoMenu(const char **infotext, int pages);
+        InfoMenu(const char **infotext);
         
         void on_action(Widget *w);
         void draw_background(ecl::GC &gc);
@@ -35,8 +35,11 @@ namespace enigma { namespace gui {
         Widget      *but_ok;
         Widget      *pgup;
         Widget      *pgdown;
+        ecl::GC     *current_gc;
+
+        int process_infotext(bool render);
     };
     
-    void displayInfo(const char **helptext, int pages);
+    void displayInfo(const char **helptext);
 }} // namespace enigma::gui
 #endif

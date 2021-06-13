@@ -44,7 +44,6 @@ namespace enigma { namespace gui {
         N_("The five single ratings are combined into an overall difficulty rating, ranging from 1 to 100. You can also search for levels within a given overall difficulty range."),
         N_("'Average rating' is the mean of player's ratings of the levels. You can rate a level on its level inspector page with a rating from 0 (worst) to 10 (best). You can search for levels which average rating is within a specified interval, too."),
         N_("If you choose 'Only levels that are unsolved in easy mode', you filter for all levels which feature an easy mode, and that have not been solved by you in easy mode yet. Accordingly, you can choose 'Only levels that are unsolved in normal mode' to filter for those."),
-        0,
         N_("Finally, you can sort the results randomly, by average rating, by overall difficulty, or by their sequence on load time, which mostly is the sequence in which they appear in the level packs (sort by 'None')."),
         N_("The number of levels satisfying all chosen criteria is shown on the line above the search button. Please note that some levels have no ratings, or no average ratings, and are therefore automatically excluded as soon as you choose to search for ratings or average ratings or sort by them."),
         0
@@ -278,7 +277,7 @@ namespace enigma { namespace gui {
         bool handled = false;
         if (e.type == SDL_KEYUP) {
             if (e.key.keysym.sym == SDLK_F1) {
-                displayInfo(helptext_search, 2);
+                displayInfo(helptext_search);
                 draw_all();
                 handled = true;
             }
