@@ -514,7 +514,7 @@ private:
 
     int BrightnessButton::get_value() const {
         double gamma = options::GetDouble("Gamma");
-        int value = round_down<int>(gamma * 5.0);
+        int value = round_nearest<int>(gamma * 5.0);
         return value;
     }
 
