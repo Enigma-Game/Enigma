@@ -86,7 +86,7 @@ namespace enigma { namespace gui {
         int x = pInfo[vtt].xOffset;
         int y = pInfo[vtt].yOffset;
         for (int row = 0; info[row]; row++)
-            if (info[row] == "\n") {
+            if (info[row][0] == '\n') {
                 column += 1;
                 linecount = 0;
                 y = pInfo[vtt].yOffset;
