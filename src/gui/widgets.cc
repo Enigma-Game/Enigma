@@ -575,7 +575,7 @@ void Label::draw (ecl::GC &gc, const ecl::Rect &)
     case VALIGN_CENTER: y += (get_h()-h)/2; break;
     }
     // translate if not an empty string
-    f->render (gc, x, y, m_text == "" ? "" : get_text().c_str());
+    f->render (gc, x, y, (m_text == "") ? std::string("") : get_text());
 }
 
 void Label::set_alignment (HAlignment halign, VAlignment valign) {
@@ -797,7 +797,7 @@ void TextButton::draw(ecl::GC &gc, const ecl::Rect &r) {
     int     x    = get_x() + (get_w()-w)/2;
     int     y    = get_y() + (get_h()-h)/2;
 
-    f->render (gc, x, y, text.c_str());
+    f->render (gc, x, y, text);
 }
 
 

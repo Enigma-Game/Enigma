@@ -145,7 +145,7 @@ namespace {
 template <class PIXELT>
 class TSurface : virtual public Surface {
 public:
-    TSurface(SDL_Surface *s = 0) : Surface(s) {}
+    TSurface(SDL_Surface *s = 0, bool _has_alpha = true) : Surface(s, _has_alpha) {}
 
     PIXELT *pixel_pointer(int x, int y) {
         return static_cast<PIXELT *>(Surface::pixel_pointer(x, y));
@@ -205,7 +205,7 @@ typedef TSurface<Uint32> Surface32;
 
 class Surface24 : virtual public Surface {
 public:
-    Surface24(SDL_Surface *s = 0) : Surface(s) {}
+    Surface24(SDL_Surface *s = 0, bool _has_alpha = true) : Surface(s, _has_alpha) {}
 
     void set_pixel(const GS &gs, int x, int y) {
         if (NOCLIP(gs) || clip_pixel(gs, x, y)) {
@@ -224,14 +224,20 @@ public:
 
 /* -------------------- Surface -------------------- */
 
-Surface::Surface(SDL_Surface *surface) {
+Surface::Surface(SDL_Surface *surface, bool _has_alpha) {
     // If you change the pixel format, remember to replace Surface32
     // for another SurfaceXY in Surface::make_surface.
-    pixel_format = SDL_AllocFormat(SDL_PIXELFORMAT_ARGB8888);
+    has_alpha = _has_alpha;
+    if (has_alpha) {
+        pixel_format = SDL_AllocFormat(SDL_PIXELFORMAT_ARGB8888);
+    } else {
+        pixel_format = SDL_AllocFormat(SDL_PIXELFORMAT_RGB888);
+    }
     assert(surface);
     m_surface = SDL_ConvertSurface(surface, pixel_format, 0);
     assert(m_surface);
 }
+
 
 Surface::~Surface() {
     SDL_FreeSurface(m_surface);
@@ -306,7 +312,10 @@ void Surface::set_color_key(int r, int g, int b) {
 }
 
 void Surface::set_alpha(int a) {
-    SDL_SetSurfaceAlphaMod(get_surface(), a);
+    if (has_alpha)
+        SDL_SetSurfaceAlphaMod(get_surface(), a);
+    else
+        fprintf(stderr, "Trying to set alpha channel on a surface without alpha channel.\n");
 }
 
 void Surface::set_brightness(int a) {
@@ -319,14 +328,18 @@ Surface *Surface::zoom(int w, int h) {
     return Surface::make_surface(s_new);
 }
 
-Surface *Surface::make_surface(SDL_Surface *sdls) {
+Surface *Surface::make_surface(SDL_Surface *sdls, bool _has_alpha) {
     if(!sdls) {
         fprintf(stderr, "Could not create SDL surface, error message: %s\n", SDL_GetError());
         assert(false);
     }
     // The constructor will change the surface's pixel format to a 32-bit one.
-    return new Surface32(sdls);
+    // Note: We may use _has_alpha to choose a different bit depth. I tested
+    // Surface32 vs. Surface24 and found that Surface32 is about 0.3% faster
+    // on my system. -- AL
+    return new Surface32(sdls, _has_alpha);
 }
+
 
 /* -------------------- Screen -------------------- */
 
@@ -344,7 +357,8 @@ ecl::Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
   //m_surface(Surface::make_surface(SDL_GetWindowSurface(window))),
   //m_sdlsurface(SDL_GetWindowSurface(window)),
   m_surface(Surface::make_surface(
-      SDL_CreateRGBSurface(0, surface_w, surface_h, 32, 0xff0000, 0xff00, 0xff, 0xff000000))),
+      SDL_CreateRGBSurface(0, surface_w, surface_h, 32, 0xff0000, 0xff00, 0xff, 0xff000000),
+      NO_ALPHA)),
   m_sdlsurface(m_surface->get_surface()),
   update_all_p(false) {
     assert(m_window);

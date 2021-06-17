@@ -1041,7 +1041,7 @@ void ShowLoadingScreen(const char *text, int /* progress */) {
     blit(gc, x, y - logo->height(), logo);
 
     ecl::Font *font = GetFont("menufontsel");
-    font->render(gc, (screen->width() - font->get_width(text)) / 2, y, text);
+    font->render(gc, (screen->width() - font->get_width(text)) / 2, y, std::string(text));
 
     screen->update_all();
     screen->flush_updates();

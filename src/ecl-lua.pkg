@@ -90,9 +90,9 @@ module ecl
         int get_lineskip();
         int get_height();
 
-        int get_width(const char *str);
+        int get_width(std::string text);
 
-	Surface *render(const char *str);
-        void render(Surface *s, int x, int y, const char * str);
+	Surface *render(std::string text);
+        void render(Surface *s, int x, int y, std::string text);
     };
 }

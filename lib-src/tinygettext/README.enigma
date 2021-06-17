@@ -1,0 +1,52 @@
+This directory contains a slightly modified version of tinygettext,
+a library by the following authors:
+
+Copyright (c) 2004-2015
+
+* Bastiaan Zapf <bzapf@example.org>
+* Christoph Sommer <mail@christoph-sommer.de>
+* Georg Kilzer (leper) <leper@wildfiregames.com>
+* Ingo Ruhnke <grumbel@gmail.com>
+* Mathnerd314 <mathnerd314.gph@gmail.com>
+* Matt McCutchen <matt@mattmccutchen.net>
+* Matthias Braun <matze@braunis.de>
+* Nathan Phillip Brink <ohnobinki@ohnopublishing.net>
+* Poren Chiang <ren.chiang@gmail.com>
+* Ravu al Hemio <ondra.hosek@gmail.com>
+* Ryan Flegel <rflegel@gmail.com>
+* Tim Goya <tuxdev103@gmail.com>
+* Wolfgang Becker <uafr@gmx.de>
+
+The version on hand is the one packed with SuperTux 0.6.2.
+The latest and original versions can be downloaded from:
+
+  https://github.com/tinygettext/tinygettext
+  https://github.com/SuperTux/supertux
+
+
+Changes to the original version
+-------------------------------
+
+- Addition of the following files to enable compilation with autotools:
+    Makefile.am
+    tinygettext_Export.h
+- Addition of the following file to enable cross-compilation with cmake:
+    Toolchain-cross-mingw32-linux.cmake
+- include/tinygettext/iconv.hpp: Use WINICONV_CONST when
+  compiling with MINGW32.
+- README.enigma
+
+
+License
+-------
+
+The changes to this library fall under the same license
+as the original library, see LICENSE.md.
+
+
+2021-03-22  Andreas Lochmann
+
+
+
+
+

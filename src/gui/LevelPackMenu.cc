@@ -86,37 +86,37 @@ namespace enigma { namespace gui {
             int packcolumns, rows;
             int vmargin, vrow_row;
             int hmargin, hgroup_pack, hscrollbutton, hscroll_pack, hpack_pack;
-            int tut_rows, tut_upperrowlength, tut_upperrowheight;
+            int tut_rows, tut_upperrowlength, tut_upperrowheight, tut_voffset;
         } param[] = {
             {  // VTS_16 (320x240)
                 2, 9,
                 7, 5,
                 10, 18, 11, 5, 10,
-                1, 205, 10
+                1, 205, 10, 50
             },
             {  // VTS_32 (640x480)
                 2, 9,
                 15, 10,
                 20, 36, 22, 10, 20,
-                1, 406, 20
+                1, 406, 20, 100
             },
             {  // VTS_40 (800x600)
                 3, 11,
                 15, 13,
                 15, 36, 22, 10, 15,
-                1, 576, 20
+                1, 576, 20, 150
             },
             {  // VTS_48 (960x720)  VM_1024x768
                 3, 14,
                 15, 10,
                 70, 56, 22, 20, 20,
-                3, 606, 20
+                3, 606, 20, 200
             },
             {  // VTS_64 (1280x960)
                 5, 17,
                 25, 14,
                 60, 40, 22, 18, 20,
-                7, 962, 20
+                7, 962, 20, 300
             }
         };
 
@@ -278,7 +278,7 @@ namespace enigma { namespace gui {
             std::vector<std::string> lines;
             ecl::Font *menufont = enigma::GetFont("menufont");
             int x = param[vtt].hmargin + vh + buttonWidth + param[vtt].hgroup_pack;
-            int y = vOffset;
+            int y = vOffset + param[vtt].tut_voffset;
             int w = param[vtt].tut_upperrowlength;
             int h = param[vtt].tut_upperrowheight;
             int v_text_button = (vtt == 0) ? 8 : 16;

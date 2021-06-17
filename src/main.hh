@@ -121,6 +121,11 @@ namespace enigma
          * preceeded by the user data path.
          */
         GameFS *resourceFS; // other r data sounds,..., inidices, levels
+
+        /**
+         * pathlist for localization data (po-files).
+         */
+        GameFS *l10nFS;
         
         /**
          * the path to the user preferences file. The directory is OS dependent

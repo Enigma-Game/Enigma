@@ -50,6 +50,8 @@
 
 #include "enet/enet.h"
 
+#include "tinygettext/include/tinygettext/log.hpp"
+
 #include <locale.h>
 #include <cstdio>
 #include <cstdlib>
@@ -790,7 +792,7 @@ void Application::createPreviews() {
     Screen *scr = video_engine->GetScreen();
     GC gc(scr->get_surface());
     Font *f = enigma::GetFont("menufont");
-    f->render(gc, 80, 240, message.c_str());
+    f->render(gc, 80, 240, message);
     set_color(gc, 200, 200, 200);
 
     const int kProgressWidth = 300;
@@ -875,6 +877,15 @@ void Application::init_i18n()
     }
 
 #if defined(ENABLE_NLS)
+
+    l10nFS = new GameFS();
+    l10nFS->append_dir(l10nPath);
+    nls::theDictionaryManager.reset(new tinygettext::DictionaryManager(std::make_unique<nls::TinyGetTextFileSystem>(), "UTF-8"));
+    nls::theDictionaryManager->add_directory(l10nPath);
+
+    tinygettext::Log::set_log_info_callback(nullptr);
+    tinygettext::Log::set_log_warning_callback(&nls::tinygettext_log_callback);
+    tinygettext::Log::set_log_error_callback(&nls::tinygettext_error_callback);
 
     nls::SetMessageLocale (app.language);
 

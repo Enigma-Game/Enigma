@@ -322,7 +322,7 @@ namespace enigma { namespace gui {
         lev::Proxy *curProxy = ind->getCurrent();
         int difficulty = app.state->getInt("Difficulty");
 
-        lbl_lpinfo->set_text(ecl::strf(ngettext("%s: %d level", "%s: %d levels", size),
+        lbl_lpinfo->set_text(ecl::strf(nls::ntranslate("%s: %d level", "%s: %d levels", size).c_str(),
                 ind->getName().c_str(), size));
     
         if (size == 0) {

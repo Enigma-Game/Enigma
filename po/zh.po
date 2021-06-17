@@ -1,0 +1,5112 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Andreas Lochmann <and.lochmann@googlemail.com>, 2021
+# Ricky Qi Li <rickylixo@gmail.com>, 2013
+# 䧝贵 <xwfh2000@gmail.com>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Enigma\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
+"POT-Creation-Date: 2021-02-10 23:19+0100\n"
+"PO-Revision-Date: 2021-02-13 15:17+0000\n"
+"Last-Translator: 䧝贵 <xwfh2000@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/michtrz/enigma/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/server.cc:177 src/server.cc:189 src/gui/LevelInspector.cc:205
+msgid "Server Error: could not load level '"
+msgstr "服务器错误：无法加载关卡'"
+
+#: src/client.cc:67
+#, c-format
+msgid "Mouse speed: %d"
+msgstr "鼠标速度： %d"
+
+#: src/client.cc:77
+msgid "Another nameless level"
+msgstr "另一个无名关卡"
+
+#: src/client.cc:81
+msgid " by "
+msgstr " 被 "
+
+#: src/client.cc:506
+msgid "Left mouse button:"
+msgstr "左鼠标健"
+
+#: src/client.cc:506
+msgid "Activate/drop leftmost inventory item"
+msgstr "激活/放下最左边的存货项目"
+
+#: src/client.cc:507 src/gui/GameMenu.cc:146
+msgid "Right mouse button:"
+msgstr "右鼠标健:"
+
+#: src/client.cc:507
+msgid "Rotate inventory items"
+msgstr "旋转存货项目"
+
+#: src/client.cc:508 src/gui/LevelMenu.cc:194 src/gui/ScreenshotViewer.cc:35
+msgid "Escape:"
+msgstr "退出:"
+
+#: src/client.cc:508
+msgid "Show game menu"
+msgstr "显示游戏菜单"
+
+#: src/client.cc:509
+msgid "Shift+Escape:"
+msgstr "Shift键 + Escape键"
+
+#: src/client.cc:509
+msgid "Quit game immediately"
+msgstr "‎立即退出游戏"
+
+#: src/client.cc:510 src/gui/GameMenu.cc:142
+msgid "F1:"
+msgstr "F1："
+
+#: src/client.cc:510 src/gui/LevelMenu.cc:195 src/gui/ScreenshotViewer.cc:36
+#: src/gui/GameMenu.cc:142
+msgid "Show this help"
+msgstr "显示帮助"
+
+#: src/client.cc:511 src/gui/GameMenu.cc:143
+msgid "F3:"
+msgstr "F3："
+
+#: src/client.cc:511 src/gui/GameMenu.cc:143
+msgid "Kill current marble"
+msgstr "消灭当前石珠"
+
+#: src/client.cc:512 src/gui/GameMenu.cc:144
+msgid "Shift+F3:"
+msgstr "Shift+F3："
+
+#: src/client.cc:512 src/gui/GameMenu.cc:144
+msgid "Restart the current level"
+msgstr "从新开始当前关卡"
+
+#: src/client.cc:513 src/gui/GameMenu.cc:145
+msgid "Shift+Ctrl+F3:"
+msgstr "Shift+Ctrl+F3："
+
+#: src/client.cc:513 src/gui/GameMenu.cc:145
+msgid "Reload and restart the current level"
+msgstr "重新载入并重新开始当前关卡"
+
+#: src/client.cc:514
+msgid "F4:"
+msgstr "F4："
+
+#: src/client.cc:514
+msgid "Skip to next level"
+msgstr "跳转到下一个关卡"
+
+#: src/client.cc:515 src/gui/LevelPackComposer.cc:51
+msgid "F5:"
+msgstr "F5："
+
+#: src/client.cc:516 src/gui/LevelPackComposer.cc:44
+msgid "F6:"
+msgstr "F6："
+
+#: src/client.cc:516
+msgid "Jump back to last level"
+msgstr "返回到上一个关卡"
+
+#: src/client.cc:517
+msgid "F10:"
+msgstr "F10："
+
+#: src/client.cc:517
+msgid "Make screenshot"
+msgstr "制作截图"
+
+#: src/client.cc:518
+msgid "Left/right arrow:"
+msgstr "左/右箭头："
+
+#: src/client.cc:518
+msgid "Change mouse speed"
+msgstr "改变鼠标速度"
+
+#: src/client.cc:519
+msgid "Alt+x:"
+msgstr "Alt+x："
+
+#: src/client.cc:519
+msgid "Return to level menu"
+msgstr "返回关卡菜单"
+
+#: src/client.cc:528
+msgid "Skip to next level for best score hunt"
+msgstr "跳转到下一个关卡并得到最好的成绩"
+
+#: src/client.cc:529
+msgid "Skip to next unsolved level"
+msgstr "跳转到下一个未完成的关卡"
+
+#: src/client.cc:675
+msgid "Too slow for "
+msgstr "太慢了 "
+
+#: src/client.cc:679
+msgid "You are slow today ... Ctrl-A"
+msgstr "您今天有点慢哦 ... Ctrl-A"
+
+#: src/client.cc:748
+msgid "Exactly the world record of "
+msgstr "完全相等的世界纪录 "
+
+#: src/client.cc:750
+msgid "Great! A new world record!"
+msgstr "太棒了！一个新的世界纪录！"
+
+#: src/client.cc:755
+msgid "Again your personal record..."
+msgstr "同样，您的个人纪录..."
+
+#: src/client.cc:760
+msgid "New personal record - better than par!"
+msgstr "新的个人纪录 - 比标准杆更好！"
+
+#: src/client.cc:766
+msgid "New personal record!"
+msgstr "新的个人纪录!"
+
+#: src/client.cc:777
+msgid "Your record, "
+msgstr "您的纪录, "
+
+#: src/client.cc:783
+msgid "behind world record."
+msgstr "落后世界纪录."
+
+#: src/client.cc:785
+msgid "behind your record."
+msgstr "落后您的纪录."
+
+#: src/client.cc:793
+msgid "Level finished - better than par!"
+msgstr "关卡结束 - 比标准杆更好!"
+
+#: src/client.cc:799
+msgid "Level finished!"
+msgstr "关卡结束!"
+
+#: src/client.cc:802
+msgid " Cheater!"
+msgstr " 骗子!"
+
+#: src/client.cc:825
+#, c-format
+msgid "Enigma pack %s - level #%d: %s"
+msgstr "恩尼格玛的文件包 %s, 关卡 #%d: %s"
+
+#: src/client.cc:837
+msgid "Your record: "
+msgstr "您的纪录: "
+
+#: src/client.cc:839
+msgid "World record to beat: "
+msgstr "待刷新的世界纪录: "
+
+#: src/main.cc:353
+#, c-format
+msgid "Error in configuration file.\n"
+msgstr "配置文件中的错误.\n"
+
+#: src/main.cc:591 src/main.cc:614
+#, c-format
+msgid "Error: Home directory does not exist.\n"
+msgstr "错误：主目录不存在。\n"
+
+#: src/main.cc:606
+#, c-format
+msgid "Error: Application Data directory does not exist.\n"
+msgstr "错误：应用程序数据目录不存在。\n"
+
+#: src/main.cc:633 src/main.cc:682
+#, c-format
+msgid "Error in XML initialization.\n"
+msgstr "在XML中初始化错误.\n"
+
+#: src/main.cc:760
+#, c-format
+msgid ""
+"Mac OS X upgrade from Enigma 1.00\n"
+"\n"
+"The default user data path has changed from\n"
+"  %s \n"
+"\n"
+"to the visible data path\n"
+"  %s \n"
+"\n"
+"If ok Enigma will move your data to this new location.\n"
+"Note that you have to restart Enigma once for completion of this update."
+msgstr "Mac OS从Enigma 1.00开始的升级\n默认的用户数据路径已经从\n%s\n\n变更到可见的数据目录\n%s\n\n如果点击确定Enigma将会把您的数据移动到此新位置\n请注意，完成这个更新后，您必须重新启动Enigma。"
+
+#: src/main.cc:761
+msgid "OK"
+msgstr "确定"
+
+#: src/main.cc:761 src/gui/OptionsMenu.cc:319 src/gui/OptionsMenu.cc:323
+msgid "Never"
+msgstr "从来没有"
+
+#: src/main.cc:761
+msgid "Remind"
+msgstr "提醒"
+
+#: src/main.cc:991
+msgid ""
+"Fatal error that caused the application to quit:\n"
+"\n"
+msgstr "出现了如下致命错误导致程序退出：\n\n"
+
+#: src/main.cc:993 src/gui/MainMenu.cc:425
+msgid "Quit"
+msgstr "退出"
+
+#: src/gui/MainMenu.cc:50 src/gui/MainMenu.cc:414 src/gui/LevelPackMenu.cc:65
+msgid "Start Game"
+msgstr "开始游戏"
+
+#: src/gui/MainMenu.cc:51
+msgid "Join Game"
+msgstr "加入游戏"
+
+#: src/gui/MainMenu.cc:52 src/gui/MainMenu.cc:279
+#: src/gui/ScreenshotViewer.cc:35
+msgid "Back"
+msgstr "返回"
+
+#: src/gui/MainMenu.cc:78
+msgid "Enigma - Network Menu"
+msgstr "Enigma -网络菜单"
+
+#: src/gui/MainMenu.cc:89
+msgid "Main developers of the 1.21 release:"
+msgstr "1.21版本的主要开发者："
+
+#: src/gui/MainMenu.cc:91
+msgid "  RONALD LAMPRECHT (lead)"
+msgstr "  RONALD LAMPRECHT (领导)"
+
+#: src/gui/MainMenu.cc:97
+msgid "Special Thanks To:"
+msgstr "特别感谢:"
+
+#: src/gui/MainMenu.cc:99
+msgid "  DANIEL HECK (project founder)"
+msgstr "  DANIEL HECK (项目创始人)"
+
+#: src/gui/MainMenu.cc:100
+msgid "  MEINOLF SCHNEIDER (game idea, level design)"
+msgstr "  MEINOLF SCHNEIDER (游戏理念，关卡设计）"
+
+#: src/gui/MainMenu.cc:102
+msgid "Please refer to the manual or the next pages for full credits."
+msgstr "请参阅手册或下一个页面的全部贡献者."
+
+#: src/gui/MainMenu.cc:104
+msgid "Home Page: http://www.nongnu.org/enigma"
+msgstr "主页：http://www.nongnu.org/enigma"
+
+#: src/gui/MainMenu.cc:105
+msgid "Contact: enigma-devel@nongnu.org"
+msgstr "联系人：enigma-devel@nongnu.org"
+
+#: src/gui/MainMenu.cc:107
+msgid "Enigma is free software and may be distributed under the"
+msgstr "Enigma 谜是免费软件，可以分享在"
+
+#: src/gui/MainMenu.cc:108
+msgid "terms of the GNU General Public License, version 2."
+msgstr "GNU通用公共许可协议条款下，版本2."
+
+#: src/gui/MainMenu.cc:110
+msgid "Copyright (C) 2002-2014 Daniel Heck and contributors."
+msgstr "Copyright (C) 2002-2014 Daniel Heck及其贡献者。"
+
+#: src/gui/MainMenu.cc:112
+msgid "Main developers of all releases:"
+msgstr "所有版本的主要开发者："
+
+#: src/gui/MainMenu.cc:128
+msgid "Special Thanks:"
+msgstr "特别感谢:"
+
+#: src/gui/MainMenu.cc:145
+msgid "Contributors"
+msgstr "贡献者"
+
+#: src/gui/MainMenu.cc:273
+msgid "Homepage"
+msgstr "主页"
+
+#: src/gui/MainMenu.cc:274
+msgid "Documentation"
+msgstr "文档"
+
+#: src/gui/MainMenu.cc:275 src/gui/OptionsMenu.cc:802
+msgid "Paths"
+msgstr "路径"
+
+#: src/gui/MainMenu.cc:276
+msgid "Locate Auto"
+msgstr "自动定位"
+
+#: src/gui/MainMenu.cc:277
+msgid "Locate Score"
+msgstr "找到分数"
+
+#: src/gui/MainMenu.cc:278
+msgid "Credits"
+msgstr "积分"
+
+#: src/gui/MainMenu.cc:314
+msgid "Enigma - Help Menu"
+msgstr "Enigma - 帮助菜单"
+
+#: src/gui/MainMenu.cc:330
+msgid "Preferences Path:"
+msgstr "偏好路径:"
+
+#: src/gui/MainMenu.cc:340
+msgid "User Path:"
+msgstr "用户路径:"
+
+#: src/gui/MainMenu.cc:350
+msgid "User Image Path:"
+msgstr "用户图画路径:"
+
+#: src/gui/MainMenu.cc:360
+msgid "System Path:"
+msgstr "系统路径:"
+
+#: src/gui/MainMenu.cc:370
+msgid "Resource Paths:"
+msgstr "资源路径:"
+
+#: src/gui/MainMenu.cc:380
+msgid "L10n Path:"
+msgstr "L10n 路径："
+
+#: src/gui/MainMenu.cc:415 src/gui/LevelMenu.cc:50
+msgid "Level Pack"
+msgstr "关卡包"
+
+#: src/gui/MainMenu.cc:417
+msgid "Network Game"
+msgstr "网络游戏"
+
+#: src/gui/MainMenu.cc:419 src/gui/LevelPackMenu.cc:64
+#: src/gui/SearchMenu.cc:245
+msgid "Search"
+msgstr "寻找"
+
+#: src/gui/MainMenu.cc:420 src/gui/GameMenu.cc:52
+msgid "Options"
+msgstr "选项"
+
+#: src/gui/MainMenu.cc:422
+msgid "Update"
+msgstr "升级"
+
+#: src/gui/MainMenu.cc:424
+msgid "Help"
+msgstr "帮助"
+
+#: src/gui/MainMenu.cc:459
+msgid "Enigma - Main Menu"
+msgstr "Enigma - 主菜单"
+
+#: src/gui/OptionsMenu.cc:50
+msgid ""
+"This is a selection of the most important options. Each of them can be found"
+" in one of the submenus. For help on a specific option, please press F1 in "
+"its original submenu."
+msgstr "这是一些最重要的选项。每一个都能在其中一个子菜单中找到。如寻求某个选项的帮助，可以在它所在的子菜单里按F1。"
+
+#: src/gui/OptionsMenu.cc:54
+msgid "Screen brightness:"
+msgstr "屏幕亮度："
+
+#: src/gui/OptionsMenu.cc:55
+msgid ""
+"This changes the brightness of the entire screen on which Enigma's window is"
+" positioned. Default is '0'."
+msgstr "这将更改Enigma窗口所在的整个屏幕的亮度。缺省值为“0”。"
+
+#: src/gui/OptionsMenu.cc:56
+msgid "Fullscreen:"
+msgstr "全屏："
+
+#: src/gui/OptionsMenu.cc:57
+msgid ""
+"Choose 'yes' if you want Enigma to be displayed on the whole screen instead "
+"of within a window."
+msgstr "如果想将窗口显示切换为全屏显示，请选择“是”。"
+
+#: src/gui/OptionsMenu.cc:58
+msgid "In fullscreen mode:"
+msgstr "在全屏模式下："
+
+#: src/gui/OptionsMenu.cc:59
+msgid ""
+"Screen resolution: This lists all resolutions that are supported both by "
+"your monitor and by Enigma. It is only used in fullscreen mode."
+msgstr "屏幕分辨率：这列出了您的显示器和Enigma支持的所有分辨率。仅在全屏模式下使用。"
+
+#: src/gui/OptionsMenu.cc:60
+msgid ""
+"Tileset: The set of images used in the menus and in the game. In fullscreen "
+"mode, this depends on the chosen screen resolution."
+msgstr "图块集：菜单和游戏中使用的图像集。在全屏模式下，这取决于所选的屏幕分辨率。"
+
+#: src/gui/OptionsMenu.cc:61
+msgid "In windowed mode:"
+msgstr "在窗口模式下："
+
+#: src/gui/OptionsMenu.cc:62
+msgid ""
+"Tileset: In windowed mode, you choose the tileset first. The tileset then "
+"defines the default size of Enigma's window."
+msgstr "图块集：在窗口模式下，您首先选择磁铁集。然后，磁贴集定义Enigma窗口的默认大小。"
+
+#: src/gui/OptionsMenu.cc:63
+msgid ""
+"Window size: While the tileset determines the default size of your window, "
+"you can scale it up by a factor. You can choose this factor in this field. "
+"You can still resize the window manually, however, when you restart Enigma, "
+"the size defined by this field is reinstated again. You can choose 'Not "
+"fixed', in which case Enigma will restart with the same window size you "
+"previously chose."
+msgstr "窗口大小：虽然图块集确定了窗口的默认大小，但您可以将其按比例放大。 您可以在此字段中选择一个倍数。 您仍然可以手动调整窗口大小，但是，当您重新启动Enigma时，将再次恢复此字段定义的大小。 您可以选择“不固定”，在这种情况下，Enigma将以您先前选择的相同窗口大小重新启动。"
+
+#: src/gui/OptionsMenu.cc:67
+msgid "Sound set:"
+msgstr "声音集："
+
+#: src/gui/OptionsMenu.cc:68
+msgid ""
+"The collection of sounds used by Enigma. Unless you install a user sound set"
+" or other source of sound sets, only default ('Enigma') is available."
+msgstr "Enigma使用的声音集合。除非您安装用户声音集或其他声音集来源，否则只有默认设置（“ Enigma”）可用。"
+
+#: src/gui/OptionsMenu.cc:69
+msgid "Menu music:"
+msgstr "菜单音乐："
+
+#: src/gui/OptionsMenu.cc:70
+msgid ""
+"The selection of music that is played in menus. 'In game' means that the "
+"same music is played as would be during the play."
+msgstr "菜单中播放的音乐。“在游戏中”是在玩的过程中播放相同的音乐。"
+
+#: src/gui/OptionsMenu.cc:71
+msgid "Music ingame:"
+msgstr "游戏中的音乐："
+
+#: src/gui/OptionsMenu.cc:72
+msgid "Whether you want to hear Enigma's music while playing."
+msgstr "玩游戏时是否想听到Enigma的音乐。"
+
+#: src/gui/OptionsMenu.cc:73
+msgid "Sound volume / Music volume:"
+msgstr "音量/音乐音量："
+
+#: src/gui/OptionsMenu.cc:74
+msgid ""
+"Loudness of sound effects / music. Please note that the volume settings of "
+"your operating system applies as well."
+msgstr "声音效果/音乐的响度。请注意，操作系统的音量设置同样起效。"
+
+#: src/gui/OptionsMenu.cc:75
+msgid "Stereo:"
+msgstr "立体声："
+
+#: src/gui/OptionsMenu.cc:76
+msgid ""
+"If active (by default), sound effects are changed to reflect the direction "
+"of their sources in a level. Choose 'mono' to deactivate this. In some "
+"setups, left and right speaker are swapped; you might choose 'reverse' then."
+" (Stereo effects might not work.)"
+msgstr "如果处于活动状态（默认情况下），则会更改声音效果以在一个级别中反映其声源的方向。 选择“单声道”将其禁用。 在某些设置中，左右扬声器互换。 您可以选择“反向”。 （立体声效果可能不起作用。）"
+
+#: src/gui/OptionsMenu.cc:80
+msgid "Language:"
+msgstr "语言： "
+
+#: src/gui/OptionsMenu.cc:81
+msgid ""
+"You can choose the language here. You can also choose a language by clicking"
+" on the flags above the main menu, if Enigma's window (or fullscreen "
+"resolution) is large enough to show them."
+msgstr "您可以在此处选择语言。如果Enigma的窗口（或全屏分辨率）足够大以显示，则还可以通过单击主菜单上方的语言标志来选择一种语言。"
+
+#: src/gui/OptionsMenu.cc:82
+msgid "Mouse speed:"
+msgstr "鼠标速度: "
+
+#: src/gui/OptionsMenu.cc:83
+msgid ""
+"A factor which decides how fast you have to move your mouse to achieve a "
+"certain force on the marble. You can choose this factor during the game as "
+"well, by pressing the left and right arrow keys."
+msgstr "一个能够决定您必须移动鼠标多快才能在石珠上获得一定的力的因子。您也可以在游戏中通过按左右箭头键来选择此因子。"
+
+#: src/gui/OptionsMenu.cc:84
+msgid "Middle mouse button:"
+msgstr "鼠标中键："
+
+#: src/gui/OptionsMenu.cc:85
+msgid ""
+"What happens when you click your mouse's middle button in the game, 'Pause' "
+"by default."
+msgstr "在游戏中单击鼠标的中间按钮时会发生什么情况，默认情况下为“暂停”。"
+
+#: src/gui/OptionsMenu.cc:86
+msgid "Text speed:"
+msgstr "文字速度："
+
+#: src/gui/OptionsMenu.cc:87
+msgid ""
+"The speed with which text flies by in the game. You can press the down arrow"
+" to display a text again, if you missed it."
+msgstr "在游戏中文字飞过的速度。如果您错过了，可以按向下箭头再次显示文本。"
+
+#: src/gui/OptionsMenu.cc:88
+msgid "Ratings update:"
+msgstr "评级更新: "
+
+#: src/gui/OptionsMenu.cc:89
+msgid ""
+"Whether Enigma should automatically download the latest rating file, with "
+"world records, user ratings of levels etc."
+msgstr "Enigma是否应自动下载最新的评级文件，世界纪录，关卡的用户评级等。"
+
+#: src/gui/OptionsMenu.cc:90
+msgid "User name:"
+msgstr "用户名: "
+
+#: src/gui/OptionsMenu.cc:91
+msgid ""
+"If you want to submit your scores, you should enter a user name here. This "
+"is the name shown to other players if you hold a world record for a level, "
+"and on the leaderboard on our web site. On our web site, you will find a "
+"list of all user names currently in use (and known to us)."
+msgstr "如果要提交分数，则应在此处输入用户名。 如果您拥有某个关卡的世界纪录，这个名称就是显示给其他玩家的名称，这也会显示在我们网站的排行榜上。 在我们的网站上，您会找到当前正在使用（并且为我们所知）的所有用户名的列表。"
+
+#: src/gui/OptionsMenu.cc:95
+msgid "User path:"
+msgstr "用户路径: "
+
+#: src/gui/OptionsMenu.cc:96
+msgid "Location of your scores, some settings, and user level packs."
+msgstr "分数、某些设置和用户关卡包所在的位置。"
+
+#: src/gui/OptionsMenu.cc:97
+msgid "User image path:"
+msgstr "用户图片路径: "
+
+#: src/gui/OptionsMenu.cc:98
+msgid ""
+"Location of level screenshots (use F10 during the game to make a "
+"screenshot), and of level thumbnails. By default, this is the same as your "
+"user path."
+msgstr "关卡屏幕截图（在游戏中使用F10进行屏幕截图）和关卡缩略图的位置。默认情况下，这与您的用户路径相同。"
+
+#: src/gui/OptionsMenu.cc:99
+msgid "Localization/translation path:"
+msgstr "本地化/翻译路径："
+
+#: src/gui/OptionsMenu.cc:100
+msgid "Location of translations to all languages Enigma uses."
+msgstr "Enigma使用的所有语言的翻译所在的位置。"
+
+#: src/gui/OptionsMenu.cc:280 src/gui/OptionsMenu.cc:301
+msgid "muted"
+msgstr "静音"
+
+#: src/gui/OptionsMenu.cc:314
+msgid "Music in game"
+msgstr "游戏中的音乐"
+
+#: src/gui/OptionsMenu.cc:314
+msgid "No music in game"
+msgstr "游戏中没有音乐"
+
+#: src/gui/OptionsMenu.cc:319
+msgid "Auto"
+msgstr "自动"
+
+#: src/gui/OptionsMenu.cc:323
+msgid "Always"
+msgstr "经常"
+
+#: src/gui/OptionsMenu.cc:329 src/gui/OptionsMenu.cc:941
+#: src/gui/LevelPackConfig.cc:93 src/gui/SearchMenu.cc:105
+msgid "Yes"
+msgstr "是"
+
+#: src/gui/OptionsMenu.cc:329 src/gui/OptionsMenu.cc:942
+#: src/gui/LevelPackConfig.cc:93 src/gui/SearchMenu.cc:105
+msgid "No"
+msgstr "否"
+
+#: src/gui/OptionsMenu.cc:382
+msgid "None found"
+msgstr "找不到"
+
+#: src/gui/OptionsMenu.cc:497
+msgid "Not fixed"
+msgstr "未修复"
+
+#: src/gui/OptionsMenu.cc:594
+msgid "reversed"
+msgstr "逆转"
+
+#: src/gui/OptionsMenu.cc:595
+msgid "mono"
+msgstr "单"
+
+#: src/gui/OptionsMenu.cc:596
+msgid "normal"
+msgstr "正常"
+
+#: src/gui/OptionsMenu.cc:639 src/gui/LevelInspector.cc:345
+#: src/gui/LevelInspector.cc:361 src/gui/LevelInspector.cc:375
+msgid "unknown"
+msgstr "未知"
+
+#: src/gui/OptionsMenu.cc:671
+msgid "Deactivated"
+msgstr "已停用"
+
+#: src/gui/OptionsMenu.cc:673
+msgid "Pause (ESC)"
+msgstr "暂停（ESC）"
+
+#: src/gui/OptionsMenu.cc:675 src/gui/GameMenu.cc:51
+msgid "Restart Level (Shift-F3)"
+msgstr "重新开始此关（Shift-F3）"
+
+#: src/gui/OptionsMenu.cc:694
+#, c-format
+msgid "Resetting video settings in %is ..."
+msgstr "在如下中重置视频设置%i ..."
+
+#: src/gui/OptionsMenu.cc:794
+msgid "Main"
+msgstr "主"
+
+#: src/gui/OptionsMenu.cc:796
+msgid "Video"
+msgstr "影像"
+
+#: src/gui/OptionsMenu.cc:798
+msgid "Audio"
+msgstr "音频"
+
+#: src/gui/OptionsMenu.cc:800
+msgid "Config"
+msgstr "表面配置"
+
+#: src/gui/OptionsMenu.cc:821 src/gui/LevelPackComposer.cc:119
+#: src/gui/LevelPackConfig.cc:344 src/gui/LPGroupConfig.cc:101
+#: src/gui/LevelInspector.cc:178 src/gui/HelpMenu.cc:39
+msgid "Ok"
+msgstr "确定"
+
+#: src/gui/OptionsMenu.cc:875 src/gui/OptionsMenu.cc:918
+msgid "Language: "
+msgstr "语言： "
+
+#: src/gui/OptionsMenu.cc:877 src/gui/OptionsMenu.cc:898
+msgid "Fullscreen: "
+msgstr "全屏显示: "
+
+#: src/gui/OptionsMenu.cc:880 src/gui/OptionsMenu.cc:919
+msgid "Mouse speed: "
+msgstr "鼠标速度: "
+
+#: src/gui/OptionsMenu.cc:881 src/gui/OptionsMenu.cc:913
+msgid "Sound volume: "
+msgstr "音量: "
+
+#: src/gui/OptionsMenu.cc:882 src/gui/OptionsMenu.cc:914
+msgid "Music volume: "
+msgstr "音乐音量: "
+
+#: src/gui/OptionsMenu.cc:883 src/gui/OptionsMenu.cc:922
+msgid "Ratings update: "
+msgstr "评级更新: "
+
+#: src/gui/OptionsMenu.cc:885
+msgid "Score upload: "
+msgstr "分数上传："
+
+#: src/gui/OptionsMenu.cc:890 src/gui/OptionsMenu.cc:926
+msgid "User name: "
+msgstr "用户名: "
+
+#: src/gui/OptionsMenu.cc:895
+msgid "Sorry, no video changes during an ongoing game."
+msgstr "抱歉，在进行中的游戏没有视频更改。"
+
+#: src/gui/OptionsMenu.cc:897
+msgid "Screen brightness: "
+msgstr "屏幕亮度："
+
+#: src/gui/OptionsMenu.cc:900
+msgid "In fullscreen mode: "
+msgstr "在全屏模式下："
+
+#: src/gui/OptionsMenu.cc:901
+msgid "Screen resolution: "
+msgstr "屏幕分辨率："
+
+#: src/gui/OptionsMenu.cc:902 src/gui/OptionsMenu.cc:904
+msgid "Tileset: "
+msgstr "图块集："
+
+#: src/gui/OptionsMenu.cc:903
+msgid "In windowed mode: "
+msgstr "在窗口模式下："
+
+#: src/gui/OptionsMenu.cc:905
+msgid "Window size: "
+msgstr "窗口大小："
+
+#: src/gui/OptionsMenu.cc:910
+msgid "Sound set: "
+msgstr "音效设定: "
+
+#: src/gui/OptionsMenu.cc:911
+msgid "Menu music: "
+msgstr "音乐菜单: "
+
+#: src/gui/OptionsMenu.cc:912
+msgid "Music ingame: "
+msgstr "游戏中的音乐："
+
+#: src/gui/OptionsMenu.cc:915
+msgid "Stereo: "
+msgstr "立体声: "
+
+#: src/gui/OptionsMenu.cc:920
+msgid "Middle mouse button: "
+msgstr "鼠标中键："
+
+#: src/gui/OptionsMenu.cc:921
+msgid "Text speed: "
+msgstr "文字速度："
+
+#: src/gui/OptionsMenu.cc:931
+msgid "User path: "
+msgstr "用户路径: "
+
+#: src/gui/OptionsMenu.cc:934
+msgid "User image path: "
+msgstr "用户图片路径: "
+
+#: src/gui/OptionsMenu.cc:937
+msgid "Localization/translation path: "
+msgstr "本地化/翻译路径："
+
+#: src/gui/OptionsMenu.cc:943
+msgid "Use these video settings?"
+msgstr "使用这些视频设置？"
+
+#: src/gui/OptionsMenu.cc:1177
+msgid "Enigma - Options Menu"
+msgstr "Enigma - 选项菜单"
+
+#: src/gui/LevelMenu.cc:48 src/gui/LevelPackMenu.cc:66
+msgid "Main Menu"
+msgstr "主菜单"
+
+#: src/gui/LevelMenu.cc:194
+msgid "Skip to main menu"
+msgstr "跳到主菜单"
+
+#: src/gui/LevelMenu.cc:197 src/gui/LevelPackComposer.cc:44
+msgid "Add all to clipboard"
+msgstr "全部添加到剪贴板"
+
+#: src/gui/LevelMenu.cc:198
+msgid "Update levelpack"
+msgstr "更新关卡"
+
+#: src/gui/LevelMenu.cc:199
+msgid "Arrows:"
+msgstr "箭头:"
+
+#: src/gui/LevelMenu.cc:199
+msgid "Select level"
+msgstr "选择关卡"
+
+#: src/gui/LevelMenu.cc:200
+msgid "Return:"
+msgstr "返回:"
+
+#: src/gui/LevelMenu.cc:200 src/gui/LevelMenu.cc:205
+msgid "Play selected level"
+msgstr "玩选定的关卡"
+
+#: src/gui/LevelMenu.cc:201
+msgid "Back/Space:"
+msgstr "后退/空格："
+
+#: src/gui/LevelMenu.cc:201
+msgid "Previous/next levelpack"
+msgstr "上一个/下一个关卡包"
+
+#: src/gui/LevelMenu.cc:202
+msgid "Mark current level as unsolved"
+msgstr "将当前关卡标记为未解决"
+
+#: src/gui/LevelMenu.cc:204
+msgid "Alt+Return:"
+msgstr "Alt键 + 回车键："
+
+#: src/gui/LevelMenu.cc:204
+msgid "Switch between fullscreen and window"
+msgstr "全屏和窗口之间切换"
+
+#: src/gui/LevelMenu.cc:205 src/gui/LevelPackMenu.cc:48
+msgid "Left click:"
+msgstr "按左键:"
+
+#: src/gui/LevelMenu.cc:206 src/gui/LevelPackMenu.cc:49
+msgid "Right or control click:"
+msgstr "右键或控制按键:"
+
+#: src/gui/LevelMenu.cc:206
+msgid "Inspect selected level"
+msgstr "检查选定的关卡"
+
+#: src/gui/LevelMenu.cc:223
+msgid "Select next level for world record hunt"
+msgstr "选择下一个关卡的世界纪录"
+
+#: src/gui/LevelMenu.cc:225
+msgid "Select next unsolved level"
+msgstr "选择下一个未过的关卡"
+
+#: src/gui/LevelMenu.cc:288
+msgid "You are not allowed to play this level yet."
+msgstr "你还不可以玩这个关卡哦."
+
+#: src/gui/LevelMenu.cc:325 src/gui/LevelPackComposer.cc:350
+#, c-format
+msgid "%s: %d level"
+msgid_plural "%s: %d levels"
+msgstr[0] "%s：%d关卡"
+
+#: src/gui/LevelMenu.cc:339
+#, c-format
+msgid "%d%% best"
+msgstr "%d%% 最好的"
+
+#: src/gui/LevelMenu.cc:344
+#, c-format
+msgid "%d%% par, hcp %.1f"
+msgstr "%d%%专业平均水平, hcp%.1f"
+
+#: src/gui/LevelMenu.cc:348
+#, c-format
+msgid "%d%% solved"
+msgstr "%d%% 解决的"
+
+#: src/gui/LevelMenu.cc:383
+msgid "Your time: "
+msgstr "您的时间："
+
+#: src/gui/LevelMenu.cc:388
+msgid "That's world record."
+msgstr "这是世界纪录."
+
+#: src/gui/LevelMenu.cc:390
+#, c-format
+msgid "That's %s below world record."
+msgstr "比世界纪录慢了%s。"
+
+#: src/gui/LevelMenu.cc:399 src/gui/LevelMenu.cc:402
+msgid "World record: "
+msgstr "世界纪录："
+
+#: src/gui/LevelMenu.cc:401 src/gui/LevelMenu.cc:418
+msgid "Par: "
+msgstr "专业平均水平："
+
+#: src/gui/LevelMenu.cc:415 src/gui/LevelMenu.cc:419
+#, c-format
+msgid "World record by %s: "
+msgstr "%s保持的世界纪录："
+
+#: src/gui/LevelMenu.cc:451
+msgid "No further unsolved level available!"
+msgstr "没有更多未完成的关卡!"
+
+#: src/gui/LevelPackComposer.cc:42
+msgid "Shift-click:"
+msgstr "按住Shift键并单击："
+
+#: src/gui/LevelPackComposer.cc:42
+msgid "Add to clipboard"
+msgstr "添加到剪贴板"
+
+#: src/gui/LevelPackComposer.cc:43
+msgid "Shift-delete:"
+msgstr "按住Shift和Delete键："
+
+#: src/gui/LevelPackComposer.cc:43
+msgid "Clear clipboard"
+msgstr "清除剪贴板"
+
+#: src/gui/LevelPackComposer.cc:45
+msgid "F8:"
+msgstr "F8："
+
+#: src/gui/LevelPackComposer.cc:45
+msgid "Insert clipboard as reference"
+msgstr "插入剪贴板作为参考e"
+
+#: src/gui/LevelPackComposer.cc:46
+msgid "F9:"
+msgstr "F9："
+
+#: src/gui/LevelPackComposer.cc:46
+msgid "Insert clipboard as copy"
+msgstr "插入剪贴板作为副本"
+
+#: src/gui/LevelPackComposer.cc:48
+msgid "Alt-left arrow:"
+msgstr "按住Alt键和向左箭头："
+
+#: src/gui/LevelPackComposer.cc:48
+msgid "Exchange level with predecessor"
+msgstr "转换到上一个关卡"
+
+#: src/gui/LevelPackComposer.cc:49
+msgid "Alt-right arrow:"
+msgstr "按住Alt键和向右箭头："
+
+#: src/gui/LevelPackComposer.cc:49
+msgid "Exchange level with successor"
+msgstr "转换到下一个关卡"
+
+#: src/gui/LevelPackComposer.cc:50
+msgid "Delete:"
+msgstr "删除:"
+
+#: src/gui/LevelPackComposer.cc:50
+msgid "Delete level"
+msgstr "删除关卡"
+
+#: src/gui/LevelPackComposer.cc:51
+msgid "Update index from levels"
+msgstr "从关卡更新索引"
+
+#: src/gui/LevelPackComposer.cc:56
+msgid "F10"
+msgstr "F10"
+
+#: src/gui/LevelPackComposer.cc:57
+msgid "Move clipboard levels"
+msgstr "将剪贴板的关卡移动"
+
+#: src/gui/LevelPackComposer.cc:118 src/gui/LevelPackConfig.cc:343
+#: src/gui/LPGroupConfig.cc:100 src/gui/SearchMenu.cc:244
+msgid "Undo"
+msgstr "撤消"
+
+#: src/gui/LevelPackComposer.cc:364
+#, c-format
+msgid "Clipboard: %d level"
+msgid_plural "Clipboard: %d levels"
+msgstr[0] "剪贴板：有%d关"
+
+#: src/gui/LevelPackComposer.cc:385
+msgid "Enigma - Level Pack Composer"
+msgstr "Enigma-关卡包作者"
+
+#: src/gui/LevelPackConfig.cc:173
+msgid "Levelpack:"
+msgstr "关卡集"
+
+#: src/gui/LevelPackConfig.cc:174
+msgid "Owner:"
+msgstr "所有者："
+
+#: src/gui/LevelPackConfig.cc:175 src/gui/LPGroupConfig.cc:56
+msgid "Group:"
+msgstr "组:"
+
+#: src/gui/LevelPackConfig.cc:176
+msgid "Location"
+msgstr "位置"
+
+#: src/gui/LevelPackConfig.cc:177
+msgid "in [All Packs]:"
+msgstr "在 [所有集]:"
+
+#: src/gui/LevelPackConfig.cc:234
+msgid "Edit Metadata"
+msgstr "编辑元数据"
+
+#: src/gui/LevelPackConfig.cc:238
+msgid "Release:"
+msgstr "发行:"
+
+#: src/gui/LevelPackConfig.cc:239
+msgid "Revision:"
+msgstr "调整:"
+
+#: src/gui/LevelPackConfig.cc:240
+msgid "Compatibility:"
+msgstr "兼容性："
+
+#: src/gui/LevelPackConfig.cc:241
+msgid "Default Location:"
+msgstr "默认位置:"
+
+#: src/gui/LevelPackConfig.cc:242
+msgid "Level types:"
+msgstr "级别类型："
+
+#: src/gui/LevelPackConfig.cc:334
+msgid "Please reassign levelpack to another group for group deletion"
+msgstr "请重新分配关卡包到另一个组以删除本组"
+
+#: src/gui/LevelPackConfig.cc:337
+msgid "Compose Pack"
+msgstr "构建包"
+
+#: src/gui/LevelPackConfig.cc:339
+msgid "Update Pack"
+msgstr "升级包"
+
+#: src/gui/LevelPackConfig.cc:418
+msgid ""
+"Error: empty title not allowed - press \"Undo\" to exit without "
+"modifications"
+msgstr "错误：不容许空标题 - 按 \"恢复\" 不修改并退出"
+
+#: src/gui/LevelPackConfig.cc:431
+msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
+msgstr "错误：关卡宝的标题仅允许使用“ a-zA-Z0-9 _-＃”"
+
+#: src/gui/LevelPackConfig.cc:442
+msgid "Error: title already in use - choose another title"
+msgstr "错误：标题已经在使用中 - 换另一个标题"
+
+#: src/gui/LevelPackMenu.cc:46
+msgid "Left column:"
+msgstr "左栏:"
+
+#: src/gui/LevelPackMenu.cc:46
+msgid "Levelpack groups"
+msgstr "关卡包组"
+
+#: src/gui/LevelPackMenu.cc:47
+msgid "Right columns:"
+msgstr "右栏:"
+
+#: src/gui/LevelPackMenu.cc:47
+msgid "Levelpacks of selected group"
+msgstr "所选组内的关卡包"
+
+#: src/gui/LevelPackMenu.cc:48
+msgid "Select group or levelpack"
+msgstr "选择组或关卡包"
+
+#: src/gui/LevelPackMenu.cc:49
+msgid "Configure group or levelpack"
+msgstr "配置组或关卡包"
+
+#: src/gui/LevelPackMenu.cc:63
+msgid "New Group"
+msgstr "新的组"
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:125
+msgid ""
+"Welcome to Enigma! Please note that the game makes use of your mouse in "
+"another way than usual, and there will be no mouse cursor during the game. "
+"You can press the ESC key or the middle mouse button to pause the game and "
+"exit (or continue). You can also always press the F1 key to see available "
+"shortcut keys."
+msgstr "欢迎来到Enigma！ 请注意，游戏以不同于平常的方式使用鼠标，并且在游戏过程中不会有鼠标光标。 您可以按ESC键或鼠标中键来暂停游戏并退出（或继续）。 您也可以随时按F1键查看可用的快捷键。"
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:127 src/gui/LevelPackMenu.cc:138
+msgid ""
+"If you are an experienced gamer and prefer a challenge for a start, please "
+"click here:"
+msgstr "如果您是经验丰富的游戏玩家，并且更喜欢挑战，那么请单击此处："
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:129
+msgid "If you prefer a more gentle introduction, please click here:"
+msgstr "如果您希望更温和的介绍，请单击此处："
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:131
+msgid ""
+"If you feel you need some more training with handling your mouse, you might "
+"find some helpful landscapes here:"
+msgstr "如果您觉得需要更多有关使用鼠标的培训，可以在这里找到一些有用的信息："
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:136
+msgid ""
+"Welcome to Enigma! Please note that there will be no mouse cursor during the"
+" game. You can press ESC or the middle mouse button to pause or exit. Use F1"
+" to see available shortcut keys."
+msgstr "欢迎来到Enigma！请注意，在游戏过程中不会有鼠标光标。您可以按ESC或鼠标中键暂停或退出。使用F1查看可用的快捷键。"
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:140
+msgid "For a more gentle introduction, please click here:"
+msgstr "如果您希望更温和的介绍，请单击此处："
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:142
+msgid "You will find more training landscapes here:"
+msgstr "您将在这里找到更多的培训信息："
+
+#: src/gui/LevelPackMenu.cc:600
+msgid "Enigma - Level Pack Menu"
+msgstr "Enigma-关卡包菜单"
+
+#: src/gui/LPGroupConfig.cc:64
+msgid "Position:"
+msgstr "位置:"
+
+#: src/gui/LPGroupConfig.cc:98
+msgid "New Pack"
+msgstr "新的包"
+
+#: src/gui/LPGroupConfig.cc:99
+msgid "Delete Group"
+msgstr "删除组"
+
+#: src/gui/LPGroupConfig.cc:129
+msgid ""
+"Error: empty group name not allowed - press \"Undo\" to exit without "
+"modifications"
+msgstr "错误：不允许组名为空 - 按“撤消”退出，不做任何修改"
+
+#: src/gui/LPGroupConfig.cc:140
+msgid "Error: group name is a duplicate of an existing group"
+msgstr "错误：群组名称与现有群组重复"
+
+#: src/gui/LPGroupConfig.cc:145
+msgid "Error: \"Every group\" is a reserved group name"
+msgstr "错误: \"Every group\" 是保留的组名"
+
+#: src/gui/LPGroupConfig.cc:150
+msgid "Error: group name must not be enclosed in square brackets"
+msgstr "错误：群组名称一定不能放在方括号中"
+
+#: src/gui/LPGroupConfig.cc:206
+msgid "Error: group not empty"
+msgstr "错误：组不能为空"
+
+#: src/gui/LPGroupConfig.cc:229
+msgid "Enigma - Level Pack Group Configuration"
+msgstr "Enigma - 关卡包组配置"
+
+#: src/gui/ScreenshotViewer.cc:37
+msgid "Page Up:"
+msgstr "上一页:"
+
+#: src/gui/ScreenshotViewer.cc:37
+msgid "Show previous screenshot"
+msgstr "展示上一个截图"
+
+#: src/gui/ScreenshotViewer.cc:38
+msgid "Page Down:"
+msgstr "下一页:"
+
+#: src/gui/ScreenshotViewer.cc:38
+msgid "Show next screenshot"
+msgstr "展示下一个截图"
+
+#: src/gui/ScreenshotViewer.cc:108
+msgid "No screenshot available:"
+msgstr "没有截图了"
+
+#: src/gui/SearchMenu.cc:41
+msgid "Searches for levels with given criteria."
+msgstr "搜索具有给定条件的关卡。"
+
+#: src/gui/SearchMenu.cc:42
+msgid ""
+"Use 'Text Search' for a case independent search in levels' titles, author "
+"names, file names, and level identification names."
+msgstr "使用“文本搜索”可在关卡的标题，作者名称，文件名和关卡标识名称中进行大小写无关的搜索。"
+
+#: src/gui/SearchMenu.cc:43
+msgid ""
+"Levels are rated in their difficulty in five categories: intelligence, "
+"dexterity, patience, knowledge about Enigma, and speed control. Each rating "
+"ranges from 1 (easy) to 5 (difficult). Levels with special mechanisms may "
+"also be a 6 in knowledge. With the corresponding buttons, you can search for"
+" levels with certain difficulty ratings."
+msgstr "关卡的难度分为五个类别：智力，敏捷，耐心，有关谜的知识和速度控制。 每个评分范围从1（简单）到5（困难）。 具有特殊机制的关卡也可能是6。 使用相应的按钮，您可以搜索具有一定难度等级的关卡。"
+
+#: src/gui/SearchMenu.cc:44
+msgid ""
+"The five single ratings are combined into an overall difficulty rating, "
+"ranging from 1 to 100. You can also search for levels within a given overall"
+" difficulty range."
+msgstr "这五个单一等级被合并为一个整体难度等级，范围从1到100。您还可以在给定的整体难度范围内搜索关卡。"
+
+#: src/gui/SearchMenu.cc:45
+msgid ""
+"'Average rating' is the mean of player's ratings of the levels. You can rate"
+" a level on its level inspector page with a rating from 0 (worst) to 10 "
+"(best). You can search for levels which average rating is within a specified"
+" interval, too."
+msgstr "“平均评分”是玩家对各个关卡的评分的平均值。您可以在关卡检查器页面上为关卡评分，级别从0（最差）到10（最佳）。您也可以搜索平均评级在指定间隔内的关卡。"
+
+#: src/gui/SearchMenu.cc:46
+msgid ""
+"If you choose 'Only levels that are unsolved in easy mode', you filter for "
+"all levels which feature an easy mode, and that have not been solved by you "
+"in easy mode yet. Accordingly, you can choose 'Only levels that are unsolved"
+" in normal mode' to filter for those."
+msgstr "如果选择“仅在简易模式下未解决的关卡”，则将过滤出所有具有简易模式但尚未在简易模式下解决的关卡。 因此，您可以选择“仅在正常模式下未解决的关卡”以进行过滤。"
+
+#: src/gui/SearchMenu.cc:48
+msgid ""
+"Finally, you can sort the results randomly, by average rating, by overall "
+"difficulty, or by their sequence on load time, which mostly is the sequence "
+"in which they appear in the level packs (sort by 'None')."
+msgstr "最后，您可以按照平均评分，总体难度或它们在加载时间上的顺序对结果进行随机排序，这些顺序主要是它们在关卡包中出现的顺序（按“无”排序）。"
+
+#: src/gui/SearchMenu.cc:49
+msgid ""
+"The number of levels satisfying all chosen criteria is shown on the line "
+"above the search button. Please note that some levels have no ratings, or no"
+" average ratings, and are therefore automatically excluded as soon as you "
+"choose to search for ratings or average ratings or sort by them."
+msgstr "满足所有选定条件的关卡的数量将显示在搜索按钮上方的行内。 请注意，某些关卡没有评级，也没有平均评级，因此，一旦您选择搜索评级或平均评级或对其进行排序，它们就会被自动排除。"
+
+#: src/gui/SearchMenu.cc:133
+msgid "None"
+msgstr "无"
+
+#. TRANSLATORS: Would be shown as "Sort by: Random".
+#: src/gui/SearchMenu.cc:135
+msgid "Random"
+msgstr "随机"
+
+#. TRANSLATORS: Would be shown as "Sort by: Difficulty".
+#: src/gui/SearchMenu.cc:137
+msgid "Difficulty"
+msgstr "难度"
+
+#. TRANSLATORS: Would be shown as "Sort by: Average rating".
+#: src/gui/SearchMenu.cc:139
+msgid "Average rating"
+msgstr "平均评分"
+
+#: src/gui/SearchMenu.cc:143
+msgid "Unknown"
+msgstr "未知"
+
+#: src/gui/SearchMenu.cc:161
+msgid "Text Search:"
+msgstr "文字搜寻："
+
+#. TRANSLATORS: the translation can have double size of the english text
+#: src/gui/SearchMenu.cc:163
+msgid "case independent search in title, author, filename"
+msgstr "标题，作者，文件名的不区分大小写的搜索"
+
+#: src/gui/SearchMenu.cc:172 src/gui/LevelInspector.cc:264
+msgid "Intelligence: "
+msgstr "情报："
+
+#: src/gui/SearchMenu.cc:173 src/gui/LevelInspector.cc:265
+msgid "Dexterity: "
+msgstr "灵巧："
+
+#: src/gui/SearchMenu.cc:174 src/gui/LevelInspector.cc:266
+msgid "Patience: "
+msgstr "耐性: "
+
+#: src/gui/SearchMenu.cc:175 src/gui/LevelInspector.cc:267
+msgid "Knowledge: "
+msgstr "知识: "
+
+#: src/gui/SearchMenu.cc:176 src/gui/LevelInspector.cc:268
+msgid "Speed: "
+msgstr "速度："
+
+#: src/gui/SearchMenu.cc:177 src/gui/LevelInspector.cc:269
+msgid "Difficulty: "
+msgstr "难度："
+
+#: src/gui/SearchMenu.cc:178
+msgid "Average Rating: "
+msgstr "平均评分："
+
+#: src/gui/SearchMenu.cc:179
+msgid "Only levels that are unsolved in easy mode:"
+msgstr "仅在简单模式下未解决的关卡："
+
+#: src/gui/SearchMenu.cc:180
+msgid "Only levels that are unsolved in normal mode:"
+msgstr "仅在普通模式下未解决的关卡："
+
+#: src/gui/SearchMenu.cc:182
+msgid "Sort by: "
+msgstr "排序方式："
+
+#: src/gui/SearchMenu.cc:243
+msgid "Reset"
+msgstr "重启"
+
+#: src/gui/SearchMenu.cc:299
+#, c-format
+msgid "Levels fitting these criteria: %d"
+msgstr "符合以下条件的关卡：%d"
+
+#: src/gui/SearchMenu.cc:305
+msgid "Enigma - Search Menu"
+msgstr "Enigma - 搜索菜单"
+
+#: src/gui/LevelInspector.cc:179
+msgid "Screenshot"
+msgstr "截图"
+
+#: src/gui/LevelInspector.cc:233
+msgid "Level: "
+msgstr "关卡："
+
+#: src/gui/LevelInspector.cc:235 src/gui/LevelInspector.cc:297
+msgid "Author: "
+msgstr "作者: "
+
+#: src/gui/LevelInspector.cc:236
+msgid "Contact: "
+msgstr "联系方式: "
+
+#: src/gui/LevelInspector.cc:237
+msgid "Homepage: "
+msgstr "主页: "
+
+#: src/gui/LevelInspector.cc:262
+msgid "Public Ratings"
+msgstr "公开评分"
+
+#: src/gui/LevelInspector.cc:290
+msgid "Scores"
+msgstr "分数"
+
+#: src/gui/LevelInspector.cc:293
+msgid "You: "
+msgstr "您: "
+
+#: src/gui/LevelInspector.cc:294
+msgid "World: "
+msgstr "世界: "
+
+#. TRANSLATORS: PAR = professional average rate - an expression used by
+#. golfers
+#: src/gui/LevelInspector.cc:296
+msgid "PAR: "
+msgstr "专业平均水平： "
+
+#: src/gui/LevelInspector.cc:298
+msgid "Solved %: "
+msgstr "完成了 %："
+
+#: src/gui/LevelInspector.cc:299
+msgid "Solved #: "
+msgstr "完成了 #："
+
+#: src/gui/LevelInspector.cc:321
+msgid "Version"
+msgstr "版本："
+
+#: src/gui/LevelInspector.cc:324
+msgid "Score: "
+msgstr "分数："
+
+#: src/gui/LevelInspector.cc:326 src/gui/LevelInspector.cc:330
+msgid "Status: "
+msgstr "状态："
+
+#: src/gui/LevelInspector.cc:327
+msgid "Release: "
+msgstr "版本："
+
+#: src/gui/LevelInspector.cc:328
+msgid "Revision: "
+msgstr "调整："
+
+#: src/gui/LevelInspector.cc:331
+msgid "Control: "
+msgstr "控制："
+
+#: src/gui/LevelInspector.cc:332
+msgid "Target: "
+msgstr "目标："
+
+#: src/gui/LevelInspector.cc:339 src/gui/LevelInspector.cc:355
+msgid "stable"
+msgstr "稳定的"
+
+#: src/gui/LevelInspector.cc:341 src/gui/LevelInspector.cc:357
+msgid "test"
+msgstr "试验"
+
+#: src/gui/LevelInspector.cc:343 src/gui/LevelInspector.cc:359
+msgid "experimental"
+msgstr "试验的"
+
+#: src/gui/LevelInspector.cc:353
+msgid "released"
+msgstr "发行"
+
+#: src/gui/LevelInspector.cc:366
+msgid "force"
+msgstr "力"
+
+#: src/gui/LevelInspector.cc:369
+msgid "balance"
+msgstr "平衡"
+
+#: src/gui/LevelInspector.cc:372
+msgid "key"
+msgstr "钥匙/键"
+
+#: src/gui/LevelInspector.cc:380
+msgid "time"
+msgstr "时间"
+
+#: src/gui/LevelInspector.cc:381
+msgid "pushes"
+msgstr "推"
+
+#: src/gui/LevelInspector.cc:382
+msgid "moves"
+msgstr "移动"
+
+#: src/gui/LevelInspector.cc:399
+msgid "World Record Holders: "
+msgstr "世界记录保持者 : "
+
+#: src/gui/LevelInspector.cc:460
+msgid "Credits: "
+msgstr "积分："
+
+#: src/gui/LevelInspector.cc:471
+msgid "Dedication: "
+msgstr "贡献："
+
+#: src/gui/LevelInspector.cc:482
+msgid "Level Path: "
+msgstr "级别路径："
+
+#: src/gui/LevelInspector.cc:504
+msgid "Id: "
+msgstr "编号："
+
+#: src/gui/LevelInspector.cc:506
+msgid "Load time: "
+msgstr "加载时间："
+
+#: src/gui/LevelInspector.cc:511
+msgid "Compatibility: "
+msgstr "兼容性："
+
+#: src/gui/LevelInspector.cc:519
+msgid "Annotation: "
+msgstr "注解："
+
+#: src/gui/LevelInspector.cc:524
+msgid "Rating: "
+msgstr "评分："
+
+#: src/gui/LevelInspector.cc:526
+msgid "Average: "
+msgstr "平均："
+
+#: src/gui/GameMenu.cc:50
+msgid "Resume Level (ESC)"
+msgstr "继续关卡 (ESC)"
+
+#: src/gui/GameMenu.cc:53
+msgid "Level Info"
+msgstr "关卡信息"
+
+#: src/gui/GameMenu.cc:54
+msgid "Screenshot (F10)"
+msgstr "屏幕截图 (F10)"
+
+#: src/gui/GameMenu.cc:55
+msgid "Abort Level"
+msgstr "退出关卡"
+
+#: src/gui/GameMenu.cc:56
+msgid "Exit Enigma (Shift-ESC)"
+msgstr "退出 Enigma （Shift-ESC）"
+
+#: src/gui/GameMenu.cc:146
+msgid "Return to level"
+msgstr "回到关卡"
+
+#: src/gui/GameMenu.cc:149
+msgid "For a list of shortcut keys during the game, press F1 during the game."
+msgstr "在游戏过程中按F1，可获得游戏过程中快捷键的列表。"
+
+#: src/lev/Proxy.cc:205
+msgid "Error on auto registration of levelfile: "
+msgstr "自动注册关卡文件时出错："
+
+#: src/lev/Proxy.cc:207
+msgid ""
+"Note: the level will not show up in the \"Auto Folder\" levelpack!\n"
+"\n"
+msgstr "注意：该关卡不会显示在“自动文件夹”级别包中！\n\n"
+
+#: src/lev/Proxy.cc:209 src/lev/PersistentIndex.cc:478 src/d_models.cc:203
+#: src/d_models.cc:215 src/PreferenceManager.cc:181 src/StateManager.cc:178
+msgid "Continue"
+msgstr "继续"
+
+#: src/lev/PersistentIndex.cc:464
+msgid "Error on update of levelpack index: \n"
+msgstr "更新关卡包索引时出错：\n"
+
+#: src/lev/PersistentIndex.cc:466
+msgid ""
+"Note: the current version will be reloaded!\n"
+"\n"
+msgstr "注：目前的版本将被重新加载!\n\n"
+
+#: src/lev/PersistentIndex.cc:473
+msgid "Error on registration of levelpack index: \n"
+msgstr "注册关卡包索引时出错：\n"
+
+#: src/lev/PersistentIndex.cc:475
+msgid ""
+"Note: the levelpack will not show up!\n"
+"\n"
+msgstr "注: 该关卡包不会显示!\n\n"
+
+#: src/lua.cc:3896
+#, c-format
+msgid "Cannot find '%s'.\n"
+msgstr "找不到 '%s'\n"
+
+#: src/lua.cc:3897 src/lua.cc:3904
+#, c-format
+msgid "Your installation may be incomplete or invalid.\n"
+msgstr "您的安装可能不完整或无效.\n"
+
+#: src/lua.cc:3903
+#, c-format
+msgid "There was an error loading '%s'.\n"
+msgstr "加载时出错 “%s”。\n"
+
+#: src/lua.cc:3905
+#, c-format
+msgid "Error: '%s'\n"
+msgstr "错误: “%s”\n"
+
+#: src/d_models.cc:202 src/d_models.cc:214
+msgid ""
+"\n"
+"\n"
+"This error may cause the application to behave strange!"
+msgstr "\n\n此错误可能导致应用程序行为异常！"
+
+#: src/stones/KnightStone.cc:60
+msgid "All right, we'll call it a draw"
+msgstr "好吧，我们叫它平局"
+
+#: etc/enigma.desktop:4 level_i18n.cc:1469
+msgid "Enigma"
+msgstr "Enigma"
+
+#: etc/enigma.desktop:23
+msgid "Uncover pairs of stones while navigating obstacles using a marble"
+msgstr "把石珠在障碍物中移动，以发现成对的石头"
+
+#: etc/enigma.desktop:46
+msgid "enigma"
+msgstr "enigma"
+
+#: level_i18n.cc:4
+msgid "Let there be light!"
+msgstr "要有光！"
+
+#: level_i18n.cc:44
+msgid "You really will need every penny!"
+msgstr "您真的需要每一分钱！"
+
+#: level_i18n.cc:60
+msgid "Umbrellas prevent free fall!"
+msgstr "雨伞防止自由落体！"
+
+#: level_i18n.cc:76
+msgid "No problem! Piece of cake!"
+msgstr "没问题！小菜一碟！"
+
+#: level_i18n.cc:77
+msgid "It was easy, wasn't it!"
+msgstr "很简单，不是嘛！"
+
+#: level_i18n.cc:93
+msgid "You need to be fast!"
+msgstr "您得快点！"
+
+#: level_i18n.cc:125
+msgid "It's a ring!"
+msgstr "响了！"
+
+#: level_i18n.cc:135
+msgid "Business hours from 8am to 4pm"
+msgstr "营业时间为上午8点至下午4点"
+
+#: level_i18n.cc:163 level_i18n.cc:876
+msgid "Everything's been counted carefully!"
+msgstr "一切都经过仔细计算！"
+
+#: level_i18n.cc:164 level_i18n.cc:877
+msgid "Parts of the tubes disappear during detonation!"
+msgstr "爆炸过程中管的某些部分消失了！"
+
+#: level_i18n.cc:171
+msgid "Don't believe all that you see!"
+msgstr "不要相信您所看到的一切！"
+
+#: level_i18n.cc:178
+msgid "An English text based riddle"
+msgstr "基于英文的谜语"
+
+#: level_i18n.cc:233
+msgid "You can fly for a short time if you use the umbrella."
+msgstr "如果使用雨伞，您可以短时间飞行。"
+
+#: level_i18n.cc:293
+msgid "The Enigmhanoi Towers"
+msgstr "Enigma-河内塔"
+
+#: level_i18n.cc:295
+msgid "Who speaks, does not know (Lao Tse)"
+msgstr "言者不知（老子）"
+
+#: level_i18n.cc:297
+msgid "The wise man laughs (Lao Tse)"
+msgstr "智者大笑（老子）"
+
+#: level_i18n.cc:299
+msgid "Who knows, does not speak (Lao Tse)"
+msgstr "知者不言（老子）"
+
+#: level_i18n.cc:309
+msgid ""
+"Sections which have the same color always turn at the same time and in the "
+"same way."
+msgstr "具有相同颜色的部分始终以相同的方式同时旋转。"
+
+#: level_i18n.cc:310
+msgid ""
+"Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-"
+"stone."
+msgstr "维护代码：金属-石头-石头-红色-黄色-黄色-黄色-红色-红色-石头-石头。"
+
+#: level_i18n.cc:324 level_i18n.cc:1387 level_i18n.cc:2321 level_i18n.cc:2660
+#: level_i18n.cc:3246 level_i18n.cc:3401 level_i18n.cc:3668 level_i18n.cc:4579
+#: level_i18n.cc:4700 level_i18n.cc:5131
+msgid "Welcome"
+msgstr "欢迎"
+
+#: level_i18n.cc:368
+msgid "The Grim Reaper"
+msgstr "死神"
+
+#: level_i18n.cc:444
+msgid "... There are more than two ..."
+msgstr "...有两个以上..."
+
+#: level_i18n.cc:453
+msgid "The witch of this switch waits for your wish."
+msgstr "这个开关的女巫等待着你的愿望。原文：The witch of this switch waits for your wish."
+
+#: level_i18n.cc:455
+msgid "The witch of this switch resets the awale game."
+msgstr "此开关的女巫重置唤醒游戏。原文：The witch of this switch resets the awale game."
+
+#: level_i18n.cc:457
+msgid ""
+"A turn consists in taking the walnuts of a row behind the windowy walls and "
+"sowing them 1 by 1 in the following rows."
+msgstr "进行一轮的方法是，将一排核桃从带窗口的墙后面取下，然后在随后的几排中1个接1个播种。"
+
+#: level_i18n.cc:459
+msgid ""
+"Warning: What awaits the wailing warrior at the end of a turn? If there are "
+"2 or 3 walnuts in a row, they are a warm award for the warrior, as are the "
+"walnuts in the rows which are in the way to this row, if they are 2 or 3 per"
+" row."
+msgstr "警告：回合结束时等待哭泣的战士的是什么？如果有连续2个或3个核桃，对于勇士们来说，这是一个温暖的奖项，就像排在这一排的核桃一样，如果每排有2到3颗的话。"
+
+#: level_i18n.cc:461
+msgid "Warning: If one warrior's walls are empty, this awesome warrior wins."
+msgstr "警告：如果一个战士的墙壁是空的，那么这个厉害的战士会获胜。"
+
+#: level_i18n.cc:463
+msgid ""
+"When a warrior has awarded more than half the walnuts, he wins. What does he"
+" win? The way to the waiting oxyds he wants."
+msgstr "当战士授予一半以上的核桃时，他获胜。他赢了什么？等待他想要的oxyd石的方法。"
+
+#: level_i18n.cc:465
+msgid "Congratulations! You are the most aware awale player of the valley ..."
+msgstr "恭喜你！您是山谷中最知名的觉醒玩家..."
+
+#: level_i18n.cc:467
+msgid ""
+"Lost in the savannah? Don't wait and walk on the way to the reset switch on "
+"the far left ..."
+msgstr "迷失在大草原？不要等了，去最左边来重置开关吧..."
+
+#: level_i18n.cc:469
+msgid "Validate your choice here."
+msgstr "在此处验证您的选择。"
+
+#: level_i18n.cc:471
+msgid "Reset the game."
+msgstr "重置游戏。"
+
+#: level_i18n.cc:473
+msgid ""
+"A turn consists in taking the stones of a row and sowing them 1 by 1 in "
+"one's other rows, counterclockwise, coming back to the beginning."
+msgstr "一个回合包括将一排石头取下，然后按逆时针方向将其1个接1个放在别的行，再回到起点。"
+
+#: level_i18n.cc:475
+msgid ""
+"At the end of a turn, if the last stone falls in a nonempty row, one takes "
+"the stones of the facing row if there is any, and repeats a turn."
+msgstr "在一个回合结束时，如果最后一块石头落入了一个非空行，那么玩家将取走当前行的所有石头-假如有的话，然后重复一个回合。"
+
+#: level_i18n.cc:477
+msgid "A turn begins in one of the leftmost rows, unless impossible."
+msgstr "只要有可能，就从从最左边的行之一开始进行回合。"
+
+#: level_i18n.cc:479
+msgid ""
+"At the end of the game (if one player cannot move anymore), the player who "
+"has the most stones wins."
+msgstr "在游戏结束时（如果一位玩家无法移动），拥有最多石头的玩家获胜。"
+
+#: level_i18n.cc:481
+msgid "A yellow stone stands for 10 blue stones (then for 2 brown stones)."
+msgstr "黄色的石头代表10块蓝色的石头（即代表2块棕色的石头）。"
+
+#: level_i18n.cc:483
+msgid "A brown stone stands for 5 blue stones."
+msgstr "一块棕色的石头代表5块蓝色的石头。"
+
+#: level_i18n.cc:485
+msgid ""
+"This katro game comes from Madagascar; in Easy mode there is an african "
+"Awale."
+msgstr "这个katro游戏来自马达加斯加；在“简易”模式下，有一个非洲Awale。"
+
+#: level_i18n.cc:487
+msgid "Only reset or Shift-F3 can make things evolve ..."
+msgstr "只有重置或Shift-F3才能使事情发展..."
+
+#: level_i18n.cc:512
+msgid "Same room, new mirrors ..."
+msgstr "同一个房间，新镜子..."
+
+#: level_i18n.cc:564
+msgid "Umbrellas protect!"
+msgstr "雨伞保护！"
+
+#: level_i18n.cc:577
+msgid "It's easier with a shovel!"
+msgstr "用铲子更容易！"
+
+#: level_i18n.cc:584
+msgid "Watch out!!"
+msgstr "小心！！"
+
+#: level_i18n.cc:675
+msgid "Please remember:    42"
+msgstr "请记住：42"
+
+#: level_i18n.cc:688
+msgid "If you think this is too easy, then play -Bavarian Madness-"
+msgstr "如果您认为这太简单了，那就玩-巴伐利亚狂热-"
+
+#: level_i18n.cc:716
+msgid "Sorry for inconvenience, the Bank-O-Mat is empty."
+msgstr "很抱歉给您带来不便，Bank-O-Mat是空的。"
+
+#: level_i18n.cc:756
+msgid "Take the key to the left first!"
+msgstr "先把钥匙带到左边！"
+
+#: level_i18n.cc:772
+msgid "Sunday, bloody Sunday!"
+msgstr "周日，血腥的周日！"
+
+#: level_i18n.cc:776
+msgid "Can you see the hidden oxyd stones?"
+msgstr "您能看到隐藏的oxyd石吗？"
+
+#: level_i18n.cc:801
+msgid "If you haven't won, you've lost!"
+msgstr "如果没有赢，就输了！"
+
+#: level_i18n.cc:808
+msgid "Easy?"
+msgstr "简单？"
+
+#: level_i18n.cc:815
+msgid "Watch out, slippery!"
+msgstr "当心，湿滑！"
+
+#: level_i18n.cc:927
+msgid "Open the Doors, Open the Oxyds"
+msgstr "打开门，打开Oxyd石"
+
+#: level_i18n.cc:941
+msgid "Riverside"
+msgstr "河边"
+
+#: level_i18n.cc:943
+msgid "Wrong side!                   F3"
+msgstr "选错边了！ F3"
+
+#: level_i18n.cc:954
+msgid "The moving boulder can fall down holes but cannot fall into water."
+msgstr "移动的巨石可以掉入孔中，但不能掉入水中。"
+
+#: level_i18n.cc:967
+msgid ""
+"Oh, ridiculous riddle rule my marble's meaningless mind, continue creating "
+"confusion being blackball's brain's blind."
+msgstr "哦，荒谬的谜语统治着我石珠的毫无意义的头脑，继续造成黑球大脑的盲目混乱。"
+
+#: level_i18n.cc:975
+msgid "Feed me!"
+msgstr "喂我！"
+
+#: level_i18n.cc:977
+msgid "Beware of Sadistic Dentist!"
+msgstr "提防虐待狂牙医！"
+
+#: level_i18n.cc:979
+msgid "The innocent victim."
+msgstr "无辜的受害者。"
+
+#: level_i18n.cc:981
+msgid "Office of your boss."
+msgstr "你老板的办公室。"
+
+#: level_i18n.cc:983
+msgid "Aaaaaarrrrggghhhhhh!!!!!"
+msgstr "啊啊啊嘎噶哈哈！！！！！"
+
+#: level_i18n.cc:985
+msgid "Everyone has gone, but the plant's still hungry!"
+msgstr "每个人都走了，但是植物依然饿着！"
+
+#: level_i18n.cc:987
+msgid "No! No! Aaaarrrrgggghhhh!"
+msgstr "不！不！啊啊啊嘎噶哈哈！"
+
+#: level_i18n.cc:994
+msgid "You shouldn't have done that."
+msgstr "你不应该那样做。"
+
+#: level_i18n.cc:995
+msgid "Careful."
+msgstr "小心。"
+
+#: level_i18n.cc:1000
+msgid "Balance Beam"
+msgstr "平衡木"
+
+#: level_i18n.cc:1005
+msgid "Remote Meditation"
+msgstr "远程冥想"
+
+#: level_i18n.cc:1010
+msgid "The Wild Hunt"
+msgstr "狂野打猎"
+
+#: level_i18n.cc:1030
+msgid "Freeze by the Power of Light"
+msgstr "被光的力量冻结"
+
+#: level_i18n.cc:1034
+msgid "Rainbow Adjacencies"
+msgstr "彩虹邻接"
+
+#: level_i18n.cc:1038
+msgid "Recover the Stone"
+msgstr "恢复石头"
+
+#: level_i18n.cc:1043 level_i18n.cc:1291 level_i18n.cc:3942
+msgid "Open the Doors"
+msgstr "打开门"
+
+#: level_i18n.cc:1050
+msgid ""
+"This is a color maze. You have to work out what order you need to traverse "
+"the colored floors in order to reach the oxyds."
+msgstr "这是一个彩色迷宫。您必须计算出要遍历彩色地板才能到达的oxyds石的顺序。"
+
+#: level_i18n.cc:1067
+msgid "Restless Meditation"
+msgstr "静心冥想"
+
+#: level_i18n.cc:1069
+msgid "Caution - Quick Sand!"
+msgstr "注意-快速撒沙！"
+
+#: level_i18n.cc:1073
+msgid "Left or Right Drive?"
+msgstr "往左还是往右开？"
+
+#: level_i18n.cc:1080
+msgid "Can you relax amid all this chaos?"
+msgstr "您能在这混乱之中放松吗？"
+
+#: level_i18n.cc:1085
+msgid "Carry that oxygen around."
+msgstr "随身携带氧气。"
+
+#: level_i18n.cc:1090
+msgid "Audience in Venice"
+msgstr "威尼斯的观众"
+
+#: level_i18n.cc:1092
+msgid "Press the Triggers"
+msgstr "按下扳机"
+
+#: level_i18n.cc:1094
+msgid "Welcome to Venice"
+msgstr "欢迎来到威尼斯"
+
+#: level_i18n.cc:1096
+msgid "Welcome to the Audience"
+msgstr "欢迎观众"
+
+#: level_i18n.cc:1098
+msgid "rialto"
+msgstr "里亚托"
+
+#: level_i18n.cc:1100
+msgid "... under construction"
+msgstr "... 建设中"
+
+#: level_i18n.cc:1102
+msgid "try the boulders as gondola"
+msgstr "尝试把巨石当成缆车"
+
+#: level_i18n.cc:1104
+msgid "piazza san marco"
+msgstr "圣马可广场"
+
+#: level_i18n.cc:1106
+msgid "danger"
+msgstr "危险"
+
+#: level_i18n.cc:1108
+msgid "san giorgio"
+msgstr "圣乔治"
+
+#: level_i18n.cc:1110
+msgid "guardian ducale"
+msgstr "监护人杜卡莱"
+
+#: level_i18n.cc:1112
+msgid "gondoliere on strike"
+msgstr "冈多列尔罢工"
+
+#: level_i18n.cc:1114
+msgid "palace ducale"
+msgstr "杜卡莱宫殿"
+
+#: level_i18n.cc:1116
+msgid "look at san michele"
+msgstr "看看圣米歇尔"
+
+#: level_i18n.cc:1118
+msgid "use the gondola below"
+msgstr "使用下面的吊船"
+
+#: level_i18n.cc:1120
+msgid "hurry to san giorgio"
+msgstr "赶快去圣乔治"
+
+#: level_i18n.cc:1125
+msgid "The Green Hell"
+msgstr "绿色地狱"
+
+#: level_i18n.cc:1127
+msgid "Exploration Trip to Green Waters"
+msgstr "绿水探索之旅"
+
+#: level_i18n.cc:1131
+msgid "4D Confusion ..."
+msgstr "4D混乱..."
+
+#: level_i18n.cc:1132
+msgid ""
+"Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four "
+"dimensions ... Some hints: size of the labyrinth is 4x4x4x4; your current "
+"position is (2|3|3|2); in all of the 16 corners of the hypercube is a blue "
+"oxyd ..."
+msgstr "曾经绘制过4D迷宫吗？好了，是时候学习四个维度的思考方式了。一些提示：迷宫的大小为4x4x4x4；您当前的位置是（2 | 3 | 3 | 2）;在超立方体的所有16个角上都是蓝色的oxyd……"
+
+#: level_i18n.cc:1133
+msgid ""
+"Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four "
+"dimensions ... Some hints: size of the labyrinth is 3x3x3x3; your current "
+"position is (2|2|2|2); in all of the 16 corners of the hypercube is a blue "
+"oxyd ..."
+msgstr "曾经绘制过4D迷宫吗？好了，是时候学习四个维度的思考了。一些提示：迷宫的大小为3x3x3x3；您当前的位置是（2 | 2 | 2 | 2）;在超立方体的所有16个角上都是蓝色的oxyd石……"
+
+#: level_i18n.cc:1150
+msgid "Funeral on Deep Sea"
+msgstr "深海葬礼"
+
+#: level_i18n.cc:1152
+msgid ""
+"Warning: Do not play this level for more than 10 minutes - you may suffer "
+"sea sickness yourself!"
+msgstr "警告：请勿在超过10分钟的时间内玩此游戏-您自己可能会晕船！"
+
+#: level_i18n.cc:1162
+msgid ""
+"Watch out for mines!        White = 0, Blue = 1, Black = 2, Red = 3, Yellow "
+"= 4, Deep Blue = 5, Deep Red = 6 ..."
+msgstr "当心地雷！白色= 0，蓝色= 1，黑色= 2，红色= 3，黄色= 4，深蓝色= 5，深红色= 6 ……"
+
+#: level_i18n.cc:1163
+msgid ""
+"Hint: Mines are never located along the edges.  If you still get stuck, look"
+" behind the wall!"
+msgstr "提示：地雷永远不会位于边缘。如果仍然卡住，请向墙后面！"
+
+#: level_i18n.cc:1164
+msgid ""
+"Hit the switch to uncover one tile, but you will have to wait 10 seconds."
+msgstr "点击开关以显示一个图块，但您必须等待10秒钟。"
+
+#: level_i18n.cc:1184
+msgid "Change guaranteed"
+msgstr "保障变更"
+
+#: level_i18n.cc:1188
+msgid "Clue: The starting point is where all dead marbles go"
+msgstr "线索：起点是所有死掉的石珠的去的地方"
+
+#: level_i18n.cc:1213
+msgid "Perfect Trajectory"
+msgstr "完美轨迹"
+
+#: level_i18n.cc:1226
+msgid "Bridge those synapses!"
+msgstr "桥接那些突触！"
+
+#: level_i18n.cc:1234
+msgid "Hey, where am i now?"
+msgstr "嘿，我现在在哪里？"
+
+#: level_i18n.cc:1236
+msgid ""
+"Moments ago i've been at home and wanted to take care about my two oxyd "
+"stones."
+msgstr "片刻之前，我一直在家里，想照顾我的两块oxyd石。"
+
+#: level_i18n.cc:1238
+msgid "And now i'm stranded in this weird forest. How can i escape from here?"
+msgstr "现在我被困在这个怪异的森林里。我怎么能从这里逃脱？"
+
+#: level_i18n.cc:1240
+msgid ""
+"If i should have a look-around? Perhaps i can find some things that could "
+"help me to find an exit."
+msgstr "我是否应该环顾四周？也许我可以找到一些可以帮助我找到出口的东西。"
+
+#: level_i18n.cc:1242
+msgid "WARNING: Highest caution is necessary."
+msgstr "警告：高度谨慎是必要的。"
+
+#: level_i18n.cc:1244
+msgid "Wild buffaloes are crossing the way."
+msgstr "野生水牛横穿道路。"
+
+#: level_i18n.cc:1246
+msgid "Help me, the forest is on fire!"
+msgstr "救救我，森林着火了！"
+
+#: level_i18n.cc:1248
+msgid "A herd of wild horses blocks the way."
+msgstr "一群野马挡住了道路。"
+
+#: level_i18n.cc:1250
+msgid "A small hamlet with a fence, a few huts, a pond, some bales of straw."
+msgstr "一个带篱笆的小村庄，一些小屋，一个池塘，几捆稻草。"
+
+#: level_i18n.cc:1252
+msgid "If there is finally an exit?"
+msgstr "最后是否有出口？"
+
+#: level_i18n.cc:1254
+msgid "I'm afraid, i need some assistance!"
+msgstr "恐怕我需要一些帮助！"
+
+#: level_i18n.cc:1256
+msgid "Filling station for empty extinguishers."
+msgstr "灭火器加注处。"
+
+#: level_i18n.cc:1258
+msgid "Watch out: Angry mosquitoes!"
+msgstr "当心：愤怒的蚊子！"
+
+#: level_i18n.cc:1260
+msgid "Useful things may also be hidden!"
+msgstr "有用的东西也可能被隐藏！"
+
+#: level_i18n.cc:1264
+msgid "Spaceship Control"
+msgstr "飞船控制"
+
+#: level_i18n.cc:1265
+msgid "Bound to the blue nowhere"
+msgstr "束手无策"
+
+#: level_i18n.cc:1308
+msgid "The journey is the reward"
+msgstr "旅程就是回报"
+
+#: level_i18n.cc:1312
+msgid "Lady in Red"
+msgstr "红衣女郎"
+
+#: level_i18n.cc:1319
+msgid "Watchmaker"
+msgstr "钟表匠"
+
+#: level_i18n.cc:1323
+msgid "Mend the clockwork"
+msgstr "修补发条"
+
+#: level_i18n.cc:1324
+msgid ""
+"Don't close the pools before the clockwork is done, unless you are Fred "
+"Astaire"
+msgstr "除非您是Fred Astaire，否则在发条完成前请勿关闭游泳池"
+
+#: level_i18n.cc:1329
+msgid "Every marble is the architect of its own fortune"
+msgstr "每颗石珠都是自己财富的建筑师"
+
+#: level_i18n.cc:1340
+msgid ""
+"Your faithful friend Tonto, your horse Silver, and Tonto's horse Scout have "
+"been captured."
+msgstr "您忠实的朋友Tonto，您的马Silver和Tonto的马童子军已被捕获。"
+
+#: level_i18n.cc:1342
+msgid "Don't forget your disguise!"
+msgstr "不要忘记你的伪装！"
+
+#: level_i18n.cc:1344
+msgid "Here lies the grave of John Reid."
+msgstr "这是约翰·里德的坟墓。"
+
+#: level_i18n.cc:1346
+msgid "Hi-yo Silver, away!"
+msgstr "嗨，银，走了！"
+
+#: level_i18n.cc:1348
+msgid "Who was that masked man?"
+msgstr "那个蒙面的人是谁？"
+
+#: level_i18n.cc:1350
+msgid "Hey! This tomb is empty!"
+msgstr "嘿!这个坟墓是空的！"
+
+#: level_i18n.cc:1354
+msgid "Take the first exit"
+msgstr "选择第一个出口"
+
+#: level_i18n.cc:1367
+msgid "Who broke the pearl necklace?"
+msgstr "谁弄散了珍珠项链？"
+
+#: level_i18n.cc:1368
+msgid ""
+"Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls "
+"rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "
+"knows that succeeding pearls connect, when each is placed on a neighboring "
+"dot and a coin is inserted into the slot."
+msgstr "斯嘉丽太太漂亮的珍珠项链撕裂了，所有五颜六色的珍珠都滚到了地板上。 斯嘉丽太太不记得这个顺序，但是她知道将每颗珍珠放在相邻的点上并将硬币插入插槽中后，珍珠就算被连接好了。"
+
+#: level_i18n.cc:1369
+msgid ""
+"You did invert the sequence of this pair of pearls. You need to correct this"
+" fault to finish the necklace."
+msgstr "您确实颠倒了这对珍珠的顺序。您需要纠正此错误才能完成项链。"
+
+#: level_i18n.cc:1374
+msgid "Jack-Of-All-Trades"
+msgstr "万事通"
+
+#: level_i18n.cc:1376
+msgid "Find The Paradise"
+msgstr "寻找天堂"
+
+#: level_i18n.cc:1388
+msgid "Welcome to Enigma VII"
+msgstr "欢迎来到Enigma 7"
+
+#: level_i18n.cc:1392
+msgid ""
+"Move all small marbles into the holes. Only one marble per hole is allowed."
+msgstr "将所有石珠移入孔中。每个孔只能放一个石珠。"
+
+#: level_i18n.cc:1396
+msgid "Careful - you can not swim in the water."
+msgstr "小心-您不能在水中游泳。"
+
+#: level_i18n.cc:1400
+msgid ""
+"Use the right mouse-button to rotate your inventory,  it's the bar at the "
+"bottom of the screen.   And guess what these three items down there can be "
+"used to."
+msgstr "使用鼠标右键旋转您的库存，它在屏幕底部的栏。并猜测那里的这三个物品可以用来做什么。"
+
+#: level_i18n.cc:1401
+msgid ""
+"There are lots of different items to use in Enigma, as well as special "
+"floors and stones.   Let's explore some more of the actual Enigma levels!   "
+"And if you have problems with a level - take a look at the manual:   For "
+"some levels, there are hints."
+msgstr "Enigma中有很多不同的物品，以及特殊的地板和石头。让我们探索更多实际的谜题关卡！如果您对某个关卡有疑问，请查看手册：对于某些关卡，这里有一些提示。"
+
+#: level_i18n.cc:1405
+msgid "Prepare for even more mouse gymnastics in the next levels."
+msgstr "在接下来的关卡中为更多的鼠标体操做准备。"
+
+#: level_i18n.cc:1409
+msgid "Don't drown in the swamp."
+msgstr "不要淹没在沼泽中"
+
+#: level_i18n.cc:1416
+msgid ""
+"This oscillating stone is a timer-stone. You cannot interact with it, but "
+"nevertheless be aware when you see one: After some time-period anything "
+"might happen ..."
+msgstr "该振荡石是计时器石。您无法与它进行交互，但是当您看到它时仍要注意：一段时间后，可能会发生任何事情..."
+
+#: level_i18n.cc:1417
+msgid ""
+"The stones with arrows are one-way-stones. As you might have guessed, you "
+"can only pass them in one direction.                Mazes are cherished "
+"elements of Enigma - you will see lots of them."
+msgstr "带箭头的石头是单向石头。正如您可能已经猜到的那样，您只能沿一个方向传递它们。迷宫是Enigma的珍贵元素-您会看到很多。"
+
+#: level_i18n.cc:1418
+msgid ""
+"Well done!     When you have finished this level, let's play some example "
+"levels from the actual Enigma packs!"
+msgstr "做得好！完成此关卡后，让我们从实际的Enigma包中播放一些示例关卡！"
+
+#: level_i18n.cc:1422
+msgid ""
+"The blue stones are Oxyd stones. Open them by touching them with your black "
+"marble."
+msgstr "蓝宝石是Oxyd宝石。用黑色石珠触摸它们以打开它们。"
+
+#: level_i18n.cc:1426
+msgid ""
+"But before this, take a look at the final tutorial level Jacob devised for "
+"you.   See it as an exam, if you want to.   It's quite difficult, so don't "
+"despair if you don't get through it at the first time.   Bye!"
+msgstr "但是在此之前，请看一下雅各布为您设计的最终教程关卡。如果需要，可以将其视为考试。这非常困难，因此，如果您第一次不熟悉它，请不要失望。再见！"
+
+#: level_i18n.cc:1427
+msgid ""
+"Well, I hope you enjoyed this tutorial-pack.   You will see most of these "
+"levels a second time in the Enigma packs, together with many new and much "
+"more difficult ones.   Just don't give up on them!"
+msgstr "好吧，我希望您喜欢这个教程包。您将在Enigma包中第二次看到其中大多数关卡，以及许多新的和难度更大的关卡。不要放弃他们！"
+
+#: level_i18n.cc:1431
+msgid "Levels can be larger than one screen."
+msgstr "关卡可以比屏幕大。"
+
+#: level_i18n.cc:1435
+msgid "Remember the colors."
+msgstr "记住颜色。"
+
+#: level_i18n.cc:1439
+msgid "Friction and acceleration depend on the floor type."
+msgstr "摩擦和加速度取决于地板类型。"
+
+#: level_i18n.cc:1443
+msgid "Some stones look exactly like the Oxyd stones!"
+msgstr "有些石头看起来与Oxyd石头完全一样！"
+
+#: level_i18n.cc:1447
+msgid ""
+"This wooden block is movable and heavy enough to hold down the trigger on "
+"the right.   Try to push it there!"
+msgstr "此木块可移动且足够重，可以压下右侧的扳机。尝试将它推到那里！"
+
+#: level_i18n.cc:1448
+msgid ""
+"Remember?  There are different kinds of floors.  And these are steep ..."
+msgstr "记得？有不同种类的地板。这些地板是陡峭的..."
+
+#: level_i18n.cc:1449
+msgid ""
+"Is there more one can do with wooden blocks?   Yes!  Just explore the next "
+"levels."
+msgstr "还有什么可以用木块做的？是！只需探索下一个关卡。"
+
+#: level_i18n.cc:1453
+msgid "Take your time ..."
+msgstr "慢慢来 ..."
+
+#: level_i18n.cc:1457
+msgid ""
+"The bright light beam is a laser beam.   Don't get too close to it!   But it"
+" has its uses ...    You can use the mirrors to direct the laser to its "
+"targets.   From these, only the light-gray ones are movable, just try it!"
+msgstr "明亮光束是激光束。不要太靠近它！但是它有其用途...您可以使用镜子将激光引导至目标。在这些镜子中，只有浅灰色的是可移动的，请尝试一下！"
+
+#: level_i18n.cc:1461
+msgid "Learn to move your black ball properly."
+msgstr "学习正确移动黑球。"
+
+#: level_i18n.cc:1465
+msgid "Don't touch everything!"
+msgstr "不要碰任何东西！"
+
+#: level_i18n.cc:1470
+msgid ""
+"Welcome!    Enigma features hundreds of different objects and ideas. Do not "
+"mind them for now---we will show you some in this tutorial, but most of the "
+"time the fun actually is in discovering these objects for yourself. The "
+"stones with colored spots and shapes you matched in the room above are "
+"called Oxyd stones. Most of the time, your goal is to find and open them. "
+"Since this level is not solved yet, there might be more Oxyd stones ahead? "
+"When you want to pause or quit, just press the ESC key."
+msgstr "欢迎！ Enigma有数百种不同的物品和思想。 现在不要管它们-在本教程中我们将向您展示一些内容，但是大多数时候，有趣的是实际上是自己探索这些物品。 您在上面的房间中匹配有色斑点和形状的石头称为Oxyd石头。 大多数时候，您的目标是找到并打开它们。 尚未解决此关卡，可能会出现更多的Oxyd宝石吗？ 要暂停或退出时，只需按ESC键。"
+
+#: level_i18n.cc:1474
+msgid ""
+"The stone with the horse's head is called ''chess stone''. Watch how the "
+"other marble hits one of them to move it. The angle is important."
+msgstr "马头的石头称为“棋子”。观察其他石珠石如何撞击其中一个以移动它。角度很重要。"
+
+#: level_i18n.cc:1475
+msgid ""
+"Now try to move these chess stones onto the triggers. They always move two "
+"steps plus one step."
+msgstr "现在尝试将这些棋子移到扳机上。他们总是移动两步加一步。"
+
+#: level_i18n.cc:1479
+msgid ""
+"Those doors on the right block your way to the oxyds ... on the left you see"
+" some triggers. Maybe they are somehow connected?"
+msgstr "右边的那些门挡住了通往oxyd石的路...在左边，您看到了一些扳机。也许他们以某种方式联系在一起？"
+
+#: level_i18n.cc:1774
+msgid "Nothing can stop us!"
+msgstr "没有什么可以阻止我们！"
+
+#: level_i18n.cc:1820
+msgid "Rest on the bright spot for a minute."
+msgstr "在亮点上休息一分钟。"
+
+#: level_i18n.cc:1821
+msgid "You'll do anything you're told!"
+msgstr "您要做任何被告知的事情！"
+
+#: level_i18n.cc:1826
+msgid "... did it!"
+msgstr "... 做到了！"
+
+#: level_i18n.cc:1830
+msgid "Dig in ..."
+msgstr "挖..."
+
+#: level_i18n.cc:1865
+msgid "Did you bring your flag?"
+msgstr "你带上你的旗子了吗？"
+
+#: level_i18n.cc:1873
+msgid "Watch out for water holes!"
+msgstr "当心水坑！"
+
+#: level_i18n.cc:1905
+msgid "Some stones and stone rows can be moved!"
+msgstr "可以移动一些石头和几行石头！"
+
+#: level_i18n.cc:1954
+msgid ""
+"Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
+"how to play."
+msgstr "欢迎来到Enigma！我（雅各布·斯科特）撰写的本教程将帮助您学习游戏方法。"
+
+#: level_i18n.cc:1955
+msgid ""
+"You control the black ball.  To pick up an object, just roll over it.  You "
+"can bounce off most walls (try it), but avoid the blue floor near the bottom"
+" of the room (actually, try falling into it and then restarting the level "
+"with the 'Esc' key).  While these messages are being displayed, don't click "
+"any buttons or push any keys or the message will stop."
+msgstr "您控制黑球。 要捡起一个物体，只需滑过去。 您可以从大多数墙壁反弹（尝试一下），但要避开房间底部附近的蓝色地板（实际上，请尝试掉进去，然后用'Esc'键重新启动该关卡）。 在显示这些消息时，请勿单击任何按钮或按任何键，否则消息将停止。"
+
+#: level_i18n.cc:1956
+msgid "This is pretty self-explanatory."
+msgstr "这是不言自明的。"
+
+#: level_i18n.cc:1957
+msgid ""
+"Enigma is full of puzzles of various types.  In the next room, you will "
+"encounter your first one."
+msgstr "Enigma充满了各种类型的难题。在下一个房间，您将遇到第一种类型。"
+
+#: level_i18n.cc:1958
+msgid ""
+"You can't walk on water!  Try pushing the blocks into the water to get to "
+"the other side."
+msgstr "你不能在水上行走！尝试将积木推入水中而到达另一侧。"
+
+#: level_i18n.cc:1959
+msgid ""
+"Notice that you can't push a row of two or more blocks.  Also, blocks can't "
+"be on the same squares as grates but you can."
+msgstr "请注意，您不能将推动两个或多个块。另外，块不能和炉排在同一方格上，但是石珠可以。"
+
+#: level_i18n.cc:1960
+msgid ""
+"There are different types of blocks here.  Those black blocks sink when they"
+" fall into water.  The tan blocks don't sink but don't form bridges either."
+msgstr "这里有不同类型的块。这些黑色块掉入水中时会下沉。棕褐色的块不会下沉，但也不会形成桥梁。"
+
+#: level_i18n.cc:1961
+msgid ""
+"That thing is a top -- it will destroy your ball if they touch.  Also, as "
+"long as you are close enough to it, the top will chase you.  If you die, you"
+" will restart at the beginning of the level (if you have any balls left).  "
+"Try to find a way to get past and into the next room (you can use the blocks"
+" in the center of the room as barricades)."
+msgstr "那东西是个盖子-如果被他们碰触，您的球会被破坏。 另外，只要您离它足够近，盖子就会追赶您。 如果死亡，您将在关卡开始处重新开始（如果还剩下任何球）。 尝试找到一种方法进入过去的房间并进入下一个房间（您可以将房间中央的砖块用作路障）。"
+
+#: level_i18n.cc:1962
+msgid ""
+"Good job!  Notice that the top can't go beneath that block with a black "
+"outline -- you're safe."
+msgstr "做得好！请注意，盖子不能进入带有黑色轮廓的那个块的下面，这里是安全的。"
+
+#: level_i18n.cc:1963
+msgid "Those are different types of floors.  Try going over them."
+msgstr "这些是不同类型的地板。尝试遍历它们。"
+
+#: level_i18n.cc:1964
+msgid ""
+"The grayish floors are slopes.  The white floor is inverse-floor (you will "
+"see)."
+msgstr "灰色的地板是斜坡。白色地板是反向地板（您将看到）。"
+
+#: level_i18n.cc:1965
+msgid ""
+"Watch what happens when you go over those triggers.  See if you can get the "
+"extra ball."
+msgstr "观察一下碰触这些触发器后会发生什么。看看是否可以获得额外的球。"
+
+#: level_i18n.cc:1966
+msgid ""
+"That's dynamite.  Try dropping some next to that yellowish wall (and moving "
+"out of the way)."
+msgstr "那是炸药。尝试将一些炸药放到那淡黄色的墙壁旁边（然后躲开）。"
+
+#: level_i18n.cc:1967
+msgid "Try using the spade on the holes caused by the dynamite."
+msgstr "尝试在炸药炸出的洞上使用铁锹。"
+
+#: level_i18n.cc:1968
+msgid ""
+"Those things are boulders -- try moving one of the tan blocks.  Don't fall "
+"into the water or abyss (the black floor)."
+msgstr "这些东西都是巨石-尝试移动其中一个棕褐色的块。请勿掉入水中或深渊（黑色地板）。"
+
+#: level_i18n.cc:1969
+msgid ""
+"Take the magic wand and hit a boulder.  Try to let the row of three boulders"
+" pass the large column."
+msgstr "拿起魔杖打巨石。尝试让三块巨石的行通过大柱子。"
+
+#: level_i18n.cc:1970
+msgid "Hit it hard enough!"
+msgstr "撞得够厉害才行！"
+
+#: level_i18n.cc:1971
+msgid ""
+"It appears to be a simple room, but you're getting an extra ball anyway.  "
+"Maybe there is a reason ..."
+msgstr "它似乎是一个简单的房间，但无论如何您都会得到一个额外的球。也许是有原因的..."
+
+#: level_i18n.cc:1972
+msgid ""
+"Try to get the laser beam to hit that black stone, but don't get hit by it!"
+"  Use the mirrors to direct the beam."
+msgstr "试着让激光束击中那块黑石头，但不要被它击中！使用镜子引导光束。"
+
+#: level_i18n.cc:1973
+msgid ""
+"Many objects change when hit with a laser beam.  Try hitting some of the "
+"coins with the laser beam.  Also, try hitting a block over a coin.  Those "
+"stones to your right are knights -- you need to fight (hit) them with a "
+"sword (in the front of your inventory) to get past."
+msgstr "当用激光束撞击时，许多物体会发生变化。 尝试用激光束打一些硬币。 另外，尝试在硬币上撞个方块。 右边的那些石头是骑士-您需要用剑（在物品清单的前面）与它们搏斗（击打）才能过去。"
+
+#: level_i18n.cc:1974
+msgid ""
+"Do you have any umbrellas?  Each one will give you approximately ten seconds"
+" of protection from danger (such as falling)."
+msgstr "你有雨伞吗？每一个都会给您大约十秒钟的保护，使其免受危险（例如跌倒）的伤害。"
+
+#: level_i18n.cc:1975
+msgid ""
+"Those black stones are quake stones -- they reset all progress made with the"
+" oxyd stones.  The other stones are the oxyd stones.  Match them up to win!"
+msgstr "这些黑石头是地震石-它们重设了oxyd石所取得的所有进步。其他的石头是oxyd石头。匹配完他们就赢了！"
+
+#: level_i18n.cc:1976
+msgid ""
+"This area at the bottom of the screen is your inventory -- when you pick "
+"things up, they go here (there is a maximum of twelve).  To scroll through "
+"the inventory, use the right mouse button or the 'tab' key.  To drop or use "
+"an object, click the left mouse button.  Some objects, such as documents "
+"(like this one), can't be dropped but are instead used.  Those two balls in "
+"your inventory are your extra lives -- if you die in this level, you will "
+"restart at the beginning of the level if you have any balls left (and you "
+"will lose one of the balls)."
+msgstr "屏幕底部的该区域是您的物品栏-物品被捡起时，就放在这里（最多十二个）。 要滚动浏览清单，请使用鼠标右键或“ tab”键。 要放置或使用物品，请单击鼠标左键。 某些对象（例如文档）（例如此对象）不能被删除，只能被使用。 库存中的这两个球是您的额外生命-如果您在此关卡中死亡，如果还剩下任何球，您将在关卡开始处重新开始（并且您将丢失其中一个球）。"
+
+#: level_i18n.cc:1977
+msgid ""
+"Naturally, you're supposed to go through those closed gates at the top of "
+"the screen.                         Try going down that slope near the "
+"bottom of the room to see what's to the left."
+"                                                         Don't bother with "
+"that trigger below the abyss yet.                                 If you "
+"could hit that small white ball through the one-way blocks (with the "
+"arrows), it might roll down and stop on that trigger.                  You "
+"will need to go in with it but you can't go through the white one-way block."
+"                            Take the spoon and use it once the white ball is"
+" through (hit it hard)."
+msgstr "自然，您应该通过屏幕顶部的那些关闭的门。 尝试沿着房间底部附近的那个斜坡向下走，看看左边是什么。 别在打扰深渊下面的那个扳机。 如果您可以通过单向方块（带有箭头）击打那个小白球，它可能会滚下来并停在那个扳机上。 您将需要使用它，但是不能通过白色的单向块。 白球通过后，拿起勺子并使用（用力击打）。"
+
+#: level_i18n.cc:1978
+msgid ""
+"The stone in the top-right of the room is a switch.  Hit it -- it is "
+"probably useful.  In this case the switch opens and closes a door (Do you "
+"remember a door that you weren't able to open?).  The bluish line is a "
+"window -- bridge the water before you do anything with it."
+msgstr "房间右上方的石头是一个开关。 击中它-可能有用。 在这种情况下，开关将打开并关闭一扇门（您还记得您无法打开的门吗？）。 蓝线是一扇窗户-在您进行任何操作之前先在水上搭桥。"
+
+#: level_i18n.cc:1979
+msgid ""
+"That was a rotor (similar to a top).  Some levels have many rotors and tops "
+"to make them difficult.                            However, maybe this rotor"
+" has a purpose; maybe you could get it on that trigger near where the spoon "
+"was.                      It might be convenient to close the gate."
+msgstr "那是一个转子（类似于盖子）。 某些关卡有许多转子和盖子，使它们变得困难。 然而，也许这个转子是有目的的。 也许您可以在汤匙附近的扳机上拿到它。 关上门可能很方便。"
+
+#: level_i18n.cc:1992
+msgid "If I only had a bag."
+msgstr "如果我只有一个包。"
+
+#: level_i18n.cc:1993
+msgid "shh ... listen!"
+msgstr "嘘...听！"
+
+#: level_i18n.cc:2004
+msgid "Could you need something?"
+msgstr "您需要什么吗？"
+
+#: level_i18n.cc:2022
+msgid ""
+"The most dangerous animals of the bayou are the alligators, the mosquitoes "
+"... and the zombies! (But the zombies at least, don't move ...)"
+msgstr "巴尤最危险的动物是鳄鱼，蚊子和僵尸！ （至少有僵尸，不要动...）"
+
+#: level_i18n.cc:2029
+msgid "Look carefully at everything!"
+msgstr "仔细看一切！"
+
+#: level_i18n.cc:2030
+msgid "Do you need a helping hand?"
+msgstr "您需要帮助吗？"
+
+#: level_i18n.cc:2035
+msgid "Send me the keys !"
+msgstr "给我钥匙！"
+
+#: level_i18n.cc:2037
+msgid "ALL the keys!!!"
+msgstr "所有的钥匙！！！"
+
+#: level_i18n.cc:2046
+msgid "April 1st"
+msgstr "4月1日"
+
+#: level_i18n.cc:2048
+msgid "Do you REALLY want to do this???"
+msgstr "您真的要这样做吗？？？"
+
+#: level_i18n.cc:2050
+msgid ""
+"Didn't your mother tell you that you should not spend your money in such a "
+"careless manner?"
+msgstr "您的母亲不是告诉过您，您不应以这种粗心的方式花钱吗？"
+
+#: level_i18n.cc:2052
+msgid "What is the current month?"
+msgstr "现在是几月？"
+
+#: level_i18n.cc:2054
+msgid "What is this level's name?"
+msgstr "这关的名字是什么？"
+
+#: level_i18n.cc:2071
+msgid "Catwalk Meditation"
+msgstr "走秀冥想"
+
+#: level_i18n.cc:2106
+msgid ""
+"When you change the color of one square, the colors of the 2 nearest squares"
+" change as well; you must get as many green squares as possible."
+msgstr "当您更改一个正方形的颜色时，最近的2个正方形的颜色也会改变；您必须获得尽可能多的绿色方块。"
+
+#: level_i18n.cc:2108
+msgid ""
+"You are only allowed to change a color when it is surrounded by the other "
+"color."
+msgstr "仅当一种颜色被另一种颜色包围时，才可以更改它。"
+
+#: level_i18n.cc:2112
+msgid ""
+"Beware, stranger! The ancient gods of Enigma have set many traps to protect "
+"their holy Oxyds! You will have to get through the Four Tests to prove your "
+"worth!"
+msgstr "当心，陌生人！古老的谜神已经设置了许多陷阱来保护他们的圣兽Oxyds！您将必须通过四个测试来证明您的才能！"
+
+#: level_i18n.cc:2113
+msgid "Prove your speed in the Test of Fire!"
+msgstr "在“火焰测试”中证明您的速度！"
+
+#: level_i18n.cc:2114
+msgid "You have proven your worth! The ancients grant you a FLAG!"
+msgstr "您已经证明了自己的价值！古人给你一个旗帜！"
+
+#: level_i18n.cc:2115
+msgid "Prove your intelligence in the Test of Earth!"
+msgstr "在“地球测试”中证明您的智慧！"
+
+#: level_i18n.cc:2116
+msgid "You have proven your worth! The ancients grant you a SPRING!"
+msgstr "您已经证明了自己的价值！古人给你一个弹簧！"
+
+#: level_i18n.cc:2117
+msgid "Prove your dexterity in the Test of Air!"
+msgstr "在“空气测试”中证明您的灵活性！"
+
+#: level_i18n.cc:2118
+msgid "You have proven your worth! The ancients grant you a NAIL!"
+msgstr "您已经证明了自己的价值！古人给你一个指甲！"
+
+#: level_i18n.cc:2119
+msgid "Prove your patience in the Test of Water!"
+msgstr "在“水的考验”中证明您的耐心！"
+
+#: level_i18n.cc:2120
+msgid ""
+"This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more!"
+" Bwahahahaha!"
+msgstr "这不可能！没有凡人能到达我们的圣oxyd石！再次证明自己！哇哈哈哈哈哈！"
+
+#: level_i18n.cc:2126
+msgid ""
+"Mightie art the Knightes of The Olde Ages who keepe the Elfic Oxyde Stones, "
+"and numerous art the Ghostes who lye in the waye to them; many art the "
+"adventurers who tryed to steale Aylendil the Sworde but none has ever come "
+"back. Hazy is the swampe where the Magick of the Ancients is buryed; the "
+"lair of WhiteHorse the dragon thu shalt avoyd in feare of awaken him ..."
+msgstr "Mightie保留了Elfic Oxyde Stones的古老骑士，而无数鬼魂则向他们撒了碱。 有许多尝试去偷剑的艾伦迪尔的冒险家们，但是再也没有人回来。 朦胧是埋葬了古代魔术师的沼泽； 怀特霍斯的巢穴恐怕要唤醒他的龙四处游荡..."
+
+#: level_i18n.cc:2136
+msgid ""
+"You again! We won't let you pass this time! See these Oxyds? You can't reach"
+" them unless you rob our Four Holy Items! But they are well guarded! "
+"Bwahahahaha!"
+msgstr "又是你！这次我们不会让您通过！看到这些Oxyds吗？除非您抢了我们的四个圣物，否则您无法到达它们！但是他们受到了严密的保护！哇哈哈哈哈哈！"
+
+#: level_i18n.cc:2137
+msgid ""
+"Fire burns and destroys ... Want to remove blocking stones? Then dig your "
+"way to the Holy Hammer!"
+msgstr "大火燃烧并摧毁……想要碍事的石头吗？然后挖掘通往圣锤的路！"
+
+#: level_i18n.cc:2138
+msgid "Try again! Bwahahahaha!"
+msgstr "再试一次！哇哈哈哈哈哈！"
+
+#: level_i18n.cc:2139
+msgid ""
+"Earth fills and lasts ... Want to replace missing floors? Then build your "
+"way to the Holy Seed!"
+msgstr "泥土充满并持久……是否要更换丢失的地板？然后建立通往圣种子的道路！"
+
+#: level_i18n.cc:2140
+msgid ""
+"Air blows and goes by ... Want to jump across the void? Then make your way "
+"to the Holy Spring!"
+msgstr "空气吹拂而过...想跳越虚空吗？然后前往圣泉！"
+
+#: level_i18n.cc:2141
+msgid ""
+"Water waves and shifts ... Want to trade minds with your partner? Then find "
+"your way to the Holy Yin-Yang!"
+msgstr "水波和转变……想与您的伴侣交换思想吗？然后找到通往圣贤之路！"
+
+#: level_i18n.cc:2152
+msgid "Did you really think this one was so easy!?"
+msgstr "您是否真的认为这很容易！！"
+
+#: level_i18n.cc:2154
+msgid "Did you forget something?"
+msgstr "你忘了什么吗？"
+
+#: level_i18n.cc:2156
+msgid "Go on! There's no way back now!"
+msgstr "继续！现在没有回头路了！"
+
+#: level_i18n.cc:2158
+msgid "STOP! Not this way! There's a short-cut ..."
+msgstr "停！不是这条路！有一条捷径..."
+
+#: level_i18n.cc:2160
+msgid ""
+"There's a trigger one step to the left. If you could keep it depressed, it "
+"would help you a lot if you go back!"
+msgstr "往左一格有个扳机。如果您可以让它保持凹陷状态，那么回头将对您有很大帮助！"
+
+#: level_i18n.cc:2173
+msgid "Make an umbrella."
+msgstr "做个雨伞。"
+
+#: level_i18n.cc:2177
+msgid "Keypad Corners"
+msgstr "键盘的角"
+
+#: level_i18n.cc:2181
+msgid "Don't get too attracted!"
+msgstr "不要太被吸引！"
+
+#: level_i18n.cc:2191
+msgid "It is not quite that easy."
+msgstr "这不是那么容易。"
+
+#: level_i18n.cc:2195
+msgid "Don't get attracted!"
+msgstr "不要被吸引！"
+
+#: level_i18n.cc:2202
+msgid ""
+"Here lies Black Ball the pirate, marooned in the year 1802 after travelling "
+"in the wrong direction."
+msgstr "这里是海盗黑球，在错误的方向旅行后于1802年被放逐。"
+
+#: level_i18n.cc:2203
+msgid ""
+"To cure sea sickness hold a large bank note between your teeth and lean over"
+" the side."
+msgstr "要治愈晕船，请在牙齿之间放一个大钞票，然后倾斜身体。"
+
+#: level_i18n.cc:2212
+msgid ""
+"Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa "
+"guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!"
+msgstr "卡兰巴!!独裁者的玻璃保险箱里有许多比索，但海岸警卫队也有许多。有！！可怜的黑球只有水果和激光！"
+
+#: level_i18n.cc:2222
+msgid "This is a meditation landscape: put a small marble into every hole ..."
+msgstr "这是一个冥想地形：在每个孔中放一块小石珠..."
+
+#: level_i18n.cc:2253
+msgid "No way out?"
+msgstr "没有出路？"
+
+#: level_i18n.cc:2254
+msgid "Do you miss something?"
+msgstr "你想念什么吗？"
+
+#: level_i18n.cc:2276
+msgid ""
+"If you have never heard about Brainf***, visit e.g. "
+"http://en.wikipedia.org/wiki/Brainfuck before you try to solve this level."
+msgstr "如果您从未听说过Brainf ***，请访问在尝试解决此问题之前，请先http://en.wikipedia.org/wiki/Brainfuck。"
+
+#: level_i18n.cc:2283
+msgid ""
+"Remember Seed Puzzle 2? There was a similar problem. Or was it Portable "
+"Laser ...?"
+msgstr "还记得种子之谜2吗？有一个类似的问题。是便携式激光...？"
+
+#: level_i18n.cc:2289
+msgid "Pirates Island"
+msgstr "海盗岛"
+
+#: level_i18n.cc:2291
+msgid "The pirates have lost several hidden things on this island ..."
+msgstr "海盗在这个岛上丢了一些隐藏的东西..."
+
+#: level_i18n.cc:2304
+msgid "Try the easy mode first ..."
+msgstr "首先尝试简单模式..."
+
+#: level_i18n.cc:2322
+msgid "Welcome to Enigma V"
+msgstr "欢迎来到Enigma 5"
+
+#: level_i18n.cc:2337
+msgid "Fire or be fired"
+msgstr "射击或被射击"
+
+#: level_i18n.cc:2350
+msgid "This level is symmetric ..."
+msgstr "这个级关卡是对称的..."
+
+#: level_i18n.cc:2355
+msgid ""
+"This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
+msgstr "这是我第一次献给父亲的地图。希望您会喜欢！"
+
+#: level_i18n.cc:2359
+msgid "Warning ... ... thieves!"
+msgstr "警告……盗贼！"
+
+#: level_i18n.cc:2369
+msgid ""
+"Why has there always to be an active volcano and a village of marble-eating "
+"inhabitants on a tropical island?"
+msgstr "为什么在热带岛屿上总会有一个活火山和一个以石珠为食的居民村？"
+
+#: level_i18n.cc:2389
+msgid "Translate or let it be translated"
+msgstr "翻译或让其翻译"
+
+#: level_i18n.cc:2403
+msgid "Welcome to Liberty Island, New York City"
+msgstr "欢迎来到纽约自由岛"
+
+#: level_i18n.cc:2405
+msgid ""
+"To get a fuller picture of New York City, you should view it through every "
+"pair of glasses you can find."
+msgstr "要获得纽约市的完整图片，您应该通过发现的每副眼镜观看它。"
+
+#: level_i18n.cc:2407
+msgid ""
+"There's always a terrible traffic jam on Broadway at Times Square.  It's a "
+"pity you don't have time to see a show!"
+msgstr "时代广场的百老汇总是有严重的交通堵塞。可惜您没有时间看一场演出！"
+
+#: level_i18n.cc:2409
+msgid ""
+"Charles Ives was the composer of \"Central Park in the Dark\". Enjoy his "
+"music, and use the shogun to open some gates!"
+msgstr "查尔斯·艾夫斯是《黑暗中的中央公园》的作曲家。欣赏他的音乐，并使用幕府将军打开大门！"
+
+#: level_i18n.cc:2411
+msgid ""
+"These mechanized traffic signals are strange.  An outbound traffic sensor at"
+" Central park seems to be responsible for this street.  Use your glasses!"
+msgstr "这些机械化的交通信号灯很奇怪。中央公园的出站交通传感器似乎是这条街怪异的原因。戴上眼镜！"
+
+#: level_i18n.cc:2413
+msgid ""
+"It's funny that a fountain in Central Park should control the traffic flow."
+msgstr "有趣的是中央公园的喷泉可以控制交通流量。"
+
+#: level_i18n.cc:2415
+msgid "Welcome to Chinatown"
+msgstr "欢迎来到唐人街"
+
+#: level_i18n.cc:2420
+msgid "A Baroque Game"
+msgstr "一个巴洛克游戏"
+
+#: level_i18n.cc:2425 level_i18n.cc:2724
+msgid "Keep distance!"
+msgstr "保持距离！"
+
+#: level_i18n.cc:2427 level_i18n.cc:2726
+msgid "Help! I can't see the forest for the trees!"
+msgstr "救命！我看不到森林的树木！"
+
+#: level_i18n.cc:2438
+msgid "This is a SuperSecret!! Well done on finding it!!"
+msgstr "这是一个超级秘密！找到它说明做得很好！"
+
+#: level_i18n.cc:2442
+msgid "FizzBuzz"
+msgstr "嘶嘶"
+
+#: level_i18n.cc:2443
+msgid ""
+"Counting the first pearl as 1, you must save every pearl that's a multiple "
+"of 3 or of 5 (or both)."
+msgstr "将第一颗珍珠计为1，您必须保存每颗3或5（或两者）的倍数的珍珠。"
+
+#: level_i18n.cc:2448
+msgid "My First Level"
+msgstr "我的第一关"
+
+#: level_i18n.cc:2450
+msgid "Secrets? Use the items, ... use the glasses ..."
+msgstr "机密？使用物品，...使用眼镜..."
+
+#: level_i18n.cc:2457
+msgid "It's not symmetric!"
+msgstr "这不是对称的！"
+
+#: level_i18n.cc:2465
+msgid "Deep ..."
+msgstr "深..."
+
+#: level_i18n.cc:2476
+msgid "Tutoxyd's Pyramid"
+msgstr "Tutoxyd的金字塔"
+
+#: level_i18n.cc:2478
+msgid ""
+"Welcome Mr. Jones! Back from your \"Alternatives\" and \"The Walls\" "
+"training camp?  Got everything you ordered:  some money  --  40 marbleons --"
+" and a horse outside this shopping center.    Many adventurers lost their "
+"life in this pyramid.    Beware of the dangerous sand vipers and "
+"Enighomathep's curses."
+msgstr "欢迎琼斯先生！ 从您的“替代方案”和“墙壁”培训营回来吗？ 得到了您订购的所有东西：一些钱-40克拉金-一匹马，就在这个购物中心的外面。 许多冒险家在这座金字塔中丧生。 当心危险的沙蛇和Enighomathep的诅咒。"
+
+#: level_i18n.cc:2480
+msgid ""
+"Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
+"were the most useful items in this desert. But nobody was willing to spend 2"
+" marbleons.  ---  Now a blacksmith offers his service."
+msgstr "Rainmaker先生曾经拥有这家商店。他一直坚持认为，雨伞是这片沙漠中最有用的物品。但是没有人愿意花2克拉。 ---现在一个铁匠接管了这个商店。"
+
+#: level_i18n.cc:2482
+msgid ""
+"Safety Precaution: in case one of these dangerous animals escapes, the gates"
+" of the shopping center will be closed immediately!"
+msgstr "安全预防措施：万一这些危险动物逃脱了，购物中心的大门将立即关闭！"
+
+#: level_i18n.cc:2484
+msgid ""
+"Not much is known of the pyramid's architect Enighomathep. But it is said "
+"that he loved cherries. He ate so many of them that he sometimes became "
+"invisible."
+msgstr "对金字塔的建筑师Enighomathep知之甚少。据说他爱樱桃。他吃了很多樱桃，以至于有时他变得看不见了。"
+
+#: level_i18n.cc:2486
+msgid ""
+"Have a look at my collection!    A white scorpion   --   a rotodile   --  "
+"and a sand viper.  They cannot be sold.        But I can offer you a scarab "
+"that will be a better choice for you."
+msgstr "看看我的收藏！一只白色的蝎子-一只脚-一只沙蛇。它们无法出售。但我可以为您提供圣甲虫，这将是您更好的选择。"
+
+#: level_i18n.cc:2488
+msgid ""
+"Ali Barber's shop for quick hair cuts. Want to know what is going on?  A "
+"thief is hanging around and nobody knows where the 4 pale kids that are "
+"playing with your horse came from."
+msgstr "阿里·巴伯的快捷理发店。想知道发生了什么吗？一个小偷在四处闲逛，没人知道与你的马嬉戏的四个苍白的孩子来自哪里。"
+
+#: level_i18n.cc:2490
+msgid ""
+"Home of the last adventurer who never returned.   Said he would drill for "
+"oil -- but no one believed him."
+msgstr "最后一位从未回来的冒险者的家。说他会钻石油-但没人相信他。"
+
+#: level_i18n.cc:2492
+msgid ""
+"Be cursed for trying to explore Tutoxyd's last secret -- may your homework "
+"remain undone until you prove worthy!"
+msgstr "因尝试探索Tutoxyd的最后一个秘密而受到诅咒-直到您证明自己有价值，否则您的功课不会完成！"
+
+#: level_i18n.cc:2494
+msgid ""
+"It's a pity that some explorers damaged this historic monument and did "
+"litter the environment.   But the pyramid magically repairs itself every "
+"time an adventurer gives up."
+msgstr "遗憾的是，一些探险家破坏了这座历史古迹，并且乱扔垃圾。但是，每当冒险家放弃时，金字塔都会神奇地自我修复。"
+
+#: level_i18n.cc:2496
+msgid ""
+"Be cursed for disturbing Tutoxyd's peace -- may the earth part under your "
+"feet!"
+msgstr "因扰乱Tutoxyd的和平而被诅咒-愿地球在您的脚下分开！"
+
+#: level_i18n.cc:2498
+msgid ""
+"Be cursed for disturbing Tutoxyd's peace -- may your legs no longer be under"
+" your control!"
+msgstr "因扰乱Tutoxyd的和平而受到诅咒-也许您的双腿不再受到控制！"
+
+#: level_i18n.cc:2500
+msgid ""
+"Trapped?   Either wait for a stupid tourist willing to exchange positions "
+"with you by using a magic ring - or press Shift-F3"
+msgstr "被困？或者等待一个愿意通过魔术环与您交换位置的愚蠢游客-或者按Shift-F3"
+
+#: level_i18n.cc:2502
+msgid ""
+"Private Property! This claim belongs to Mr. Whiteoil. In case of absence "
+"please send a letter."
+msgstr "私人财产！该索赔属于怀特伊尔先生。如果缺席，请致信。"
+
+#: level_i18n.cc:2504
+msgid "Invoice -- 40 marbleons for 20 barrels of oil."
+msgstr "发票-20桶石油对应40颗石珠。"
+
+#: level_i18n.cc:2506
+msgid ""
+"Welcome stranger -- have a look at our holy stone. It is said that it shows "
+"everyone his personal fortune color. As all visitors tried to touch it, we "
+"had to set up some protection."
+msgstr "欢迎陌生人-看看我们的圣石。据说它向每个人展示了他个人的命运颜色。当所有访客试图触摸它时，我们必须设置一些保护措施。"
+
+#: level_i18n.cc:2508
+msgid ""
+"May I ask for a donation. Just a few bugs - throw the donation into the holy"
+" fire. Tutoxyd will be grateful."
+msgstr "我可以要求捐款。只是有些错误-将捐款投入圣火。 Tutoxyd将不胜感激。"
+
+#: level_i18n.cc:2510
+msgid ""
+"Mr. Whiteoil, we finished our library research. Enighomathep reports that 4 "
+"keys are required. One key got lost immediately after sealing the pyramid. "
+"One is hidden at the border of the pyramid. For the others you have to "
+"demonstrate boldness and cleverness."
+msgstr "Whiteoil先生，我们完成了图书馆研究。 Enighomathep报告说需要4把钥匙。 密封金字塔后立即丢失了一把钥匙。 一个藏在金字塔的边界。 对于其他人，您必须表现出大胆和聪明。"
+
+#: level_i18n.cc:2512
+msgid "Facing Death you can walk without fear."
+msgstr "面对死亡，您可以毫无恐惧地行走。"
+
+#: level_i18n.cc:2514
+msgid "Sorry, the useful item that was hidden here has been stolen."
+msgstr "抱歉，这里隐藏的有用物品被盗了。"
+
+#: level_i18n.cc:2516
+msgid ""
+"Tomb raiders are cursed to be frozen in stone or floor for all eternity."
+"     Have a look at all these little funny sticks that they used to fight "
+"the curses."
+msgstr "盗墓者被诅咒永远冻在石头或地板上。看看他们用来对抗诅咒的所有这些有趣的小棍子。"
+
+#: level_i18n.cc:2518
+msgid "Remove all parts of the memorial plate before conjuring up Tutoxyd."
+msgstr "弄乱Tutoxyd之前，请先取下纪念铭牌的所有部分。"
+
+#: level_i18n.cc:2520
+msgid ""
+"Who dares to disturb my peace? Stranger - you have proven to be honorable. "
+"Bring back my children for a joint meditation. But beware that upon seeing "
+"me they may want to join me instead of meditate. I make you responsible for "
+"the security of my children."
+msgstr "谁敢打扰我的平安？ 陌生人-您被证明是光荣的。 归还我的孩子们以进行联合冥想。 但要注意，见到他们后，他们可能想加入我而不是冥想。 我让您对孩子的安全负责。"
+
+#: level_i18n.cc:2522
+msgid ""
+"You are bringing back my children. As soon as they come to rest, I will "
+"deliver you from Enighomathep's curses so you may seek your next adventure."
+msgstr "您要带回我的孩子们。他们一休息，我就会把你从恩尼格玛修的诅咒中解救出来，让你寻求下一个冒险。"
+
+#: level_i18n.cc:2533
+msgid "Just a Dance ?"
+msgstr "只是跳舞？"
+
+#: level_i18n.cc:2559 level_i18n.cc:2579
+msgid "Use the Lightpassenger"
+msgstr "使用光线乘客？"
+
+#: level_i18n.cc:2568
+msgid "The Hand Mirror Cabinet"
+msgstr "手镜柜"
+
+#: level_i18n.cc:2570
+msgid "Ever tried to look at the back of your head in the mirror?"
+msgstr "是否曾经尝试通过镜子看自己的后脑勺？"
+
+#: level_i18n.cc:2574
+msgid "Danger Flag"
+msgstr "危险标志"
+
+#: level_i18n.cc:2586
+msgid "Number Crunching"
+msgstr "数字运算"
+
+#: level_i18n.cc:2591
+msgid "Survival Training in wasted Landscapes ..."
+msgstr "废弃环境中的生存训练..."
+
+#: level_i18n.cc:2599
+msgid "Crabwise IV"
+msgstr "蟹状 4"
+
+#: level_i18n.cc:2607
+msgid "Plutos Confusion"
+msgstr "Plutos混乱"
+
+#: level_i18n.cc:2609
+msgid "Dont eat cherries"
+msgstr "不要吃樱桃"
+
+#: level_i18n.cc:2650
+msgid "Crabwise II"
+msgstr "蟹状 2"
+
+#: level_i18n.cc:2655
+msgid "Inkblot 1"
+msgstr "墨迹1"
+
+#: level_i18n.cc:2661
+msgid "Welcome to Enigma VIII"
+msgstr "欢迎来到Enigma 8"
+
+#: level_i18n.cc:2672
+msgid "Alternation I"
+msgstr "替代 1"
+
+#: level_i18n.cc:2674
+msgid "Alternation in a Blue Area"
+msgstr "蓝色区域交替"
+
+#: level_i18n.cc:2679
+msgid "Alternation II"
+msgstr "替代 2"
+
+#: level_i18n.cc:2681
+msgid "Alternation in a Dark Area"
+msgstr "在黑暗区域交替"
+
+#: level_i18n.cc:2694
+msgid "Listen for the best place for an explosion"
+msgstr "聆听最适合爆炸的地方"
+
+#: level_i18n.cc:2701
+msgid "Every pencil must go"
+msgstr "每支铅笔都得走"
+
+#: level_i18n.cc:2705
+msgid "Floating ..."
+msgstr "浮动..."
+
+#: level_i18n.cc:2706
+msgid "Don't be afraid -- It's only a ten mile drop!"
+msgstr "别担心-距离仅十英里！"
+
+#: level_i18n.cc:2719
+msgid ""
+"... illmind's mad-ill-tation ... a tribute to esprit meditation levels from "
+"the past. thank you ..."
+msgstr "……病态的疯狂……向过去的冥想关卡沉思致敬。谢谢 ..."
+
+#: level_i18n.cc:2731
+msgid "Crabwise III"
+msgstr "蟹状 3"
+
+#: level_i18n.cc:2745
+msgid "Meditation! Silence? ... Have a Look ..."
+msgstr "冥想！安静？ ... 看一看 ..."
+
+#: level_i18n.cc:2747
+msgid "These stormy days ..."
+msgstr "这些暴风雨的日子..."
+
+#: level_i18n.cc:2752
+msgid "Crabwise I"
+msgstr "螃状 1"
+
+#: level_i18n.cc:2780
+msgid "There's more help than you first think!"
+msgstr "这里有比您最初想的更多的帮助！"
+
+#: level_i18n.cc:2793
+msgid "Missing Oxyds?"
+msgstr "缺少oxyd石吗？"
+
+#: level_i18n.cc:2797
+msgid "Not everything is as it seems ..."
+msgstr "并非一切都像看起来那样..."
+
+#: level_i18n.cc:2801
+msgid "Make sure you find all of them"
+msgstr "确保找到所有的人"
+
+#: level_i18n.cc:2806
+msgid "Only A Labyrinth"
+msgstr "只有一个迷宫"
+
+#: level_i18n.cc:2829
+msgid "Ball Alley"
+msgstr "球巷"
+
+#: level_i18n.cc:2848
+msgid "Double Pendulum"
+msgstr "双摆"
+
+#: level_i18n.cc:2978
+msgid "Too many wooden blocks!  Try the other way ..."
+msgstr "木块太多了！尝试另一种方式..."
+
+#: level_i18n.cc:2979
+msgid ""
+"Greetings, adventurer!    The road ahead is long and dangerous, so be "
+"careful!"
+msgstr "问候您，冒险家！前方的道路漫长而危险，所以要小心！"
+
+#: level_i18n.cc:2980
+msgid "Well done, adventurer!    Good luck!"
+msgstr "做得好，冒险家！祝好运！"
+
+#: level_i18n.cc:2981
+msgid "Congratulations, adventurer!  You did it!"
+msgstr "恭喜，冒险家！你做到了！"
+
+#: level_i18n.cc:3015
+msgid "What a pity, and there's so much paint left ..."
+msgstr "可惜了，剩下的油漆太多了..."
+
+#: level_i18n.cc:3020
+msgid ".moor txen eht ot teg ot syaw owt era erehT"
+msgstr "间房个下达到以可法办个两有"
+
+#: level_i18n.cc:3063
+msgid "Danger ... laser beams!"
+msgstr "危险...激光束！"
+
+#: level_i18n.cc:3080
+msgid "The Life Game"
+msgstr "生命游戏"
+
+#: level_i18n.cc:3108
+msgid "! -  DANGER  -  NO TRESPASSING  -  DANGER  - !"
+msgstr "！ -危险-禁止擅自进入-危险-！"
+
+#: level_i18n.cc:3115
+msgid ""
+"As long as there is motion around the oxyd-stones, you won't reach them.   "
+"So: Don't lose control of the level! It's possible."
+msgstr "只要在oxyd石周围有运动，您就不会到达它们。 所以：不要失去对关卡的控制！ 这是可能的。"
+
+#: level_i18n.cc:3119
+msgid "Calm down!"
+msgstr "冷静！"
+
+#: level_i18n.cc:3126
+msgid "Fight appearing lava."
+msgstr "和出现的熔岩战斗。"
+
+#: level_i18n.cc:3127
+msgid "A hammer destroys some black stones."
+msgstr "一个锤子摧毁了一些黑石头。"
+
+#: level_i18n.cc:3137
+msgid "Alfred Nobel says: This is definitely a meditation landscape!"
+msgstr "阿尔弗雷德·诺贝尔说：这绝对是一个冥想景观！"
+
+#: level_i18n.cc:3156
+msgid "Oops ... you're stuck ...     Try again ..."
+msgstr "糟糕...您被困住了...再试一次..."
+
+#: level_i18n.cc:3157
+msgid ""
+"Congratulations, you reached this side ...     but can you get to the oxyds?"
+msgstr "恭喜，您到达了这一边...但是您可以获得oxyd石吗？"
+
+#: level_i18n.cc:3158
+msgid "Well done!"
+msgstr "做得好！"
+
+#: level_i18n.cc:3162
+msgid "Don't wake it up!"
+msgstr "不要吵醒它！"
+
+#: level_i18n.cc:3172
+msgid ""
+"That wasn't fast enough; try F3."
+"                                                                              "
+"(Or search for non-solid stones, if you want.)"
+"                                                                                                        "
+"(But you won't find any.)"
+"                                                                                                                  "
+"(Really!)"
+msgstr "那还不够快。 尝试F3。 （或者，如果需要，可以搜索非固体的石头。）（但是您找不到）。（真的！）"
+
+#: level_i18n.cc:3173
+msgid ""
+"You can believe me: All stones you see in this level are solid!"
+"                                                                                      "
+"You can really believe me!"
+"                                                                               "
+"Really!"
+msgstr "您可以相信我：在此关卡上看到的所有石头都是坚固的！ 你真的可以相信我！ 真！"
+
+#: level_i18n.cc:3184
+msgid "Wood robbing"
+msgstr "抢木头"
+
+#: level_i18n.cc:3189
+msgid "The Flagstone Reaper"
+msgstr "石板收割者"
+
+#: level_i18n.cc:3192
+msgid ""
+"No hint today ...    Those flagstones pass away ...    The docu stands alone"
+" ...    Why is it so alone?    --    This hint today ...    Why is it on "
+"this side ...    The reaper passing by ...    Could know the reason why!"
+"     (orig. by Herman's Hermits)   "
+msgstr "今天没有提示...那些石板消失了... docu独自站立...为什么如此孤独？ -今天的提示...为什么在这边...收割者路过...知道原因！ （原文由赫尔曼的隐士提出）"
+
+#: level_i18n.cc:3205
+msgid "Paint Ahead!"
+msgstr "涂过去！"
+
+#: level_i18n.cc:3247
+msgid "Welcome to Enigma IV"
+msgstr "欢迎来到Enigma 4"
+
+#: level_i18n.cc:3251
+msgid "It's a race!"
+msgstr "这是一场比赛！"
+
+#: level_i18n.cc:3275
+msgid ""
+"Your uncle Sir Blackball has been murdered last night in his manor, in one "
+"of his 6 rooms, by one of the weapons which are in the cellar; the suspects "
+"are the shy Mrs Peacock, the secret Colonel Mustard, the absent-minded "
+"Professor Plum, the mysterious Rev. Green, the nurse Mrs Whiteball, who "
+"discovered the corpse, and Miss Scarlett whose beauty might be fatal ... you"
+" must find who killed your uncle, where and how."
+msgstr "您叔叔布莱克鲍尔爵士昨晚在他庄园的6个房间之一中被地窖中的一种武器谋杀； 犯罪嫌疑人包括害羞的孔雀夫人，秘密的上校芥末酱，心不在焉的梅花教授，神秘的格林牧师，发现尸体的护士怀特博尔太太以及美丽得致命的斯嘉丽小姐。 谁杀了你叔叔？在哪儿怎么杀的？"
+
+#: level_i18n.cc:3277
+msgid "This room is not the crime scene."
+msgstr "这个房间不是犯罪现场。"
+
+#: level_i18n.cc:3279
+msgid "The murderer is not Mrs Peacock."
+msgstr "凶手不是孔雀夫人。"
+
+#: level_i18n.cc:3281
+msgid "The murderer is not Colonel Mustard."
+msgstr "凶手不是芥末上校。"
+
+#: level_i18n.cc:3283
+msgid "The murderer is not Professor Plum."
+msgstr "凶手不是梅花教授。"
+
+#: level_i18n.cc:3285
+msgid "The murderer is not Reverend Green."
+msgstr "凶手不是格林牧师。"
+
+#: level_i18n.cc:3287
+msgid "The murderer is not Mrs Whiteball."
+msgstr "凶手不是怀特博尔夫人。"
+
+#: level_i18n.cc:3289
+msgid "The murderer is not Miss Scarlett."
+msgstr "凶手不是斯嘉丽小姐。"
+
+#: level_i18n.cc:3291
+msgid "Sir Blackball has not been killed with the bomb."
+msgstr "黑球爵士尚未被炸弹炸死。"
+
+#: level_i18n.cc:3293
+msgid "Sir Blackball has not been killed with the dagger."
+msgstr "黑球爵士没有被匕首杀死。"
+
+#: level_i18n.cc:3295
+msgid "Sir Blackball has not been killed with poison."
+msgstr "黑球爵士尚未被毒杀。"
+
+#: level_i18n.cc:3297
+msgid "Sir Blackball has not been killed with the wrench."
+msgstr "黑球爵士尚未被扳手杀死。"
+
+#: level_i18n.cc:3299
+msgid "Sir Blackball has not been killed with the candlestick."
+msgstr "黑球爵士尚未被烛台杀死。"
+
+#: level_i18n.cc:3301
+msgid "Sir Blackball has not been killed with the hammer."
+msgstr "黑球爵士尚未被锤子杀死。"
+
+#: level_i18n.cc:3314
+msgid "White helps black, black helps white."
+msgstr "白色有助于黑色，黑色有助于白色。"
+
+#: level_i18n.cc:3321
+msgid "Don't forget to open the door ..."
+msgstr "别忘了打开门..."
+
+#: level_i18n.cc:3322
+msgid "Good Luck!"
+msgstr "祝好运！"
+
+#: level_i18n.cc:3323
+msgid "Hurry!"
+msgstr "快点！"
+
+#: level_i18n.cc:3324
+msgid "Congratulations! (or try again)"
+msgstr "恭喜你！ （或重试）"
+
+#: level_i18n.cc:3325
+msgid "Almost finished ..."
+msgstr "就快结束了 ..."
+
+#: level_i18n.cc:3330
+msgid "Restart with F3 ..."
+msgstr "用F3重新启动..."
+
+#: level_i18n.cc:3334
+msgid ""
+"Welcome to the control room. Use the triggers and switches to plan the "
+"movement of the turtle. The switches are, clockwise: Add, Run and Restart."
+msgstr "欢迎来到控制室。使用触发器和开关来计划乌龟的移动。这些开关按顺时针顺序为：添加，运行和重新启动。"
+
+#: level_i18n.cc:3359
+msgid "The danger is not visible!!!"
+msgstr "看不到的危险！！！"
+
+#: level_i18n.cc:3396
+msgid ""
+"One more and you won't get this hammer until you don't need it anymore!"
+msgstr "再一次，您将得不到这把锤子，直到您不再需要它为止！"
+
+#: level_i18n.cc:3402
+msgid "Welcome to Enigma III"
+msgstr "欢迎来到Enigma 3"
+
+#: level_i18n.cc:3407
+msgid "Risk your life ..."
+msgstr "冒着生命危险..."
+
+#: level_i18n.cc:3468
+msgid ""
+"Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
+"room  ..."
+msgstr "请记住，仅移动足够的石头即可进入隔壁房间..."
+
+#: level_i18n.cc:3487
+msgid ""
+"I don't believe that you are the Marble. I won't let you pass until you "
+"prove me wrong: you have to be faster than my champion!"
+msgstr "我不相信你是个石珠。除非您证明我错了，否则我不会让您通过：您必须比我们的冠军更快！"
+
+#: level_i18n.cc:3488
+msgid "Congratulations! You may pass!"
+msgstr "恭喜你！你可能会通过！"
+
+#: level_i18n.cc:3495
+msgid "Watch your step!"
+msgstr "小心脚下！"
+
+#: level_i18n.cc:3508
+msgid "Look ... they're over there!"
+msgstr "看...他们在那边！"
+
+#: level_i18n.cc:3527
+msgid "The left-most room is important!"
+msgstr "最左边的房间很重要！"
+
+#: level_i18n.cc:3528
+msgid "This is the control panel."
+msgstr "这是控制面板。"
+
+#: level_i18n.cc:3541
+msgid "A castle lies before you ... beware of guardians!"
+msgstr "城堡就在您面前……当心监护人！"
+
+#: level_i18n.cc:3551
+msgid "The block near the top-left can move."
+msgstr "左上角附近的方块可以移动。"
+
+#: level_i18n.cc:3555
+msgid "Flood Control Dam #3 seems rather unstable. Be quick or be dead."
+msgstr "3号防洪大坝似乎相当不稳定。快点，否则会丧命。"
+
+#: level_i18n.cc:3578
+msgid "when you've been particular places"
+msgstr "当你去过特别的地方"
+
+#: level_i18n.cc:3580
+msgid "that you know you've never seen before"
+msgstr "你知道你从未见过"
+
+#: level_i18n.cc:3582
+msgid "can you be sure?"
+msgstr "你能确定吗？"
+
+#: level_i18n.cc:3584
+msgid "feel like I've been here before"
+msgstr "觉得我以前来过这里"
+
+#: level_i18n.cc:3586
+msgid "quote: Iron Maiden - Deja-Vu"
+msgstr "引用：铁娘子-Deja-Vu"
+
+#: level_i18n.cc:3588
+msgid "for illmind's deja vu try the top left corner ..."
+msgstr "为病态的似曾相识尝试左上角..."
+
+#: level_i18n.cc:3601
+msgid "This level is much bigger! Press F3!"
+msgstr "这个关卡要大得多！按F3！"
+
+#: level_i18n.cc:3605
+msgid "It's a long way ..."
+msgstr "这是一条漫长的路 ..."
+
+#: level_i18n.cc:3639
+msgid "Look closely!"
+msgstr "仔细看看！"
+
+#: level_i18n.cc:3669
+msgid "Welcome to Enigma X"
+msgstr "欢迎来到Enigma 10"
+
+#: level_i18n.cc:3692
+msgid "Interlude III"
+msgstr "插曲 3"
+
+#: level_i18n.cc:3712
+msgid "Christmas Star"
+msgstr "圣诞星"
+
+#: level_i18n.cc:3728
+msgid "Enigmas wildcat"
+msgstr "Enigma野猫"
+
+#: level_i18n.cc:3750
+msgid "Steering The Flood"
+msgstr "操舵于洪水"
+
+#: level_i18n.cc:3782
+msgid "Interlude II"
+msgstr "插曲2"
+
+#: level_i18n.cc:3787
+msgid "No clear view? How about visiting an optician?"
+msgstr "没有清晰的视野？去看眼镜师怎么样？"
+
+#: level_i18n.cc:3800
+msgid "Meandering Impulses"
+msgstr "蜿蜒的冲动"
+
+#: level_i18n.cc:3816
+msgid "An Ancient Game"
+msgstr "一个古代游戏"
+
+#: level_i18n.cc:3839
+msgid "Attention! One way ticket to the island."
+msgstr "注意！前往岛屿的单程票。"
+
+#: level_i18n.cc:3849
+msgid "Sokoban 1D"
+msgstr "推箱子1D"
+
+#: level_i18n.cc:3862
+msgid "Color Memory"
+msgstr "色彩记忆"
+
+#: level_i18n.cc:3946
+msgid "Dichotomy II"
+msgstr "二分法 2"
+
+#: level_i18n.cc:3974
+msgid "Dichotomy I"
+msgstr "二分法 1"
+
+#: level_i18n.cc:3978
+msgid "Braking Distance"
+msgstr "刹车距离"
+
+#: level_i18n.cc:3979
+msgid "Make the white marble wait on the cross for 3 seconds."
+msgstr "让白石珠等待十字架3秒钟。"
+
+#: level_i18n.cc:3983
+msgid "Volatile Storage"
+msgstr "易失性存储"
+
+#: level_i18n.cc:3984
+msgid "Handle with care!"
+msgstr "小心轻放！"
+
+#: level_i18n.cc:4111
+msgid "Drop the hammer on side of a pentomino and use the switch!"
+msgstr "将锤子放在五角琴的一侧，然后使用开关！"
+
+#: level_i18n.cc:4112
+msgid "Drop the hammer on side of a pentomino, not beneath it!"
+msgstr "将锤子放在五角琴的一侧，而不是在其下方！"
+
+#: level_i18n.cc:4135
+msgid ""
+"If the mountain won't come to Muhammad, Muhammad must go to the mountain..."
+msgstr "如果山不来找穆罕默德，穆罕默德就必须去山上。"
+
+#: level_i18n.cc:4146
+msgid "Use the wooden boxes for bridge building!"
+msgstr "使用木箱建造桥梁！"
+
+#: level_i18n.cc:4148
+msgid "You will need two dynamite sticks in this room."
+msgstr "这个房间需要两个炸药。"
+
+#: level_i18n.cc:4150
+msgid "Red floors will ignite."
+msgstr "红色地板将点燃。"
+
+#: level_i18n.cc:4152
+msgid "Avoid crack spreading!"
+msgstr "避免裂纹蔓延！"
+
+#: level_i18n.cc:4158
+msgid ""
+"Up there in Orthanc I see Sarumarble the White, the mightiest magician of "
+"this Country. He made the Ring. He masters metamorphosis. He could help me. "
+"If only I could enter the Castle!"
+msgstr "在Orthanc的那儿，我看到了这个国家最强大的魔术师，白色的萨鲁玛布尔。他制造了戒指。他掌握了七十二变。他可以帮助我。如果我能进入城堡！"
+
+#: level_i18n.cc:4166
+msgid "Opening instructions: The clue lies within. On your marks!"
+msgstr "开场指示：线索就在里面。在你的印记上！"
+
+#: level_i18n.cc:4170
+msgid "The Hammer"
+msgstr "锤子"
+
+#: level_i18n.cc:4171
+msgid "The Sword"
+msgstr "剑"
+
+#: level_i18n.cc:4172
+msgid "The Key"
+msgstr "钥匙"
+
+#: level_i18n.cc:4173
+msgid "The Wrench"
+msgstr "扳手"
+
+#: level_i18n.cc:4174
+msgid "The Floppy"
+msgstr "软盘"
+
+#: level_i18n.cc:4175
+msgid "The Coin"
+msgstr "硬币"
+
+#: level_i18n.cc:4176
+msgid "The Spade"
+msgstr "铁锹"
+
+#: level_i18n.cc:4177
+msgid "The Glasses"
+msgstr "眼镜"
+
+#: level_i18n.cc:4182
+msgid "Tiles marked with a cross are safe."
+msgstr "标有十字的瓷砖是安全的。"
+
+#: level_i18n.cc:4193
+msgid "Exact change only."
+msgstr "只能精确更改。"
+
+#: level_i18n.cc:4270
+msgid "Tandem Chess"
+msgstr "双人象棋"
+
+#: level_i18n.cc:4272
+msgid "Work together!"
+msgstr "一起工作！"
+
+#: level_i18n.cc:4280
+msgid "Sorry, this switch is currently out of order."
+msgstr "抱歉，此开关当前故障。"
+
+#: level_i18n.cc:4282
+msgid "As I already told you, this switch is out of order!"
+msgstr "正如我已经告诉您的那样，此开关已损坏"
+
+#: level_i18n.cc:4284
+msgid "How often are you going to try this?"
+msgstr "您打算多久尝试一次？"
+
+#: level_i18n.cc:4286
+msgid "Did anything happen? I'm not sure ..."
+msgstr "有什么事吗？我不知道 ..."
+
+#: level_i18n.cc:4288
+msgid "Congrats, now it works again!"
+msgstr "恭喜，现在可以再次使用它！"
+
+#: level_i18n.cc:4290
+msgid "No hints available at the moment."
+msgstr "目前没有任何提示。"
+
+#: level_i18n.cc:4292
+msgid "There is a passage right beneath this stone!"
+msgstr "在这块石头下面有一条通道！"
+
+#: level_i18n.cc:4302
+msgid "illmind's be quick or be dead"
+msgstr "生病的，快点要不就死了"
+
+#: level_i18n.cc:4307
+msgid "Correspondence Chess"
+msgstr "对应象棋"
+
+#: level_i18n.cc:4309
+msgid "Send smartly!"
+msgstr "见机发送！"
+
+#: level_i18n.cc:4329
+msgid "Magic Trinity"
+msgstr "魔法三位一体"
+
+#: level_i18n.cc:4334
+msgid "The art of steering a quadriga"
+msgstr "操纵四边形的艺术"
+
+#: level_i18n.cc:4337
+msgid "Dropping the spoon redeems from being quartered!"
+msgstr "放下勺子可避免扎营！"
+
+#: level_i18n.cc:4342
+msgid "One-Way Woods"
+msgstr "单向森林"
+
+#: level_i18n.cc:4343
+msgid "Recycling by Swapping"
+msgstr "交换回收"
+
+#: level_i18n.cc:4362
+msgid "No Memory"
+msgstr "没有记忆"
+
+#: level_i18n.cc:4367
+msgid "Polar Bears' Paradise"
+msgstr "北极熊的天堂"
+
+#: level_i18n.cc:4369
+msgid "Witch Hunt on Ice"
+msgstr "巫婆在冰上狩猎"
+
+#: level_i18n.cc:4407
+msgid "Pass the ball in time"
+msgstr "及时传球"
+
+#: level_i18n.cc:4415
+msgid "The real value of coffee"
+msgstr "咖啡的真正价值"
+
+#: level_i18n.cc:4419
+msgid "Dialers"
+msgstr "拨号器"
+
+#: level_i18n.cc:4436
+msgid "Toreador"
+msgstr "阅读器"
+
+#: level_i18n.cc:4440
+msgid "It isn't as easy as it looks."
+msgstr "这并不像看起来那么容易"
+
+#: level_i18n.cc:4453
+msgid "Al Capone's training camp."
+msgstr "艾卡波恩的训练营。"
+
+#: level_i18n.cc:4454
+msgid "There are at least two patterns to break through the wall."
+msgstr "至少有两种方式可以穿透墙。"
+
+#: level_i18n.cc:4455
+msgid "It is a well known secret that a few prisoners did escape."
+msgstr "几个囚犯确实逃走了， 这是一个众所周知的秘密。"
+
+#: level_i18n.cc:4456
+msgid "A window in the wall would be really nice."
+msgstr "墙上的窗户真的很好。"
+
+#: level_i18n.cc:4466
+msgid "Mark stones burnable"
+msgstr "有标记的石头是可燃的"
+
+#: level_i18n.cc:4474
+msgid "Pleasure Garden"
+msgstr "游乐花园"
+
+#: level_i18n.cc:4475
+msgid ""
+"Quickly ..."
+"                                                                             "
+"or trickily!"
+msgstr "快……或有技巧！"
+
+#: level_i18n.cc:4483
+msgid "A really annoying Level"
+msgstr "一个非常烦人的关卡"
+
+#: level_i18n.cc:4506
+msgid "Procrustes"
+msgstr "结壳"
+
+#: level_i18n.cc:4514
+msgid "Blitz Chess"
+msgstr "突击棋"
+
+#: level_i18n.cc:4516
+msgid "Move fast!"
+msgstr "快速移动！"
+
+#: level_i18n.cc:4530
+msgid "Hanging around in the Jungle"
+msgstr "在丛林中闲逛"
+
+#: level_i18n.cc:4538
+msgid "Meditation Disturbance"
+msgstr "冥想的干扰"
+
+#: level_i18n.cc:4541
+msgid "Hit by a bolting horse"
+msgstr "被狂奔的马撞到"
+
+#: level_i18n.cc:4547
+msgid "Escape by Chaining Thieves"
+msgstr "盗贼逃生"
+
+#: level_i18n.cc:4550
+msgid "Remember Atreyu's horse Artax!"
+msgstr "记住阿特雷尤的马亚达克斯！"
+
+#: level_i18n.cc:4552
+msgid "I am innocent! I've never stolen anything!"
+msgstr "我是无辜的！我从来没有偷东西！"
+
+#: level_i18n.cc:4554
+msgid "It is said that pirates have taken the treasure."
+msgstr "据说海盗抢走了宝藏。"
+
+#: level_i18n.cc:4556
+msgid "Pirates usually hide their treasure!"
+msgstr "海盗通常会藏宝！"
+
+#: level_i18n.cc:4558
+msgid "A closed door gives a better overview!"
+msgstr "一个关着的门可提供更好的概览！"
+
+#: level_i18n.cc:4562
+msgid "Edwards Mountain"
+msgstr "爱德华兹山"
+
+#: level_i18n.cc:4580
+msgid "Welcome to Enigma VI"
+msgstr "欢迎来到Enigma 6"
+
+#: level_i18n.cc:4587
+msgid ""
+"Welcome to Mexico! Eight hours ago, your plane arrived at the Airport of "
+"\"Coatlicue\", which is a small village surrounded by unexplored jungle "
+"terrain. Now you find yourself in front of an impressive temple, which seems"
+" to be a relic of the ancient Aztec empire. But the temple is in "
+"surprisingly good condition ..."
+msgstr "欢迎来到墨西哥！ 八个小时前，您的飞机抵达了“ Coatlicue”机场，这是一个被未开发的丛林地形包围的小村庄。 现在您会发现自己身处一座令人印象深刻的神庙前，该神庙似乎是古代阿兹台克帝国的遗物。 但是圣殿保存得令人惊讶地完好..."
+
+#: level_i18n.cc:4588
+msgid ""
+"Next to the giant doors of the temple you see a chrome sign: \"Restoration "
+"by: G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of "
+"G. G. Goshers. Trespassing prohibited!\". Now you notice the dog kennels "
+"built up along the front side of the temple. \"Goshers made this ancient "
+"relic a fortress\", you think, \"this cannot be legal, for Goshers received "
+"funding from the UK Government. I'll try to call him to account!\""
+msgstr "在庙宇的巨型门旁，您会看到一个镀铬的标志：“被他修复：G。G. 戈谢尔，公元1998年”。 下面有一个较小的标志：“ G。G. Goshers的财产。禁止擅闯！”。 现在，您会注意到沿着庙宇的前侧筑起的狗窝。 您认为：“戈谢尔把这个古老的遗物变成了堡垒”，“这不合法，因为戈谢尔从英国政府那里得到了资助。我会尽力让他交代！”"
+
+#: level_i18n.cc:4589
+msgid "This guard doesn’t notice me."
+msgstr "这个警卫没有注意到我。"
+
+#: level_i18n.cc:4590
+msgid ""
+"This lake was obviously made by Goshers. I think the correct way is south."
+msgstr "这个湖显然是由戈谢尔造的。我认为正确的路在南方。"
+
+#: level_i18n.cc:4591
+msgid ""
+"There's an inscription on the old wall, saying in spanish: \"Careful! What "
+"you touch could be the last thing you touch!\""
+msgstr "在老墙上有一面铭文，上面写着西班牙语：“小心！你所触摸的东西可能是最后触摸的东西！”"
+
+#: level_i18n.cc:4592
+msgid "Chrome sign: \"Control of the beast’s cage.\""
+msgstr "镀铬标志：“兽笼的控制器”。"
+
+#: level_i18n.cc:4593
+msgid "Oooh, this slope is steep! Try not to touch the skull!"
+msgstr "哦，这个斜坡很陡！尽量不要碰到头骨！"
+
+#: level_i18n.cc:4594
+msgid ""
+"This building down there looks like a prison. Let's see if I can determine "
+"its purpose ... Ah, there's another chrome sign. Goshers seems to favour "
+"chrome signs. It says: \"Natives’ prison\"."
+msgstr "那里的建筑物看起来像监狱。让我们看看我是否可以确定它的用途...啊，还有另一个镀铬标志。戈谢尔人似乎更喜欢镀铬的招牌。它说：“当地人的监狱”。"
+
+#: level_i18n.cc:4595
+msgid ""
+"Getting beyond the prison building was a really good idea. But now you have "
+"to cross this lake. Be thrifty with those boxes!"
+msgstr "走出监狱大楼是一个非常好的主意。但是现在你必须越过这个湖。节约使用那些盒子！"
+
+#: level_i18n.cc:4596
+msgid ""
+"Now, peering through the grilled prison windows, you see a native woman "
+"imprisoned there. Obviously Goshers locked up all the natives, who disturbed"
+" his \"work\"; trying to enter the temple and to get rich from the treasures"
+" of the Aztecs. It might be helpful to be accompanied by someone, who knows "
+"the secrets of the jungle and this temple ..."
+msgstr "现在，透过烤架的监狱窗户凝视着，您看到一个当地妇女被囚禁在那里。 显然，戈谢尔人封锁了所有扰乱他“工作”的人，此人 试图进入圣殿并从阿兹台克人的宝藏中致富。 陪伴一个了解丛林和这座神庙秘密的人可能会有所帮助..."
+
+#: level_i18n.cc:4597
+msgid ""
+"Since the white man there freed me from the prison, he certainly cannot be "
+"as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers "
+"and free my people. And even if this is not the case, it's better to be free"
+" than imprisoned. I think I should thank him."
+msgstr "由于那里的白人将我从监狱中解救出来，他当然不能像戈谢尔人那样邪恶。 也许他想结束对戈谢尔人的掌握并释放我的人民。 即使不是这种情况，获得自由也要比被关押更好。 我想我应该感谢他。"
+
+#: level_i18n.cc:4598
+msgid ""
+"You meet the English adventurer in the front of the prison. \"Hello, I'm "
+"Xila!\", you tell him in broken English. After he introduced himself as "
+"well, both of you begin to work out a plan against the evil G. G. Goshers."
+msgstr "您在监狱前遇到英国冒险家。 “你好，我叫茜拉！”，你用残破的英语告诉他。在他也自我介绍之后，你们两个都开始制定计划来对抗邪恶的G. G. 戈谢尔。"
+
+#: level_i18n.cc:4599
+msgid ""
+"This is a really hard puzzle. The English man will have to help me, if this "
+"enigma is to be solved."
+msgstr "这是一个非常困难的难题。如果要解决这个难题，必须寻求英国人的帮助。"
+
+#: level_i18n.cc:4600
+msgid "You wonder what this switch could trigger."
+msgstr "您想知道此开关会触发什么。"
+
+#: level_i18n.cc:4601
+msgid "Xila knows how to drain the lake!"
+msgstr "茜拉知道如何抽干湖水！"
+
+#: level_i18n.cc:4602
+msgid "You were lucky to find this hole. It prevents you from drowning."
+msgstr "您很幸运找到了这个洞。它可以防止您溺水。"
+
+#: level_i18n.cc:4603
+msgid "This glass stone must fulfill a purpose ..."
+msgstr "这种玻璃石必须满足一个目的..."
+
+#: level_i18n.cc:4604
+msgid "It's funny that such a temple should have a side entrance."
+msgstr "有趣的是，这样的寺庙应该有一个侧门。"
+
+#: level_i18n.cc:4605
+msgid "Be careful! There are sensors in the walls."
+msgstr "当心！墙壁上有传感器。"
+
+#: level_i18n.cc:4606
+msgid ""
+"After the huge doors of the old temple have opened, you see, that the "
+"entrance is protected by 11 knights, armed with spears. These guards are "
+"very dangerous. Without a sword you'll never be able to enter. Be careful. "
+"There are not only knights, but also thieves."
+msgstr "您会看到，在旧庙大的门打开之后，入口便受到11名骑着长矛的骑士的保护。 这些警卫非常危险。 没有剑，您将永远无法进入。 当心。 不仅有骑士，而且还有盗贼。"
+
+#: level_i18n.cc:4607
+msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
+msgstr "“恭喜。您刚刚进入了这座古老的阿兹台克神庙。”"
+
+#: level_i18n.cc:4608
+msgid ""
+"\"You've been smarter than I expected. But you'll never enter the treasure "
+"room nor escape from here!\""
+msgstr "“你比我想象的要聪明。但是你永远不会进入宝藏室，也不会从这里逃脱！”"
+
+#: level_i18n.cc:4609
+msgid ""
+"\"I, Goshers, will certainly be able to rid myself of one of my archenemies "
+"by just killing you!\""
+msgstr "“我，戈谢尔人，只要杀死你，就能摆脱我的一个敌人！”"
+
+#: level_i18n.cc:4610
+msgid "\"Run for your life!\""
+msgstr "“为命狂奔！”"
+
+#: level_i18n.cc:4611
+msgid ""
+"Xila and you just entered the Diamond Room of the old Aztec Temple. By "
+"taking him back to Great Britain and rendering him to the police, you have "
+"ended the evil career of Gerald Gregory Goshers. Congratulations on the "
+"success of your expedition!"
+msgstr "茜拉和您刚进入旧的阿兹台克神庙的钻石室。通过将他带回英国并交给警察，您已经结束了杰拉尔德·格里高利·戈谢尔的邪恶职业。祝贺您的探险成功！"
+
+#: level_i18n.cc:4616
+msgid "Hot Hurdle Race"
+msgstr "狂热跨栏比赛"
+
+#: level_i18n.cc:4618
+msgid "Run for your life!"
+msgstr "为命狂奔！"
+
+#: level_i18n.cc:4631
+msgid "Useful unsuccessful drillings"
+msgstr "钻孔失败了，但是有用"
+
+#: level_i18n.cc:4642
+msgid "In the line of thieves"
+msgstr "在一行盗贼中"
+
+#: level_i18n.cc:4668
+msgid "Rotor Guards"
+msgstr "转子护罩"
+
+#: level_i18n.cc:4670
+msgid "Hoisting guards with their own petard"
+msgstr "带有自己的火花的吊装警卫"
+
+#: level_i18n.cc:4675
+msgid "Charging live ammunition"
+msgstr "给实弹补给"
+
+#: level_i18n.cc:4680
+msgid "Are chess knights resistent to laser beams?"
+msgstr "国际象棋的骑士会抵抗住激光束吗？"
+
+#: level_i18n.cc:4684
+msgid "illmind's jumping ball flash ..."
+msgstr "病态的跳球闪光..."
+
+#: level_i18n.cc:4685
+msgid "... of heaven comes the beast from the ..."
+msgstr "天堂的兽从..."
+
+#: level_i18n.cc:4686
+msgid "... t r a p p e d ..."
+msgstr "……被 困 了……"
+
+#: level_i18n.cc:4701
+msgid "Welcome to Enigma II"
+msgstr "欢迎来到Enigma 2"
+
+#: level_i18n.cc:4717
+msgid "Five form twelve!"
+msgstr "十二个中的五个！"
+
+#: level_i18n.cc:4721
+msgid "Do not use too much magic!"
+msgstr "不要使用太多的魔法！"
+
+#: level_i18n.cc:4746
+msgid "Some stones are movable."
+msgstr "一些石头是可移动的。"
+
+#: level_i18n.cc:4747
+msgid "You lost!"
+msgstr "你输了！"
+
+#: level_i18n.cc:4762
+msgid "Road to Eden"
+msgstr "通往伊甸园的路"
+
+#: level_i18n.cc:4777
+msgid "The other document lies and the left wormhole is the right one."
+msgstr "另一个文件在那里，左边的虫洞对应右边的。"
+
+#: level_i18n.cc:4780
+msgid ""
+"The other document tells the truth and the other wormhole has been left on "
+"the right side."
+msgstr "另一个文件说实话，另一个虫洞被放留在了右侧。"
+
+#: level_i18n.cc:4796
+msgid "Give it another try ..."
+msgstr "再试一次..."
+
+#: level_i18n.cc:4800
+msgid "Press F3 or finish."
+msgstr "按F3或结束。"
+
+#: level_i18n.cc:4807
+msgid "You'd need a portable box!"
+msgstr "您需要一个便携式的盒子！"
+
+#: level_i18n.cc:4808
+msgid ""
+"Congratulations! You found a seed! Try to use it behind the grate (and move "
+"away quickly)"
+msgstr "恭喜你！你发现了种子！尝试在炉排后面使用它（并迅速移开）"
+
+#: level_i18n.cc:4809
+msgid ""
+"Remember that you can't fill a closed bridge with a box ..."
+"                                           but maybe you can use the 3rd "
+"seed differently!"
+msgstr "请记住，您不能用盒子填充封闭的桥梁……但是也许您可以用别的方式使用第3个种子！"
+
+#: level_i18n.cc:4810
+msgid "There are different kinds of seeds ... Try to use them!"
+msgstr "有各种各样的种子...尝试使用它们！"
+
+#: level_i18n.cc:4812
+msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
+msgstr "向方的反相试试！去出能都路条两？子镜，子镜"
+
+#: level_i18n.cc:4832
+msgid ""
+"A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   "
+"Between Might Lay   --   A Secret Way!   --   (If this you see, press "
+"Shift-F3.)"
+msgstr "石头，一棵树和三棵树，-为了击败敌人，-在可能的位置之间-一种秘密的方式！ -（如果看到这种情况，请按Shift-F3键。）"
+
+#: level_i18n.cc:4857
+msgid "is  black  always  beautiful?"
+msgstr "黑色总是美丽吗？"
+
+#: level_i18n.cc:4867
+msgid "Dead end!"
+msgstr "死路！"
+
+#: level_i18n.cc:4868
+msgid "There are two HIDDEN items!"
+msgstr "隐藏物品有两个！"
+
+#: level_i18n.cc:4869
+msgid "Third stone from the rock is the hole!"
+msgstr "岩石上的第三块石头是个洞！"
+
+#: level_i18n.cc:4879
+msgid "Beware! Black holes!"
+msgstr "谨防！黑洞！"
+
+#: level_i18n.cc:4883
+msgid "Make a Sword, & Umbrella."
+msgstr "做一把剑和伞。"
+
+#: level_i18n.cc:4898
+msgid "Doomed ... Shift-F3!!!"
+msgstr "注定... Shift-F3！"
+
+#: level_i18n.cc:4923
+msgid "Take some money and build yourself the tools you need."
+msgstr "花一些钱，为自己构建所需的工具。"
+
+#: level_i18n.cc:4971
+msgid ""
+"Our full attention this is worth:           Air and Fire, Water, Earth."
+msgstr "我们值得全力关注的是：空气与火，水，土。"
+
+#: level_i18n.cc:4974
+msgid ""
+"And if your answer can’t be found           then shame on you, eyes to the "
+"ground!"
+msgstr "如果找不到您的答案，那就让您感到羞耻，将目光投向地面！"
+
+#: level_i18n.cc:4981
+msgid "Dedicated to my friend Frank."
+msgstr "献给我的朋友弗兰克。"
+
+#: level_i18n.cc:4982
+msgid "This level is quite straightforward, isn't it? Just continue ... ;-)"
+msgstr "这个关卡很简单，不是吗？只是继续... ;-)"
+
+#: level_i18n.cc:4998
+msgid "...  now  go  back  and  get  the  hammer!"
+msgstr "...现在回去拿锤子！"
+
+#: level_i18n.cc:5015
+msgid ""
+"Each color appears once. Each correct color produces whites in the wrong "
+"place, blacks in the right one."
+msgstr "每种颜色出现一次。每种正确的颜色在错误的位置产生白色，在正确的位置产生黑色。"
+
+#: level_i18n.cc:5017
+msgid "This switch is to validate your guess."
+msgstr "此开关是为了验证您的猜测。"
+
+#: level_i18n.cc:5021
+msgid ""
+"One of the puzzle stones needs to be placed onto the trigger field."
+"                       Guess which ... :)"
+msgstr "需要将其中一块拼图石放置在触发区域上。猜猜是哪个... :)"
+
+#: level_i18n.cc:5022
+msgid "The level preview might help ..."
+msgstr "关卡预览可能会有所帮助..."
+
+#: level_i18n.cc:5044
+msgid "So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!"
+msgstr "那么，骑士在哪里？ -您会后悔的！"
+
+#: level_i18n.cc:5048
+msgid "Just a hint: Try the easy-mode first ..."
+msgstr "提示：先尝试简易模式..."
+
+#: level_i18n.cc:5049
+msgid "Don't think too long ... it's easy!"
+msgstr "不要想太久...这很容易！"
+
+#: level_i18n.cc:5059
+msgid "Place 9 different items in each row, column, and 3x3 box."
+msgstr "在每行，每列和3x3框中放置9个不同的物品"
+
+#: level_i18n.cc:5060
+msgid ""
+"Place 9 different items in each row, column, and 3x3 box. Hit the switch to "
+"see if any of your items are misplaced, or which locations you can deduce "
+"items for next; you can only get 1 hint per minute this way, though."
+msgstr "在每行，每列和3x3框中放置9个不同的物品。按下开关，看看是否有任何物品放错了位置，或者可以推断出下一个物品；虽然，您每分钟只能获得1条提示。"
+
+#: level_i18n.cc:5076
+msgid "and do not destroy the puzzles"
+msgstr "并且不要破坏难题"
+
+#: level_i18n.cc:5086
+msgid "Origami"
+msgstr "折纸"
+
+#: level_i18n.cc:5106
+msgid "Trickshot?"
+msgstr "花样射球？"
+
+#: level_i18n.cc:5110
+msgid "Seasonal Timings"
+msgstr "季节性时间"
+
+#: level_i18n.cc:5111
+msgid "5, 8, or 10 seconds?"
+msgstr "5、8或10秒？"
+
+#: level_i18n.cc:5132
+msgid "Welcome to Enigma IX"
+msgstr "欢迎来到Enigma 9"
+
+#: level_i18n.cc:5154
+msgid "Marching Formation"
+msgstr "行军编队"
+
+#: level_i18n.cc:5155
+msgid "No sharing!"
+msgstr "不分享！"
+
+#: level_i18n.cc:5166
+msgid ""
+"There are 56 fully connected puzzle piece arrangements, but just 34 of them "
+"are reachable from this first distribution."
+msgstr "有56个完全连接的拼图块布置，但是从第一次分发中只有34个可以到达。"
+
+#: level_i18n.cc:5168
+msgid ""
+"This second distribution can just be converted to any of the other 28 "
+"arrangements."
+msgstr "该第二分布可以转换为其他28种布置中的任何一种。"
+
+#: level_i18n.cc:5190
+msgid "Build me a Sokoban"
+msgstr "给我建一个推箱子游戏"
+
+#: level_i18n.cc:5191
+msgid ""
+"Build me a solvable Sokoban puzzle that will take me 30 pushes or more to "
+"solve. The seeds grow into boxes; the dice grow into walls."
+msgstr "为我建立一个可解决的推箱子难题，这将需要我30次推或更多次才能解决。种子长成盒子；骰子长成墙。"
+
+#: level_i18n.cc:5192
+msgid ""
+"Build me a solvable Sokoban puzzle that will take me 25 pushes or more to "
+"solve. The seeds grow into boxes; the dice grow into walls."
+msgstr "为我建立一个可解决的推箱子难题，这将需要我25次推或更多次才能解决。种子长成盒子；骰子长成墙。"
+
+#: level_i18n.cc:5193
+msgid ""
+"I can't solve that puzzle; there aren't enough boxes! Use the spoon, and "
+"next time make sure the boxes finish growing before hitting the switch."
+msgstr "我无法解决这个难题；没有足够的盒子！使用勺子，下次确保在按下开关之前盒子已经长成。"
+
+#: level_i18n.cc:5194
+msgid ""
+"I don't think that puzzle can be solved. If you think you can prove me "
+"wrong, go get the oxyd!"
+msgstr "我认为难题无法解决。如果您认为自己可以证明我错了，那就得到oxyd石！"
+
+#: level_i18n.cc:5195
+msgid ""
+"That puzzle was too easy! Use the spoon, and give me a harder one next time!"
+msgstr "这个难题太容易了！用勺子，下次再给我加一点力！"
+
+#: level_i18n.cc:5196
+msgid "Thanks for that excellent puzzle, I really enjoyed solving it!"
+msgstr "感谢您的精彩难题，我真的很喜欢解决它！"
+
+#: level_i18n.cc:5204
+msgid "Beware of shady mates!"
+msgstr "当心黑心队友！"
+
+#: level_i18n.cc:5215
+msgid ""
+"I your dear friend am in myself undone, by reason of a Burden that lieth "
+"hard upon me."
+msgstr "我的亲爱的朋友因为对我撒谎的负担而无法自拔。"
+
+#: level_i18n.cc:5217
+msgid "Do you see yonder Wicket Gate?"
+msgstr "你看见永生门吗？"
+
+#: level_i18n.cc:5219
+msgid ""
+"They drew nigh to a very miry Slough. The name of the Slough was Despond."
+msgstr "他们接近了一个非常泥泞的泥沼。泥沼的名字是沮丧。"
+
+#: level_i18n.cc:5221
+msgid "Knock, and it shall be opened unto you."
+msgstr "敲门，它应该为你打开。"
+
+#: level_i18n.cc:5223
+msgid ""
+"His Burden loosed from off his shoulders, and fell from his back, and began "
+"to tumble, and so continued to do, till it came to the mouth of the "
+"Sepulchre, where it fell in, and I saw it no more."
+msgstr "他的负担从他的肩膀上松开，从他的背上跌落，开始跌落，继续下去，直到它落到了坟墓的口中，它落入了那里，我再也看不到了。"
+
+#: level_i18n.cc:5225
+msgid "They came to the foot of the hill Difficulty."
+msgstr "他们来到困难山脚下。"
+
+#: level_i18n.cc:5227
+msgid ""
+"There was a very stately palace before him, the name of which was Beautiful."
+msgstr "在他面前有一个非常庄严的宫殿，名字叫美丽。"
+
+#: level_i18n.cc:5229
+msgid ""
+"He had gone but a little way, before he espied a foul Fiend coming over the "
+"field to meet him."
+msgstr "他走了一点路，然后发现犯规的魔鬼来到了赛场与他见面。"
+
+#: level_i18n.cc:5231
+msgid ""
+"At the end of this Valley was another, called, The Valley of the Shadow Of "
+"Death."
+msgstr "在这个山谷的尽头是另一个叫做死亡阴影的山谷。"
+
+#: level_i18n.cc:5233
+msgid "He saw Faithful before him on his Journey."
+msgstr "在旅途中，他在他之前看到了忠实的信徒。"
+
+#: level_i18n.cc:5235
+msgid ""
+"As they went on, Faithful, as he chanced to look to one side, saw a man "
+"whose name was Talkative."
+msgstr "当他们继续前进时，忠实的他正好看向一边，看到了一个叫健谈的人。"
+
+#: level_i18n.cc:5237
+msgid ""
+"They presently saw a Town before them, and the name of that Town is Vanity."
+msgstr "他们目前在他们面前看到一个城镇，该城镇的名称为虚荣。"
+
+#: level_i18n.cc:5239
+msgid ""
+"Christian went not forth alone; for there was one whose name was Hopeful who"
+" joined himself unto him."
+msgstr "克里斯蒂安不是一个人走。因为有一个名字叫有希望的人加入了他的行列。"
+
+#: level_i18n.cc:5241
+msgid ""
+"There was on the Left Hand of the road a Meadow, and a Stile to go over into"
+" it, and that meadow is called By-Path-Meadow."
+msgstr "在路的左手边有一块草地，还有一条要穿过它的阶梯，那块草地被称为路径草甸。"
+
+#: level_i18n.cc:5243
+msgid ""
+"Now there was, not far from the place where they lay, a castle, called "
+"Doubting-Castle, the owner of which was Giant Despair."
+msgstr "现在，在他们躺着的地方不远处，有一座城堡，叫做杜布丁城堡，所有者是巨人绝望"
+
+#: level_i18n.cc:5245
+msgid "They went then till they came to the Delectable Mountains."
+msgstr "然后他们一直走到可怜的山脉。"
+
+#: level_i18n.cc:5247
+msgid "Beware of the Flatterer."
+msgstr "当心奉承。"
+
+#: level_i18n.cc:5249
+msgid ""
+"Follow me, said the Flatterer, it is to the Coelestial City that I am going."
+msgstr "奉承者说，跟我来，我要去的是天下城。"
+
+#: level_i18n.cc:5251
+msgid ""
+"They came into a certain Country, whose air naturally tended to make one "
+"drowzy."
+msgstr "他们来到某个国家，其空气自然使人昏昏欲睡。"
+
+#: level_i18n.cc:5253
+msgid ""
+"The Pilgrims were got over the Enchanted ground, and entering into the "
+"Country of Beulah."
+msgstr "朝圣者们越过了魔法之地，进入了贝拉国。"
+
+#: level_i18n.cc:5255
+msgid ""
+"There was then in that place one Vain-Hope, a ferryman, that with his boat "
+"helped him over."
+msgstr "那时那个地方有一个轮渡人，名字叫做只有希望，他的船帮助了他。"
+
+#: level_i18n.cc:5257
+msgid ""
+"At the sight therefore of this River, the Pilgrims were much astounded, but "
+"the men that went with them, said, You must go through, or you cannot come "
+"at the Gate."
+msgstr "因此，在这条河的景象中，朝圣者们大为震惊，但与他们同行的人说，你必须经过，否则你将无法到达大门。"
+
+#: level_i18n.cc:5259
+msgid "I looked in after them; and behold the City shone like the Sun."
+msgstr "我照顾着他们。看到这座城市像太阳一样闪耀。"
+
+#: level_i18n.cc:5261
+msgid ""
+"They also thought they heard there a rumbling noise, as of fire, and a Cry "
+"of some tormented, and that they smelt the scent of Brimstone."
+msgstr "他们还以为他们听到那里有隆隆的声音，如火，有哭泣的声音，并且闻到了硫磺的气味。"
+
+#: level_i18n.cc:5268
+msgid "Search it."
+msgstr "Search it.\n\n中文（简体）\n \n搜索一下。"
+
+#: level_i18n.cc:5288
+msgid "Poe's Nightmare"
+msgstr "坡的噩梦"
+
+#: level_i18n.cc:5290
+msgid ""
+"You find yourself in a dark, damp chamber. There's a light switch to the "
+"northeast and a passage to the west."
+msgstr "您会发现自己处于黑暗潮湿的房间中。东北有电灯开关，西有通道。"
+
+#: level_i18n.cc:5292
+msgid ""
+"The corridor leads northwards and opens into a dim lit room packed with "
+"crates. You have an uneasy feeling about what lies ahead of you."
+msgstr "走廊向北延伸，通向装满板条箱的昏暗的房间。您对前方的事物有一种不安的感觉。"
+
+#: level_i18n.cc:5294
+msgid ""
+"Huh, that was close. The way behind you is blocked. Maybe you should look "
+"for a place to leave a flag?!"
+msgstr "嗯，那很近。您身后的路被封锁。也许您应该寻找一个悬挂旗帜的地方？"
+
+#: level_i18n.cc:5296
+msgid ""
+"To the east the passage is blocked by laser beams. To the west a tunnel "
+"leads to a large pendulum. At the wall you see a hole where your flag fits "
+"in. What now?"
+msgstr "在东方，通道被激光束阻挡。在西部，一条隧道通向大型钟摆。在墙上，您可以看到一个孔，您的旗帜可以插入其中。现在怎么办？"
+
+#: level_i18n.cc:5298
+msgid ""
+"Shrinking rooms, a pendulum with razor sharp blades, laser beams ... what "
+"may lurk behind the next corner?"
+msgstr "房间变小了，摆着锋利刀片的摆锤，激光束……下一个角落可能潜伏着什么？"
+
+#: level_i18n.cc:5300
+msgid ""
+"The room to the east does not look very stable, but does the passage to the "
+"south lead anywhere?"
+msgstr "东面的房间看起来不太稳定，但是通往南面的通道是否通向任何地方？"
+
+#: level_i18n.cc:5302
+msgid "Hmmm, these keys might prove useful."
+msgstr "嗯，这些钥匙可能很有用。"
+
+#: level_i18n.cc:5304
+msgid ""
+"Passing by the entrance you get a glimpse of the room to the south ... and "
+"suddenly feel very uneasy."
+msgstr "经过入口，您可以瞥见南方的房间...突然感到非常不安。"
+
+#: level_i18n.cc:5306
+msgid "Uh-oh, the steps leading down are small and extremely slippery."
+msgstr "哦，哦，下来的台阶很小而且很滑。"
+
+#: level_i18n.cc:5308
+msgid ""
+"The passage opens into a room with a huge iron door to the east. The air "
+"seems to smell much fresher here."
+msgstr "通道通向一间在东方有一扇巨大铁门的房间。这里的空气似乎闻起来清新得多。"
+
+#: level_i18n.cc:5310
+msgid "Congratulations! You've survived Poe's Nightmare."
+msgstr "恭喜你！您已经度过了坡的噩梦。"
+
+#: level_i18n.cc:5320
+msgid "Use ~all~ Stones"
+msgstr "用〜所有的〜石头"
+
+#: level_i18n.cc:5339
+msgid ""
+"This is Babylon. Be careful, stranger! It's dangerous to go inside.     "
+"There are some gates, unfortunately closed, like the famous Gate of Ishtar, "
+"and have a look to the lions, the tigers. Semiramis is waiting for you, "
+"stranger, ha ha."
+msgstr "这是巴比伦。小心，陌生人！进去很危险。有些门很不幸地关闭了，像著名的伊什塔尔门，并且可以看到狮子和老虎。塞米勒米斯在等你，陌生人，哈哈。"
+
+#: level_i18n.cc:5340
+msgid "Try to find the mechanism to open the gate, stranger"
+msgstr "尝试找到开门的机制，陌生人"
+
+#: level_i18n.cc:5341
+msgid "Be afraid about the ~water~ , it is so deep, *hihi*, isn't it, Yeah???"
+msgstr "害怕〜水〜，它是如此之深，不是吗，是的？"
+
+#: level_i18n.cc:5346
+msgid "With respects to Dante Alighieri"
+msgstr "致敬但丁·阿利吉耶里"
+
+#: level_i18n.cc:5348
+msgid ""
+"Switch on, if you like to play the regular difficulty with many jokers, or "
+"leave it switched off, if you like to face easier challenges with less "
+"jokers."
+msgstr "如果您想与许多小丑打平常的难度，请打开开关；如果您想减少小丑的难度来面对更轻松的挑战，则将其关闭。"
+
+#: level_i18n.cc:5351
+msgid ""
+"BEFORE ME NOTHING WAS BUT THINGS ETERNAL, / AND I ENDURE ETERNALLY. / "
+"ABANDON ALL HOPE, YOU WHO ENTER HERE."
+msgstr "在我之前，一切都不是永恒的，/而且我永远永恒。 /放弃所有希望，请在此处进入。"
+
+#: level_i18n.cc:5354
+msgid ""
+"... stilled the shaggy jowls / of the pilot of the livid marsh, / about "
+"whose eyes burned wheels of flame."
+msgstr "……使青色沼泽的飞行者的蓬松的长袍静止不动，周围的眼睛燃烧着火焰。"
+
+#: level_i18n.cc:5356
+msgid ""
+"I am Charon, ferryman of the underworld.  I will transport you through the "
+"perilous swamps of Acheron, but the price is not cheap.              Wait!  "
+"You still seem alive ...                                                   "
+"It cannot be -- only the dead may enter this place.  Quickly -- sacrifice a "
+"symbol of life on that altar to keep the guards at bay, and then perhaps I "
+"will consider taking you across."
+msgstr "我是卡龙，冥界的渡轮。 我将运送您穿越危险的黄泉沼泽，但价格并不便宜。 等待！ 您似乎还活着...不可能-只有死者才能进入这个地方。 迅速-在那个祭坛上熄灭生命的象征以骗过守卫，然后也许我会考虑带您过去。"
+
+#: level_i18n.cc:5358
+msgid ""
+"Very well.  The demons and spirits that guard this place may now believe "
+"that you are truly dead, but I would still be cautious if I were you ..."
+"                                             But you still need a coin.  "
+"Hmm, well normally I wouldn't do this, but that fellow over there has me "
+"kind of worried -- I think he's plotting something.  If he has a coin, maybe"
+" you could get it from him somehow."
+msgstr "很好。 守护着这个地方的恶魔和灵魂现在可能会认为您确实死了，但是如果我是您，我仍然会保持谨慎……但是您仍然需要一枚硬币。 嗯，通常我不会这样做，但是那边的那个家伙让我有点担心-我认为他正在密谋。 如果他有硬币，也许您可以通过某种方式从他那里得到。"
+
+#: level_i18n.cc:5360
+msgid ""
+"No!  I will not ferry you across unless you make a proper sacrifice, ridding"
+" yourself of anything that could be interpreted as a sign of life.  Now "
+"begone!"
+msgstr "不！除非您做出适当的牺牲，使自己摆脱可能被解释为生命标志的一切，否则我不会带您过去。现在开始！"
+
+#: level_i18n.cc:5363
+msgid ""
+"... for then I knew that beings of great worth / were here suspended in this"
+" Limbo."
+msgstr "……因为那时我知道，这个Limbo里有很有价值的生物。"
+
+#: level_i18n.cc:5365
+msgid ""
+"You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go "
+"back now, or forever face the consequences!"
+msgstr "你不能在这里！我，米诺斯，死者审判者，不会允许它。现在回去，否则将永远面临严重后果！"
+
+#: level_i18n.cc:5367
+msgid "In that case, then begone!"
+msgstr "在那种情况下，那就开始吧！"
+
+#: level_i18n.cc:5370
+msgid ""
+"There stands Minos, snarling, terrible. / He examines each offender at the "
+"entrance, / judges and dispatches as he encoils himself."
+msgstr "那里站着米诺斯，咆哮而可怕。 /他在入口处检查盘绕自己的每个罪犯，/判断并派遣。"
+
+#: level_i18n.cc:5373
+msgid ""
+"The hellish squall, which never rests, / sweeps spirits in its headlong rush"
+" ..."
+msgstr "永无止境的地狱般的风/在漫长的奔忙中扫荡着灵魂..."
+
+#: level_i18n.cc:5376
+msgid ""
+"I am in the third circle, of eternal, / hateful rain, cold and leaden, / "
+"changeless in its monotony."
+msgstr "我处于第三圈，永恒的，/可恨的雨，寒冷和铅，/单调不变。"
+
+#: level_i18n.cc:5379
+msgid ""
+"... they, with great shouts, from opposite sides / were shoving burdens "
+"forward with their chests. / They crashed into each other, turned / and beat"
+" retreat, shoving their loads and shouting ..."
+msgstr "……他们从对面大喊大叫，正用自己的胸部向前推重物。 /他们撞到对方，转身/退缩，推开重物并大喊..."
+
+#: level_i18n.cc:5382
+msgid ""
+"This dreary stream, once it has reached /  these malignant, ashen slopes, / "
+"drains out into the swamp called Styx. / And I, my gaze transfixed, could "
+"see / people with angry faces in that bog, / naked, their bodies smeared "
+"with mud."
+msgstr "这些沉闷的溪流一旦到达/这些恶性的，灰白色的斜坡/ /就会流进称为Styx的沼泽。 /然后，我的视线转瞬即逝，我可以看到/在那沼泽中愤怒的面孔的人/赤裸上身，身上沾满了泥土。"
+
+#: level_i18n.cc:5385
+msgid ""
+"... we approach the city known as Dis, / with its vast army and its burdened"
+" citizens."
+msgstr "..我们将以庞大的军队和负担沉重的市民接近这座名叫迪斯的城市。"
+
+#: level_i18n.cc:5388
+msgid ""
+"At the threshold I saw more than a thousand angels / fallen from Heaven ... "
+"they reined in their great disdain / enough to say: 'You come -- alone.  Let"
+" him be gone, / who has so boldly made his way into this kingdom. / Let him "
+"retrace his reckless path alone' ..."
+msgstr "在门槛处，我看到超过一千名天使/从天上掉下来...他们克制自己的不屑/足以说：'你来了-一个人。 让他走吧，/他如此勇敢地进入这个王国。 /让他独自追随他的鲁莽之路'..."
+
+#: level_i18n.cc:5391
+msgid ""
+"Now my master takes a hidden / path between the city's ramparts and the "
+"torments, / and I come close behind him ..."
+msgstr "现在我的主人在这座城市的城墙和折磨之间走了一条隐蔽的道路，/我紧跟在他后面..."
+
+#: level_i18n.cc:5394
+msgid ""
+"... his hands, ready, encouraging, / thrust me towards him among the tombs."
+msgstr "......他的手，准备，鼓励，/在坟场中将我推向他。"
+
+#: level_i18n.cc:5397
+msgid ""
+"Like the bull that breaks its tether / just as it receives the mortal blow /"
+" and cannot run, but lunges here and there, // so raged the Minotaur.  My "
+"artful guide / called out: 'Run to the passage: / hurry down while he is in "
+"his fury.'"
+msgstr "就像公牛在受到致命打击时/就像打开了束缚/不能奔跑，但到处乱冲，//使牛头怪大怒。我狡猾的向导/喊道：“跑到通道：/在他愤怒的时候快点下来。”"
+
+#: level_i18n.cc:5400
+msgid ""
+"... we went on, / skirting the edge of the vermilion boil / from which the "
+"boiled cried out with piercing shrieks."
+msgstr "...我们继续，/绕着朱红色的沸水的边缘/沸腾的尖叫声从中沸腾了。"
+
+#: level_i18n.cc:5403
+msgid ""
+"Here the filthy Harpies nest, / who drove the Trojans from the Strophades / "
+"with doleful prophecies of woe to come."
+msgstr "在这里，肮脏的哈比斯人的家园，他们将特洛伊从斯特罗法斯赶出，带着悲惨的预言降临。"
+
+#: level_i18n.cc:5406
+msgid ""
+"... Here, at the very edge, we stayed our steps / at an expanse of deep and "
+"arid sand ..."
+msgstr "...在这里，在最边缘，我们沿着宽阔而干燥的沙子停留了脚步..."
+
+#: level_i18n.cc:5409
+msgid ""
+"A path that circles like a belt around / the base of that high rock runs "
+"round the pit, / its sides descending in ten ditches."
+msgstr "一条路径像带子一样绕着高岩石的底部环绕，坑的侧面下降了十个沟。"
+
+#: level_i18n.cc:5412
+msgid ""
+"Under my feet I saw a lake / so frozen that it seemed more glass than water."
+" / Never in winter did the Austrian Danube / nor the far-off Don, under its "
+"frigid sky, / cover their currents with so thick a veil / as I saw there."
+msgstr "在我的脚下，我看到一个湖/结冰如此结实，看起来更像玻璃而非水。 /在冬天，奥地利多瑙河或遥远的唐从未在寒冷的天空下用如此厚的面纱遮盖住他们的水流/正如我在那儿看到的那样。"
+
+#: level_i18n.cc:5415
+msgid ""
+"... we made our way toward the center, / where all things that have weight "
+"converge, / and I was shivering in the eternal chill ..."
+msgstr "...我们朝中心走去，/所有有重量的东西都汇合了，/，我在永恒的寒冷中发抖..."
+
+#: level_i18n.cc:5418
+msgid ""
+"It is no enterprise undertaken lightly -- / to describe the very bottom of "
+"the universe ..."
+msgstr "描写宇宙的底层绝非能够轻描淡写..."
+
+#: level_i18n.cc:5421
+msgid ""
+"The emperor of the woeful kingdom / rose from the ice below his breast, / "
+"and I in size am closer to a giant / than giants are when measured to his "
+"arms."
+msgstr "可悲的王国的皇帝从他胸前的冰块中升起，测量他的手臂可发现，我的身材比巨人更接近巨人。"
+
+#: level_i18n.cc:5423
+msgid ""
+"You refused many times to leave my kingdom -- now you shall pay the "
+"consequences for your foolishness!"
+msgstr "您多次拒绝离开我的王国-现在您将为自己的愚昧承担后果！"
+
+#: level_i18n.cc:5425
+msgid "Faithlessness"
+msgstr "不忠"
+
+#: level_i18n.cc:5427
+msgid "Lust"
+msgstr "情欲"
+
+#: level_i18n.cc:5429
+msgid "Gluttony"
+msgstr "暴食"
+
+#: level_i18n.cc:5431
+msgid "Avarice"
+msgstr "贪婪"
+
+#: level_i18n.cc:5433
+msgid "Sloth"
+msgstr "懒惰"
+
+#: level_i18n.cc:5435
+msgid "Heresy"
+msgstr "异端"
+
+#: level_i18n.cc:5437
+msgid "Violence"
+msgstr "暴力"
+
+#: level_i18n.cc:5439
+msgid "Fraud"
+msgstr "舞弊"
+
+#: level_i18n.cc:5441
+msgid "Treachery"
+msgstr "背信弃义"
+
+#: level_i18n.cc:5444
+msgid "... passed the point / to which all weights are drawn from every side."
+msgstr "...通过了点/，所有权重均从该点/绘制。"
+
+#: level_i18n.cc:5447
+msgid ""
+"... climbed up ... far enough to see, through a round opening, / a few of "
+"those fair things the heavens bear. / Then we came forth, to see again the "
+"stars."
+msgstr "...爬起来...足够远，可以通过一个圆形的开口看到/天堂所承载的一些美好事物。 /然后我们出来，再次见到星星。"
+
+#: level_i18n.cc:5454
+msgid ""
+"Choose your hemisphere: left switch for northern, right switch for southern."
+msgstr "选择您的半球：向左切换为北方，向右切换为南方。"
+
+#: level_i18n.cc:5462
+msgid "Interlude I"
+msgstr "插曲 1"
+
+#: level_i18n.cc:5488
+msgid "Danger!"
+msgstr "危险！"
+
+#: level_i18n.cc:5525
+msgid "What I Don't Have"
+msgstr "我没有的东西"
+
+#: level_i18n.cc:5530
+msgid ""
+"Dorothy left the house to play with her little dog Toto, when suddenly the "
+"sky turned dark and a giant tornado rushed across Kansas."
+msgstr "桃乐丝离开屋子去和她的小狗托托玩耍，这时突然天空变黑了，巨大的龙卷风冲向堪萨斯州。"
+
+#: level_i18n.cc:5532
+msgid ""
+"The Good Witch of the North speaks: 'Your house has killed the ruler of this"
+" land, the Wicked Witch of the East. Take her Silver Shoes and follow the "
+"Yellow Brick Road to Emerald City, where the Wizard of Oz should be more "
+"than pleased to help you return home. Go with my blessings!'"
+msgstr "北方好女巫说：“你的房子杀了这片土地的统治者，东方的邪恶女巫。 带着她的银鞋，沿着黄砖路前往翡翠城，绿野仙踪应该很高兴能帮助您返回家园。 祝福我！”"
+
+#: level_i18n.cc:5534
+msgid ""
+"A Scarecrow dangles helplessly from a pole. After talking to Dorothy, it "
+"agrees to join her for an audience with the Wizard of Oz to ask him for a "
+"brain. 'If only you could release me from this pole, that is ...'"
+msgstr "稻草人无助地从杆子上晃来晃去。与多萝西交谈后，它同意与她一起在绿野仙踪中与观众见面，要求他动脑子。 “只要你能把我从这杆子中释放出来，那就是……”"
+
+#: level_i18n.cc:5536
+msgid ""
+"The rusty Tin Woodman can't move anymore by himself. 'Though I wish to join "
+"you on your journey, Dorothy, for I need to ask the Wizard why I did not "
+"receive a heart, I fear I'm stuck here. It would be nice if you could help "
+"me out a bit ...'"
+msgstr "生锈的锡·伍德曼不能再独自动弹了。 “尽管我希望与您一起旅途，多萝西，因为我需要问巫师为什么我没有得到一颗心，但我担心自己会被困在这里。如果您能帮我一下会很好..."
+
+#: level_i18n.cc:5538
+msgid ""
+"Among the shallow waters of a merry creek, the Cowardly Lion sits shivering "
+"of fear. Dorothy shouts: 'Lion, it's not wide! You can jump over the creek! "
+"Let's see the Wizard of Oz, maybe he can do something to give you courage!'"
+msgstr "在一条快乐的小溪的浅水之中，胆怯狮子坐着因恐惧而颤抖。多萝西大喊：“狮子，它不宽！您可以跳过小河！让我们来看一下《绿野仙踪》，也许他可以做些什么来给你勇气！"
+
+#: level_i18n.cc:5540
+msgid ""
+"The gate guardian says: 'Welcome to Emerald City! Please always wear these "
+"spectacles, or the splendid brilliance of the Wizard's city may blind you. "
+"The Wizard resides to the north.'"
+msgstr "门卫说：'欢迎来到翡翠城！请始终戴上这些眼镜，否则巫师之城的灿烂光彩可能会使您失明。巫师居住在北方。"
+
+#: level_i18n.cc:5542
+msgid ""
+"A booming voice echoes through the corridor: 'I, the Wonderful Wizard of Oz,"
+" will help Thee find what Thou are looking for. However before Thou may pass"
+" here and see me, travel on to Winkie Country and defeat my arch rival, the "
+"Wicked Witch of the West.'"
+msgstr "走廊上回荡着一声隆隆的声音：“我，奇妙的绿野仙踪，我将帮助您找到想要的东西。 但是，在您可能不经过这里见我之前，前往温基乡村击败我的主要对手，西方的邪恶女巫。"
+
+#: level_i18n.cc:5544
+msgid ""
+"This is the domain of the Wicked Witch of the West. She sends her minions "
+"against Dorothy and her friends. To destroy the witch, they need to steal "
+"her magic wand, kept deep inside her ice fortress."
+msgstr "这是西方邪恶女巫的领域。她派遣奴才来对抗桃乐丝和她的朋友们。为了消灭女巫，他们需要偷走她的魔杖，魔杖一直藏在冰堡内。"
+
+#: level_i18n.cc:5546
+msgid ""
+"Now that Dorothy finally made it to the Wonderful Wizard's dwelling, she "
+"realizes that he is nothing more but a humbug. Watching him flee with his "
+"hot-air balloon, Dorothy loses all hope of ever returning home. All that's "
+"left of the Wizard is now his shrinkable cupboard."
+msgstr "现在，桃乐丝终于来到了奇妙巫师的住所，她意识到他不过是个骗子而已。 桃乐丝看着他用热气球逃跑，失去了重返家园的所有希望。 巫师现在剩下的东西只有他的可收缩橱柜。"
+
+#: level_i18n.cc:5550
+msgid "Choices, choices ..."
+msgstr "选择，选择..."
+
+#: level_i18n.cc:5551
+msgid ""
+"Before trying this level in hard mode, it's a good idea to switch to easy "
+"mode to practice on the individual puzzles."
+msgstr "在困难模式下尝试此关卡之前，最好切换到简易模式以对各个难题进行练习。"
+
+#: level_i18n.cc:5552
+msgid "These dispensers are all empty ..."
+msgstr "这些分配器都是空的..."
+
+#: level_i18n.cc:5553
+msgid "The glass next to this document can be pushed to let you back out."
+msgstr "此文档旁边的玻璃杯可被推动，以让您退出。"
+
+#: level_i18n.cc:5557
+msgid "Once, No More No Less"
+msgstr "一次，不多不少"
+
+#: level_i18n.cc:5562
+msgid ""
+"Each of the 6 women has a profession; and each of them carries or wears only"
+" one of the items."
+msgstr "6名妇女中的每一个都有职业。她们每个人只携带或穿着其中一件。"
+
+#: level_i18n.cc:5564
+msgid "Miss Black's best friends are the poet and the locksmith."
+msgstr "布莱克小姐最好的朋友是诗人和锁匠。"
+
+#: level_i18n.cc:5566
+msgid ""
+"Miss Black, Miss White and Miss Pearl are impressed by the magician's "
+"talent."
+msgstr "布莱克小姐，怀特小姐和珍珠小姐对魔术师的才华印象深刻。"
+
+#: level_i18n.cc:5568
+msgid "Miss Pearl tells jokes to the poet, the hacker and the locksmith."
+msgstr "珀尔小姐对诗人，黑客和锁匠讲笑话。"
+
+#: level_i18n.cc:5570
+msgid ""
+"The hacker, the locksmith and the firewoman enjoy looking at their "
+"reflection in the glasses."
+msgstr "黑客，锁匠和消防员喜欢看着他们在眼镜中的倒影。"
+
+#: level_i18n.cc:5572
+msgid "The magician carries the umbrella."
+msgstr "魔术师拿着雨伞。"
+
+#: level_i18n.cc:5574
+msgid "Neither the magician nor the firewoman are permitted to wear the ring."
+msgstr "魔术师和消防员都不允许戴戒指。"
+
+#: level_i18n.cc:5576
+msgid ""
+"Miss Black, Miss White and Miss Rotor like to tease the girl with the ring."
+msgstr "布莱克小姐，怀特小姐和罗托小姐喜欢戏弄那个戴戒指的女孩。"
+
+#: level_i18n.cc:5578
+msgid ""
+"Miss Top prefers to be unencumbered: She doesn't carry an umbrella, nor a "
+"bag and certainly not a weight."
+msgstr "托普小姐更喜欢保持镇定：她不带雨伞，也不带包，当然也不重。"
+
+#: level_i18n.cc:5580
+msgid ""
+"Sometimes, Miss White and Miss Pearl help their friend to carry her weight."
+msgstr "有时，怀特小姐和珍珠小姐会帮助他们的朋友携带东西。"
+
+#: level_i18n.cc:5585
+msgid ""
+"There are 19 fully connected puzzle piece arrangements, but just 9 of them "
+"are reachable from this first distribution."
+msgstr "有19个完全连接的拼图块布置，但是从第一次分发中只有9个可以到达。"
+
+#: level_i18n.cc:5587
+msgid ""
+"This second distribution can just be converted to any of the other 10 "
+"arrangements."
+msgstr "第二次分发可以仅转换为其他10种布置中的任何一种。"
+
+#: level_i18n.cc:5589
+msgid ""
+"There are just two symmetric puzzle piece arrangements that both are "
+"reachable."
+msgstr "只有两个对称的拼图布置都是可行的。"
+
+#: level_i18n.cc:5595
+msgid "Marblics and Pearlics I"
+msgstr "石珠与珍珠 1"
+
+#: level_i18n.cc:5598
+msgid ""
+"Doping 'en Tour' not allowed for taking shortcuts, doping just allowed for "
+"self defence!"
+msgstr "兴奋剂不允许参加“ en Tour”活动，兴奋剂仅用于自卫！"
+
+#: level_i18n.cc:5601
+msgid "Rotomagus - Rouen"
+msgstr "轮虫-鲁昂"
+
+#: level_i18n.cc:5604
+msgid "Lutetia - Paris"
+msgstr "黄体-巴黎 Lutetia - Paris"
+
+#: level_i18n.cc:5607
+msgid "Camaracum - Cambrai"
+msgstr "Camaracum-康布雷"
+
+#: level_i18n.cc:5610
+msgid "Durocortorum - Rheims"
+msgstr "硬皮龙  - Rheims"
+
+#: level_i18n.cc:5613
+msgid "Lugdunum - Lyons"
+msgstr "里杜楠-里昂"
+
+#: level_i18n.cc:5616
+msgid "Nicae - Nice"
+msgstr "尼采-尼斯 Nicae - Nice"
+
+#: level_i18n.cc:5619
+msgid "Massilia - Marseilles"
+msgstr "马西利亚-马赛 Massilia - Marseilles"
+
+#: level_i18n.cc:5622
+msgid "Aginum - Agen"
+msgstr "牛至-阿让 Aginum - Agen"
+
+#: level_i18n.cc:5625
+msgid "Detour de Tour - Detour of the Tour"
+msgstr "绕道游览-绕道游览 Detour de Tour - Detour of the Tour"
+
+#: level_i18n.cc:5628
+msgid "Burdigala - Bordeaux"
+msgstr "布尔迪加拉-波尔多 Burdigala - Bordeaux"
+
+#: level_i18n.cc:5631
+msgid "Gallia omnis divisa est ... - The whole of Gaul is divided ..."
+msgstr "Gallia omnis divisa est ...-整个高卢人被分割..."
+
+#: level_i18n.cc:5634
+msgid "Veni, vidi, vici - I came, I saw, I conquered"
+msgstr "Veni，vidi，vici-我来了，我看到了，我被征服了"
+
+#: level_i18n.cc:5636
+msgid "Welcome in L’Alpe d’Huez. Sorry, it is not yet stage of the Tour"
+msgstr "欢迎来到阿尔佩·德·赫兹。抱歉，目前尚未开始巡回演出"
+
+#: level_i18n.cc:5643
+msgid "Distribution Meditation"
+msgstr "分布冥想"
+
+#: level_i18n.cc:5658
+msgid "more is not less"
+msgstr "多不是少"
+
+#: level_i18n.cc:5661
+msgid "Sorry, but in difficult mode you need more ... Restart."
+msgstr "抱歉，但是在困难模式下，您需要更多...重新启动。"

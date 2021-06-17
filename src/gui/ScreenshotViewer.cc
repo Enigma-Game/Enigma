@@ -106,7 +106,7 @@ namespace enigma { namespace gui {
             blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
             Font *f = enigma::GetFont("menufont");
             f->render (gc, 30, 60, _("No screenshot available:"));
-            f->render (gc, 30, 100, filename.c_str());
+            f->render (gc, 30, 100, filename);
         }
     }
 }} // namespace enigma::gui

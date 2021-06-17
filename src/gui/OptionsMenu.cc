@@ -514,7 +514,7 @@ private:
 
     int BrightnessButton::get_value() const {
         double gamma = options::GetDouble("Gamma");
-        int value = round_down<int>(gamma * 5.0);
+        int value = round_nearest<int>(gamma * 5.0);
         return value;
     }
 
@@ -1083,23 +1083,23 @@ private:
                 handled = true;
                 switch (currentPage) {
                 case OPTIONS_MAIN: {
-                    displayInfo(helptext_options_main, 1);
+                    displayInfo(helptext_options_main);
                     draw_all();
                     break; }
                 case OPTIONS_VIDEO: {
-                    displayInfo(helptext_options_video, 1);
+                    displayInfo(helptext_options_video);
                     draw_all();
                     break; }
                 case OPTIONS_AUDIO: {
-                    displayInfo(helptext_options_audio, 1);
+                    displayInfo(helptext_options_audio);
                     draw_all();
                     break; }
                 case OPTIONS_CONFIG: {
-                    displayInfo(helptext_options_config, 1);
+                    displayInfo(helptext_options_config);
                     draw_all();
                     break; }
                 case OPTIONS_PATHS: {
-                    displayInfo(helptext_options_paths, 1);
+                    displayInfo(helptext_options_paths);
                     draw_all();
                     break; }
                 case OPTIONS_VIDEOCHECK:

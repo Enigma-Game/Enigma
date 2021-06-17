@@ -114,7 +114,7 @@ void TextField::draw(ecl::GC &gc, const ecl::Rect &r) {
         // cursor would be right of textfiled - shift centered text left
         x = get_x() + get_w() - 5 - w_pre;
     
-    f->render (gc, x, y, textPreCursor.c_str());
+    f->render (gc, x, y, textPreCursor);
     
     x += w_pre; 
     if (m_activep || get_parent()->is_key_focus(this)) {
@@ -125,7 +125,7 @@ void TextField::draw(ecl::GC &gc, const ecl::Rect &r) {
         x += w_cursor;
     }
     
-    f->render(gc, x, y, textPostCursor.c_str());
+    f->render(gc, x, y, textPostCursor);
    
 }
 

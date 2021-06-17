@@ -192,7 +192,7 @@ void StatusBarImpl::redraw(ecl::GC &gc, const ScreenArea &r) {
     ScreenArea movesarea = vminfo->sb_movesarea;
 
     // draw modes indicators
-    s_modes = modesfont->render(((cMode ? "c" : "") + basicModes).c_str());
+    s_modes = modesfont->render(((cMode ? "c" : "") + basicModes));
     xsize_modes = s_modes->width();
     x = modesarea.x + modesarea.w - xsize_modes;
     y = modesarea.y;
@@ -247,7 +247,7 @@ void StatusBarImpl::redraw(ecl::GC &gc, const ScreenArea &r) {
 
         if (m_showcounter_p) {
             text = ecl::strf("%d", m_counter);
-            s_moves = movesfont->render(text.c_str());
+            s_moves = movesfont->render(text);
             xsize_moves = s_moves->width();
         }
 
@@ -267,34 +267,34 @@ void StatusBarImpl::redraw(ecl::GC &gc, const ScreenArea &r) {
             // draw time in pixel stable positions
             if (showHours) {
                 text = ecl::strf("%d:", hours);
-                s_time = timefont->render(text.c_str());
+                s_time = timefont->render(text);
                 blit(gc, x + maxWidthDigit - widthDigit[hours], y, s_time);
                 delete s_time;
                 x += maxWidthDigit + widthColon;
             }
             if (showMinutes) {
                 text = ecl::strf("%02d", minutes);
-                s_time = timefont->render(text.c_str());
+                s_time = timefont->render(text);
                 blit(gc, x + maxWidthDigit - widthDigit[minutes / 10], y, s_time);
                 x += 2 * maxWidthDigit;
             } else {
                 text = ecl::strf("%d", minutes);
-                s_time = timefont->render(text.c_str());
+                s_time = timefont->render(text);
                 blit(gc, x + maxWidthDigit - widthDigit[minutes % 10], y, s_time);
                 x += maxWidthDigit;
             }
             delete s_time;
-            s_time = timefont->render("'");
+            s_time = timefont->render(std::string("'"));
             blit(gc, x, y, s_time);
             x += widthApos;
             if (showSeconds) {
                 delete s_time;
                 text = ecl::strf("%02d", seconds);
-                s_time = timefont->render(text.c_str());
+                s_time = timefont->render(text);
                 blit(gc, x + maxWidthDigit - widthDigit[seconds / 10], y, s_time);
                 delete s_time;
                 x += 2 * maxWidthDigit;
-                s_time = timefont->render("\"");
+                s_time = timefont->render(std::string("\""));
                 blit(gc, x, y, s_time);
             }
         } else {  // only moves
@@ -400,7 +400,7 @@ TextDisplay::TextDisplay(Font &f)
 
 void TextDisplay::set_text(const string &t, bool scrolling, double duration) {
     text = t;
-    textsurface.reset(font.render(text.c_str()));
+    textsurface.reset(font.render(text));
     pingpong = false;
 
     time = 0;
@@ -1832,7 +1832,7 @@ void GameDisplay::redraw(ecl::Screen *screen) {
             Rect area(0, 0, 80, 20);
             set_color(gc, 0, 0, 0);
             box(gc, area);
-            f->render(gc, 0, 0, fps);
+            f->render(gc, 0, 0, std::string(fps));
 
             screen->update_rect(area);
         }

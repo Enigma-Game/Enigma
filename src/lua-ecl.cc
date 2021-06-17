@@ -1,6 +1,6 @@
 /*
 ** Lua binding: px
-** Generated automatically by tolua++-1.0.93 on Wed Oct 14 23:28:43 2015.
+** Generated automatically by tolua++-1.0.93 on Sun Jun 13 01:48:54 2021.
 */
 
 #ifndef __cplusplus
@@ -1405,7 +1405,7 @@ static int tolua_px_ecl_Font_get_width00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"Font",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -1413,12 +1413,12 @@ static int tolua_px_ecl_Font_get_width00(lua_State* tolua_S)
 #endif
  {
   Font* self = (Font*)  tolua_tousertype(tolua_S,1,0);
-  const char* str = ((const char*)  tolua_tostring(tolua_S,2,0));
+  std::string text = ((std::string)  tolua_tocppstring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'get_width'",NULL);
 #endif
   {
-   int tolua_ret = (int)  self->get_width(str);
+   int tolua_ret = (int)  self->get_width(text);
    tolua_pushnumber(tolua_S,(lua_Number)tolua_ret);
   }
  }
@@ -1439,7 +1439,7 @@ static int tolua_px_ecl_Font_render00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"Font",0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,2,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -1447,12 +1447,12 @@ static int tolua_px_ecl_Font_render00(lua_State* tolua_S)
 #endif
  {
   Font* self = (Font*)  tolua_tousertype(tolua_S,1,0);
-  const char* str = ((const char*)  tolua_tostring(tolua_S,2,0));
+  std::string text = ((std::string)  tolua_tocppstring(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'render'",NULL);
 #endif
   {
-   Surface* tolua_ret = (Surface*)  self->render(str);
+   Surface* tolua_ret = (Surface*)  self->render(text);
    tolua_pushusertype(tolua_S,(void*)tolua_ret,"Surface");
   }
  }
@@ -1475,7 +1475,7 @@ static int tolua_px_ecl_Font_render01(lua_State* tolua_S)
      !tolua_isusertype(tolua_S,2,"Surface",0,&tolua_err) ||
      !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
      !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,5,0,&tolua_err) ||
+     !tolua_iscppstring(tolua_S,5,0,&tolua_err) ||
      !tolua_isnoobj(tolua_S,6,&tolua_err)
  )
   goto tolua_lerror;
@@ -1485,12 +1485,12 @@ static int tolua_px_ecl_Font_render01(lua_State* tolua_S)
   Surface* s = ((Surface*)  tolua_tousertype(tolua_S,2,0));
   int x = ((int)  tolua_tonumber(tolua_S,3,0));
   int y = ((int)  tolua_tonumber(tolua_S,4,0));
-  const char* str = ((const char*)  tolua_tostring(tolua_S,5,0));
+  std::string text = ((std::string)  tolua_tocppstring(tolua_S,5,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'render'",NULL);
 #endif
   {
-   self->render(s,x,y,str);
+   self->render(s,x,y,text);
   }
  }
  return 0;
