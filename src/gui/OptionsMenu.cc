@@ -611,15 +611,7 @@ private:
 
     int LanguageButton::get_value() const
     {
-        string localename; //  = ecl::DefaultMessageLocale ();
-        options::GetOption ("Language", localename);
-
-        int lang = 0;                  // unknown language
-        for (size_t i=0; i<NUMENTRIES(nls::languages); ++i) {
-            if (localename == nls::languages[i].localename)
-                lang = int(i);
-        }
-        return lang;
+        return nls::GetCurrentLocaleNr();
     }
 
     void LanguageButton::set_value(int value)

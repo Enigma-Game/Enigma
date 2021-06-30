@@ -21,7 +21,9 @@ namespace nls
 {
     extern std::unique_ptr<tinygettext::DictionaryManager> theDictionaryManager;
 
-    void SetMessageLocale (const std::string &language);
+    void SetMessageLocale(const std::string &language);
+    void CycleLocale(bool direction);
+    int GetCurrentLocaleNr();
 
     struct Language {
         const char *name;
