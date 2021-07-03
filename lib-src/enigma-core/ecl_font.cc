@@ -63,6 +63,8 @@ std::vector<std::string> ecl::breakToLines(Font *font, const std::string &str,
         return lines;
     std::string::size_type breakPos = breakString(font, str, breakChars, targetWidth);
     lines = breakToLines(font, str.substr(breakPos), breakChars, targetWidth);
+    if ((breakPos > 0) && (str.substr(breakPos-1,1) == " "))
+        breakPos -= 1;
     lines.insert(lines.begin(), str.substr(0, breakPos).c_str());
     return lines;
 }
@@ -176,7 +178,7 @@ Surface *BitmapFont::render(std::string text, Font *altFont, int maxwidth) {
         } else {
             int charWidth = get_width(*p);
             width += charWidth;
-            if (maxwidth <= 0 || width < maxwidth) {
+            if (maxwidth <= 0 || width <= maxwidth) {
                 blit(GC(s), x, 0, surface, char_rects[int(*p)]);
                 x += charWidth;
             }
