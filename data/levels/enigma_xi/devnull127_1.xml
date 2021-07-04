@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Free and Caged" el:subtitle="" el:id="devnull127"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="4:32"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["FallenPuzzle"] = "=  "
+
+ti["  "] = {"fl_concrete"}
+ti[" ."] = {"fl_abyss"}
+ti["X "] = {"st_grate"}
+ti["* "] = {"st_box_rock"}
+ti["F "] = {"st_fourswitch", target = "mirror"}
+ti["L<"] = {"st_laser_w", name = "laserW"}
+ti["L^"] = {"st_laser_n", name = "laserN"}
+ti["M "] = {"st_mail"}
+ti["= "] = {"st_mirror_sheets", name = "mirror"}
+ti["P "] = {"st_lightpassenger", name = "lp"}
+ti["Q "] = {"st_quake"}
+ti["B "] = {"st_passage_black", flavor = "frame"}
+ti["W "] = {"st_passage_white", flavor = "frame"}
+ti["w "] = {"st_break_white"}
+ti[" !"] = {"it_blocker", name = "blocker"}
+ti["! "] = {"it_death"}
+ti["H "] = {"st_timer", name = "timer", target = "evalTimer", state = OFF, loop = false}
+ti["T1"] = ti({"fl_concrete_framed"}) .. ti({"it_cross", target = "evalTrigger1", interval = 3.0})
+ti["T2"] = ti[" ."] .. {"it_trigger", name = "sensor", target = "evalTrigger2", invisible = true, safeaction = true}
+ti["T3"] = {"fl_scales_concrete", target = "evalTrigger3", min = 0.6}
+ti["boxes"] = {"st_box_rock", name = "box%%"}
+ti["Y"] = {"st_puzzle_yellow", intensity = 1}
+ti[" h"] = {"it_hammer"}
+ti["Oe"] = ti[" ."] .. {"st_oxyd", name = "oxydsEast#"}
+ti["Ow"] = ti[" ."] .. {"st_oxyd", name = "oxydsWest#"}
+ti["@0"] = {"#ac_marble_black", name = "black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ti["@1"] = ti({"st_box_rock", name = "box%B"}) .. {"#ac_marble_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+
+wo(res.composer(res.autotile(res.puzzle(ti, "Y"), {"+", "boxes"})), "  ", {
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " .           . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .H. . .",
+    " .  X @0     . . . . . . . . . . . . .!.    w w w  . .    B        .B  !T1 . .",
+    " .  Y1Y1Y1X  . . . . . . . . .         . . .M.+Fw  . . .   . . . .   . .T2 . .",
+    " .  Y1+AY1   . . . . . . . . .  *h  +E!.    w w w  . . .   . . . .   .F.w.Oe .",
+    " .X Y1Y1Y1   . . . . . . . . .    +D   . . . . . . . . .+G . . . .    w T3w. .",
+    " .      X    . . . . . . . . .  +C     . . . .Ow . . . .   . . . .   .Oew.Oe .",
+    " .           .           . . .         . . . . . . . . .W      . .   . . . . .",
+    " . . . . . . .  Y1Y1Y1   . . . . . . . . . . . . . . . . . .   . .*  . . . . .",
+    " . . . . . . .  Y1@1Y1   . . . . . . . .Ow . .=. . . . .Q. .   .  +H . .P.L< .",
+    " . . . . . . .  Y1Y1Y1   . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . .           . . . . . . . . . . .Ow . . . . . . . . . . . .L^ . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."
+})
+wo:shuffleOxyd({"oxydsEast#*", max = 0}, {"oxydsWest#*", max = 0})
+
+wo:add({"ot_wire", anchor1 = "box%A", anchor2 = "box%B"})
+wo:add({"ot_wire", anchor1 = "box%A", anchor2 = "box%C"})
+wo:add({"ot_wire", anchor1 = "box%A", anchor2 = "box%D"})
+wo:add({"ot_wire", anchor1 = "box%A", anchor2 = "box%E"})
+wo:add({"ot_wire", anchor1 = "box%A", anchor2 = "box%F"})
+wo:add({"ot_wire", anchor1 = "box%F", anchor2 = "box%G"})
+wo:add({"ot_wire", anchor1 = "box%F", anchor2 = "box%H"})
+
+wo:add(YANG, {"it_yinyang"}, {"it_yinyang"})
+wo:add(YANG, {"it_yinyang"}, {"it_yinyang"})
+
+flag = 0
+function evalTrigger1()
+    no["blocker"]:close()
+    flag = 1
+end
+function evalTrigger2()
+    if flag == 1 then
+        no["sensor"]:kill()
+        no["laserW"]:on()
+        no["timer"]:on()
+        flag = 2
+    end
+end
+function evalTrigger3()
+    if flag < 2 then
+        no["laserN"]:on()
+    end
+end
+function evalTimer()
+    no["laserN"]:off()
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

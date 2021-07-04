@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Do it" el:subtitle=" ... or feel the blues" el:id="devnull17"/>
+      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to blues brother daydreamer.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="11:04"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+wo["FallenPuzzle"] = "fl_rock"
+
+statSP2 = 0
+
+ti["# "] = {"st_rawglass"}
+ti[" #"] = {"fl_gravel"}
+ti["  "] = {"fl_rock"}
+ti[" ~"] = {"fl_water"}
+ti[" ."] = {"fl_abyss"}
+ti["; "] = {"it_crack_l", flavor = "water"}
+ti[", "] = {"it_crack_m", flavor = "water"}
+ti[": "] = {"it_crack_s", flavor = "water"}
+ti["A "] = {"fl_scales", target = "toggleA", action = "signal", flavor= "concrete", min = 1.0}
+ti[" A"] = {"fl_bridge_gc", "bridgeA#"}
+ti["B "] = {"fl_scales", target = "toggleB", action = "signal", flavor= "concrete", min = 1.0}
+ti[" B"] = {"fl_bridge_gc", "bridgeB#"}
+ti[" +"] = {"fl_bridge_gc", "puddle"}
+ti["W "] = {"st_box_rock"}
+ti["w "] = ti["; "] .. {"st_box_rock"}
+ti["X "] = {"st_grate_cross"}
+ti["G "] = {"st_grate_framed", "grates#"}
+ti["1 "] = {"st_swap", "nav01"}
+ti["2 "] = {"st_box_rock", "nav02"}
+ti["switches"] = {"st_switch_black", "switchP%%", target = "doIt"}
+ti["P"] = {"st_puzzle_blue", intensity = 0}
+ti["pa"] = {"st_puzzle_blue", "pa", connections = "w", intensity = 0}
+ti["pb"] = {"st_puzzle_blue", "pb", connections = "s", intensity = 0}
+ti["pf"] = {"st_puzzle_blue", "pf", connections = "se", intensity = 0}
+ti["pi"] = {"st_puzzle_blue", "pi", connections = "nw", intensity = 0}
+ti["bridgeOpen"] = {"fl_bridge_gc", "bridgeOpen%%"}
+ti["bridgeClosed"] = {"fl_bridge_gc", "bridgeClosed%%", state = CLOSED}
+ti["pentOpen"] = {"fl_scales", target = "bridgeOpen%%", flavor= "concrete", min = 1.0}
+ti["pentClosed"] = {"fl_scales", target = "bridgeClosed%%", flavor= "concrete", min = 1.0}
+ti[" !"] = {"fl_scales", name = "docScale", target = "puddle", flavor= "concrete", min = 1.0}
+ti[" :"] = {"fl_rock", name = "docFloor"}
+ti["D "] = {"it_document", text = "BzG1"}
+ti["d "] = {"it_document", text = "BzG2"}
+ti["O "] = {"st_oxyd_c", oxydcolor = OXYD_BLUE}
+ti["@ "] = {"ac_marble_black"}
+
+local resPuzzle = res.puzzle(ti, "P")
+local resAutotile = res.autotile(resPuzzle, {"T", "pentOpen"}, {"t", "bridgeOpen"}, {"U", "pentClosed"}, {"u", "bridgeClosed"}, {"S", "switches"})
+width, height = wo(res.composer(resAutotile), "  ", {
+  "##############################################################################",
+  "##          ##          ;~W           ##      ## ~  ##Ta ~  W    . . . . .S1##",
+  "##  ####      W  ~ ~W~    ## ~ ~W   W     W ;     W ##TbTcPl  W ####tatb .te##",
+  "##    pa      ##      W   ##W ####W  ~## ~##         ~##TdTe  W   ####tc . .##",
+  "##  ######  ####   ~## ~      ;  ~    ## ~    ## ~         ~ ~      ##tdW  .##",
+  "##          ##     ~  W  ~  ## ~X   W ##  ###### ~####          W   X W 1.W:##",
+  "##########  ##  ###### ~    ##           ~ ~        X Pc    ##W Pl  X  .W  .##",
+  "##      ## ~##     ~   ~##############################pb######  W  ~##########",
+  "##  Pe          pi##        B B B ##  ## ~ ~ ~ ~ ~ ~## ~         ~ ~##A  . .##",
+  "##  ##Pd##X ####  ##   ~  B B ####     AG+         ~##########tf   ~##TfA  .##",
+  "##      pf    Pa   ~           ~       AG    ~W             ####tg     .TgA ##",
+  "##      ##  @ ## ~ ~                   ~  ##W          ~  W   ####    th . .##",
+  "############################################X ####         ~   A      ti . .##",
+  "                                      ## ~G!2 ; ######     ~  ######w W  . .##",
+  "                                      ##  ## B B B BXB    W    ~##;~W ua  W~##",
+  "                                      ##  ######S2#### ~ ~     ~##W~W  ~ ~; ##",
+  "                                      ##      ###### ~ ~ ~       ~ ~W W  ~  ##",
+  "                                      ##      UbUcTi ~ ~ ~,    ~## ~ ~   ~ ~##",
+  "                                      ##    UaTh ~:  ~ ~ ~ ~ ~ ~##     ~ ~ ~##",
+  "                                      ## ~ ~ ~ ~ ~;  ~ ~ ~ ~ ~ ~##  W w  ~ ~##",
+  "                                      ## ~ ~ ~ ~ ~ub ~ ~ ~ ~ ~ ~##    ;  ~ ~##",
+  "                                      ## ~ ~ ~ ~ ~  W X  ~ ~ ~ ~##  ; ;  ~ ~##",
+  "                                      ## ~D~ ~ ~; ucW  ~ ~ ~ ~ ~## ~ ~ ~ ~ ~##",
+  "                                      O# ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~## ~ ~ ~ ~ ~O#",
+  "d                                     ##O#################################O###"
+})
+
+wo:add({"ot_counter", "toggleA", state = 0, target= "bridgeA#*", action_2 = "open", action_3 = "close"})
+wo:add({"ot_counter", "toggleB", state = 0, target= "bridgeB#*", action_4 = "open", action_5 = "close"})
+
+function doIt(val, src)
+  if src == no["switchP%1"] then
+    if no["pa"]:exists() and no["pb"]:exists() then
+      wo:add({"ot_wire", anchor1 = "nav01", anchor2 = "pa"})
+      wo:add({"ot_wire", anchor1 = "nav01", anchor2 = "pb"})
+    else
+      wo[no["docFloor"]] = {"it_document", text = "failed01"}
+    end
+  end
+  if src == no["switchP%2"] then
+    if statSP2 == 0 then
+      if no["pf"]:exists() and no["pi"]:exists() then
+        no["grates#*"]:kill()
+        wo:add({"ot_wire", anchor1 = "nav02", anchor2 = "pf"})
+        wo:add({"ot_wire", anchor1 = "nav02", anchor2 = "pi"})
+        statSP2 = 1
+      else
+        wo[no["docScale"]] = {"it_document", text = "failed02"}
+      end
+    else
+      wo[no["docScale"]] = {"it_document", text = "ask01"}
+    end
+  end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="failed01">
+        <el:english el:translate="false">Can't be satisfied. Restart.</el:english>
+      </el:string>
+      <el:string el:key="failed02">
+        <el:english el:translate="false">Sorry. You didn't DO IT. Restart.</el:english>
+      </el:string>
+      <el:string el:key="ask01">
+        <el:english el:translate="false">Sorry. I did everything I can do for you.</el:english>
+      </el:string>
+      <el:string el:key="BzG1">
+        <el:english el:translate="false">Blues is not dead - it just smells funny. ;-)</el:english>
+      </el:string>
+      <el:string el:key="BzG2">
+        <el:english el:translate="false">Dedicated to all the Blues Guitar Women.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

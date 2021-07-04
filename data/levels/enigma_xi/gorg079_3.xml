@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Do Not Open" el:subtitle="- unless..."
+el:id="gorg079_3"/> <el:version el:score="1" el:release="2" el:revision="3"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2019 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="04:12"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+ti["  "] = {"fl_ivory"}
+ti["# "] = {"st_brick", cluster="1"}
+ti["x "] = {"st_lightglass_movable"}
+ti["O "] = {"st_oxyd_a", "ox#"}
+ti["p "] = {"st_pull"}
+ti[" w"] = {"it_puller_w"}
+ti[" e"] = {"it_puller_e"}
+ti[" n"] = {"it_puller_n"}
+ti[" s"] = {"it_puller_s"}
+ti["D*"] = {"st_door_a", "door%%#"}
+ti["t*"] = {"fl_scales_platinum", min=0.8, target="door%%#*", action="close"}
+ti["T*"] = {"fl_scales_platinum", min=0.8, target="door%%#*"}
+ti["@ "] = {"#ac_marble_black"}
+
+wo(res.composer(res.autotile(ti, {"D", "D*"}, {"t", "t*"}, {"T", "T*"})), "  ", {
+    "# O # # # # # # # # # # # # # # # # O # ",
+    "O t3#   # # #     # # # # # # # # # t1O ",
+    "#  s#   x     x   # # #   x   # # #   # ",
+    "# p x   # x   x         x   x     x p # ",
+    "# D3#   #   # # # # x # #   #   x   D1# ",
+    "#       x   #   # T3 nT1#   # #   x # # ",
+    "# x # x # x #   x  w@  ex   #   x   # # ",
+    "#       x   #   # T4 sT2#   # x     # # ",
+    "# D4#   #   #   # # x # # x #   x   D2# ",
+    "# p x   # x x   x       x     x   x p # ",
+    "#   # x #     x   # # #   x x   # #  n# ",
+    "O t4#       #     # # #       # # # t2O ",
+    "# O # # # # # # # # # # # # # # # # O # "
+})
+
+wo:shuffleOxyd({no["ox#*"]:sort("circular"), circular=true}) 
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+
+

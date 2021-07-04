@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Permutation" el:subtitle="" el:id="hadas13"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Jonatan and Daniel Hadas" el:email=""/>
+      <el:copyright>Copyright © 2015 Jonatan and Daniel Hadas</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:08" el:difficult="0:05"/>
+    </el:info>
+    <el:luamain><![CDATA[
+--date of making: 02/07/2015
+
+ti[" "] = {"fl_sahara"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_rawglass"}
+
+
+ti["A"] = {"st_oxyd", noshuffle=true, oxydcolor=OXYD_BLUE, flavor="e"}
+ti["B"] = {"st_oxyd", noshuffle=true, oxydcolor=OXYD_RED, flavor="e"}
+ti["C"] = {"st_oxyd", noshuffle=true, oxydcolor=OXYD_GREEN, flavor="e"}
+ti["D"] = {"st_oxyd", noshuffle=true, oxydcolor=OXYD_YELLOW, flavor="e"}
+ti["E"] = {"st_oxyd", noshuffle=true, oxydcolor=OXYD_CYAN, flavor="e"}
+
+ti["1"] = {"st_oxyd", name="oxyd1", oxydcolor=OXYD_BLUE, flavor="e"}
+ti["2"] = {"st_oxyd", name="oxyd2", oxydcolor=OXYD_RED, flavor="e"}
+ti["3"] = {"st_oxyd", name="oxyd3", oxydcolor=OXYD_GREEN, flavor="e"}
+ti["4"] = {"st_oxyd", name="oxyd4", oxydcolor=OXYD_YELLOW, flavor="e"}
+ti["5"] = {"st_oxyd", name="oxyd5", oxydcolor=OXYD_CYAN, flavor="e"}
+
+
+ti["&"] = {"st_mirror", orientation=WEST} .. ti["~"]
+ti["/"] = {"st_mirror", orientation=EAST} .. ti["~"]
+ti["-"] = {"st_mirror", orientation=SOUTH} .. ti["~"]
+ti[">"] = {"st_mirror", orientation=EAST, transparent=true, flavor="triangle"}
+ti["T"] = {"st_mirror", orientation=WEST, flavor="triangle", movable=true}
+
+ti["L"] = {"st_laser", orientation=NORTH, state=ON} .. ti["~"]
+ti["P"] = {"st_lightpassenger"}
+
+
+trigger = "it_trigger"
+ti["a"] = {trigger, name="sns12", target="swap"}
+ti["b"] = {trigger, name="sns13", target="swap"}
+ti["c"] = {trigger, name="sns14", target="swap"}
+ti["d"] = {trigger, name="sns15", target="swap"}
+ti["e"] = {trigger, name="sns23", target="swap"}
+ti["f"] = {trigger, name="sns24", target="swap"}
+ti["g"] = {trigger, name="sns25", target="swap"}
+ti["h"] = {trigger, name="sns34", target="swap"}
+ti["i"] = {trigger, name="sns35", target="swap"}
+ti["j"] = {trigger, name="sns45", target="swap"}
+
+
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~A   B   C   D   E ~",
+    "/                TP&",
+    "~1   2   3   4   5 ~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    ">  a   e   h   j   /",
+    "~        @         ~",
+    "&    b   f   i     &",
+    "~                  ~",
+    "/      c   g       /",
+    "~                  ~",
+    "&        d         -",
+    "~~~~~~~~~~~~~~~~~~~L"})
+
+	
+function swap(is_on,sender)
+	n=sender.name
+	n1=n:sub(4,4)
+	n2=n:sub(5,5)
+	o1=no["oxyd" .. n1]
+	o2=no["oxyd" .. n2]
+	o1.oxydcolor, o2.oxydcolor = o2.oxydcolor, o1.oxydcolor
+	o1:peepall()
+	sender:kill()
+end
+
+function objtonums(l)
+	l1={}
+	for i=1,5 do
+		if l[i].oxydcolor==OXYD_BLUE then
+			l1[i]=1
+		elseif l[i].oxydcolor==OXYD_RED then
+			l1[i]=2
+		elseif l[i].oxydcolor==OXYD_GREEN then
+			l1[i]=3
+		elseif l[i].oxydcolor==OXYD_YELLOW then
+			l1[i]=4
+		else
+			l1[i]=5	
+		end
+	end
+	return l1
+end
+
+function pairity(l1)
+	l=objtonums(l1)
+	counter=0
+	for i=2,5 do
+		j=i
+		while l[j]<l[j-1] and j>1 do
+			temp=l[j]
+			l[j]=l[j-1]
+			l[j-1]=temp
+			j=j-1
+			counter=counter+1
+		end
+	end
+	return counter%2
+end
+
+function is_identity()
+	if no["oxyd1"].oxydcolor ~= OXYD_BLUE then
+		return false
+	end
+	if no["oxyd2"].oxydcolor ~= OXYD_RED then
+		return false
+	end
+	if no["oxyd3"].oxydcolor ~= OXYD_GREEN then
+		return false
+	end
+	if no["oxyd4"].oxydcolor ~= OXYD_YELLOW then
+		return false
+	end
+	if no["oxyd5"].oxydcolor ~= OXYD_CYAN then
+		return false
+	end
+	return true
+end
+
+if not wo["IsDifficult"] then
+	while is_identity() do
+		wo:shuffleOxyd()
+		if pairity(no["oxyd#*"]) then
+			o1=no["oxyd1"]
+			o2=no["oxyd2"]
+			o1.oxydcolor, o2.oxydcolor = o2.oxydcolor, o1.oxydcolor
+		end
+	end
+end
+
+--while pairity(no["oxyd#*"]) do
+--	wo:shuffleOxyd({"oxyd#*"})
+--end
+
+no['oxyd1']:peepall()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

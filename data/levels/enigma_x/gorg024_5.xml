@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Hiddensee" el:subtitle=""
+el:id="gorg024_5"/> <el:version el:score="6" el:release="5" el:revision="10"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2016, 2021 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="false"
+el:network="false"/> <el:comments> <el:credits el:showinfo="true" el:showstart="false">Thanks to Ale for testing and feedback</el:credits>
+</el:comments> <el:score el:easy="-" el:difficult="05:16"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+wo["CrackSpreading"] = 0.0
+
+ti[" "] = {"fl_hay"}
+ti["_"] = {"fl_abyss"} 
+ti["#"] = {"st_granite"}
+ti["P"] = {"st_granite_movable"}
+ti[";"] = {"st_granite_hollow"}
+ti["@"] = {"#ac_marble_black"}
+ti["&"] = ti[";"] .. {"#ac_marble_white"}
+ti["~"] = {"fl_water"}
+ti["b"] = {"st_box_hay"}
+ti["c"] = {"st_coinslot", target="info"}
+ti["B"] = {"st_passage_black", flavor="frame"}
+ti["W"] = {"st_passage_white", flavor="frame"}
+ti["X"] = {"st_grate"}
+ti["R"] = {"st_flat_breakable"}
+ti["L"] = {"st_laser_s", "laser"}
+ti["S"] = {"st_laserswitch", target="laserdoor"}
+ti["M"] = {"st_mirror_triangle", orientation=RANDOMDIR}
+ti["m"] = ti["~"]..{"st_mirror_triangle", movable=true, orientation=RANDOMDIR}
+ti["l"] = {"st_switch_white", target="laser"}
+ti["V"] = {"it_vortex", "hole2", destination="nil"}
+ti["D"] = {"st_door_c", "door#", state=OPEN}
+ti["d"] = {"st_door_c", "laserdoor", state=OPEN}
+ti["T"] = {"fl_scales_gray", target="counter", action="signal"}
+ti["v"] = ti[";"]..{"it_seed_volcano", secure=true}
+ti["Z"] = {"it_yinyang"} .. ti{"st_ice"}
+ti["w"] = {"it_yinyang"} .. ti["W"]
+ti["!"] = {"it_bomb"}
+ti["r"] = ti["R"]..{"it_ring"}
+ti["n"] = {"it_coin_m"}
+ti["C"] = {"it_crack_s"}
+ti["*"] = {"it_crack_m"}
+ti["+"] = {"it_crack_l"}
+ti["?"] = {"it_crack_i"}
+ti["O"]={"st_oxyd"}
+
+wo(ti, " ", {
+    "####l#L###########OO",
+    "#&#!CC*!CC!C!C####Ww",
+    "#PX+XC_CXCZC+!#T;##D",
+    "#!C_C*C!_C+!v#TbT##D",
+    "#+_XC#_CC_!C#Tb;bT#D",
+    "#!_C!+C!+C*C#bT;Tb#D",
+    "#~XmX~X~~X~X#TbVbT#D",
+    "#~~~~~~~~~~~##TTT;#D",
+    "#~~~~~M~~~~~~##b###D",
+    "#X  X  PX X XP  dn#D",
+    "#;@             ###D",
+    "rR#X            BBWW",
+    "OO####S###c###BBB#OO"
+})
+
+function postinit()
+   no["door#*"]:close()
+      no["laserdoor"]:close()
+end
+function info (value, sender)
+   if value == true then
+      wo[sender + {0, -2}] = {"it_document", text="https://en.wikipedia.org/wiki/Hiddensee"}
+    end
+end
+wo:add({"ot_counter", "counter", state=0, target="door#*", action_11="close", action_12="open"})
+wo:shuffleOxyd()
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

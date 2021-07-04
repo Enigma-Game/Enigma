@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Spoonman" el:subtitle=""
+el:id="gorg049_2"/> <el:version el:score="2" el:release="2" el:revision="4"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="true" el:single="true"
+el:network="false"/> <el:score el:easy="02:32" el:difficult="-"/> </el:info>
+<el:luamain><![CDATA[
+
+ti[" "] = {"fl_adhesionless"} .. ti{"it_burnable_invisible"}
+ti["#"] = {"st_jamb"}
+ti["."] = {"fl_gravel"}
+ti["W"] = {"st_actorimpulse", strength=400.0, hit_distortion_xx= -2.0}
+ti["X"] = {"st_actorimpulse", strength=500.0, hit_distortion_yx= -2.0}
+ti["Y"] = {"st_actorimpulse", strength=600.0, hit_distortion_xy= -2.0}
+ti["Z"] = {"st_actorimpulse", strength=700.0, hit_distortion_yy= -2.0}
+ti["O"] = {"st_oxyd_a", "inneroxyds#"}
+ti["P"] = {"st_oxyd_a", "outeroxyds#"}
+ti["@"] = ti["."] .. {"#ac_marble"}
+ti["G"] = cond(wo["IsDifficult"], ti[" "], ti["."])
+ti["D"] = {"st_death"}
+
+wo(ti, " ", {
+    "###D#########D######",
+    "#.  #X . Z . G.X#P.#",
+    "#.#Y . G #O  #   Y.#",
+    "D  PG#W  .  .Z ..#G#",
+    "#G#. .#.X#.##W #.# D",
+    "# GXG##.#..XO  X # #",
+    "# .  .. #@. GY G  .#",
+    "#Y.#.#Z #..# ##..#.#",
+    "D .Y  O  .Y# #.. Z##",
+    "##  # #.#G## W .#P.#",
+    "# . ..  G G... G XG#",
+    "#P  X . YOX ##.Y . #",
+    "#######D######D#####"
+})
+
+wo:add(YIN, {"it_spoon"})
+if not wo["IsDifficult"] then 
+    wo:add(YIN, {"it_flag"})
+end
+if wo["IsDifficult"] then
+      wo:shuffleOxyd({"inneroxyds#*", max=1})
+   else
+      wo:shuffleOxyd({"inneroxyds#*", min=1})
+end    
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

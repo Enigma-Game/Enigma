@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+<el:protected >
+<el:info el:type="level">
+<el:identity el:title="Caesar Cipher" el:id="20140725jl0002"/>
+<el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+<el:author el:name="Jürgen Lange"/>
+<el:copyright>Copyright © 2014 Jürgen Lange</el:copyright>
+<el:license el:type="GPL v2.0 or above" el:open="true"/>
+<el:compatibility el:enigma="1.20"/>
+<el:modes el:easy="false" el:single="true" el:network="false"/>
+<el:comments>
+<el:credits el:showinfo="false" el:showstart="false"></el:credits>
+<el:code></el:code>
+</el:comments>
+<el:score el:easy="-" el:difficult="-"/>
+</el:info>
+<el:luamain><![CDATA[
+
+ti[" "] = {"fl_bluegray", burnable=false, name="floor#"}
+ti[";"] = {"fl_bluegray", secure=true}
+ti["_"] = {"fl_bluegray"}
+ti["1"] = {"fl_bluegray", burnable=false, name="sword"}
+ti["3"] = {"fl_bluegray", burnable=false, name="coffee"}
+ti["4"] = {"fl_bluegray", burnable=false, name="document1"}
+ti["5"] = {"fl_bluegray", burnable=false, name="document2"}
+ti["6"] = {"fl_bluegray", burnable=false, name="document3"}
+ti["0"] = {"fl_bluegray", burnable=false, name="document4"}
+ti["2"] = {"fl_bluegray", burnable=false, name="document5"}
+ti["<"] = {"fl_bluegray", burnable=false, name="document6"}
+ti[","] = {"fl_bluegray", burnable=false, name="document7"}
+ti["7"] = {"fl_bluegray", burnable=false, name="cherry"}
+ti["8"] = {"fl_bluegray", burnable=false, name="seed"}
+ti["9"] = {"fl_bluegray", burnable=false, name="hammer"}
+ti[">"] = {"fl_bluegray", burnable=false, name="extralife1"}
+ti[":"] = {"fl_bluegray", burnable=false, name="extralife2"}
+ti["A"] = {"fl_bluegray", burnable=false, name="kill"}
+ti["N"] = {"fl_bluegray", burnable=false, name="poison"}
+ti["."] = {"fl_sand"}
+ti["t"] = {"fl_wood", secure=true}
+ti["z"] = {"fl_abyss"}
+ti["g"] = {"fl_water"}
+ti["@"] = {"#ac_marble"}
+ti["i"] = {"it_document", text="text1"}
+ti["j"] = {"it_document", text="text2"}
+ti["k"] = {"it_document", text="text5"}
+ti["l"] = {"it_document", text="text7"}
+ti["m"] = {"it_document", text="text9"}
+ti["n"] = {"it_document", text="text11"}
+ti["u"] = {"it_coin_s"}
+ti["U"] = {"st_coinslot", interval_s = 0.01, action="open", target={"door4", "make_cherry"}}
+ti["a"] = {"it_cross", target="make_sword", interval=5, name="cross2"}
+ti["b"] = {"it_cross", action="open", target={"door1", "make_coffee"}, interval=5, name="cross1"}
+ti["c"] = {"it_cross", target="make_extralife", interval=5}
+ti["d"] = {"it_cross", action="ignite", target={"burn", "make_fire", "door2"}, interval=5, name="cross3"}
+ti["e"] = {"it_cross", action="open", target="door3", interval=5}
+ti["f"] = {"it_cross", target={"make_knight"}, interval=5, name="cross4"}
+ti["s"] = {"it_cross", target="remove_items", interval=5}
+ti["h"] = {"it_cross", target="make_seed", interval=5, name="cross6"}
+ti["v"] = {"it_cross", target="make_hammer", interval=5, name="cross5"}
+ti["H"] = {"it_cross"}
+ti["K"] = {"st_yellow"}
+ti["?"] = {"st_break"} .. ti[";"]
+ti["*"] = {"st_knight"} .. ti["l"]
+ti["y"] = {"st_lightglass"} .. ti["m"] .. ti["."]
+ti["Y"] = {"st_lightglass_movable"} .. ti["k"]
+ti["w"] = {"st_granite"}
+ti["+"] = {"st_charge_plus"}
+ti["-"] = {"st_charge_minus"}
+ti["O"] = {"st_oxyd_d", name="oxyd#"}
+ti["W"] = {"st_box"} .. ti["t"]
+ti["p"] = {"st_box"}
+ti["!"] = {"it_burnable", name="burn"} .. ti["W"]
+ti["#"] = {"st_bluesand"}
+ti["="] = {"st_redrock"}
+ti["B"] = {"st_door_a", name="door1"}
+ti["C"] = {"st_door_a", name="door2"}
+ti["D"] = {"st_door_a", state=OPEN} .. ti[";"]
+ti["E"] = {"st_door_c", name="door3"} .. ti["j"]
+ti["&"] = {"st_door_b", name="door4"}
+ti["F"] = {"st_granite", name="knight"} .. ti["u"]
+ti["G"] = {"st_granite", name="arrow"} .. ti["u"]
+ti["q"] = {"st_granite", name="fire"} .. ti["t"]
+
+wo(ti, " ", {
+	"zzzzzzzzzzzzzzzzzzzzzzzzzzzzz#zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz#zzzzzz",
+	"zzzzzzzzzzzzzzzzzzz#zzzzzzzzz#zzzzzzzzz=zzzzzzzzzzzzzzzzzzz#zzzzzzzzz#zzzzzz",
+	"wwEwwwwwF#wwwYwwwww#wwwwwwwww#wwwwwwyww#wwwwwwwww=wwwwwwwww=wwwqwwwww=wwwwww",
+	"wsesssssassssvssssssssssssssssssssssHssssssssssssssssssssssssssdssssss;DWWpw",
+	"+s      2                                                      <  ____;wWWBO",
+	"Kc>@ i  14   9               N8            A3                7:    ___;&?Wnw",
+	"-s0                          5             ,                  6     __;wW!CO",
+	"wsfsssssssssssssssssssssssssshsssssssssssssbsssssssHssssssssssHsssssss_wWpgw",
+	"wwGwwwwww#wwwwwwwww#wwwwwwwww#wwwwwwwww#wwwwwwwww=w*wwwwwww=wwUwwwwww=wwwwww",
+	"zzzzzzzzzzzzzzzzzzz#zzzzzzzzz#zzzzzzzzz=zzzzzzzzzzzzzzzzzzz#zzzzzzzzz#zzzzzz",
+	"zzzzzzzzzzzzzzzzzzzzzzzzzzzzz#zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz#zzzzzz"
+})
+
+function make_knight(value, sender)
+	wo[no["cross4"]] = ti["H"]
+	wo[no["knight"]] = ti({"st_knight"})
+	wo[no["arrow"]] = ti({"st_oneway_black"})
+	wo[no["document4"]] = {"it_document", text="text3"}
+end
+function make_sword(value, sender)
+	wo[no["cross2"]] = ti["H"]
+	wo[no["sword"]] = ti({"it_sword"})
+	wo[no["document5"]] = {"it_document", text="text4"}
+end
+function make_cherry(value, sender)
+	wo[no["cherry"]] = ti({"it_cherry"})
+	wo[no["extralife2"]] = ti({"it_extralife"})
+	wo[no["document3"]] = {"it_document", text="text6"}
+end
+function make_seed(value, sender)
+	wo[no["cross6"]] = ti["H"]
+	wo[{29,8}] = ti({"st_death"})
+	wo[no["seed"]] = ti({"it_seed"})
+	wo[no["poison"]] = ti({"it_bottle", text="Poison"})
+    wo[no["document2"]] = {"it_document", text="text8"}
+end
+function make_fire(value, sender)
+	wo[no["cross3"]] = ti["H"]
+    wo[no["document6"]] = {"it_document", text="text10"}
+	wo[no["fire"]] = ti({"st_nil"}) .. ti({"fl_wood", burnable=true, initfire=true, eternal=true})
+end
+function make_hammer(value, sender)
+	wo[no["cross5"]] = ti["H"]
+    wo[{13,2}] = ti({"st_death"})
+	wo[no["hammer"]] = ti({"it_hammer"})
+end
+function make_coffee(value, sender)
+	wo[no["cross1"]] = ti["H"]
+    wo[no["coffee"]] = ti({"it_coffee"})
+	wo[no["kill"]] = ti({"it_sword"})
+	wo[{43,8}] = ti({"st_death"})
+	wo[no["document7"]] = {"it_document", text="text12"}
+end
+function remove_items(value, sender)
+	wo[no["floor#*"]] =  ti({"it_nil"})
+	wo[no["document1"]] = {"it_document", text="text13"}
+	wo[no["oxyd#*"]] = ti({"st_death"})
+end
+function make_extralife(value, sender)
+    wo[no["extralife1"]] = ti({"it_extralife"})
+end
+
+]]></el:luamain>
+<el:i18n/>
+	<el:string el:key="title">
+		<el:english el:translate="false" />
+    </el:string>
+    <el:string el:key="text1">
+		<el:english el:translate="true">Caesar's original Cipher has a shift of +3 to protect messages of military significance ("Caesar" = "Fdhvdu"). Goto the cross +3 and wait for 5 seconds.</el:english>
+		<el:translation el:lang="de">Cäsars original Chiffre hat eine Verschiebung von +3, um militärische Nachrichten zu verschlüsseln ("Caesar" = "Fdhvdu"). Gehe zu Kreuz +3 und warte für 5 Sekunden.</el:translation>
+    </el:string>
+	<el:string el:key="text2">
+		<el:english el:translate="true">Decrypt "BkfdjX" (Hint 1: Cipher Machine, Hint 2: a game). The used shift is different from the original Caesar-Cipher. Goto the cross of the new shift and remember for later use.</el:english>
+		<el:translation el:lang="de">Entschlüssele "BkfdjX" (Hinweis 1: Chiffiermaschine, Hinweis 2: ein Spiel). Die Verschiebung ist eine andere, als bei der Original Cäsar-Chiffre. Gehe zum Kreuz der neuen Verschiebung und merke sie dir.</el:translation>
+	</el:string>
+	<el:string el:key="text3">
+		<el:english el:translate="true">Goto the cross +9.</el:english>
+		<el:translation el:lang="de">Gehe zu Kreuz +9.</el:translation>
+    </el:string>
+	<el:string el:key="text4">
+		<el:english el:translate="true">9 AD (Anno Domini) - Battle of the Teutoburg Forest.</el:english>
+		<el:translation el:lang="de">9 n. Chr. - Schlacht im Teutoburger Wald.</el:translation>
+    </el:string>
+	<el:string el:key="text5">
+		<el:english el:translate="true">14 AD (Anno Domini) - Death of Augustus. Goto cross 14 AD.</el:english>
+		<el:translation el:lang="de">14 n. Chr. - Tod von Augustus. Gehe zum Kreuz 14 n. Chr.</el:translation>
+    </el:string>
+	<el:string el:key="text6">
+		<el:english el:translate="true">63 BC (Before Christ) - Augustus was born. What happened 33 years later?</el:english>
+		<el:translation el:lang="de">63 v. Chr. - Geburt von Augustus. Was passierte 33 Jahre später?</el:translation>
+    </el:string>
+	<el:string el:key="text7">
+		<el:english el:translate="true">52 BC (Before Christ) - Battle of Alesia.</el:english>
+		<el:translation el:lang="de">52 v. Chr. - Schlacht um Alesia.</el:translation>
+    </el:string>
+	<el:string el:key="text8">
+		<el:english el:translate="true">30 BC - Antonius and Cleopatra committed suicide. Goto Nero's 27 birthday.</el:english>
+		<el:translation el:lang="de">30 v. Chr. - Antonius und Kleopatra begehen Selbstmord. Gehe zu Neros 27. Geburtstag.</el:translation>
+    </el:string>
+	<el:string el:key="text9">
+		<el:english el:translate="true">37 AD - Nero was born.</el:english>
+		<el:translation el:lang="de">37 n. Chr. - Geburt von Nero.</el:translation>
+    </el:string>
+	<el:string el:key="text10">
+		<el:english el:translate="true">64 AD - Great Fire of Rome.</el:english>
+		<el:translation el:lang="de">64 n. Chr - Großer Brand Roms.</el:translation>
+    </el:string>
+	<el:string el:key="text11">
+		<el:english el:translate="true">Decrypt "Farp JXoqff" to Latin words by using the remembered shift. Goto the year of this event.</el:english>
+		<el:translation el:lang="de">Entschlüssele "Farp JXoqff" zu lateinischen Worten durch Verwendung der gemerkten Verschiebung. Gehe zum Jahr des Ereignisses.</el:translation>
+    </el:string>
+	<el:string el:key="text12">
+		<el:english el:translate="true">44 BC - Ides of March, Assassination of Caesar.</el:english>
+		<el:translation el:lang="de">44 v. Chr. - Iden des März, Attentat auf Cäsar.</el:translation>
+    </el:string>
+	<el:string el:key="text13">
+		<el:english el:translate="true">Wrong shift or year. Restart level.</el:english>
+		<el:translation el:lang="de">Falsche Verschiebung oder falsches Jahr. Starte den Level neu.</el:translation>
+    </el:string>
+</el:protected>
+</el:level>

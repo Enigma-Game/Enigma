@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Camouflage I" el:subtitle="" el:id="devnull172"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2014 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="6:54"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["ProvideExtralifes"] = false
+
+ti["  "] = {"fl_rock"}
+ti[" ~"] = {"fl_water"}
+ti["# "] = {"st_camouflage"}
+ti["= "] = {"st_camouflage_hollow"}
+ti["- "] = {"st_camouflage_movable"}
+ti["+ "] = {"st_box_rock"}
+ti["B "] = {"st_passage_black", flavor = "frame"}
+ti["W "] = {"st_passage_white", flavor = "frame"}
+ti["P "] = {"st_rotator_ccw"}
+ti["R "] = {"st_rotator"}
+ti["E "] = {"st_boulder_w"}
+ti["^ "] = {"st_oneway_n", color = BLACK}
+ti["v "] = {"st_oneway_s", color = BLACK}
+ti["Y "] = {"st_blur_magic"}
+ti["doors"] = {"st_door_a", name = "door%%"}
+ti["scales"] = {"fl_scales_concrete", target = "door%%"}
+ti["triggers"] = ti["- "] .. {"fl_scales_concrete", target = "door%%"}
+ti[" ;"] = {"it_crack_l", flavor = "water"}
+ti[" ,"] = {"it_crack_m", flavor = "water"}
+ti[" ."] = {"it_seed_hay"}
+ti["s "] = {"it_springboard"}
+ti[" m"] = {"it_magicwand"}
+ti[" w"] = {"it_wrench"}
+ti["f "] = {"it_extralife"}
+ti[" l"] = ti["f "]
+ti[" y"] = {"it_yinyang"}
+ti[" !"] = {"it_document", text = "BzG"}
+ti["Ob"] = {"st_oxyd_a", name = "oxydBlack#"}
+ti["Ow"] = {"st_oxyd_a", name = "oxydWhite#"}
+ti["@0"] = {"#ac_marble_black", essential = INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", essential = INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"D", "doors"}, {"_", "scales"}, {"*", "triggers"})), "  ", {
+  "# # # # # # # # # # # # # # # # # # # # # # # # # ", 
+  "#                                   Y       Y   # ", 
+  "#   # # # # # # # # # # # # # # # # # v # ^ #   # ", 
+  "#   # ObDfOb#  ~ ~ ~Ob ~+~             ~+~  #   # ", 
+  "#   #  ~   ~#  ~ ~ ~Ob ~+~  # # # # # + #   #   # ", 
+  "#   #  ~ ~ ~# # # # #  ~+~  #       =  ~ ~  #   # ", 
+  "#   #  ~+~+~                #   #   # Ob ~  #   # ", 
+  "# = # # ^ # vm# # # # # # # #   # + # # #   #   # ", 
+  "#     W   Dc  B;      +       s~ ~ ~ ~s     #   # ", 
+  "#    ~#   # =l# # # # # # # # # # Dd# # #   #   # ", 
+  "#     # B #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ , ~ ~#   #   # ", 
+  "#  ~  #       -~ ~ ~ ~ ~ ~ ~ ~ ~ ~ , ~ ~#   #   # ", 
+  "# # = # - # - # # # # #!# # # # =.=. ~ ~-   #   # ", 
+  "#  ~  #    ~-   +l   ~  _b#  ~ ~ ~ ~ ~ ~#   #   # ", 
+  "#     #    ~# = = Da#  ~ ~#       W    ~#   #   # ", 
+  "#    ~#    ~ ~ ~# @0#    ~# *d*e*f#    ~#   #   # ", 
+  "#     #         # _a#    ~#  ~Ow ~#    ~#   #   # ", 
+  "#  ~  # f~# # =y- @1-~   ~#  ~f~ ~#    ~# _g#   # ", 
+  "#     # Ow# Ow ~# B -~+   # -y  # #    ~# =w#   # ", 
+  "#    ~Ow    Dg ~ ~ ;      +;     .#    ~#  ~#   # ", 
+  "#   B     # Ow#  ~ ~ ~# # # #   Db     ~#  ~#   # ", 
+  "#    ~    #  ~# _c    W   De      f~   ~#  ~#   # ", 
+  "#  ~ ~ ~ ~#  ~# # # # # # # # # # # W  ~#  ~# P # ", 
+  "# R  ,                                 ~ ~ ~ ~ ~ ~", 
+  "# = = # # # # # # # # # # # # # # # # # # # #  ~# ",
+  "# E~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~R ",
+  "# # # # # # # # # # # # # # # # # # # # # # # # # "
+})
+wo:shuffleOxyd({"oxydBlack#*", max = 0}, {"oxydWhite#*", max = 0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="BzG">
+        <el:english el:translate="false">Have a little fun with the man next door?</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

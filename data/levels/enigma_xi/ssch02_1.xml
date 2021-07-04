@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pairs II" el:subtitle="" el:id="ssch02d"/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
+      <el:author el:name="Stefan Schwoon" el:email="schwoon@lsv.fr" el:homepage=""/>
+      <el:copyright>Copyright © 2016-2019 Stefan Schwoon</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="2:36" el:difficult="4:12"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+-----------------------------------------------------------------
+-- Level data.
+
+-- basic tiles
+ti["%"] = {"it_burnable_invisible"}
+ti[" "] = ti["%"] .. {"fl_stone", name="stone#", adhesion=1.5, friction=4.0}
+
+-- states of the item squares
+ti["."] = {"fl_wood", name="square#"}
+ti[","] = cond(wo["IsDifficult"],ti["."],ti[" "])
+ti["w"] = ti["%"] .. {"fl_bright",name="solved#"}
+ti["b"] = ti["%"] .. {"fl_dark",name="solved#"}
+
+-- barriers, doors, and triggers
+ti["A"] = ti["%"] .. {"fl_stone",name="doorA#"}
+ti["D"] = ti["%"] .. {"fl_stone",name="doorD#"}
+ti["y"] = {"it_trigger", name="leftbtn",target="leftButton", action="callback"}
+ti["z"] = {"it_trigger", name="rtbtn", target="rightButton", action="callback"}
+
+-- actors
+ti["@"] = {"#ac_marble_black","black"}
+ti["W"] = {"#ac_horse","white",strength=6,steady=false,action="callback",target="whiteAtTarget"}
+ti[";"] = {"fl_stone",name="whiterest"}
+
+-- offscreen gadgets
+ti["+"] = {"st_timer", "contTimer", state=OFF, interval=2, action="callback", target="continuePlaying"}
+ti["-"] = {"st_timer", "winTimer", state=OFF, interval=0.1, action="callback", target="flash"}
+ti["~"] = {"st_timer", "whiteTimer", state=OFF, interval=3, action="callback", target="whiteRight"}
+ti["="] = {"st_timer", "pencilTimer", state=OFF, interval=0.1, action="callback", target="pencilCheck"}
+
+ti["L"] = {"st_laser", orientation=NORTH, name="laser#"}
+ti["l"] = {"st_laser", orientation=SOUTH, name="laser#"}
+ti["O"] = {"st_oxyd", name="left#"}
+
+-- scoreboard
+ti["G"] = {"st_window", name="blackdectop"}
+ti["g"] = {"st_window", name="blackdecbottom"}
+ti["H"] = {"st_window", name="blacksingtop"}
+ti["h"] = {"st_window", name="blacksingbottom"}
+ti["I"] = {"st_window", name="whitedectop"}
+ti["i"] = {"st_window", name="whitedecbottom"}
+ti["J"] = {"st_window", name="whitesingtop"}
+ti["j"] = {"st_window", name="whitesingbottom"}
+ti[">"] = {"st_window", secure=true, faces="e"}
+ti["}"] = {"st_window", secure=true, faces="se"}
+ti["{"] = {"st_window", secure=true, faces="sw"}
+ti["<"] = {"st_window", secure=true, faces="w"}
+ti["_"] = {"st_window", secure=true, faces="s"}
+
+topseg = { "new", "e", "nes", "nes", "esw", "nsw", "nsw", 
+           "ne", "nesw", "nesw", "nesw", "w" }
+botseg = { "esw", "e", "sw",  "es",  "e",  "es", "esw",
+           "e",  "esw", "es", "ew", "nesw" }
+
+wo(ti, " ", {
+    "    >          <    +",
+    " G H>          <I J -",
+    " g h>          <i j ~",
+    "____}__________{____=",
+    "    A          D    ",
+    "    A ,,,,,,,, D    ",
+    "    A ,......, D    ",
+    "  @ A ,......, D W  ",
+    "    A ,......, D ;  ",
+    "  y A ,......, D z  O",
+    "    A ,......, D    L",
+    "    A ,......, D    l",
+    "    A ,,,,,,,, D    O"})
+
+-----------------------------------------------------------------
+-- Initialize constants and data structures
+
+itemNames = {"it_bag", "it_banana", "it_bomb", "it_bottle",
+"it_brush", "it_cherry", "it_coffee", "it_coin_l",
+"it_coin_m", "it_document", "it_drop", "it_dynamite",
+"it_extinguisher", "it_extralife", "it_flag_white", "it_floppy",
+"it_glasses", "it_hammer", "it_key", "it_magicwand",
+"it_coin_s", "it_pin", "it_ring", "it_rubberband",
+"it_spade", "it_spoon", "it_spring", "it_surprise",
+"it_sword", "it_umbrella", "it_wrench", "it_yinyang"}
+
+positions = no["square#*"]
+numSquares = #positions
+numPairs = numSquares/2
+numRows = math.sqrt(numSquares)
+
+-- Randomly distribute the items.
+perm = lib.math.permutation(numSquares)
+
+-- Main game state variable:
+-- moverule = 0 : black has two moves left
+-- moverule = 1 : black has one move left
+-- moverule = 2 : transition phase 1 -> {0,3}
+-- moverule = 3 : white has two moves left
+-- moverule = 4 : white has one move left
+-- moverule = 5 : transition phase 4 -> {0,3}
+moverule = 0
+
+-- The code uses the following data types:
+
+-- The item squares are represented twofold:
+-- "Index" is an integer for an item-holding square (1..numSquares)
+-- "Position" is a game position for an item-holding square
+-- "Items" have indices 1..numPairs.
+-- "Knowledge" is the knowledge for a square, one of the following:
+SQ_UNKNOWN = 0	-- square has never been opened
+SQ_OPEN = 1	-- square is currently open
+SQ_KNOWN = 2	-- square has been opened before, content known
+SQ_TAKEN = 3	-- part of an uncovered pair
+
+-----------------------------------------------------------------
+-- Conversions between various data types.
+
+function posIndex (x,y)
+   return (x % numRows) * numRows + y % numRows + 1
+end
+
+function indexItem (z)
+   return (perm[z] % numPairs) + 1
+end
+
+-----------------------------------------------------------------
+-- Set up conversion for index to position, and initial knowledge
+
+indexPos = {}
+indexKnow = {}
+for sq in no["square#*"] do
+  local x,y = sq:xy()
+  local z = posIndex(x,y)
+  indexPos[z] = po(x,y)
+  indexKnow[z] = SQ_UNKNOWN
+end
+
+-- number of squares with SQ_KNOWN
+knownStones = 0
+
+-- how many we have seen of each item (reset to 0 once item is uncovered)
+itemSeen = {}; for i=1,numPairs do itemSeen[i] = 0 end
+
+-- first and second index of an item, if known
+itemFirstIndex = {}
+itemSecondIndex = {}
+
+-- index of positions that the current player has opened
+firstIndex = 0
+secondIndex = 0
+
+-- current state of white movement
+numtargets = 0
+
+-- if the winner is alredy known
+haswon = false
+
+-----------------------------------------------------------------
+-- Generic helper functions.
+
+-- Find position of cross. When there is none, returns 0.
+function findCross ()
+   local grp = it(no["square#*"])
+   for obj in grp do
+      local k = obj:kind()
+      if k == "it_cross" then
+	 local x,y = no["square#*"]:nearest(obj):xy()
+         return posIndex(x,y)
+      end
+   end 
+   return 0
+end
+
+-----------------------------------------------------------------
+-- Check if an actor (Black or White) made a pencil mark.
+-- For Black, the check is done continuously by pencilTimer.
+-- For White, the check is called explicitly.
+
+function pencilCheck ()
+   -- only proceed if the player has made a mark
+   local z = findCross()
+   if z == 0 then return end
+
+   -- reveal the content of the square
+   revealSquare(z)
+
+   -- local thisitem = indexItem(z)
+   if (moverule == 0) then
+      -- black has chosen its first square; go on, choose the next one
+      firstIndex = z
+      gimmePencil()
+      moverule = 1
+   elseif (moverule == 1) then
+      -- black has chosen the second square
+      secondIndex = z
+      if (indexItem(z) == indexItem(firstIndex)) then
+	 pairFound()
+      end
+      moverule = 2
+   end
+end
+
+-- the white player has placed a cross, reveal the contents
+function whiteReveal ()
+   local z = findCross()
+   revealSquare(z)
+
+   if (moverule == 3) then
+      -- white has chosen its first square, let it choose the second
+      firstIndex = z
+      chooseSecond()
+      moverule = 4
+   elseif (moverule == 4) then
+      -- white has chosen the second square
+      secondIndex = z
+      if (indexItem(z) == indexItem(firstIndex)) then
+	 pairFound()
+      else
+         whiteFailed()
+      end
+      moverule = 5
+   end
+end
+
+-----------------------------------------------------------------
+-- Callback function for left button: Black gives up its movement to White.
+
+function leftButton (value, sender)
+   -- check whether button is relevant
+   if (value == false) then return end
+   if (moverule ~= 2) then return end
+
+   -- clear squares and let white continue
+   closeSquare(firstIndex)
+   closeSquare(secondIndex)
+   giveToWhite()
+end
+
+-----------------------------------------------------------------
+-- Callback function for left button: White gives up its movement to Black.
+
+function rightButton (value, sender)
+   -- check whether button is relevant
+   if (value == false) then return end
+   if (moverule ~= 5) then return end
+
+   -- clear squares and let white continue
+   closeSquare(firstIndex)
+   closeSquare(secondIndex)
+   giveToBlack()
+end
+
+-----------------------------------------------------------------
+-- Callback function for contTimer, called two seconds after a
+-- pair has been uncovered; we arrange for the player to continue.
+
+function continuePlaying ()
+   -- reset timer
+   no["contTimer"]:off()
+
+   -- remove items and let play continue
+   knownStones = knownStones - 2
+   if (moverule == 2) then
+      colorizeSquare(firstIndex,"b")
+      colorizeSquare(secondIndex,"b")
+      giveToBlack()
+   elseif (moverule == 5) then
+      colorizeSquare(firstIndex,"w")
+      colorizeSquare(secondIndex,"w")
+      giveToWhite()
+   end
+end
+
+-----------------------------------------------------------------
+-- Helper functions for middle-button callback.
+
+function pairFound ()
+   -- reset item status so that computer won't try to find item again
+   itemSeen[indexItem(firstIndex)] = 0	
+
+   -- update score
+   if (moverule == 1) then
+      blackscore = blackscore + 1
+      setScore("black",blackscore)
+   elseif (moverule == 4) then
+      whitescore = whitescore + 1
+      setScore("white",whitescore)
+   end
+
+   -- check end-of-game conditions
+   if (blackscore >= numPairs-blackscore) or
+	(whitescore > numPairs-whitescore) then
+      victory()
+   end
+   if (blackscore+whitescore == numPairs) then
+      gameOver()
+   end
+      
+   -- close all doors for two seconds, then arrange for
+   -- continuePlaying to be called
+   closeDoor("A");
+   closeDoor("D");
+   no["pencilTimer"]:off()
+   no["contTimer"]:on()
+end
+
+function whiteFailed ()
+   -- arrange for whiteRight to be called in two seconds
+   closeDoor("D")
+   no["whiteTimer"]:on()
+end
+
+function whiteRight ()
+   -- make white press the right button
+   openDoor("D")
+   no["whiteTimer"]:off()
+   no["white"]["destination"] = { no["rtbtn"], no["whiterest"] }
+   numTargets = 2
+end
+
+-----------------------------------------------------------------
+-- End-of-game handling
+
+function victory ()
+   if haswon then return end
+   haswon = true
+   -- not really doing anything here
+end
+
+function gameOver ()
+   local c = cond(blackscore > whitescore,"b","w")
+   colorizeSquare(firstIndex,c)
+   colorizeSquare(secondIndex,c)
+   winCount = 0
+   no["winTimer"]:on()
+end
+
+function flash ()
+   winCount = winCount+1
+
+   -- flash the game board for 0.7 seconds, ending in winner's colour
+   if (winCount <= 7 or (winCount <= 8 and whitescore >= blackscore)) then
+      if (winCount % 2 == 0) then
+         wo[no["solved#*"]] = {"fl_bright",name="solved#"}
+      else
+         wo[no["solved#*"]] = {"fl_dark",name="solved#"}
+      end
+   end
+
+   -- trigger end-of-play after 1.5 seconds
+   if (winCount == 15) then
+      no["contTimer"]:off()
+      no["winTimer"]:off()
+
+      if (blackscore > whitescore) then
+         -- let the player win
+         no["laser#*"]:on()
+      else
+         -- kill off the player
+         wo[no["stone#*"]] = {"fl_abyss"}
+         openDoor("A"); wo[no["doorA#*"]] = {"fl_abyss"}
+         openDoor("D"); wo[no["doorD#*"]] = {"fl_abyss"}
+         it(po["leftbtn"]):kill(); wo[no["leftbtn"]] = {"fl_abyss"}
+         it(po["rtbtn"]):kill();   wo[no["rtbtn"]] = {"fl_abyss"}
+         wo[no["whiterest"]] = {"fl_abyss"}
+         wo[no["solved#*"]] = {"fl_abyss"}
+      end
+
+   end
+end
+
+-----------------------------------------------------------------
+-- Helper functions to update square status
+
+-- show content of square
+function revealSquare (z)
+   local thisitem = indexItem(z)
+
+   -- update computer player's knowledge
+   if (itemSeen[thisitem] == 0) then
+      itemSeen[thisitem] = 1
+      itemFirstIndex[thisitem] = z
+      -- print("first["..itemNames[thisitem].."]="..z)
+      knownStones = knownStones + 1
+   elseif (itemSeen[thisitem] == 1 and itemFirstIndex[thisitem] ~= z) then
+      itemSeen[thisitem] = 2
+      itemSecondIndex[thisitem] = z
+      knownStones = knownStones + 1
+      -- print("second["..itemNames[thisitem].."]="..z)
+   end
+
+   local pos = indexPos[z]
+   wo[pos] = {"it_burnable_invisible"}
+   wo[pos] = {"st_barrier", flavor=itemNames[thisitem]}
+   indexKnow[z] = SQ_OPEN
+end
+
+-- remove square content
+function closeSquare (z)
+   local pos = indexPos[z]
+   local x,y = pos:xy()
+   it(pos):kill()
+   st(pos):kill()
+   wo[pos] = ti["."]
+   indexKnow[z] = SQ_KNOWN
+end
+
+-- remove item permanently when uncovered
+function colorizeSquare (z,c)
+   closeSquare(z)
+   wo[indexPos[z]] = ti[c]
+   indexKnow[z] = SQ_TAKEN
+end
+
+-----------------------------------------------------------------
+-- Miscellaneous functions for maintaining the game state.
+
+function setScore (color,score)
+   local dec = math.floor(score / 10)
+   local sing = score % 10
+   no[color.."dectop"].faces = topseg[dec+1]
+   no[color.."decbottom"].faces = botseg[dec+1]
+   no[color.."singtop"].faces = topseg[sing+1]
+   no[color.."singbottom"].faces = botseg[sing+1]
+end
+
+function gimmePencil ()
+   wo:add(YIN, {"it_pencil"})
+end
+
+function openDoor (which)
+   st(no["door"..which.."#*"]):kill()
+end
+
+function closeDoor (which)
+   local f = "e"
+   if (which == 'C') then f = "n" end
+   if (which == 'D' or which == 'E') then f = "w" end
+   wo[no["door"..which.."#*"]] = {"st_window", secure=true, faces=f}
+end
+
+function giveToBlack ()
+   openDoor("A")
+   closeDoor("D")
+
+   moverule = 0
+   gimmePencil()
+   no["pencilTimer"]:on()
+end
+
+function giveToWhite ()
+   closeDoor("A")
+   openDoor("D")
+
+   chooseFirst()
+   moverule = 3
+end
+
+-----------------------------------------------------------------
+-- Helper functions implementing the white strategy.
+
+-- Arrange for white ball to be moved to position of index z
+function moveWhite (z)
+   local target = indexPos[z]
+   po["dest"] = #target
+   no["white"]["destination"] = { "dest" }
+   numTargets = 1
+end
+
+-- Callback for whenever white reaches one of its targets
+function whiteAtTarget (value, sender)
+   numTargets = numTargets - 1
+   if (numTargets == 0) then
+      no["white"]["destination"] = nil
+   end
+   if (moverule == 3 or moverule == 4) then
+      wo[no["white"]] = {"it_cross"}
+      whiteReveal()
+   end
+end
+
+-- Returns some item whose two positions are known (0 if none)
+function findKnownPair ()
+   local targetItem = 0
+   for i=1,numPairs do
+      if (itemSeen[i] == 2) then targetItem = i end
+   end
+   return targetItem
+end
+
+-- Pick a random square that can be opened, return its index
+function findClosedSquare ()
+   while true do
+      local z = random(numSquares)
+      if (indexKnow[z] == SQ_KNOWN or indexKnow[z] == SQ_UNKNOWN) then
+	return z
+      end
+   end
+end
+
+-- Pick a random unknown square, return its index
+function findUnknownSquare ()
+   while true do
+      local z = random(numSquares)
+      if (indexKnow[z] == SQ_UNKNOWN) then return z end
+   end
+end
+
+-- Choose first white move
+function chooseFirst ()
+   -- First check whether there is some known pair that we can open.
+   local targetItem = findKnownPair()
+   if (targetItem ~= 0) then
+     -- If so, go to the first square of that pair.
+      moveWhite(itemFirstIndex[targetItem])
+   elseif not wo["IsDifficult"] then
+      -- In easy mode, choose a random stone that is currently closed,
+      -- whether its content is known or not.
+      moveWhite(findClosedSquare())
+   else
+      -- In difficult mode, pick a stone whose color is not yet known (at least
+      -- one such stone must exist as otherwise all pairs would be known).
+      moveWhite(findUnknownSquare())
+   end
+end
+
+-- Choose second white move
+function chooseSecond ()
+   -- First check whether there is some known pair.
+   local targetItem = findKnownPair()
+   if (targetItem ~= 0) then
+      if (indexKnow[itemFirstIndex[targetItem]] == SQ_OPEN) then
+         -- If the first item of that pair is open, then it's because
+         -- we've just taken it, so go to the second.
+         moveWhite(itemSecondIndex[targetItem])
+     else
+         -- Otherwise, we were lucky with a random opening and discovered
+         -- the second of a pair, so go to the first.
+         moveWhite(itemFirstIndex[targetItem])
+     end
+   elseif knownStones == 1 or not wo["IsDifficult"] then
+      -- In easy mode, choose a random stone that is currently closed,
+      -- whether its content is known or not. In difficult mode, choose
+      -- a random stone when the only known stown is the one that is
+      -- currently open.
+      moveWhite(findClosedSquare())
+   else
+      -- In difficult mode, pick a stone whose color is not already known.
+      -- For an even number of pairs (as is the case here), picking a known
+      -- square would greatly increase the computer's winning chances, making
+      -- the game much harder and more dependent on luck than it already is.
+      moveWhite(findUnknownSquare())
+   end
+end
+
+-----------------------------------------------------------------
+-- Final preparations
+
+-- Set score to zero
+blackscore = 0; setScore("black",blackscore)
+whitescore = 0; setScore("white",whitescore)
+
+-- Get going.
+giveToBlack()
+
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

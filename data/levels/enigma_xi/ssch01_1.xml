@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pairs" el:subtitle="" el:id="ssch01b"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Stefan Schwoon" el:email="schwoon@lsv.fr" el:homepage=""/>
+      <el:copyright>Copyright © 2016, 2018 Stefan Schwoon</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:44" el:difficult="1:03"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+-- set WHITEONLY to true to let the white marble play alone (for debugging)
+WHITEONLY=false
+wo["MaxOxydColor"] = OXYD_BROWN
+
+ti["#"] = {"st_greenbrown"}
+ti[" "] = {"fl_lawn", name="ground#"}
+ti["."] = {"fl_lawn", name="proxy#"}
+ti["@"] = {"#ac_marble_black","black"}
+ti["W"] = ti["."] .. {"#ac_horse","white",strength=4,steady=false}
+ti["O"] = {"st_oxyd", name="stone#", target="callback"}
+
+-- Losing floor variants
+ti[":"] = {"fl_lawn_b", name="ground#"}
+ti["*"] = {"fl_lawn_b", name="proxy#"}
+
+-- These timers allow for a short pause while switching between players
+ti["+"] = {"st_timer", "whiteClose",state=OFF,interval=1,action="callback",target="giveToBlack"}
+ti["-"] = {"st_timer", "blackClose",state=OFF,interval=1,action="callback",target="giveToWhite"}
+
+-- Lasers and final oxyds (activated when player wins)
+ti["L"] = {"st_laser", orientation=NORTH, name="laser#"}
+ti["l"] = {"st_laser", orientation=SOUTH, name="laser#"}
+ti["o"] = {"st_oxyd_d", name="final#", oxydcolor=wo["MaxOxydColor"], noshuffle=true}
+
+-- Leaving secure=false means that the player may smash the score bars
+-- (but without affecting the rest of the game). Setting secure=true would
+-- revent this, but then green glass on green ground just doesn't look nice.
+ti["A"] = {"st_window", name="blacktop"}
+ti["a"] = {"st_window", name="blackbottom"}
+ti["B"] = {"st_window", name="whitetop"}
+ti["b"] = {"st_window", name="whitebottom"}
+
+landscape = {
+     "####################+",
+     "#                  #-",
+     "#                  ##",
+     "#                  ##",
+     "#    ##OOOOOO##    ##",
+     "# A  O........O  B #o",
+     "# a  O....W...O  b #L",
+     "#    O........O    ##",
+     "#    ##OOOOOO##    ##",
+     "#                  ##",
+     "#         @        ##",
+     "#                  #l",
+     "####################o"
+};
+
+if (wo["IsDifficult"]) then
+   landscape[4] = landscape[5]
+   landscape[10] = landscape[9]
+   landscape[5] = landscape[8]
+   landscape[9] = landscape[8]
+end
+
+wo(ti," ",landscape)
+
+wo:shuffleOxyd()
+
+-- moverule = 0 : black has two moves left
+-- moverule = 1 : black has one move left
+-- moverule = 2 : white has two moves left
+-- moverule = 3 : white has one move left
+moverule = 0
+
+topseg = { "new", "e", "nes", "nes", "esw", "nsw", "nsw", 
+	   "ne", "nesw", "nesw", "nesw", "w" }
+botseg = { "esw", "e", "sw",  "es",  "e",  "es", "esw",
+	   "e",  "esw", "es", "ew", "nesw" }
+
+stones = no["stone#*"]
+maxcolor = (#stones/2)-1
+status = {}
+first = {}
+second = {}
+colors = {}
+whitescore = 0
+blackscore = 0
+knownstones = 0
+haswon = false
+for i=0,maxcolor do status[i] = 0 end
+for i=1,#stones do colors[stones[i].name] = OXYD_FAKE end
+
+function callback(value,sender)
+   -- memorize the uncovered stone
+   local thiscolor = sender.oxydcolor
+   colors[sender.name] = thiscolor
+   if (status[thiscolor] == 0) then
+      status[thiscolor] = 1
+      first[thiscolor] = sender
+      knownstones = knownstones + 1
+   elseif (status[thiscolor] == 1 and first[thiscolor] ~= sender) then
+      status[thiscolor] = 2
+      second[thiscolor] = sender
+      knownstones = knownstones + 1
+   end
+   -- reset in case colors are used multiple times
+   if (sender.state == OXYDPAIR) then
+      status[thiscolor] = 0
+      knownstones = knownstones - 2
+   end
+
+   if moverule >= 2 then
+      -- white made a move
+
+      -- stop horse movement
+      no["white"]["destination"] = nil
+
+      if (moverule == 2) then
+         -- opened first oxyd, choose second
+         chooseSecond()
+      elseif (sender.state == OXYDPAIR) then
+	 -- found a pair, move again
+         whitescore = whitescore+1
+	 setscore("white",whitescore)
+
+         if (whitescore > maxcolor-whitescore+1) then victory() end
+         if (whitescore+blackscore > maxcolor) then
+	    gameOver()
+         else
+            chooseFirst()
+         end
+      else
+	 -- prepare to leave control to black
+         toClose = sender
+         no["whiteClose"]:on()
+      end
+   else
+      -- black made a move
+      if (moverule == 0) then
+         -- go on, choose the next one
+         moverule = 1
+      elseif (sender.state == OXYDPAIR) then
+         -- you scored, move again
+         blackscore = blackscore+1
+	 setscore("black",blackscore)
+         moverule = 0
+         if (blackscore > maxcolor-blackscore+1) then victory() end
+         if (whitescore+blackscore > maxcolor) then gameOver() end
+      else
+         -- trap black ball and prepare to give control to white
+         toClose = sender
+	 trapBlack()
+         no["blackClose"]:on()
+      end
+   end
+end
+
+function findKnownPair ()
+   local targetcolor = OXYD_FAKE
+   for i=0,maxcolor do
+      if (status[i] == 2) then targetcolor = i end
+   end
+   return targetcolor
+end
+
+-- Pick a random stone among those that are not currently open
+function findClosedStone ()
+   local stones = no["stone#*"]
+   while true do
+      local stone = stones[random(#stones)]
+      if (stone.state == CLOSED) then return stone end
+   end
+end
+
+-- Pick a random stone that has not yet been opened.
+-- This would only be called when such stones actually exist.
+function findUnknownStone ()
+   local stones = no["stone#*"]
+   while true do
+      local stone = stones[random(#stones)]
+      if (colors[stone.name] == OXYD_FAKE) then return stone end
+   end
+end
+
+-- Pick a random stone whose color is already known. This would only be called
+-- when at least one such stone exists.
+function findKnownStone ()
+   local stones = no["stone#*"]
+   while true do
+      local stone = stones[random(#stones)]
+      if (colors[stone.name] ~= OXYD_FAKE and stone.state == CLOSED)
+         then return stone end
+   end
+end
+
+function chooseFirst ()
+   -- White can choose what to do with its moves.
+   moverule = 2
+
+   -- First check whether there is some known pair that we can open.
+   local targetcolor = findKnownPair()
+   if (targetcolor ~= OXYD_FAKE) then
+     -- If so, go to the first stone of that pair.
+      movewhite(first[targetcolor])
+   elseif not wo["IsDifficult"] then
+      -- In easy mode, choose a random stone that is currently closed,
+      -- whether its content is known or not.
+      movewhite(findClosedStone())
+   else
+      -- In difficult mode, pick a stone whose color is not yet known (at least
+      -- one such stone must exist as otherwise all pairs would be known).
+      movewhite(findUnknownStone())
+   end
+end
+
+function chooseSecond ()
+   moverule = 3
+
+   -- First check whether there is some known pair.
+   local targetcolor = findKnownPair()
+   if (targetcolor ~= OXYD_FAKE) then
+      if (first[targetcolor].state == OPEN) then
+         -- If the first oxyd of that pair is open, then it's because
+         -- we've just touched it, so go to the second.
+         movewhite(second[targetcolor])
+     else
+         -- Otherwise, we were lucky with a random opening and discovered
+         -- the second of a pair, so go to the first.
+         movewhite(first[targetcolor])
+     end
+   elseif knownstones == 1 or not wo["IsDifficult"] then
+      -- In easy mode, choose a random stone that is currently closed,
+      -- whether its content is known or not. In difficult mode, choose
+      -- a random stone when the only known stown is the one that is
+      -- currently open.
+      movewhite(findClosedStone())
+   else
+      -- In difficult mode, pick a stone whose color is not already known.
+      movewhite(findUnknownStone())
+   end
+end
+
+function movewhite (target)
+   -- instruct horse to move to its target
+   no["white"]["destination"] = {no["proxy#*"]:nearest(target),target}
+end
+
+function giveToBlack ()
+   toClose:close()
+   no["whiteClose"]:off()
+   if (WHITEONLY) then chooseFirst(); return end
+   no["cage"]:kill()
+   moverule = 0
+end
+   
+function giveToWhite ()
+   toClose:close()
+   no["blackClose"]:off()
+   chooseFirst()
+end
+
+-- one side has an unassailable lead (but we allow play to continue)
+function victory ()
+   if haswon then return end
+   haswon = true
+   if (blackscore > whitescore) then
+      wo[no["proxy#*"]]= ti["*"];
+   else
+      wo[no["ground#*"]] = ti[":"];
+   end
+end
+
+function gameOver ()
+   -- all pairs are taken
+   if (moverule == 3) then no["cage"]:kill() end
+
+   if (blackscore < whitescore) then
+      -- kill off the player
+      wo["ConserveLevel"] = false;
+      wo[no["ground#*"]] = {"fl_abyss"}
+   else
+      -- let the player win
+      no["laser#*"]:on();
+   end
+end
+
+function setscore (color,score)
+   no[color.."top"].faces = topseg[score+1]
+   no[color.."bottom"].faces = botseg[score+1]
+end
+
+function trapBlack ()
+   trap = no["black"];
+   wo[{trap.x,trap.y}] = {"st_window", faces="nesw", secure=true, name="cage"}
+end
+
+setscore("black",0);
+setscore("white",0);
+if (WHITEONLY) then trapBlack(); chooseFirst() end
+
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

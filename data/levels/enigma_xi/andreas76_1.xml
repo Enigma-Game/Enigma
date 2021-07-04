@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Droplet in Fire" el:subtitle="" el:id="andreas76"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2020 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:39" el:difficult="0:57"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_darkgray", adhesion = 2.0, friction = 6.4}
+ti["1"] = {"st_oxyd", oxydcolor = OXYD_YELLOW}
+ti["2"] = {"st_oxyd", oxydcolor = OXYD_ORANGE}
+ti["3"] = {"st_oxyd", oxydcolor = OXYD_BROWN}
+ti["4"] = {"st_oxyd", oxydcolor = OXYD_GRAY}
+ti["@"] = {"#ac_marble_black"}
+if wo["CreatingPreview"] then
+    ti["."] = {"fl_hay", eternal = true} .. ti{"it_burnable_burning"}
+else
+    ti["."] = {"fl_hay", eternal = true, initfire = true}
+end    
+ti["+"] = {"st_oneway_black", "door", orientation = WEST}
+ti[">"] = {"st_oneway_black", orientation = EAST}
+ti["<"] = {"st_oneway_black", orientation = WEST}
+ti["^"] = {"st_oneway_black", orientation = NORTH}
+ti["v"] = {"st_oneway_black", orientation = SOUTH}
+ti["d"] = {"it_drop"}
+ti["S"] = {"st_shogun_l"}
+ti["s"] = {"st_shogun_m"}
+ti["f"] = ti["s"] .. ti["."]
+ti["F"] = ti["S"] .. ti["."]
+ti["h"] = {"st_shogun_s"} .. ti["."]
+ti["t"] = {"it_shogun", flavor = "s", target = "timer"}
+ti["T"] = {"st_timer", "timer", state = OFF, interval = 0.3, target = "turnthedoor"}
+
+if wo["IsDifficult"] then
+    w, h = wo(ti, " ", {
+       ".1 @ <   > s <   3.",
+       "..v1v.^.v.v...v3^..",
+       "   . S . s . S > > ",
+       "v.^.h.....v.vFh.^..",
+       " .   <   < S f   <.",
+       " .v.^.^.^.^hv.v.^..",
+       "   >   > d <   >   ",
+       "..v.......^.v.v.v.v",
+       "t.   <   +   >   < ",
+       "T.v.^.v.^.^f^F^.^.v",
+       "   > S . s . s <   ",
+       "..^2..v.^.^hv.4.^..",
+       ".2   <   <   >  4>.",
+    })
+else
+    w, h = wo(ti, " ", {
+       ".1 @ <   > s <   3.",
+       "..v1v.^.v.v...v3^..",
+       "   .   .   . S > > ",
+       "v.^.......v.vFh.^..",
+       " .   <   < S f   <.",
+       " .v.^.^.^.^hv.v.^..",
+       "   >   > d <   >   ",
+       "..v.......^.v.v.v.v",
+       "..   <   +   >   < ",
+       "..v.^.v.^.^.^.^.^.v",
+       "   >   .   .   <   ",
+       "..^2..v.^.^.v.4.^..",
+       ".2   <   <   >  4>.",
+    })
+end
+
+n = 0
+function turnthedoor(onoff, sender)
+  if n == 0 then  no["door"]:message("orientate", SOUTH)  end
+  if n == 1 then  no["door"]:message("orientate", EAST)   end
+  if n == 2 then  no["door"]:message("orientate", NORTH)  end
+  if n == 3 then  no["door"]:message("orientate", WEST)   end
+  n = (n + 1) % 4
+end
+
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

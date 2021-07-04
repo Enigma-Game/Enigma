@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Rotary Club" el:subtitle=""
+el:id="gorg075_2"/> <el:version el:score="1" el:release="2" el:revision="1"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2019 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="15:24"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+ti["  "] = {"fl_water"}
+ti[". "] = {"fl_himalaya"}
+ti["# "] = {"st_darkgray"}
+ti[" X"] = {"st_box"}
+ti["O "]={"st_oxyd_e", oxydcolor=OXYD_PURPLE}
+ti[" 1"] = {"st_rotator", "imp1", movable=true} 
+ti[" 2"] = {"st_rotator", "imp2", movable=true} 
+ti[" 3"] = {"st_rotator", "imp3", movable=true} 
+ti[" 4"] = {"st_rotator", "imp4", movable=true}
+ti[" 5"] = {"st_rotator", "imp5", movable=true}
+ti[" 6"] = {"st_rotator", "imp6", movable=true} 
+ti[" @"] = {"#ac_marble_black"}
+
+wo(res.composer(ti), "  ", {
+    "O . .                             . . O ",
+    ". . .                        X    .X. . ",
+    ". . .X   X                     X    .X. ",
+    ". .       . # . . .              X      ",
+    "       X  . .1. . # . . .      X        ",
+    "          . . . . .2. . . . .           ",
+    "          # .3.@. . . . .4# . .         ",
+    "          . . . . .5. . . . .           ",
+    "          . .6. . # . . .          X    ",
+    "     X    . # . . .            X    .X. ",
+    ". .    X                           X. . ",
+    ". . .X   X                        . .X. ",
+    "O . .                             . . O "
+})
+
+wo:add({"ot_wire", anchor1 = "imp1", anchor2 = "imp2"})
+wo:add({"ot_wire", anchor1 = "imp2", anchor2 = "imp4"})
+wo:add({"ot_wire", anchor1 = "imp1", anchor2 = "imp3"})
+wo:add({"ot_wire", anchor1 = "imp3", anchor2 = "imp6"})
+wo:add({"ot_wire", anchor1 = "imp6", anchor2 = "imp5"})
+wo:add({"ot_wire", anchor1 = "imp4", anchor2 = "imp5"})
+
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

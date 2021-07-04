@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Watch out" el:subtitle="" el:id="devnull14"/>
+      <el:version el:score="1" el:release="1" el:revision="12" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008, 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:59" el:difficult="2:22"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_abyss"}
+ti["."] = {"fl_bridge_gc", state = CLOSED}
+ti["s2r"] = {"fl_slope_te"}
+ti["A"] = ti["."] .. {"it_blocker", "blocker#"}
+ti["b"] = ti["."] .. {"st_boulder_n"}
+ti["B"] = ti["."] .. {"st_blocker"}
+ti["c"] = ti["."] .. {"st_chess", color = BLACK}
+ti["g"] = ti["."] .. {"it_wrench"}
+ti["r"] = ti["g"] .. {"st_rotator", movable = true}
+ti["N"] = ti["."] .. {"st_window_n",  secure = true}
+ti["E"] = ti["."] .. {"st_window_e",  secure = true}
+ti["S"] = ti["."] .. {"st_window_s",  secure = true}
+ti["W"] = ti["."] .. {"st_window_w",  secure = true}
+ti["9"] = ti["."] .. {"st_window_nw", secure = true}
+ti["8"] = ti["."] .. {"st_window_ne", secure = true}
+ti["7"] = ti["."] .. {"st_window_es", secure = true}
+ti["6"] = ti["."] .. {"st_window_sw", secure = true}
+ti["="] = ti[" "] .. {"st_window_ns", secure = true}
+ti[";"] = ti["."] .. {"st_window_e", "np29-03", secure = true}
+ti["y"] = {"it_yinyang", "np30-06", }
+ti["x"] = ti[" "] .. ti({"it_yinyang"}) .. {"st_disco_dark", "np35-06"}
+ti["X"] = {"fl_abyss", "np36-06"}
+ti["q"] = {"fl_bridge_gc", "np37-06", state = CLOSED}
+ti["0"] = ti["."] ..   {"it_trigger", "trigger00", target = "toggleTrigger00"}
+ti["1"] = ti["."] ..   {"it_trigger", "trigger01", target = "toggleTrigger01"}
+ti["2"] = ti["s2r"] .. {"it_trigger", "trigger02", target = "toggleTrigger02"}
+ti["3"] = ti["c"] ..   {"it_trigger", "trigger03", target = "toggleTrigger03"}
+ti["4"] = ti["c"] ..   {"it_trigger", "trigger04", target = "toggleTrigger04"}
+ti["|"] = {"it_pipe_ns"}
+ti["-"] = {"it_pipe_ew"}
+ti["<"] = {"it_pipe_nw"}
+ti[">"] = {"it_pipe_ne"}
+ti["'"] = {"it_pipe_es"}
+ti["`"] = {"it_pipe_sw"}
+ti["m"] = ti["."] .. {"st_mail_w"} .. ti["-"]
+ti["M"] = ti["."] .. {"st_mail_e"} .. ti["-"]
+ti["+"] = ti["s2r"] .. {"it_extralife"}
+ti["o"] = {"st_oxyd", oxydcolor = OXYD_GREEN}
+ti["d"] = {"it_document", text = "BzG"}
+ti["@"] = ti["."] .. {"#ac_marble_black", essential = INDISPENSABLE}
+ti["*"] = ti["."] .. ti({"st_window_w", "np29-06", secure = true}) .. {"#ac_marble_white", essential = INDISPENSABLE}
+if wo["IsDifficult"] then
+  ti[":"] = {"st_death_invisible"}
+  ti["!"] = ti[":"] .. ti[" "]
+  ti["#"] = ti[":"] .. ti["."]
+  ti["n"] = ti({"fl_bridge_gc", "np37-10", state = CLOSED}) .. {"st_window_n",  secure = true}
+  ti["s"] = ti({"fl_bridge_gc", "np37-02", state = CLOSED}) .. {"st_window_s",  secure = true}
+  ti["e"] = ti({"fl_abyss", "toggleByTrigger05#"}) .. {"st_window_e",  secure = true}
+  ti["z"] = ti({"fl_bridge_gc", "np37-04", state = CLOSED}) .. {"st_window_s", secure = false}
+  ti["Z"] = ti({"fl_bridge_gc", "np37-08", state = CLOSED}) .. {"st_window_n", secure = false}
+  ti["5"] = ti["."] .. {"it_trigger", "trigger05", target = "toggleTrigger05"}
+else
+  ti[":"] = {"st_invisible"}
+  ti["!"] = ti[" "]
+  ti["#"] = ti[":"] .. ti["."]
+  ti["n"] = ti({"fl_bridge_gc", "np37-10", state = CLOSED})
+  ti["s"] = ti({"fl_bridge_gc", "np37-02", state = CLOSED})
+  ti["e"] = ti({"fl_abyss", "toggleByTrigger05#"})
+  ti["z"] = ti({"fl_bridge_gc", "np37-04", state = CLOSED})
+  ti["Z"] = ti({"fl_bridge_gc", "np37-08", state = CLOSED})
+  ti["5"] = ti["."]
+end
+
+wo(ti, " ", {
+  "                   :::::::::::::::::    ",
+  "                   :9NNNNNNNN8NNNN8:9No ",
+  "                   :W.....b..E....E es! ",
+  "                   :W4.......;...rE:#A! ",
+  "                   :W........E.1..E:!z! ",
+  "                   :W........======:#.! ",
+  "d                 'm.@....5..*y2+++xXqM`",
+  "                  |:W........======:#.!|",
+  "                  |:W........E.0..E:!Z!|",
+  "                  |:W3.......B....E:#A!|",
+  "                  |:W........E....E en!|",
+  "                  |:6SSSSSSSS7SSSS7:6So|",
+  "                  |:::::::::::::::::   |",
+  "                  >--------------------<"
+})
+
+function toggleTrigger00(val, src)
+  if val == true then 
+    wo[po["np35-06"]] = ti["s2r"]
+    wo[po["np36-06"]] = ti["."]
+  else
+    wo[po["np35-06"]] = ti[" "]
+    wo[po["np36-06"]] = ti[" "]
+  end
+end
+
+function toggleTrigger01(val, src)
+  if val == true then
+    wo[po["np30-06"]] = ti["s2r"]
+  else 
+    wo[po["np30-06"]] = ti[" "]
+  end
+end
+
+function toggleTrigger02(val, src)
+  if val == true then 
+    wo[po["np29-06"]] = ti["W"]
+  end
+end
+
+function toggleTrigger03(val, src)
+  if val == true then
+    wo[po["np29-03"]] = ti["."] .. {"st_window_e",  secure = true}
+    if wo["IsDifficult"] then
+      wo[po["np37-06"]] = ti["."]
+      wo[po["np37-04"]] = ti["z"]
+      wo[po["np37-08"]] = ti["Z"]
+    end
+  else
+    wo[po["np29-03"]] = ti["."] .. {"st_window_e",  secure = false}
+    if wo["IsDifficult"] then
+      wo[po["np37-06"]] = ti[" "]
+      wo[po["np37-04"]] = ti["s"]
+      wo[po["np37-08"]] = ti["n"]
+    end
+  end
+end
+
+function toggleTrigger04(val, src)
+  if val == false then
+    no["blocker#*"]:close()
+    if wo["IsDifficult"] then
+      wo[po["np-37-02"]] = ti[" "]
+      wo[po["np37-10"]] = ti[" "]
+    end
+  else
+    no["blocker#*"]:open()
+    if wo["IsDifficult"] then
+      wo[po["np-37-02"]] = ti["."]
+      wo[po["np37-10"]] = ti["."]
+    end
+  end
+end
+
+function toggleTrigger05(val, src)
+  if val == false then
+    wo[po["toggleByTrigger05#*"]] = ti[" "]
+  else
+    wo[po["toggleByTrigger05#*"]] = ti["."]
+  end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="BzG">
+        <el:english el:translate="false">Dreamed I saw a snow-white glow. I turned around and I said ho-ho.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

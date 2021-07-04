@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Wallpaper" el:subtitle=""
+el:id="gorg062_2"/> <el:version el:score="1" el:release="2" el:revision="2"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="11:01"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["CrackSpreading"] = 1.0
+
+ti[" "]={"fl_tigris"}..ti{"it_squashed"}
+ti["!"]={"it_crack_s"} 
+ti["#"]={"st_purplemarble"}
+ti["P"]={"st_ghost_purplemarble"}
+ti["R"]={"st_ghost_break"}
+ti["B"]={"st_blur_magic"}
+ti["O"]={"st_oxyd"}
+ti["Q"]={"st_oxyd", "rightoxyds#"}
+ti["X"]={"st_box"}
+ti["@"]={"#ac_marble_black", owner=YIN, controllers=CTRL_YIN}
+ti["%"]={"#ac_marble_white", owner=YANG, controllers=CTRL_YANG}
+ti["y"]={"fl_tigris"}..ti{"it_dynamite"}
+ti["s"]={"fl_tigris"}..ti{"it_sword"}
+ti["b"]={"fl_tigris"}..ti{"it_brush"}
+ti["Y"]={"it_yinyang"}
+
+wo(ti, " ",{
+    "#######################################",
+    "# P     PP PP      #   P P P ! B P PyP#",
+    "#PPPP P   P   PPPPP# P ! P P P P P P  #",
+    "#   b P  PPPP   P P# P P!P P!P P P P  #",
+    "#  P  P  P    P  P # P B P X P P!X ! P#",
+    "O  PPPP P P PPPP P # P P P P P ! P P! Q",
+    "#P  P     P P    P  !P X P!P P P BYP R#",
+    "O PPPP   PP   PPPP # P P X B P P P!P! Q",
+    "# P    P    P  P   # X!P P ! X B P P P#",
+    "#   P  P    P  @P P# P P P P P!P P P  #",
+    "# PPP  P    P      # B P B P P X P P  #",
+    "# P     P  P   PP  # P P ! P P P ! ByP#",
+    "#PPPPPPPPPRPPPPPPPP####################",
+    "#   P   PP PP   B y#!!!#!!!y# P P P PP#",
+    "# P   P B   P PP PP#!#!!!##!# P P P P #",
+    "# PBPBPPP P PBPPB  #!#!#!##!# P P   P #",
+    "#BP   P   P   P BP #b!!!!!#!# P P P P #",
+    "O BBP P P P P P PPB###!#!##!# P P P P Q",
+    "#PP P B P   P   B  R % X  !!# R P P R #",
+    "O P PPPPPBPPP PPP P#!###!#! B P P P P Q",
+    "# B    P   B  P P  #!!!#!## # P P P P #",
+    "#B PBPB BP PBPP PP #!#!#!!!!# P   P P #",
+    "#y P  B  P P P  B  #Y!!#!##!# P P P P #",
+    "#P B  PPPP P   PPPP###!!!!!!# P P P PP#",
+    "#######################################"
+})
+
+wo:shuffleOxyd({"rightoxyds#*", min=1, max=1})
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

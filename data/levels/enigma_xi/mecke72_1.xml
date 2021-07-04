@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Rainbow~Meditation II" el:subtitle="~Polychromie~ 2" el:id="mecke72"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:12 $" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:51" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+local f = cond(wo["IsDifficult"], -1.5, -0.7)
+
+if wo["IsDifficult"] then
+    ti["  "] = {"fl_metal"}
+    ti["& "] = {"fl_bluegray"}
+    ti["% "] = {"fl_swamp"}
+    ti[" Y"] = {"#ac_horse", destination={"ho1","ho2","ho3","ho4"}, strength=10.0, name="horsy"}
+	ti[" K"] = {"#ac_killer_black",  name="buggy"}
+    ti[" c"] = {"it_cherry"}
+	ti[" s"] = {"it_glasses", state=SPOT_TRAP}
+	ti[" t"] = {"it_trap"}
+else 
+    ti["  "] = {"fl_metal"}
+    ti["% "] = {"fl_bluegray"}
+    ti["& "] = {"fl_bluegreen"}
+    ti[" Y"] = {"#ac_horse", destination={"ho1","ho2","ho3","ho4"}, strength=7.0, name="horsy"}
+	ti[" K"] = {"#ac_bug",  name="buggy"}
+    ti[" c"] = {"it_surprise"}
+	ti[" s"] = {"it_glasses", state=SPOT_ACTORIMPULSE}
+	ti[" t"] = {"st_actorimpulse_invisible"}
+end
+
+ti["$ "] = {"fl_ice"}
+ti["' "] = {"fl_lawn", friction=f}
+ti["( "] = {"fl_aquamarine"}
+ti[") "] = {"fl_redslab"}
+ti["* "] = {"fl_lawn", friction=f}
+ti["8 "] = {"fl_inverse_white"}
+ti[", "] = {"fl_pinkbumps"}
+ti["- "] = {"fl_tigris"}
+ti[". "] = {"fl_marble", friction=f}
+ti["/ "] = {"fl_sahara", friction=f}
+ti["0 "] = {"fl_rough"}
+ti["1 "] = {"fl_himalaya", friction=f}
+ti["2 "] = {"fl_slope_ise"}
+ti["# "] = {"fl_slope_inw"}
+ti["3 "] = {"fl_yinyang_yin"}
+ti["! "] = {"fl_yinyang_yang", friction=f}
+--ti[" X"] = {"st_grate_framed"}
+ti[" X"] = {"it_squashed"}
+ti[" C"] = {"st_chameleon"}
+ti[" u"] = {"it_umbrella"}
+
+ti[" U"] = ti["- "] .. {"fl_tigris", name="ho4"}
+ti[" V"] = ti[") "] .. {"fl_redslab", name="ho3"}
+ti[" W"] = ti["( "] .. {"fl_aquamarine", name="ho4"}
+ti[" Z"] = ti["- "] .. {"fl_tigris", name="ho1"}
+
+ti["%o"] = ti["% "] .. ti[" C"] .. {"it_meditation_hollow"}
+ti[")o"] = ti[") "] .. ti[" C"] .. {"it_meditation_hollow"}
+ti[",o"] = ti[", "] .. ti[" C"] .. {"it_meditation_hollow"}
+ti["0o"] = ti["0 "] .. ti[" C"] .. {"it_meditation_hollow"}
+ti[" *"] = {"#ac_pearl", essential=INDISPENSABLE}
+
+ti["4 "] = {"fl_inverse", name="floor#"}
+ti["5 "] = {"fl_red", name="floor#"}
+ti["6 "] = {"fl_adhesionless", name="floor#"}
+ti["7 "] = {"fl_space", name="floor#"}
+
+
+
+local resolver1 = res.random(ti, "+ ",{{"4 ", 3/10}, {"5 ", 3/10}, {"6 ", 2/10}, {"7 ", 2/10}})
+wo(res.composer(resolver1), "  ", {
+    "!X#X#X$X$X%X%X&X&X'X'X(X(X)X)X8X8X,X,X-X",
+    "#X$ $ $ % % & & 'K' ( ( ) ) + + , , - -X",
+    "#X$C$ %o% &C& 'C' (W(c)*)C+ + , ,o- -C.X",
+    "$X$ % % & & ' ' ( (Y)V) + + , , - - . .X",
+    "$X%C% &C& 'C' (C(*)c) + + , ,C- -C. .C/X",
+    "%X% & & ' ' ( ( ) ) + + , , - - . . / /X",
+    "%X&C& 'C' (C( )C) + 8c, ,C- -C. .C/ /C0X",
+    "&X& ' 't( ( )s) + + , , - - . . /t/ 0 0X",
+    "&X'C' (C( )C) + + ,c, -*-C. .C/ /C0 0C1X",
+    "'X' ( ( ) ) + + , ,  U- . . / / 0 0 1 1X",
+    "(X(C( )o) + + ,C,*-Z-c. .C/ /C0 0o1 1C2X",
+    "(X( ) ) + + , , - - . . / / 0 0 1 1 2 2X",
+    ")X)X)X)X8X,X,X-X-X.X.X/X/X0X0X1X1X2X2X3X"})
+
+wo:add({"ot_rubberband", anchor1="horsy", anchor2="buggy", strength=10.0, length=2.0})
+	
+wo:add({"ot_timer", target="colorthefloor"})
+
+function colorthefloor()
+    objs = no["floor#*"]:shuffle():sub(25)
+    for obj in objs do
+        wo:drawRect(obj, obj, "+ ", resolver1)
+    end
+end
+
+	
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

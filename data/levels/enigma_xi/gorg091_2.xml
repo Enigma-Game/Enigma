@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Pyromaniac" el:subtitle=""
+el:id="gorg091_2"/> <el:version el:score="1" el:release="2" el:revision="3"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2019 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="11:26"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["ProvideExtralifes"]=false
+
+ti["  "] = {"fl_abyss"}
+ti[". "] = {"fl_concrete"}
+ti["# "] = {"st_woven"}
+ti["f "] = {"fl_hay", initfire=true, eternal=true}
+ti[" s"] = {"st_shogun_s"}
+ti[" m"] = {"st_shogun_m"}
+ti[" l"] = {"st_shogun_l"}
+ti[" X"] = {"st_grate"}
+ti[" B"] = {"st_box_hay"}
+ti[" p"] = {"st_plop"}
+ti[" D"] = {"st_door_a", "doors1#"}
+ti[" E"] = {"st_door_a", "doors2#"}
+ti[" F"] = {"st_door_a", "doors3#"}
+ti[" G"] = {"st_door_a", "door4"}
+ti["b "] = {"fl_bridge", "bridge"}
+ti[" !"] = {"it_bomb"}
+ti[" t"] = {"fl_scales_concrete", target="counter", action="signal"}
+ti[" 1"] = {"it_shogun_s", target="doors1#*"}
+ti[" 2"] = {"it_shogun_m", target="doors2#*"}
+ti[" 3"] = {"it_shogun_l", target="doors3#*"}
+ti["4 "] = {"fl_scales_concrete", target="door4"}
+ti["O "] = {"st_oxyd_a", oxydcolor=OXYD_ORANGE}
+ti[" @"] = {"#ac_marble_black", owner=YIN}
+
+wo(res.composer(ti), "  ",{
+    "                                        ",
+    "      # # # # # # # # # # # # # #       ",
+    "      . # .X.D# .X.t. # .X.G.X.F.       ",
+    "      . .l. .p# .Xf . . .X# .X# O       ",
+    "      . # . .!. .2.D. . .B. . #         ",
+    "      . # . .X.p. .!. . f # . # .       ",
+    "  .@. . .m4 # # .X# .Bf .t.X. b .    3  ",
+    "      . # . .X.p. .!. .E# . . # .       ",
+    "      . # . # .B. .X.1. .X# . #         ",
+    "      . .s. .!. . # .X.!.p.E.X# O       ",
+    "      . # .X. .Xf .t. .X# . .X.F.       ",
+    "      # # # # # # # # # # # # # #       ",
+    "                                        "
+})
+wo:add(YIN, {"it_bomb"}..ti{"it_dynamite"}..ti{"it_dynamite"})
+wo:add({"ot_counter", "counter", state=0, target="bridge", action_2="open", action_3="close"})
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+
+

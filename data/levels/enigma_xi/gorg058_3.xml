@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Pool Season" el:subtitle=""
+el:id="gorg058_3"/> <el:version el:score="2" el:release="3" el:revision="3"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="03:59"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+ti[" "]={"fl_tigris", floodable=true}
+ti["T"]={"fl_hay"}
+ti["@"]=ti["T"] .. {"#ac_marble_black"}
+ti["#"]={"st_purplemarble"}
+ti["O"]={"st_oxyd", "ox#"}
+ti["X"]={"st_box_hay"}
+ti["block"]=ti["T"] .. {"st_blocker", "block%%#"}
+ti["switch"]={"fl_water_source"} .. ti{"st_switch_black", safeaction=true, target={"block%%#*", "killswitch"}, action={"open", "callback"}}
+
+wo(res.autotile(ti, {"a", "f", "block"}, {"A", "F", "switch"}), " ",{
+    "#O################O#",
+    "OX   X#  X   #  X XO",
+    "# XTX # X X X#  TX #",
+    "#XTA Xb TB@X cXTCTX#",
+    "# XTX # XTX X# X X #",
+    "#  X  #X   X #  X X#",
+    "##a#######b######f##",
+    "#  X  # X X  #  X  #",
+    "# XTX #  X X # XTX #",
+    "# TDT d XTET e  FTX#",
+    "# X X #X XTX # XTX #",
+    "OX X  # X X X#  X XO",
+    "#O################O#"
+})
+
+function killswitch (value, sender)
+    if value == true then
+        wo[sender] = {"st_nil"}
+    end
+end
+
+wo:shuffleOxyd({no["ox#*"]:sort("circular"), circular=true}) 
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

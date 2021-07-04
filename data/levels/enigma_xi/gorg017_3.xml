@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Silverado" el:subtitle=""
+el:id="gorg017_3"/> <el:version el:score="1" el:release="4" el:revision="9"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2016, 2020 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> 
+<el:compatibility el:enigma="1.20">
+<el:dependency el:id="lib/libpuzzle" el:release="3" el:preload="true" el:path="lib/libpuzzle"/>
+</el:compatibility>
+<el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="13:25"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+ti["# "] = {"st_fake_oxydc", state=OPEN}
+ti["  "] = {"fl_swamp"}
+ti[": "] = {"fl_darkgray"}
+ti[", "] = {"fl_gravel"}
+ti["~ "] = {"fl_water"}
+ti["- "] = {"fl_bridge", "bridge#", state=CLOSED}
+ti["_ "] = {"fl_abyss"}
+ti["U "] = {"fl_thief", "getback"}
+ti["' "] = {"fl_metal"}
+ti[" +"] = {"#ac_rotor", range=5.0, strength=12.0}
+ti[" @"] = {"#ac_marble_black"}
+ti["T "] = {"fl_scales_darkgray", target="rotdoor", action="signal"} .. ti{"st_thief"}
+ti["O "] = {"st_oxyd", oxydcolor=OXYD_BLACK}
+ti[" I"] = {"st_stoneimpulse"}
+ti["N "] = {"st_brownie"}
+ti["L1"] = {"st_laser_e", "laser1", state=ON}
+ti["L2"] = {"st_laser_e", "laser2", state=ON}
+ti["L4"] = {"st_laser_s", "laser4", state=ON}
+ti["> "] = ti[", "] .. {"st_oneway_black_e"}
+ti["u "] = ti[", "] .. {"st_oneway_black_n"}
+ti["d "] = ti[", "] .. {"st_oneway_black_s"}
+ti["H1"] = {"st_key", code="1", target="laser1"}
+ti["H2"] = {"st_key", code="2", target="laser2"}
+ti["k1"]= {"it_key", code="1"} 
+ti["k2"]= {"it_key", code="2"}
+ti["B "] = ti[": "] .. {"st_passage_black", flavor="slash"}
+ti[" K"] = {"st_chess"}
+ti["X "] = ti[": "] .. {"st_box"}
+ti["x "] = ti[", "] .. {"st_box"}
+ti["y "] = ti["~ "] .. {"st_box"}
+ti[" i"] = {"st_stoneimpulse_movable"}
+ti["G "] = ti[", "] .. {"st_rawglass_movable"}
+ti["R"] = ti[", "] .. {"st_puzzle_yellow", intensity=0}
+ti["p"] = {"st_puzzle_blue", intensity=0}
+ti["q"] = ti[": "] .. {"st_puzzle_blue", intensity=0}
+ti["D2"] = ti[", "] .. {"st_door_b", "doors2#"}
+ti["D3"] = ti[": "] .. {"st_door_b", "door3"}
+ti["D4"] = ti[": "] .. {"st_door_b", "door4"}
+ti["S1"] = {"it_trigger", target="bridge#*", action="open", invisible=true}
+ti["S2"] = {"it_trigger", target="doors2#*"}
+ti["S4"] = {"fl_scales_darkgray", target="laser4"}
+ti[" w"] = {"it_puller_w"}
+ti[" c"] = {"it_cherry"}
+ti[" e"] = {"it_extralife"}
+ti[" m"] = {"it_magicwand"}
+ti[" f"] = {"it_floppy"}
+ti["F "] = {"st_floppy", target="door4"}
+ti["V1"] = ti[": "] .. {"it_vortex", "vortex1", destination="vortex2"}
+ti["V2"] = ti[", "] .. {"it_vortex", "vortex2", destination="vortex1"} 
+ti["V3"] = ti[": "] .. {"st_rawglass"} .. ti{"it_wormhole", destination="getback", strength=1}
+ti["V6"] = {"fl_thief", "finish"}
+ti["V5"] = ti["B "] .. {"it_wormhole", destination="finish", strength=1.0}
+
+wo(res.composer(res.puzzle(ti, "R", "p", "q")) , "  ",{
+     "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
+     "# # S2: : : : # #   #         # _w_ _ # #   ' , # # , '   #   # # # # # # # # ",
+     "# # B # # # : : #   #         # _ _ _ # # , ' ' # # ' ' , ,   # # # # # # # # ",
+     "# # : # : : : T D3  #   # #   # _ _ _ # # , ' # # # # ' , G   # # : : : # # # ",
+     "# # : : : : : : #       #     # _ _ _ # # , ' # V3- # ' # ,iG : : : Gc: # # # ",
+     "# # T : : # : : #       #  f +# , , _ # # , ' # - - # ' , G   # # : : : # # # ",
+     "# # : : : # : # # # # # # # # # , pa, # # , ' # - - - ' ,i,  i# # # # # # # # ",
+     "# # : : # # : # # # # # # # # # pi, pd# # , ' - - - # ' , ,   # # # # # # # # ",
+     "# # T : : : : T ~ ~ : : # # , , pc, , # # , ' # # - # ' , #   # # # # # # # # ",
+     "# # # : : # : : ~ ~K: : # # , , , pl, # # , ' ' ' ' ' ' , #   # # # # V5Rb# # ",
+     "# # : : : : : X ~ # : : # # , # pgpf, # #   ' , , , , '   # S1B B B # # RoRi# ",
+     "# # : : : : : ~ ~ ~ : : # # , ph, , , # # # # # # # # # # # # # B B # RnRlRc# ",
+     "# # # # # # X # # # # # # # # D2D2# # # # # # # # # # # # # # # B B # RfRiB # ",
+     "# # # # # , ,i  B     #   #   B B #  e# # : : : : : : # : : : X : : # B x , # ",
+     "# # # # # , ,   # #       #   #   #   # # : # # # # : : : # : :iX : > B B B # ",
+     "# , , , # , #   # # # #   #   #       # # d # # # # u # # # # : : X # # # # # ",    
+     "# , # , # , #   #   #     #   # F # # #       #         # # ~ ~ ~ ~ # # # # # ",
+     "# , # , # , #   #       # #   D4  # # # : # : qh: # :   # # ~ ~ y ~ # # # # # ",
+     "# V2# , , , #   #   #   # #   #   #   # : qh: # : : :   # # ~ ~ ~ ~ # # # # # ",
+     "# # # # # # #   #   #     #   #   #   B : : : : qc: :   # # ~ ~  w~ # # L4# # ",
+     "# #             #   # #   # # #   #   # # : # qjqf: #   # # ~ k2~ ~i' ' ' # # ",
+     "# #   # # # # # #   # #           #   # : qeS4: # : :   # # # ~ y ~ x # , # # ",
+     "# #   #       #       #   # #   # #   # : # :K# # # # # # # ~ ~ ~ ~ , , , # # ",
+     "# #       #       #   #   # #         # : : : # # # # # # # # # # # # # V6# # ",
+     "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
+     "# # # # # # # # # # # # # # # # # B O #                                     # ",
+     "#  I I I# # # # # # # # # # # # L1B # #                                     # ",
+     "#  I#  I# # # # #  ek1# # # # # # B H1#                                     # ",
+     "#  I   I#   ~           ~       # : : #                                     # ",
+     "#  I  N >       ~ ~ ~       ~   > : : #                                     # ",
+     "#  IU :@# # # # # # # # # # # # # # V1#                                     # ",
+     "#  I   i>       ~ ~ ~       ~   > : : #                                     # ",
+     "#  I   I#   ~           ~       # : : #                                     # ",
+     "#  I#  I# # # # #  m e# # # # # # B H2#                                     # ",
+     "#  I I I# # # # # # # # # # # # L2B # #                                     # ",
+     "# # # # # # # # # # # # # # # # # B O #                                     # ",
+     "# # # # # # # # # # # # # # # # # # # #                                     # "
+})
+
+wo:add({"ot_counter", "rotdoor", state=4, target="door3", action_0="open", action_1="close"})
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

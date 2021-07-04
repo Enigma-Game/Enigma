@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Puddles" el:subtitle="Watch Your Step!"
+el:id="gorg042_2"/> <el:version el:score="2" el:release="2" el:revision="3"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="03:26"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["ProvideExtralifes"] = false
+wo["AllowSingleOxyds"] = true 
+wo["MaxOxydColor"] = OXYD_CYAN
+
+ti["  "]={"fl_water"}
+ti["A "]={"st_passage_black", flavor="cross"}
+ti["B "]={"st_passage_black", flavor="slash"}
+ti["C "]={"st_passage_black", flavor="frame"}
+ti["; "]={"fl_rough"}
+ti["O "]={"st_oxyd_b", "ox#", noshuffle=true, oxydcolor=OXYD_ORANGE}
+ti["o "]={"st_oxyd_b", "ox#", noshuffle=true, oxydcolor=OXYD_BLACK}
+ti["X"]={"st_brownie"}
+ti["Y"]={"st_nil"}
+ti["$ "] = ti["; "] .. {"st_oxyd_e", "opals_#", selection={"=X", "=Y"}}
+ti["@ "]=ti["; "] .. {"#ac_pearl_white"}
+ti["D "]=ti["; "] .. {"st_blocker", "pass#"}
+ti["t "]=ti["; "] .. {"it_trigger", target={"counter", "wet_one"}, action={"signal", "callback"}}
+ti["u "]=ti["; "] .. {"it_trigger", target={"counter", "wet_two"}, action={"signal", "callback"}}
+ti["v "]=ti["; "] .. {"it_trigger", target={"counter", "wet_three"}, action={"signal", "callback"}}
+ti["w "]=ti["; "] .. {"it_trigger", target={"counter", "wet_four"}, action={"signal", "callback"}}
+ 
+wo(res.composer(res.random(ti, "# ", {"A ", "B ", "C "})) , "  ",{
+    "                                        ",
+    "                  O                     ",
+    "          # # # # D # # # # #           ",
+    "        # # ; t t ; t ; t ; # #         ",
+    "        # ; $ ; ; ; ; @ ; ; v #         ",
+    "        # u $ $ $ $ $ $ $ $ $ #         ",
+    "      o D $ $ $ $ v u $ $ $ $ D o       ",
+    "        # $ $ $ $ $ $ $ $ $ v #         ",
+    "        # u ; ; ; ; ; ; ; $ ; #         ",
+    "        # # ; w ; w ; w w ; # #         ",
+    "          # # # # # D # # # #           ",
+    "                    O                   ",
+    "                                        "
+})
+
+function wet_one(value, sender)
+    if value == true then
+        wo[sender + {-1,2}] = ti["  "]
+    end
+end
+function wet_two(value, sender)
+    if value == true then
+        wo[sender + {1,1}] = ti["  "]
+    end
+end
+function wet_three(value, sender)
+    if value == true then
+        wo[sender + {-1,-1}] = ti["  "]
+    end
+end
+function wet_four(value, sender)
+    if value == true then
+        wo[sender + {1,-2}] = ti["  "]
+    end
+end
+
+wo:add({"ot_counter", "counter", state=0, target="pass#*", action_13="close", action_14="open"})
+wo:shuffleOxyd ()
+no["opals_#*"]:peepall()
+
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

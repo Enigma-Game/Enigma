@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Elimination Meditation" el:subtitle=""
+el:id="gorg086_2"/> <el:version el:score="2" el:release="1" el:revision="2"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2021 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.30"/> <el:modes el:easy="true" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="-"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["ProvideExtralifes"] = false
+
+ti[" "] = cond(wo["IsDifficult"], {"fl_inverse_gray"}, {"fl_gray"})
+ti["#"] = {"st_granite"}
+ti["@"] = {"#ac_pearl_black", essential=INDISPENSABLE, owner=YIN, controllers=CTRL_YIN}
+ti["&"] = {"#ac_pearl", essential=INDISPENSABLE, owner=YIN, controllers=CTRL_YIN}
+ti["1"] = {"#ac_pearl_black", essential=INDISPENSABLE, owner=YIN, controllers=CTRL_YIN}..ti{"st_passage_black", flavor="frame"}
+ti["2"] = {"#ac_pearl", essential=INDISPENSABLE, owner=YIN, controllers=CTRL_YIN}..ti{"st_passage_white", flavor="frame"}
+ti["B"] = {"st_passage_black", flavor="frame"}
+ti["W"] = {"st_passage_white", flavor="frame"}
+ti["b"] = {"it_meditation", essential=INDISPENSABLE}..ti{"st_passage_black", flavor="frame"}
+ti["w"] = {"it_meditation", essential=INDISPENSABLE}..ti{"st_passage_white", flavor="frame"}
+ti["_"] = {"fl_abyss"}
+ti["S"] = {"st_scissors"}
+ti["s"] = {"st_pebble"}
+ti["P"] = {"st_document"}
+
+wo(ti, " ",{
+    "____________________",
+    "____________________",
+    "____________________",
+    "__################__",
+    "__#  BPSsWBsPSW  #__",
+    "__w SPSPPsSssPSS b__",
+    "__#@PsSsS12sPsPs&#__",
+    "__w sSPsSPsPSPsP b__",
+    "__#  BsSPWBPsSW  #__",
+    "__################__",
+    "____________________",
+    "____________________",
+    "____________________"})
+                 
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+
+

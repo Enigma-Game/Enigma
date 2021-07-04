@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Varied Puzzles" el:subtitle="A collection" el:id="Hairball_009"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Hairball" el:email="hairball@ramblemuse.com"/>
+      <el:copyright>Copyright c 2009 Hairball</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="6:32"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["CrackSpreading"]=0
+wo["Fragility"]=1
+wo["ConserveLevel"]=false
+
+ti[" "] = {"fl_dark"}
+ti["#"] = {"st_blocker"}
+ti["'"] = {"fl_metal"}
+ti["%"] = {"st_metal"} .. ti["'"]
+ti["`"] = {"fl_darkgray"}
+ti["$"] = {"st_darkgray"} .. ti["`"]
+ti[","] = {"fl_bright"}
+ti[";"] = {"st_rawglass"} .. ti[","]
+ti["."] = {"fl_bluegray"}
+ti["B"] = {"st_bluegray"} .. ti["."]
+ti["-"] = {"fl_tigris"}
+ti["@"] = {"st_tigris"} .. ti["-"]
+ti["_"] = {"fl_sahara"}
+ti["&"] = {"st_yellow"} .. ti["_"]
+ti["o"] = {"st_oxyd_a"} .. ti["_"]
+ti["O"] = {"#ac_marble_black"} .. ti["'"]
+ti["x"] = {"st_break_boulder"} .. ti["_"]
+ti["^"] = {"st_oneway_n"} .. ti["`"]
+ti[">"] = {"st_oneway_e"} .. ti["`"]
+ti["v"] = {"st_oneway_s"} .. ti["`"]
+ti["<"] = {"st_oneway_w"} .. ti["`"]
+ti["b"] = {"st_bluegray_hollow"} .. ti["."]
+ti["I"] = {"st_stoneimpulse"} .. ti["."]
+ti["i"] = {"st_stoneimpulse_movable"} .. ti["."]
+ti["G"] = {"st_grate_cross"} .. ti["-"]
+ti["C"] = {"it_crack_l"} .. ti["G"]
+ti["R"] = {"st_rotator_ccw"} .. ti["-"]
+ti["r"] = {"st_rotator_ccw",movable=true} .. ti["-"]
+ti["g"] = {"st_grate_framed"} .. ti["_"]
+ti["c"] = {"it_coin_s"} .. ti["g"]
+
+wo(ti, " ", {
+    "##########################################################",
+    "#%%%%%%%%''''''''''#$$$$$$$$$`<`>`>`>`#;;;;;;;;;;;;;;;;;;#",
+    "#''''''''''%'''''''#$$$$$$$$$v$^$v$^$^#;;;;;;;;;;,,;;;;;;#",
+    "#''%%%%%%%'%'''''''#$$$$$`````>`<`<`>`#;;;;,,,,,;,,,,,,;;#",
+    "#%'%%%''%%'%'''''''#$$$$$```$^$^$v$^$v#;;;;,;,;;;,,;;;,;;#",
+    "#%'%''''%%'%'''''''#$$``$```$`<`>`<`<`>,,,,,,,;;;;,;;;,;;#",
+    "#%'%''%'%%'%''''''' ````$$`$$v$^$v$^$v#;;;,;;,,,,;,;;;,;;#",
+    "#%'%%'%'%%'%'''''''#$$``$```$`>`>`<`<`#;;;,;;;;;,;,;;;,,;#",
+    "#%'%O'%'%%'%'''''''#$$``````$v$^$v$v$^#,,;,,,,,,,,,,,,,,;#",
+    "#%'%%%%''%'%'''''''#$$`$$```$`>`<`>`<`#,,,,,;;;;;,,,;;;,;#",
+    "#%'''''''%'%'''''''#$$``$$$$$v$^$^$^$^#,;;;;;;;;;;;;;;;,;#",
+    "#%''%%%%%%%%'''''''#````$$$$$`>`>`>`>`#,;;;;;;;;;;,,,,,,;#",
+    "################################################## #######",
+    "#_&xxx&xxxx&xxxxxxx#@@@@@@@@@@@R@@@@R@#BBBBBBBBBII.IBBBBB#",
+    "#_&x&x&x&&x&x&&&&&x#@G-r--------@----@#BbbbbbB..I..IIbbbb#",
+    "#x&x&x&x&xx&x&xxxxx#@Gr--@-@@@@-@@@@-@#BbBBBbB.i...iIbBBb#",
+    "#xxx&xxx&x&&x&x&&&&#@C@@-------------R#BbbbBbB...IBIIbBBB#",
+    "#&&&&&&&&xxxx&xxxxx#@CC@-@-@@@@-@@@@@@#BBBbBbBB.BBBbbbI..#",
+    "#cggggc&&&&&&&&&&&x#@@C@-@-@@R@-@-GGG@#BbbbBbbB.BbbbBBI.B#",
+    "#g&_c&g&xxxxxxxxx&x#@CC@-@-@@---R@@@G@#BbBBBBbI.B.BBBBB.B#",
+    "#gcoo_g&x&&&&&&&x&x#@C@@-@-@@-@-@@GGG@#BbbbbBbI.........B#",
+    "#g_oocg&xxxxxxx&xxx#@GGG-@-@R---G@G@G@#BBBBbBbBBBBBBBBIIB#",
+    "#g&c_&g&&&&&&&x&&&&#@G@R---@@@@RG@G@G- ..bBbBbBbbbBbbbBbB#",
+    "#cggggc_xxxxxxxxxxx -G@@@@R@@@@@GGG@@@#BBbbbBbbbBbbbBbbbB#",
+    "##########################################################"})
+
+-- Room 1 test
+wo[{5,7}]={"st_puzzle_blue"} .. ti["'"]
+wo[{11,1}]={"st_door_d",name="door01",faces="ew"} .. ti["'"]
+wo[{10,10}]={"it_trigger",action="toggle",target="door01"} .. ti["'"]
+wo[{15,5}]={"st_puzzle_yellow",connections="ns"} .. ti["'"]
+wo[{15,7}]={"st_puzzle_yellow",connections="ns"} .. ti["'"]
+wo[{14,6}]={"st_puzzle_yellow",connections="ew"} .. ti["'"]
+wo[{16,6}]={"st_puzzle_yellow",connections="ew"} .. ti["'"]
+wo[{16,5}]={"st_puzzle_yellow",connections="ne"} .. ti["'"]
+wo[{14,5}]={"st_puzzle_yellow",connections="nw"} .. ti["'"]
+wo[{16,7}]={"st_puzzle_yellow",connections="es"} .. ti["'"]
+wo[{14,7}]={"st_puzzle_yellow",connections="sw"} .. ti["'"]
+wo[{15,6}]={"it_hammer"} .. ti["'"]
+-- Room 2 test
+wo[{21,6}]={"st_shogun_s"} .. ti["`"]
+wo[{26,8}]={"st_shogun_ml"} .. ti["`"]
+wo[{28,3}]={"st_door_d",name="door02",faces="ew"} .. ti["`"]
+wo[{20,11}]={"it_shogun_l",action="toggle",target="door02"} .. ti["`"]
+wo[{38,5}]=ti[">"] .. ti[" "]
+-- Room 3 test
+wo[{39,1}]={"st_laser_s",name="laser"} .. ti[","]
+wo[{56,11}]={"st_switch",action="on",target="laser"} .. ti[","]
+wo[{55,9}]={"st_oneway_black_s"} .. ti[","]
+wo[{54,11}]={"st_door_d",name="door03",faces="ew"} .. ti[","]
+wo[{53,11}]={"st_door_d",name="door04",faces="ew"} .. ti[","]
+wo[{52,11}]={"st_door_d",name="door05",faces="ew"} .. ti[","]
+wo[{51,11}]={"st_door_d",name="door06",faces="ew"} .. ti[","]
+wo[{50,12}]={"st_door_d",name="door07",faces="ns"} .. ti[" "]
+wo[{47,1}]={"st_laserswitch",action="toggle",target="door03"} .. ti[","]
+wo[{56,3}]={"st_laserswitch",action="toggle",target="door04"} .. ti[","]
+wo[{52,6}]={"st_laserswitch",action="toggle",target="door05"} .. ti[","]
+wo[{40,11}]={"st_laserswitch",action="toggle",target="door06"} .. ti[","]
+wo[{47,11}]={"st_laserswitch",action="toggle",target="door07"} .. ti[","]
+wo[{41,5}]={"st_mirror_triangle",state=EAST,transparent=true,movable=true} .. ti[","]
+wo[{39,3}]={"st_mirror_slab",state=WEST,transparent=true} .. ti[","]
+wo[{54,8}]={"st_mirror_slab",state=SOUTH,movable=true} .. ti[","]
+wo[{50,6}]={"st_mirror_slab",state=SOUTH,transparent=true,movable=true} .. ti[","]
+-- Room 4 test
+wo[{50,13}]={"st_stoneimpulse_hollow"} .. ti["."]
+wo[{56,15}]={"it_wormhole",strength=0,destination=po(55.5,22.5)} .. ti["."]
+wo[{49,14}]={"st_lightpassenger"} .. ti["."]
+wo[{49,19}]={"st_door_d",name="door08",faces="ns"} .. ti["."]
+wo[{56,17}]={"it_trigger",action="toggle",target="door08"} .. ti["."]
+-- Room 5 test
+wo[{37,22}]={"it_wrench"} .. ti["-"]
+wo[{30,21}]={"st_boulder_w"} .. ti["-"]
+wo[{20,23}]={"st_door_d",name="door09",faces="ew"} .. ti["-"]
+wo[{19,23}]={"st_door_d",name="door10",faces="ew"} .. ti[" "]
+wo[{33,14}]={"it_trigger",action="toggle",target="door10"} .. ti["-"]
+wo[{33,18}]={"st_switch",action="toggle",target="door09"} .. ti["-"]
+-- Room 6 test
+wo[{7,23}]={"st_door_d",name="door11",faces="ew"} .. ti["_"]
+wo[{1,14}]={"st_plaster_movable"} .. ti["_"]
+wo[{1,13}]={"it_trigger",action="toggle",target="door11"} .. ti["_"]
+wo[{4,19}]=ti["c"] .. {"st_door_d",name="door12",faces="ns"}
+wo[{5,21}]=ti["c"] .. {"st_door_d",name="door13",faces="ew"}
+wo[{3,22}]=ti["c"] .. {"st_door_d",name="door14",faces="ns"}
+wo[{2,20}]=ti["c"] .. {"st_door_d",name="door15",faces="ew"}
+wo[{3,19}]={"st_coinslot",action="toggle",target="door12"} .. ti["_"]
+wo[{5,20}]={"st_coinslot",action="toggle",target="door13"} .. ti["_"]
+wo[{4,22}]={"st_coinslot",action="toggle",target="door14"} .. ti["_"]
+wo[{2,21}]={"st_coinslot",action="toggle",target="door15"} .. ti["_"]
+
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

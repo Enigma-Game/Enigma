@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Philosophizing Stone" el:subtitle="" el:id="andreas73"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2020 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+        <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="3:36" el:difficult="5:05"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
+textcount = {u = 9, r = 10, d = 10, l = 10, nl = 5, nu = 4, nr = 6, nd = 4}
+
+ti[" "] = {"fl_abyss"}
+ti["."] = {"fl_wood"}
+ti["-"] = {"fl_samba"}
+ti["~"] = {"it_trap"} .. ti["-"]
+ti["#"] = {"st_brick"}
+ti["@"] = {"#ac_pearl_black"} .. ti["."]
+ti["O"] = {"st_oxyd", oxydcolor = OXYD_PURPLE}
+ti["P"] = {"fl_platinum_framed"}
+ti["1"] = {"it_trigger", invisible = true, _dir = "r", target = "change_text"}
+ti["2"] = {"it_trigger", invisible = true, _dir = "l", target = "change_text"}
+ti["3"] = {"it_trigger", invisible = true, _dir = "d", target = "change_text"}
+ti["4"] = {"it_trigger", invisible = true, _dir = "u", target = "change_text"}
+
+lastpos = po(2,2)
+function change_text(onoff, sender)
+    if onoff == true then
+        wo[lastpos] = {"st_nil"}
+        local pos1, dpos
+        local dir = sender._dir
+        if dir == "r" then  dpos = po(-1,  0)  end
+        if dir == "l" then  dpos = po( 1,  0)  end
+        if dir == "d" then  dpos = po( 0, -1)  end
+        if dir == "u" then  dpos = po( 0,  1)  end
+        pos1 = po(sender) + 2*dpos
+        if fl(pos1)["_enter-"..dir] == nil then
+            local type = fl(pos1)["_type"]
+            local typewithout = string.gsub(type, dir, "")
+            local text = "text-"
+            if string.len(type) == 1 then
+                text = text .. type .. random(textcount[type])
+            end
+            if string.len(type) == 2 then
+                text = text .. typewithout .. random(textcount[typewithout])
+            end
+            if string.len(type) == 3 then
+                local missing = string.gsub("nurdl", "[" .. type .. "]", "")
+                text = text .. missing .. random(textcount[missing])
+            end
+            if string.len(type) == 4 then
+                text = text .. "n" .. dir .. random(textcount["n" .. dir])
+            end
+            fl(pos1)["_enter-"..dir] = text
+        end
+        wo[pos1] = {"st_document", text = fl(pos1)["_enter-"..dir]}
+        lastpos = pos1
+    end
+end
+
+
+map_mini = {
+    r    = wo:newMap(" ", {"  ~  ", " ... ", "~.P.1", " ... ", "  ~  "}),
+    l    = wo:newMap(" ", {"  ~  ", " ... ", "2.P.~", " ... ", "  ~  "}),
+    d    = wo:newMap(" ", {"  ~  ", " ... ", "~.P.~", " ... ", "  3  "}),
+    u    = wo:newMap(" ", {"  4  ", " ... ", "~.P.~", " ... ", "  ~  "}),
+    rl   = wo:newMap(" ", {"  ~  ", " ... ", "2.P.1", " ... ", "  ~  "}),
+    du   = wo:newMap(" ", {"  4  ", " ... ", "~.P.~", " ... ", "  3  "}),
+    ru   = wo:newMap(" ", {"  4  ", " ... ", "~.P.1", " ... ", "  ~  "}),
+    rd   = wo:newMap(" ", {"  ~  ", " ... ", "~.P.1", " ... ", "  3  "}),
+    lu   = wo:newMap(" ", {"  4  ", " ... ", "2.P.~", " ... ", "  ~  "}),
+    ld   = wo:newMap(" ", {"  ~  ", " ... ", "2.P.~", " ... ", "  3  "}),
+    rlu  = wo:newMap(" ", {"  4  ", " ... ", "2.P.1", " ... ", "  ~  "}),
+    rld  = wo:newMap(" ", {"  ~  ", " ... ", "2.P.1", " ... ", "  3  "}),
+    rdu  = wo:newMap(" ", {"  4  ", " ... ", "~.P.1", " ... ", "  3  "}),
+    ldu  = wo:newMap(" ", {"  4  ", " ... ", "2.P.~", " ... ", "  3  "}),
+    rldu = wo:newMap(" ", {"  4  ", " ... ", "2.P.1", " ... ", "  3  "})}
+
+maze_width = 6
+maze_height = 6
+
+whole_map = wo:newMap(" ", maze_width*5, maze_height*5)
+
+if wo["IsDifficult"] then
+  maze = new_kruskal_maze(maze_width, maze_height)
+else
+  maze = new_kruskal_maze(maze_width/2, maze_height/2)
+end
+
+-- The following tables help to form a unicursal 6x6-maze from
+-- a perfect 3x3-maze. The idea is to bisect each passage of the
+-- 3x3-maze, yielding 2x2 cells per original cell. The following
+-- tables encodes the pathways of the 4 new cells, depending on
+-- the original paths and the position of the new cell within the
+-- 2x2 grid.
+unicursal_translation = {
+  head = { "r",  "l",  "d",  "u", "rl", "du", "ru", "rd", "lu", "ld", "rlu", "rld", "rdu", "ldu", "rldu"},
+     l = {"rd", "rl", "rd", "du", "rl", "du", "du", "rd", "lu", "rl",  "lu",  "rl",  "du",  "lu",  "lu"},
+    ly = {"ru", "rl", "du", "ru", "rl", "du", "ru", "du", "rl", "ld",  "rl",  "ld",  "du",  "ld",  "ld"},
+    lx = {"rl", "ld", "ld", "du", "rl", "du", "ru", "rl", "du", "ld",  "ru",  "rl",  "ru",  "du",  "ru"},
+   lxy = {"rl", "lu", "du", "lu", "rl", "du", "rl", "rd", "lu", "du",  "rl",  "rd",  "rd",  "du",  "rd"}}
+
+function celltype(x,y)
+  if wo["IsDifficult"] then
+    local type = ""
+    if maze:can_go_east(x,y)  then  type = type .. "r"  end
+    if maze:can_go_west(x,y)  then  type = type .. "l"  end
+    if maze:can_go_south(x,y) then  type = type .. "d"  end
+    if maze:can_go_north(x,y) then  type = type .. "u"  end
+    return type
+  else
+    --if (x == 1) and (y == 1) then
+    --  return "d"
+    --end
+    local minitype = ""
+    local type = ""
+    minix = math.floor(x/2)
+    miniy = math.floor(y/2)
+    translation_line = "l"
+    if x > 2*minix then  translation_line = translation_line .. "x"  end
+    if y > 2*miniy then  translation_line = translation_line .. "y"  end
+    if maze:can_go_east(minix,miniy)  then  minitype = minitype .. "r"  end
+    if maze:can_go_west(minix,miniy)  then  minitype = minitype .. "l"  end
+    if maze:can_go_south(minix,miniy) then  minitype = minitype .. "d"  end
+    if maze:can_go_north(minix,miniy) then  minitype = minitype .. "u"  end
+    --if (x == 2) and (y == 1) then
+    --  return string.gsub(type, "l", "")
+    --end
+    for j = 1, 15 do
+      if unicursal_translation.head[j] == minitype then
+        return unicursal_translation[translation_line][j]
+      end
+    end
+    print("Error in unicursal translation.")
+    return ""    
+  end
+end
+
+for y = 0, maze_height - 1 do
+  for x = 0, maze_width - 1 do
+    whole_map:paste(map_mini[celltype(x,y)], 5*po(x,y))
+  end
+end
+
+if wo["IsDifficult"] then
+  whole_map[{1,1}] = "@"
+  whole_map[{0,0}] = "O"
+  whole_map[{5*maze_width-1, 5*maze_height-1}] = "O"
+else
+  whole_map[{3,3}] = "@"
+  whole_map[{0,7}] = "O"
+  whole_map[{7,0}] = "O"
+end
+
+w, h = wo(ti, "-", whole_map)
+wo:drawBorder(po(0, 0), w, h, ti[" "])
+
+for y = 0, maze_height - 1 do
+  for x = 0, maze_width - 1 do
+    fl(5*po(x,y) + po(2,2))._type = celltype(x,y)
+  end
+end
+
+if wo["IsDifficult"] then
+  if it(2,4)._dir == nil then
+    change_text(true, it(4,2))
+  else
+    change_text(true, it(2,4))
+  end
+else
+  wo[{4,2}] = {"fl_abyss"}
+  wo[{5,2}] = {"fl_abyss"}
+  wo[{2,4}] = {"it_nil"}
+  wo[{9,2}] = {"it_nil"}
+  wo[{7,4}] = {"it_nil"}
+end
+
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text-u1">
+        <el:english el:translate="false">When my sons are grown up, I would ask you, O my friends, to punish them. -- Socrates</el:english>
+      </el:string>
+      <el:string el:key="text-u2">
+        <el:english el:translate="false">The child must be brought up free (that he allow others to be free). -- Kant</el:english>
+      </el:string>
+      <el:string el:key="text-u3">
+        <el:english el:translate="false">The Earth is cylindrical, three times as wide as it is deep, and only the upper part is inhabited. -- Anaximander</el:english>
+      </el:string>
+      <el:string el:key="text-u4">
+        <el:english el:translate="false">Find time still to be learning somewhat good, and give up being desultory. -- Marcus Aurelius</el:english>
+      </el:string>
+      <el:string el:key="text-u5">
+        <el:english el:translate="false">The hopes of changing mankind almost always end up in changing not mankind but one’s thought. -- Allan Bloom</el:english>
+      </el:string>
+      <el:string el:key="text-u6">
+        <el:english el:translate="false">When lost in a philosophy or doctrine go upward. -- Ambrose Pierce</el:english>
+      </el:string>
+      <el:string el:key="text-u7">
+        <el:english el:translate="false">A doubtful balance is made between truth and pleasure, and... the knowledge of one and the feeling of the other stir up a combat the success of which is very uncertain, since, in order to judge of it, it would be necessary to know all that passes in the innermost spirit of the man, of which man himself is scarcely ever conscious. -- Blaise Pascal</el:english>
+      </el:string>
+      <el:string el:key="text-u8">
+        <el:english el:translate="false">What is an adult? A child blown up by age. -- Simone de Beauvoir</el:english>
+      </el:string>
+      <el:string el:key="text-u9">
+        <el:english el:translate="false">If you are my friend, stand up before me and scatter the grace that's in your eyes. -- Sappho</el:english>
+      </el:string>
+      <el:string el:key="text-r1">
+        <el:english el:translate="false">Anyone who holds a true opinion without understanding is like a blind man on the right road. -- Socrates</el:english>
+      </el:string>
+      <el:string el:key="text-r2">
+        <el:english el:translate="false">The superior man understands what is right; the inferior man understands what will sell. -- Confucius</el:english>
+      </el:string>
+      <el:string el:key="text-r3">
+        <el:english el:translate="false">[The child] must not be obliged to dissimulate, he must acquire immediate horror of lies, must learn so to respect the rights of men that they become an insurmountable wall for him. -- Kant</el:english>
+      </el:string>
+      <el:string el:key="text-r4">
+        <el:english el:translate="false">For a carpenter and a geometer investigate the right angle in different ways; the former does so in so far as the right angle is useful for his work, while the latter inquires what it is or what sort of thing it is; for he is a spectator of the truth. -- Aristotle</el:english>
+      </el:string>
+      <el:string el:key="text-r5">
+        <el:english el:translate="false">The vices respectively fall short of or exceed what is right in both passions and actions, while virtue both finds and chooses that which is intermediate. -- Aristotle</el:english>
+      </el:string>
+      <el:string el:key="text-r6">
+        <el:english el:translate="false">Just that you do the right thing. The rest doesn’t matter. -- Marcus Aurelius</el:english>
+      </el:string>
+      <el:string el:key="text-r7">
+        <el:english el:translate="false">If women be educated for dependence; that is, to act according to the will of another fallible being, and submit, right or wrong, to power, where are we to stop? -- Mary Wollstonecraft</el:english>
+      </el:string>
+      <el:string el:key="text-r8">
+        <el:english el:translate="false">But there is another way. And that is to organize mass non-violent resistance based on the principle of love. It seems to me that this is the only way as our eyes look to the future. As we look out across the years and across the generations, let us develop and move right here. -- Martin Luther King, Jr.</el:english>
+      </el:string>
+      <el:string el:key="text-r9">
+        <el:english el:translate="false">Love is the crowning grace of humanity, the holiest right of the soul, the golden link which binds us to duty and truth, the redeeming principle that chiefly reconciles the heart to life, and is prophetic of eternal good. -- Petrarch</el:english>
+      </el:string>
+      <el:string el:key="text-r10">
+        <el:english el:translate="false">The hopes of the right-minded may be realized, those of fools are impossible. -- Democritus</el:english>
+      </el:string>
+      <el:string el:key="text-d1">
+        <el:english el:translate="false">From the Son of Heaven down to the mass of the people, all must consider the cultivation of the person the root of everything besides. -- Confucius</el:english>
+      </el:string>
+      <el:string el:key="text-d2">
+        <el:english el:translate="false">When Galilei let balls of a particular weight, which he had determined himself, roll down an inclined plain, or Torricelli made the air carry a weight, which he had previously determined to be equal to that of a definite volume of water; or when, in later times, Stahl changed metal into lime, and lime again into metals, by withdrawing and restoring something, a new light flashed on all students of nature. -- Kant</el:english>
+      </el:string>
+      <el:string el:key="text-d3">
+        <el:english el:translate="false">That body is heavier than another which, in an equal bulk, moves downward quicker. -- Aristotle</el:english>
+      </el:string>
+      <el:string el:key="text-d4">
+        <el:english el:translate="false">Even when laws have been written down, they ought not always to remain unaltered. -- Aristotle</el:english>
+      </el:string>
+      <el:string el:key="text-d5">
+        <el:english el:translate="false">People who love what they do wear themselves down doing it, they even forget to wash or eat. -- Marcus Aurelius</el:english>
+      </el:string>
+      <el:string el:key="text-d6">
+        <el:english el:translate="false">Philosophy only is the true one which reproduces most faithfully the statements of nature, and is written down, as it were, from nature's dictation, so that it is nothing but a copy and a reflection of nature, and adds nothing of its own, but is merely a repetition and echo. -- Francis Bacon</el:english>
+      </el:string>
+      <el:string el:key="text-d7">
+        <el:english el:translate="false">If you want to go down deep you do not need to travel far; indeed, you don't have to leave your most immediate and familiar surroundings. -- Ludwig Wittgenstein</el:english>
+      </el:string>
+      <el:string el:key="text-d8">
+        <el:english el:translate="false">It is man's irrational emotions that bring him down to the mud. It is man's reason that lifts him to the stars. -- Ayn Rand</el:english>
+      </el:string>
+      <el:string el:key="text-d9">
+        <el:english el:translate="false">When lost in a forest go always down hill. -- Ambrose Pierce</el:english>
+      </el:string>
+      <el:string el:key="text-d10">
+        <el:english el:translate="false">A particularly strong assumption here has been scientists’ deep reliance on atomization; on finding the meaning of things by breaking them down to their smallest components. [...] The illumination that follows does not, of course, flow simply from their being smaller but from the wider scientific picture into which they can now be fitted. -- Mary Midgley</el:english>
+      </el:string>
+      <el:string el:key="text-l1">
+        <el:english el:translate="false">Much can be left unstated. But if nothing is discredited, it is not philosophy. -- Walter Kaufmann</el:english>
+      </el:string>
+      <el:string el:key="text-l2">
+        <el:english el:translate="false">The intellectual power and grasp of these philosophers were wonderful, but faulty and misleading, since the real and practical was left out. --  Francis Preston Venable</el:english>
+      </el:string>
+      <el:string el:key="text-l3">
+        <el:english el:translate="false">The other alternative is a one-sided attitude of indifference toward religion, which is either left unquestioned and let alone, or is ultimately attacked and opposed. That is the course followed by shallow spirits. -- Georg Wilhelm Friedrich Hegel</el:english>
+      </el:string>
+      <el:string el:key="text-l4">
+        <el:english el:translate="false">Some part of life -- perhaps the most important part -- must be left to the spontaneous action of individual impulse, for where all is system there will be mental and spiritual death. -- Bertrand Russell</el:english>
+      </el:string>
+      <el:string el:key="text-l5">
+        <el:english el:translate="false">Political questions are far too serious to be left to the politicians. -- Hannah Arendt</el:english>
+      </el:string>
+      <el:string el:key="text-l6">
+        <el:english el:translate="false">Power and violence are opposites; where the one rules absolutely, the other is absent. Violence appears where power is in jeopardy, but left to its own course it ends in power's disappearance. -- Hannah Arendt</el:english>
+      </el:string>
+      <el:string el:key="text-l7">
+        <el:english el:translate="false">I saw an angel close by me, on my left side, in bodily form. This I am not accustomed to see, unless very rarely. Though I have visions of angels frequently, yet I see them only by an intellectual vision, such as I have spoken of before. -- Teresa of Avila</el:english>
+      </el:string>
+      <el:string el:key="text-l8">
+        <el:english el:translate="false">Think of the life you have lived until now as over and, as a dead man, see what's left as a bonus and live it according to Nature. Love the hand that fate deals you and play it as your own, for what could be more fitting? -- Marcus Aurelius</el:english>
+      </el:string>
+      <el:string el:key="text-l9">
+        <el:english el:translate="false">It is always possible to bind together a considerable number of people in love, so long as there are other people left over to receive manifestations of their aggressiveness. -- Sigmund Freud</el:english>
+      </el:string>
+      <el:string el:key="text-l10">
+        <el:english el:translate="false">Who is the woman who has left behind the shuttles of the loom? -- I, Theodorus, am that person, but do I appear to you to have come to a wrong decision, if I devote that time to philosophy, which I otherwise should have spent at the loom? -- Hipparchia of Maroneia, answering to Theodorus</el:english>
+      </el:string>
+      <el:string el:key="text-nl1">
+        <el:english el:translate="false">Virtue is not left to stand alone. He who practices it will have neighbors. -- Confucius</el:english>
+      </el:string>
+      <el:string el:key="text-nl2">
+        <el:english el:translate="false">The mind is not, I know, a highway, but a temple, and its doors should not be carelessly left open. Yet it were sin, if indolence or coldness excluded what had a claim to enter; and I doubt whether, in the eyes of pure intelligence, an ill-grounded hasty rejection be not a greater sign of weakness than an ill-grounded and hasty faith. -- Margaret Fuller</el:english>
+      </el:string>
+      <el:string el:key="text-nl3">
+        <el:english el:translate="false">The individual was not left at the mercy of his neighbors or his leaders: the Constitutional system of checks and balances was scientifically devised to protect him from both. -- Ayn Rand</el:english>
+      </el:string>
+      <el:string el:key="text-nl4">
+        <el:english el:translate="false">A wrongdoer is often a man who has left something undone, not always one who has done something. -- Marcus Aurelius</el:english>
+      </el:string>
+      <el:string el:key="text-nl5">
+        <el:english el:translate="false">When we meet someone and fall in love, we have a sense that the whole universe is on our side. And yet if something goes wrong, there is nothing left! -- Paulo Coelho</el:english>
+      </el:string>
+      <el:string el:key="text-nu1">
+        <el:english el:translate="false">I know how it is that the path of the Mean is not walked in---The knowing go beyond it, and the stupid do not come up to it. -- Confucius</el:english>
+      </el:string>
+      <el:string el:key="text-nu2">
+        <el:english el:translate="false">I do not open up the truth to one who is not eager to get knowledge, nor help out any one who is not anxious to explain himself. -- Confucius</el:english>
+      </el:string>
+      <el:string el:key="text-nu3">
+        <el:english el:translate="false">The concept of space, therefore, is a pure intuition, being a singular concept, not made up by sensations, but itself the fundamental form of all external sensation. -- Kant</el:english>
+      </el:string>
+      <el:string el:key="text-nu4">
+        <el:english el:translate="false">Ability will never catch up with the demand for it. -- Confucius</el:english>
+      </el:string>
+      <el:string el:key="text-nr1">
+        <el:english el:translate="false">It is therefore correct to say that the senses do not err — not because they always judge rightly, but because they do not judge at all. -- Kant</el:english>
+      </el:string>
+      <el:string el:key="text-nr2">
+        <el:english el:translate="false">When I treat a man contemptuously, I can inspire him with no practical desire to appreciate my grounds of truth. When I treat any one as worthless, I can inspire him with no desire to do right. -- Kant</el:english>
+      </el:string>
+      <el:string el:key="text-nr3">
+        <el:english el:translate="false">If someone is able to show me that what I think or do is not right, I will happily change, for I seek the truth, by which no one ever was truly harmed. Harmed is the person who continues in his self-deception and ignorance. -- Marcus Aurelius</el:english>
+      </el:string>
+      <el:string el:key="text-nr4">
+        <el:english el:translate="false">It is not right to vex ourselves at things, For they care not about it. -- Marcus Aurelius</el:english>
+      </el:string>
+      <el:string el:key="text-nr5">
+        <el:english el:translate="false">If it is not right, do not do it, if it is not true, do not say it. -- Marcus Aurelius</el:english>
+      </el:string>
+      <el:string el:key="text-nr6">
+        <el:english el:translate="false">A group can have no rights other than the rights of its individual members. -- Ayn Rand</el:english>
+      </el:string>
+      <el:string el:key="text-nd1">
+        <el:english el:translate="false">Poetry is the universal art of the spirit which has become free in itself and which is not tied down for its realization to external sensuous material; instead, it launches out exclusively in the inner space and the inner time of ideas and feelings. -- Georg Wilhelm Friedrich Hegel</el:english>
+      </el:string>
+      <el:string el:key="text-nd2">
+        <el:english el:translate="false">But one power should not be thrown down to exalt another--for all power intoxicates weak man; and its abuse proves, that the more equality there is established among men, the more virtue and happiness will reign in society. -- Mary Wollstonecraft</el:english>
+      </el:string>
+      <el:string el:key="text-nd3">
+        <el:english el:translate="false">If nature is never bound down, nor the voice of inspiration stifled, that is enough. -- Margaret Fuller</el:english>
+      </el:string>
+      <el:string el:key="text-nd4">
+        <el:english el:translate="false">Lie not down wearied 'neath Woe's weeping willow!
+Work with a stout heart and resolute will! -- Frances S. Osgood
+        </el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

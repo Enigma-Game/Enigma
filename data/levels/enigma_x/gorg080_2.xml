@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Countdown" el:subtitle=""
+el:id="gorg080_2"/> <el:version el:score="2" el:release="2" el:revision="3"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2019, 2021 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility el:enigma="1.30">
+<el:dependency el:id="lib/libmap" el:release="1" el:preload="true" el:path="lib/libmap" />
+</el:compatibility><el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="05:45"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+ti[" "] = {"fl_abyss"}..ti{"st_invisible"}
+
+---five---
+
+ti["5 "] = {"fl_abyss"}..ti{"it_blocker"}
+ti["5."] = {"fl_brick"}
+ti["5@"] = ti["5."]..{"#ac_marble"}
+ti["5b"] = {"fl_bridge", "bridgefive#"}..ti{"it_blocker"}
+ti["5B"] = {"fl_bridge", "bridgefive#"}..ti{"st_blocker"}
+ti["5R"] = ti["5."]..{"st_rotator", movable=true}
+ti["5Q"] = ti["5."]..{"st_rotator_ccw", movable=true}
+ti["5<"] = {"fl_bridge", "bridgefive#"}..ti{"st_boulder_w", "boulder"}
+ti["5t"] = ti["5."]..{"it_trigger", target="boulder", action="flip"}
+ti["5S"] = {"st_break_boulder"}..ti{"it_trigger", target="counterfive", action="signal"}
+ti["5a"] = {"fl_bridge", "bridgefive#"}..ti{"it_vortex", "V5", destination="V4", autoclose=true}
+
+map_5 = {
+    "                    ",
+    "      ........      ",
+    "  Q   ..R.....bbB<S ",
+    " Sbbbb...           ",
+    "      ..Q           ",
+    "      .......       ",
+    "      ..R...Q.bbbbS ",
+    "           ...      ",
+    "           .R.      ",
+    " Sbbbb........      ",
+    "  R   ..@t..Q.bbbba ",
+    "       ......       ",
+    "                    "}
+
+---four---
+
+ti["4 "] = {"fl_space"}..ti{"st_invisible"}
+ti["4."] = {"fl_bright"}
+ti["4#"] = {"st_fake_quake"}
+ti["4door"] = ti["4."]..{"st_blocker", "door%%#"}
+ti["4trigger"] = ti["4."]..{"it_trigger", target="door%%#*"}
+ti["4K"] = ti["4."]..{"st_chess"}
+ti["4k"] = ti["4."]..{"st_chess_white"}
+ti["4S"] = {"st_switch_black", target="counterfour", action="signal"}
+ti["4s"] = {"st_switch_white", target="counterfour", action="signal"}
+ti["4W"] = {"st_inkwell_white"}
+ti["4I"] = {"st_inkwell_empty"}
+ti["4b"] = ti["4."]..{"it_vortex", "V4", destination="V3", state=CLOSED, autoclose=true}..ti{"st_passage_black", flavor="frame"}
+local resolver4 = res.autotile(ti, {"4D", "4G", "4door"}, {"4d", "4g", "4trigger"})
+
+map_4 = {
+    "                    ",
+    "         #I###      ",
+    "        #.D..#      ",
+    "       #.d#.e#      ",
+    "      #.kKb..#      ",
+    "     #..kK#..##     ",
+    "     G..f..g.ES     ",
+    "     s####..###     ",
+    "         #..#       ",
+    "         #..#       ",
+    "         ##F#       ",
+    "         ##W#       ",
+    "                    "}
+    
+---three---
+
+ti["3 "] = {"fl_water"}
+ti["3."] = {"fl_dark"}
+ti["3c"] = ti["3."]..{"it_vortex", "V3", destination="V2", autoclose=true}
+ti["3+"] = ti["3 "]..{"#ac_rotor", range=5.0, strength=12.0}
+ti["3L"] = {"st_laser_s", state=ON}
+ti["3M"] = ti["3 "]..{"st_mirror_sheets", state=EAST}
+ti["3N"] = ti["3 "]..{"st_mirror_sheets", state=WEST}
+ti["3O"] = {"st_laserswitch", target="V3", action="toggle"}
+ti["3P"] = ti["3 "]..{"st_polarswitch"}
+
+map_3 = {
+    "   O           L     ",
+    "      .......        ",
+    "      ........+P     ",
+    "           ...       ",
+    "           ...       ",
+    "        ......       ",
+    "   P+   .c...        ",
+    "        ......       ",
+    "           ...       ",
+    "           ...       ",
+    "      ........+P     ",
+    "      .......        ",
+    "   N           M     "}
+    
+---two---
+
+ti["2 "] = {"fl_abyss"}..ti{"it_springboard"}
+ti["2+"] = {"fl_sahara"}..ti{"it_extralife"}
+ti["21"] = {"fl_sahara"}
+ti["22"] = {"fl_inverse"}
+ti["23"] = {"fl_rough"}
+ti["2d"] = {"fl_rough"}..ti{"it_vortex", "V2", autoclose=true}
+ti["2e"] = {"fl_rough"}..ti{"it_vortex", "V1", destination="V0", state=CLOSED}
+ti["2S"] = {"fl_rough"}..ti{"it_cross", interval=0.5, target={"countertwo", "abyss"}, action={"signal", "callback"}}
+local resolver2 = res.random(ti, "2.", {"21", "22"})
+
+map_2 = {
+    "                     ",
+    "        ....         ",
+    "       .S  ..        ",
+    "      e+   .S.       ",
+    "           ...       ",
+    "           .S.       ",
+    "         ....        ",
+    "        .S.          ",
+    "       ..            ",
+    "      ...            ",
+    "      .S.            ",
+    "      .....S+d       ",
+    "                     "}
+    
+---one---
+
+ti["1 "] = {"fl_water"}..ti{"st_disco_medium"}..ti{"it_seed"}
+ti["1#"] = {"st_granite"}
+ti["1."] = {"fl_rock"}
+ti["1_"] = {"fl_abyss"}
+ti["11"] = ti["1."]..{"st_plop", "boxone"}
+ti["1b"] = ti["1."]..{"st_box_hay", "box#"}
+ti["1f"] = ti["1."]..{"it_vortex", "V0", autoclose=true}
+ti["1g"] = {"fl_abyss", "VA"}
+ti["1u"] = {"fl_rock", "umb"}
+ti["1S"] = {"st_monoflop", interval=0.8, target="counterone", action="signal"}
+
+map_1 = {
+    "                     ",
+    "       ######        ",
+    "      #...1.#        ",
+    "     #f..b.b#        ",
+    "     ####.b.#        ",
+    "        #b.b#        ",
+    "        #._.#        ",
+    "        #_._#        ",
+    "        #.g.#        ",
+    "        #___#        ",
+    "        #_u_#        ",
+    "        #S#S#        ",
+    "                     "}
+    
+---zero---
+
+ti["0 "] = {"fl_abyss", eternal=true}..ti{"it_burnable_burning"}
+ti["0#"] = {"st_darkglass"}
+ti["0O"] = {"st_oxyd"}
+ti["0h"] = {"fl_abyss", "VB", eternal=true}..ti{"it_burnable_burning"}
+ti["0B"] = {"fl_darkgray", burnable=false}..ti{"st_passage_black", flavor="frame"}
+ti["0n"] = {"fl_forward_darkgray", "floor#", orientation=NORTH}
+ti["0s"] = {"fl_forward_darkgray", "floor#", orientation=SOUTH}
+ti["0w"] = {"fl_forward_darkgray", "floor#", orientation=WEST}
+ti["0e"] = {"fl_forward_darkgray", "floor#", orientation=EAST}
+ti["0N"] = {"fl_forward_darkgray", "floor#", orientation=NORTH}..ti{"st_box_rock"}
+ti["0S"] = {"fl_forward_darkgray", "floor#", orientation=SOUTH}..ti{"st_box_rock"}
+ti["0W"] = {"fl_forward_darkgray", "floor#", orientation=WEST}..ti{"st_box_rock"}
+ti["0E"] = {"fl_forward_darkgray", "floor#", orientation=EAST}..ti{"st_box_rock"}
+
+map_0 = {
+    "                    ",
+    "        #OO#        ",
+    "       OsWwWO       ",
+    "      #sswWnw#      ",
+    "      Osw##nwO      ",
+    "      #s#  #n#      ",
+    "      OSB hBNO      ",
+    "      #s#  #n#      ",
+    "      Oes##enO      ",
+    "      #esEenn#      ",
+    "       OeEeNO       ",
+    "        #OO#        ",
+    "                    "}
+    
+wo(ti, " ", 96,37)
+wo:drawMap(ti, po(0,0), "5"* wo:newMap("?", map_5))
+wo:drawMap(resolver4, po(38,0), "4"* wo:newMap("?", map_4))
+wo:drawMap(ti, po(76,0), "3"* wo:newMap("?", map_3))
+wo:drawMap(resolver2, po(0,24), "2"* wo:newMap("?", map_2))
+wo:drawMap(ti, po(38,24), "1"* wo:newMap("?", map_1))
+wo:drawMap(ti, po(76,24), "0"* wo:newMap("?", map_0))
+
+wo:add({"ot_counter", "counterfive", state=4, target="bridgefive#*", action_1="open", action_0="close"})
+wo:add({"ot_counter", "counterfour", state=0, target="V4", action_1="close", action_2="open"})
+wo:add({"ot_counter", "countertwo", state=0, target="V1", action_5="close", action_6="open"})
+wo:add({"ot_counter", "counterone", state=0, target="worm", action_1="nop", action_2="callback"})
+
+for obj in no["box#*"] do
+    wo:add({"ot_wire", anchor1=obj, anchor2="boxone"})
+end
+
+function worm (sig, sender)
+  if sig then
+     wo[no["VA"]]={"it_wormhole", destination="VB", strength=1.0}
+        wo[no["umb"]]={"it_umbrella"}
+          end
+end
+function abyss(value, sender)
+    if value == true then
+        wo[sender + NEIGHBORS_4] = ti["2 "]
+          wo[sender]=ti["23"]..{"it_springboard"}
+    end
+end
+
+wo:shuffleOxyd()
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+
+

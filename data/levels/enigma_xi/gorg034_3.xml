@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="The Great Escape" el:subtitle="Look Twice!"
+el:id="gorg034_3"/> <el:version el:score="3" el:release="3" el:revision="7"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2016 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> 
+<el:compatibility el:enigma="1.20"></el:compatibility>
+<el:modes el:easy="true" el:single="true"
+el:network="false"/> <el:score el:easy="05:57" el:difficult="06:58"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["ProvideExtralifes"] = false 
+wo["ExtralifeGlasses"] = SPOT_SENSOR
+
+ti["  "]=cond(wo["IsDifficult"], {"fl_stone"}, {"fl_sand"})
+ti[": "]={"fl_dunes"} .. ti{"it_sensor", invisible=true, target="bridge#*", action="open"}
+ti["# "]={"st_brick"}
+ti["_ "]={"fl_abyss"}
+ti["? "]={"st_magic"}
+ti["@ "]={"ac_marble", 0.0, 0.0}
+ti["B "]={"fl_bridge_bw", "bridge#"}
+ti["O "]={"st_oxyd", oxydcolor=OXYD_ORANGE}
+ti["R "]={"st_rotator", movable=true}
+ti["a "]={"fl_stone", "anchor"}
+ti["H "]={"st_break"}
+ti["D1"]={"st_blocker", "door1"} 
+ti["D2"]={"st_blocker", "door2"} 
+ti["D3"]={"st_door_c", "door3"}
+ti["D4"]={"st_door_c", "door4"}
+ti["D5"]={"st_door_c", "door5"}
+ti["D6"]={"st_blocker", "door6"}
+ti["D7"]={"it_blocker", "door7"}
+ti["C1"]={"st_coinslot", target="door4"}
+ti["C2"]={"st_coinslot", target="door5"}
+ti["C3"]={"st_coinslot", target="door3"}
+ti["t1"]={"fl_scales_brick", min=0.6, target={"door2", "door5", "minibridge"}}
+ti["t2"]={"fl_scales_brick", min=0.6, target={"door4", "door1", "minibridge2"}}
+ti["t3"]=ti["H "] .. {"fl_scales_brick", min=0.6, target={"door7"}}
+ti["$ "]={"st_key", target="door6"}
+ti["K "]={"st_knight"}
+ti[" b"]={"it_bomb"}
+ti[" B"]={"it_bomb", "startbomb#"}
+ti[" c"]=cond(wo["IsDifficult"], ti[" b"], ti[" B"])
+ti[" C"]=cond(wo["IsDifficult"], ti[" B"], ti["_ "])
+ti["M "]={"st_mirror", "mirrors#", transparent=true}
+ti[" d"]={"it_death"}
+ti["m "]={"st_granite_movable"}
+ti["L "]={"st_laser_n", state=ON}
+ti["* "]={"fl_scales_brick", min=0.6, target="bridge#*"} .. ti{"st_grate"} .. ti{"it_magicwand"}
+ti["< "]={"st_oneway_e"} .. ti{"it_coin_m"}
+ti["> "]={"st_oneway_w"} 
+ti[" s"]={"it_seed"}
+ti["h "]={"fl_scales_brick", min=0.6, target="door3"} .. ti{"it_hammer"}
+ti["w "]={"fl_scales_brick", min=0.6, target="mirrors#*", action="turnback"} .. ti{"it_wrench"}
+ti["y "]={"fl_scales_brick", min=0.6, target="startbomb#*", action="ignite"} .. ti{"it_sword"}
+ti["U "]=cond(wo["IsDifficult"], {"fl_scales_brick", min=0.6, target="door3"} .. ti{"it_coin_m"}, {"it_coin_m"})
+ti["V "]=cond(wo["IsDifficult"], ti["  "], {"fl_scales_brick", min=0.6, target="door3"})
+ti["G "]={"st_grate"}
+ti["g "]=ti["m "] .. {"fl_bridge_bw", "minibridge", state=CLOSED}
+ti["f "]=ti["m "] .. {"it_key"} .. ti{"fl_bridge_bw", "minibridge2", state=CLOSED}
+ti[" ?"]={"it_cherry"}
+ti["+ "]={"st_swap"}
+ti["r "]=cond(wo["IsDifficult"], {"st_rawglass"}, {"st_rawglass"}..ti{"it_cherry"})
+ti[" r"]=cond(wo["IsDifficult"], ti["? "]..{"it_cherry"}, ti["G "])
+ti["! "]={"#ac_rotor", range=3.0, strength=50.0}
+ti[" k"]={"it_key"}
+ti[" e"]=ti[" b"] .. {"fl_scales_brick", min=0.6, target={"door7"}}
+
+wo(res.composer(ti), "  ",{
+    "# # # # # # # # # # # # # # # # # # # # ",
+    "O U # H : : : : : : : : : : : : HbK ! K ",
+    "# D1# H : : : : : : : : : : : : HbK   K ",
+    "#   D7H : : : : : : : : : : : : HbK   $ ",
+    "#   # t3: : : : : : : : : : : : Hb# D6# ",
+    "#   # _b# # # # # # ? # # # # # _c# B # ",
+    "# H ? _ _B_ _ _ _ _ M _ _ _ _ _C_ # B O ",
+    "#     t1m #  d#   m?L # #  d# # Gd# # # ",
+    "#   G +   #   #         #   #     G t2# ",
+    "#   g               @           G +   # ",
+    "# V D2R D3C3  # # #   C1D4C2D5r R f   # ",
+    "# ? * # h #   <  s>   # w # y ?  rGs# # ",
+    "# # # # # # # # # # # # # # # # # # # # "
+})
+
+--code below stolen from Raoul Bourquin--
+
+function way_thru()
+    x = 3    
+    y = math.random(1, 4)
+    prev_prev_dir = 3
+    prev_dir = 3
+    dir = 3
+
+    while x < 15 do
+        if x < 4 then
+            x = x+1
+        elseif prev_dir == 2 then
+            if dir == 1 and prev_prev_dir ~=3 then y = y-1
+            elseif dir == 3 and prev_prev_dir ~= 1 then y = y+1
+            else x = x+1 end
+        elseif prev_dir == 1 then
+            if dir == 1 and prev_prev_dir ~= 3 then y = y-1
+            else x = x+1 end
+        else
+            if dir == 3 and prev_prev_dir ~= 1 then y = y+1
+            else x = x+1 end
+        end
+
+        prev_prev_dir = prev_dir
+        prev_dir = dir
+        dir = math.random(1,3)
+
+        if y < 1 then y = y+1
+        elseif y > 4 then y = y-1
+        else
+            wo[{x, y}] = {"fl_dunes"}..ti{"it_nil"}
+        end
+    end
+end
+
+way_thru()
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

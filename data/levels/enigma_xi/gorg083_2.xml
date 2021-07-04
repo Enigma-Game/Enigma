@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Sticky Meditation" el:subtitle=""
+el:id="gorg083_2"/> <el:version el:score="2" el:release="1" el:revision="2"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2021 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="true" el:single="true"
+el:network="false"/> <el:score el:easy="00:31" el:difficult="00:26"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["ProvideExtralifes"] = false
+wo["MeditationStrength"] = 0.5
+
+ti[" "] = cond(wo["IsDifficult"], {"fl_adhesionless", checkerboard=0}..ti{"fl_gravel", name="med#", checkerboard=1}, {"fl_adhesionless", name="med#", checkerboard=0}..ti{"fl_gravel", checkerboard=1})
+ti["."] = {"fl_gravel"}
+ti[","] = {"fl_adhesionless"}
+ti["@"] = ti["."]..{"#ac_pearl_black", essential=INDISPENSABLE}
+ti["o"] = {"it_meditation", essential=INDISPENSABLE}
+ti["_"] = {"fl_abyss"}
+ti["S"] = ti["."]..{"st_jamb"}
+
+wo(ti, " ",{
+    "____________________",
+    "__SSSSSSSSSSSSSSSS__",
+    "__S@............@S__",
+    "__S.SSSSS..SSSSS.S__",
+    "__S.S,,,,,,,,,,S.S__",
+    "__S.S,        ,S.S__",
+    "__S..,        ,..S__",
+    "__S.S,        ,S.S__",
+    "__S.S,,,,,,,,,,S.S__",
+    "__S.SSSSS..SSSSS.S__",
+    "__S@............@S__",
+    "__SSSSSSSSSSSSSSSS__",
+    "____________________"})
+
+wo[no["med#*"]:shuffle():sub(4)] = ti["o"]
+wo:add(YIN, {"it_spoon"})
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+
+

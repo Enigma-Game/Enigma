@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Excursion for Two I" el:subtitle="" el:id="devnull118"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Inspired by a level concept of Daydreamer.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="8:58"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["# "] = {"st_redbrown"}
+ti["  "] = {"fl_rock"}
+ti[" ~"] = {"fl_water"}
+ti["+ "] = {"st_box_rock"}
+ti["B "] = {"st_passage_black", flavor = "frame"}
+ti["W "] = {"st_passage_white", flavor = "frame"}
+ti["L "] = {"st_laser", name = "laser", orientation = WEST}
+ti["FA"] = {"st_floppy", target = "laser"}
+ti["Fc"] = {"st_floppy", target = "door%c"}
+ti["FC"] = {"st_floppy", target = "door%C"}
+ti["P "] = {"st_lightpassenger"}
+ti["R "] = {"st_rotator", movable = true}
+ti["= "] = {"st_mirror", movable = true}
+ti["f "] = {"it_floppy"}
+ti[" |"] = {"it_pipe_ns"}
+ti[" _"] = {"it_pipe_ew"}
+ti[" 1"] = {"it_pipe_ne"}
+ti[" 3"] = {"it_pipe_nw"}
+ti[" 7"] = {"it_pipe_es"}
+ti[" 9"] = {"it_pipe_sw"}
+ti[" :"] = {"it_seed_hay"}
+ti[" ;"] = ti[" ~"] .. {"it_seed_hay"}
+ti["Y "] = {"st_flat_breakable"}
+ti["X "] = ti[" :"] .. ti["Y "]
+ti["Me"] = ti[" _"] .. {"st_mail_e"}
+ti["Ms"] = {"st_mail_s"}
+ti["Mw"] = ti[" _"] .. {"st_mail_w"}
+ti["Q"] = {"st_puzzle_yellow", intensity = 1}
+ti["doors"] = {"st_door_a", name = "door%%"}
+ti["triggers"] = {"fl_scales_concrete", target = "door%%", min = 0.4}
+ti["keys"] = {"it_key", code = "%%", invisible = false}
+ti["keyHoles"] = {"st_key", code = "%%", target = "door%%", invisible = false}
+ti[" S"] = {"it_coin_s"}
+ti["O "] = {"st_oxyd_a"}
+ti[". "] = {"#ac_bug"}
+ti["@0"] = {"#ac_marble_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+
+wo(res.composer(res.autotile(res.puzzle(ti, "Q"), {"D", "doors"}, {"T", "triggers"}, {"k", "keys"}, {"K", "keyHoles"})), "  ", {
+    "# # # # # # # O O O O O O # # # # # # #     ",
+    "#    ~   ~ka# W W B W B B # @1+  ~ ~kA#     ",
+    "#   + +S+ W~O W         B O B~ ~+  ~ ~#     ",
+    "#   + @0+   O B B  ~+~W W O   +  ~+  ~#     ",
+    "#  ~+ + + W~O W  ~+    ~B O B~+  ~ ~ ~#     ",
+    "#  ~     ~  #     W B    ~#    ~+~ ~+ #     ",
+    "#  ~# # # # # # # # # DD# # +  ~ ~+~  #     ",
+    "#  ~    DaTD. TbDd ~    Td#  ~+~ ~ ~ ~#     ",
+    "# # # + # # # # #  ~# # # # +  ~+~+~+~#     ",
+    "Ka ~ ~ ~+  ~#   Q4Q4+~Q4  #  ~+  ~ ~ ~#     ",
+    "# +  ~ ~ ~+ #   +~Q4Q4Q4  #  ~ ~+ +~+ #     ",
+    "#  ~+  ~+  ~#   W   B     #  ~+  ~+  ~KA    ",
+    "# # # # # Db# # # DC# # # # DA# # # # #     ",
+    "# Q2Q2    B # B +  ~ ~ ~ ~# W Y~      Me _ 9",
+    "# Q2+:Q1Q1  #    ~W  ~ ~ ~FA      Y~  Mw 9 |",
+    "# Q2 ~ ~Q1 ~Dc+  ; ~ ~W   # Y~Y Y Y~  #  | |",
+    "# Q2Q2  Q1 ~# +  ~ ~ ~ ~  # Y~Y~X~P~  L  | |",
+    "#    ~ ~   ~#  ; ~ ~ ~W   # Y Y Y X~  #  | |",
+    "# Q3Q3Q3  f~#  ~  B    ~ ~# Y =~Y Y~X~#  | |",
+    "#           Ms# # # + # # # Y Y Y X~Y:#  | |",
+    "#7#_#_Me ~ ~#| ~+    ;  W # Y~Y~X~Y~Y~#  | |",
+    "#| ~ ;+ + Y #|W +~ ~+~ ~  # Y Y Y # Y~#  | |",
+    "#|Y +~+  ;Y #|   ~+~ ~ ~  # Y R~Y # Y~#  | |",
+    "#|Y Y~Y~Y~Y~#|    W W     DBY Y Y #~TB#  | |",
+    "#|# # Fc# # #|# # FC# # # # # # # # # #  | |",
+    " |           1 _ _ _ _ _ _ _ _ _ _ _ _ _ 3 |",
+    " 1 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 3"
+})
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

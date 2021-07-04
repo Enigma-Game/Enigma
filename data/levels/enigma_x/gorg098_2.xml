@@ -5,7 +5,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Seance" el:subtitle="" el:id="gorg098_1"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author el:name="gorg" el:email=""/>
       <el:copyright>Copyright © 2019 Georg Honold</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -32,19 +32,19 @@ ti[" d"] = {"st_door_a", "door#"}
 ti["O "] ={"st_oxyd_a", oxydcolor=OXYD_PURPLE}
 
 wo(res.composer(ti), "  ",{
-"# # # # # # # # #     # # # # # # # # # ",
-"# eDe e e e e s #     # s w w w w w w # ",
-"# n  R  n     s #     # s     s     n # ",
-"# n   eDe s   s # # # # s    tw  t  n # ",
-"# n # n .@s # s e e e e s # s .!n # n # ",
-"# n   n w wD  s # # # # s    te  t  n # ",
-"# n     s    Rs #     # s     n     n # ",
-"# n w w w w w wD#     # e e e e e e n # ",
-"# # # # bd# # # #     # # # # bd# # # # ",
-"        b                     b         ",
-"        b                     b         ",
-"        O                     O         ",
-"                                        "})
+    "# # # # # # # # #     # # # # # # # # # ",
+    "# eDe e e e e s #     # s w w w w w w # ",
+    "# n  R  n     s #     # s     s     n # ",
+    "# n   eDe s   s # # # # s    tw  t  n # ",
+    "# n # n .@s # s e e e e s # s .!n # n # ",
+    "# n   n w wD  s # # # # s    te  t  n # ",
+    "# n     s    Rs #     # s     n     n # ",
+    "# n w w w w w wD#     # e e e e e e n # ",
+    "# # # # bd# # # #     # # # # bd# # # # ",
+    "        b                     b         ",
+    "        b                     b         ",
+    "        O                     O         ",
+    "                                        "})
 
 wo:add({"ot_counter", "counter", target={"door#*", "bridge#*"}, action_3={"close", "open"}, action_4={"open", "close"}})
 

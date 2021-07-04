@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Magic Show" el:subtitle="" el:id="zephyr039_4"/>
+      <el:version el:score="3" el:release="3" el:revision="4" el:status="released"/>
+      <el:author  el:name="Zephyr" el:email=""/>
+      <el:copyright>Copyright © 2010 Zephyr</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="23:14"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+floor = {{"fl_tigris",burnable=false},{"fl_bluegray",burnable=false}}
+
+ti[" "] = {"fl_tigris",burnable=false}
+ti["."] = {"fl_ice"}
+ti[","] = {"fl_wood",burnable=true,secure=true}
+ti["_"] = {"fl_tigris",name="firesource",burnable=true}
+ti[";"] = {"st_rawglass"}
+ti["-"] = {"fl_abyss"}
+ti["!"] = {"fl_thief"}
+ti["("] = {"#ac_rotor"}
+ti["["] = {"fl_space",force_y=10.0}
+ti["]"] = {"it_meditation_volcano"}
+ti[">"] = {"st_oneway_e"}
+ti["<"] = {"st_oneway_w"}
+ti["#"] = {"st_tigris"}
+ti["@"] = {"#ac_marble"}
+ti["A"] = {"st_mail_e"}
+ti["B"] = {"st_floppy",target="doors",action="signal"}
+ti["C"] = {"st_key",target="doors",action="signal"}
+ti["D"] = {"st_chess"}
+ti["E"] = {"st_rubberband",max=1.0}
+ti["F"] = {"st_laser","laser#"}
+ti["G"] = ti[","]..{"st_flat_burnable"}
+ti["H"] = {"st_lightpassenger",state=OFF}
+ti["I"] = {"st_ghost"}
+ti["J"] = {"st_ghost_break"}
+ti["K"] = {"st_flat_movable"}
+ti["L"] = {"st_knight"}
+ti["M"] = {"st_flat"}
+ti["N"] = ti["["]..{"st_window_s"}
+ti["O"] = {"st_mail_s"}
+ti["P"] = {"st_rotator_ccw"}
+ti["Q"] = {"st_boulder"}
+ti["R"] = {"st_blocker"}
+ti["S"] = {"st_turnstile_green"}
+ti["T"] = {"st_turnstilearm_n"}
+ti["U"] = {"st_turnstile_red"}
+ti["V"] = {"st_window_s",secure=true}
+ti["W"] = {"st_ice"}
+ti["X"] = {"st_mirror_slab",transparent=true,orientation=SOUTH}
+ti["Y"] = {"st_mirror_slab"}
+ti["Z"] = {"st_magic"}
+ti["a"] = ti["!"]..{"it_bottle"}
+ti["b"] = {"it_banana"}
+ti["c"] = {"it_trigger",target="@laser#*"}
+ti["d"] = {"it_cherry"}
+ti["e"] = {"it_brush"}
+ti["f"] = {"it_bottle"}
+ti["g"] = {"it_trigger",invisible=true,action="setfire",target="firesource"}
+ti["h"] = ti[","]..{"it_burnable_fireproof"}
+ti["i"] = {"it_spring_drop"}
+ti["j"] = {"it_crack_m"}
+ti["k"] = {"it_coffee"}
+ti["l"] = {"it_crack_i"}
+ti["m"] = {"it_seed"}
+ti["n"] = {"it_hammer"}
+ti["o"] = {"it_pencil"}
+ti["p"] = ti({"st_flat_burnable"})..{"it_wrench"}
+ti["q"] = {"it_extinguisher_medium"}
+ti["r"] = {"it_cross"}
+ti["s"] = ti["W"]..{"it_spade"}
+ti["t"] = ti[";"]..{"it_rubberband",anchor2="red",max=5.0,strength=0.0}
+ti["u"] = {"it_bomb_black"}
+ti["v"] = {"it_bomb_white"}
+ti["w"] = {"it_dynamite"}
+ti["x"] = {"st_brake"}
+ti["y"] = ti["H"]..{"it_ring"}
+ti["1"] = {"st_door_d",faces="ns",name="door1"}
+ti["2"] = {"st_dispenser"}
+ti["3"] = {"st_dispenser_bombwhite"}
+ti["4"] = {"st_box"}
+ti["5"] = {"st_dispenser_dynamite",stock=1}
+ti["6"] = ti["["]..ti["H"]..{"it_flag_black"}
+ti["7"] = {"st_scissors",target="wand"}
+ti["8"] = {"st_redrock",name="red"}
+ti["9"] = {"it_springboard"}
+ti["0"] = {"st_scissors"}
+ti[")"] = {"st_grate"}
+ti["*"] = {"it_blocker"}
+ti["?"] = {"it_weight"}
+ti["%"] = {"st_chess_white"}
+ti["$"] = {"st_oxyd"}
+ti["+"] = {"st_stoneimpulse_movable"}
+ti["~"] = {"st_blur_magic"}
+ti["="] = {"st_puzzle",cluster=1}
+ti[":"] = ti["b"]..{"st_rawglass_movable"}
+ti["z"] = {"st_break"}
+ti["{"] = {"fl_space"}
+ti["}"] = ti["{"]..ti["<"]
+ti["&"] = {"st_quake"}
+ti["'"] = ti[";"]..{"it_puller_n"}
+ti["|"] = {"st_rotator_ccw",movable=true}
+
+wo["ProvideExtralifes"] = false
+
+function floortile(key,x,y)
+  if key == " " then
+    return floor[random(#floor)]
+  else
+    return ti[key]
+  end
+end
+
+function wand()
+  wo:add(YIN,{"it_magicwand"})
+end
+
+wo(floortile," ",{
+         "-######################################",
+         "#@#DW #      #     #    cF6 #        x#",
+         "#!#   #      #     #     #[##         #",
+         "#     A      #  ;  >  '  >[#       7  #",
+         "#     #      #     #     #[#          #",
+         "#     #B    C#     #     #[#--        #",
+         "###!#####  ##### ##### ###N#E-        #",
+         "#     #!!    #     #     #[#######    #",
+         "#  w  #!#    #     #     #[###   ##   #",
+         "#     >!#    >  :  <     <f### #4###  #",
+         "#  s  ###1####     ###########   4 ## #",
+         "#     #q#  oo#     #           44#    #",
+         "####### ######## ### ##################",
+         "# ##### #          # #c               #",
+         "Fd;;];;H  ######## # ### ############ #",
+         "#:## ## # #      # # #FHr #--#------# #",
+         "#              ? # # ## ###--#------# #",
+         "#c               # #    #----#------# #",
+         "###;####!####g#### ######--------#### #",
+         "#(   (#   #p,,,hh,M#      9  #      # #",
+         "#     # d #,,,,hh# #         #      # #",
+         "#  e  #   #,,,,,,G,#         <      # #",
+         "#     #####,,,,,,G,#         #      # #",
+         "#(   (#_,,,,,,,,,G,#         80       #",
+         "################## ## #################",
+         "# T #t## X X       ; 235 v      ###   #",
+         "#-U # #F XyX ####  I     #####FH  r  x#",
+         "# -  V## # ;##c    I     # - ##### ####",
+         "# ### #            I     # #         c#",
+         "# T # #    ;  IIIIIIIIIIIIJIIIIIIIIIII#",
+         "#-S # 4    Q  IJJJJJ  K   f  Ii       #",
+         "# - #         IJIIIIII IIIIIIIIIIIIIjj#",
+         "# #P#####     IJIIJI   I   I   I      #",
+         "#    P  # # # IJJJJI III I   I   I III#",
+         "-R|Q ## # #*# IIJIII     IIIIIIIIIII m#",
+         "#n##P##   #R#    IkJ   I            LI#",
+         "########### ###########################",
+         "$Z QQQQQQQQ        Z %  %  %  %  %  %X#",
+         "##         #       #%  %  %  %  %  %  #",
+         "##              ####  %  %  %  %  %  %#",
+         "$Z               %   %  %  %  %  %  %X#",
+         "##########      ####%  %  %  %  %  % Z#",
+         "#;:;:;:;:#         #  %  %  %  %  %  Z#",
+         "##########~######### %  %  %  %  %  %Z#",
+         "#{}{{}{{}{{}{{}{{}{#%  %  %  %  %  %+ -",
+         "##################{%  %  %  %  %   # 4c",
+         "#{}{{}{{}{{}{{}{{}{############### ## #",
+         "#####################Fzz          Z  X&",
+         "#######################################"
+         })
+
+wo:add({"ot_counter","doors",state=0,target="door1",action_1="close",action_2="open"})
+wo:add(YIN,{"it_key"})
+wo:add(YIN,{"it_floppy"})
+wo:shuffleOxyd()
+wo["CrackSpreading"] = 1.0
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

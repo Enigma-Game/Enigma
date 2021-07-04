@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Space Invaders" el:subtitle=""
+el:id="gorg053_2"/> <el:version el:score="1" el:release="2" el:revision="3"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="true" el:single="true"
+el:network="false"/> <el:score el:easy="01:45" el:difficult="-"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["ProvideExtralifes"] = not wo["IsDifficult"]
+
+ti[" "]={"fl_space"}
+ti["."]={"fl_samba"}
+ti[","]={"fl_himalaya"}
+ti["@"]={"fl_samba", "start"} .. ti{"#ac_marble_black"}
+ti["#"]={"st_redbrown"}
+ti["O"]={"st_oxyd_c", oxydcolor=OXYD_RED}
+ti["B"]={"st_break_oxydc"}
+ti["D"]={"st_death_invisible", "invaders#"}
+ti["I"]=cond(wo["IsDifficult"], ti["D"], ti[" "])
+ti["d"]={"st_death", "invaders#"}
+ti["t"]=ti["."] .. {"it_trigger", target="spotinvisible", action="callback"}
+ti["T"]={"it_sensor", invisible=true, target="hideinvisible", action="callback"}
+ti["h"]={"it_hammer"}
+ti["f"]=cond(wo["IsDifficult"], ti[" "], {"it_flag"})
+ti["x"]={"it_wormhole", destination="start", strength=3.0, range=1.0}
+
+wo(ti, " ",{
+    "#######################################",
+    "#   D   ....     D #  D,,,     TtTI   #",
+    "#.... D ......   ..#I  ,,,,     TI D  #",
+    "#..f.   ..... D  ....  D ,,,,   D D D #",
+    "#   D D D D D D D    D D,,,,,  D D D D#",
+    "#      D D D D D D IT  D,,,     D D D #",
+    "#     I D D D D D ITtTD ,,     h D D  #",
+    "#D D   I D D D D ####   D D D D   D   #",
+    "# D D           TtT#   D D D D D   D  #",
+    "#D D D           T #            D     #",
+    "# D D D,,,,,,,,  D #             D    #",
+    "#      ,,,,,,,, D D#            D  ...#",
+    "####### ,,,,,,   D #D D D D D ........#",
+    "#        ,,,,      # D   D  D ........#",
+    "#D D D D D  D D D D#   D  D    I......#",
+    "# D D D D    D D D # D  D     DT .....#",
+    "#D D D D   I D D D #  I      DTtTIDDDD#",
+    "#TD D D     D D D D# ,,,  D D  T      #",
+    "#tTD D I   D   D   #,,,,,D D    DDDDDD#",
+    "#T  D     D        #,,,,,,   D       x#",
+    "#                  # ,,,, DTD D D ....#",
+    "#  ................#  ,,, TtD     ....#",
+    "#BB......@.........# D     I       .BB#",
+    "#OB................#  D             BO#",
+    "#######################################"
+})
+
+function spotinvisible() 
+   wo[no["invaders#*"]] = ti["d"]
+end
+function hideinvisible() 
+   wo[no["invaders#*"]] = ti["D"]
+end
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

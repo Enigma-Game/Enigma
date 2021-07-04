@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Cosmic Pearls" el:subtitle=""
+el:id="gorg071_2"/> <el:version el:score="2" el:release="2" el:revision="3"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2019 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="true" el:single="true"
+el:network="false"/> <el:score el:easy="01:54" el:difficult="03:28"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["MeditationStrength"] = cond(wo["IsDifficult"], 5.0, 6.0)
+wo["ProvideExtralifes"] = false
+
+ti[" "]={"fl_space", "floor#"}
+ti["_"]=cond(wo["IsDifficult"], {"fl_abyss", "abyss#"}, {"fl_abyss", "abyss#"}..ti{"st_invisible"})
+ti["m"]={"it_meditation_dent"}
+ti["@"]={"#ac_pearl", essential=INDISPENSABLE}
+ti["#"]=cond(wo["IsDifficult"],{"st_actorimpulse", invisible=true, strength=150.0}, {"st_actorimpulse", invisible=true, strength=100.0})
+ti["."]=cond(wo["IsDifficult"], ti["#"], ti [" "])
+
+wo(ti, " ",{
+    "____________________",
+    "_ #              # _",
+    "_#m              m#_",
+    "_                  _",
+    "_                  _",
+    "_      @ .. @      _",
+    "_                  _",
+    "_      @ .. @      _",
+    "_                  _",
+    "_                  _",
+    "_#m              m#_",
+    "_ #              # _",
+    "____________________"})
+
+wo:add({"ot_timer", interval=3.0, target="ice"})
+wo:add({"ot_timer", interval=6.0, target="space"})
+
+  function ice () 
+     if wo["IsDifficult"] then
+      wo[no["floor#*"]] = {"fl_ice", "ice#"}
+        wo[no["abyss#*"]] = {"fl_water", "water#"}
+         else
+      wo[no["floor#*"]] = {"fl_ice", "ice#"}
+        wo[no["abyss#*"]] = {"fl_water", "water#"}..ti{"st_invisible"}
+     end
+end 
+  function space () 
+     if wo["IsDifficult"] then
+      wo[no["ice#*"]] = {"fl_space", "floor#"}
+        wo[no["water#*"]] = {"fl_abyss", "abyss#"}
+          else
+        wo[no["ice#*"]] = {"fl_space", "floor#"}
+        wo[no["water#*"]] = {"fl_abyss", "abyss#"}..ti{"st_invisible"}
+     end
+end
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

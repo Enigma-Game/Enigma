@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Excursion for Two II" el:subtitle="" el:id="devnull119"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Inspired by a level concept of Daydreamer.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="9:59"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["# "] = {"st_redbrown"}
+ti["  "] = {"fl_rock"}
+ti[" ~"] = {"fl_water"}
+ti["* "] = {"st_redbrown_movable"}
+ti["+ "] = {"st_box_rock"}
+ti["B "] = {"st_passage_black", flavor = "frame"}
+ti["W "] = {"st_passage_white", flavor = "frame"}
+ti[" ."] = {"it_seed_hay"}
+ti["k1"] = {"it_key", code = 1, invisible = false}
+ti["k3"] = {"it_key", code = 2, invisible = false}
+ti["k5"] = {"it_key", code = 3, invisible = false}
+ti["k7"] = {"it_key", code = 4, invisible = false}
+ti["K1"] = {"st_key", code = 1, target = "door%i", invisible = false}
+ti["K2"] = {"st_key", code = 1, target = "door%I", invisible = false}
+ti["K3"] = {"st_key", code = 2, target = "door%h", invisible = false}
+ti["K4"] = {"st_key", code = 2, target = "door%H", invisible = false}
+ti["K5"] = {"st_key", code = 3, target = "door%g", invisible = false}
+ti["K6"] = {"st_key", code = 3, target = "door%G", invisible = false}
+ti["K7"] = {"st_key", code = 4, target = "door%f", invisible = false}
+ti["K8"] = {"st_key", code = 4, target = "door%F", invisible = false}
+ti["doors"] = {"st_door_a", name = "door%%"}
+ti["fakeDoors"] = ti[" ."] .. {"st_door_a", name = "door%%"}
+ti["triggers"] = {"fl_scales_concrete", target = "door%%", min = 0.4}
+ti["vortex"] = ti["* "] .. {"it_vortex", name = "vortex%%", autoclose = true, autoopen = true, destination = "v%%"}
+ti["vortexDest"] = {"fl_rock", name = "v%%"}
+ti["O "] = {"st_oxyd_a"}
+ti["@0"] = {"#ac_marble_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"X", "fakeDoors"}, {"D", "doors"}, {"T", "triggers"}, {"V", "vortex"}, {"v", "vortexDest"})), "  ", {
+    "# O # O O O O O O # # O O O O O O # O # ",
+    "# vbW           vAB W va          B vB# ",
+    "# # # # # # # # # VBVb# # # # # # # # # ",
+    "# @0    * TbXS  B     B             @1# ",
+    "#   #   #   # DB# # # # D # # B # Da# # ",
+    "#   #   DA  #    ~ ~ ~ ~      k3#   TA# ",
+    "#     Ta#   #    ~ ~ ~ ~Tc# Xs* #   # # ",
+    "# W # # #   W   # # # # # #     Db  TC# ",
+    "#   # k1#   #   W     W   #     # # B # ",
+    "#   #       #   # VaVA#   # TB    #   # ",
+    "#   #   # # #   # W B # Dc# # #   #   # ",
+    "#   #   DC      # W B #           #   # ",
+    "# k5# # # # # # # W B # # # # # # # k7# ",
+    "# + *   TFTE  # W W B B # Td  #       # ",
+    "#   K8  # #   # W  ~ ~B #   +     * Te# ",
+    "#       #     #  ~ ~ ~ ~#  ~# # DF# *~# ",
+    "# TDK6  # De# # B  ~ ~W #     #   DD  K7",
+    "# *~# Dd#     Df  # # DI# #   #   # # # ",
+    "#           # #   #  ~   ~#           # ",
+    "#   # # # # #     Di+~  # K1# # # #   # ",
+    "#   #   Dh        #     DH     ~K5DE  # ",
+    "#   # K2# DgK4+ # # #   # #   # # #   # ",
+    "#   #  ~#   +~ ~ ~ ~+  ~Ts#   #   K3  # ",
+    "# TS    +~  #  ~    B W   #   DG      # ",
+    "# # # # # # # # # # # # # # # # # # # # "
+})
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

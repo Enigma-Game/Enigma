@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Excursion for Two III" el:subtitle="" el:id="devnull123"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10" />
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Inspired by a level concept of Daydreamer.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="11:11"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["SubSoil"] = SUBSOIL_WATER
+wo["MaxOxydColor"] = OXYD_BROWN
+
+ti["# "] = {"st_redbrown"}
+ti["  "] = {"fl_rock"}
+ti[" ~"] = {"fl_water"}
+ti[" !"] = {"it_crack_l", flavor = "water"}
+ti["+ "] = {"st_box_rock"}
+ti["* "] = {"st_redbrown_movable"}
+ti["= "] = {"st_redbrown_hollow"}
+ti["X "] = {"st_grate"}
+ti["B "] = {"st_boulder_s"}
+ti["I "] = {"st_stoneimpulse"}
+ti["T "] = {"st_knight"}
+ti["P "] = {"st_pull"}
+ti["R "] = {"st_rotator", movable = true, counterclock = true}
+ti["S "] = {"st_swap"}
+ti["W "] = {"st_lightpassenger"}
+ti["Y "] = {"st_flat_breakable"}
+ti["Z "] = {"st_flat_movable"}
+ti["f "] = {"it_key"}
+ti["b "] = {"st_blocker"}
+ti[" ."] = {"it_seed_hay"}
+ti[" :"] = ti[" ~"] .. {"it_seed_hay"}
+ti[" S"] = {"it_coin_s"}
+ti[" w"] = {"it_wrench"}
+ti["doors"] = {"st_door_a", name = "door%%#"}
+ti["bridges"] = {"fl_bridge", name = "bridge%%"}
+ti["triggers"] = {"fl_scales_concrete", target = {"door%%*", "bridge%%", "laser%%"}, min = 0.4}
+ti["lasers"] = {"st_laser", name = "laser%%", orientation = WEST}
+ti["keys"] = {"it_key", code = "%%", invisible = false}
+ti["KeyHoles"] = {"st_key", code = "%%", target = {"door%%*", "bridge%%"}, invisible = false}
+ti["Ob"] = {"st_oxyd_a", name = "oxydsBlack#"}
+ti["Ow"] = {"st_oxyd_a", name = "oxydsWhite#"}
+ti["@0"] = ti["= "] .. {"#ac_marble_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ti["@1"] = ti["= "] .. {"#ac_marble_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"D", "doors"}, {"T", "triggers"}, {"-", "bridges"}, {"k", "keys"}, {"K", "KeyHoles"}, {"L", "lasers"})), "  ", {
+    "# # # # # # # # # # # # # # # # # # # ",
+    "# f~           ~  DG      X  ~b~ ~TG# ",
+    "#  ~+  ~ ~+~      #  ~      X! :# # # ",
+    "# TE  # I # #    ~#  ~     ~TD :DGkCKF",
+    "#     #     +    ~#  ~ ~  B~KBb # # # ",
+    "#     #   I I  ~ ~#  ~ ~  W~ ~ : ~ ~# ",
+    "#    ~I       +   #  ~ ~   ~ : : ~ ~# ",
+    "# DB ~# #     KC  #  ~ ~ : : : : :  # ",
+    "#   +~kF# #   kB  #  ~       :      # ",
+    "#  ~+            ~#  ~   :  X~      # ",
+    "# + I  ~ ~ ~ ~ ~ ~#  ~       ~ ~ ~ ~# ",
+    "#  ~+  ~          #  ~ ~R  ~ ~ ~ ~ ~# ",
+    "# # # # # # # #   # # #   # # # # # # ",
+    "# - - - - - - - -b# TAX~= = = =w# = # ",
+    "# - ObObObObObOb-c#   X~= # # # # = # ",
+    "# - DaDbDcDdDeDf-d# -GD~= # = = = = # ",
+    "# - ObObObObObOb-e#   X~= = = # # = # ",
+    "# - - - - - - - -f#   X~= # # @1= = # ",
+    "# # # # # # # # * # * # # # # # # # # ",
+    "# =S= = = = = X~  # -F- - - - - - - # ",
+    "# # # # # # = X~  # -EOwOwOwOwOwOw- # ",
+    "# = = = = = = D~-g# -DDFDEDDDCDBDA- # ",
+    "# = # # # = # X~  # -COwOwOwOwOwOw- # ",
+    "# = = @0# = = X~Ta# -B- - - - - - - # ",
+    "# # # # # #   # # #   # # # # # # # # ",
+    "#  ~ ~ ~ ~ ~   ~kc# T   Y Y Y Y Y Y # ",
+    "#  ~ ~     ~S~ ~  # Z~   ~Y  ~ ~ ~Z.# ",
+    "#          ~+~ ~  #  ~  Z~DgY~kfY  ~# ",
+    "#     + #~# +~ ~Dd# Y Y Z~   ~Tg ~Y # ",
+    "#  ~# +   + +~   ~# Z.Y Z~   ~ ~Z~Y # ",
+    "# # # Td    R     # Y Y Y~    *~Y Y # ",
+    "KfP #             #  ~ ~Y~Z~Tb  * Y~# ",
+    "# #   # #  ~# +  ~# Z~Z~Z~ ~Z~  Y   # ",
+    "#           Le# # # T Z  ~f~ ~  #   # ",
+    "#   #   #   +     DeT Z~Z~Z~Z~Z  ~  # ",
+    "#   Te  #        ~# T Z          ~Y.# ",
+    "# # # # # # # # # # # # # # # # Kc# # "})
+wo:shuffleOxyd({"oxydsBlack#*", max = 0}, {"oxydsWhite#*", max = 0})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

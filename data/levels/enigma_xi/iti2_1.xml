@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Diamond Jump" el:subtitle="" el:id="2012mmiti2"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="ItTheIt" el:email="friendwindowexporter@gmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2012 JFE</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Code converted from old lua code</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti["x"] = {"st_oxyd", flavor="c"}
+ti["#"] = {"st_jamb_black"}
+ti[" "] = {"fl_red"}
+ti["~"] = {"fl_water"}
+ti["^"] = {"st_rawglass"}
+ti["*"] = {"st_redfiber"}
+ti["$"] = {"it_spring_drop"}
+ti["w"] = {"fl_mortar"}
+ti["@"] = {"#ac_marble_black"}
+
+if wo["IsDifficult"] then
+  ti["f"] = {"fl_red"}
+  ti["l"] = {"fl_red"}
+else
+  ti["f"] = {"it_flag_black"}
+  ti["l"] = {"it_extralife"}
+end
+
+wo(ti, " ", {
+  "####################",
+  "#                 x#",
+  "#   *^*^*^*^      x#",
+  "#   ^   www*x     x#",
+  "#~~~* ^*www^*^*^*^*^",
+  "#~~~^ *~~ww*^~~~~~~*",
+  "#~~~* ^~~~*^*~~~~~~^",
+  "#~~~^ *~~*^*^~~~^~~*",
+  "# $   ^~~$*^*ww*   ^",
+  "#     *^~  wwww^ $ #",
+  "#*^*^*^*^*^*^*^*   #",
+  "#~ ~ ~ ~ ~*@flll   #",
+  "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

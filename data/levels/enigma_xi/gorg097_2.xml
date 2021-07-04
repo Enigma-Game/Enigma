@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Hillbilly" el:subtitle=""
+el:id="gorg097_2"/> <el:version el:score="2" el:release="2" el:revision="4"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2019 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.30"/> <el:modes el:easy="true" el:single="true"
+el:network="false"/> <el:score el:easy="15:25" el:difficult="-"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["SlopeStrength"]=cond(wo["IsDifficult"], 30.0, 20.0)
+wo["AutoRespawn"]=true
+
+ti[", "] = {"fl_metal_7"}
+ti["/ "] = {"fl_abyss"}
+ti["- "] = {"fl_water"}
+ti["1 "] = {"fl_slope_pn"}
+ti["2 "] = {"fl_slope_pe"}
+ti["3 "] = {"fl_slope_pw"}
+ti["4 "] = {"fl_slope_ps"}
+ti["5 "] = {"fl_slope_inw"}
+ti["6 "] = {"fl_slope_ine"}
+ti["7 "] = {"fl_slope_isw"}
+ti["8 "] = {"fl_slope_ise"}
+ti["9 "] = {"fl_slope"}
+ti["# "] = {"st_concrete"}
+ti[" m"] = {"st_mirror_triangle",movable=true, transparent=true, orientation=WEST}
+ti[" n"] = {"st_mirror_triangle", movable=true, orientation=WEST}
+ti[" M"] = {"st_mirror_triangle", orientation=WEST}
+ti["R "] = {"st_rotator"}
+ti[" Z"] = {"st_blocker"}
+ti[" x"] = {"st_box_hay"}
+ti[" h"] = {"st_puzzle", cluster="1"}
+ti[" H"] = {"st_puzzle", cluster="2"}
+ti[" X"] = {"st_brownie"}
+ti[" I"] = {"st_invisible"}
+ti[" p"] = {"st_portal_glass"}
+ti["O "] = {"st_oxyd_e"}
+ti["Q "] = {"st_oxyd_e", oxydcolor=OXYD_BLACK, noshuffle=true}
+ti["ib"] = {"st_inkwell_black"}
+ti["ig"] = {"st_inkwell_empty"}
+ti["b*"] = {"fl_bridge", "bridge%%#"}
+ti["B*"] = {"fl_bridge", "bridge%%#", state=CLOSED}
+ti["D*"] = ti[", "]..{"st_blocker", "door%%"}
+ti["P*"] = ti[", "]..{"st_passage_black", "pass%%#"}
+ti["p*"] = ti[", "]..{"st_passage_white", "pass%%#"}
+ti["W*"] = {"st_laser_w", "laser%%"}
+ti["X*"] = ti[", "]..{"it_cross", interval=1.0, target={"door%%", "pass%%#*", "laser%%", "bridge%%#*"}, action_1={"open", "flip", "on", "toggle"}, action_2={"close", "flip", "off", "toggle"}} 
+ti["Y*"] = ti[", "]..{"it_cross", interval=1.0, target={"door%%", "pass%%#*", "laser%%", "bridge%%#*"}, action_1={"open", "flip", "on", "toggle"}, action_2={"close", "flip", "off", "toggle"}}..ti[" X"] 
+ti["t*"] = {"fl_scales", min=0.6, target="door%%"}
+ti["v*"] = {"fl_scales", target="door%%"}
+ti["S*"] = {"st_switch", target={"bridge%%#*", "door%%", "laser%%"}}
+ti["C*"] = {"st_coinslot", target={"bridge%%#*", "door%%", "laser%%"}}
+ti["L*"] = {"st_laserswitch", target={"bridge%%#*", "laser%%"}}
+ti["! "] = {"st_laserswitch", target="counter", action="signal"}
+ti[" <"] = {"st_boulder_w"}
+ti["N "] = ti[", "]..{"it_trigger", "stonetrig_n#", target={"stone_n", "@stonetrig_n#*"}, action={"callback", "kill"}, safeaction=true}
+ti["T "] = ti[", "]..{"it_trigger", "stonetrig_s#", target={"stone_s", "@stonetrig_s#*"}, action={"callback", "kill"}, safeaction=true}
+ti["e "] = ti[", "]..{"it_trigger", "watertrig_e#", target={"water_e", "@watertrig_e#*"}, action={"callback", "kill"}, safeaction=true}
+ti["w "] = ti[", "]..{"it_trigger", "watertrig_w#", target={"water_w", "@watertrig_w#*"}, action={"callback", "kill"}, safeaction=true}
+ti["Z "] = ti[", "]..{"it_trigger", "deathtrig#", target={"death_n", "@deathtrig#*"}, action={"callback", "kill"}, safeaction=true}
+ti[" +"] = {"it_extralife"}
+ti[" w"] = {"it_magicwand"}
+ti[" u"] = {"it_umbrella"}..ti[" X"]
+ti[" ."] = {"it_seed_volcano"}
+ti[" ;"] = {"it_seed_hay"}
+ti[" q"] = {"it_springboard"}
+ti[" @"] = {"#ac_marble_glass"}
+ti[" &"] = cond(wo["IsDifficult"], {"#ac_pearl", owner=DEFAULT, controllers=CTRL_NONE}, {"#ac_pearl", owner=YIN, controllers=CTRL_NONE})
+  if wo["IsDifficult"] then
+    ti["d1"] = ti["1 "]
+    ti["d2"] = ti["2 "]
+    ti["d3"] = ti["3 "]
+    ti["d4"] = ti["3 "]..ti[" x"]
+    ti["d5"] = ti[", "]
+    ti["d6"] = ti["4 "]
+    ti["d7"] = ti["2 "]
+    ti["d8"] = ti["3 "]
+    ti["d9"] = ti["1 "]
+    ti["d0"] = ti[", "]..ti[" x"]
+    ti["da"] = ti["- "]..{"it_hammer"}
+    ti["db"] = ti[", "]
+    ti[" $"] = {"it_coin_m"}
+    ti[" U"] = ti[" X"]
+         else
+    ti["d1"] = ti["4 "]
+    ti["d2"] = ti[" +"]
+    ti["d3"] = ti[", "]
+    ti["d4"] = ti[", "]
+    ti["d5"] = ti[", "]..ti[" x"]
+    ti["d6"] = ti[", "]
+    ti["d7"] = ti[", "]
+    ti["d8"] = ti[", "]
+    ti["d9"] = ti[", "]
+    ti["d0"] = ti[", "]..ti[" X"]
+    ti["da"] = ti["- "]
+    ti["db"] = ti[", "]..{"it_hammer"}
+    ti[" $"] = {"it_coin_l"}
+    ti[" U"] = ti[" u"]
+end
+
+wo(res.composer(res.random(res.autotile(ti, {"b", "b*"}, {"B", "B*"}, {"C", "C*"}, {"D", "D*"}, {"L", "L*"}, {"P", "P*"}, {"p", "p*"}, {"S", "S*"}, {"t", "t*"}, {"v", "v*"}, {"W", "W*"}, {"X", "X*"}, {"Y", "Y*"}), "  ", {"1 ", "2 ", "3 ", "4 "})), "  ",{
+    "/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / ",
+    "/ 5 1 1 1 1 1 1 1 1 1 6 5 6 5 1 1 1 6 / / / / / / / / / / / / / / / / / / / / - - - - - - - - - - - - - - - - - - / ",
+    "/ 3 5 1 1 1 1 1 1 1 6 2 3 2 7 5 4 6 2 / / / # # # # # / / / # # # # # / / / / - -                             - - / ",
+    "/ 3 3 5 1 1 1 1 1 6 2 2 3 1 6 3 # 2 2 / / / # d2D3 w# / / / # t33+t2# / / / / - - d3d35 1 1 1 1 1 6           - - / ",
+    "/ 3 3 3 5 1 1 1 6 2 2 2 2 , 2 7 1 8 2 / # # # #   # # # # / # T , , # # # / / - - d5, 3 5 1 1 1 6 2 5 1 1 1 6 - - / ",
+    "/ 3 3 3 3 5 1 6 2 2 2 2 2 , 2 1 , , 8 /   , N ,   , T , # # # ,   , T , # # / - - d4, 3 3 5 1 6 2 2 3 b5b5b52 - - / ",
+    "# 3<3 3 3 3 9@2 2 2 2 2 2 ,$2Z,XX13 , D1, N 4 N , , , , 2 , Z , , , R , , ,qD2- - , , 3 3 3 C52 2 2 3 b5S4b52 - - / ",
+    "/ 3 3 3 3 7 4 8 2 2 2 2 2 , 2 4 , , 6 /   , # # # #   N , , ,&, N 2 , d1, # / - - d4, 3 3 7 4 8 2 2 3 b5b5b52 - - / ",
+    "/ 3 3 3 7 4 4 4 8 2 2 2 2 , 2 5 4 6 2 / # # # / / #   , 3 N 2 # # # # # D4# / - - d5, 3 7 4 4 4 8 2 7 4 4 4 8 - - / ",
+    "/ 3 3 7 4 4 4 4 4 8 2 2 3 4 8 3 # 2 2 / / / / / / # # # 7 4 8 # / / / # ib# / - - d3d37 4 4 4 4 4 8           - - / ",
+    "/ 3 7 4 4 4 4 4 4 4 8 2 3 2 5 7 1 8 2 / / / / / / / / # # # # # / / / / / / / - -           # ,x#             - - / ",
+    "/ 7 4 4 4 4 4 4 4 4 4 8 7 8 7 4 4 4 8 / / / / / / / / / / / / / / / / / / / / - - - - - - - - - - - - - - - - - - / ",
+    "/ / / / / / / / / / / / / / / / / / / /I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/ / / / / / / / P1/ / / / / / / / / / ",
+    "/ - - - - - - - - - - - - - - - - - - /IO - - - - - - - - - - - - - - - - O /I/ / / # # # # # , # / / / / / / / / / ",
+    "/ - - - - - - - - - - - - - - - - - - /I- - - - - - - - - - - - - - - - - - /I/ # # #       w , # / / / / / / / / / ",
+    "/ - - - - , , d8d8d8d8d8d8d8, ,U- - - /I- - - - - - - - - - - - - - - - - - /I/ #   , , e , , 3 # / / / / / / / / / ",
+    "/ - - - - , - - - - - - - - - , - - - /I- - - - - - - - - - - - - - - - - - /I/ #   , # # # # # # # # L5# # / / / / ",
+    "/ - - - - d9- - - - - - - - - d6- - - /I- - - O - - O - P8P8- O - - O - - - /I/ # e , # ,.b5/ # , ,+,   , W9# # / / ",
+    "/ - - - igd9- - - - Y8- - - - d6- - - b8- - - - - - - P8Q Q P8- - - - - - - /I/ # , w # L4/;/;/;e , ,n,m,     # / / ",
+    "/ - - - - d9- - - - - - - - - d6- - - /I- - - O - - O - P8P8- O - - O - - - /I/ # , 4 # # # # #   w 4 , d6e , # / / ",
+    "/ - - - - , - - - - - - - - - , - - - /I- - - - - - - - - - - - - - - - - - /I/ # # , w , 1 d3, X91 # L0# , , # / / ",
+    "/ - - - - , , d7d7d7d7d7d7d7, , - - - /I- - - - - - - - - - - - - - - - - - /I/ / # 4 , e , , 2 , , # / #   w # / / ",
+    "/ - - - - - - - - - - - - - , - - - - /I- - - - - - - - - - - - - - - - - - /I/ / # # # # # # # # # # / # , 3 # / / ",
+    "/ - - - - - - - - - - - - - , - - - - /IO - - - - - - - - - - - - - - - - O /I/ / / / / / / / / / / / / # , # # / / ",
+    "/I/I/I/I/I/I/I/I/I/I/I/I/I/Ip8/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/I/ / / / / / / / / / / / / / b0/ / / / ",
+    "/ / / / # # # # # # # # # # - # / / / / / - - - - - - - - - - - / / / / / / / / / / / / / / / / / / / / / b0/ / / / ",
+    "/ / # # # , ,h, - - - - ,h, , # # / / / / - ,p,p,p,p,p,p,p,p,p- / / / / / / / / / / / / / / / / / / # # # , # # / / ",
+    "/ / # 2 ,H,H, , - - - - - ,H- - # / / / / - ,p5 1 1 1 1 1 6 ,p- / , , , , , / / / / / / / / / / / # # , , , , ! / / ",
+    "/ / # 2 ,h,h, , - - # ,h,h,H- - # # / / / - ,p3 5 1 1 1 6 2 ,p- / , ,X, ,X, / / / / / / # # # # # ! , , # ,n, # / / ",
+    "/ / # , # ,h, , - # # ,hw , # - , # / / / - ,p3 3 5 1 6 2 2 ,p- / , , ,X, , / / / / / / # - - - - - , ,n, , , # / / ",
+    "/ / ib, # , , , -   , , ,H, # , w , b7b7b7b73 3 3 3 S72 2 2 2 B7B7,+,XY8,u, b6b6b6- - - - - - ! - dadbd0! ,m, W4/ / ",
+    "/ / # , # # # # # # , , , # # , , # / / / - ,p3 3 7 4 8 2 2 ,p- / , , ,X, , / / / / / / # - - - - - , ,n, , , # / / ",
+    "/ / # 1 4 4 4 w # # # # # # 4 3 # # / / / - ,p3 7 4 4 4 8 2 ,p- / , ,X, ,X, / / / / / / # # # # # # , , # ,n! # / / ",
+    "/ / # # # # # , , e , 3 , w 3 # # / / / / - ,p7 4 4 4 4 4 8 ,p- / , , , , , / / / / / / / / / / / # # , , , # # / / ",
+    "/ / / / / / # # # # # , e 3 2 # / / / / / - ,p,p,p,p,p,p,p,p,p- / / / / / / / / / / / / / / / / / / # # # # # # / / ",
+    "/ / / / / / / / / / # # # # # # / / / / / - - - - - - - - - - - / / / / / / / / / / / / / / / / / / / / / / / / / / ",
+    "/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / ",
+})
+
+function stone_n(value, sender)
+   if value == true then
+     wo[sender + {2, -1}] = ti["# "]
+  end
+end 
+function stone_s(value, sender)
+   if value == true then
+     wo[sender + {2, 1}] = ti["# "]
+  end
+end 
+function water_e(value, sender)
+   if value == true then
+     wo[sender + {1, 0}] = ti["- "]
+  end
+end 
+function water_w(value, sender)
+   if value == true then
+     wo[sender + {-1, 0}] = ti["- "]
+  end
+end 
+function death_n(value, sender)
+   if value == true then
+     wo[sender + {2, -1}] = {"st_death"}
+  end
+end
+
+wo:add({"ot_counter", "counter", target="bridge%6#*", action_4="open", action_5="close"})
+wo:shuffleOxyd()
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+
+

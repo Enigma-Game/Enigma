@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Gaps" el:subtitle="" el:id="Hairball_044"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Hairball" el:email="hairball@ramblemuse.com"/>
+      <el:copyright>Copyright c 2014 Hairball</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:17"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+ti["o"] = {"st_oxyd_d"} .. ti["~"]
+ti["."] = {"#ac_marble_black"}
+ti["A"] = {"st_box_wood",name="L1"}
+ti["B"] = {"st_box_wood",name="L2"}
+ti["C"] = {"st_box_wood",name="L3"}
+ti["D"] = {"st_box_wood",name="L4"}
+ti["E"] = {"st_box_wood",name="L5"}
+ti["F"] = {"st_box_wood",name="L6"}
+ti["G"] = {"st_box_wood",name="L7"}
+ti["H"] = {"st_box_wood",name="L8"}
+ti["a"] = {"st_box_wood",name="R1"}
+ti["b"] = {"st_box_wood",name="R2"}
+ti["c"] = {"st_box_wood",name="R3"}
+ti["d"] = {"st_box_wood",name="R4"}
+ti["e"] = {"st_box_wood",name="R5"}
+ti["f"] = {"st_box_wood",name="R6"}
+ti["g"] = {"st_box_wood",name="R7"}
+ti["h"] = {"st_box_wood",name="R8"}
+
+wo(ti, " ", {
+    "~~oooooooooooooooo~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~    .           ~~",
+    "~    A a           ~",
+    "~    B  b          ~",
+    "~    C   c         ~",
+    "~    D    d        ~",
+    "~    E     e       ~",
+    "~    F      f      ~",
+    "~    G       g     ~",
+    "~    H        h    ~",
+    "~~                ~~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+--[[
+################
+AFaGDHCEfdcgBehb
+
+1, 13, 7, 5, 8, 2, 4, 6
+]]
+
+for i=1,8 do
+   wo:add({"ot_wire",anchor1=st(po(5,i+2)),anchor2=st(po(i+6,i+2))})
+end
+
+function antiabuse()
+   for i=1,8 do
+      if po["R" .. tostring(i)]-po["L" .. tostring(i)]~=po(i+1,0) then
+         wo:drawRect({1,2},{18,11},ti["~"])
+         wo:drawRect({2,0},{17,0},{"it_cross"} .. ti({"st_nil"}))
+	 no["timer"]:off()
+      end
+   end
+end
+
+wo:add({"ot_timer",name="timer",action="callback",target="antiabuse",interval=0.05})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
