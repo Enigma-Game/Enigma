@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Family Business" el:subtitle="" el:id="duffy20"/>
+      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_metal"}
+ti["#"] = {"st_greenbrown"}
+ti["o"] = {"st_oxyd"}
+ti["h"] = {"it_meditation_dent", essential=INDISPENSABLE}
+ti["H"] = {"it_meditation"}
+ti["J"] = {"it_meditation_hill"}
+ti["j"] = {"it_meditation_bump", essential=INDISPENSABLE}
+ti["1"] = {"fl_slope_isw"}
+ti["3"] = {"fl_slope_ise"}
+ti["7"] = {"fl_slope_inw"}
+ti["9"] = {"fl_slope_ine"}
+ti["b"] = {"ac_marble_black", name="black", owner=YIN, controllers=CTRL_YIN, 1.0, 1.0}
+ti["w"] = {"ac_marble_white", name="white", owner=DEFAULT, controllers=CTRL_NONE, 1.0, 1.0}
+ti["p"] = {"ac_pearl_white", name="pearl", owner=DEFAULT, controllers=CTRL_NONE, 1.0, 0.5}
+
+wo(ti, " ", {
+   "####################",
+   "#o       b        o#",
+   "# J              J #",
+   "#  ##############  #",
+   "#  #H   ow o   H#  #",
+   "#  #            #  #",
+   "#  #  o  31  o  #  #",
+   "#  #     97     #  #",
+   "#  #            #  #",
+   "#  #   ######   #  #",
+   "#  #   #hp h#   #  #",
+   "#JJ#   # oo #   #JJ#",
+   "#JJ#   # jj #   #JJ#",
+   "#JJ#   # oo #   #JJ#",
+   "#  #   #h  h#   #  #",
+   "#  #   ######   #  #",
+   "#  #            #  #",
+   "#  #     31     #  #",
+   "#  #  o  97  o  #  #",
+   "#  #            #  #",
+   "#  #H   o  o   H#  #",
+   "#  ##############  #",
+   "# J              J #",
+   "#o                o#",
+   "####################"})
+
+wo:add({"ot_rubberband", anchor1="black", anchor2="white", strength=8.0, length=0.0})
+wo:add({"ot_rubberband", anchor1="white", anchor2="pearl", strength=8.0, length=0.0})
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

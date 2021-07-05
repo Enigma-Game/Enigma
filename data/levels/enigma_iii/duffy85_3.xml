@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Think Fast" el:subtitle="" el:id="duffy85"/>
+      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+tspeed= cond(wo["IsDifficult"], 60, 40)
+ti["  "] = {"fl_rock"}
+ti["- "] = {"fl_water"}
+ti[" #"] = {"st_greenbrown"}
+ti[" O"] = {"st_oxyd"}
+ti[" *"] = {"st_brownie"}
+ti[" S"] = {"#ac_top", name="t1", range=1000, strength=tspeed}
+ti[" T"] = {"#ac_top", name="t2", range=1000, strength=-tspeed}
+ti[" A"] = {"st_switch", target="changetops"}
+ti[" z"] = {"ac_marble", 1.0, 0.5}
+
+wo(res.composer(ti), "  ", {
+   "-*-*-O-# # # O # # A A # # O # #-#-O-*-*",
+   "-*- - -                         - - - -*",
+   "-O- - -S                        - - - -O",
+   "-#- - -                         - - - -#",
+   " O                                     O",
+   " #                                     #",
+   " A                 z                   A",
+   " #                                     #",
+   " O                                     O",
+   "-#- - -                         - - - -#",
+   "-O- - -                         -T- - -O",
+   "-*- - -                         - - - -*",
+   "-*-*-O-# # # O # # A A # # O # #-#-O-*-*"})
+
+current_state = 0
+function changetops()
+    if current_state == 0 then
+        no["t1"]["strength"]= -tspeed
+          no["t2"]["strength"]= tspeed
+       current_state= 1
+    elseif current_state == 1 then
+        no["t1"]["strength"]= tspeed
+          no["t2"]["strength"]= -tspeed
+       current_state= 0
+    end
+end
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

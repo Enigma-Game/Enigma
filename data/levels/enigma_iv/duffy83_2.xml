@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Fire Safety" el:subtitle="" el:id="duffy83"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "]={"fl_wood"}..ti{"it_burnable"}
+ti["#"]={"st_greenbrown"}
+ti["o"]={"st_oxyd"}
+ti["g"]={"st_grate"}..ti{"it_burnable_fireproof"}
+ti["+"]={"st_box"}
+ti["a"]={"it_trigger", "trap1", invisible=true, target="trigfire1", action="callback"}
+ti["A"]={"it_burnable", "fire1"}
+ti["b"]={"it_trigger", "trap2", invisible=true, target="trigfire2", action="callback"}
+ti["B"]={"it_burnable", "fire2"}
+ti["c"]={"it_trigger", "trap3", invisible=true, target="trigfire3", action="callback"}
+ti["C"]={"it_burnable", "fire3"}
+ti["d"]={"it_trigger", "trap4", invisible=true, target="trigfire4", action="callback"}
+ti["D"]={"it_burnable", "fire4"}
+ti["T"]={"it_burnable", "firespot#"}
+ti["t"]={"it_trigger", invisible=true, target="firespot#*", action="ignite"}
+ti["z"]={"ac_marble", 0.0, 0.5}
+ti["f"]={"it_extinguisher"}
+ti["r"]={"it_coffee"}
+
+wo(ti, " ", {
+   "######o######o######",
+   "#Tt ##A##TT##B## tT#",
+   "#tt  #g#tttt#g#  tt#",
+   "#  + # #    # # +  #",
+   "#    #a#    #b#    #",
+   "#                  #",
+   "#r        z       f#",
+   "#                  #",
+   "#    #c#    #d#    #",
+   "#  + # #    # # +  #",
+   "#tt  #g#tttt#g#  tt#",
+   "#Tt ##C##TT##D## tT#",
+   "######o######o######"})
+
+trap1=0
+trap2=0
+trap3=0
+trap4=0
+function trigfire1()
+    if trap1==0 and trap2==1 and trap3==1 and trap4==1 then
+              no["fire1"]:ignite()
+    end
+         trap1=1
+end
+function trigfire2()
+    if trap1==1 and trap2==0 and trap3==1 and trap4==1 then
+             no["fire2"]:ignite()
+    end
+         trap2=1
+end
+function trigfire3()
+    if trap1==1 and trap2==1 and trap3==0 and trap4==1 then
+            no["fire3"]:ignite()
+    end
+        trap3=1
+end
+function trigfire4()
+    if trap1==1 and trap2==1 and trap3==1 and trap4==0 then
+            no["fire4"]:ignite()
+    end
+        trap4=1
+end
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

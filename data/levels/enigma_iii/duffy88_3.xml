@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Bomb Shelter" el:subtitle="" el:id="duffy88"/>
+      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+      <el:dependency el:id="lib/libmap" el:release="1" el:preload="true" el:path="lib/libmap" />
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by gorg</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["SlopeStrength"] = 90.0
+
+ti["  "] = {"fl_abyss"}
+ti[". "] = {"fl_hay"}
+ti["u "] = {"fl_slope_pn"}
+ti[" #"] = {"st_greenbrown"}
+ti["% "] = {"st_invisible"}
+ti["o "] = {"st_oxyd"}
+ti[" *"] = {"st_brownie"}
+ti[" g"] = {"st_grate"}
+ti[" S"] = {"st_swap"}
+ti[" U"] = {"st_oneway_n"}
+ti[" R"] = {"#ac_rotor", range=1000, strength=93}
+ti[" z"] = {"#ac_marble"}
+
+map_oxyds = wo:newMap("  ", {
+   "% % % % % % % % % % % % % % % % % % % % ",
+   "%       o         .#.#.#        o     % ",
+   "%       . . . . . .*. .*. . . . .     % ",
+   "%       .         .#.U.#        .     % ",
+   "%       . . . .     u     . . . .     % ",
+   "%       .     o     u     o     .     % ",
+   "%       .     o     u     o     .     % ",
+   "%     o . . . .     u     . . . . o   % ",
+   "%       o     .     u     .     o     % ",
+   "%       o     .     u     .     o     % ",
+   "%       .     .     u     .     .     % ",
+   "%       . . . .     u     . . . .     % ",
+   "%                 .#u .#              % "})
+
+map_rotors = wo:newMap("  ", {
+   "%                 .#u .#              % ",
+   "%                 .#uR.#              % ",
+   "%                 .#uR.#              % ",
+   "%                 .#uR.#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % "})
+
+map_corridor = wo:newMap("  ", {
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % ",
+   "%                 .#u .#              % "})
+
+map_shelter = wo:newMap("  ", {
+   "%   .#.#.#.#.#.#.#.#u .#.#.#.#.#.#.#  % ",
+   "%   .#. . . . . . . . . . . . . . .#  % ",
+   "%   .#. . . . . . . . . . . . . . .#  % ",
+   "%   .#. . . . . .S.g.g.g.S. . . . .#  % ",
+   "%   .#. . . .*. .g.g.g.g.g. .*. . .#  % ",
+   "%   .#. . . .*. .g.g.z.g.g. .*. . .#  % ",
+   "%   .#. . . .*. .g.g.g.g.g. .*. . .#  % ",
+   "%   .#. . . . . .S.g.g.g.S. . . . .#  % ",
+   "%   .#. . . . . . . . . . . . . . .#  % ",
+   "%   .#. . . . . . . . . . . . . . .#  % ",
+   "%   .#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#  % ",
+   "% % % % % % % % % % % % % % % % % % % % "})
+
+wo(res.composer(ti), "  ", map_oxyds + map_rotors + map_corridor + map_corridor + map_corridor +map_corridor + map_corridor + map_corridor + map_corridor + map_corridor + map_corridor + map_shelter)
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
