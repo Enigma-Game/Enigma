@@ -201,47 +201,52 @@ namespace enigma { namespace gui {
         int x = vminfo.width/2;
         int y = vminfo.height/2;
         int h = vsmall ? (vshrink ? 17 : 25) : 35;
+        int wSearch = vshrink?240:(vsmall?350:430);
+        int wLbSort = vshrink?100:(vsmall?120:180);
         
-        this->add(lbTitle, Rect(0, vshrink?0:0, vshrink?190:380, h));
-        this->add(lbInfo1, Rect(0, vshrink?30:50, vshrink?190:380, vshrink?12:25));
-        this->add(lbInfo2, Rect(0, vshrink?45:80, vshrink?190:380, vshrink?12:25));
-        this->add(tf_search_text, Rect(0, vshrink?77:145, vshrink?190:380, vshrink?17:35));
-        this->add(lbSortMethod, Rect(0, vshrink?110:200, vshrink?80:180, h));
-        this->add(but_sortmethod, Rect(vshrink?90:200, vshrink?110:200, vshrink?100:180, h));
+        this->add(lbTitle, Rect(0, vshrink?0:0, wSearch, h));
+        this->add(lbInfo1, Rect(0, vshrink?30:50, wSearch, vshrink?12:25));
+        this->add(lbInfo2, Rect(0, vshrink?45:80, wSearch, vshrink?12:25));
+        this->add(tf_search_text, Rect(0, vshrink?77:145, wSearch, vshrink?17:35));
+        this->add(lbSortMethod, Rect(0, vshrink?110:200, wLbSort, h));
+        this->add(but_sortmethod, Rect(wLbSort+(vsmall?10:20), vshrink?110:200,
+                                       wSearch-wLbSort-(vsmall?10:20), h));
 
         if(!vshrink) {
-            int xTxt = vsmall ? 400 : 400;
-            int xBt1 = vsmall ? 510 : 520;
-            int xBt2 = vsmall ? 570 : 610;
-            int dy = vsmall ? 40 : 50;
-            int w = vsmall ? 40 : 50;
-            int wTxt = vsmall ? 550 : 590;
-            this->add(lbInt,        Rect(xTxt,    0, 100, h));
-            this->add(but_int_min,  Rect(xBt1,    0,   w, h));
-            this->add(but_int_max,  Rect(xBt2,    0,   w, h));
-            this->add(lbDex,        Rect(xTxt,   dy, 100, h));
-            this->add(but_dex_min,  Rect(xBt1,   dy,   w, h));
-            this->add(but_dex_max,  Rect(xBt2,   dy,   w, h));
-            this->add(lbPat,        Rect(xTxt, 2*dy, 100, h));
-            this->add(but_pat_min,  Rect(xBt1, 2*dy,   w, h));
-            this->add(but_pat_max,  Rect(xBt2, 2*dy,   w, h));
-            this->add(lbKno,        Rect(xTxt, 3*dy, 100, h));
-            this->add(but_kno_min,  Rect(xBt1, 3*dy,   w, h));
-            this->add(but_kno_max,  Rect(xBt2, 3*dy,   w, h));
-            this->add(lbSpe,        Rect(xTxt, 4*dy, 100, h));
-            this->add(but_spe_min,  Rect(xBt1, 4*dy,   w, h));
-            this->add(but_spe_max,  Rect(xBt2, 4*dy,   w, h));
-            this->add(lbDif,        Rect(xTxt, 5*dy, 100, h));
-            this->add(but_dif_min,  Rect(xBt1, 5*dy,   w, h));
-            this->add(but_dif_max,  Rect(xBt2, 5*dy,   w, h));
-            this->add(lbAvr,        Rect(xTxt-50, 6*dy, 150, h));
-            this->add(but_avr_min,  Rect(xBt1, 6*dy,   w, h));
-            this->add(but_avr_max,  Rect(xBt2, 6*dy,   w, h));
-            this->add(lbUnsolvEasy, Rect(   0, 7*dy, wTxt, h));
-            this->add(but_only_ue,  Rect(xBt2, 7*dy,   w, h));
-            this->add(lbUnsolvHard, Rect(   0, 8*dy, wTxt, h));
-            this->add(but_only_uh,  Rect(xBt2, 8*dy,   w, h));
-            this->add(lbLevelCount, Rect(   0, 9*dy, wTxt, h));
+            int dy = vsmall ? 40 : 50;  // height of buttons plus gap between them
+            int wDB = vsmall ? 40 : 60;  // width of difficulty and avr buttons
+            int wBB = 2*wDB + (vsmall ? 20 : 20);  // width of bool buttons
+            int xTxt = vsmall ? 350 : 400; // x-pos of difficulty labels
+            int xBt1 = vsmall ? 510 : (vminfo.width - 2*wDB - 70); // x-pos of 1st difficulty button
+            int xBt2 = vsmall ? 570 : (vminfo.width -   wDB - 50); // x-pos of 2nd difficulty button
+            int wDL = vsmall ? 150 : (vminfo.width - 2*wDB - 90 - xTxt); // width of difficulty labels
+            int wBL = vsmall ? 500 : (vminfo.width - 2*wDB - 95); // width of bool and avr button labels
+            this->add(lbInt,        Rect(xTxt,    0, wDL, h));
+            this->add(but_int_min,  Rect(xBt1,    0, wDB, h));
+            this->add(but_int_max,  Rect(xBt2,    0, wDB, h));
+            this->add(lbDex,        Rect(xTxt,   dy, wDL, h));
+            this->add(but_dex_min,  Rect(xBt1,   dy, wDB, h));
+            this->add(but_dex_max,  Rect(xBt2,   dy, wDB, h));
+            this->add(lbPat,        Rect(xTxt, 2*dy, wDL, h));
+            this->add(but_pat_min,  Rect(xBt1, 2*dy, wDB, h));
+            this->add(but_pat_max,  Rect(xBt2, 2*dy, wDB, h));
+            this->add(lbKno,        Rect(xTxt, 3*dy, wDL, h));
+            this->add(but_kno_min,  Rect(xBt1, 3*dy, wDB, h));
+            this->add(but_kno_max,  Rect(xBt2, 3*dy, wDB, h));
+            this->add(lbSpe,        Rect(xTxt, 4*dy, wDL, h));
+            this->add(but_spe_min,  Rect(xBt1, 4*dy, wDB, h));
+            this->add(but_spe_max,  Rect(xBt2, 4*dy, wDB, h));
+            this->add(lbDif,        Rect(xTxt, 5*dy, wDL, h));
+            this->add(but_dif_min,  Rect(xBt1, 5*dy, wDB, h));
+            this->add(but_dif_max,  Rect(xBt2, 5*dy, wDB, h));
+            this->add(lbAvr,        Rect(   5, 6*dy, wBL, h));
+            this->add(but_avr_min,  Rect(xBt1, 6*dy, wDB, h));
+            this->add(but_avr_max,  Rect(xBt2, 6*dy, wDB, h));
+            this->add(lbUnsolvEasy, Rect(   0, 7*dy, wBL, h));
+            this->add(but_only_ue,  Rect(xBt1, 7*dy, wBB, h));
+            this->add(lbUnsolvHard, Rect(   0, 8*dy, wBL, h));
+            this->add(but_only_uh,  Rect(xBt1, 8*dy, wBB, h));
+            this->add(lbLevelCount, Rect(   0, 9*dy, wBL, h));
         }
         // Center everything, leaving a margin at the bottom for three more buttons
         center(0, vshrink ? 25 : 50, 0, 0);
@@ -255,9 +260,10 @@ namespace enigma { namespace gui {
         HList * commandHList = new HList;
         commandHList->set_spacing(10);
         commandHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
-        commandHList->set_default_size(vshrink?70:140, vshrink?17:35);
+        commandHList->set_default_size(vshrink?90:140, vshrink?17:35);
         commandHList->add_back(but_reset);
-        commandHList->add_back(dummy);
+        if (!vshrink)
+            commandHList->add_back(dummy);
         commandHList->add_back(but_ignore);
         commandHList->add_back(but_search);
         this->add(commandHList, Rect(vshrink?5:10, vminfo.height-(vshrink?25:50),
