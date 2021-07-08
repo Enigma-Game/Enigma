@@ -51,7 +51,7 @@ namespace enigma { namespace gui {
 
         buttonw = vminfo.thumb.width +
                   (vshrink ? 13 : 27);  // min should be +30 for all modes but 640x480
-        buttonh = vminfo.thumb.height + (vshrink ? 22 : 44);
+        buttonh = vminfo.thumb.height + (vshrink ? 22 : ((vminfo.height==960)?35:44));
         curIndex = lev::Index::getCurrentIndex();
         iselected = curIndex->getCurrentPosition();
         ifirst = curIndex->getScreenFirstPosition();
@@ -364,7 +364,7 @@ namespace enigma { namespace gui {
                               xpos + buttonw/2 - ecl::Min(smallfnt->get_width(lines[0].c_str(), altsmallfnt)/2, maxwidth/2),
                               imgy + imgh + ((lines.size() == 1) ? 2 : 0),
                               lines[0], altsmallfnt, maxwidth);
-                    if ((lines.size() > 1) && !lines[1].empty())
+                    if ((vminfo.height != 960) && (lines.size() > 1) && !lines[1].empty())
                         smallfnt->render (gc,
                               xpos + buttonw/2 - ecl::Min(smallfnt->get_width(lines[1].c_str(), altsmallfnt)/2, maxwidth/2),
                               imgy + imgh + smallfnt->get_height() - 3,
