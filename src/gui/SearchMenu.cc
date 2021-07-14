@@ -137,8 +137,8 @@ namespace enigma { namespace gui {
 // TRANSLATORS: Would be shown as "Sort by: Average rating".
             case SC_SORT_AVR: { return _("Average rating"); break; }
             }
-// TRANSLATORS: Would be shown as "Sort by: Unknown [method]".
             Log << "Unknown sort method number " << value << ".\n";
+// TRANSLATORS: Would be shown as "Sort by: Unknown [method]".
             return _("Unknown");
         }
 
