@@ -184,6 +184,7 @@ namespace enigma { namespace gui {
         "  Roberto García  (Spanish translation)",
         "  João Gaspar  (Portuguese translation)",
         "  Andy Geldmacher  (Level design)",
+        "  Helmut Grohne  (Patch to ease cross compilation)",
         "  Edwin Groothuis  (FreeBSD port)",
         "  GunChleoc  (Scottish Gaelic translation, fixes to localization)",
         "  Daniel Hadas  (Level design)",
