@@ -176,14 +176,17 @@ else
   else
     AC_MSG_RESULT([not found])
     AC_MSG_CHECKING([for old Xerces release >=2.4])
-    AC_RUN_IFELSE([AC_LANG_PROGRAM([[#include <xercesc/util/XercesVersion.hpp>]],
-          [[if (XERCES_VERSION_MAJOR < 2)
-              return 1;
-            else if (XERCES_VERSION_MAJOR == 2 && XERCES_VERSION_MINOR < 4)
-              return 1;
-            return 0;]])],
-        [AC_MSG_RESULT([found])],
-        [AC_MSG_ERROR([Xerces >= 2.4 not found.])])
+    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <xercesc/util/XercesVersion.hpp>]],
+          [[#if XERCES_VERSION_MAJOR < 2
+            #error too old
+            #else
+	    #if XERCES_VERSION_MAJOR == 2 && XERCES_VERSION_MINOR < 4
+	    #error too old
+	    #endif
+	    #endif
+            ]])],
+         [AC_MSG_RESULT([found])],
+         [AC_MSG_ERROR([Xerces >= 2.4 not found.])])
     AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
   fi
 fi
