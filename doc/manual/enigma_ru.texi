@@ -5,7 +5,7 @@
 @set VERSION 1.21
 
 @copying
-Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 Daniel Heck и другие участники
+Copyright @copyright{} 2003--2021 Daniel Heck и другие участники
 
 Копирование и распространение этого файла с изменениями или без разрешено любым
 способом без отчислений, если сохранены уведомление об авторских правах и это
@@ -21,7 +21,7 @@ Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 201
 @center @titlefont{Руководство по Enigma}
 @center для версии @value{VERSION}
 @sp 2
-@c @center Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 Daniel Heck (@email{dheck@@gmx.de})
+@c @center Copyright @copyright{} 2003--2021 Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -36,7 +36,7 @@ Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 201
 Это руководство описывает как установить и играть в Enigma. Оно соответствует
 версии Enigma под номером @value{VERSION}.
 
-Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 Daniel Heck (@email{dheck@@gmx.de}) и другие участники
+Copyright @copyright{} 2003--2021 Daniel Heck (@email{dheck@@gmx.de}) и другие участники
 
 Копирование и распространение этого файла с изменениями или без разрешено любым
 способом без отчислений, если сохранены уведомление об авторских правах и это
@@ -1249,13 +1249,16 @@ Level design and testing, movies
 Дизайн уровней, графика, программирование
 
 @item Daniel Heck
-Главный разработчик, графика, документация
+Главный разработчик до 0.92, графика, документация, SDL 2
+
+@item Georg Honold
+Руководство уровнями и дизайн
 
 @item Ronald Lamprecht
-XML, графический интерфейс, программирование основной части, документация
+Главный разработчик до 1.1, XML, графический интерфейс, программирование основной части, документация
 
 @item Andreas Lochmann
-Coordination, Программирование, руководство уровнями, дизайн уровней, документация
+Программирование, руководство уровнями, дизайн уровней, документация, SDL 2
 
 @item Petr Machata
 Дизайн уровней, программирование
@@ -1286,6 +1289,9 @@ Level design and testing, score evaluation
 
 @item illmind
 Forum mag-heut.net administration, Level design
+
+@item Sidney Markowitz
+Портирование на Mac OS X, Homebrew Formula
 
 @c Ожидается лицензия на добавление звуков
 @c @item ``Cellar of Rats''
@@ -1326,115 +1332,158 @@ Russian and Ukrainian translations, Russian manual and homepage translation, Sla
 Наша признательность различным меньшим помощникам:
 
 @itemize @bullet
-@item Andreas Abraham (German translation)
-@item Samuel El@'ias Mart@'inez @'Alvarez (Spanish translation for 0.92)
+@item Andreas Abraham (Немецкий перевод)
+@item Samuel El@'ias Mart@'inez @'Alvarez (Испанский перевод)
 @item Another (Дизайн уровней)
-@item Yannis Anthymidis (Greek translation)
+@item Yannis Anthymidis (Греческий перевод)
+@item S@'ebastien Aperghis-Tramoni (французский перевод)
 @item Ash (Дизайн уровней)
-@item Claudio B. (Italian translation)
+@item Claudio B. (Итальянский перевод)
+@item Андрiй Бандура (Украинский перевод)
 @item Roberto Bardin (Дизайн уровней)
+@item C.W. Betts (Updates to .gitignore and .DS_Store)
+@item George Birbilis (Греческий перевод)
 @item Helge Blohmer (Дизайн уровней)
 @item Nathan Bronecke (Дизайн уровней)
 @item Harry Bruder (Дизайн уровней, LotM articles)
 @item Alain Busser (Дизайн уровней, французский перевод игры и руководства)
 @item Guy Busser (Дизайн уровней)
 @item Richi B@"utzer (Дизайн уровней)
-@item Calinou (French translation)
+@item Espen Bye (Перевод на норвежский)
+@item Guglielmo Cafaggi (Итальянский перевод)
+@item Calinou (французский перевод)
 @item capkoh (Дизайн уровней)
 @item Manfredi Carta (Дизайн уровней)
+@item Yuri Chornoivan (Украинский перевод)
 @item Christoph & Anita (Дизайн уровней)
+@item Dan Church (Fix locale directory)
+@item David D (французский перевод)
 @item Dawid (Polish translation)
-@item Serge Dremuk (Русский перевод)
+@item Дремук Сергей (Русский и украинский перевод )
 @item Joseph Dunne (Дизайн уровней)
 @item Xerxes M. Dynatos (Дизайн уровней)
 @item Edward (Дизайн уровней)
-@item Els van Eijk (Dutch translation)
+@item Els van Eijk (Немецкий перевод)
 @item Manuel Eisentraut (Дизайн уровней)
 @item Stephanie Fabian (Бесценные сообщения об ошибках)
+@item Irina Fedulova (Русский перевод)
 @item Johann Freymuth (Дизайн уровней, invaluable bug reports)
 @item fri (Czech translation)
-@item firespin (Greek translation)
-@item Stefan Gagner (Swedish translation)
+@item firespin (Греческий перевод)
+@item Stefan Gagner (Шведский перевод)
 @item Roberto Garc@'ia (Испанский перевод)
+@item Jo@~ao Gaspar (Португальский перевод)
 @item Andy Geldmacher (Дизайн уровней)
+@item Helmut Grohne (Patch to ease cross compilation)
 @item Edwin Groothuis (Портирование на FreeBSD)
 @item GunChleoc (Scottish Gaelic translation)
 @item Daniel Hadas (Дизайн уровней)
 @item Jonatan Hadas (Дизайн уровней)
 @item Hairball (Дизайн уровней)
 @item Joe Hansen (Danish translation)
+@item Haris (Перевод на боснийский)
 @item hasufell (Improved enet support)
+@item heiko123abc (Higher resolution modes)
 @item Immanuel Herrmann (Дизайн уровней)
-@item Zoltan Hopp@'ar (Hungarian translation)
+@item Hoa (Китайский перевод)
+@item Zoltan Hopp@'ar (Венгерский перевод)
 @item Tea Horvatic (Croatian translation)
+@item Michal Hri@v{n} (Перевод на словацкий)
 @item Brian Huffman (Дизайн уровней)
 @item Johannes H@"using (Дизайн уровней)
-@item Hypocrite (Finnish translation)
+@item Hypocrite (Финский перевод)
 @item Icewing (Дизайн уровней)
+@item ItTheIt (Дизайн уровней)
 @item M@'at@'e Lehel Juh@'asz (Венгерский перевод)
+@item Stian J@o{}rgensrud (Перевод на норвежский)
 @item Samuele Kaplun (Итальянский перевод)
+@item Jorma Karvonen (Финский перевод)
 @item Ivica Koli@'c (Croatian translation)
 @item Manuel K@"onig (Дизайн уровней, сообщения об ошибках)
 @item Jens-Christian Korth (Дизайн уровней)
+@item H@aa{}vard Kristoffersen (Перевод на норвежский)
 @item Johannes Laire (Дизайн уровней)
 @item Joona Laire (Дизайн уровней)
 @item Markus Laire (Дизайн уровней)
+@item J@"rgen Lange (Дизайн уровней)
+@item Legimet (Fix build error with GCC 6)
 @item Dominik Lehmann (Дизайн уровней)
+@item Roger Leigh (Fix invalid conversions to double)
 @item Dominik Leipold (Дизайн уровней)
 @item Ryan Lerch (AppData file)
 @item Edward Leuf (Отзывы, сообщения об ошибках)
-@item Christophe Lherieau (French translation)
-@item Lasse Liehu (Finnish translation)
+@item Christophe Lherieau (французский перевод)
+@item Ricky Qi Li (Китайский перевод)
+@item Lasse Liehu (Финский перевод)
 @item Ingo van Lil (Отзывы, сообщения об ошибках)
+@item Hugo Locurcio (французский перевод)
 @item Frank van der Loo (Немецкий перевод)
-@item @dotaccent{L}uboslava (Slovak translation)
+@item @dotaccent{L}uboslava (Перевод на словацкий)
+@item luigif (Итальянский перевод)
 @item Dzmitry Ludzik (Belorussian and Russian translations)
-@item luigif (Italian translation)
 @item Lurcane (Дизайн уровней)
-@item Sidney Markowitz (Портирование на Mac OS X)
-@item S@'ergio Marques (Portuguese translation)
+@item Riccardo Di Maio (Итальянский перевод)
+@item Wasilis Mandratzis-Walz (Греческий перевод)
+@item Dmitry Marakasov (Fix to meditation bug)
+@item S@'ergio Marques (Португальский перевод)
+@item Mat Mat (Шведский перевод)
+@item MatteoMat01 (Итальянский перевод)
 @item Barry & Lori Mead (Дизайн уровней)
+@item Adnan Memija (Перевод на боснийский)
+@item Merarom (Шведский перевод)
 @item Linda Mihalic (English proof reading)
 @item moonpearl (Дизайн уровней)
-@item Stephen Morley (Safalra) (Дизайн уровней)
+@item Carlos Moreira (Португальский перевод)
+@item Stephen Morley (Дизайн уровней)
+@item Fumio Nakayama (Перевод на японский)
 @item nanook (Дизайн уровней)
 @item Krishnamurti Lelis Lima Vieira Nunes (Португальский перевод)
 @item Daniel Nylander (Шведский перевод)
 @item Nikola Parsifal (Croatian translation)
-@item Mark@'eta Pecoldov@'a(Czech translation)
+@item Mark@'eta Pecoldov@'a (Czech translation)
 @item Andreas Persenius (Дизайн уровней)
+@item Karen Pouelle (Level data clean-up)
 @item Grzegorz Pruchniakowski (Polish translation)
 @item Mark Pulley (Дизайн уровней)
 @item pzykosiz (Дизайн уровней)
-@item Bruno Queiros (Portuguese translation)
-@item Vincenzo Reale (Italian translation)
-@item Thomas De Rocker (Dutch translation)
+@item Bruno Queiros (Португальский перевод)
+@item Quipyowert2 (Fixing leaks and bugs)
+@item Vincenzo Reale (Итальянский перевод)
+@item A. Regnander (Шведский перевод)
+@item Thomas De Rocker (Немецкий перевод)
 @item Rudolf (Дизайн уровней)
+@item Rui (Португальский перевод)
 @item Peter Santo (Дизайн уровней)
+@item Sadie (Дизайн уровней)
 @item Tobias Schmidbauer (Windows installer and icon)
 @item Lukas Sch@"uller (Дизайн уровней)
+@item Michael Schwarz (Update to Enigma logo)
+@item Stefan Schwoon (Дизайн уровней)
 @item Achim Settelmeier (специальный файл RPM)
-@item ShadowPhrogg32642342 (D@'aniel Borb@'ely) (Дизайн уровней, Hungarian translation)
-@item Gon@,{c}alo Silva (Portuguese translation)
-@item Manuela Silva (Portuguese translation)
+@item ShadowPhrogg32642342 (D@'aniel Borb@'ely) (Дизайн уровней, Венгерский перевод)
+@item Gon@,{c}alo Silva (Португальский перевод)
+@item Manuela Silva (Португальский перевод)
 @item Alex Smith (Дизайн уровней)
 @item Alan Smithee (Дизайн уровней)
 @item Jon Sneyers (Дизайн уровней)
 @item Spaceman (Дизайн уровней)
 @item Ulf Stegemann (Дизайн уровней)
 @item J@"urgen Sticht (Дизайн уровней)
-@item Mikke Surakka (Finnish translation)
+@item Gabe Stilez (Венгерский перевод)
+@item Mikke Surakka (Финский перевод)
 @item Andrzej Szombierski (Дизайн уровней)
 @item Tacvek (Обновление Lua 5.1)
 @item James Taylor (Дизайн уровней)
 @item Michael Terry (Файл .desktop)
-@item Vince38 (French translation)
+@item theschitz (Шведский перевод)
+@item Vince38 (французский перевод)
 @item Ray Wick (Дизайн уровней)
 @item Martin Woyda-Wolf (Дизайн уровней)
 @item Joe Wreschnig (Руководство)
-@item Heikki Ylipaavalniemi (Finnish translation)
-@item Francisco Zamorano (Spanish translation)
+@item Heikki Ylipaavalniemi (Финский перевод)
+@item Francisco Zamorano (Испанский перевод)
 @item Zephyr (Дизайн уровней)
+@item Unknown contributor (Словенский перевод)
 @end itemize
 
 @node Используемое программное обеспечение,  , Помощники, Благодарности

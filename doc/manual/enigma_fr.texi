@@ -5,7 +5,7 @@
 @set VERSION 1.21
 
 @copying
-Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 Daniel Heck and other contributors
+Copyright @copyright{} 2003--2021 Daniel Heck and other contributors
 
 La copie et la distribution de ce fichier, avec ou sans modification,
 sont autoris@'es sans royalty @`a condition que la notice de copyright
@@ -20,7 +20,7 @@ et la pr@'esente notice soient pr@'eserv@'ees.
 @center @titlefont{Manuel Enigma}
 @center for version @value{VERSION}
 @sp 2
-@c @center Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 Daniel Heck (@email{dheck@@gmx.de})
+@c @center Copyright @copyright{} 2003--2021 Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -35,7 +35,7 @@ et la pr@'esente notice soient pr@'eserv@'ees.
 Ce manuel d@'ecrit comment installer Enigma et y jouer.  Il correspond
 @`a Enigma version @value{VERSION}.
 
-Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 Daniel Heck (@email{dheck@@gmx.de}) and other contributors
+Copyright @copyright{} 2003--2021 Daniel Heck (@email{dheck@@gmx.de}) and other contributors
 
 La copie et la distribution de ce fichier, avec ou sans modification,
 sont autoris@'es sans royalty @`a condition que la notice de copyright
@@ -1212,13 +1212,16 @@ Conception de niveaux, graphismes
 Conception de niveaux, graphismes, programmation
 
 @item Daniel Heck
-Principal d@'eveloppeur, graphismes, documentation
+Principal d@'eveloppeur jusqu'@`a 0.92, graphismes, documentation, SDL 2
+
+@item Georg Honold
+Administration et conception de niveaux
 
 @item Ronald Lamprecht
-XML, interface graphique, portabilit@'e, programmation du noyau, documentation
+Principal d@'eveloppeur jusqu'@`a 1.1, XML, interface graphique, portabilit@'e, programmation du noyau, documentation
 
 @item Andreas Lochmann
-Coordinateur, programmation, administration et conception de niveaux, documentation
+Programmation, administration et conception de niveaux, documentation, SDL 2
 
 @item Petr Machata
 Conception de niveaux, programmation
@@ -1249,6 +1252,9 @@ Portage Mac OS X , un peu de programmation, graphismes
 
 @item illmind
 Forum mag-heut.net administration, Conception de niveaux
+
+@item Sidney Markowitz
+Portage Mac OS, Homebrew Formula
 
 @c waiting for licence to add the sounds
 @c @item ``Cellar of Rats''
@@ -1289,115 +1295,158 @@ Russian and Ukrainian translations, Russian manual and homepage translation, Sla
 Pour diverses contributions, merci @`a:
 
 @itemize @bullet
-@item Andreas Abraham (German translation)
-@item Samuel El@'ias Mart@'inez @'Alvarez (Spanish translation for 0.92)
+@item Andreas Abraham (traduction allemand)
+@item Samuel El@'ias Mart@'inez @'Alvarez (traduction espagnole)
 @item Another (conception de niveaux)
-@item Yannis Anthymidis (Greek translation)
+@item Yannis Anthymidis (traduction grecque)
+@item S@'ebastien Aperghis-Tramoni (traduction fran@,{c}aise)
 @item Ash (conception de niveaux)
-@item Claudio B. (Italian translation)
+@item Claudio B. (traduction italienne)
+@item Andriy Bandura (traduction ukrainienne)
 @item Roberto Bardin (conception de niveaux)
+@item C.W. Betts (Updates to .gitignore and .DS_Store)
+@item George Birbilis (traduction grecque)
 @item Helge Blohmer (conception de niveaux)
 @item Nathan Bronecke (conception de niveaux)
 @item Harry Bruder (conception de niveaux, LotM articles)
 @item Alain Busser (conception de niveaux, traduction fran@,{c}aise, la pr@'esente version du manuel)
 @item Guy Busser (conception de niveaux)
 @item Richi B@"utzer (conception de niveaux)
-@item Calinou (French translation)
+@item Espen Bye (traduction norv@'egienne )
+@item Guglielmo Cafaggi (traduction italienne)
+@item Calinou (traduction fran@,{c}aise)
 @item capkoh (conception de niveaux)
 @item Manfredi Carta (conception de niveaux)
+@item Yuri Chornoivan (traduction ukrainienne)
 @item Christoph & Anita (conception de niveaux)
+@item Dan Church (Fix locale directory)
+@item David D (traduction fran@,{c}aise)
 @item Dawid (Polish translation)
-@item Serge Dremuk (traduction russe)
+@item Serge Dremuk (traduction russe et ukrainien)
 @item Joseph Dunne (conception de niveaux)
 @item Xerxes M. Dynatos (conception de niveaux)
 @item Edward (conception de niveaux)
-@item Els van Eijk (Dutch translation)
+@item Els van Eijk (traduction n@'eerlandaise)
 @item Manuel Eisentraut (conception de niveaux)
 @item Stephanie Fabian (d@'etection inestimable de bogues)
+@item Irina Fedulova (traduction russe)
 @item Johann Freymuth (conception de niveaux, d@'etection inestimable de bogues)
 @item fri (Czech translation)
-@item firespin (Greek translation)
-@item Stefan Gagner (Swedish translation)
+@item firespin (traduction grecque)
+@item Stefan Gagner (traduction su@'edoise)
 @item Roberto Garc@'ia (traduction espagnole)
+@item Jo@~ao Gaspar (traduction portugaise)
 @item Andy Geldmacher (conception de niveaux)
+@item Helmut Grohne (Patch to ease cross compilation)
 @item Edwin Groothuis (portage FreeBSD)
 @item GunChleoc (Scottish Gaelic translation)
 @item Daniel Hadas (conception de niveaux)
 @item Jonatan Hadas (conception de niveaux)
 @item Hairball (conception de niveaux)
 @item Joe Hansen (Danish translation)
+@item Haris (traduction bosniaque)
 @item hasufell (Improved enet support)
+@item heiko123abc (Higher resolution modes)
 @item Immanuel Herrmann (conception de niveaux)
-@item Zoltan Hopp@'ar (Hungarian translation)
+@item Hoa (traduction chinoise)
+@item Zoltan Hopp@'ar (traduction hongroise)
 @item Tea Horvatic (Croatian translation)
+@item Michal Hri@v{n} (traduction slovaque)
 @item Brian Huffman (conception de niveaux)
 @item Johannes H@"using (conception de niveaux)
-@item Hypocrite (Finnish translation)
+@item Hypocrite (traduction finlandaise)
 @item Icewing (conception de niveaux)
+@item ItTheIt (conception de niveaux)
 @item M@'at@'e Lehel Juh@'asz (traduction hongroise)
+@item Stian J@o{}rgensrud (traduction norv@'egienne )
 @item Samuele Kaplun (traduction italienne)
+@item Jorma Karvonen (traduction finlandaise)
 @item Ivica Koli@'c (Croatian translation)
 @item Manuel K@"onig (conception de niveaux, d@'etection de bogues)
 @item Jens-Christian Korth (conception de niveaux)
+@item H@aa{}vard Kristoffersen (traduction norv@'egienne )
 @item Johannes Laire (conception de niveaux)
 @item Joona Laire (conception de niveaux)
 @item Markus Laire (conception de niveaux)
+@item J@"rgen Lange (conception de niveaux)
+@item Legimet (Fix build error with GCC 6)
 @item Dominik Lehmann (conception de niveaux)
+@item Roger Leigh (Fix invalid conversions to double)
 @item Dominik Leipold (conception de niveaux)
 @item Ryan Lerch (fichier AppData)
 @item Edward Leuf (Feedback, d@'etection de bogues)
-@item Christophe Lherieau (French translation)
-@item Lasse Liehu (Finnish translation)
+@item Christophe Lherieau (traduction fran@,{c}aise)
+@item Ricky Qi Li (traduction chinoise)
+@item Lasse Liehu (traduction finlandaise)
 @item Ingo van Lil (Feedback, d@'etection de bogues)
+@item Hugo Locurcio (traduction fran@,{c}aise)
 @item Frank van der Loo (traduction n@'eerlandaise)
-@item @dotaccent{L}uboslava (Slovak translation)
+@item @dotaccent{L}uboslava (traduction slovaque)
+@item luigif (traduction italienne)
 @item Dzmitry Ludzik (Belorussian and Russian translations)
-@item luigif (Italian translation)
 @item Lurcane (conception de niveaux)
-@item Sidney Markowitz (portage Mac OS X)
-@item S@'ergio Marques (Portuguese translation)
+@item Riccardo Di Maio (traduction italienne)
+@item Wasilis Mandratzis-Walz (traduction grecque)
+@item Dmitry Marakasov (Fix to meditation bug)
+@item S@'ergio Marques (traduction portugaise)
+@item Mat Mat (traduction su@'edoise)
+@item MatteoMat01 (traduction italienne)
 @item Barry & Lori Mead (conception de niveaux)
+@item Adnan Memija (traduction bosniaque)
+@item Merarom (traduction su@'edoise)
 @item Linda Mihalic (English proof reading)
 @item moonpearl (conception de niveaux)
-@item Stephen Morley (Safalra) (conception de niveaux)
+@item Carlos Moreira (traduction portugaise)
+@item Stephen Morley (conception de niveaux)
+@item Fumio Nakayama (traduction japonaise)
 @item nanook (conception de niveaux)
 @item Krishnamurti Lelis Lima Vieira Nunes (traduction portugaise)
 @item Daniel Nylander (traduction su@'edoise)
 @item Nikola Parsifal (Croatian translation)
-@item Mark@'eta Pecoldov@'a(Czech translation)
+@item Mark@'eta Pecoldov@'a (Czech translation)
 @item Andreas Persenius (conception de niveaux)
+@item Karen Pouelle (Level data clean-up)
 @item Grzegorz Pruchniakowski (Polish translation)
 @item Mark Pulley (conception de niveaux)
 @item pzykosiz (conception de niveaux)
-@item Bruno Queiros (Portuguese translation)
-@item Vincenzo Reale (Italian translation)
-@item Thomas De Rocker (Dutch translation)
+@item Bruno Queiros (traduction portugaise)
+@item Quipyowert2 (Fixing leaks and bugs)
+@item Vincenzo Reale (traduction italienne)
+@item A. Regnander (traduction su@'edoise)
+@item Thomas De Rocker (traduction n@'eerlandaise)
 @item Rudolf (conception de niveaux)
+@item Rui (traduction portugaise)
 @item Peter Santo (conception de niveaux)
+@item Sadie (conception de niveaux)
 @item Tobias Schmidbauer (Windows installer and icon)
 @item Lukas Sch@"uller (conception de niveaux)
+@item Michael Schwarz (Update to Enigma logo)
+@item Stefan Schwoon (conception de niveaux)
 @item Achim Settelmeier (sp@'ecification RPM)
 @item ShadowPhrogg32642342 (D@'aniel Borb@'ely) (conception de niveaux, Hungarian translation)
-@item Gon@,{c}alo Silva (Portuguese translation)
-@item Manuela Silva (Portuguese translation)
+@item Gon@,{c}alo Silva (traduction portugaise)
+@item Manuela Silva (traduction portugaise)
 @item Alex Smith (conception de niveaux)
 @item Alan Smithee (conception de niveaux)
 @item Jon Sneyers (conception de niveaux)
 @item Spaceman (conception de niveaux)
 @item Ulf Stegemann (conception de niveaux)
 @item J@"urgen Sticht (conception de niveaux)
+@item Gabe Stilez (traduction hongroise)
 @item Mikke Surakka (traduction finlandaise)
 @item Andrzej Szombierski (conception de niveaux)
 @item Tacvek (mise @`a niveau Lua 5.1)
 @item James Taylor (conception de niveaux)
 @item Michael Terry (fichier .desktop)
-@item Vince38 (French translation)
+@item theschitz (traduction su@'edoise)
+@item Vince38 (traduction fran@,{c}aise)
 @item Ray Wick (conception de niveaux)
 @item Martin Woyda-Wolf (conception de niveaux)
 @item Joe Wreschnig (page Manual)
-@item Heikki Ylipaavalniemi (Finnish translation)
-@item Francisco Zamorano (Spanish translation)
+@item Heikki Ylipaavalniemi (traduction finlandaise)
+@item Francisco Zamorano (traduction espagnole)
 @item Zephyr (conception de niveaux)
+@item Unknown contributor (traduction slov@`ene)
 @end itemize
 
 @node Logiciels utilis@'es,  , Contributeurs, Cr@'edits
