@@ -843,19 +843,21 @@ void Application::init_i18n()
     if (l10nPath == "") {
         app.prefs->getProperty("LocalizationPath", l10nPath);
         if (l10nPath == "") {
-            l10nPath = LOCALEDIR;    // defined in src/Makefile.am
+            l10nPath = systemAppDataPath + ecl::PathSeparator + "locale";
 #ifdef __MINGW32__
             std::string progDir;          // directory path part of args[0]
             std::string progName;         // filename part of args[0]
             bool progDirExists = split_path(progCallPath, &progDir, &progName);
             if (progDirExists) {
-                l10nPath = progDir + "/" + l10nPath;
+                l10nPath = progDir + ecl::PathSeparator + l10nPath;
             }
-#elif MACOSX
+// The following part should not be needed anymore, now that locales
+// are saved on Unix/Linux in a way similar to MacOS X.
+/*#elif MACOSX
             std::string progDir;          // directory path part of args[0]
             std::string progName;         // filename part of args[0]
             bool progDirExists = split_path(progCallPath, &progDir, &progName);
-            l10nPath = progDir + "/../Resources/locale";
+            l10nPath = progDir + "/../Resources/locale";*/
 #endif
         }
     }

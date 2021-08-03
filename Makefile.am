@@ -3,7 +3,7 @@
 #   tools -> lib-src/lua
 #   src   -> tools, lib-src
 #
-SUBDIRS = m4 lib-src tools intl src data doc po etc
+SUBDIRS = m4 lib-src tools intl src data doc etc
 EXTRA_DIST = enigma CHANGES ACKNOWLEDGEMENTS
 
 docdir = @datadir@/doc/enigma
@@ -17,15 +17,15 @@ tolua:
 
 .PHONY: pot
 pot:
-	cd po && $(MAKE) $(AM_MAKEFLAGS) enigma.pot-update
+	cd data/locale && $(MAKE) $(AM_MAKEFLAGS) enigma.pot-update
 
 .PHONY: pos
 pos:
-	cd po && $(MAKE) $(AM_MAKEFLAGS) update-po
+	cd data/locale && $(MAKE) $(AM_MAKEFLAGS) update-po
 
 .PHONY: gmo
 gmo:
-	cd po && $(MAKE) $(AM_MAKEFLAGS) update-gmo
+	echo "make gmo is obsolete, ignored."
 
 .PHONY: macapp
 macapp:

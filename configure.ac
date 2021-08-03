@@ -433,6 +433,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/soundsets/Makefile
            data/soundsets/enigma/Makefile
            data/schemas/Makefile
+           data/locale/Makefile
 	   doc/Makefile
 	   doc/images/Makefile
 	   doc/images/flags25x15/Makefile
@@ -451,7 +452,6 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
 	   etc/enigma.spec
 	   etc/enigma.nsi
 	   etc/Info.plist
-	   po/Makefile.in
 ])
 
 AC_CONFIG_FILES([etc/mingw32-dist.sh],[chmod +x etc/mingw32-dist.sh])

@@ -11,7 +11,6 @@ EXTRA_DIST = \
 CXXFLAGS = @CXXFLAGS@\
 	-DSYSTEM_DATA_DIR=\"$(datadir)/enigma\" \
 	-DDOCDIR=\"$(docdir)\" \
-	-DLOCALEDIR=\"$(localedir_enigma)\" \
 	-I$(top_srcdir)/lib-src/zipios++  \
 	-I$(top_builddir)/lib-src/zipios++ \
 	-I$(top_srcdir)/lib-src/lua \
@@ -447,7 +446,6 @@ datadir = @datadir@
 
 if MINGW32
 
-  localedir_enigma := data/locale
   # mingw_ldadd := enigma_ico.o -lws2_32
   mingw_ldadd := enigma_ico.o -lws2_32 -lSDL2_image -ltiff -llzma -ljpeg -lpng16 -lSDL2_mixer -lmikmod -lsmpeg -lvorbisfile -lvorbis -logg -lSDL2_ttf -lcurl -lidn -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lgcrypt -lgpg-error -lws2_32 -lfreetype -lintl
   enigma_LDFLAGS := -mwindows -pthread
@@ -456,7 +454,6 @@ if MINGW32
 
 else # not MINGW32
 
-  localedir_enigma := @localedir@
   mingw_ldadd =
 
 endif
@@ -540,7 +537,7 @@ bundle:
 	cp $(top_builddir)/data/fonts/*.bmf $(bundle_name)/Contents/Resources/data/fonts
 	cp $(top_builddir)/data/fonts/*.ttf $(bundle_name)/Contents/Resources/data/fonts
 	for cat in $(ALL_LINGUAS); do \
-	  dir=$(bundle_name)/Contents/Resources/locale/$$cat/LC_MESSAGES; \
+	  dir=$(bundle_name)/Contents/Resources/data/locale/$$cat/LC_MESSAGES; \
 	  mkdir -p $$dir; \
 	  echo "installing $$cat as $$dir/enigma.mo"; \
 	  cp $(top_builddir)/po/$$cat.gmo $$dir/enigma.mo; \
