@@ -427,6 +427,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/lib/Makefile
            data/levels/patches/Makefile
            data/fonts/Makefile
+           data/fonts/MicroHei/Makefile
            data/music/Makefile
            data/music/game/Makefile
            data/music/menu/Makefile
