@@ -27,7 +27,7 @@ MSGINIT = msginit
 
 POFILES = @POFILES@
 UPDATEPOFILES = @UPDATEPOFILES@
-DISTFILES = remove-potcdate.sin Makevars POTFILES.in $(PACKAGE).pot stamp-po $(POFILES)
+DISTFILES = remove-potcdate.sin POTFILES.in $(PACKAGE).pot stamp-po $(POFILES)
 
 CATALOGS = @CATALOGS@
 
@@ -166,17 +166,6 @@ dist:
 # This is a separate target because 'update-po' must be executed before.
 dist2: $(DISTFILES)
 	dists="$(DISTFILES)"; \
-	if test "$(PACKAGE)" = "gettext-tools"; then \
-	  dists="$$dists Makevars.template"; \
-	fi; \
-	if test -f $(srcdir)/ChangeLog; then \
-	  dists="$$dists ChangeLog"; \
-	fi; \
-	for i in 0 1 2 3 4 5 6 7 8 9; do \
-	  if test -f $(srcdir)/ChangeLog.$$i; then \
-	    dists="$$dists ChangeLog.$$i"; \
-	  fi; \
-	done; \
 	if test -f $(srcdir)/LINGUAS; then dists="$$dists LINGUAS"; fi; \
 	for file in $$dists; do \
 	  if test -f $$file; then \
