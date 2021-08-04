@@ -226,9 +226,9 @@ copy_dlls
 $STRIP "$DDIR/enigma.exe"
 $UPX $DDIR/enigma.exe >/dev/null
 
-#rm -f Enigma-w32-$VERSION.zip
-#zip -r Enigma-w32-$VERSION.zip "Enigma-$VERSION" >/dev/null
-#rm -rf $DDIR
+rm -f Enigma-w32-$VERSION.zip
+zip -r Enigma-w32-$VERSION.zip "Enigma-$VERSION" >/dev/null
+rm -rf $DDIR
 
 echo "----------------------------------------------------------------"
 echo "                           DONE"
