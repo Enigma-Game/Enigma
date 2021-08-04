@@ -11,25 +11,15 @@
 # Please note that the actual code of GNU gettext is covered by the GNU
 # General Public License and is *not* in the public domain.
 #
-pkgdatadir = $(datadir)/@PACKAGE@/locale
+pkgdatadir = $(datadir)/$(PACKAGE)/locale
 pkgdata_DATA = $(wildcard $(srcdir)/*.po)
 EXTRA_DIST = $(pkgdata_DATA)
 
-PACKAGE = @PACKAGE@
-VERSION = @VERSION@
-
-@SET_MAKE@
-
-XGETTEXT = @XGETTEXT@
 MSGMERGE = msgmerge
-MSGMERGE_UPDATE = @MSGMERGE@ --update
+MSGMERGE_UPDATE = $(MSGMERGE) --update
 MSGINIT = msginit
 
-POFILES = @POFILES@
-UPDATEPOFILES = @UPDATEPOFILES@
-DISTFILES = remove-potcdate.sin POTFILES.in $(PACKAGE).pot stamp-po $(POFILES)
-
-CATALOGS = @CATALOGS@
+DISTFILES = remove-potcdate.sin POTFILES.in $(PACKAGE).pot stamp-po $(wildcard $(srcdir)/*.po) Makefile.am Makefile.in
 
 # These two variables depend on the location of this directory.
 subdir = data/locale
