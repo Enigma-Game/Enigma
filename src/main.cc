@@ -849,7 +849,7 @@ void Application::init_i18n()
             std::string progName;         // filename part of args[0]
             bool progDirExists = split_path(progCallPath, &progDir, &progName);
             if (progDirExists) {
-                l10nPath = progDir + ecl::PathSeparator + l10nPath;
+                l10nPath = progDir + ecl::PathSeparator + "data" + ecl::PathSeparator + "locale";
             }
 // The following part should not be needed anymore, now that locales
 // are saved on Unix/Linux in a way similar to MacOS X.
