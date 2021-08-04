@@ -147,7 +147,7 @@ mostlyclean:
 clean: mostlyclean
 
 distclean: clean
-	rm -f Makefile Makefile.in POTFILES level_i18n.cc
+	rm -f Makefile POTFILES level_i18n.cc
 
 distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
 dist:

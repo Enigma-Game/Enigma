@@ -456,6 +456,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
 ])
 
 AC_CONFIG_FILES([etc/mingw32-dist.sh],[chmod +x etc/mingw32-dist.sh])
+AC_CONFIG_FILES([etc/mxe-dist.sh],[chmod +x etc/mxe-dist.sh])
 
 AC_OUTPUT
 
