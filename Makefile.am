@@ -27,14 +27,6 @@ pos:
 gmo:
 	echo "make gmo is obsolete, ignored."
 
-.PHONY: macapp
-macapp:
-	cd src && $(MAKE) $(AM_MAKEFLAGS) bundle && $(MAKE) $(AM_MAKEFLAGS) bundle-fw && $(MAKE) $(AM_MAKEFLAGS) bundle-doc
-
-.PHONY: macpreview
-macpreview:
-	cd src && $(MAKE) $(AM_MAKEFLAGS) bundle-preview
-
 .PHONY: pdf
 pdf:
 	cd doc/manual/images && $(MAKE) pdf
