@@ -1,6 +1,12 @@
 Building Enigma under MacOS X
 =============================
 
+If you only want to run Enigma, you can download a DMG file from the Enigma
+web site and install the Enigma app in your Applications directory.
+
+This README documents the process of building Enigma on macOS from source
+and creating the app and dmg.
+
 The development and build processes of Enigma are dependent on libraries
 packaged by the Homebrew project. As Homebrew only supports versions of MacOS
 that are supported by Apple, Enigma may not run on any particular version of
@@ -10,12 +16,13 @@ can be found in the Wikipedia entry for "macOS version history".
 The build process has been simplified compared to earlier versions of
 Enigma by having it run under Homebrew.
 
-Documentation on installing Homebrew can be found at https://docs.brew.sh/Installation
+Documentation on installing Homebrew can be found at
+  https://docs.brew.sh/Installation
 
 A summary of the steps required (but see the above site for details):
 
-1. First install either Xcode or the Xcode Command Line Tools or both if you prefer.
-2. Run the one line command shown on the Homebreqw home page https://brew.sh
+1. First install either or both of Xcode and/or Xcode Command Line Tools
+2. Run the one line command shown on the Homebrew home page https://brew.sh
 
 Then follow the instructions to have Homebrew installed in just a few minutes.
 Be sure to run brew doctor as it advises you to, and correct any problems
@@ -25,56 +32,64 @@ Once Homebrew is installed, run the command
 
   brew install -v enigma
 
-The "-v" is optional. It only makes the process more verbose to let you see the progress
-of the installation and possible problems if they occur.
+The "-v" is optional. It only makes the process more verbose to let you see the
+progress of the installation and possible problems if they occur.
 
-This command will usually download pre-built binaries from Homebrew's build servers, if
-they are available, built from the same sources and for the same version of MacOS that
-you are running. Otherwise it will download the source tree and build on your computer.
+This command will usually download pre-built binaries from Homebrew's build
+servers, if they are available, built from the same sources and for the same
+version of MacOS that you are running. Otherwise it will download the source
+tree and build on your computer.
 
-After the installation is complete you will have a folder named /usr/local/opt/enigma/Enigma.
-Drag the entire folder into /Applications. It contains the Enigma.app application that you can run,
-and the Enigma documentation manual that you can open to read in your web browser.
+After the installation is complete, you can start enigma from the command line
+using the command
+
+  enigma
+
+[OPTIONAL] Run this command once to make and save the preview images of all the
+levels. This will take a few minutes to run and will use about 55MB of disk
+space to save a little time later.
+
+  enigma --makepreview
+
+There will also be installed a command "enigmabuilddmg" which can be used to
+create the DMG file containing the app bundle. Unlike the command line enigma
+binary, this app bundle is self contained to be able to be run on systems that
+have Homebrew installed. If you have run the makepreview option before, the app
+bundle will contain all the pre-made preview image files.
+
+Before running enigmabuilddmg the first time you must have installed some
+packages from Homebrew with
+
+  brew install -v enigma osxutils imagemagick fileicon create-dmg dylibbundler
+
+To run enigmabuilddmg, in the command line cd to the directory where you want
+to create the DMG and run the command
+
+  enigmabuilddmg
+
+This will run for a few minutes and will display an image of the opened dmg
+while it is running. Do not do anything else on your Mac until it is done, as
+it may confuse the ongoing operations in Finder.
+
+When it is done, there will be an Enigma.dmg file in the current directory.
 
 Building the latest development snapshot or from a forked repo
 ==============================================================
 
-To build the latest development snapshot from GitHub repo source, use the options
+To build the latest development snapshot from GitHub repo source, use
 
   brew install -v -s --HEAD enigma
 
-To build Enigma again, for example to build it with a different set of options, first run the command
+To build Enigma again, for example to build it with a different set of options,
+first run the command
 
  brew remove enigma
 
-To have --HEAD build from a different git repo, for example when you are a developer, edit your local
-copy of the Homebrew formula by running the command
+To have --HEAD build from a different git repo, for example when you are a
+developer, edit your local copy of the Homebrew formula by running the command
 
  brew edit enigma
 
 and change the URL in the head section to link to the repo you want to use.
-See https://docs.brew.sh/Formula-Cookbook#unstable-versions-head for more details.
-
-
-Building an Enigma application that can be run outside of a Homebrew environment
-================================================================================
-
-The above instructions result in a copy of Enigma.app that requires the Homebrew environment to run.
-To make an Enigma.app that can be run on macOS without Homebrew installed, perform the following steps.
-
-Note that the resulting build may experience problems running on an older version of macOS than it
-was built on. For the best assurance of compatibilty on other systems, build Enigma on the oldest
-version of macOS that is currently supported by Apple.
-
-To prepare your Homebrew environment for running this procedure, after installing Enigma using the
-previous instructions, install the Enigma development tools using
-
-  brew install -v enigma-game/homebrew-enigma/enigma-dev-tools
-
-Then cd to the directory where you want to put the dmg and run the command
-
-  enigmabuilddmg
-
-This will read the copy of Enigma that Homebrew installed in /usr/local/opt/enigma/Enigma and
-create a file in the current directory named Enigma.dmg. That file can be cpoied to a suitable
-macOS computer where it can be opened to install an Enigma folder in /Applications.
+See https://docs.brew.sh/Formula-Cookbook#unstable-versions-head
+for more details.

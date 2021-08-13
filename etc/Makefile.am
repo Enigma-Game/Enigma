@@ -33,7 +33,8 @@ EXTRA_DIST = \
 	enigma.png \
 	Info.plist \
 	enigma.icns \
-	mac-build.sh \
+	menu_bg.jpg \
+	enigmabuilddmg \
 	README-SDL.txt \
 	enigma.nsi.in \
 	enigma.nsi \
