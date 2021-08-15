@@ -51,16 +51,19 @@ space to save a little time later.
 
   enigma --makepreview
 
-There will also be installed a command "enigmabuilddmg" which can be used to
+Building an application bundle and dmg for distribution
+=======================================================
+
+To build Enigma.app and Enigma.dmg, install the Enigma developer tools package
+using the command
+
+  brew install -v enigma-game/enigma/enigma-dev-tools
+
+This will install a command "enigmabuilddmg" which can be used to
 create the DMG file containing the app bundle. Unlike the command line enigma
 binary, this app bundle is self contained to be able to be run on systems that
 have Homebrew installed. If you have run the makepreview option before, the app
 bundle will contain all the pre-made preview image files.
-
-Before running enigmabuilddmg the first time you must have installed some
-packages from Homebrew with
-
-  brew install -v enigma osxutils imagemagick fileicon create-dmg dylibbundler
 
 To run enigmabuilddmg, in the command line cd to the directory where you want
 to create the DMG and run the command
@@ -72,6 +75,9 @@ while it is running. Do not do anything else on your Mac until it is done, as
 it may confuse the ongoing operations in Finder.
 
 When it is done, there will be an Enigma.dmg file in the current directory.
+
+NOTE: This build process will only create single architecture binaries, i.e,
+either Intel x86-64 or Arm64, whichever is native to the Mac you build on.
 
 Building the latest development snapshot or from a forked repo
 ==============================================================
