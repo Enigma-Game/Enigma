@@ -36,13 +36,14 @@ esac
 
 AM_CONDITIONAL(MINGW32, test x$MINGW32 = xyes)
 AM_CONDITIONAL(LINUX, test x$LINUX = xyes)
+AM_CONDITIONAL(MACOSX, test x$MACOSX = xyes)
 
 dnl ======================================================================
 dnl Check for programs
 dnl ======================================================================
 
-# Require C++11 support
-AX_CXX_COMPILE_STDCXX_11(noext, mandatory)
+dnl Require C++14 support
+AX_CXX_COMPILE_STDCXX_14(noext, mandatory)
 
 CXXTMPFLAGS="$CXXFLAGS"
 AC_PROG_CC
@@ -358,10 +359,9 @@ AC_ARG_WITH(system-enet,
 )
 AM_CONDITIONAL([SYSTEM_ENET], [test "x$system_enet" = xyes])
 AM_COND_IF([SYSTEM_ENET],
-		   PKG_CHECK_MODULES(LIBENET, [libenet], ,AC_MSG_ERROR([libenet not found!])),
-		   AC_CONFIG_SUBDIRS([lib-src/enet]))
-
-
+		   PKG_CHECK_MODULES(LIBENET, [libenet], ,AC_MSG_ERROR([libenet not found!])))
+dnl Even if using system enet, still need to config the local version for running make dist
+AC_CONFIG_SUBDIRS([lib-src/enet])
 
 dnl ----------------------------------------------------------
 dnl Configure libraries
@@ -443,7 +443,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
 	   doc/reference/Makefile
 	   doc/reference/images/Makefile
 	   etc/Makefile
-           lib-src/Makefile
+	   lib-src/Makefile
 	   lib-src/oxydlib/Makefile
 	   lib-src/tinygettext/Makefile
 	   lib-src/lua/Makefile
