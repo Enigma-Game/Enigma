@@ -24,7 +24,7 @@ CXXFLAGS += -I$(top_srcdir)/lib-src/enet/include
 endif
 
 if MINGW32
-CXXFLAGS += -static-libgcc -static-libstdc++
+CXXFLAGS += -static-libgcc -static-libstdc++ -DWIN32
 endif
 
 CXXFLAGS += -I$(top_srcdir)/lib-src \
@@ -447,7 +447,7 @@ datadir = @datadir@
 if MINGW32
 
   # mingw_ldadd := enigma_ico.o -lws2_32
-  mingw_ldadd := enigma_ico.o -lws2_32 -lSDL2_image -ltiff -llzma -ljpeg -lpng16 -lSDL2_mixer -lmikmod -lsmpeg -lvorbisfile -lvorbis -logg -lSDL2_ttf -lcurl -lidn -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lgcrypt -lgpg-error -lws2_32 -lfreetype -lintl
+  mingw_ldadd := enigma_ico.o -lws2_32 -lSDL2_image -ltiff -llzma -ljpeg -lpng16 -lSDL2_mixer -lmikmod -lsmpeg2 -lvorbisfile -lvorbis -logg -lSDL2_ttf -lcurl -lidn -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lgcrypt -lgpg-error -lws2_32 -lfreetype -lintl -liconv
   enigma_LDFLAGS := -mwindows -pthread
   enigma_ico.o: enigma.rc enigma.ico
 	$(WINDRES) $(srcdir)/enigma.rc --include-dir=$(srcdir) -O coff -o enigma_ico.o
@@ -455,6 +455,16 @@ if MINGW32
 else # not MINGW32
 
   mingw_ldadd =
+
+endif
+
+if MACOSX
+
+  macosx_ldadd := -liconv
+
+else # not MACOSX
+
+  macosx_ldadd =
 
 endif
 
@@ -474,6 +484,7 @@ enigma_LDADD += $(top_builddir)/lib-src/oxydlib/liboxyd.a \
 	$(top_builddir)/lib-src/tinygettext/libtinygettext.a \
 	-lz \
 	$(mingw_ldadd) \
+	$(macosx_ldadd) \
 	@SDL_LIBS@
 
 

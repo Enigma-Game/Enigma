@@ -132,7 +132,7 @@ OBJECTS = \
 DISTFILES.common = Makefile.in \
 config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
 DISTFILES.generated = plural.c
-DISTFILES.normal = VERSION
+DISTFILES.normal =
 DISTFILES.gettext = COPYING.LIB-2.0 COPYING.LIB-2.1 libintl.glibc \
 libgnuintl.h_vms Makefile.vms \
 libgnuintl.h.msvc-static libgnuintl.h.msvc-shared README.woe32 Makefile.msvc
