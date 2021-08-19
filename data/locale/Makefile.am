@@ -54,11 +54,7 @@ COPYRIGHT_HOLDER = Free Software Foundation, Inc.
 # which the translators can contact you.
 MSGID_BUGS_ADDRESS = enigma-devel@nongnu.org
 
-.PHONY: $(PACKAGE).pot-update
-
-.PHONY: update-po
-
-SUFFIXES = .po .sed .sin .nop .po-create .po-update
+SUFFIXES = .po .sed .sin
 
 .sin.sed:
 	sed -e '/^#/d' $< > t-$@
@@ -85,6 +81,9 @@ stamp-po: $(srcdir)/$(PACKAGE).pot
 
 # This target rebuilds $(PACKAGE).pot; it is an expensive operation.
 # Note that $(PACKAGE).pot is not touched if it doesn't need to be changed.
+
+.PHONY: $(PACKAGE).pot-update
+
 $(PACKAGE).pot-update: $(srcdir)/POTFILES.in remove-potcdate.sed
 	rm -f $(builddir)/level_i18n.cc
 	find $(top_srcdir)/data/levels -name '.svn' -prune -o -name 'enigma_cross' -prune -o -name '*.xml' -type f ! -name 'index.xml' -exec xsltproc --path $(top_srcdir)/data/schemas --encoding UTF-8 $(top_srcdir)/tools/i18n.xsl '{}' \; >> $(builddir)/level_i18n.tmp
@@ -120,7 +119,7 @@ $(srcdir)/$(PACKAGE).pot:
 
 # This target rebuilds a PO file if $(PACKAGE).pot has changed.
 # Note that a PO file is not touched if it doesn't need to be changed.
-$(POFILES): $(srcdir)/$(PACKAGE).pot
+%.po: $(srcdir)/$(PACKAGE).pot
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`;\
 	if test -f "$(srcdir)/$${lang}.po"; then \
 	  test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
@@ -131,18 +130,16 @@ $(POFILES): $(srcdir)/$(PACKAGE).pot
 	     lua $(top_srcdir)/tools/merge_level_i18n.lua $${lang}); \
 	  fi \
 	else \
-	  $(MAKE) $${lang}.po-create; \
-	  if test -f "$(builddir)/level_i18n.cc"; then \
-	    (cd $(builddir); \
-             lua $(top_srcdir)/tools/merge_level_i18n.lua $${lang}); \
-	  fi \
+	  echo "File $$lang.po does not exist. You can create it through 'msginit'." 1>&2; \
+	  exit 1; \
 	fi
 
 mostlyclean:
 	rm -f remove-potcdate.sed
 	rm -f stamp-poT
-	rm -f core core.* $(PACKAGE).po $(PACKAGE).1po $(PACKAGE).2po *.new.po
+	rm -f core core.* $(PACKAGE).po $(PACKAGE).1po $(PACKAGE).2po
 	rm -fr *.o
+	rm -f *.po~
 
 clean: mostlyclean
 
@@ -165,41 +162,13 @@ dist2: $(DISTFILES)
 	  fi; \
 	done
 
+.PHONY: update-po
+
 update-po: Makefile
 	$(MAKE) $(PACKAGE).pot-update
-	test -z "$(UPDATEPOFILES)" || $(MAKE) $(UPDATEPOFILES)
+	$(MAKE) *.po
 
-# General rule for creating PO files.
+.PHONY: pos
 
-.nop.po-create:
-	@lang=`echo $@ | sed -e 's/\.po-create$$//'`; \
-	echo "File $$lang.po does not exist. If you are a translator, you can create it through 'msginit'." 1>&2; \
-	exit 1
-
-# General rule for updating PO files.
-
-.nop.po-update:
-	@lang=`echo $@ | sed -e 's/\.po-update$$//'`; \
-	tmpdir=`pwd`; \
-	echo "$$lang:"; \
-	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE) $$lang.po $(PACKAGE).pot -o $$lang.new.po"; \
-	cd $(srcdir); \
-	if $(MSGMERGE) $$lang.po $(PACKAGE).pot -o $$tmpdir/$$lang.new.po; then \
-	  if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
-	    rm -f $$tmpdir/$$lang.new.po; \
-	  else \
-	    if mv -f $$tmpdir/$$lang.new.po $$tmpdir/$$lang.po; then \
-	      :; \
-	      ( cd $(builddir) \
-		lua $(top_srcdir)/tools/merge_level_i18n.lua $${lang} $(top_srcdir) ); \
-	    else \
-	      echo "msgmerge for $$lang.po failed: cannot move $$tmpdir/$$lang.new.po to $$lang.po" 1>&2; \
-	      exit 1; \
-	    fi; \
-	  fi; \
-	else \
-	  echo "msgmerge for $$lang.po failed!" 1>&2; \
-	  rm -f $$tmpdir/$$lang.new.po; \
-	fi
+pos: update-po
 
