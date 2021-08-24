@@ -1,163 +1,126 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.30" group="Facets" location="15800" network="false" owner="Enigma Team" release="1" revision="2" title="Enigma 1.30 new"/>
+  <info enigma="1.30" group="Facets" location="15800" network="false" owner="Enigma Team" release="1" revision="3" title="Enigma 1.30 new"/>
 
   <attributes/>
 
   <levels>
     <level _seq="1" _title="Diamonds" _xpath="enigma_x/hairball14_1" author="Hairball" ctrl="force" easy="true" id="hairball14" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="Door Jamb Switch" _xpath="enigma_x/devnull170_1" author="/dev/null" ctrl="force" easy="false" id="devnull170" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="Varied Puzzles" _xpath="enigma_x/hairball09_1" author="Hairball" ctrl="force" easy="false" id="Hairball_009" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="4" _title="Permutation" _xpath="enigma_x/hadas13_2" author="Jonatan and Daniel Hadas" ctrl="force" easy="true" id="hadas13" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="Forays" _xpath="enigma_x/hairball28_1" author="Hairball" ctrl="force" easy="true" id="Hairball_028" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="6" _title="Troublemakers" _xpath="enigma_x/gorg057_3" author="gorg" ctrl="force" easy="false" id="gorg057_3" rel="3" rev="4" score="2" target="time" unit="duration"/>
-    <level _seq="7" _title="Blocked I" _xpath="enigma_x/devnull84_1" author="/dev/null" ctrl="force" easy="false" id="devnull84" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="8" _title="Careful, glass!" _xpath="enigma_x/andreas71_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas71" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="9" _title="Blocked II" _xpath="enigma_x/devnull86_1" author="/dev/null" ctrl="force" easy="false" id="devnull86" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="10" _title="Seemingly Impossible" _xpath="enigma_x/hairball18_1" author="Hairball" ctrl="force" easy="false" id="Hairball_018" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="11" _title="Test of Dexterity" _xpath="enigma_x/ais11_2" author="Alex Smith" ctrl="force" easy="true" id="ais11_2" rel="2" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="12" _title="Nice Neighbour" _xpath="enigma_x/devnull137_1" author="/dev/null" ctrl="force" easy="false" id="devnull137" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="13" _title="Ink Barriers" _xpath="enigma_x/gorg096_2" author="gorg" ctrl="force" easy="true" id="gorg096_2" rel="2" rev="13" score="3" target="time" unit="duration"/>
-    <level _seq="14" _title="Assembly Line" _xpath="enigma_x/andreas70_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas70" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="15" _title="Left Lost?" _xpath="enigma_x/devnull112_1" author="/dev/null" ctrl="force" easy="false" id="devnull112" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="16" _title="Two Halfs" _xpath="enigma_x/devnull94_1" author="/dev/null" ctrl="force" easy="false" id="devnull94" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="17" _title="Golden Brown" _xpath="enigma_x/gorg008_4" author="gorg" ctrl="force" easy="false" id="gorg008_3" rel="3" rev="8" score="1" target="time" unit="duration"/>
-    <level _seq="18" _title="No pearl diving I" _xpath="enigma_x/devnull92_1" author="/dev/null" ctrl="force" easy="false" id="devnull92" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="Seance" _xpath="enigma_x/gorg098_2" author="gorg" ctrl="force" easy="false" id="gorg098_1" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="A Barn in Summer" _xpath="enigma_x/andreas41_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas41" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="21" _title="Island Hopping III" _xpath="enigma_x/devnull63_1" author="/dev/null" ctrl="force" easy="false" id="devnull63" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="22" _title="Inside Puzzling" _xpath="enigma_x/raoul41_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul41" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="23" _title="Papillon" _xpath="enigma_x/gorg044_2" author="gorg" ctrl="force" easy="false" id="gorg044_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="24" _title="See my pony run" _xpath="enigma_x/devnull107_1" author="/dev/null" ctrl="force" easy="false" id="devnull107" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="25" _title="No pearl diving II" _xpath="enigma_x/devnull115_1" author="/dev/null" ctrl="force" easy="false" id="devnull115" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="26" _title="Interlude II" _xpath="enigma_x/devnull69_1" author="/dev/null" ctrl="force" easy="false" id="devnull69" rel="1" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="27" _title="Laser Opals" _xpath="enigma_x/gorg028_3" author="gorg" ctrl="force" easy="true" id="gorg028_3" rel="2" rev="8" score="3" target="time" unit="duration"/>
-    <level _seq="28" _title="Near Halley II" _xpath="enigma_x/devnull46_1" author="/dev/null" ctrl="force" easy="true" id="devnull46" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="29" _title="Team Trial" _xpath="enigma_x/devnull120_1" author="/dev/null" ctrl="force" easy="false" id="devnull120" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="30" _title="Interlude III" _xpath="enigma_x/devnull70_1" author="/dev/null" ctrl="force" easy="false" id="devnull70" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="31" _title="Behind the Mirror" _xpath="enigma_x/gorg055_2" author="gorg" ctrl="force" easy="true" id="gorg055_2" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="32" _title="Delta Time" _xpath="enigma_x/devnull167_1" author="/dev/null" ctrl="force" easy="false" id="devnull167" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="33" _title="Wallpaper" _xpath="enigma_x/gorg062_2" author="gorg" ctrl="force" easy="false" id="gorg062_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="34" _title="A Walk" _xpath="enigma_x/gorg054_2" author="gorg" ctrl="force" easy="false" id="gorg054_2" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="35" _title="Drunk Transmeditation" _xpath="enigma_x/hairball53_1" author="Hairball" ctrl="force" easy="false" id="Hairball_053" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="36" _title="Spy vs. Spy" _xpath="enigma_x/gorg099_3" author="gorg" ctrl="force" easy="true" id="gorg099_3" rel="3" rev="5" score="3" target="time" unit="duration"/>
-    <level _seq="37" _title="Volcano Run" _xpath="enigma_x/pzykosiz04_1" author="pzykosiz" ctrl="force" easy="false" id="pzykosiz04_1" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="38" _title="Ad Nihilum" _xpath="enigma_x/andreas69_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas69" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="39" _title="Mixed Puzzles" _xpath="enigma_x/devnull157_1" author="/dev/null" ctrl="force" easy="false" id="devnull157" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="40" _title="Watch out" _xpath="enigma_x/devnull14_1" author="/dev/null" ctrl="force" easy="true" id="devnull14" rel="1" rev="12" score="1" target="time" unit="duration"/>
-    <level _seq="41" _title="Hiddensee" _xpath="enigma_x/gorg024_5" author="gorg" ctrl="force" easy="false" id="gorg024_5" rel="5" rev="10" score="6" target="time" unit="duration"/>
-    <level _seq="42" _title="What a ..." _xpath="enigma_x/devnull30_2" author="/dev/null" ctrl="force" easy="true" id="devnull30" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="43" _title="- Meditation -" _xpath="enigma_x/devnull75_2" author="/dev/null" ctrl="force" easy="false" id="devnull75" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="44" _title="Excursion for Two I" _xpath="enigma_x/devnull118_1" author="/dev/null" ctrl="force" easy="false" id="devnull118" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="45" _title="Countdown" _xpath="enigma_x/gorg080_2" author="gorg" ctrl="force" easy="false" id="gorg080_2" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="46" _title="Surgery" _xpath="enigma_x/zephyr13_2" author="Zephyr" ctrl="force" easy="true" id="zephyr13" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="47" _title="Suckerfish I" _xpath="enigma_x/devnull51_1" author="/dev/null" ctrl="force" easy="false" id="devnull51" rel="1" rev="7" score="1" target="time" unit="duration"/>
-    <level _seq="48" _title="Double-Crossed" _xpath="enigma_x/gorg010_3" author="gorg" ctrl="force" easy="false" id="gorg010_3" rel="3" rev="9" score="4" target="time" unit="duration"/>
-    <level _seq="49" _title="Excursion for Two II" _xpath="enigma_x/devnull119_1" author="/dev/null" ctrl="force" easy="false" id="devnull119" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="50" _title="Chess Challenge II" _xpath="enigma_x/harry08_1" author="daydreamer" ctrl="force" easy="false" id="harry08" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="51" _title="Cosmic Pearls" _xpath="enigma_x/gorg071_2" author="gorg" ctrl="force" easy="true" id="gorg071_2" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="52" _title="Duopal Variation II" _xpath="enigma_x/devnull53_1" author="/dev/null" ctrl="force" easy="true" id="devnull53" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="53" _title="Firecracker" _xpath="enigma_x/gorg003_4" author="gorg" ctrl="force" easy="true" id="gorg003_4" rel="4" rev="12" score="3" target="time" unit="duration"/>
-    <level _seq="54" _title="Enigmaparcour IV" _xpath="enigma_x/mecke66_1" author="mecke" ctrl="force" easy="true" id="mecke66" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="55" _title="All is Rubble" _xpath="enigma_x/ais69_1" author="Alex Smith" ctrl="force" easy="true" id="20100707ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="56" _title="Excursion for Two III" _xpath="enigma_x/devnull123_1" author="/dev/null" ctrl="force" easy="false" id="devnull123" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="57" _title="Steering The Flood" _xpath="enigma_x/ais46_1" author="Alex Smith" ctrl="force" easy="true" id="ais46" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="58" _title="San Francisco Bay Area" _xpath="enigma_x/mecke67_1" author="mecke" ctrl="force" easy="true" id="mecke67" rel="1" rev="15" score="1" target="time" unit="duration"/>
-    <level _seq="59" _title="Suckerfish II" _xpath="enigma_x/devnull164_1" author="/dev/null" ctrl="force" easy="false" id="devnull164" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="60" _title="Gestures I" _xpath="enigma_xi/andreas72_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas72" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="61" _title="Out of Hand" _xpath="enigma_xi/hairball4_1" author="Hairball" ctrl="force" easy="false" id="Hairball_004" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="62" _title="Color Memory" _xpath="enigma_xi/ais42_1" author="Alex Smith" ctrl="force" easy="true" id="20090716ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="63" _title="King V." _xpath="enigma_xi/sadie001_3" author="Sadie" ctrl="force" easy="true" id="sadie001_3" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="64" _title="Spacer I" _xpath="enigma_xi/devnull78_1" author="/dev/null" ctrl="force" easy="false" id="devnull78" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="65" _title="EZ-Pass" _xpath="enigma_xi/gorg050_2" author="gorg" ctrl="force" easy="false" id="gorg050_2" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="66" _title="Salt Mining" _xpath="enigma_xi/jl10_1" author="Jürgen Lange" ctrl="force" easy="false" id="20150130jl0010" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="67" _title="Puddles" _xpath="enigma_xi/gorg042_2" author="gorg" ctrl="force" easy="false" id="gorg042_2" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="68" _title="Rainbow~Meditation II" _xpath="enigma_xi/mecke72_1" author="mecke" ctrl="force" easy="true" id="mecke72" rel="1" rev="12" score="1" target="time" unit="duration"/>
-    <level _seq="69" _title="Coal Mining" _xpath="enigma_xi/jl07_1" author="Jürgen Lange" ctrl="force" easy="false" id="20150127jl0007" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="70" _title="Free Turns" _xpath="enigma_xi/devnull169_1" author="/dev/null" ctrl="force" easy="false" id="devnull169" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="71" _title="Valet Parking" _xpath="enigma_xi/gorg043_2" author="gorg" ctrl="force" easy="false" id="gorg043_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="72" _title="Flip Flop" _xpath="enigma_xi/devnull154_1" author="/dev/null" ctrl="force" easy="false" id="devnull154" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="73" _title="Sokoban 1D" _xpath="enigma_xi/ais77_1" author="Alex Smith" ctrl="force" easy="true" id="20110407ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="74" _title="Spacer II" _xpath="enigma_xi/devnull79_1" author="/dev/null" ctrl="force" easy="false" id="devnull79" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="75" _title="Four Horsemen" _xpath="enigma_xi/gorg045_2" author="gorg" ctrl="force" easy="false" id="gorg045_2" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="76" _title="Two in One" _xpath="enigma_xi/devnull48_1" author="/dev/null" ctrl="force" easy="false" id="devnull48" rel="1" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="77" _title="Gold Digger" _xpath="enigma_xi/jl06_1" author="Jürgen Lange" ctrl="force" easy="false" id="20150124jl0006" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="78" _title="Tilt Meditation" _xpath="enigma_xi/gorg021_4" author="gorg" ctrl="force" easy="true" id="gorg021_4" rel="4" rev="7" score="4" target="time" unit="duration"/>
-    <level _seq="79" _title="upper Q" _xpath="enigma_xi/devnull117_1" author="/dev/null" ctrl="force" easy="false" id="devnull117" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="80" _title="Spacer III" _xpath="enigma_xi/devnull80_1" author="/dev/null" ctrl="force" easy="false" id="devnull80" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="81" _title="Dichotomy I" _xpath="enigma_xi/ais15_1" author="Alex Smith" ctrl="force" easy="true" id="20090420ais523003" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="82" _title="Flip" _xpath="enigma_xi/devnull90_1" author="/dev/null" ctrl="force" easy="false" id="devnull90" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="83" _title="Do Not Open" _xpath="enigma_xi/gorg079_3" author="gorg" ctrl="force" easy="false" id="gorg079_3" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="84" _title="Dichotomy II" _xpath="enigma_xi/ais16_1" author="Alex Smith" ctrl="force" easy="true" id="20090421ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="85" _title="Pool Season" _xpath="enigma_xi/gorg058_3" author="gorg" ctrl="force" easy="false" id="gorg058_3" rel="3" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="86" _title="Fiery Meditation" _xpath="enigma_xi/gorg085_3" author="gorg" ctrl="force" easy="false" id="gorg085_3" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="87" _title="double you" _xpath="enigma_xi/devnull49_1" author="/dev/null" ctrl="force" easy="false" id="devnull49" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="88" _title="Gaps" _xpath="enigma_xi/hairball44_1" author="Hairball" ctrl="force" easy="false" id="Hairball_044" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="89" _title="Only two ..." _xpath="enigma_xi/devnull97_1" author="/dev/null" ctrl="force" easy="false" id="devnull97" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="90" _title="Spacer IV" _xpath="enigma_xi/devnull81_1" author="/dev/null" ctrl="force" easy="false" id="devnull81" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="91" _title="Backdraft" _xpath="enigma_xi/gorg027_2" author="gorg" ctrl="force" easy="false" id="gorg027_2" rel="2" rev="8" score="2" target="time" unit="duration"/>
-    <level _seq="92" _title="Pyromaniac" _xpath="enigma_xi/gorg091_2" author="gorg" ctrl="force" easy="false" id="gorg091_2" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="93" _title="Diamond Jump" _xpath="enigma_xi/iti2_1" author="ItTheIt" ctrl="force" easy="true" id="2012mmiti2" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="94" _title="Rotary Club" _xpath="enigma_xi/gorg075_2" author="gorg" ctrl="force" easy="false" id="gorg075_2" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="95" _title="Bait" _xpath="enigma_xi/devnull89_1" author="/dev/null" ctrl="force" easy="false" id="devnull89" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="96" _title="Blues Meditation" _xpath="enigma_xi/mecke69_1" author="mecke" ctrl="force" easy="true" id="mecke69" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="97" _title="At the Pool" _xpath="enigma_xi/devnull36_2" author="/dev/null" ctrl="force" easy="true" id="devnull36" rel="2" rev="5" score="2" target="time" unit="duration"/>
-    <level _seq="98" _title="Backdraft II" _xpath="enigma_xi/gorg090_3" author="gorg" ctrl="force" easy="false" id="gorg090_3" rel="3" rev="6" score="2" target="time" unit="duration"/>
-    <level _seq="99" _title="Island Journey" _xpath="enigma_xi/devnull114_1" author="/dev/null" ctrl="force" easy="false" id="devnull114" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="100" _title="Reddish" _xpath="enigma_xi/devnull87_1" author="/dev/null" ctrl="force" easy="false" id="devnull87" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="101" _title="Skullopal" _xpath="enigma_xi/gorg060_3" author="gorg" ctrl="force" easy="true" id="gorg060_3" rel="2" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="102" _title="Padding" _xpath="enigma_xi/devnull116_1" author="/dev/null" ctrl="force" easy="false" id="devnull116" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="103" _title="Spacer V" _xpath="enigma_xi/devnull82_1" author="/dev/null" ctrl="force" easy="false" id="devnull82" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="104" _title="Unusual" _xpath="enigma_xi/devnull121_1" author="/dev/null" ctrl="force" easy="false" id="devnull121" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="105" _title="Sticky Meditation" _xpath="enigma_xi/gorg083_2" author="gorg" ctrl="force" easy="true" id="gorg083_2" rel="1" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="106" _title="Switch Your Way" _xpath="enigma_xi/gorg056_2" author="gorg" ctrl="force" easy="false" id="gorg056_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="107" _title="Off Minor" _xpath="enigma_xi/devnull50_1" author="/dev/null" ctrl="force" easy="false" id="devnull50" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="108" _title="Spacer VI" _xpath="enigma_xi/devnull83_1" author="/dev/null" ctrl="force" easy="false" id="devnull83" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="109" _title="On the Fly" _xpath="enigma_xi/gorg063_2" author="gorg" ctrl="force" easy="true" id="gorg063_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="110" _title="Pony trek" _xpath="enigma_xi/devnull106_1" author="/dev/null" ctrl="force" easy="false" id="devnull106" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="111" _title="Stick Balancing" _xpath="enigma_xi/icewing01_1" author="Icewing" ctrl="force" easy="true" id="20130407icewing072" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="112" _title="Arrested Development" _xpath="enigma_xi/gorg001_6" author="gorg" ctrl="force" easy="true" id="gorg001_6" rel="6" rev="7" score="3" target="time" unit="duration"/>
-    <level _seq="113" _title="...it is boiling over ...!" _xpath="enigma_xi/mecke70_1" author="mecke" ctrl="force" easy="false" id="mecke70" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="114" _title="Free and Caged" _xpath="enigma_xi/devnull127_1" author="/dev/null" ctrl="force" easy="false" id="devnull127" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="115" _title="Forward Meditation" _xpath="enigma_xi/gorg084_2" author="gorg" ctrl="force" easy="true" id="gorg084_2" rel="1" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="116" _title="Camouflage I" _xpath="enigma_xi/devnull172_1" author="/dev/null" ctrl="force" easy="false" id="devnull172" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="117" _title="Nightblind" _xpath="enigma_xi/gorg023_4" author="gorg" ctrl="force" easy="false" id="gorg023_4" rel="3" rev="10" score="2" target="time" unit="duration"/>
-    <level _seq="118" _title="Spacer VII" _xpath="enigma_xi/devnull85_1" author="/dev/null" ctrl="force" easy="false" id="devnull85" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="119" _title="Spoonman" _xpath="enigma_xi/gorg049_2" author="gorg" ctrl="force" easy="true" id="gorg049_2" rel="2" rev="4" score="2" target="time" unit="duration"/>
-    <level _seq="120" _title="Ride the Broomstick" _xpath="enigma_xi/devnull144_1" author="/dev/null" ctrl="force" easy="false" id="devnull144" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="121" _title="Camouflage II" _xpath="enigma_xi/devnull173_1" author="/dev/null" ctrl="force" easy="false" id="devnull173" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="122" _title="The Great Escape" _xpath="enigma_xi/gorg034_3" author="gorg" ctrl="force" easy="true" id="gorg034_3" rel="3" rev="7" score="3" target="time" unit="duration"/>
-    <level _seq="123" _title="Waste" _xpath="enigma_xi/mecke68_6" author="mecke" ctrl="force" easy="true" id="mecke68" rel="1" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="124" _title="Explosive Meditation" _xpath="enigma_xi/gorg082_2" author="gorg" ctrl="force" easy="true" id="gorg082_2" rel="1" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="125" _title="The Philosophizing Stone" _xpath="enigma_xi/andreas73_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas73" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="126" _title="The Cherry of Secrets" _xpath="enigma_xi/andreas74_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas74" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="127" _title="The Prisoner of Sokoban" _xpath="enigma_xi/andreas75_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas75" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="128" _title="The Droplet in Fire" _xpath="enigma_xi/andreas76_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas76" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="129" _title="The Order of the Sea Fix" _xpath="enigma_xi/andreas77_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas77" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="130" _title="The Half-Burned Prints" _xpath="enigma_xi/andreas78_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas78" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="131" _title="The Deadly Hollows" _xpath="enigma_xi/andreas79_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas79" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="132" _title="Go East" _xpath="enigma_xi/gorg077_4" author="gorg" ctrl="force" easy="false" id="gorg077_4" rel="4" rev="5" score="3" target="time" unit="duration"/>
-    <level _seq="133" _title="Small Business I" _xpath="enigma_xi/devnull149_1" author="/dev/null" ctrl="force" easy="false" id="devnull149" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="134" _title="Wallflower" _xpath="enigma_xi/gorg035_2" author="gorg" ctrl="force" easy="false" id="gorg035_2" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="135" _title="Pairs" _xpath="enigma_xi/ssch01_1" author="Stefan Schwoon" ctrl="force" easy="true" id="ssch01b" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="136" _title="Space Invaders" _xpath="enigma_xi/gorg053_2" author="gorg" ctrl="force" easy="true" id="gorg053_2" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="137" _title="Silverado" _xpath="enigma_xi/gorg017_3" author="gorg" ctrl="force" easy="false" id="gorg017_3" rel="4" rev="9" score="1" target="time" unit="duration"/>
-    <level _seq="138" _title="Small Business II" _xpath="enigma_xi/devnull150_1" author="/dev/null" ctrl="force" easy="false" id="devnull150" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="139" _title="Flood puzzles" _xpath="enigma_xi/raoul35_1_3" author="Raoul Bourquin, Jacob Scott" ctrl="force" easy="false" id="raoul35" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="140" _title="Disarm" _xpath="enigma_xi/gorg039_2" author="gorg" ctrl="force" easy="false" id="gorg039_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="141" _title="Do it" _xpath="enigma_xi/devnull17_1" author="/dev/null" ctrl="force" easy="false" id="devnull17" rel="1" rev="8" score="1" target="time" unit="duration"/>
-    <level _seq="142" _title="Elimination Meditation" _xpath="enigma_xi/gorg086_2" author="gorg" ctrl="force" easy="true" id="gorg086_2" rel="1" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="143" _title="Pairs II" _xpath="enigma_xi/ssch02_1" author="Stefan Schwoon" ctrl="force" easy="true" id="ssch02d" rel="2" rev="4" score="2" target="time" unit="duration"/>
-    <level _seq="144" _title="Chain Reactions" _xpath="enigma_xi/gorg095_3" author="gorg" ctrl="force" easy="false" id="gorg095_3" rel="3" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="145" _title="Volatile Storage" _xpath="enigma_xi/ais75_1" author="Alex Smith" ctrl="force" easy="true" id="ais75" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="146" _title="Small Business III" _xpath="enigma_xi/devnull151_1" author="/dev/null" ctrl="force" easy="false" id="devnull151" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="147" _title="AMGINE" _xpath="enigma_xi/devnull140_1" author="/dev/null" ctrl="force" easy="true" id="devnull140" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="148" _title="Hillbilly" _xpath="enigma_xi/gorg097_2" author="gorg" ctrl="force" easy="true" id="gorg097_2" rel="2" rev="4" score="2" target="time" unit="duration"/>
-    <level _seq="149" _title="Caesar Cipher" _xpath="enigma_xi/jl02_1" author="Jürgen Lange" ctrl="force" easy="false" id="20140725jl0002" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="150" _title="Magic Show" _xpath="enigma_xi/zephyr039_4" author="Zephyr" ctrl="force" easy="false" id="zephyr039_4" rel="3" rev="4" score="3" target="time" unit="duration"/>
-    <level _seq="151" _title="Spiders...!" _xpath="enigma_xi/mecke71_3" author="mecke" ctrl="force" easy="true" id="mecke71" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="152" _title="Di niente!" _xpath="enigma_xi/devnull13_1" author="/dev/null" ctrl="force" easy="false" id="devnull13" rel="1" rev="9" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Varied Puzzles" _xpath="enigma_x/hairball09_1" author="Hairball" ctrl="force" easy="false" id="Hairball_009" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Permutation" _xpath="enigma_x/hadas13_2" author="Jonatan and Daniel Hadas" ctrl="force" easy="true" id="hadas13" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Forays" _xpath="enigma_x/hairball28_1" author="Hairball" ctrl="force" easy="true" id="Hairball_028" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="Troublemakers" _xpath="enigma_x/gorg057_3" author="gorg" ctrl="force" easy="false" id="gorg057_3" rel="3" rev="4" score="2" target="time" unit="duration"/>
+    <level _seq="6" _title="Careful, glass!" _xpath="enigma_x/andreas71_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas71" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Seemingly Impossible" _xpath="enigma_x/hairball18_1" author="Hairball" ctrl="force" easy="false" id="Hairball_018" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Test of Dexterity" _xpath="enigma_x/ais11_2" author="Alex Smith" ctrl="force" easy="true" id="ais11_2" rel="2" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Ink Barriers" _xpath="enigma_x/gorg096_2" author="gorg" ctrl="force" easy="true" id="gorg096_2" rel="2" rev="13" score="3" target="time" unit="duration"/>
+    <level _seq="10" _title="Assembly Line" _xpath="enigma_x/andreas70_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas70" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Golden Brown" _xpath="enigma_x/gorg008_4" author="gorg" ctrl="force" easy="false" id="gorg008_3" rel="3" rev="8" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Seance" _xpath="enigma_x/gorg098_2" author="gorg" ctrl="force" easy="false" id="gorg098_1" rel="2" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="A Barn in Summer" _xpath="enigma_x/andreas41_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas41" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="14" _title="Papillon" _xpath="enigma_x/gorg044_2" author="gorg" ctrl="force" easy="false" id="gorg044_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="15" _title="Laser Opals" _xpath="enigma_x/gorg028_3" author="gorg" ctrl="force" easy="true" id="gorg028_3" rel="2" rev="8" score="3" target="time" unit="duration"/>
+    <level _seq="16" _title="Behind the Mirror" _xpath="enigma_x/gorg055_2" author="gorg" ctrl="force" easy="true" id="gorg055_2" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="17" _title="Wallpaper" _xpath="enigma_x/gorg062_2" author="gorg" ctrl="force" easy="false" id="gorg062_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="A Walk" _xpath="enigma_x/gorg054_2" author="gorg" ctrl="force" easy="false" id="gorg054_2" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="19" _title="Drunk Transmeditation" _xpath="enigma_x/hairball53_1" author="Hairball" ctrl="force" easy="false" id="Hairball_053" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Spy vs. Spy" _xpath="enigma_x/gorg099_3" author="gorg" ctrl="force" easy="true" id="gorg099_3" rel="3" rev="5" score="3" target="time" unit="duration"/>
+    <level _seq="21" _title="Volcano Run" _xpath="enigma_x/pzykosiz04_1" author="pzykosiz" ctrl="force" easy="false" id="pzykosiz04_1" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="22" _title="Ad Nihilum" _xpath="enigma_x/andreas69_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas69" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="Watch out" _xpath="enigma_x/devnull14_1" author="/dev/null" ctrl="force" easy="true" id="devnull14" rel="1" rev="12" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="Hiddensee" _xpath="enigma_x/gorg024_5" author="gorg" ctrl="force" easy="false" id="gorg024_5" rel="5" rev="10" score="6" target="time" unit="duration"/>
+    <level _seq="25" _title="- Meditation -" _xpath="enigma_x/devnull75_2" author="/dev/null" ctrl="force" easy="false" id="devnull75" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="Excursion for Two I" _xpath="enigma_x/devnull118_1" author="/dev/null" ctrl="force" easy="false" id="devnull118" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="27" _title="Countdown" _xpath="enigma_x/gorg080_2" author="gorg" ctrl="force" easy="false" id="gorg080_2" rel="2" rev="3" score="2" target="time" unit="duration"/>
+    <level _seq="28" _title="Double-Crossed" _xpath="enigma_x/gorg010_3" author="gorg" ctrl="force" easy="false" id="gorg010_3" rel="3" rev="9" score="4" target="time" unit="duration"/>
+    <level _seq="29" _title="Excursion for Two II" _xpath="enigma_x/devnull119_1" author="/dev/null" ctrl="force" easy="false" id="devnull119" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="30" _title="Cosmic Pearls" _xpath="enigma_x/gorg071_2" author="gorg" ctrl="force" easy="true" id="gorg071_2" rel="2" rev="3" score="2" target="time" unit="duration"/>
+    <level _seq="31" _title="Firecracker" _xpath="enigma_x/gorg003_4" author="gorg" ctrl="force" easy="true" id="gorg003_4" rel="4" rev="12" score="3" target="time" unit="duration"/>
+    <level _seq="32" _title="Enigmaparcour IV" _xpath="enigma_x/mecke66_1" author="mecke" ctrl="force" easy="true" id="mecke66" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="All is Rubble" _xpath="enigma_x/ais69_1" author="Alex Smith" ctrl="force" easy="true" id="20100707ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="34" _title="Excursion for Two III" _xpath="enigma_x/devnull123_1" author="/dev/null" ctrl="force" easy="false" id="devnull123" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="35" _title="San Francisco Bay Area" _xpath="enigma_x/mecke67_1" author="mecke" ctrl="force" easy="true" id="mecke67" rel="1" rev="15" score="1" target="time" unit="duration"/>
+    <level _seq="36" _title="Suckerfish II" _xpath="enigma_x/devnull164_1" author="/dev/null" ctrl="force" easy="false" id="devnull164" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title="Gestures I" _xpath="enigma_xi/andreas72_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas72" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="Out of Hand" _xpath="enigma_xi/hairball4_1" author="Hairball" ctrl="force" easy="false" id="Hairball_004" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="39" _title="Color Memory" _xpath="enigma_xi/ais42_1" author="Alex Smith" ctrl="force" easy="true" id="20090716ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="40" _title="King V." _xpath="enigma_xi/sadie001_3" author="Sadie" ctrl="force" easy="true" id="sadie001_3" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="41" _title="EZ-Pass" _xpath="enigma_xi/gorg050_2" author="gorg" ctrl="force" easy="false" id="gorg050_2" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="42" _title="Salt Mining" _xpath="enigma_xi/jl10_1" author="Jürgen Lange" ctrl="force" easy="false" id="20150130jl0010" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="43" _title="Puddles" _xpath="enigma_xi/gorg042_2" author="gorg" ctrl="force" easy="false" id="gorg042_2" rel="2" rev="3" score="2" target="time" unit="duration"/>
+    <level _seq="44" _title="Rainbow~Meditation II" _xpath="enigma_xi/mecke72_1" author="mecke" ctrl="force" easy="true" id="mecke72" rel="1" rev="12" score="1" target="time" unit="duration"/>
+    <level _seq="45" _title="Coal Mining" _xpath="enigma_xi/jl07_1" author="Jürgen Lange" ctrl="force" easy="false" id="20150127jl0007" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="46" _title="Valet Parking" _xpath="enigma_xi/gorg043_2" author="gorg" ctrl="force" easy="false" id="gorg043_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Flip Flop" _xpath="enigma_xi/devnull154_1" author="/dev/null" ctrl="force" easy="false" id="devnull154" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="48" _title="Sokoban 1D" _xpath="enigma_xi/ais77_1" author="Alex Smith" ctrl="force" easy="true" id="20110407ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="49" _title="Four Horsemen" _xpath="enigma_xi/gorg045_2" author="gorg" ctrl="force" easy="false" id="gorg045_2" rel="2" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="50" _title="Two in One" _xpath="enigma_xi/devnull48_1" author="/dev/null" ctrl="force" easy="false" id="devnull48" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="51" _title="Gold Digger" _xpath="enigma_xi/jl06_1" author="Jürgen Lange" ctrl="force" easy="false" id="20150124jl0006" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="52" _title="Tilt Meditation" _xpath="enigma_xi/gorg021_4" author="gorg" ctrl="force" easy="true" id="gorg021_4" rel="4" rev="7" score="4" target="time" unit="duration"/>
+    <level _seq="53" _title="upper Q" _xpath="enigma_xi/devnull117_1" author="/dev/null" ctrl="force" easy="false" id="devnull117" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="54" _title="Dichotomy I" _xpath="enigma_xi/ais15_1" author="Alex Smith" ctrl="force" easy="true" id="20090420ais523003" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="55" _title="Flip" _xpath="enigma_xi/devnull90_1" author="/dev/null" ctrl="force" easy="false" id="devnull90" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="56" _title="Do Not Open" _xpath="enigma_xi/gorg079_3" author="gorg" ctrl="force" easy="false" id="gorg079_3" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="57" _title="Dichotomy II" _xpath="enigma_xi/ais16_1" author="Alex Smith" ctrl="force" easy="true" id="20090421ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="58" _title="Pool Season" _xpath="enigma_xi/gorg058_3" author="gorg" ctrl="force" easy="false" id="gorg058_3" rel="3" rev="3" score="2" target="time" unit="duration"/>
+    <level _seq="59" _title="Fiery Meditation" _xpath="enigma_xi/gorg085_3" author="gorg" ctrl="force" easy="false" id="gorg085_3" rel="2" rev="3" score="2" target="time" unit="duration"/>
+    <level _seq="60" _title="Gaps" _xpath="enigma_xi/hairball44_1" author="Hairball" ctrl="force" easy="false" id="Hairball_044" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="61" _title="Only two ..." _xpath="enigma_xi/devnull97_1" author="/dev/null" ctrl="force" easy="false" id="devnull97" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="62" _title="Backdraft" _xpath="enigma_xi/gorg027_2" author="gorg" ctrl="force" easy="false" id="gorg027_2" rel="2" rev="8" score="2" target="time" unit="duration"/>
+    <level _seq="63" _title="Pyromaniac" _xpath="enigma_xi/gorg091_2" author="gorg" ctrl="force" easy="false" id="gorg091_2" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="64" _title="Diamond Jump" _xpath="enigma_xi/iti2_1" author="ItTheIt" ctrl="force" easy="true" id="2012mmiti2" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="65" _title="Rotary Club" _xpath="enigma_xi/gorg075_2" author="gorg" ctrl="force" easy="false" id="gorg075_2" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="66" _title="Bait" _xpath="enigma_xi/devnull89_1" author="/dev/null" ctrl="force" easy="false" id="devnull89" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="67" _title="Blues Meditation" _xpath="enigma_xi/mecke69_1" author="mecke" ctrl="force" easy="true" id="mecke69" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="68" _title="Backdraft II" _xpath="enigma_xi/gorg090_3" author="gorg" ctrl="force" easy="false" id="gorg090_3" rel="3" rev="6" score="2" target="time" unit="duration"/>
+    <level _seq="69" _title="Skullopal" _xpath="enigma_xi/gorg060_3" author="gorg" ctrl="force" easy="true" id="gorg060_3" rel="2" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="70" _title="Padding" _xpath="enigma_xi/devnull116_1" author="/dev/null" ctrl="force" easy="false" id="devnull116" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="71" _title="Unusual" _xpath="enigma_xi/devnull121_1" author="/dev/null" ctrl="force" easy="false" id="devnull121" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="72" _title="Sticky Meditation" _xpath="enigma_xi/gorg083_2" author="gorg" ctrl="force" easy="true" id="gorg083_2" rel="1" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="73" _title="Switch Your Way" _xpath="enigma_xi/gorg056_2" author="gorg" ctrl="force" easy="false" id="gorg056_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="74" _title="Off Minor" _xpath="enigma_xi/devnull50_1" author="/dev/null" ctrl="force" easy="false" id="devnull50" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="75" _title="On the Fly" _xpath="enigma_xi/gorg063_2" author="gorg" ctrl="force" easy="true" id="gorg063_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="76" _title="Stick Balancing" _xpath="enigma_xi/icewing01_1" author="Icewing" ctrl="force" easy="true" id="20130407icewing072" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="77" _title="Arrested Development" _xpath="enigma_xi/gorg001_6" author="gorg" ctrl="force" easy="true" id="gorg001_6" rel="6" rev="7" score="3" target="time" unit="duration"/>
+    <level _seq="78" _title="...it is boiling over ...!" _xpath="enigma_xi/mecke70_1" author="mecke" ctrl="force" easy="false" id="mecke70" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="79" _title="Free and Caged" _xpath="enigma_xi/devnull127_1" author="/dev/null" ctrl="force" easy="false" id="devnull127" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="80" _title="Forward Meditation" _xpath="enigma_xi/gorg084_2" author="gorg" ctrl="force" easy="true" id="gorg084_2" rel="1" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="81" _title="Camouflage I" _xpath="enigma_xi/devnull172_1" author="/dev/null" ctrl="force" easy="false" id="devnull172" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="82" _title="Nightblind" _xpath="enigma_xi/gorg023_4" author="gorg" ctrl="force" easy="false" id="gorg023_4" rel="3" rev="10" score="2" target="time" unit="duration"/>
+    <level _seq="83" _title="Spoonman" _xpath="enigma_xi/gorg049_2" author="gorg" ctrl="force" easy="true" id="gorg049_2" rel="2" rev="4" score="2" target="time" unit="duration"/>
+    <level _seq="84" _title="Ride the Broomstick" _xpath="enigma_xi/devnull144_1" author="/dev/null" ctrl="force" easy="false" id="devnull144" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="85" _title="Camouflage II" _xpath="enigma_xi/devnull173_1" author="/dev/null" ctrl="force" easy="false" id="devnull173" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="86" _title="The Great Escape" _xpath="enigma_xi/gorg034_3" author="gorg" ctrl="force" easy="true" id="gorg034_3" rel="3" rev="7" score="3" target="time" unit="duration"/>
+    <level _seq="87" _title="Waste" _xpath="enigma_xi/mecke68_6" author="mecke" ctrl="force" easy="true" id="mecke68" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="88" _title="Explosive Meditation" _xpath="enigma_xi/gorg082_2" author="gorg" ctrl="force" easy="true" id="gorg082_2" rel="1" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="89" _title="The Philosophizing Stone" _xpath="enigma_xi/andreas73_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas73" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="90" _title="The Cherry of Secrets" _xpath="enigma_xi/andreas74_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas74" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="91" _title="The Prisoner of Sokoban" _xpath="enigma_xi/andreas75_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas75" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="92" _title="The Droplet in Fire" _xpath="enigma_xi/andreas76_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas76" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="93" _title="The Order of the Sea Fix" _xpath="enigma_xi/andreas77_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas77" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="94" _title="The Half-Burned Prints" _xpath="enigma_xi/andreas78_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas78" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="95" _title="The Deadly Hollows" _xpath="enigma_xi/andreas79_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas79" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="96" _title="Go East" _xpath="enigma_xi/gorg077_4" author="gorg" ctrl="force" easy="false" id="gorg077_4" rel="4" rev="5" score="3" target="time" unit="duration"/>
+    <level _seq="97" _title="Small Business I" _xpath="enigma_xi/devnull149_1" author="/dev/null" ctrl="force" easy="false" id="devnull149" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="98" _title="Wallflower" _xpath="enigma_xi/gorg035_2" author="gorg" ctrl="force" easy="false" id="gorg035_2" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="99" _title="Pairs" _xpath="enigma_xi/ssch01_1" author="Stefan Schwoon" ctrl="force" easy="true" id="ssch01b" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="100" _title="Space Invaders" _xpath="enigma_xi/gorg053_2" author="gorg" ctrl="force" easy="true" id="gorg053_2" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="101" _title="Silverado" _xpath="enigma_xi/gorg017_3" author="gorg" ctrl="force" easy="false" id="gorg017_3" rel="4" rev="9" score="1" target="time" unit="duration"/>
+    <level _seq="102" _title="Small Business II" _xpath="enigma_xi/devnull150_1" author="/dev/null" ctrl="force" easy="false" id="devnull150" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="103" _title="Flood puzzles" _xpath="enigma_xi/raoul35_1_3" author="Raoul Bourquin, Jacob Scott" ctrl="force" easy="false" id="raoul35" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="104" _title="Disarm" _xpath="enigma_xi/gorg039_2" author="gorg" ctrl="force" easy="false" id="gorg039_2" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="105" _title="Do it" _xpath="enigma_xi/devnull17_1" author="/dev/null" ctrl="force" easy="false" id="devnull17" rel="1" rev="8" score="1" target="time" unit="duration"/>
+    <level _seq="106" _title="Elimination Meditation" _xpath="enigma_xi/gorg086_2" author="gorg" ctrl="force" easy="true" id="gorg086_2" rel="1" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="107" _title="Pairs II" _xpath="enigma_xi/ssch02_1" author="Stefan Schwoon" ctrl="force" easy="true" id="ssch02d" rel="2" rev="4" score="2" target="time" unit="duration"/>
+    <level _seq="108" _title="Chain Reactions" _xpath="enigma_xi/gorg095_3" author="gorg" ctrl="force" easy="false" id="gorg095_3" rel="3" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="109" _title="Small Business III" _xpath="enigma_xi/devnull151_1" author="/dev/null" ctrl="force" easy="false" id="devnull151" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="110" _title="AMGINE" _xpath="enigma_xi/devnull140_1" author="/dev/null" ctrl="force" easy="true" id="devnull140" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="111" _title="Hillbilly" _xpath="enigma_xi/gorg097_2" author="gorg" ctrl="force" easy="true" id="gorg097_2" rel="2" rev="4" score="2" target="time" unit="duration"/>
+    <level _seq="112" _title="Caesar Cipher" _xpath="enigma_xi/jl02_1" author="Jürgen Lange" ctrl="force" easy="false" id="20140725jl0002" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="113" _title="Magic Show" _xpath="enigma_xi/zephyr039_4" author="Zephyr" ctrl="force" easy="false" id="zephyr039_4" rel="3" rev="4" score="3" target="time" unit="duration"/>
+    <level _seq="114" _title="Spiders...!" _xpath="enigma_xi/mecke71_3" author="mecke" ctrl="force" easy="true" id="mecke71" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="115" _title="Di niente!" _xpath="enigma_xi/devnull13_1" author="/dev/null" ctrl="force" easy="false" id="devnull13" rel="1" rev="9" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
