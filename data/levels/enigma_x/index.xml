@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.30" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="17" title="Enigma X"/>
+  <info enigma="1.30" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="18" title="Enigma X"/>
 
   <attributes/>
 
@@ -17,7 +17,7 @@
     <level _seq="9" _title="Half Hertz" _xpath="./andreas66_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas66" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Mad Hatter's Tea Party" _xpath="./pzykosiz02_1" author="pzykosiz" ctrl="force" easy="true" id="pzykosiz02" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Checklist" _xpath="./nanook02_1" author="nanook" ctrl="force" easy="false" id="nanook02" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="12" _title="Permutation" _xpath="./hadas13_2" author="Jonatan and Daniel Hadas" ctrl="force" easy="true" id="hadas13" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Permutation" _xpath="./hadas13_1" author="Jonatan and Daniel Hadas" ctrl="force" easy="true" id="hadas13" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Forays" _xpath="./hairball28_1" author="Hairball" ctrl="force" easy="true" id="Hairball_028" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Inside I" _xpath="./devnull133_1" author="/dev/null" ctrl="force" easy="false" id="devnull133" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Wired Lone Star" _xpath="./ral40_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081228ral" rel="1" rev="130" score="1" target="time" unit="duration"/>
@@ -39,7 +39,7 @@
     <level _seq="31" _title="Assembly Line" _xpath="./andreas70_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas70" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Left Lost?" _xpath="./devnull112_1" author="/dev/null" ctrl="force" easy="false" id="devnull112" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Two Halfs" _xpath="./devnull94_1" author="/dev/null" ctrl="force" easy="false" id="devnull94" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="34" _title="Golden Brown" _xpath="./gorg08_4" author="gorg" ctrl="force" easy="false" id="gorg008_3" rel="3" rev="8" score="1" target="time" unit="duration"/>
+    <level _seq="34" _title="Golden Brown" _xpath="./gorg08_3" author="gorg" ctrl="force" easy="false" id="gorg008_3" rel="3" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Docking" _xpath="./duffy170_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy170" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Riding light beams" _xpath="./devnull165_1" author="/dev/null" ctrl="force" easy="true" id="devnull165" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Alaska" _xpath="./mecke41_1" author="mecke" ctrl="force" easy="false" id="mecke41" rel="1" rev="4" score="1" target="time" unit="duration"/>
@@ -57,7 +57,7 @@
     <level _seq="49" _title="Interlude II" _xpath="./devnull69_1" author="/dev/null" ctrl="force" easy="false" id="devnull69" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Hidden Meditation" _xpath="./devnull129_1" author="/dev/null" ctrl="force" easy="true" id="devnull129" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="D-Day" _xpath="./devnull108_1" author="/dev/null" ctrl="force" easy="false" id="devnull108" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="52" _title="Laser Opals" _xpath="./gorg28_3" author="gorg" ctrl="force" easy="true" id="gorg028_3" rel="2" rev="8" score="3" target="time" unit="duration"/>
+    <level _seq="52" _title="Laser Opals" _xpath="./gorg28_2" author="gorg" ctrl="force" easy="true" id="gorg028_3" rel="2" rev="8" score="3" target="time" unit="duration"/>
     <level _seq="53" _title="Near Halley II" _xpath="./devnull46_1" author="/dev/null" ctrl="force" easy="true" id="devnull46" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Team Trial" _xpath="./devnull120_1" author="/dev/null" ctrl="force" easy="false" id="devnull120" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Meandering Impulses" _xpath="./ais76_1" author="Alex Smith" ctrl="force" easy="true" id="20110309ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -65,7 +65,7 @@
     <level _seq="57" _title="Y Junction" _xpath="./devnull163_1" author="/dev/null" ctrl="force" easy="true" id="devnull163" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Braking Distance" _xpath="./ais53_1" author="Alex Smith" ctrl="force" easy="true" id="20091116ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Interlude III" _xpath="./devnull70_1" author="/dev/null" ctrl="force" easy="false" id="devnull70" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="60" _title="Behind the Mirror" _xpath="./gorg55_2" author="gorg" ctrl="force" easy="true" id="gorg055_2" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="60" _title="Behind the Mirror" _xpath="./gorg55_1" author="gorg" ctrl="force" easy="true" id="gorg055_2" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Don't waste wood" _xpath="./mww01_2" author="Martin Woyda-Wolf" ctrl="force" easy="false" id="mww01" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Blocked III" _xpath="./devnull142_1" author="/dev/null" ctrl="force" easy="false" id="devnull142" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Delta Time" _xpath="./devnull167_1" author="/dev/null" ctrl="force" easy="false" id="devnull167" rel="1" rev="1" score="1" target="time" unit="duration"/>
