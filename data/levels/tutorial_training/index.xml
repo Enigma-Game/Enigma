@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Tutorials" location="10140" network="false" owner="Enigma Team" release="1" revision="42" title="Training"/>
+  <info enigma="1.10" group="Tutorials" location="10140" network="false" owner="Enigma Team" release="1" revision="43" title="Training"/>
 
   <attributes/>
 
   <levels>
-    <level _seq="1" _title="Double Pendulum" _xpath="./a_training01_1" author="Andreas Lochmann" ctrl="force" easy="false" id="a_training01" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="1" _title="Double Pendulum" _xpath="./atraining01_1" author="Andreas Lochmann" ctrl="force" easy="false" id="a_training01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Biathlon" _xpath="./zephyr44_1" author="Zephyr" ctrl="force" easy="true" id="zephyr44" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
