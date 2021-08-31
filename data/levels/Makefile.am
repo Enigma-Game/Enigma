@@ -5,7 +5,7 @@ SUBDIRS = tutorial_advanced tutorial_basic tutorial_training tutorial_old \
 	enigma_experimental enigma_demolevels \
 	enigma_advent_10 \
 	enigma_cross \
-	pentomino_i \
+	pentomino_i pentomino_ii \
 	soko \
 	patches lib
 
