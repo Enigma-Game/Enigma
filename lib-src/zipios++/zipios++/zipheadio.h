@@ -150,7 +150,7 @@ inline void readByteSeq ( istream &is, vector < unsigned char > &vec, int count 
 }
 
 inline void writeByteSeq ( ostream &os, const vector < unsigned char > &vec ) {
-  os.rdbuf()->sputn( reinterpret_cast< const char * >( &( vec[ 0 ] ) ), vec.size() ) ;
+  os.rdbuf()->sputn( reinterpret_cast< const char * >( vec.data() ), vec.size() ) ;
 }
 
 istream& operator>> ( istream &is, ZipLocalEntry &zlh         ) ;
