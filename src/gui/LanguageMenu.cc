@@ -48,12 +48,20 @@ namespace enigma { namespace gui {
         const int buttonWidth = (vminfo.tt == 0) ? 80 : 160;
         const int buttonHeight = (vminfo.tt == 0) ? 17 : 35;
         const int bbDist = vshrink ? 5 : 10;
+        // Distribute the buttons in a rectangle with roughly the
+        // same proportions as the available space.
+        // (Add 1 for tweaking.)
         const int langs_per_column = ecl::round_up<int>(std::sqrt(
             ((float) num_langs * (buttonWidth + bbDist) * listHeight)
-              / ((buttonHeight + bbDist) * listWidth)));
+              / ((buttonHeight + bbDist) * listWidth))) + 1;
         const int num_columns = ecl::round_up<int>(((float) num_langs) / langs_per_column);
         std::string curname = app.language;
         language_buttons.clear();
+
+        add(ok, Rect(vminfo.width  - (vshrink ? 85 : 170),
+                     vminfo.height - (vshrink ? 30 : 60),
+                     vshrink ? 75 : 150,
+                     vshrink ? 20 : 40));
 
         cols_hlist = new HList;
         cols_hlist->set_spacing(bbDist);
@@ -61,12 +69,12 @@ namespace enigma { namespace gui {
         cols_hlist->set_default_size(buttonWidth, listHeight);
         VList* buttons_vlist;
         int k = 1;
-        for (size_t i = 0; i <= num_columns; i++) {
+        for (size_t i = 0; i < num_columns; i++) {
             buttons_vlist = new VList;
             buttons_vlist->set_spacing(bbDist);
             buttons_vlist->set_alignment(HALIGN_LEFT, VALIGN_TOP);
             buttons_vlist->set_default_size(buttonWidth, buttonHeight);
-            for (size_t j = 0; j <= langs_per_column; j++, k++) {
+            for (size_t j = 0; j < langs_per_column; j++, k++) {
                 if (k < num_langs + 1) {
                     TextButton * button = new UntranslatedStaticTextButton(nls::languages[k].name, this);
                     button->setHighlight(curname == nls::languages[k].localename);
@@ -77,15 +85,10 @@ namespace enigma { namespace gui {
             cols_hlist->add_back(buttons_vlist);
         }
         const int realWidth = num_columns * (buttonWidth + bbDist) - bbDist;
-        const int realHeight = (langs_per_column + 1) * (buttonHeight + bbDist) - bbDist;
+        const int realHeight = langs_per_column * (buttonHeight + bbDist) - bbDist;
         int xOffset = (vminfo.width - realWidth) / 2;
-        int yOffset = (vminfo.height - (vshrink ? 40 : 80) - realHeight) / 2;
+        int yOffset = (vminfo.height - (vshrink ? 30 : 60) - realHeight) / 2;
         this->add(cols_hlist, Rect(xOffset, yOffset, realWidth, realHeight));
-
-        add(ok, Rect(vminfo.width  - (vshrink ? 85 : 170),
-                     vminfo.height - (vshrink ? 30 : 60),
-                     vshrink ? 75 : 150,
-                     vshrink ? 20 : 40));
     }
 
     void LanguageMenu::draw_background(ecl::GC &gc) 

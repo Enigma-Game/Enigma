@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Ride the Broomstick" el:subtitle="" el:id="devnull144"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2013 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="4:24"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["SubSoil"] = SUBSOIL_WATER
+
+ti["  "] = {"fl_redslab"}
+ti[" ~"] = {"fl_water"}
+ti["# "] = {"st_granite"}
+ti["H "] = {"st_granite_hollow"}
+ti["M "] = {"st_granite_movable"}
+ti["N "] = {"st_oneway_n"}
+ti["S "] = {"st_oneway_s"}
+ti["X "] = {"st_grate"}
+ti["/ "] = {"st_mirror", movable = true, flavor = "sheets"}
+ti[". "] = {"st_ghost_break"}
+ti["= "] = {"st_stoneimpulse"}
+ti["- "] = {"st_stoneimpulse_hollow"}
+ti["+ "] = {"st_box_hay"}
+ti["K "] = {"st_box_rock"}
+ti["R "] = {"st_rotator", movable = true}
+ti["B "] = {"st_passage_black", flavor = "frame"}
+ti["W "] = {"st_passage_white", flavor = "frame"}
+ti["^ "] = {"st_boulder_s"}
+ti["L "] = {"st_laser_e", name = "laser"}
+ti["C "] = {"st_switch_black", target = "laser"}
+ti[" m"] = {"it_magicwand"}
+ti[" B"] = {"it_brush"}
+ti[" g"] = {"it_bottle"}
+ti["p "] = {"it_springboard"}
+ti[": "] = {"st_blocker"}
+ti[" !"] = {"it_bomb_white"}
+ti[" _"] = ti[" ~"] .. ti[" !"]
+ti[" b"] = {"it_vortex", destination = "black"}
+ti["b "] = {"fl_redslab", name = "black"}
+ti[" w"] = {"it_vortex", destination = "white"}
+ti["w "] = {"fl_redslab", name = "white"}
+ti[" y"] = {"it_yinyang"}
+ti["trigger"] = {"fl_scales_concrete", target = "blockers%%#*", min = 0.2}
+ti["blocker"] = {"st_blocker", name = "blockers%%#"}
+ti["OB"] = {"st_oxyd_b", name = "oxydsBlack#"}
+ti["OW"] = {"st_oxyd_b", name = "oxydsWhite#"}
+ti["@0"] = {"#ac_marble_black", essential = INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", essential = INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"T", "trigger"}, {"h", "blocker"})), "  ", {
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# # # #      ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~L~ ~ ~ ~ ~ ~@1+  ~/ +~+w ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# + +~+~     ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~   ~     ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~ ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~+ +  ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~+ +  ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~ ~",
+  " ~ ~^~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~+ +  ~",
+  " ~@0+b ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~w    ~",
+  " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  " ~ ~ ~ ~ ~                            H # # # ",
+  " ~ ~ ~ ~ ~  # # # # # # # # H~# # # S # OW  OW",
+  " ~ ~ ~ ~ ~  #   h1        h2  #       # OW  OW",
+  " ~ ~ ~ ~ ~  #   OBOBOBOBOBOB  #   OW  # OW  OW",
+  " ~ ~        #   OB ~ ~ ~ ~OB  #   OW  #! _h3 ~",
+  " ~ ~  # # # # B # HBHBHBHB# X~# S HB  H!Km ~ ~",
+  " ~ ~:    ~p  ~ g ~          .      ~T3=!-_ ~ ~",
+  " ~ ~R # +~# # B # # # # # # X~# # # # # -~ ~ ~",
+  " ~ ~  #~B   #   # T2      +  ~ ~+  ~ ~# -~ ~ ~",
+  "#      ~+ + +    ~     ~ ~+~ ~+ + +~+~# -~ ~ ~",
+  "#     M~ ~ ~     ~ ~T1#    ~b +  ~+~ ~#~-~ ~ ~",
+  "# # = # M # # # # # # # # # C # # #  ~# -~ ~ ~",
+  " ~ ~=~#    ~ ~ ~-~-~-~-~-~-~-~-~-~-~- -~-~ ~ ~",
+  " ~ ~=~Hy        -                     #  ~ ~ ~",
+  " ~ ~=~=~=~=~=~=~=~# # # # # # # # # # #  ~ ~ ~" 
+})
+wo:shuffleOxyd({"oxydsBlack#*", max = 0}, {"oxydsWhite#*", max = 0})
+wo:add(YANG, {"it_yinyang"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

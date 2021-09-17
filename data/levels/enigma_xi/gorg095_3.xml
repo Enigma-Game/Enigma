@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Chain Reactions" el:subtitle=""
+el:id="gorg095_3"/> <el:version el:score="1" el:release="3" el:revision="5"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2019 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility el:enigma="1.30">
+<el:dependency el:id="lib/libpuzzle" el:release="3" el:preload="true" el:path="lib/libpuzzle"/>
+</el:compatibility> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="04:44"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+wo["ProvideExtralifes"] = false
+wo["FallenPuzzle"] = "fl_rock_framed"
+
+ti["  "] = {"fl_darkgray"}
+ti["- "] = {"fl_abyss"}
+ti["# "] = {"st_brick", cluster="1"}
+ti[" m"] = {"st_mirror", orientation=EAST, movable=true}
+ti[" n"] = {"st_mirror", orientation=WEST, transparent=true, movable=true}
+ti[" i"] = {"st_stoneimpulse_movable"}
+ti[" I"] = {"st_stoneimpulse_hollow"}
+ti["L "] = {"st_laser_e", "laser"}
+ti["l "] = {"st_laser_s", "lasers"}
+ti["N "] = {"st_laser_n", "lasern"}
+ti["$ "] = {"fl_bridge", "dest"}
+ti["S "] = {"st_switch", target="laser"}
+ti["t "] = {"fl_scales_darkgray", target="lasern"}
+ti["% "] = {"fl_scales_darkgray", target="dest"}
+ti["T "] = {"fl_scales_darkgray", target="lasers"}
+ti["P "] = {"st_lightpassenger"}
+ti["O "] = {"st_oxyd", oxydcolor=OXYD_GRAY}
+ti[" G"] = {"st_grate_framed"}
+ti[" x"] = {"st_box_rock"}
+ti["a "] = {"fl_bridge", "bridge1#"}
+ti["A "] = {"fl_scales_darkgray", target="bridge1#*"}..ti{"#ac_marble_glass"}
+ti["b "] = {"fl_bridge", "bridge2#"}
+ti["B "] = {"fl_scales_darkgray", target="bridge2#*"}
+ti["c "] = {"fl_bridge", "bridge3#"}
+ti["C "] = {"fl_scales_darkgray", target="bridge3#*"}
+ti["d "] = {"fl_bridge", "bridge4#"}
+ti["D "] = {"st_laserswitch", target="bridge4#*"}
+ti["e "] = {"fl_bridge", "bridge5#"}
+ti["E "] = {"fl_scales_darkgray", target="bridge5#*"}
+ti[" X"] = {"st_brake"}
+ti[" +"] = {"it_extralife"}
+ti[" ="] = ti[" x"]..{"it_extralife"}
+ti[" w"] = ti[" i"]..{"it_magicwand"}
+ti["> "] = {"fl_forward_darkgray", orientation=EAST}
+ti["< "] = {"fl_forward_darkgray", orientation=WEST}
+ti["^ "] = {"fl_forward_darkgray", orientation=NORTH}
+ti["v "] = {"fl_forward_darkgray", orientation=SOUTH}
+ti["* "] = {"it_wormhole", destination="dest", strength=3.0, range=1.0}
+ti["Z"]  = {"st_puzzle_blue", intensity=0}
+ti["q"]  = ti["> "]..{"st_puzzle_blue", intensity=0}
+ti["R"]  = ti["< "]..{"st_puzzle_blue", intensity=0}
+ti["r"]  = ti["v "]..{"st_puzzle_blue", intensity=0}
+
+wo(res.composer(res.puzzle(ti, "Z", "q", "R", "r")), "  ",{
+    "# # -I-I-I-I-I-I# # t # # # # # # # # # ",
+    "# O  I i- -i-x-I- - % - - l # # - - O # ",
+    "# L      x    Zh- - -  =- d # - - - -I# ",
+    "# # P  wZa    - - -  I$X-  xe qC> > rH# ",
+    "# S  iaX i  Zj- - # # # # - -i^ - -Iv # ",
+    "# -I I   iZf- > - # # # # E - ^ < RD< # ",
+    "# -I  -=     G- b # # # # # # - - -i# # ",
+    "# #  G i- -i G- b  I I I I I# # # -i# # ",
+    "# #  i i i i GA -+-I i   m   i-i-I- -I# ",
+    "# # -I>  iv  G-i-x# T > > v   Zl*i-I-I# ",
+    "# # -I Iv < -I- - #  iZbvic Zh  -I-I- # ",
+    "# # -I-Iv v -i-i-i# -I I n XZc G- O # # ",
+    "# # # O  I> > B C # # -IN -ID -I# # # # "
+})
+
+wo:shuffleOxyd()
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+
+

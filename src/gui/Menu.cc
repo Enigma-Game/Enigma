@@ -155,8 +155,16 @@ Menu::Menu()
             app.bossKeyPressed = true;
             return;
         }
-        
-        
+
+        // Cycle through languages in wizard mode on Shift+Page-Up/Down
+        if (   enigma::WizardMode
+            && e.type == SDL_KEYDOWN
+            && (e.key.keysym.sym == SDLK_PAGEUP || e.key.keysym.sym == SDLK_PAGEDOWN)
+            && (e.key.keysym.mod & KMOD_SHIFT)) {
+            nls::CycleLocale(e.key.keysym.sym == SDLK_PAGEUP);
+            invalidate_all();
+        }
+
         // first allow active widget to handle event
         if (active_widget && active_widget->on_event(e))
             return;

@@ -284,7 +284,7 @@ namespace enigma { namespace gui {
             int v_text_button = (vtt == 0) ? 8 : 16;
             // welcome text and information about ESC and F1
             workString = (vtt <= 1) ? tutTextShort[0] : tutTextLong[0];
-            lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
+            lines = breakToLines(menufont, _(workString), " ", param[vtt].tut_upperrowlength);
             for (auto it = lines.begin(); it != lines.end(); it++) {
                 Label * lbText = new UntranslatedLabel(*it, HALIGN_LEFT);
                 this->add(lbText, Rect(x, y, w, h));
@@ -295,7 +295,7 @@ namespace enigma { namespace gui {
 #ifdef ENABLE_EXPERIMENTAL
             // recommendation for advanced tutorial pack
             workString = (vtt <= 1) ? tutTextShort[1] : tutTextLong[1];
-            lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
+            lines = breakToLines(menufont, _(workString), " ", param[vtt].tut_upperrowlength);
             for (auto it = lines.begin(); it != lines.end(); it++) {
                 Label * lbText = new UntranslatedLabel(*it, HALIGN_LEFT);
                 this->add(lbText, Rect(x, y, w, h));
@@ -311,7 +311,7 @@ namespace enigma { namespace gui {
             y += buttonHeight + v_text_button;
             // recommendation for basic tutorial pack
             workString = (vtt <= 1) ? tutTextShort[2] : tutTextLong[2];
-            lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
+            lines = breakToLines(menufont, _(workString), " ", param[vtt].tut_upperrowlength);
             for (auto it = lines.begin(); it != lines.end(); it++) {
                 Label * lbText = new UntranslatedLabel(*it, HALIGN_LEFT);
                 this->add(lbText, Rect(x, y, w, h));
@@ -327,7 +327,7 @@ namespace enigma { namespace gui {
             y += buttonHeight + v_text_button;
             // recommendation for remaining level pack(s)
             workString = (vtt <= 1) ? tutTextShort[3] : tutTextLong[3];
-            lines = breakToLines(menufont, workString, " ", param[vtt].tut_upperrowlength);
+            lines = breakToLines(menufont, _(workString), " ", param[vtt].tut_upperrowlength);
             for (auto it = lines.begin(); it != lines.end(); it++) {
                 Label * lbText = new UntranslatedLabel(*it, HALIGN_LEFT);
                 this->add(lbText, Rect(x, y, w, h));

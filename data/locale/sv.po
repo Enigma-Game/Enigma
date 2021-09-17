@@ -1,0 +1,5118 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# A. Regnander, 2021
+# Daniel Nylander, 2006
+# Mat Mat, 2019
+# Merarom, 2014
+# Michał Trzebiatowski, 2018
+# Stefan Gagner, 2014
+# theschitz, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Enigma\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
+"POT-Creation-Date: 2021-02-10 23:19+0100\n"
+"PO-Revision-Date: 2021-02-17 21:56+0000\n"
+"Last-Translator: A. Regnander\n"
+"Language-Team: Swedish (http://www.transifex.com/michtrz/enigma/language/sv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/server.cc:177 src/server.cc:189 src/gui/LevelInspector.cc:205
+msgid "Server Error: could not load level '"
+msgstr "Serverfel: kunde inte läsa in nivå '"
+
+#: src/client.cc:67
+#, c-format
+msgid "Mouse speed: %d"
+msgstr "Mushastighet: %d"
+
+#: src/client.cc:77
+msgid "Another nameless level"
+msgstr "Ytterligare en namnlös nivå"
+
+#: src/client.cc:81
+msgid " by "
+msgstr " av "
+
+#: src/client.cc:506
+msgid "Left mouse button:"
+msgstr "Vänster musknapp:"
+
+#: src/client.cc:506
+msgid "Activate/drop leftmost inventory item"
+msgstr "Aktivera/släpp inventarieobjekt längst till vänster"
+
+#: src/client.cc:507 src/gui/GameMenu.cc:146
+msgid "Right mouse button:"
+msgstr "Höger musknapp:"
+
+#: src/client.cc:507
+msgid "Rotate inventory items"
+msgstr "Rotera inventarieobjekt"
+
+#: src/client.cc:508 src/gui/LevelMenu.cc:194 src/gui/ScreenshotViewer.cc:35
+msgid "Escape:"
+msgstr "Escape:"
+
+#: src/client.cc:508
+msgid "Show game menu"
+msgstr "Visa spelmeny"
+
+#: src/client.cc:509
+msgid "Shift+Escape:"
+msgstr "Shift+Esc:"
+
+#: src/client.cc:509
+msgid "Quit game immediately"
+msgstr "Avsluta spelet direkt"
+
+#: src/client.cc:510 src/gui/GameMenu.cc:142
+msgid "F1:"
+msgstr "F1:"
+
+#: src/client.cc:510 src/gui/LevelMenu.cc:195 src/gui/ScreenshotViewer.cc:36
+#: src/gui/GameMenu.cc:142
+msgid "Show this help"
+msgstr "Visa denna hjälp"
+
+#: src/client.cc:511 src/gui/GameMenu.cc:143
+msgid "F3:"
+msgstr "F3:"
+
+#: src/client.cc:511 src/gui/GameMenu.cc:143
+msgid "Kill current marble"
+msgstr "Döda nuvarand kula"
+
+#: src/client.cc:512 src/gui/GameMenu.cc:144
+msgid "Shift+F3:"
+msgstr "Shift+F3:"
+
+#: src/client.cc:512 src/gui/GameMenu.cc:144
+msgid "Restart the current level"
+msgstr "Starta om nuvarande nivå"
+
+#: src/client.cc:513 src/gui/GameMenu.cc:145
+msgid "Shift+Ctrl+F3:"
+msgstr "Shift+Ctrl+F3:"
+
+#: src/client.cc:513 src/gui/GameMenu.cc:145
+msgid "Reload and restart the current level"
+msgstr ""
+
+#: src/client.cc:514
+msgid "F4:"
+msgstr "F4:"
+
+#: src/client.cc:514
+msgid "Skip to next level"
+msgstr "Hoppa till nästa nivå"
+
+#: src/client.cc:515 src/gui/LevelPackComposer.cc:51
+msgid "F5:"
+msgstr "F5:"
+
+#: src/client.cc:516 src/gui/LevelPackComposer.cc:44
+msgid "F6:"
+msgstr "F6:"
+
+#: src/client.cc:516
+msgid "Jump back to last level"
+msgstr "Hoppa tillbaka till förra nivån"
+
+#: src/client.cc:517
+msgid "F10:"
+msgstr "F10:"
+
+#: src/client.cc:517
+msgid "Make screenshot"
+msgstr "Ta skärmbild"
+
+#: src/client.cc:518
+msgid "Left/right arrow:"
+msgstr "Vänster/höger piltangent:"
+
+#: src/client.cc:518
+msgid "Change mouse speed"
+msgstr "Ändra mushastighet"
+
+#: src/client.cc:519
+msgid "Alt+x:"
+msgstr "Alt+x:"
+
+#: src/client.cc:519
+msgid "Return to level menu"
+msgstr "Återgå till nivåmeny"
+
+#: src/client.cc:528
+msgid "Skip to next level for best score hunt"
+msgstr "Hoppa till nästa nivå för att jaga bästa poäng"
+
+#: src/client.cc:529
+msgid "Skip to next unsolved level"
+msgstr "Hoppa till nästa olösta nivå"
+
+#: src/client.cc:675
+msgid "Too slow for "
+msgstr "För långsam för "
+
+#: src/client.cc:679
+msgid "You are slow today ... Ctrl-A"
+msgstr "Du är långsam i dag ... Ctrl-A"
+
+#: src/client.cc:748
+msgid "Exactly the world record of "
+msgstr "Samma som världsrekordet för "
+
+#: src/client.cc:750
+msgid "Great! A new world record!"
+msgstr "Bra! Ett nytt världsrekord!"
+
+#: src/client.cc:755
+msgid "Again your personal record..."
+msgstr "Ditt personliga rekord igen..."
+
+#: src/client.cc:760
+msgid "New personal record - better than par!"
+msgstr "Nytt personligt rekord - bättre än par!"
+
+#: src/client.cc:766
+msgid "New personal record!"
+msgstr "Nytt personligt rekord!"
+
+#: src/client.cc:777
+msgid "Your record, "
+msgstr "Ditt poäng, "
+
+#: src/client.cc:783
+msgid "behind world record."
+msgstr "över världsrekordet."
+
+#: src/client.cc:785
+msgid "behind your record."
+msgstr "över ditt rekord."
+
+#: src/client.cc:793
+msgid "Level finished - better than par!"
+msgstr "Nivå avklarad - bättre än par!"
+
+#: src/client.cc:799
+msgid "Level finished!"
+msgstr "Nivå avklarad!"
+
+#: src/client.cc:802
+msgid " Cheater!"
+msgstr " Fuskare!"
+
+#: src/client.cc:825
+#, c-format
+msgid "Enigma pack %s - level #%d: %s"
+msgstr "Enigma-paket %s - nivå nr %d: %s"
+
+#: src/client.cc:837
+msgid "Your record: "
+msgstr "Ditt rekord: "
+
+#: src/client.cc:839
+msgid "World record to beat: "
+msgstr "Världsrekord att slå: "
+
+#: src/main.cc:353
+#, c-format
+msgid "Error in configuration file.\n"
+msgstr "Fel i konfigurationsfil.\n"
+
+#: src/main.cc:591 src/main.cc:614
+#, c-format
+msgid "Error: Home directory does not exist.\n"
+msgstr "Fel: Hemmakatalogen finns inte.\n"
+
+#: src/main.cc:606
+#, c-format
+msgid "Error: Application Data directory does not exist.\n"
+msgstr "Fel: Applikationsdatakatalog finns inte.\n"
+
+#: src/main.cc:633 src/main.cc:682
+#, c-format
+msgid "Error in XML initialization.\n"
+msgstr "Fel i XML-initiering.\n"
+
+#: src/main.cc:760
+#, c-format
+msgid ""
+"Mac OS X upgrade from Enigma 1.00\n"
+"\n"
+"The default user data path has changed from\n"
+"  %s \n"
+"\n"
+"to the visible data path\n"
+"  %s \n"
+"\n"
+"If ok Enigma will move your data to this new location.\n"
+"Note that you have to restart Enigma once for completion of this update."
+msgstr "Mac OS X uppgradering från Enigma 1.00\n\nStandard användardata vägen har ändrats från\n%s\n\ntill den synliga uppgifter path\n%s \n\nOm ok kommer Enigma att flytta dina data till denna nya plats.\nObservera att du måste starta om Enigma en gång för slutförande av denna uppdatering."
+
+#: src/main.cc:761
+msgid "OK"
+msgstr "OK"
+
+#: src/main.cc:761 src/gui/OptionsMenu.cc:319 src/gui/OptionsMenu.cc:323
+msgid "Never"
+msgstr "Aldrig"
+
+#: src/main.cc:761
+msgid "Remind"
+msgstr "Påminn"
+
+#: src/main.cc:991
+msgid ""
+"Fatal error that caused the application to quit:\n"
+"\n"
+msgstr "Allvarligt fel som orsakade att programmet avslutades:\n\n"
+
+#: src/main.cc:993 src/gui/MainMenu.cc:425
+msgid "Quit"
+msgstr "Avsluta"
+
+#: src/gui/MainMenu.cc:50 src/gui/MainMenu.cc:414 src/gui/LevelPackMenu.cc:65
+msgid "Start Game"
+msgstr "Starta spel"
+
+#: src/gui/MainMenu.cc:51
+msgid "Join Game"
+msgstr "Gå in i spel"
+
+#: src/gui/MainMenu.cc:52 src/gui/MainMenu.cc:279
+#: src/gui/ScreenshotViewer.cc:35
+msgid "Back"
+msgstr "Tillbaka"
+
+#: src/gui/MainMenu.cc:78
+msgid "Enigma - Network Menu"
+msgstr ""
+
+#: src/gui/MainMenu.cc:89
+msgid "Main developers of the 1.21 release:"
+msgstr "Huvudutvecklare av 1.21-utgåvan:"
+
+#: src/gui/MainMenu.cc:91
+msgid "  RONALD LAMPRECHT (lead)"
+msgstr "  RONALD LAMPRECHT (ledare)"
+
+#: src/gui/MainMenu.cc:97
+msgid "Special Thanks To:"
+msgstr "Speciella tack till:"
+
+#: src/gui/MainMenu.cc:99
+msgid "  DANIEL HECK (project founder)"
+msgstr "  DANIEL HECK (projektgrundare)"
+
+#: src/gui/MainMenu.cc:100
+msgid "  MEINOLF SCHNEIDER (game idea, level design)"
+msgstr "  MEINOLF SCHNEIDER (spelidé, nivådesign)"
+
+#: src/gui/MainMenu.cc:102
+msgid "Please refer to the manual or the next pages for full credits."
+msgstr "Se manualen eller nästkommande sidor för fler detaljer."
+
+#: src/gui/MainMenu.cc:104
+msgid "Home Page: http://www.nongnu.org/enigma"
+msgstr "Webbplats: http://www.nongnu.org/enigma"
+
+#: src/gui/MainMenu.cc:105
+msgid "Contact: enigma-devel@nongnu.org"
+msgstr "Kontakt: enigma-devel@nongnu.org"
+
+#: src/gui/MainMenu.cc:107
+msgid "Enigma is free software and may be distributed under the"
+msgstr "Enigma är fri programvara och kan distribueras under"
+
+#: src/gui/MainMenu.cc:108
+msgid "terms of the GNU General Public License, version 2."
+msgstr "villkoren för GNU General Public License, version 2."
+
+#: src/gui/MainMenu.cc:110
+msgid "Copyright (C) 2002-2014 Daniel Heck and contributors."
+msgstr "Copyright (C) 2002-2014 Daniel Heck och medarbetare."
+
+#: src/gui/MainMenu.cc:112
+msgid "Main developers of all releases:"
+msgstr "Huvudutvecklare av alla utgåvor:"
+
+#: src/gui/MainMenu.cc:128
+msgid "Special Thanks:"
+msgstr "Speciella tack till:"
+
+#: src/gui/MainMenu.cc:145
+msgid "Contributors"
+msgstr "Bidragsgivare"
+
+#: src/gui/MainMenu.cc:273
+msgid "Homepage"
+msgstr "Hemsida"
+
+#: src/gui/MainMenu.cc:274
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: src/gui/MainMenu.cc:275 src/gui/OptionsMenu.cc:802
+msgid "Paths"
+msgstr "Sökvägar"
+
+#: src/gui/MainMenu.cc:276
+msgid "Locate Auto"
+msgstr "Hitta Auto"
+
+#: src/gui/MainMenu.cc:277
+msgid "Locate Score"
+msgstr "Hitta Poäng"
+
+#: src/gui/MainMenu.cc:278
+msgid "Credits"
+msgstr "Tack"
+
+#: src/gui/MainMenu.cc:314
+msgid "Enigma - Help Menu"
+msgstr ""
+
+#: src/gui/MainMenu.cc:330
+msgid "Preferences Path:"
+msgstr "Sökväg för inställningar:"
+
+#: src/gui/MainMenu.cc:340
+msgid "User Path:"
+msgstr "Användarsökväg:"
+
+#: src/gui/MainMenu.cc:350
+msgid "User Image Path:"
+msgstr "Sökväg för användarbild:"
+
+#: src/gui/MainMenu.cc:360
+msgid "System Path:"
+msgstr "Systemsökväg:"
+
+#: src/gui/MainMenu.cc:370
+msgid "Resource Paths:"
+msgstr "Sökvägar för resurser:"
+
+#: src/gui/MainMenu.cc:380
+msgid "L10n Path:"
+msgstr "Sökväg för L10n:"
+
+#: src/gui/MainMenu.cc:415 src/gui/LevelMenu.cc:50
+msgid "Level Pack"
+msgstr "Nivåpaket"
+
+#: src/gui/MainMenu.cc:417
+msgid "Network Game"
+msgstr "Nätverksspel"
+
+#: src/gui/MainMenu.cc:419 src/gui/LevelPackMenu.cc:64
+#: src/gui/SearchMenu.cc:245
+msgid "Search"
+msgstr "Sök"
+
+#: src/gui/MainMenu.cc:420 src/gui/GameMenu.cc:52
+msgid "Options"
+msgstr "Alternativ"
+
+#: src/gui/MainMenu.cc:422
+msgid "Update"
+msgstr "Uppdatera paket"
+
+#: src/gui/MainMenu.cc:424
+msgid "Help"
+msgstr "Hjälp"
+
+#: src/gui/MainMenu.cc:459
+msgid "Enigma - Main Menu"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:50
+msgid ""
+"This is a selection of the most important options. Each of them can be found"
+" in one of the submenus. For help on a specific option, please press F1 in "
+"its original submenu."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:54
+msgid "Screen brightness:"
+msgstr "Skärmljusstyrka:"
+
+#: src/gui/OptionsMenu.cc:55
+msgid ""
+"This changes the brightness of the entire screen on which Enigma's window is"
+" positioned. Default is '0'."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:56
+msgid "Fullscreen:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:57
+msgid ""
+"Choose 'yes' if you want Enigma to be displayed on the whole screen instead "
+"of within a window."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:58
+msgid "In fullscreen mode:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:59
+msgid ""
+"Screen resolution: This lists all resolutions that are supported both by "
+"your monitor and by Enigma. It is only used in fullscreen mode."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:60
+msgid ""
+"Tileset: The set of images used in the menus and in the game. In fullscreen "
+"mode, this depends on the chosen screen resolution."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:61
+msgid "In windowed mode:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:62
+msgid ""
+"Tileset: In windowed mode, you choose the tileset first. The tileset then "
+"defines the default size of Enigma's window."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:63
+msgid ""
+"Window size: While the tileset determines the default size of your window, "
+"you can scale it up by a factor. You can choose this factor in this field. "
+"You can still resize the window manually, however, when you restart Enigma, "
+"the size defined by this field is reinstated again. You can choose 'Not "
+"fixed', in which case Enigma will restart with the same window size you "
+"previously chose."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:67
+msgid "Sound set:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:68
+msgid ""
+"The collection of sounds used by Enigma. Unless you install a user sound set"
+" or other source of sound sets, only default ('Enigma') is available."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:69
+msgid "Menu music:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:70
+msgid ""
+"The selection of music that is played in menus. 'In game' means that the "
+"same music is played as would be during the play."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:71
+msgid "Music ingame:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:72
+msgid "Whether you want to hear Enigma's music while playing."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:73
+msgid "Sound volume / Music volume:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:74
+msgid ""
+"Loudness of sound effects / music. Please note that the volume settings of "
+"your operating system applies as well."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:75
+msgid "Stereo:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:76
+msgid ""
+"If active (by default), sound effects are changed to reflect the direction "
+"of their sources in a level. Choose 'mono' to deactivate this. In some "
+"setups, left and right speaker are swapped; you might choose 'reverse' then."
+" (Stereo effects might not work.)"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:80
+msgid "Language:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:81
+msgid ""
+"You can choose the language here. You can also choose a language by clicking"
+" on the flags above the main menu, if Enigma's window (or fullscreen "
+"resolution) is large enough to show them."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:82
+msgid "Mouse speed:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:83
+msgid ""
+"A factor which decides how fast you have to move your mouse to achieve a "
+"certain force on the marble. You can choose this factor during the game as "
+"well, by pressing the left and right arrow keys."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:84
+msgid "Middle mouse button:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:85
+msgid ""
+"What happens when you click your mouse's middle button in the game, 'Pause' "
+"by default."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:86
+msgid "Text speed:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:87
+msgid ""
+"The speed with which text flies by in the game. You can press the down arrow"
+" to display a text again, if you missed it."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:88
+msgid "Ratings update:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:89
+msgid ""
+"Whether Enigma should automatically download the latest rating file, with "
+"world records, user ratings of levels etc."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:90
+msgid "User name:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:91
+msgid ""
+"If you want to submit your scores, you should enter a user name here. This "
+"is the name shown to other players if you hold a world record for a level, "
+"and on the leaderboard on our web site. On our web site, you will find a "
+"list of all user names currently in use (and known to us)."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:95
+msgid "User path:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:96
+msgid "Location of your scores, some settings, and user level packs."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:97
+msgid "User image path:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:98
+msgid ""
+"Location of level screenshots (use F10 during the game to make a "
+"screenshot), and of level thumbnails. By default, this is the same as your "
+"user path."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:99
+msgid "Localization/translation path:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:100
+msgid "Location of translations to all languages Enigma uses."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:280 src/gui/OptionsMenu.cc:301
+msgid "muted"
+msgstr "tyst"
+
+#: src/gui/OptionsMenu.cc:314
+msgid "Music in game"
+msgstr "Musik i spelet"
+
+#: src/gui/OptionsMenu.cc:314
+msgid "No music in game"
+msgstr "Ingen musik i spelet"
+
+#: src/gui/OptionsMenu.cc:319
+msgid "Auto"
+msgstr "Auto"
+
+#: src/gui/OptionsMenu.cc:323
+msgid "Always"
+msgstr "Alltid"
+
+#: src/gui/OptionsMenu.cc:329 src/gui/OptionsMenu.cc:941
+#: src/gui/LevelPackConfig.cc:93 src/gui/SearchMenu.cc:105
+msgid "Yes"
+msgstr "Ja"
+
+#: src/gui/OptionsMenu.cc:329 src/gui/OptionsMenu.cc:942
+#: src/gui/LevelPackConfig.cc:93 src/gui/SearchMenu.cc:105
+msgid "No"
+msgstr "Nej"
+
+#: src/gui/OptionsMenu.cc:382
+msgid "None found"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:497
+msgid "Not fixed"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:594
+msgid "reversed"
+msgstr "omvänd"
+
+#: src/gui/OptionsMenu.cc:595
+msgid "mono"
+msgstr "mono"
+
+#: src/gui/OptionsMenu.cc:596
+msgid "normal"
+msgstr "normal"
+
+#: src/gui/OptionsMenu.cc:639 src/gui/LevelInspector.cc:345
+#: src/gui/LevelInspector.cc:361 src/gui/LevelInspector.cc:375
+msgid "unknown"
+msgstr "okänd"
+
+#: src/gui/OptionsMenu.cc:671
+msgid "Deactivated"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:673
+msgid "Pause (ESC)"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:675 src/gui/GameMenu.cc:51
+msgid "Restart Level (Shift-F3)"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:694
+#, c-format
+msgid "Resetting video settings in %is ..."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:794
+msgid "Main"
+msgstr "Huvudmeny"
+
+#: src/gui/OptionsMenu.cc:796
+msgid "Video"
+msgstr "Video"
+
+#: src/gui/OptionsMenu.cc:798
+msgid "Audio"
+msgstr "Audio"
+
+#: src/gui/OptionsMenu.cc:800
+msgid "Config"
+msgstr "Konfigurering"
+
+#: src/gui/OptionsMenu.cc:821 src/gui/LevelPackComposer.cc:119
+#: src/gui/LevelPackConfig.cc:344 src/gui/LPGroupConfig.cc:101
+#: src/gui/LevelInspector.cc:178 src/gui/HelpMenu.cc:39
+msgid "Ok"
+msgstr "Ok"
+
+#: src/gui/OptionsMenu.cc:875 src/gui/OptionsMenu.cc:918
+msgid "Language: "
+msgstr "Språk: "
+
+#: src/gui/OptionsMenu.cc:877 src/gui/OptionsMenu.cc:898
+msgid "Fullscreen: "
+msgstr "Helskärm: "
+
+#: src/gui/OptionsMenu.cc:880 src/gui/OptionsMenu.cc:919
+msgid "Mouse speed: "
+msgstr "Mushastighet: "
+
+#: src/gui/OptionsMenu.cc:881 src/gui/OptionsMenu.cc:913
+msgid "Sound volume: "
+msgstr "Ljudvolym: "
+
+#: src/gui/OptionsMenu.cc:882 src/gui/OptionsMenu.cc:914
+msgid "Music volume: "
+msgstr "Musikvolym: "
+
+#: src/gui/OptionsMenu.cc:883 src/gui/OptionsMenu.cc:922
+msgid "Ratings update: "
+msgstr "Uppdatering av betyg: "
+
+#: src/gui/OptionsMenu.cc:885
+msgid "Score upload: "
+msgstr "Poänguppladdning:"
+
+#: src/gui/OptionsMenu.cc:890 src/gui/OptionsMenu.cc:926
+msgid "User name: "
+msgstr "Användarnamn: "
+
+#: src/gui/OptionsMenu.cc:895
+msgid "Sorry, no video changes during an ongoing game."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:897
+msgid "Screen brightness: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:900
+msgid "In fullscreen mode: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:901
+msgid "Screen resolution: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:902 src/gui/OptionsMenu.cc:904
+msgid "Tileset: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:903
+msgid "In windowed mode: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:905
+msgid "Window size: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:910
+msgid "Sound set: "
+msgstr "Ljudschema: "
+
+#: src/gui/OptionsMenu.cc:911
+msgid "Menu music: "
+msgstr "Musikmeny:"
+
+#: src/gui/OptionsMenu.cc:912
+msgid "Music ingame: "
+msgstr "Musik i spel:"
+
+#: src/gui/OptionsMenu.cc:915
+msgid "Stereo: "
+msgstr "Stereo: "
+
+#: src/gui/OptionsMenu.cc:920
+msgid "Middle mouse button: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:921
+msgid "Text speed: "
+msgstr "Texthastighet:"
+
+#: src/gui/OptionsMenu.cc:931
+msgid "User path: "
+msgstr "Användarsökväg: "
+
+#: src/gui/OptionsMenu.cc:934
+msgid "User image path: "
+msgstr "Sökväg för användarbild: "
+
+#: src/gui/OptionsMenu.cc:937
+msgid "Localization/translation path: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:943
+msgid "Use these video settings?"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:1177
+msgid "Enigma - Options Menu"
+msgstr ""
+
+#: src/gui/LevelMenu.cc:48 src/gui/LevelPackMenu.cc:66
+msgid "Main Menu"
+msgstr "Huvudmeny"
+
+#: src/gui/LevelMenu.cc:194
+msgid "Skip to main menu"
+msgstr "Hoppa till huvudmeny"
+
+#: src/gui/LevelMenu.cc:197 src/gui/LevelPackComposer.cc:44
+msgid "Add all to clipboard"
+msgstr ""
+
+#: src/gui/LevelMenu.cc:198
+msgid "Update levelpack"
+msgstr "Uppdatera paket"
+
+#: src/gui/LevelMenu.cc:199
+msgid "Arrows:"
+msgstr "Piltangenter:"
+
+#: src/gui/LevelMenu.cc:199
+msgid "Select level"
+msgstr "Välj nivå"
+
+#: src/gui/LevelMenu.cc:200
+msgid "Return:"
+msgstr "Return:"
+
+#: src/gui/LevelMenu.cc:200 src/gui/LevelMenu.cc:205
+msgid "Play selected level"
+msgstr "Spela vald nivå"
+
+#: src/gui/LevelMenu.cc:201
+msgid "Back/Space:"
+msgstr "Backspace/Mellanslag:"
+
+#: src/gui/LevelMenu.cc:201
+msgid "Previous/next levelpack"
+msgstr "Föregående/nästa nivåpaket"
+
+#: src/gui/LevelMenu.cc:202
+msgid "Mark current level as unsolved"
+msgstr "Markera aktuell nivå som olöst"
+
+#: src/gui/LevelMenu.cc:204
+msgid "Alt+Return:"
+msgstr "Alt+Return:"
+
+#: src/gui/LevelMenu.cc:204
+msgid "Switch between fullscreen and window"
+msgstr "Växla mellan helskärm och fönster"
+
+#: src/gui/LevelMenu.cc:205 src/gui/LevelPackMenu.cc:48
+msgid "Left click:"
+msgstr "Vänsterklick:"
+
+#: src/gui/LevelMenu.cc:206 src/gui/LevelPackMenu.cc:49
+msgid "Right or control click:"
+msgstr "Höger eller control-klick:"
+
+#: src/gui/LevelMenu.cc:206
+msgid "Inspect selected level"
+msgstr "Inspektera vald nivå"
+
+#: src/gui/LevelMenu.cc:223
+msgid "Select next level for world record hunt"
+msgstr "Välj nästa nivå för att jaga världsrekord"
+
+#: src/gui/LevelMenu.cc:225
+msgid "Select next unsolved level"
+msgstr "Välj nästa olösta nivå"
+
+#: src/gui/LevelMenu.cc:288
+msgid "You are not allowed to play this level yet."
+msgstr "Du tillåts inte spela denna nivå ännu."
+
+#: src/gui/LevelMenu.cc:325 src/gui/LevelPackComposer.cc:350
+#, c-format
+msgid "%s: %d level"
+msgid_plural "%s: %d levels"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/gui/LevelMenu.cc:339
+#, c-format
+msgid "%d%% best"
+msgstr "%d%% bäst"
+
+#: src/gui/LevelMenu.cc:344
+#, c-format
+msgid "%d%% par, hcp %.1f"
+msgstr "%d%% par, hcp %.1f"
+
+#: src/gui/LevelMenu.cc:348
+#, c-format
+msgid "%d%% solved"
+msgstr "%d%% lösta"
+
+#: src/gui/LevelMenu.cc:383
+msgid "Your time: "
+msgstr "Din tid:"
+
+#: src/gui/LevelMenu.cc:388
+msgid "That's world record."
+msgstr "Det är världsrekord."
+
+#: src/gui/LevelMenu.cc:390
+#, c-format
+msgid "That's %s below world record."
+msgstr ""
+
+#: src/gui/LevelMenu.cc:399 src/gui/LevelMenu.cc:402
+msgid "World record: "
+msgstr "Världen: "
+
+#: src/gui/LevelMenu.cc:401 src/gui/LevelMenu.cc:418
+msgid "Par: "
+msgstr ""
+
+#: src/gui/LevelMenu.cc:415 src/gui/LevelMenu.cc:419
+#, c-format
+msgid "World record by %s: "
+msgstr "Världsrekord med %s: "
+
+#: src/gui/LevelMenu.cc:451
+msgid "No further unsolved level available!"
+msgstr "Ingen ytterligare olöst nivå är tillgänglig!"
+
+#: src/gui/LevelPackComposer.cc:42
+msgid "Shift-click:"
+msgstr "Skiftklicka:"
+
+#: src/gui/LevelPackComposer.cc:42
+msgid "Add to clipboard"
+msgstr "Lägg till i urklipp"
+
+#: src/gui/LevelPackComposer.cc:43
+msgid "Shift-delete:"
+msgstr "Shift-delete:"
+
+#: src/gui/LevelPackComposer.cc:43
+msgid "Clear clipboard"
+msgstr "Rensa urklipp"
+
+#: src/gui/LevelPackComposer.cc:45
+msgid "F8:"
+msgstr "F8:"
+
+#: src/gui/LevelPackComposer.cc:45
+msgid "Insert clipboard as reference"
+msgstr "Infoga urklipp som referens"
+
+#: src/gui/LevelPackComposer.cc:46
+msgid "F9:"
+msgstr "F9:"
+
+#: src/gui/LevelPackComposer.cc:46
+msgid "Insert clipboard as copy"
+msgstr "Infoga urklipp som kopia"
+
+#: src/gui/LevelPackComposer.cc:48
+msgid "Alt-left arrow:"
+msgstr "Alt-vänsterpil:"
+
+#: src/gui/LevelPackComposer.cc:48
+msgid "Exchange level with predecessor"
+msgstr ""
+
+#: src/gui/LevelPackComposer.cc:49
+msgid "Alt-right arrow:"
+msgstr "Alt-högerpil:"
+
+#: src/gui/LevelPackComposer.cc:49
+msgid "Exchange level with successor"
+msgstr "Byte ut nivå med efterföljare"
+
+#: src/gui/LevelPackComposer.cc:50
+msgid "Delete:"
+msgstr "Ta bort:"
+
+#: src/gui/LevelPackComposer.cc:50
+msgid "Delete level"
+msgstr "Ta bort nivå"
+
+#: src/gui/LevelPackComposer.cc:51
+msgid "Update index from levels"
+msgstr "Uppdatera index från nivåer"
+
+#: src/gui/LevelPackComposer.cc:56
+msgid "F10"
+msgstr "F10"
+
+#: src/gui/LevelPackComposer.cc:57
+msgid "Move clipboard levels"
+msgstr "Flytta urklippsnivåer"
+
+#: src/gui/LevelPackComposer.cc:118 src/gui/LevelPackConfig.cc:343
+#: src/gui/LPGroupConfig.cc:100 src/gui/SearchMenu.cc:244
+msgid "Undo"
+msgstr "Ångra"
+
+#: src/gui/LevelPackComposer.cc:364
+#, c-format
+msgid "Clipboard: %d level"
+msgid_plural "Clipboard: %d levels"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/gui/LevelPackComposer.cc:385
+msgid "Enigma - Level Pack Composer"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:173
+msgid "Levelpack:"
+msgstr "Nivåpaket:"
+
+#: src/gui/LevelPackConfig.cc:174
+msgid "Owner:"
+msgstr "Ägare:"
+
+#: src/gui/LevelPackConfig.cc:175 src/gui/LPGroupConfig.cc:56
+msgid "Group:"
+msgstr "Grupp:"
+
+#: src/gui/LevelPackConfig.cc:176
+msgid "Location"
+msgstr "Plats"
+
+#: src/gui/LevelPackConfig.cc:177
+msgid "in [All Packs]:"
+msgstr "i [Alla paket]:"
+
+#: src/gui/LevelPackConfig.cc:234
+msgid "Edit Metadata"
+msgstr "Redigera metadata"
+
+#: src/gui/LevelPackConfig.cc:238
+msgid "Release:"
+msgstr "Utgåva:"
+
+#: src/gui/LevelPackConfig.cc:239
+msgid "Revision:"
+msgstr "Version:"
+
+#: src/gui/LevelPackConfig.cc:240
+msgid "Compatibility:"
+msgstr "Kompatibilitet:"
+
+#: src/gui/LevelPackConfig.cc:241
+msgid "Default Location:"
+msgstr "Standardplats:"
+
+#: src/gui/LevelPackConfig.cc:242
+msgid "Level types:"
+msgstr "Nivåtyper:"
+
+#: src/gui/LevelPackConfig.cc:334
+msgid "Please reassign levelpack to another group for group deletion"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:337
+msgid "Compose Pack"
+msgstr "Komponera paket"
+
+#: src/gui/LevelPackConfig.cc:339
+msgid "Update Pack"
+msgstr "Uppdatera paket"
+
+#: src/gui/LevelPackConfig.cc:418
+msgid ""
+"Error: empty title not allowed - press \"Undo\" to exit without "
+"modifications"
+msgstr "Fel: tom titel tillåts inte - tryck \"Ångra\" för att avsluta utan ändringar"
+
+#: src/gui/LevelPackConfig.cc:431
+msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
+msgstr "Fel: använd endast \"a-zA-Z0-9 _-#\" för nivåpaketets titel"
+
+#: src/gui/LevelPackConfig.cc:442
+msgid "Error: title already in use - choose another title"
+msgstr "Fel: titeln används redan - välj en annan titel"
+
+#: src/gui/LevelPackMenu.cc:46
+msgid "Left column:"
+msgstr "Vänsterkolumn:"
+
+#: src/gui/LevelPackMenu.cc:46
+msgid "Levelpack groups"
+msgstr "Grupper av nivåpaket"
+
+#: src/gui/LevelPackMenu.cc:47
+msgid "Right columns:"
+msgstr "Högerkolumn:"
+
+#: src/gui/LevelPackMenu.cc:47
+msgid "Levelpacks of selected group"
+msgstr "Nivåpaket för vald grupp"
+
+#: src/gui/LevelPackMenu.cc:48
+msgid "Select group or levelpack"
+msgstr "Välj grupp eller nivåpaket"
+
+#: src/gui/LevelPackMenu.cc:49
+msgid "Configure group or levelpack"
+msgstr "Konfigurera grupp eller nivåpaket"
+
+#: src/gui/LevelPackMenu.cc:63
+msgid "New Group"
+msgstr "Ny grupp"
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:125
+msgid ""
+"Welcome to Enigma! Please note that the game makes use of your mouse in "
+"another way than usual, and there will be no mouse cursor during the game. "
+"You can press the ESC key or the middle mouse button to pause the game and "
+"exit (or continue). You can also always press the F1 key to see available "
+"shortcut keys."
+msgstr ""
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:127 src/gui/LevelPackMenu.cc:138
+msgid ""
+"If you are an experienced gamer and prefer a challenge for a start, please "
+"click here:"
+msgstr ""
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:129
+msgid "If you prefer a more gentle introduction, please click here:"
+msgstr ""
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:131
+msgid ""
+"If you feel you need some more training with handling your mouse, you might "
+"find some helpful landscapes here:"
+msgstr ""
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:136
+msgid ""
+"Welcome to Enigma! Please note that there will be no mouse cursor during the"
+" game. You can press ESC or the middle mouse button to pause or exit. Use F1"
+" to see available shortcut keys."
+msgstr ""
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:140
+msgid "For a more gentle introduction, please click here:"
+msgstr ""
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:142
+msgid "You will find more training landscapes here:"
+msgstr ""
+
+#: src/gui/LevelPackMenu.cc:600
+msgid "Enigma - Level Pack Menu"
+msgstr ""
+
+#: src/gui/LPGroupConfig.cc:64
+msgid "Position:"
+msgstr "Position:"
+
+#: src/gui/LPGroupConfig.cc:98
+msgid "New Pack"
+msgstr "Nytt paket"
+
+#: src/gui/LPGroupConfig.cc:99
+msgid "Delete Group"
+msgstr "Ta bort grupp"
+
+#: src/gui/LPGroupConfig.cc:129
+msgid ""
+"Error: empty group name not allowed - press \"Undo\" to exit without "
+"modifications"
+msgstr "Fel: blankt gruppnamn tillåts inte - tryck \"Ångra\" för att avsluta utan ändringar"
+
+#: src/gui/LPGroupConfig.cc:140
+msgid "Error: group name is a duplicate of an existing group"
+msgstr "Fel: gruppnamnet är en dubblett av en befintlig grupp"
+
+#: src/gui/LPGroupConfig.cc:145
+msgid "Error: \"Every group\" is a reserved group name"
+msgstr "Fel: \"Every group\" är ett reserverat gruppnamn"
+
+#: src/gui/LPGroupConfig.cc:150
+msgid "Error: group name must not be enclosed in square brackets"
+msgstr "Fel: gruppnamn får inte sättas inom hakparanteser"
+
+#: src/gui/LPGroupConfig.cc:206
+msgid "Error: group not empty"
+msgstr "Fel: gruppen är inte tom"
+
+#: src/gui/LPGroupConfig.cc:229
+msgid "Enigma - Level Pack Group Configuration"
+msgstr ""
+
+#: src/gui/ScreenshotViewer.cc:37
+msgid "Page Up:"
+msgstr "Sida upp:"
+
+#: src/gui/ScreenshotViewer.cc:37
+msgid "Show previous screenshot"
+msgstr "Visa föregående skärmbild"
+
+#: src/gui/ScreenshotViewer.cc:38
+msgid "Page Down:"
+msgstr "Sida ner:"
+
+#: src/gui/ScreenshotViewer.cc:38
+msgid "Show next screenshot"
+msgstr "Visa nästa skärmbild"
+
+#: src/gui/ScreenshotViewer.cc:108
+msgid "No screenshot available:"
+msgstr "Ingen skärmbild finns tillgänglig:"
+
+#: src/gui/SearchMenu.cc:41
+msgid "Searches for levels with given criteria."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:42
+msgid ""
+"Use 'Text Search' for a case independent search in levels' titles, author "
+"names, file names, and level identification names."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:43
+msgid ""
+"Levels are rated in their difficulty in five categories: intelligence, "
+"dexterity, patience, knowledge about Enigma, and speed control. Each rating "
+"ranges from 1 (easy) to 5 (difficult). Levels with special mechanisms may "
+"also be a 6 in knowledge. With the corresponding buttons, you can search for"
+" levels with certain difficulty ratings."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:44
+msgid ""
+"The five single ratings are combined into an overall difficulty rating, "
+"ranging from 1 to 100. You can also search for levels within a given overall"
+" difficulty range."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:45
+msgid ""
+"'Average rating' is the mean of player's ratings of the levels. You can rate"
+" a level on its level inspector page with a rating from 0 (worst) to 10 "
+"(best). You can search for levels which average rating is within a specified"
+" interval, too."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:46
+msgid ""
+"If you choose 'Only levels that are unsolved in easy mode', you filter for "
+"all levels which feature an easy mode, and that have not been solved by you "
+"in easy mode yet. Accordingly, you can choose 'Only levels that are unsolved"
+" in normal mode' to filter for those."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:48
+msgid ""
+"Finally, you can sort the results randomly, by average rating, by overall "
+"difficulty, or by their sequence on load time, which mostly is the sequence "
+"in which they appear in the level packs (sort by 'None')."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:49
+msgid ""
+"The number of levels satisfying all chosen criteria is shown on the line "
+"above the search button. Please note that some levels have no ratings, or no"
+" average ratings, and are therefore automatically excluded as soon as you "
+"choose to search for ratings or average ratings or sort by them."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:133
+msgid "None"
+msgstr ""
+
+#. TRANSLATORS: Would be shown as "Sort by: Random".
+#: src/gui/SearchMenu.cc:135
+msgid "Random"
+msgstr ""
+
+#. TRANSLATORS: Would be shown as "Sort by: Difficulty".
+#: src/gui/SearchMenu.cc:137
+msgid "Difficulty"
+msgstr ""
+
+#. TRANSLATORS: Would be shown as "Sort by: Average rating".
+#: src/gui/SearchMenu.cc:139
+msgid "Average rating"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:143
+msgid "Unknown"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:161
+msgid "Text Search:"
+msgstr ""
+
+#. TRANSLATORS: the translation can have double size of the english text
+#: src/gui/SearchMenu.cc:163
+msgid "case independent search in title, author, filename"
+msgstr "skiftlägesokänslig sökning i titel, upphovsman, filnamn"
+
+#: src/gui/SearchMenu.cc:172 src/gui/LevelInspector.cc:264
+msgid "Intelligence: "
+msgstr "Intelligens: "
+
+#: src/gui/SearchMenu.cc:173 src/gui/LevelInspector.cc:265
+msgid "Dexterity: "
+msgstr "Fingerfärdighet: "
+
+#: src/gui/SearchMenu.cc:174 src/gui/LevelInspector.cc:266
+msgid "Patience: "
+msgstr "Tålamod: "
+
+#: src/gui/SearchMenu.cc:175 src/gui/LevelInspector.cc:267
+msgid "Knowledge: "
+msgstr "Kunskap: "
+
+#: src/gui/SearchMenu.cc:176 src/gui/LevelInspector.cc:268
+msgid "Speed: "
+msgstr "Hastighet: "
+
+#: src/gui/SearchMenu.cc:177 src/gui/LevelInspector.cc:269
+msgid "Difficulty: "
+msgstr "Svårhetsgrad: "
+
+#: src/gui/SearchMenu.cc:178
+msgid "Average Rating: "
+msgstr ""
+
+#: src/gui/SearchMenu.cc:179
+msgid "Only levels that are unsolved in easy mode:"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:180
+msgid "Only levels that are unsolved in normal mode:"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:182
+msgid "Sort by: "
+msgstr ""
+
+#: src/gui/SearchMenu.cc:243
+msgid "Reset"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:299
+#, c-format
+msgid "Levels fitting these criteria: %d"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:305
+msgid "Enigma - Search Menu"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:179
+msgid "Screenshot"
+msgstr "Skärmbild"
+
+#: src/gui/LevelInspector.cc:233
+msgid "Level: "
+msgstr "Nivå: "
+
+#: src/gui/LevelInspector.cc:235 src/gui/LevelInspector.cc:297
+msgid "Author: "
+msgstr "Upphovsman: "
+
+#: src/gui/LevelInspector.cc:236
+msgid "Contact: "
+msgstr "Kontakt: "
+
+#: src/gui/LevelInspector.cc:237
+msgid "Homepage: "
+msgstr "Webbplats: "
+
+#: src/gui/LevelInspector.cc:262
+msgid "Public Ratings"
+msgstr "Officiella betyg"
+
+#: src/gui/LevelInspector.cc:290
+msgid "Scores"
+msgstr "Poäng"
+
+#: src/gui/LevelInspector.cc:293
+msgid "You: "
+msgstr "Du: "
+
+#: src/gui/LevelInspector.cc:294
+msgid "World: "
+msgstr "Världen: "
+
+#. TRANSLATORS: PAR = professional average rate - an expression used by
+#. golfers
+#: src/gui/LevelInspector.cc:296
+msgid "PAR: "
+msgstr "PAR: "
+
+#: src/gui/LevelInspector.cc:298
+msgid "Solved %: "
+msgstr "Löst %: "
+
+#: src/gui/LevelInspector.cc:299
+msgid "Solved #: "
+msgstr "Löst #: "
+
+#: src/gui/LevelInspector.cc:321
+msgid "Version"
+msgstr "Version"
+
+#: src/gui/LevelInspector.cc:324
+msgid "Score: "
+msgstr "Poäng: "
+
+#: src/gui/LevelInspector.cc:326 src/gui/LevelInspector.cc:330
+msgid "Status: "
+msgstr "Status: "
+
+#: src/gui/LevelInspector.cc:327
+msgid "Release: "
+msgstr "Utgåva: "
+
+#: src/gui/LevelInspector.cc:328
+msgid "Revision: "
+msgstr "Version: "
+
+#: src/gui/LevelInspector.cc:331
+msgid "Control: "
+msgstr "Kontroll: "
+
+#: src/gui/LevelInspector.cc:332
+msgid "Target: "
+msgstr "Mål: "
+
+#: src/gui/LevelInspector.cc:339 src/gui/LevelInspector.cc:355
+msgid "stable"
+msgstr "stabil"
+
+#: src/gui/LevelInspector.cc:341 src/gui/LevelInspector.cc:357
+msgid "test"
+msgstr "test"
+
+#: src/gui/LevelInspector.cc:343 src/gui/LevelInspector.cc:359
+msgid "experimental"
+msgstr "experiment"
+
+#: src/gui/LevelInspector.cc:353
+msgid "released"
+msgstr "utgiven"
+
+#: src/gui/LevelInspector.cc:366
+msgid "force"
+msgstr "tvinga"
+
+#: src/gui/LevelInspector.cc:369
+msgid "balance"
+msgstr "balans"
+
+#: src/gui/LevelInspector.cc:372
+msgid "key"
+msgstr "nyckel"
+
+#: src/gui/LevelInspector.cc:380
+msgid "time"
+msgstr "tid"
+
+#: src/gui/LevelInspector.cc:381
+msgid "pushes"
+msgstr "skjuter"
+
+#: src/gui/LevelInspector.cc:382
+msgid "moves"
+msgstr "flyttar"
+
+#: src/gui/LevelInspector.cc:399
+msgid "World Record Holders: "
+msgstr "Världsrekordhållare: "
+
+#: src/gui/LevelInspector.cc:460
+msgid "Credits: "
+msgstr "Tack till: "
+
+#: src/gui/LevelInspector.cc:471
+msgid "Dedication: "
+msgstr "Engagemang: "
+
+#: src/gui/LevelInspector.cc:482
+msgid "Level Path: "
+msgstr "Paketsökväg: "
+
+#: src/gui/LevelInspector.cc:504
+msgid "Id: "
+msgstr "Id: "
+
+#: src/gui/LevelInspector.cc:506
+msgid "Load time: "
+msgstr "Laddningstid:"
+
+#: src/gui/LevelInspector.cc:511
+msgid "Compatibility: "
+msgstr "Kompatibilitet: "
+
+#: src/gui/LevelInspector.cc:519
+msgid "Annotation: "
+msgstr "Kommentar: "
+
+#: src/gui/LevelInspector.cc:524
+msgid "Rating: "
+msgstr "Betyg: "
+
+#: src/gui/LevelInspector.cc:526
+msgid "Average: "
+msgstr "Medel: "
+
+#: src/gui/GameMenu.cc:50
+msgid "Resume Level (ESC)"
+msgstr ""
+
+#: src/gui/GameMenu.cc:53
+msgid "Level Info"
+msgstr "Nivåinfo"
+
+#: src/gui/GameMenu.cc:54
+msgid "Screenshot (F10)"
+msgstr ""
+
+#: src/gui/GameMenu.cc:55
+msgid "Abort Level"
+msgstr "Avbryt nivå"
+
+#: src/gui/GameMenu.cc:56
+msgid "Exit Enigma (Shift-ESC)"
+msgstr ""
+
+#: src/gui/GameMenu.cc:146
+msgid "Return to level"
+msgstr ""
+
+#: src/gui/GameMenu.cc:149
+msgid "For a list of shortcut keys during the game, press F1 during the game."
+msgstr ""
+
+#: src/lev/Proxy.cc:205
+msgid "Error on auto registration of levelfile: "
+msgstr "Fel vid automatisk registrering av nivåfil: "
+
+#: src/lev/Proxy.cc:207
+msgid ""
+"Note: the level will not show up in the \"Auto Folder\" levelpack!\n"
+"\n"
+msgstr "Observera: nivån kommer inte att visas i nivåpaketet \"Auto Folder\"!\n\n"
+
+#: src/lev/Proxy.cc:209 src/lev/PersistentIndex.cc:478 src/d_models.cc:203
+#: src/d_models.cc:215 src/PreferenceManager.cc:181 src/StateManager.cc:178
+msgid "Continue"
+msgstr "Fortsätt"
+
+#: src/lev/PersistentIndex.cc:464
+msgid "Error on update of levelpack index: \n"
+msgstr ""
+
+#: src/lev/PersistentIndex.cc:466
+msgid ""
+"Note: the current version will be reloaded!\n"
+"\n"
+msgstr ""
+
+#: src/lev/PersistentIndex.cc:473
+msgid "Error on registration of levelpack index: \n"
+msgstr ""
+
+#: src/lev/PersistentIndex.cc:475
+msgid ""
+"Note: the levelpack will not show up!\n"
+"\n"
+msgstr "Observera: nivåpaketet kommer inte att visas!\n\n"
+
+#: src/lua.cc:3896
+#, c-format
+msgid "Cannot find '%s'.\n"
+msgstr "Kan inte hitta \"%s\".\n"
+
+#: src/lua.cc:3897 src/lua.cc:3904
+#, c-format
+msgid "Your installation may be incomplete or invalid.\n"
+msgstr "Din installation kan vara okomplett eller ogiltig.\n"
+
+#: src/lua.cc:3903
+#, c-format
+msgid "There was an error loading '%s'.\n"
+msgstr "Det inträffade ett fel vid inläsning av \"%s\".\n"
+
+#: src/lua.cc:3905
+#, c-format
+msgid "Error: '%s'\n"
+msgstr "Fel: \"%s\"\n"
+
+#: src/d_models.cc:202 src/d_models.cc:214
+msgid ""
+"\n"
+"\n"
+"This error may cause the application to behave strange!"
+msgstr "\n\nDet här felet kan orsaka att programmet uppträder konstigt!"
+
+#: src/stones/KnightStone.cc:60
+msgid "All right, we'll call it a draw"
+msgstr "Okej, vi kallar det oavgjort"
+
+#: etc/enigma.desktop:4 level_i18n.cc:1469
+msgid "Enigma"
+msgstr "Enigma"
+
+#: etc/enigma.desktop:23
+msgid "Uncover pairs of stones while navigating obstacles using a marble"
+msgstr "Upptäck par med stenar medan du tar dig igenom hinder med hjälp av en stenkula"
+
+#: etc/enigma.desktop:46
+msgid "enigma"
+msgstr "enigma"
+
+#: level_i18n.cc:4
+msgid "Let there be light!"
+msgstr "Varde ljus!"
+
+#: level_i18n.cc:44
+msgid "You really will need every penny!"
+msgstr ""
+
+#: level_i18n.cc:60
+msgid "Umbrellas prevent free fall!"
+msgstr "Paraply förhindrar fritt fall!"
+
+#: level_i18n.cc:76
+msgid "No problem! Piece of cake!"
+msgstr "Inga problem! Lätt som en plätt!"
+
+#: level_i18n.cc:77
+msgid "It was easy, wasn't it!"
+msgstr "Det var lätt, eller hur?"
+
+#: level_i18n.cc:93
+msgid "You need to be fast!"
+msgstr "Du måste vara snabb!"
+
+#: level_i18n.cc:125
+msgid "It's a ring!"
+msgstr "Det är en ring!"
+
+#: level_i18n.cc:135
+msgid "Business hours from 8am to 4pm"
+msgstr "Kontorstid från 08.00 till 16.00"
+
+#: level_i18n.cc:163 level_i18n.cc:876
+msgid "Everything's been counted carefully!"
+msgstr "Allting har räknats noga!"
+
+#: level_i18n.cc:164 level_i18n.cc:877
+msgid "Parts of the tubes disappear during detonation!"
+msgstr "Delar av rören försvinner under detonationen!"
+
+#: level_i18n.cc:171
+msgid "Don't believe all that you see!"
+msgstr "Tro inte allt du ser!"
+
+#: level_i18n.cc:178
+msgid "An English text based riddle"
+msgstr "En engelsk textbaserad gåta"
+
+#: level_i18n.cc:233
+msgid "You can fly for a short time if you use the umbrella."
+msgstr "Du kan flyga en kort tid, om du använder paraplyet."
+
+#: level_i18n.cc:293
+msgid "The Enigmhanoi Towers"
+msgstr "Enigmhanoi-tornen"
+
+#: level_i18n.cc:295
+msgid "Who speaks, does not know (Lao Tse)"
+msgstr "Den som talar, vet inte (Lao Tse)"
+
+#: level_i18n.cc:297
+msgid "The wise man laughs (Lao Tse)"
+msgstr "Den vise mannen skrattar (Lao Tse)"
+
+#: level_i18n.cc:299
+msgid "Who knows, does not speak (Lao Tse)"
+msgstr "Den som vet, talar inte (Lao Tse)"
+
+#: level_i18n.cc:309
+msgid ""
+"Sections which have the same color always turn at the same time and in the "
+"same way."
+msgstr ""
+
+#: level_i18n.cc:310
+msgid ""
+"Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-"
+"stone."
+msgstr ""
+
+#: level_i18n.cc:324 level_i18n.cc:1387 level_i18n.cc:2321 level_i18n.cc:2660
+#: level_i18n.cc:3246 level_i18n.cc:3401 level_i18n.cc:3668 level_i18n.cc:4579
+#: level_i18n.cc:4700 level_i18n.cc:5131
+msgid "Welcome"
+msgstr "Välkommen"
+
+#: level_i18n.cc:368
+msgid "The Grim Reaper"
+msgstr "Liemannen"
+
+#: level_i18n.cc:444
+msgid "... There are more than two ..."
+msgstr ""
+
+#: level_i18n.cc:453
+msgid "The witch of this switch waits for your wish."
+msgstr ""
+
+#: level_i18n.cc:455
+msgid "The witch of this switch resets the awale game."
+msgstr ""
+
+#: level_i18n.cc:457
+msgid ""
+"A turn consists in taking the walnuts of a row behind the windowy walls and "
+"sowing them 1 by 1 in the following rows."
+msgstr ""
+
+#: level_i18n.cc:459
+msgid ""
+"Warning: What awaits the wailing warrior at the end of a turn? If there are "
+"2 or 3 walnuts in a row, they are a warm award for the warrior, as are the "
+"walnuts in the rows which are in the way to this row, if they are 2 or 3 per"
+" row."
+msgstr ""
+
+#: level_i18n.cc:461
+msgid "Warning: If one warrior's walls are empty, this awesome warrior wins."
+msgstr ""
+
+#: level_i18n.cc:463
+msgid ""
+"When a warrior has awarded more than half the walnuts, he wins. What does he"
+" win? The way to the waiting oxyds he wants."
+msgstr ""
+
+#: level_i18n.cc:465
+msgid "Congratulations! You are the most aware awale player of the valley ..."
+msgstr ""
+
+#: level_i18n.cc:467
+msgid ""
+"Lost in the savannah? Don't wait and walk on the way to the reset switch on "
+"the far left ..."
+msgstr ""
+
+#: level_i18n.cc:469
+msgid "Validate your choice here."
+msgstr "Tänk igenom ditt val här."
+
+#: level_i18n.cc:471
+msgid "Reset the game."
+msgstr "Nollställ spelet."
+
+#: level_i18n.cc:473
+msgid ""
+"A turn consists in taking the stones of a row and sowing them 1 by 1 in "
+"one's other rows, counterclockwise, coming back to the beginning."
+msgstr ""
+
+#: level_i18n.cc:475
+msgid ""
+"At the end of a turn, if the last stone falls in a nonempty row, one takes "
+"the stones of the facing row if there is any, and repeats a turn."
+msgstr ""
+
+#: level_i18n.cc:477
+msgid "A turn begins in one of the leftmost rows, unless impossible."
+msgstr ""
+
+#: level_i18n.cc:479
+msgid ""
+"At the end of the game (if one player cannot move anymore), the player who "
+"has the most stones wins."
+msgstr ""
+
+#: level_i18n.cc:481
+msgid "A yellow stone stands for 10 blue stones (then for 2 brown stones)."
+msgstr ""
+
+#: level_i18n.cc:483
+msgid "A brown stone stands for 5 blue stones."
+msgstr ""
+
+#: level_i18n.cc:485
+msgid ""
+"This katro game comes from Madagascar; in Easy mode there is an african "
+"Awale."
+msgstr ""
+
+#: level_i18n.cc:487
+msgid "Only reset or Shift-F3 can make things evolve ..."
+msgstr ""
+
+#: level_i18n.cc:512
+msgid "Same room, new mirrors ..."
+msgstr "Samma rum, nya speglar ..."
+
+#: level_i18n.cc:564
+msgid "Umbrellas protect!"
+msgstr "Paraplyer skyddar!"
+
+#: level_i18n.cc:577
+msgid "It's easier with a shovel!"
+msgstr "Det är lättare med en spade!"
+
+#: level_i18n.cc:584
+msgid "Watch out!!"
+msgstr "Se upp!!"
+
+#: level_i18n.cc:675
+msgid "Please remember:    42"
+msgstr "Kom ihåg:    42"
+
+#: level_i18n.cc:688
+msgid "If you think this is too easy, then play -Bavarian Madness-"
+msgstr ""
+
+#: level_i18n.cc:716
+msgid "Sorry for inconvenience, the Bank-O-Mat is empty."
+msgstr ""
+
+#: level_i18n.cc:756
+msgid "Take the key to the left first!"
+msgstr "Ta nyckeln till vänster först!"
+
+#: level_i18n.cc:772
+msgid "Sunday, bloody Sunday!"
+msgstr "Söndag, blodiga söndag!"
+
+#: level_i18n.cc:776
+msgid "Can you see the hidden oxyd stones?"
+msgstr "Kan du se de dolda Oxyd-stenarna?"
+
+#: level_i18n.cc:801
+msgid "If you haven't won, you've lost!"
+msgstr "Om du inte har vunnit, har du förlorat!"
+
+#: level_i18n.cc:808
+msgid "Easy?"
+msgstr "Lätt?"
+
+#: level_i18n.cc:815
+msgid "Watch out, slippery!"
+msgstr "Akta dig, det är halt!"
+
+#: level_i18n.cc:927
+msgid "Open the Doors, Open the Oxyds"
+msgstr ""
+
+#: level_i18n.cc:941
+msgid "Riverside"
+msgstr ""
+
+#: level_i18n.cc:943
+msgid "Wrong side!                   F3"
+msgstr ""
+
+#: level_i18n.cc:954
+msgid "The moving boulder can fall down holes but cannot fall into water."
+msgstr ""
+
+#: level_i18n.cc:967
+msgid ""
+"Oh, ridiculous riddle rule my marble's meaningless mind, continue creating "
+"confusion being blackball's brain's blind."
+msgstr ""
+
+#: level_i18n.cc:975
+msgid "Feed me!"
+msgstr ""
+
+#: level_i18n.cc:977
+msgid "Beware of Sadistic Dentist!"
+msgstr ""
+
+#: level_i18n.cc:979
+msgid "The innocent victim."
+msgstr ""
+
+#: level_i18n.cc:981
+msgid "Office of your boss."
+msgstr ""
+
+#: level_i18n.cc:983
+msgid "Aaaaaarrrrggghhhhhh!!!!!"
+msgstr ""
+
+#: level_i18n.cc:985
+msgid "Everyone has gone, but the plant's still hungry!"
+msgstr ""
+
+#: level_i18n.cc:987
+msgid "No! No! Aaaarrrrgggghhhh!"
+msgstr ""
+
+#: level_i18n.cc:994
+msgid "You shouldn't have done that."
+msgstr ""
+
+#: level_i18n.cc:995
+msgid "Careful."
+msgstr ""
+
+#: level_i18n.cc:1000
+msgid "Balance Beam"
+msgstr ""
+
+#: level_i18n.cc:1005
+msgid "Remote Meditation"
+msgstr ""
+
+#: level_i18n.cc:1010
+msgid "The Wild Hunt"
+msgstr ""
+
+#: level_i18n.cc:1030
+msgid "Freeze by the Power of Light"
+msgstr ""
+
+#: level_i18n.cc:1034
+msgid "Rainbow Adjacencies"
+msgstr ""
+
+#: level_i18n.cc:1038
+msgid "Recover the Stone"
+msgstr ""
+
+#: level_i18n.cc:1043 level_i18n.cc:1291 level_i18n.cc:3942
+msgid "Open the Doors"
+msgstr ""
+
+#: level_i18n.cc:1050
+msgid ""
+"This is a color maze. You have to work out what order you need to traverse "
+"the colored floors in order to reach the oxyds."
+msgstr ""
+
+#: level_i18n.cc:1067
+msgid "Restless Meditation"
+msgstr ""
+
+#: level_i18n.cc:1069
+msgid "Caution - Quick Sand!"
+msgstr ""
+
+#: level_i18n.cc:1073
+msgid "Left or Right Drive?"
+msgstr ""
+
+#: level_i18n.cc:1080
+msgid "Can you relax amid all this chaos?"
+msgstr ""
+
+#: level_i18n.cc:1085
+msgid "Carry that oxygen around."
+msgstr ""
+
+#: level_i18n.cc:1090
+msgid "Audience in Venice"
+msgstr ""
+
+#: level_i18n.cc:1092
+msgid "Press the Triggers"
+msgstr ""
+
+#: level_i18n.cc:1094
+msgid "Welcome to Venice"
+msgstr ""
+
+#: level_i18n.cc:1096
+msgid "Welcome to the Audience"
+msgstr ""
+
+#: level_i18n.cc:1098
+msgid "rialto"
+msgstr ""
+
+#: level_i18n.cc:1100
+msgid "... under construction"
+msgstr ""
+
+#: level_i18n.cc:1102
+msgid "try the boulders as gondola"
+msgstr ""
+
+#: level_i18n.cc:1104
+msgid "piazza san marco"
+msgstr ""
+
+#: level_i18n.cc:1106
+msgid "danger"
+msgstr ""
+
+#: level_i18n.cc:1108
+msgid "san giorgio"
+msgstr ""
+
+#: level_i18n.cc:1110
+msgid "guardian ducale"
+msgstr ""
+
+#: level_i18n.cc:1112
+msgid "gondoliere on strike"
+msgstr ""
+
+#: level_i18n.cc:1114
+msgid "palace ducale"
+msgstr ""
+
+#: level_i18n.cc:1116
+msgid "look at san michele"
+msgstr ""
+
+#: level_i18n.cc:1118
+msgid "use the gondola below"
+msgstr ""
+
+#: level_i18n.cc:1120
+msgid "hurry to san giorgio"
+msgstr ""
+
+#: level_i18n.cc:1125
+msgid "The Green Hell"
+msgstr ""
+
+#: level_i18n.cc:1127
+msgid "Exploration Trip to Green Waters"
+msgstr ""
+
+#: level_i18n.cc:1131
+msgid "4D Confusion ..."
+msgstr ""
+
+#: level_i18n.cc:1132
+msgid ""
+"Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four "
+"dimensions ... Some hints: size of the labyrinth is 4x4x4x4; your current "
+"position is (2|3|3|2); in all of the 16 corners of the hypercube is a blue "
+"oxyd ..."
+msgstr ""
+
+#: level_i18n.cc:1133
+msgid ""
+"Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four "
+"dimensions ... Some hints: size of the labyrinth is 3x3x3x3; your current "
+"position is (2|2|2|2); in all of the 16 corners of the hypercube is a blue "
+"oxyd ..."
+msgstr ""
+
+#: level_i18n.cc:1150
+msgid "Funeral on Deep Sea"
+msgstr ""
+
+#: level_i18n.cc:1152
+msgid ""
+"Warning: Do not play this level for more than 10 minutes - you may suffer "
+"sea sickness yourself!"
+msgstr ""
+
+#: level_i18n.cc:1162
+msgid ""
+"Watch out for mines!        White = 0, Blue = 1, Black = 2, Red = 3, Yellow "
+"= 4, Deep Blue = 5, Deep Red = 6 ..."
+msgstr ""
+
+#: level_i18n.cc:1163
+msgid ""
+"Hint: Mines are never located along the edges.  If you still get stuck, look"
+" behind the wall!"
+msgstr "Tips: Gruvor är aldrig belägna längs kanterna. Om du fortfarande sitter fast, titta bakom väggen!"
+
+#: level_i18n.cc:1164
+msgid ""
+"Hit the switch to uncover one tile, but you will have to wait 10 seconds."
+msgstr ""
+
+#: level_i18n.cc:1184
+msgid "Change guaranteed"
+msgstr ""
+
+#: level_i18n.cc:1188
+msgid "Clue: The starting point is where all dead marbles go"
+msgstr ""
+
+#: level_i18n.cc:1213
+msgid "Perfect Trajectory"
+msgstr ""
+
+#: level_i18n.cc:1226
+msgid "Bridge those synapses!"
+msgstr ""
+
+#: level_i18n.cc:1234
+msgid "Hey, where am i now?"
+msgstr ""
+
+#: level_i18n.cc:1236
+msgid ""
+"Moments ago i've been at home and wanted to take care about my two oxyd "
+"stones."
+msgstr ""
+
+#: level_i18n.cc:1238
+msgid "And now i'm stranded in this weird forest. How can i escape from here?"
+msgstr ""
+
+#: level_i18n.cc:1240
+msgid ""
+"If i should have a look-around? Perhaps i can find some things that could "
+"help me to find an exit."
+msgstr ""
+
+#: level_i18n.cc:1242
+msgid "WARNING: Highest caution is necessary."
+msgstr ""
+
+#: level_i18n.cc:1244
+msgid "Wild buffaloes are crossing the way."
+msgstr ""
+
+#: level_i18n.cc:1246
+msgid "Help me, the forest is on fire!"
+msgstr ""
+
+#: level_i18n.cc:1248
+msgid "A herd of wild horses blocks the way."
+msgstr ""
+
+#: level_i18n.cc:1250
+msgid "A small hamlet with a fence, a few huts, a pond, some bales of straw."
+msgstr ""
+
+#: level_i18n.cc:1252
+msgid "If there is finally an exit?"
+msgstr ""
+
+#: level_i18n.cc:1254
+msgid "I'm afraid, i need some assistance!"
+msgstr ""
+
+#: level_i18n.cc:1256
+msgid "Filling station for empty extinguishers."
+msgstr ""
+
+#: level_i18n.cc:1258
+msgid "Watch out: Angry mosquitoes!"
+msgstr ""
+
+#: level_i18n.cc:1260
+msgid "Useful things may also be hidden!"
+msgstr ""
+
+#: level_i18n.cc:1264
+msgid "Spaceship Control"
+msgstr ""
+
+#: level_i18n.cc:1265
+msgid "Bound to the blue nowhere"
+msgstr ""
+
+#: level_i18n.cc:1308
+msgid "The journey is the reward"
+msgstr ""
+
+#: level_i18n.cc:1312
+msgid "Lady in Red"
+msgstr ""
+
+#: level_i18n.cc:1319
+msgid "Watchmaker"
+msgstr ""
+
+#: level_i18n.cc:1323
+msgid "Mend the clockwork"
+msgstr ""
+
+#: level_i18n.cc:1324
+msgid ""
+"Don't close the pools before the clockwork is done, unless you are Fred "
+"Astaire"
+msgstr ""
+
+#: level_i18n.cc:1329
+msgid "Every marble is the architect of its own fortune"
+msgstr ""
+
+#: level_i18n.cc:1340
+msgid ""
+"Your faithful friend Tonto, your horse Silver, and Tonto's horse Scout have "
+"been captured."
+msgstr ""
+
+#: level_i18n.cc:1342
+msgid "Don't forget your disguise!"
+msgstr ""
+
+#: level_i18n.cc:1344
+msgid "Here lies the grave of John Reid."
+msgstr ""
+
+#: level_i18n.cc:1346
+msgid "Hi-yo Silver, away!"
+msgstr ""
+
+#: level_i18n.cc:1348
+msgid "Who was that masked man?"
+msgstr ""
+
+#: level_i18n.cc:1350
+msgid "Hey! This tomb is empty!"
+msgstr ""
+
+#: level_i18n.cc:1354
+msgid "Take the first exit"
+msgstr ""
+
+#: level_i18n.cc:1367
+msgid "Who broke the pearl necklace?"
+msgstr ""
+
+#: level_i18n.cc:1368
+msgid ""
+"Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls "
+"rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "
+"knows that succeeding pearls connect, when each is placed on a neighboring "
+"dot and a coin is inserted into the slot."
+msgstr ""
+
+#: level_i18n.cc:1369
+msgid ""
+"You did invert the sequence of this pair of pearls. You need to correct this"
+" fault to finish the necklace."
+msgstr ""
+
+#: level_i18n.cc:1374
+msgid "Jack-Of-All-Trades"
+msgstr ""
+
+#: level_i18n.cc:1376
+msgid "Find The Paradise"
+msgstr ""
+
+#: level_i18n.cc:1388
+msgid "Welcome to Enigma VII"
+msgstr "Välkommen till Enigma VII"
+
+#: level_i18n.cc:1392
+msgid ""
+"Move all small marbles into the holes. Only one marble per hole is allowed."
+msgstr "Flytta alla små kulor ner i hålen.  Endast en kula per hål tillåts."
+
+#: level_i18n.cc:1396
+msgid "Careful - you can not swim in the water."
+msgstr "Akta dig - du kan inte simma i vattnet."
+
+#: level_i18n.cc:1400
+msgid ""
+"Use the right mouse-button to rotate your inventory,  it's the bar at the "
+"bottom of the screen.   And guess what these three items down there can be "
+"used to."
+msgstr ""
+
+#: level_i18n.cc:1401
+msgid ""
+"There are lots of different items to use in Enigma, as well as special "
+"floors and stones.   Let's explore some more of the actual Enigma levels!   "
+"And if you have problems with a level - take a look at the manual:   For "
+"some levels, there are hints."
+msgstr ""
+
+#: level_i18n.cc:1405
+msgid "Prepare for even more mouse gymnastics in the next levels."
+msgstr "Förbered dig för ännu mer musgymnastik på de kommande nivåerna"
+
+#: level_i18n.cc:1409
+msgid "Don't drown in the swamp."
+msgstr "Drunka inte i träsket."
+
+#: level_i18n.cc:1416
+msgid ""
+"This oscillating stone is a timer-stone. You cannot interact with it, but "
+"nevertheless be aware when you see one: After some time-period anything "
+"might happen ..."
+msgstr ""
+
+#: level_i18n.cc:1417
+msgid ""
+"The stones with arrows are one-way-stones. As you might have guessed, you "
+"can only pass them in one direction.                Mazes are cherished "
+"elements of Enigma - you will see lots of them."
+msgstr ""
+
+#: level_i18n.cc:1418
+msgid ""
+"Well done!     When you have finished this level, let's play some example "
+"levels from the actual Enigma packs!"
+msgstr ""
+
+#: level_i18n.cc:1422
+msgid ""
+"The blue stones are Oxyd stones. Open them by touching them with your black "
+"marble."
+msgstr ""
+
+#: level_i18n.cc:1426
+msgid ""
+"But before this, take a look at the final tutorial level Jacob devised for "
+"you.   See it as an exam, if you want to.   It's quite difficult, so don't "
+"despair if you don't get through it at the first time.   Bye!"
+msgstr ""
+
+#: level_i18n.cc:1427
+msgid ""
+"Well, I hope you enjoyed this tutorial-pack.   You will see most of these "
+"levels a second time in the Enigma packs, together with many new and much "
+"more difficult ones.   Just don't give up on them!"
+msgstr ""
+
+#: level_i18n.cc:1431
+msgid "Levels can be larger than one screen."
+msgstr "Nivåer kan vara större än en skärm."
+
+#: level_i18n.cc:1435
+msgid "Remember the colors."
+msgstr "Kom ihåg färgerna."
+
+#: level_i18n.cc:1439
+msgid "Friction and acceleration depend on the floor type."
+msgstr "Friktion och acceleration beror på golvtypen."
+
+#: level_i18n.cc:1443
+msgid "Some stones look exactly like the Oxyd stones!"
+msgstr "Vissa stenar ser exakt ut som Oxyd-stenarna!"
+
+#: level_i18n.cc:1447
+msgid ""
+"This wooden block is movable and heavy enough to hold down the trigger on "
+"the right.   Try to push it there!"
+msgstr ""
+
+#: level_i18n.cc:1448
+msgid ""
+"Remember?  There are different kinds of floors.  And these are steep ..."
+msgstr "Kommer du ihåg?  Det finns olika sorters golv.  Och dessa är branta ..."
+
+#: level_i18n.cc:1449
+msgid ""
+"Is there more one can do with wooden blocks?   Yes!  Just explore the next "
+"levels."
+msgstr ""
+
+#: level_i18n.cc:1453
+msgid "Take your time ..."
+msgstr "Ta tid på dig ..."
+
+#: level_i18n.cc:1457
+msgid ""
+"The bright light beam is a laser beam.   Don't get too close to it!   But it"
+" has its uses ...    You can use the mirrors to direct the laser to its "
+"targets.   From these, only the light-gray ones are movable, just try it!"
+msgstr ""
+
+#: level_i18n.cc:1461
+msgid "Learn to move your black ball properly."
+msgstr "Lär dig att flytta din svarta kula på rätt sätt."
+
+#: level_i18n.cc:1465
+msgid "Don't touch everything!"
+msgstr "Rör inte allting!"
+
+#: level_i18n.cc:1470
+msgid ""
+"Welcome!    Enigma features hundreds of different objects and ideas. Do not "
+"mind them for now---we will show you some in this tutorial, but most of the "
+"time the fun actually is in discovering these objects for yourself. The "
+"stones with colored spots and shapes you matched in the room above are "
+"called Oxyd stones. Most of the time, your goal is to find and open them. "
+"Since this level is not solved yet, there might be more Oxyd stones ahead? "
+"When you want to pause or quit, just press the ESC key."
+msgstr ""
+
+#: level_i18n.cc:1474
+msgid ""
+"The stone with the horse's head is called ''chess stone''. Watch how the "
+"other marble hits one of them to move it. The angle is important."
+msgstr ""
+
+#: level_i18n.cc:1475
+msgid ""
+"Now try to move these chess stones onto the triggers. They always move two "
+"steps plus one step."
+msgstr ""
+
+#: level_i18n.cc:1479
+msgid ""
+"Those doors on the right block your way to the oxyds ... on the left you see"
+" some triggers. Maybe they are somehow connected?"
+msgstr ""
+
+#: level_i18n.cc:1774
+msgid "Nothing can stop us!"
+msgstr "Ingenting kan stoppa oss!"
+
+#: level_i18n.cc:1820
+msgid "Rest on the bright spot for a minute."
+msgstr ""
+
+#: level_i18n.cc:1821
+msgid "You'll do anything you're told!"
+msgstr "Gör som du blir tillsagd!"
+
+#: level_i18n.cc:1826
+msgid "... did it!"
+msgstr "... klarade det!"
+
+#: level_i18n.cc:1830
+msgid "Dig in ..."
+msgstr "Gräv på ..."
+
+#: level_i18n.cc:1865
+msgid "Did you bring your flag?"
+msgstr "Tog du med dig din flagga?"
+
+#: level_i18n.cc:1873
+msgid "Watch out for water holes!"
+msgstr "Se upp för vattenhålen!"
+
+#: level_i18n.cc:1905
+msgid "Some stones and stone rows can be moved!"
+msgstr ""
+
+#: level_i18n.cc:1954
+msgid ""
+"Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
+"how to play."
+msgstr "Välkommen till Enigma!  Den här hjälpen som jag (Jacob Scott) har gjort hjälper dig att lära dig hur man spelar."
+
+#: level_i18n.cc:1955
+msgid ""
+"You control the black ball.  To pick up an object, just roll over it.  You "
+"can bounce off most walls (try it), but avoid the blue floor near the bottom"
+" of the room (actually, try falling into it and then restarting the level "
+"with the 'Esc' key).  While these messages are being displayed, don't click "
+"any buttons or push any keys or the message will stop."
+msgstr "Du kontrollerar den svarta kulan.  Rulla över ett objekt för att plocka upp det.  Du kan studsa mot de flesta väggarna (prova) men undvik det blåa golvet nära nederkanten av rummet (du kan prova att falla ner i det och sedan starta om nivån med \"Esc\"-tangenten).  Under tiden dessa meddelanden visas, klicka inte på några knappar eller tryck på några tangenter annars kommer meddelandet att försvinna."
+
+#: level_i18n.cc:1956
+msgid "This is pretty self-explanatory."
+msgstr "Det här är ganska självförklarande."
+
+#: level_i18n.cc:1957
+msgid ""
+"Enigma is full of puzzles of various types.  In the next room, you will "
+"encounter your first one."
+msgstr "Enigma är fullt av pussel av olika typer.  I nästa rum kommer du påträffa det första."
+
+#: level_i18n.cc:1958
+msgid ""
+"You can't walk on water!  Try pushing the blocks into the water to get to "
+"the other side."
+msgstr "Du kan inte gå på vatten!  Försök att skjuta blocken ner i vattnet för att komma till andra sidan."
+
+#: level_i18n.cc:1959
+msgid ""
+"Notice that you can't push a row of two or more blocks.  Also, blocks can't "
+"be on the same squares as grates but you can."
+msgstr "Observera att du inte kan skjuta en rad eller fler än två block.  Block kan heller inte vara på samma rutor som galler men det kan du."
+
+#: level_i18n.cc:1960
+msgid ""
+"There are different types of blocks here.  Those black blocks sink when they"
+" fall into water.  The tan blocks don't sink but don't form bridges either."
+msgstr "Det finns olika typer av block här.  Dessa svarta block sjunker om de faller i vattnet.  De ljusa blocken sjunker inte men kan inte heller användas för att bygga broar."
+
+#: level_i18n.cc:1961
+msgid ""
+"That thing is a top -- it will destroy your ball if they touch.  Also, as "
+"long as you are close enough to it, the top will chase you.  If you die, you"
+" will restart at the beginning of the level (if you have any balls left).  "
+"Try to find a way to get past and into the next room (you can use the blocks"
+" in the center of the room as barricades)."
+msgstr ""
+
+#: level_i18n.cc:1962
+msgid ""
+"Good job!  Notice that the top can't go beneath that block with a black "
+"outline -- you're safe."
+msgstr ""
+
+#: level_i18n.cc:1963
+msgid "Those are different types of floors.  Try going over them."
+msgstr "Dessa är olika typer av golv.  Försök gå över dem."
+
+#: level_i18n.cc:1964
+msgid ""
+"The grayish floors are slopes.  The white floor is inverse-floor (you will "
+"see)."
+msgstr ""
+
+#: level_i18n.cc:1965
+msgid ""
+"Watch what happens when you go over those triggers.  See if you can get the "
+"extra ball."
+msgstr ""
+
+#: level_i18n.cc:1966
+msgid ""
+"That's dynamite.  Try dropping some next to that yellowish wall (and moving "
+"out of the way)."
+msgstr ""
+
+#: level_i18n.cc:1967
+msgid "Try using the spade on the holes caused by the dynamite."
+msgstr ""
+
+#: level_i18n.cc:1968
+msgid ""
+"Those things are boulders -- try moving one of the tan blocks.  Don't fall "
+"into the water or abyss (the black floor)."
+msgstr ""
+
+#: level_i18n.cc:1969
+msgid ""
+"Take the magic wand and hit a boulder.  Try to let the row of three boulders"
+" pass the large column."
+msgstr ""
+
+#: level_i18n.cc:1970
+msgid "Hit it hard enough!"
+msgstr "Träffa den tillräckligt hårt!"
+
+#: level_i18n.cc:1971
+msgid ""
+"It appears to be a simple room, but you're getting an extra ball anyway.  "
+"Maybe there is a reason ..."
+msgstr ""
+
+#: level_i18n.cc:1972
+msgid ""
+"Try to get the laser beam to hit that black stone, but don't get hit by it!"
+"  Use the mirrors to direct the beam."
+msgstr "Försök att få laserstrålen att träffa den svarta stenen, men akta dig själv!  Använd speglarna för att styra strålen."
+
+#: level_i18n.cc:1973
+msgid ""
+"Many objects change when hit with a laser beam.  Try hitting some of the "
+"coins with the laser beam.  Also, try hitting a block over a coin.  Those "
+"stones to your right are knights -- you need to fight (hit) them with a "
+"sword (in the front of your inventory) to get past."
+msgstr ""
+
+#: level_i18n.cc:1974
+msgid ""
+"Do you have any umbrellas?  Each one will give you approximately ten seconds"
+" of protection from danger (such as falling)."
+msgstr "Har du ett paraply?  Varje paraply ger dig ungefär tio sekunders skydd från fara (som att falla)."
+
+#: level_i18n.cc:1975
+msgid ""
+"Those black stones are quake stones -- they reset all progress made with the"
+" oxyd stones.  The other stones are the oxyd stones.  Match them up to win!"
+msgstr ""
+
+#: level_i18n.cc:1976
+msgid ""
+"This area at the bottom of the screen is your inventory -- when you pick "
+"things up, they go here (there is a maximum of twelve).  To scroll through "
+"the inventory, use the right mouse button or the 'tab' key.  To drop or use "
+"an object, click the left mouse button.  Some objects, such as documents "
+"(like this one), can't be dropped but are instead used.  Those two balls in "
+"your inventory are your extra lives -- if you die in this level, you will "
+"restart at the beginning of the level if you have any balls left (and you "
+"will lose one of the balls)."
+msgstr ""
+
+#: level_i18n.cc:1977
+msgid ""
+"Naturally, you're supposed to go through those closed gates at the top of "
+"the screen.                         Try going down that slope near the "
+"bottom of the room to see what's to the left."
+"                                                         Don't bother with "
+"that trigger below the abyss yet.                                 If you "
+"could hit that small white ball through the one-way blocks (with the "
+"arrows), it might roll down and stop on that trigger.                  You "
+"will need to go in with it but you can't go through the white one-way block."
+"                            Take the spoon and use it once the white ball is"
+" through (hit it hard)."
+msgstr ""
+
+#: level_i18n.cc:1978
+msgid ""
+"The stone in the top-right of the room is a switch.  Hit it -- it is "
+"probably useful.  In this case the switch opens and closes a door (Do you "
+"remember a door that you weren't able to open?).  The bluish line is a "
+"window -- bridge the water before you do anything with it."
+msgstr ""
+
+#: level_i18n.cc:1979
+msgid ""
+"That was a rotor (similar to a top).  Some levels have many rotors and tops "
+"to make them difficult.                            However, maybe this rotor"
+" has a purpose; maybe you could get it on that trigger near where the spoon "
+"was.                      It might be convenient to close the gate."
+msgstr ""
+
+#: level_i18n.cc:1992
+msgid "If I only had a bag."
+msgstr ""
+
+#: level_i18n.cc:1993
+msgid "shh ... listen!"
+msgstr "shh ... lyssna!"
+
+#: level_i18n.cc:2004
+msgid "Could you need something?"
+msgstr ""
+
+#: level_i18n.cc:2022
+msgid ""
+"The most dangerous animals of the bayou are the alligators, the mosquitoes "
+"... and the zombies! (But the zombies at least, don't move ...)"
+msgstr ""
+
+#: level_i18n.cc:2029
+msgid "Look carefully at everything!"
+msgstr "Titta noga på allting!"
+
+#: level_i18n.cc:2030
+msgid "Do you need a helping hand?"
+msgstr "Behöver du en hjälpande hand?"
+
+#: level_i18n.cc:2035
+msgid "Send me the keys !"
+msgstr "Skicka mig alla nycklar!"
+
+#: level_i18n.cc:2037
+msgid "ALL the keys!!!"
+msgstr "ALLA nycklarna!!"
+
+#: level_i18n.cc:2046
+msgid "April 1st"
+msgstr "1:a april"
+
+#: level_i18n.cc:2048
+msgid "Do you REALLY want to do this???"
+msgstr "Vill du VERKLIGEN göra det här?"
+
+#: level_i18n.cc:2050
+msgid ""
+"Didn't your mother tell you that you should not spend your money in such a "
+"careless manner?"
+msgstr ""
+
+#: level_i18n.cc:2052
+msgid "What is the current month?"
+msgstr "Vad är det för månad nu?"
+
+#: level_i18n.cc:2054
+msgid "What is this level's name?"
+msgstr "Vad heter nivån?"
+
+#: level_i18n.cc:2071
+msgid "Catwalk Meditation"
+msgstr ""
+
+#: level_i18n.cc:2106
+msgid ""
+"When you change the color of one square, the colors of the 2 nearest squares"
+" change as well; you must get as many green squares as possible."
+msgstr ""
+
+#: level_i18n.cc:2108
+msgid ""
+"You are only allowed to change a color when it is surrounded by the other "
+"color."
+msgstr ""
+
+#: level_i18n.cc:2112
+msgid ""
+"Beware, stranger! The ancient gods of Enigma have set many traps to protect "
+"their holy Oxyds! You will have to get through the Four Tests to prove your "
+"worth!"
+msgstr "Akta dig, främling! De antika Enigma-gudarna har satt många fällor för att skydda sina heliga Oxyd-stenar! Du måste klara av alla Fyra Tester för att visa din styrka!"
+
+#: level_i18n.cc:2113
+msgid "Prove your speed in the Test of Fire!"
+msgstr "Visa din snabbhet i Eldtestet!"
+
+#: level_i18n.cc:2114
+msgid "You have proven your worth! The ancients grant you a FLAG!"
+msgstr "Du har visat din styrka! Gudarna ger dig en FLAGGA!"
+
+#: level_i18n.cc:2115
+msgid "Prove your intelligence in the Test of Earth!"
+msgstr "Visa din intelligens i Jordtestet!"
+
+#: level_i18n.cc:2116
+msgid "You have proven your worth! The ancients grant you a SPRING!"
+msgstr "Du har visat din styrka! Gudarna ger dig en FJÄDER!"
+
+#: level_i18n.cc:2117
+msgid "Prove your dexterity in the Test of Air!"
+msgstr "Visa din fingerfärdighet i Lufttestet!"
+
+#: level_i18n.cc:2118
+msgid "You have proven your worth! The ancients grant you a NAIL!"
+msgstr "Du har visat din styrka! Gudarna ger dig en NÅL!"
+
+#: level_i18n.cc:2119
+msgid "Prove your patience in the Test of Water!"
+msgstr "Visa din tålmodighet i Vattentestet!"
+
+#: level_i18n.cc:2120
+msgid ""
+"This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more!"
+" Bwahahahaha!"
+msgstr "Det kan inte stämma! Ingen dödlig kan få våra hela Oxyd-stenar! Visa din styrka än en gång! Fwahahaha!"
+
+#: level_i18n.cc:2126
+msgid ""
+"Mightie art the Knightes of The Olde Ages who keepe the Elfic Oxyde Stones, "
+"and numerous art the Ghostes who lye in the waye to them; many art the "
+"adventurers who tryed to steale Aylendil the Sworde but none has ever come "
+"back. Hazy is the swampe where the Magick of the Ancients is buryed; the "
+"lair of WhiteHorse the dragon thu shalt avoyd in feare of awaken him ..."
+msgstr ""
+
+#: level_i18n.cc:2136
+msgid ""
+"You again! We won't let you pass this time! See these Oxyds? You can't reach"
+" them unless you rob our Four Holy Items! But they are well guarded! "
+"Bwahahahaha!"
+msgstr ""
+
+#: level_i18n.cc:2137
+msgid ""
+"Fire burns and destroys ... Want to remove blocking stones? Then dig your "
+"way to the Holy Hammer!"
+msgstr ""
+
+#: level_i18n.cc:2138
+msgid "Try again! Bwahahahaha!"
+msgstr "Försök igen! Fwahahaha!"
+
+#: level_i18n.cc:2139
+msgid ""
+"Earth fills and lasts ... Want to replace missing floors? Then build your "
+"way to the Holy Seed!"
+msgstr ""
+
+#: level_i18n.cc:2140
+msgid ""
+"Air blows and goes by ... Want to jump across the void? Then make your way "
+"to the Holy Spring!"
+msgstr ""
+
+#: level_i18n.cc:2141
+msgid ""
+"Water waves and shifts ... Want to trade minds with your partner? Then find "
+"your way to the Holy Yin-Yang!"
+msgstr ""
+
+#: level_i18n.cc:2152
+msgid "Did you really think this one was so easy!?"
+msgstr "Trodde du verkligen att den här var så lätt?"
+
+#: level_i18n.cc:2154
+msgid "Did you forget something?"
+msgstr "Glömde du någonting?"
+
+#: level_i18n.cc:2156
+msgid "Go on! There's no way back now!"
+msgstr "Fortsätt! Det finns ingen återvändo nu!"
+
+#: level_i18n.cc:2158
+msgid "STOP! Not this way! There's a short-cut ..."
+msgstr "STOPP! Inte den vägen! Det finns en genväg ..."
+
+#: level_i18n.cc:2160
+msgid ""
+"There's a trigger one step to the left. If you could keep it depressed, it "
+"would help you a lot if you go back!"
+msgstr ""
+
+#: level_i18n.cc:2173
+msgid "Make an umbrella."
+msgstr "Gör ett paraply."
+
+#: level_i18n.cc:2177
+msgid "Keypad Corners"
+msgstr ""
+
+#: level_i18n.cc:2181
+msgid "Don't get too attracted!"
+msgstr ""
+
+#: level_i18n.cc:2191
+msgid "It is not quite that easy."
+msgstr "Det är inte så enkelt."
+
+#: level_i18n.cc:2195
+msgid "Don't get attracted!"
+msgstr ""
+
+#: level_i18n.cc:2202
+msgid ""
+"Here lies Black Ball the pirate, marooned in the year 1802 after travelling "
+"in the wrong direction."
+msgstr ""
+
+#: level_i18n.cc:2203
+msgid ""
+"To cure sea sickness hold a large bank note between your teeth and lean over"
+" the side."
+msgstr ""
+
+#: level_i18n.cc:2212
+msgid ""
+"Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa "
+"guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!"
+msgstr "Caramba!! El Diktator har muchos pesos i sitt kristalskåp men muchos costa guardia också; Hey!! Stackars Bola Negra har bara frutos och en lasero!!!"
+
+#: level_i18n.cc:2222
+msgid "This is a meditation landscape: put a small marble into every hole ..."
+msgstr "Det här är ett meditationslandskap: lägg en liten kula i varje hål ..."
+
+#: level_i18n.cc:2253
+msgid "No way out?"
+msgstr "Ingen väg ut?"
+
+#: level_i18n.cc:2254
+msgid "Do you miss something?"
+msgstr "Glömde du någonting?"
+
+#: level_i18n.cc:2276
+msgid ""
+"If you have never heard about Brainf***, visit e.g. "
+"http://en.wikipedia.org/wiki/Brainfuck before you try to solve this level."
+msgstr "Om du aldrig hört om Brainf***, besök t.ex. http://sv.wikipedia.org/wiki/Brainfuck innan du försöker lösa den här nivån."
+
+#: level_i18n.cc:2283
+msgid ""
+"Remember Seed Puzzle 2? There was a similar problem. Or was it Portable "
+"Laser ...?"
+msgstr ""
+
+#: level_i18n.cc:2289
+msgid "Pirates Island"
+msgstr "Piratön"
+
+#: level_i18n.cc:2291
+msgid "The pirates have lost several hidden things on this island ..."
+msgstr ""
+
+#: level_i18n.cc:2304
+msgid "Try the easy mode first ..."
+msgstr "Prova det lätta läget först ..."
+
+#: level_i18n.cc:2322
+msgid "Welcome to Enigma V"
+msgstr "Välkommen till Enigma V"
+
+#: level_i18n.cc:2337
+msgid "Fire or be fired"
+msgstr ""
+
+#: level_i18n.cc:2350
+msgid "This level is symmetric ..."
+msgstr "Den här nivån är symmetrisk ..."
+
+#: level_i18n.cc:2355
+msgid ""
+"This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
+msgstr ""
+
+#: level_i18n.cc:2359
+msgid "Warning ... ... thieves!"
+msgstr "Varning ... ... tjuvar!"
+
+#: level_i18n.cc:2369
+msgid ""
+"Why has there always to be an active volcano and a village of marble-eating "
+"inhabitants on a tropical island?"
+msgstr ""
+
+#: level_i18n.cc:2389
+msgid "Translate or let it be translated"
+msgstr "Översätt eller låt den bli översatt"
+
+#: level_i18n.cc:2403
+msgid "Welcome to Liberty Island, New York City"
+msgstr ""
+
+#: level_i18n.cc:2405
+msgid ""
+"To get a fuller picture of New York City, you should view it through every "
+"pair of glasses you can find."
+msgstr ""
+
+#: level_i18n.cc:2407
+msgid ""
+"There's always a terrible traffic jam on Broadway at Times Square.  It's a "
+"pity you don't have time to see a show!"
+msgstr ""
+
+#: level_i18n.cc:2409
+msgid ""
+"Charles Ives was the composer of \"Central Park in the Dark\". Enjoy his "
+"music, and use the shogun to open some gates!"
+msgstr ""
+
+#: level_i18n.cc:2411
+msgid ""
+"These mechanized traffic signals are strange.  An outbound traffic sensor at"
+" Central park seems to be responsible for this street.  Use your glasses!"
+msgstr ""
+
+#: level_i18n.cc:2413
+msgid ""
+"It's funny that a fountain in Central Park should control the traffic flow."
+msgstr ""
+
+#: level_i18n.cc:2415
+msgid "Welcome to Chinatown"
+msgstr ""
+
+#: level_i18n.cc:2420
+msgid "A Baroque Game"
+msgstr ""
+
+#: level_i18n.cc:2425 level_i18n.cc:2724
+msgid "Keep distance!"
+msgstr ""
+
+#: level_i18n.cc:2427 level_i18n.cc:2726
+msgid "Help! I can't see the forest for the trees!"
+msgstr ""
+
+#: level_i18n.cc:2438
+msgid "This is a SuperSecret!! Well done on finding it!!"
+msgstr ""
+
+#: level_i18n.cc:2442
+msgid "FizzBuzz"
+msgstr ""
+
+#: level_i18n.cc:2443
+msgid ""
+"Counting the first pearl as 1, you must save every pearl that's a multiple "
+"of 3 or of 5 (or both)."
+msgstr ""
+
+#: level_i18n.cc:2448
+msgid "My First Level"
+msgstr "Min första bana"
+
+#: level_i18n.cc:2450
+msgid "Secrets? Use the items, ... use the glasses ..."
+msgstr ""
+
+#: level_i18n.cc:2457
+msgid "It's not symmetric!"
+msgstr ""
+
+#: level_i18n.cc:2465
+msgid "Deep ..."
+msgstr "Djupt ..."
+
+#: level_i18n.cc:2476
+msgid "Tutoxyd's Pyramid"
+msgstr ""
+
+#: level_i18n.cc:2478
+msgid ""
+"Welcome Mr. Jones! Back from your \"Alternatives\" and \"The Walls\" "
+"training camp?  Got everything you ordered:  some money  --  40 marbleons --"
+" and a horse outside this shopping center.    Many adventurers lost their "
+"life in this pyramid.    Beware of the dangerous sand vipers and "
+"Enighomathep's curses."
+msgstr ""
+
+#: level_i18n.cc:2480
+msgid ""
+"Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
+"were the most useful items in this desert. But nobody was willing to spend 2"
+" marbleons.  ---  Now a blacksmith offers his service."
+msgstr ""
+
+#: level_i18n.cc:2482
+msgid ""
+"Safety Precaution: in case one of these dangerous animals escapes, the gates"
+" of the shopping center will be closed immediately!"
+msgstr ""
+
+#: level_i18n.cc:2484
+msgid ""
+"Not much is known of the pyramid's architect Enighomathep. But it is said "
+"that he loved cherries. He ate so many of them that he sometimes became "
+"invisible."
+msgstr ""
+
+#: level_i18n.cc:2486
+msgid ""
+"Have a look at my collection!    A white scorpion   --   a rotodile   --  "
+"and a sand viper.  They cannot be sold.        But I can offer you a scarab "
+"that will be a better choice for you."
+msgstr ""
+
+#: level_i18n.cc:2488
+msgid ""
+"Ali Barber's shop for quick hair cuts. Want to know what is going on?  A "
+"thief is hanging around and nobody knows where the 4 pale kids that are "
+"playing with your horse came from."
+msgstr ""
+
+#: level_i18n.cc:2490
+msgid ""
+"Home of the last adventurer who never returned.   Said he would drill for "
+"oil -- but no one believed him."
+msgstr ""
+
+#: level_i18n.cc:2492
+msgid ""
+"Be cursed for trying to explore Tutoxyd's last secret -- may your homework "
+"remain undone until you prove worthy!"
+msgstr ""
+
+#: level_i18n.cc:2494
+msgid ""
+"It's a pity that some explorers damaged this historic monument and did "
+"litter the environment.   But the pyramid magically repairs itself every "
+"time an adventurer gives up."
+msgstr ""
+
+#: level_i18n.cc:2496
+msgid ""
+"Be cursed for disturbing Tutoxyd's peace -- may the earth part under your "
+"feet!"
+msgstr ""
+
+#: level_i18n.cc:2498
+msgid ""
+"Be cursed for disturbing Tutoxyd's peace -- may your legs no longer be under"
+" your control!"
+msgstr ""
+
+#: level_i18n.cc:2500
+msgid ""
+"Trapped?   Either wait for a stupid tourist willing to exchange positions "
+"with you by using a magic ring - or press Shift-F3"
+msgstr ""
+
+#: level_i18n.cc:2502
+msgid ""
+"Private Property! This claim belongs to Mr. Whiteoil. In case of absence "
+"please send a letter."
+msgstr ""
+
+#: level_i18n.cc:2504
+msgid "Invoice -- 40 marbleons for 20 barrels of oil."
+msgstr ""
+
+#: level_i18n.cc:2506
+msgid ""
+"Welcome stranger -- have a look at our holy stone. It is said that it shows "
+"everyone his personal fortune color. As all visitors tried to touch it, we "
+"had to set up some protection."
+msgstr ""
+
+#: level_i18n.cc:2508
+msgid ""
+"May I ask for a donation. Just a few bugs - throw the donation into the holy"
+" fire. Tutoxyd will be grateful."
+msgstr ""
+
+#: level_i18n.cc:2510
+msgid ""
+"Mr. Whiteoil, we finished our library research. Enighomathep reports that 4 "
+"keys are required. One key got lost immediately after sealing the pyramid. "
+"One is hidden at the border of the pyramid. For the others you have to "
+"demonstrate boldness and cleverness."
+msgstr ""
+
+#: level_i18n.cc:2512
+msgid "Facing Death you can walk without fear."
+msgstr ""
+
+#: level_i18n.cc:2514
+msgid "Sorry, the useful item that was hidden here has been stolen."
+msgstr ""
+
+#: level_i18n.cc:2516
+msgid ""
+"Tomb raiders are cursed to be frozen in stone or floor for all eternity."
+"     Have a look at all these little funny sticks that they used to fight "
+"the curses."
+msgstr ""
+
+#: level_i18n.cc:2518
+msgid "Remove all parts of the memorial plate before conjuring up Tutoxyd."
+msgstr ""
+
+#: level_i18n.cc:2520
+msgid ""
+"Who dares to disturb my peace? Stranger - you have proven to be honorable. "
+"Bring back my children for a joint meditation. But beware that upon seeing "
+"me they may want to join me instead of meditate. I make you responsible for "
+"the security of my children."
+msgstr ""
+
+#: level_i18n.cc:2522
+msgid ""
+"You are bringing back my children. As soon as they come to rest, I will "
+"deliver you from Enighomathep's curses so you may seek your next adventure."
+msgstr ""
+
+#: level_i18n.cc:2533
+msgid "Just a Dance ?"
+msgstr ""
+
+#: level_i18n.cc:2559 level_i18n.cc:2579
+msgid "Use the Lightpassenger"
+msgstr ""
+
+#: level_i18n.cc:2568
+msgid "The Hand Mirror Cabinet"
+msgstr ""
+
+#: level_i18n.cc:2570
+msgid "Ever tried to look at the back of your head in the mirror?"
+msgstr ""
+
+#: level_i18n.cc:2574
+msgid "Danger Flag"
+msgstr "Varningsflagg"
+
+#: level_i18n.cc:2586
+msgid "Number Crunching"
+msgstr ""
+
+#: level_i18n.cc:2591
+msgid "Survival Training in wasted Landscapes ..."
+msgstr ""
+
+#: level_i18n.cc:2599
+msgid "Crabwise IV"
+msgstr ""
+
+#: level_i18n.cc:2607
+msgid "Plutos Confusion"
+msgstr ""
+
+#: level_i18n.cc:2609
+msgid "Dont eat cherries"
+msgstr "Ät inte körsbär"
+
+#: level_i18n.cc:2650
+msgid "Crabwise II"
+msgstr ""
+
+#: level_i18n.cc:2655
+msgid "Inkblot 1"
+msgstr ""
+
+#: level_i18n.cc:2661
+msgid "Welcome to Enigma VIII"
+msgstr ""
+
+#: level_i18n.cc:2672
+msgid "Alternation I"
+msgstr ""
+
+#: level_i18n.cc:2674
+msgid "Alternation in a Blue Area"
+msgstr ""
+
+#: level_i18n.cc:2679
+msgid "Alternation II"
+msgstr ""
+
+#: level_i18n.cc:2681
+msgid "Alternation in a Dark Area"
+msgstr ""
+
+#: level_i18n.cc:2694
+msgid "Listen for the best place for an explosion"
+msgstr ""
+
+#: level_i18n.cc:2701
+msgid "Every pencil must go"
+msgstr ""
+
+#: level_i18n.cc:2705
+msgid "Floating ..."
+msgstr ""
+
+#: level_i18n.cc:2706
+msgid "Don't be afraid -- It's only a ten mile drop!"
+msgstr ""
+
+#: level_i18n.cc:2719
+msgid ""
+"... illmind's mad-ill-tation ... a tribute to esprit meditation levels from "
+"the past. thank you ..."
+msgstr ""
+
+#: level_i18n.cc:2731
+msgid "Crabwise III"
+msgstr ""
+
+#: level_i18n.cc:2745
+msgid "Meditation! Silence? ... Have a Look ..."
+msgstr ""
+
+#: level_i18n.cc:2747
+msgid "These stormy days ..."
+msgstr ""
+
+#: level_i18n.cc:2752
+msgid "Crabwise I"
+msgstr ""
+
+#: level_i18n.cc:2780
+msgid "There's more help than you first think!"
+msgstr ""
+
+#: level_i18n.cc:2793
+msgid "Missing Oxyds?"
+msgstr ""
+
+#: level_i18n.cc:2797
+msgid "Not everything is as it seems ..."
+msgstr ""
+
+#: level_i18n.cc:2801
+msgid "Make sure you find all of them"
+msgstr ""
+
+#: level_i18n.cc:2806
+msgid "Only A Labyrinth"
+msgstr ""
+
+#: level_i18n.cc:2829
+msgid "Ball Alley"
+msgstr ""
+
+#: level_i18n.cc:2848
+msgid "Double Pendulum"
+msgstr ""
+
+#: level_i18n.cc:2978
+msgid "Too many wooden blocks!  Try the other way ..."
+msgstr "För många träblock!  Prova den andra vägen ..."
+
+#: level_i18n.cc:2979
+msgid ""
+"Greetings, adventurer!    The road ahead is long and dangerous, so be "
+"careful!"
+msgstr "Var hälsad, äventyrare!    Vägen framför dig är lång och farlig, var försiktig!"
+
+#: level_i18n.cc:2980
+msgid "Well done, adventurer!    Good luck!"
+msgstr "Bra jobbat, äventyrare!   Lycka till!"
+
+#: level_i18n.cc:2981
+msgid "Congratulations, adventurer!  You did it!"
+msgstr "Gratulerar, äventyrare!  Du klarade det!"
+
+#: level_i18n.cc:3015
+msgid "What a pity, and there's so much paint left ..."
+msgstr "Vad synd, och det finns så mycket färg kvar ..."
+
+#: level_i18n.cc:3020
+msgid ".moor txen eht ot teg ot syaw owt era erehT"
+msgstr ".moor txen eht ot teg ot syaw owt era erehT"
+
+#: level_i18n.cc:3063
+msgid "Danger ... laser beams!"
+msgstr "Farligt ... laserstrålar!"
+
+#: level_i18n.cc:3080
+msgid "The Life Game"
+msgstr "Livets spel"
+
+#: level_i18n.cc:3108
+msgid "! -  DANGER  -  NO TRESPASSING  -  DANGER  - !"
+msgstr "! -  FARLIGT  -  INGA INKRÄKTARE  -  FARLIGT  - !"
+
+#: level_i18n.cc:3115
+msgid ""
+"As long as there is motion around the oxyd-stones, you won't reach them.   "
+"So: Don't lose control of the level! It's possible."
+msgstr ""
+
+#: level_i18n.cc:3119
+msgid "Calm down!"
+msgstr "Lugna dig!"
+
+#: level_i18n.cc:3126
+msgid "Fight appearing lava."
+msgstr ""
+
+#: level_i18n.cc:3127
+msgid "A hammer destroys some black stones."
+msgstr "En hammare förstör vissa svarta stenar."
+
+#: level_i18n.cc:3137
+msgid "Alfred Nobel says: This is definitely a meditation landscape!"
+msgstr "Alfred Nobel säger: Det här är definitivt ett meditationslandskap!"
+
+#: level_i18n.cc:3156
+msgid "Oops ... you're stuck ...     Try again ..."
+msgstr "Oops ... du är fast ...     Försök igen ..."
+
+#: level_i18n.cc:3157
+msgid ""
+"Congratulations, you reached this side ...     but can you get to the oxyds?"
+msgstr ""
+
+#: level_i18n.cc:3158
+msgid "Well done!"
+msgstr "Bra jobbat!"
+
+#: level_i18n.cc:3162
+msgid "Don't wake it up!"
+msgstr "Väck den inte!"
+
+#: level_i18n.cc:3172
+msgid ""
+"That wasn't fast enough; try F3."
+"                                                                              "
+"(Or search for non-solid stones, if you want.)"
+"                                                                                                        "
+"(But you won't find any.)"
+"                                                                                                                  "
+"(Really!)"
+msgstr ""
+
+#: level_i18n.cc:3173
+msgid ""
+"You can believe me: All stones you see in this level are solid!"
+"                                                                                      "
+"You can really believe me!"
+"                                                                               "
+"Really!"
+msgstr "Du kan lita på mig: Alla stenar som du ser på den här nivån är solida!                                                                        Du kan verkligen lita på mig!                                                                          Verkligen!"
+
+#: level_i18n.cc:3184
+msgid "Wood robbing"
+msgstr ""
+
+#: level_i18n.cc:3189
+msgid "The Flagstone Reaper"
+msgstr ""
+
+#: level_i18n.cc:3192
+msgid ""
+"No hint today ...    Those flagstones pass away ...    The docu stands alone"
+" ...    Why is it so alone?    --    This hint today ...    Why is it on "
+"this side ...    The reaper passing by ...    Could know the reason why!"
+"     (orig. by Herman's Hermits)   "
+msgstr ""
+
+#: level_i18n.cc:3205
+msgid "Paint Ahead!"
+msgstr ""
+
+#: level_i18n.cc:3247
+msgid "Welcome to Enigma IV"
+msgstr "Välkommen till Enigma IV"
+
+#: level_i18n.cc:3251
+msgid "It's a race!"
+msgstr "Det är ett race!"
+
+#: level_i18n.cc:3275
+msgid ""
+"Your uncle Sir Blackball has been murdered last night in his manor, in one "
+"of his 6 rooms, by one of the weapons which are in the cellar; the suspects "
+"are the shy Mrs Peacock, the secret Colonel Mustard, the absent-minded "
+"Professor Plum, the mysterious Rev. Green, the nurse Mrs Whiteball, who "
+"discovered the corpse, and Miss Scarlett whose beauty might be fatal ... you"
+" must find who killed your uncle, where and how."
+msgstr ""
+
+#: level_i18n.cc:3277
+msgid "This room is not the crime scene."
+msgstr "Det här rummet är inte brottsplatsen."
+
+#: level_i18n.cc:3279
+msgid "The murderer is not Mrs Peacock."
+msgstr "Mördaren är inte Fru Peacock."
+
+#: level_i18n.cc:3281
+msgid "The murderer is not Colonel Mustard."
+msgstr "Mördaren är inte Överste Mustard."
+
+#: level_i18n.cc:3283
+msgid "The murderer is not Professor Plum."
+msgstr "Mördaren är inte Professor Plum."
+
+#: level_i18n.cc:3285
+msgid "The murderer is not Reverend Green."
+msgstr "Mördaren är inte Pastor Green."
+
+#: level_i18n.cc:3287
+msgid "The murderer is not Mrs Whiteball."
+msgstr "Mördaren är inte Fru Whiteball."
+
+#: level_i18n.cc:3289
+msgid "The murderer is not Miss Scarlett."
+msgstr "Mördaren är inte Fröken Scarlett."
+
+#: level_i18n.cc:3291
+msgid "Sir Blackball has not been killed with the bomb."
+msgstr "Sir Blackball har inte dödats med bomben."
+
+#: level_i18n.cc:3293
+msgid "Sir Blackball has not been killed with the dagger."
+msgstr "Sir Blackball har inte dödats med dolken."
+
+#: level_i18n.cc:3295
+msgid "Sir Blackball has not been killed with poison."
+msgstr "Sir Blackball har inte dödats med gift."
+
+#: level_i18n.cc:3297
+msgid "Sir Blackball has not been killed with the wrench."
+msgstr "Sir Blackball har inte dödats med skiftnyckeln."
+
+#: level_i18n.cc:3299
+msgid "Sir Blackball has not been killed with the candlestick."
+msgstr "Sir Blackball har inte dödats med ljusstaken."
+
+#: level_i18n.cc:3301
+msgid "Sir Blackball has not been killed with the hammer."
+msgstr "Sir Blackball har inte dödats med hammaren."
+
+#: level_i18n.cc:3314
+msgid "White helps black, black helps white."
+msgstr "Vit hjälper svart, svart hjälper vit."
+
+#: level_i18n.cc:3321
+msgid "Don't forget to open the door ..."
+msgstr "Glöm inte att öppna dörren ..."
+
+#: level_i18n.cc:3322
+msgid "Good Luck!"
+msgstr "Lycka till!"
+
+#: level_i18n.cc:3323
+msgid "Hurry!"
+msgstr "Skynda dig!"
+
+#: level_i18n.cc:3324
+msgid "Congratulations! (or try again)"
+msgstr "Gratulerar! (eller försök igen)"
+
+#: level_i18n.cc:3325
+msgid "Almost finished ..."
+msgstr "Nästan färdig ..."
+
+#: level_i18n.cc:3330
+msgid "Restart with F3 ..."
+msgstr "Starta om med F3 ..."
+
+#: level_i18n.cc:3334
+msgid ""
+"Welcome to the control room. Use the triggers and switches to plan the "
+"movement of the turtle. The switches are, clockwise: Add, Run and Restart."
+msgstr ""
+
+#: level_i18n.cc:3359
+msgid "The danger is not visible!!!"
+msgstr "Faran syns inte!!!"
+
+#: level_i18n.cc:3396
+msgid ""
+"One more and you won't get this hammer until you don't need it anymore!"
+msgstr ""
+
+#: level_i18n.cc:3402
+msgid "Welcome to Enigma III"
+msgstr "Välkommen till Enigma III"
+
+#: level_i18n.cc:3407
+msgid "Risk your life ..."
+msgstr "Riskera ditt liv ..."
+
+#: level_i18n.cc:3468
+msgid ""
+"Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
+"room  ..."
+msgstr ""
+
+#: level_i18n.cc:3487
+msgid ""
+"I don't believe that you are the Marble. I won't let you pass until you "
+"prove me wrong: you have to be faster than my champion!"
+msgstr ""
+
+#: level_i18n.cc:3488
+msgid "Congratulations! You may pass!"
+msgstr "Gratulerar! Du kan gå vidare!"
+
+#: level_i18n.cc:3495
+msgid "Watch your step!"
+msgstr "Se dig för!"
+
+#: level_i18n.cc:3508
+msgid "Look ... they're over there!"
+msgstr "Se ... de är där borta!"
+
+#: level_i18n.cc:3527
+msgid "The left-most room is important!"
+msgstr "Det vänstra rummet är viktigt!"
+
+#: level_i18n.cc:3528
+msgid "This is the control panel."
+msgstr "Det här är kontrollpanelen."
+
+#: level_i18n.cc:3541
+msgid "A castle lies before you ... beware of guardians!"
+msgstr "Ett slott ligger framför dig ... akta dig för vakterna!"
+
+#: level_i18n.cc:3551
+msgid "The block near the top-left can move."
+msgstr ""
+
+#: level_i18n.cc:3555
+msgid "Flood Control Dam #3 seems rather unstable. Be quick or be dead."
+msgstr ""
+
+#: level_i18n.cc:3578
+msgid "when you've been particular places"
+msgstr "när du har varit speciella platser"
+
+#: level_i18n.cc:3580
+msgid "that you know you've never seen before"
+msgstr "som du vet att du aldrig har sett förut"
+
+#: level_i18n.cc:3582
+msgid "can you be sure?"
+msgstr "kan du vara säker?"
+
+#: level_i18n.cc:3584
+msgid "feel like I've been here before"
+msgstr "känns som jag har varit här innan"
+
+#: level_i18n.cc:3586
+msgid "quote: Iron Maiden - Deja-Vu"
+msgstr ""
+
+#: level_i18n.cc:3588
+msgid "for illmind's deja vu try the top left corner ..."
+msgstr ""
+
+#: level_i18n.cc:3601
+msgid "This level is much bigger! Press F3!"
+msgstr "Den här nivån är mycket större! Tryck på F3!"
+
+#: level_i18n.cc:3605
+msgid "It's a long way ..."
+msgstr "Det är en lång väg ..."
+
+#: level_i18n.cc:3639
+msgid "Look closely!"
+msgstr "Titta noga!"
+
+#: level_i18n.cc:3669
+msgid "Welcome to Enigma X"
+msgstr "Välkommen till Enigma X"
+
+#: level_i18n.cc:3692
+msgid "Interlude III"
+msgstr ""
+
+#: level_i18n.cc:3712
+msgid "Christmas Star"
+msgstr ""
+
+#: level_i18n.cc:3728
+msgid "Enigmas wildcat"
+msgstr ""
+
+#: level_i18n.cc:3750
+msgid "Steering The Flood"
+msgstr ""
+
+#: level_i18n.cc:3782
+msgid "Interlude II"
+msgstr ""
+
+#: level_i18n.cc:3787
+msgid "No clear view? How about visiting an optician?"
+msgstr ""
+
+#: level_i18n.cc:3800
+msgid "Meandering Impulses"
+msgstr ""
+
+#: level_i18n.cc:3816
+msgid "An Ancient Game"
+msgstr ""
+
+#: level_i18n.cc:3839
+msgid "Attention! One way ticket to the island."
+msgstr ""
+
+#: level_i18n.cc:3849
+msgid "Sokoban 1D"
+msgstr ""
+
+#: level_i18n.cc:3862
+msgid "Color Memory"
+msgstr ""
+
+#: level_i18n.cc:3946
+msgid "Dichotomy II"
+msgstr ""
+
+#: level_i18n.cc:3974
+msgid "Dichotomy I"
+msgstr ""
+
+#: level_i18n.cc:3978
+msgid "Braking Distance"
+msgstr ""
+
+#: level_i18n.cc:3979
+msgid "Make the white marble wait on the cross for 3 seconds."
+msgstr ""
+
+#: level_i18n.cc:3983
+msgid "Volatile Storage"
+msgstr ""
+
+#: level_i18n.cc:3984
+msgid "Handle with care!"
+msgstr ""
+
+#: level_i18n.cc:4111
+msgid "Drop the hammer on side of a pentomino and use the switch!"
+msgstr ""
+
+#: level_i18n.cc:4112
+msgid "Drop the hammer on side of a pentomino, not beneath it!"
+msgstr ""
+
+#: level_i18n.cc:4135
+msgid ""
+"If the mountain won't come to Muhammad, Muhammad must go to the mountain..."
+msgstr ""
+
+#: level_i18n.cc:4146
+msgid "Use the wooden boxes for bridge building!"
+msgstr ""
+
+#: level_i18n.cc:4148
+msgid "You will need two dynamite sticks in this room."
+msgstr ""
+
+#: level_i18n.cc:4150
+msgid "Red floors will ignite."
+msgstr ""
+
+#: level_i18n.cc:4152
+msgid "Avoid crack spreading!"
+msgstr ""
+
+#: level_i18n.cc:4158
+msgid ""
+"Up there in Orthanc I see Sarumarble the White, the mightiest magician of "
+"this Country. He made the Ring. He masters metamorphosis. He could help me. "
+"If only I could enter the Castle!"
+msgstr ""
+
+#: level_i18n.cc:4166
+msgid "Opening instructions: The clue lies within. On your marks!"
+msgstr ""
+
+#: level_i18n.cc:4170
+msgid "The Hammer"
+msgstr ""
+
+#: level_i18n.cc:4171
+msgid "The Sword"
+msgstr ""
+
+#: level_i18n.cc:4172
+msgid "The Key"
+msgstr ""
+
+#: level_i18n.cc:4173
+msgid "The Wrench"
+msgstr ""
+
+#: level_i18n.cc:4174
+msgid "The Floppy"
+msgstr ""
+
+#: level_i18n.cc:4175
+msgid "The Coin"
+msgstr ""
+
+#: level_i18n.cc:4176
+msgid "The Spade"
+msgstr ""
+
+#: level_i18n.cc:4177
+msgid "The Glasses"
+msgstr ""
+
+#: level_i18n.cc:4182
+msgid "Tiles marked with a cross are safe."
+msgstr ""
+
+#: level_i18n.cc:4193
+msgid "Exact change only."
+msgstr ""
+
+#: level_i18n.cc:4270
+msgid "Tandem Chess"
+msgstr ""
+
+#: level_i18n.cc:4272
+msgid "Work together!"
+msgstr ""
+
+#: level_i18n.cc:4280
+msgid "Sorry, this switch is currently out of order."
+msgstr ""
+
+#: level_i18n.cc:4282
+msgid "As I already told you, this switch is out of order!"
+msgstr ""
+
+#: level_i18n.cc:4284
+msgid "How often are you going to try this?"
+msgstr ""
+
+#: level_i18n.cc:4286
+msgid "Did anything happen? I'm not sure ..."
+msgstr ""
+
+#: level_i18n.cc:4288
+msgid "Congrats, now it works again!"
+msgstr ""
+
+#: level_i18n.cc:4290
+msgid "No hints available at the moment."
+msgstr ""
+
+#: level_i18n.cc:4292
+msgid "There is a passage right beneath this stone!"
+msgstr ""
+
+#: level_i18n.cc:4302
+msgid "illmind's be quick or be dead"
+msgstr ""
+
+#: level_i18n.cc:4307
+msgid "Correspondence Chess"
+msgstr ""
+
+#: level_i18n.cc:4309
+msgid "Send smartly!"
+msgstr ""
+
+#: level_i18n.cc:4329
+msgid "Magic Trinity"
+msgstr ""
+
+#: level_i18n.cc:4334
+msgid "The art of steering a quadriga"
+msgstr ""
+
+#: level_i18n.cc:4337
+msgid "Dropping the spoon redeems from being quartered!"
+msgstr ""
+
+#: level_i18n.cc:4342
+msgid "One-Way Woods"
+msgstr ""
+
+#: level_i18n.cc:4343
+msgid "Recycling by Swapping"
+msgstr ""
+
+#: level_i18n.cc:4362
+msgid "No Memory"
+msgstr "Inget minne"
+
+#: level_i18n.cc:4367
+msgid "Polar Bears' Paradise"
+msgstr ""
+
+#: level_i18n.cc:4369
+msgid "Witch Hunt on Ice"
+msgstr ""
+
+#: level_i18n.cc:4407
+msgid "Pass the ball in time"
+msgstr ""
+
+#: level_i18n.cc:4415
+msgid "The real value of coffee"
+msgstr ""
+
+#: level_i18n.cc:4419
+msgid "Dialers"
+msgstr ""
+
+#: level_i18n.cc:4436
+msgid "Toreador"
+msgstr "Toreador"
+
+#: level_i18n.cc:4440
+msgid "It isn't as easy as it looks."
+msgstr "Det är inte så lätt som det ser ut."
+
+#: level_i18n.cc:4453
+msgid "Al Capone's training camp."
+msgstr "Al Capones träningsläger."
+
+#: level_i18n.cc:4454
+msgid "There are at least two patterns to break through the wall."
+msgstr ""
+
+#: level_i18n.cc:4455
+msgid "It is a well known secret that a few prisoners did escape."
+msgstr ""
+
+#: level_i18n.cc:4456
+msgid "A window in the wall would be really nice."
+msgstr "Ett fönster i väggen vore verkligen trevligt."
+
+#: level_i18n.cc:4466
+msgid "Mark stones burnable"
+msgstr ""
+
+#: level_i18n.cc:4474
+msgid "Pleasure Garden"
+msgstr ""
+
+#: level_i18n.cc:4475
+msgid ""
+"Quickly ..."
+"                                                                             "
+"or trickily!"
+msgstr ""
+
+#: level_i18n.cc:4483
+msgid "A really annoying Level"
+msgstr ""
+
+#: level_i18n.cc:4506
+msgid "Procrustes"
+msgstr ""
+
+#: level_i18n.cc:4514
+msgid "Blitz Chess"
+msgstr ""
+
+#: level_i18n.cc:4516
+msgid "Move fast!"
+msgstr ""
+
+#: level_i18n.cc:4530
+msgid "Hanging around in the Jungle"
+msgstr ""
+
+#: level_i18n.cc:4538
+msgid "Meditation Disturbance"
+msgstr ""
+
+#: level_i18n.cc:4541
+msgid "Hit by a bolting horse"
+msgstr ""
+
+#: level_i18n.cc:4547
+msgid "Escape by Chaining Thieves"
+msgstr ""
+
+#: level_i18n.cc:4550
+msgid "Remember Atreyu's horse Artax!"
+msgstr ""
+
+#: level_i18n.cc:4552
+msgid "I am innocent! I've never stolen anything!"
+msgstr "Jag är oskyldig. Jag har aldrig tagit något!"
+
+#: level_i18n.cc:4554
+msgid "It is said that pirates have taken the treasure."
+msgstr "Det sägs att pirater har tagit skatten."
+
+#: level_i18n.cc:4556
+msgid "Pirates usually hide their treasure!"
+msgstr "Pirater brukar gömma sina skatter!"
+
+#: level_i18n.cc:4558
+msgid "A closed door gives a better overview!"
+msgstr "En stängd dörr ger en bättre översikt!"
+
+#: level_i18n.cc:4562
+msgid "Edwards Mountain"
+msgstr ""
+
+#: level_i18n.cc:4580
+msgid "Welcome to Enigma VI"
+msgstr "Välkommen till Enigma VI"
+
+#: level_i18n.cc:4587
+msgid ""
+"Welcome to Mexico! Eight hours ago, your plane arrived at the Airport of "
+"\"Coatlicue\", which is a small village surrounded by unexplored jungle "
+"terrain. Now you find yourself in front of an impressive temple, which seems"
+" to be a relic of the ancient Aztec empire. But the temple is in "
+"surprisingly good condition ..."
+msgstr ""
+
+#: level_i18n.cc:4588
+msgid ""
+"Next to the giant doors of the temple you see a chrome sign: \"Restoration "
+"by: G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of "
+"G. G. Goshers. Trespassing prohibited!\". Now you notice the dog kennels "
+"built up along the front side of the temple. \"Goshers made this ancient "
+"relic a fortress\", you think, \"this cannot be legal, for Goshers received "
+"funding from the UK Government. I'll try to call him to account!\""
+msgstr ""
+
+#: level_i18n.cc:4589
+msgid "This guard doesn’t notice me."
+msgstr "Den här vakten verkar inte vara direkt alert."
+
+#: level_i18n.cc:4590
+msgid ""
+"This lake was obviously made by Goshers. I think the correct way is south."
+msgstr ""
+
+#: level_i18n.cc:4591
+msgid ""
+"There's an inscription on the old wall, saying in spanish: \"Careful! What "
+"you touch could be the last thing you touch!\""
+msgstr ""
+
+#: level_i18n.cc:4592
+msgid "Chrome sign: \"Control of the beast’s cage.\""
+msgstr ""
+
+#: level_i18n.cc:4593
+msgid "Oooh, this slope is steep! Try not to touch the skull!"
+msgstr ""
+
+#: level_i18n.cc:4594
+msgid ""
+"This building down there looks like a prison. Let's see if I can determine "
+"its purpose ... Ah, there's another chrome sign. Goshers seems to favour "
+"chrome signs. It says: \"Natives’ prison\"."
+msgstr ""
+
+#: level_i18n.cc:4595
+msgid ""
+"Getting beyond the prison building was a really good idea. But now you have "
+"to cross this lake. Be thrifty with those boxes!"
+msgstr ""
+
+#: level_i18n.cc:4596
+msgid ""
+"Now, peering through the grilled prison windows, you see a native woman "
+"imprisoned there. Obviously Goshers locked up all the natives, who disturbed"
+" his \"work\"; trying to enter the temple and to get rich from the treasures"
+" of the Aztecs. It might be helpful to be accompanied by someone, who knows "
+"the secrets of the jungle and this temple ..."
+msgstr ""
+
+#: level_i18n.cc:4597
+msgid ""
+"Since the white man there freed me from the prison, he certainly cannot be "
+"as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers "
+"and free my people. And even if this is not the case, it's better to be free"
+" than imprisoned. I think I should thank him."
+msgstr ""
+
+#: level_i18n.cc:4598
+msgid ""
+"You meet the English adventurer in the front of the prison. \"Hello, I'm "
+"Xila!\", you tell him in broken English. After he introduced himself as "
+"well, both of you begin to work out a plan against the evil G. G. Goshers."
+msgstr ""
+
+#: level_i18n.cc:4599
+msgid ""
+"This is a really hard puzzle. The English man will have to help me, if this "
+"enigma is to be solved."
+msgstr ""
+
+#: level_i18n.cc:4600
+msgid "You wonder what this switch could trigger."
+msgstr ""
+
+#: level_i18n.cc:4601
+msgid "Xila knows how to drain the lake!"
+msgstr "Xila vet hur man tömmer sjön!"
+
+#: level_i18n.cc:4602
+msgid "You were lucky to find this hole. It prevents you from drowning."
+msgstr ""
+
+#: level_i18n.cc:4603
+msgid "This glass stone must fulfill a purpose ..."
+msgstr ""
+
+#: level_i18n.cc:4604
+msgid "It's funny that such a temple should have a side entrance."
+msgstr ""
+
+#: level_i18n.cc:4605
+msgid "Be careful! There are sensors in the walls."
+msgstr "Se upp! Det finns sensorer i väggarna."
+
+#: level_i18n.cc:4606
+msgid ""
+"After the huge doors of the old temple have opened, you see, that the "
+"entrance is protected by 11 knights, armed with spears. These guards are "
+"very dangerous. Without a sword you'll never be able to enter. Be careful. "
+"There are not only knights, but also thieves."
+msgstr ""
+
+#: level_i18n.cc:4607
+msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
+msgstr "\"Gratulerar. Du klarade precis av att komma in i det gamla Aztec-templet.\""
+
+#: level_i18n.cc:4608
+msgid ""
+"\"You've been smarter than I expected. But you'll never enter the treasure "
+"room nor escape from here!\""
+msgstr ""
+
+#: level_i18n.cc:4609
+msgid ""
+"\"I, Goshers, will certainly be able to rid myself of one of my archenemies "
+"by just killing you!\""
+msgstr ""
+
+#: level_i18n.cc:4610
+msgid "\"Run for your life!\""
+msgstr "\"Spring för ditt liv!\""
+
+#: level_i18n.cc:4611
+msgid ""
+"Xila and you just entered the Diamond Room of the old Aztec Temple. By "
+"taking him back to Great Britain and rendering him to the police, you have "
+"ended the evil career of Gerald Gregory Goshers. Congratulations on the "
+"success of your expedition!"
+msgstr ""
+
+#: level_i18n.cc:4616
+msgid "Hot Hurdle Race"
+msgstr ""
+
+#: level_i18n.cc:4618
+msgid "Run for your life!"
+msgstr ""
+
+#: level_i18n.cc:4631
+msgid "Useful unsuccessful drillings"
+msgstr ""
+
+#: level_i18n.cc:4642
+msgid "In the line of thieves"
+msgstr ""
+
+#: level_i18n.cc:4668
+msgid "Rotor Guards"
+msgstr ""
+
+#: level_i18n.cc:4670
+msgid "Hoisting guards with their own petard"
+msgstr ""
+
+#: level_i18n.cc:4675
+msgid "Charging live ammunition"
+msgstr ""
+
+#: level_i18n.cc:4680
+msgid "Are chess knights resistent to laser beams?"
+msgstr ""
+
+#: level_i18n.cc:4684
+msgid "illmind's jumping ball flash ..."
+msgstr ""
+
+#: level_i18n.cc:4685
+msgid "... of heaven comes the beast from the ..."
+msgstr ""
+
+#: level_i18n.cc:4686
+msgid "... t r a p p e d ..."
+msgstr ""
+
+#: level_i18n.cc:4701
+msgid "Welcome to Enigma II"
+msgstr "Välkommen till Enigma II"
+
+#: level_i18n.cc:4717
+msgid "Five form twelve!"
+msgstr ""
+
+#: level_i18n.cc:4721
+msgid "Do not use too much magic!"
+msgstr "Använd inte för mycket magi!"
+
+#: level_i18n.cc:4746
+msgid "Some stones are movable."
+msgstr "Vissa stenar går att flytta."
+
+#: level_i18n.cc:4747
+msgid "You lost!"
+msgstr "Du förlorade!"
+
+#: level_i18n.cc:4762
+msgid "Road to Eden"
+msgstr "Vägen till Eden"
+
+#: level_i18n.cc:4777
+msgid "The other document lies and the left wormhole is the right one."
+msgstr ""
+
+#: level_i18n.cc:4780
+msgid ""
+"The other document tells the truth and the other wormhole has been left on "
+"the right side."
+msgstr ""
+
+#: level_i18n.cc:4796
+msgid "Give it another try ..."
+msgstr "Försök igen ..."
+
+#: level_i18n.cc:4800
+msgid "Press F3 or finish."
+msgstr "Tryck F3 eller färdig."
+
+#: level_i18n.cc:4807
+msgid "You'd need a portable box!"
+msgstr "Du kommer att behöva en portabel låda!"
+
+#: level_i18n.cc:4808
+msgid ""
+"Congratulations! You found a seed! Try to use it behind the grate (and move "
+"away quickly)"
+msgstr ""
+
+#: level_i18n.cc:4809
+msgid ""
+"Remember that you can't fill a closed bridge with a box ..."
+"                                           but maybe you can use the 3rd "
+"seed differently!"
+msgstr ""
+
+#: level_i18n.cc:4810
+msgid "There are different kinds of seeds ... Try to use them!"
+msgstr ""
+
+#: level_i18n.cc:4812
+msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
+msgstr "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
+
+#: level_i18n.cc:4832
+msgid ""
+"A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   "
+"Between Might Lay   --   A Secret Way!   --   (If this you see, press "
+"Shift-F3.)"
+msgstr ""
+
+#: level_i18n.cc:4857
+msgid "is  black  always  beautiful?"
+msgstr "är  svart  alltid  vackert?"
+
+#: level_i18n.cc:4867
+msgid "Dead end!"
+msgstr ""
+
+#: level_i18n.cc:4868
+msgid "There are two HIDDEN items!"
+msgstr "Det finns två DOLDA objekt!"
+
+#: level_i18n.cc:4869
+msgid "Third stone from the rock is the hole!"
+msgstr ""
+
+#: level_i18n.cc:4879
+msgid "Beware! Black holes!"
+msgstr "Akta dig! Svarta hål!"
+
+#: level_i18n.cc:4883
+msgid "Make a Sword, & Umbrella."
+msgstr ""
+
+#: level_i18n.cc:4898
+msgid "Doomed ... Shift-F3!!!"
+msgstr ""
+
+#: level_i18n.cc:4923
+msgid "Take some money and build yourself the tools you need."
+msgstr "Ta lite pengar och bygg dig själv de verktyg du behöver."
+
+#: level_i18n.cc:4971
+msgid ""
+"Our full attention this is worth:           Air and Fire, Water, Earth."
+msgstr ""
+
+#: level_i18n.cc:4974
+msgid ""
+"And if your answer can’t be found           then shame on you, eyes to the "
+"ground!"
+msgstr ""
+
+#: level_i18n.cc:4981
+msgid "Dedicated to my friend Frank."
+msgstr "Dedicerad till min vän Frank."
+
+#: level_i18n.cc:4982
+msgid "This level is quite straightforward, isn't it? Just continue ... ;-)"
+msgstr ""
+
+#: level_i18n.cc:4998
+msgid "...  now  go  back  and  get  the  hammer!"
+msgstr "...  gå nu tillbaka och hämta hammaren!"
+
+#: level_i18n.cc:5015
+msgid ""
+"Each color appears once. Each correct color produces whites in the wrong "
+"place, blacks in the right one."
+msgstr ""
+
+#: level_i18n.cc:5017
+msgid "This switch is to validate your guess."
+msgstr ""
+
+#: level_i18n.cc:5021
+msgid ""
+"One of the puzzle stones needs to be placed onto the trigger field."
+"                       Guess which ... :)"
+msgstr ""
+
+#: level_i18n.cc:5022
+msgid "The level preview might help ..."
+msgstr "Förhandsvisningen av nivån kanske hjälper ..."
+
+#: level_i18n.cc:5044
+msgid "So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!"
+msgstr ""
+
+#: level_i18n.cc:5048
+msgid "Just a hint: Try the easy-mode first ..."
+msgstr "Ett tips: Prova det lätta läget först ..."
+
+#: level_i18n.cc:5049
+msgid "Don't think too long ... it's easy!"
+msgstr "Tänk inte för länge ... den är lätt!"
+
+#: level_i18n.cc:5059
+msgid "Place 9 different items in each row, column, and 3x3 box."
+msgstr ""
+
+#: level_i18n.cc:5060
+msgid ""
+"Place 9 different items in each row, column, and 3x3 box. Hit the switch to "
+"see if any of your items are misplaced, or which locations you can deduce "
+"items for next; you can only get 1 hint per minute this way, though."
+msgstr ""
+
+#: level_i18n.cc:5076
+msgid "and do not destroy the puzzles"
+msgstr ""
+
+#: level_i18n.cc:5086
+msgid "Origami"
+msgstr ""
+
+#: level_i18n.cc:5106
+msgid "Trickshot?"
+msgstr ""
+
+#: level_i18n.cc:5110
+msgid "Seasonal Timings"
+msgstr ""
+
+#: level_i18n.cc:5111
+msgid "5, 8, or 10 seconds?"
+msgstr ""
+
+#: level_i18n.cc:5132
+msgid "Welcome to Enigma IX"
+msgstr ""
+
+#: level_i18n.cc:5154
+msgid "Marching Formation"
+msgstr ""
+
+#: level_i18n.cc:5155
+msgid "No sharing!"
+msgstr ""
+
+#: level_i18n.cc:5166
+msgid ""
+"There are 56 fully connected puzzle piece arrangements, but just 34 of them "
+"are reachable from this first distribution."
+msgstr ""
+
+#: level_i18n.cc:5168
+msgid ""
+"This second distribution can just be converted to any of the other 28 "
+"arrangements."
+msgstr ""
+
+#: level_i18n.cc:5190
+msgid "Build me a Sokoban"
+msgstr ""
+
+#: level_i18n.cc:5191
+msgid ""
+"Build me a solvable Sokoban puzzle that will take me 30 pushes or more to "
+"solve. The seeds grow into boxes; the dice grow into walls."
+msgstr ""
+
+#: level_i18n.cc:5192
+msgid ""
+"Build me a solvable Sokoban puzzle that will take me 25 pushes or more to "
+"solve. The seeds grow into boxes; the dice grow into walls."
+msgstr ""
+
+#: level_i18n.cc:5193
+msgid ""
+"I can't solve that puzzle; there aren't enough boxes! Use the spoon, and "
+"next time make sure the boxes finish growing before hitting the switch."
+msgstr ""
+
+#: level_i18n.cc:5194
+msgid ""
+"I don't think that puzzle can be solved. If you think you can prove me "
+"wrong, go get the oxyd!"
+msgstr ""
+
+#: level_i18n.cc:5195
+msgid ""
+"That puzzle was too easy! Use the spoon, and give me a harder one next time!"
+msgstr ""
+
+#: level_i18n.cc:5196
+msgid "Thanks for that excellent puzzle, I really enjoyed solving it!"
+msgstr ""
+
+#: level_i18n.cc:5204
+msgid "Beware of shady mates!"
+msgstr ""
+
+#: level_i18n.cc:5215
+msgid ""
+"I your dear friend am in myself undone, by reason of a Burden that lieth "
+"hard upon me."
+msgstr ""
+
+#: level_i18n.cc:5217
+msgid "Do you see yonder Wicket Gate?"
+msgstr ""
+
+#: level_i18n.cc:5219
+msgid ""
+"They drew nigh to a very miry Slough. The name of the Slough was Despond."
+msgstr ""
+
+#: level_i18n.cc:5221
+msgid "Knock, and it shall be opened unto you."
+msgstr ""
+
+#: level_i18n.cc:5223
+msgid ""
+"His Burden loosed from off his shoulders, and fell from his back, and began "
+"to tumble, and so continued to do, till it came to the mouth of the "
+"Sepulchre, where it fell in, and I saw it no more."
+msgstr ""
+
+#: level_i18n.cc:5225
+msgid "They came to the foot of the hill Difficulty."
+msgstr ""
+
+#: level_i18n.cc:5227
+msgid ""
+"There was a very stately palace before him, the name of which was Beautiful."
+msgstr ""
+
+#: level_i18n.cc:5229
+msgid ""
+"He had gone but a little way, before he espied a foul Fiend coming over the "
+"field to meet him."
+msgstr ""
+
+#: level_i18n.cc:5231
+msgid ""
+"At the end of this Valley was another, called, The Valley of the Shadow Of "
+"Death."
+msgstr ""
+
+#: level_i18n.cc:5233
+msgid "He saw Faithful before him on his Journey."
+msgstr ""
+
+#: level_i18n.cc:5235
+msgid ""
+"As they went on, Faithful, as he chanced to look to one side, saw a man "
+"whose name was Talkative."
+msgstr ""
+
+#: level_i18n.cc:5237
+msgid ""
+"They presently saw a Town before them, and the name of that Town is Vanity."
+msgstr ""
+
+#: level_i18n.cc:5239
+msgid ""
+"Christian went not forth alone; for there was one whose name was Hopeful who"
+" joined himself unto him."
+msgstr ""
+
+#: level_i18n.cc:5241
+msgid ""
+"There was on the Left Hand of the road a Meadow, and a Stile to go over into"
+" it, and that meadow is called By-Path-Meadow."
+msgstr ""
+
+#: level_i18n.cc:5243
+msgid ""
+"Now there was, not far from the place where they lay, a castle, called "
+"Doubting-Castle, the owner of which was Giant Despair."
+msgstr ""
+
+#: level_i18n.cc:5245
+msgid "They went then till they came to the Delectable Mountains."
+msgstr ""
+
+#: level_i18n.cc:5247
+msgid "Beware of the Flatterer."
+msgstr ""
+
+#: level_i18n.cc:5249
+msgid ""
+"Follow me, said the Flatterer, it is to the Coelestial City that I am going."
+msgstr ""
+
+#: level_i18n.cc:5251
+msgid ""
+"They came into a certain Country, whose air naturally tended to make one "
+"drowzy."
+msgstr ""
+
+#: level_i18n.cc:5253
+msgid ""
+"The Pilgrims were got over the Enchanted ground, and entering into the "
+"Country of Beulah."
+msgstr ""
+
+#: level_i18n.cc:5255
+msgid ""
+"There was then in that place one Vain-Hope, a ferryman, that with his boat "
+"helped him over."
+msgstr ""
+
+#: level_i18n.cc:5257
+msgid ""
+"At the sight therefore of this River, the Pilgrims were much astounded, but "
+"the men that went with them, said, You must go through, or you cannot come "
+"at the Gate."
+msgstr ""
+
+#: level_i18n.cc:5259
+msgid "I looked in after them; and behold the City shone like the Sun."
+msgstr ""
+
+#: level_i18n.cc:5261
+msgid ""
+"They also thought they heard there a rumbling noise, as of fire, and a Cry "
+"of some tormented, and that they smelt the scent of Brimstone."
+msgstr ""
+
+#: level_i18n.cc:5268
+msgid "Search it."
+msgstr "Sök"
+
+#: level_i18n.cc:5288
+msgid "Poe's Nightmare"
+msgstr "Poe's mardröm"
+
+#: level_i18n.cc:5290
+msgid ""
+"You find yourself in a dark, damp chamber. There's a light switch to the "
+"northeast and a passage to the west."
+msgstr ""
+
+#: level_i18n.cc:5292
+msgid ""
+"The corridor leads northwards and opens into a dim lit room packed with "
+"crates. You have an uneasy feeling about what lies ahead of you."
+msgstr ""
+
+#: level_i18n.cc:5294
+msgid ""
+"Huh, that was close. The way behind you is blocked. Maybe you should look "
+"for a place to leave a flag?!"
+msgstr ""
+
+#: level_i18n.cc:5296
+msgid ""
+"To the east the passage is blocked by laser beams. To the west a tunnel "
+"leads to a large pendulum. At the wall you see a hole where your flag fits "
+"in. What now?"
+msgstr ""
+
+#: level_i18n.cc:5298
+msgid ""
+"Shrinking rooms, a pendulum with razor sharp blades, laser beams ... what "
+"may lurk behind the next corner?"
+msgstr ""
+
+#: level_i18n.cc:5300
+msgid ""
+"The room to the east does not look very stable, but does the passage to the "
+"south lead anywhere?"
+msgstr ""
+
+#: level_i18n.cc:5302
+msgid "Hmmm, these keys might prove useful."
+msgstr ""
+
+#: level_i18n.cc:5304
+msgid ""
+"Passing by the entrance you get a glimpse of the room to the south ... and "
+"suddenly feel very uneasy."
+msgstr ""
+
+#: level_i18n.cc:5306
+msgid "Uh-oh, the steps leading down are small and extremely slippery."
+msgstr ""
+
+#: level_i18n.cc:5308
+msgid ""
+"The passage opens into a room with a huge iron door to the east. The air "
+"seems to smell much fresher here."
+msgstr ""
+
+#: level_i18n.cc:5310
+msgid "Congratulations! You've survived Poe's Nightmare."
+msgstr ""
+
+#: level_i18n.cc:5320
+msgid "Use ~all~ Stones"
+msgstr "Använd ~alla~ stenar"
+
+#: level_i18n.cc:5339
+msgid ""
+"This is Babylon. Be careful, stranger! It's dangerous to go inside.     "
+"There are some gates, unfortunately closed, like the famous Gate of Ishtar, "
+"and have a look to the lions, the tigers. Semiramis is waiting for you, "
+"stranger, ha ha."
+msgstr ""
+
+#: level_i18n.cc:5340
+msgid "Try to find the mechanism to open the gate, stranger"
+msgstr ""
+
+#: level_i18n.cc:5341
+msgid "Be afraid about the ~water~ , it is so deep, *hihi*, isn't it, Yeah???"
+msgstr ""
+
+#: level_i18n.cc:5346
+msgid "With respects to Dante Alighieri"
+msgstr ""
+
+#: level_i18n.cc:5348
+msgid ""
+"Switch on, if you like to play the regular difficulty with many jokers, or "
+"leave it switched off, if you like to face easier challenges with less "
+"jokers."
+msgstr ""
+
+#: level_i18n.cc:5351
+msgid ""
+"BEFORE ME NOTHING WAS BUT THINGS ETERNAL, / AND I ENDURE ETERNALLY. / "
+"ABANDON ALL HOPE, YOU WHO ENTER HERE."
+msgstr ""
+
+#: level_i18n.cc:5354
+msgid ""
+"... stilled the shaggy jowls / of the pilot of the livid marsh, / about "
+"whose eyes burned wheels of flame."
+msgstr ""
+
+#: level_i18n.cc:5356
+msgid ""
+"I am Charon, ferryman of the underworld.  I will transport you through the "
+"perilous swamps of Acheron, but the price is not cheap.              Wait!  "
+"You still seem alive ...                                                   "
+"It cannot be -- only the dead may enter this place.  Quickly -- sacrifice a "
+"symbol of life on that altar to keep the guards at bay, and then perhaps I "
+"will consider taking you across."
+msgstr ""
+
+#: level_i18n.cc:5358
+msgid ""
+"Very well.  The demons and spirits that guard this place may now believe "
+"that you are truly dead, but I would still be cautious if I were you ..."
+"                                             But you still need a coin.  "
+"Hmm, well normally I wouldn't do this, but that fellow over there has me "
+"kind of worried -- I think he's plotting something.  If he has a coin, maybe"
+" you could get it from him somehow."
+msgstr ""
+
+#: level_i18n.cc:5360
+msgid ""
+"No!  I will not ferry you across unless you make a proper sacrifice, ridding"
+" yourself of anything that could be interpreted as a sign of life.  Now "
+"begone!"
+msgstr ""
+
+#: level_i18n.cc:5363
+msgid ""
+"... for then I knew that beings of great worth / were here suspended in this"
+" Limbo."
+msgstr ""
+
+#: level_i18n.cc:5365
+msgid ""
+"You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go "
+"back now, or forever face the consequences!"
+msgstr ""
+
+#: level_i18n.cc:5367
+msgid "In that case, then begone!"
+msgstr ""
+
+#: level_i18n.cc:5370
+msgid ""
+"There stands Minos, snarling, terrible. / He examines each offender at the "
+"entrance, / judges and dispatches as he encoils himself."
+msgstr ""
+
+#: level_i18n.cc:5373
+msgid ""
+"The hellish squall, which never rests, / sweeps spirits in its headlong rush"
+" ..."
+msgstr ""
+
+#: level_i18n.cc:5376
+msgid ""
+"I am in the third circle, of eternal, / hateful rain, cold and leaden, / "
+"changeless in its monotony."
+msgstr ""
+
+#: level_i18n.cc:5379
+msgid ""
+"... they, with great shouts, from opposite sides / were shoving burdens "
+"forward with their chests. / They crashed into each other, turned / and beat"
+" retreat, shoving their loads and shouting ..."
+msgstr ""
+
+#: level_i18n.cc:5382
+msgid ""
+"This dreary stream, once it has reached /  these malignant, ashen slopes, / "
+"drains out into the swamp called Styx. / And I, my gaze transfixed, could "
+"see / people with angry faces in that bog, / naked, their bodies smeared "
+"with mud."
+msgstr ""
+
+#: level_i18n.cc:5385
+msgid ""
+"... we approach the city known as Dis, / with its vast army and its burdened"
+" citizens."
+msgstr ""
+
+#: level_i18n.cc:5388
+msgid ""
+"At the threshold I saw more than a thousand angels / fallen from Heaven ... "
+"they reined in their great disdain / enough to say: 'You come -- alone.  Let"
+" him be gone, / who has so boldly made his way into this kingdom. / Let him "
+"retrace his reckless path alone' ..."
+msgstr ""
+
+#: level_i18n.cc:5391
+msgid ""
+"Now my master takes a hidden / path between the city's ramparts and the "
+"torments, / and I come close behind him ..."
+msgstr ""
+
+#: level_i18n.cc:5394
+msgid ""
+"... his hands, ready, encouraging, / thrust me towards him among the tombs."
+msgstr ""
+
+#: level_i18n.cc:5397
+msgid ""
+"Like the bull that breaks its tether / just as it receives the mortal blow /"
+" and cannot run, but lunges here and there, // so raged the Minotaur.  My "
+"artful guide / called out: 'Run to the passage: / hurry down while he is in "
+"his fury.'"
+msgstr ""
+
+#: level_i18n.cc:5400
+msgid ""
+"... we went on, / skirting the edge of the vermilion boil / from which the "
+"boiled cried out with piercing shrieks."
+msgstr ""
+
+#: level_i18n.cc:5403
+msgid ""
+"Here the filthy Harpies nest, / who drove the Trojans from the Strophades / "
+"with doleful prophecies of woe to come."
+msgstr ""
+
+#: level_i18n.cc:5406
+msgid ""
+"... Here, at the very edge, we stayed our steps / at an expanse of deep and "
+"arid sand ..."
+msgstr ""
+
+#: level_i18n.cc:5409
+msgid ""
+"A path that circles like a belt around / the base of that high rock runs "
+"round the pit, / its sides descending in ten ditches."
+msgstr ""
+
+#: level_i18n.cc:5412
+msgid ""
+"Under my feet I saw a lake / so frozen that it seemed more glass than water."
+" / Never in winter did the Austrian Danube / nor the far-off Don, under its "
+"frigid sky, / cover their currents with so thick a veil / as I saw there."
+msgstr ""
+
+#: level_i18n.cc:5415
+msgid ""
+"... we made our way toward the center, / where all things that have weight "
+"converge, / and I was shivering in the eternal chill ..."
+msgstr ""
+
+#: level_i18n.cc:5418
+msgid ""
+"It is no enterprise undertaken lightly -- / to describe the very bottom of "
+"the universe ..."
+msgstr ""
+
+#: level_i18n.cc:5421
+msgid ""
+"The emperor of the woeful kingdom / rose from the ice below his breast, / "
+"and I in size am closer to a giant / than giants are when measured to his "
+"arms."
+msgstr ""
+
+#: level_i18n.cc:5423
+msgid ""
+"You refused many times to leave my kingdom -- now you shall pay the "
+"consequences for your foolishness!"
+msgstr ""
+
+#: level_i18n.cc:5425
+msgid "Faithlessness"
+msgstr ""
+
+#: level_i18n.cc:5427
+msgid "Lust"
+msgstr ""
+
+#: level_i18n.cc:5429
+msgid "Gluttony"
+msgstr ""
+
+#: level_i18n.cc:5431
+msgid "Avarice"
+msgstr ""
+
+#: level_i18n.cc:5433
+msgid "Sloth"
+msgstr ""
+
+#: level_i18n.cc:5435
+msgid "Heresy"
+msgstr ""
+
+#: level_i18n.cc:5437
+msgid "Violence"
+msgstr ""
+
+#: level_i18n.cc:5439
+msgid "Fraud"
+msgstr ""
+
+#: level_i18n.cc:5441
+msgid "Treachery"
+msgstr ""
+
+#: level_i18n.cc:5444
+msgid "... passed the point / to which all weights are drawn from every side."
+msgstr ""
+
+#: level_i18n.cc:5447
+msgid ""
+"... climbed up ... far enough to see, through a round opening, / a few of "
+"those fair things the heavens bear. / Then we came forth, to see again the "
+"stars."
+msgstr ""
+
+#: level_i18n.cc:5454
+msgid ""
+"Choose your hemisphere: left switch for northern, right switch for southern."
+msgstr ""
+
+#: level_i18n.cc:5462
+msgid "Interlude I"
+msgstr ""
+
+#: level_i18n.cc:5488
+msgid "Danger!"
+msgstr ""
+
+#: level_i18n.cc:5525
+msgid "What I Don't Have"
+msgstr ""
+
+#: level_i18n.cc:5530
+msgid ""
+"Dorothy left the house to play with her little dog Toto, when suddenly the "
+"sky turned dark and a giant tornado rushed across Kansas."
+msgstr ""
+
+#: level_i18n.cc:5532
+msgid ""
+"The Good Witch of the North speaks: 'Your house has killed the ruler of this"
+" land, the Wicked Witch of the East. Take her Silver Shoes and follow the "
+"Yellow Brick Road to Emerald City, where the Wizard of Oz should be more "
+"than pleased to help you return home. Go with my blessings!'"
+msgstr ""
+
+#: level_i18n.cc:5534
+msgid ""
+"A Scarecrow dangles helplessly from a pole. After talking to Dorothy, it "
+"agrees to join her for an audience with the Wizard of Oz to ask him for a "
+"brain. 'If only you could release me from this pole, that is ...'"
+msgstr ""
+
+#: level_i18n.cc:5536
+msgid ""
+"The rusty Tin Woodman can't move anymore by himself. 'Though I wish to join "
+"you on your journey, Dorothy, for I need to ask the Wizard why I did not "
+"receive a heart, I fear I'm stuck here. It would be nice if you could help "
+"me out a bit ...'"
+msgstr ""
+
+#: level_i18n.cc:5538
+msgid ""
+"Among the shallow waters of a merry creek, the Cowardly Lion sits shivering "
+"of fear. Dorothy shouts: 'Lion, it's not wide! You can jump over the creek! "
+"Let's see the Wizard of Oz, maybe he can do something to give you courage!'"
+msgstr ""
+
+#: level_i18n.cc:5540
+msgid ""
+"The gate guardian says: 'Welcome to Emerald City! Please always wear these "
+"spectacles, or the splendid brilliance of the Wizard's city may blind you. "
+"The Wizard resides to the north.'"
+msgstr ""
+
+#: level_i18n.cc:5542
+msgid ""
+"A booming voice echoes through the corridor: 'I, the Wonderful Wizard of Oz,"
+" will help Thee find what Thou are looking for. However before Thou may pass"
+" here and see me, travel on to Winkie Country and defeat my arch rival, the "
+"Wicked Witch of the West.'"
+msgstr ""
+
+#: level_i18n.cc:5544
+msgid ""
+"This is the domain of the Wicked Witch of the West. She sends her minions "
+"against Dorothy and her friends. To destroy the witch, they need to steal "
+"her magic wand, kept deep inside her ice fortress."
+msgstr ""
+
+#: level_i18n.cc:5546
+msgid ""
+"Now that Dorothy finally made it to the Wonderful Wizard's dwelling, she "
+"realizes that he is nothing more but a humbug. Watching him flee with his "
+"hot-air balloon, Dorothy loses all hope of ever returning home. All that's "
+"left of the Wizard is now his shrinkable cupboard."
+msgstr ""
+
+#: level_i18n.cc:5550
+msgid "Choices, choices ..."
+msgstr ""
+
+#: level_i18n.cc:5551
+msgid ""
+"Before trying this level in hard mode, it's a good idea to switch to easy "
+"mode to practice on the individual puzzles."
+msgstr ""
+
+#: level_i18n.cc:5552
+msgid "These dispensers are all empty ..."
+msgstr ""
+
+#: level_i18n.cc:5553
+msgid "The glass next to this document can be pushed to let you back out."
+msgstr ""
+
+#: level_i18n.cc:5557
+msgid "Once, No More No Less"
+msgstr ""
+
+#: level_i18n.cc:5562
+msgid ""
+"Each of the 6 women has a profession; and each of them carries or wears only"
+" one of the items."
+msgstr ""
+
+#: level_i18n.cc:5564
+msgid "Miss Black's best friends are the poet and the locksmith."
+msgstr ""
+
+#: level_i18n.cc:5566
+msgid ""
+"Miss Black, Miss White and Miss Pearl are impressed by the magician's "
+"talent."
+msgstr ""
+
+#: level_i18n.cc:5568
+msgid "Miss Pearl tells jokes to the poet, the hacker and the locksmith."
+msgstr ""
+
+#: level_i18n.cc:5570
+msgid ""
+"The hacker, the locksmith and the firewoman enjoy looking at their "
+"reflection in the glasses."
+msgstr ""
+
+#: level_i18n.cc:5572
+msgid "The magician carries the umbrella."
+msgstr ""
+
+#: level_i18n.cc:5574
+msgid "Neither the magician nor the firewoman are permitted to wear the ring."
+msgstr ""
+
+#: level_i18n.cc:5576
+msgid ""
+"Miss Black, Miss White and Miss Rotor like to tease the girl with the ring."
+msgstr ""
+
+#: level_i18n.cc:5578
+msgid ""
+"Miss Top prefers to be unencumbered: She doesn't carry an umbrella, nor a "
+"bag and certainly not a weight."
+msgstr ""
+
+#: level_i18n.cc:5580
+msgid ""
+"Sometimes, Miss White and Miss Pearl help their friend to carry her weight."
+msgstr ""
+
+#: level_i18n.cc:5585
+msgid ""
+"There are 19 fully connected puzzle piece arrangements, but just 9 of them "
+"are reachable from this first distribution."
+msgstr ""
+
+#: level_i18n.cc:5587
+msgid ""
+"This second distribution can just be converted to any of the other 10 "
+"arrangements."
+msgstr ""
+
+#: level_i18n.cc:5589
+msgid ""
+"There are just two symmetric puzzle piece arrangements that both are "
+"reachable."
+msgstr ""
+
+#: level_i18n.cc:5595
+msgid "Marblics and Pearlics I"
+msgstr ""
+
+#: level_i18n.cc:5598
+msgid ""
+"Doping 'en Tour' not allowed for taking shortcuts, doping just allowed for "
+"self defence!"
+msgstr ""
+
+#: level_i18n.cc:5601
+msgid "Rotomagus - Rouen"
+msgstr ""
+
+#: level_i18n.cc:5604
+msgid "Lutetia - Paris"
+msgstr ""
+
+#: level_i18n.cc:5607
+msgid "Camaracum - Cambrai"
+msgstr ""
+
+#: level_i18n.cc:5610
+msgid "Durocortorum - Rheims"
+msgstr ""
+
+#: level_i18n.cc:5613
+msgid "Lugdunum - Lyons"
+msgstr ""
+
+#: level_i18n.cc:5616
+msgid "Nicae - Nice"
+msgstr ""
+
+#: level_i18n.cc:5619
+msgid "Massilia - Marseilles"
+msgstr ""
+
+#: level_i18n.cc:5622
+msgid "Aginum - Agen"
+msgstr ""
+
+#: level_i18n.cc:5625
+msgid "Detour de Tour - Detour of the Tour"
+msgstr ""
+
+#: level_i18n.cc:5628
+msgid "Burdigala - Bordeaux"
+msgstr ""
+
+#: level_i18n.cc:5631
+msgid "Gallia omnis divisa est ... - The whole of Gaul is divided ..."
+msgstr ""
+
+#: level_i18n.cc:5634
+msgid "Veni, vidi, vici - I came, I saw, I conquered"
+msgstr ""
+
+#: level_i18n.cc:5636
+msgid "Welcome in L’Alpe d’Huez. Sorry, it is not yet stage of the Tour"
+msgstr ""
+
+#: level_i18n.cc:5643
+msgid "Distribution Meditation"
+msgstr ""
+
+#: level_i18n.cc:5658
+msgid "more is not less"
+msgstr ""
+
+#: level_i18n.cc:5661
+msgid "Sorry, but in difficult mode you need more ... Restart."
+msgstr ""

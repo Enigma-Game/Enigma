@@ -10,7 +10,7 @@ AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS([src/config.h])
 AC_GNU_SOURCE
 
-ALL_LINGUAS="de fr nl it es sv ru hu pt fi uk be el pl cs gd hr sk da"
+ALL_LINGUAS="be bs cs da de el es fi fr gd hr hu it ja nl no pl pt ru sk sl sv uk zh"
 AC_SUBST(ALL_LINGUAS)
 
 AM_GNU_GETTEXT
@@ -36,13 +36,14 @@ esac
 
 AM_CONDITIONAL(MINGW32, test x$MINGW32 = xyes)
 AM_CONDITIONAL(LINUX, test x$LINUX = xyes)
+AM_CONDITIONAL(MACOSX, test x$MACOSX = xyes)
 
 dnl ======================================================================
 dnl Check for programs
 dnl ======================================================================
 
-# Require C++11 support
-AX_CXX_COMPILE_STDCXX_11(noext, mandatory)
+dnl Require C++14 support
+AX_CXX_COMPILE_STDCXX_14(noext, mandatory)
 
 CXXTMPFLAGS="$CXXFLAGS"
 AC_PROG_CC
@@ -176,14 +177,17 @@ else
   else
     AC_MSG_RESULT([not found])
     AC_MSG_CHECKING([for old Xerces release >=2.4])
-    AC_RUN_IFELSE([AC_LANG_PROGRAM([[#include <xercesc/util/XercesVersion.hpp>]],
-          [[if (XERCES_VERSION_MAJOR < 2)
-              return 1;
-            else if (XERCES_VERSION_MAJOR == 2 && XERCES_VERSION_MINOR < 4)
-              return 1;
-            return 0;]])],
-        [AC_MSG_RESULT([found])],
-        [AC_MSG_ERROR([Xerces >= 2.4 not found.])])
+    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <xercesc/util/XercesVersion.hpp>]],
+          [[#if XERCES_VERSION_MAJOR < 2
+            #error too old
+            #else
+	    #if XERCES_VERSION_MAJOR == 2 && XERCES_VERSION_MINOR < 4
+	    #error too old
+	    #endif
+	    #endif
+            ]])],
+         [AC_MSG_RESULT([found])],
+         [AC_MSG_ERROR([Xerces >= 2.4 not found.])])
     AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
   fi
 fi
@@ -355,10 +359,9 @@ AC_ARG_WITH(system-enet,
 )
 AM_CONDITIONAL([SYSTEM_ENET], [test "x$system_enet" = xyes])
 AM_COND_IF([SYSTEM_ENET],
-		   PKG_CHECK_MODULES(LIBENET, [libenet], ,AC_MSG_ERROR([libenet not found!])),
-		   AC_CONFIG_SUBDIRS([lib-src/enet]))
-
-
+		   PKG_CHECK_MODULES(LIBENET, [libenet], ,AC_MSG_ERROR([libenet not found!])))
+dnl Even if using system enet, still need to config the local version for running make dist
+AC_CONFIG_SUBDIRS([lib-src/enet])
 
 dnl ----------------------------------------------------------
 dnl Configure libraries
@@ -392,6 +395,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/enigma_viii/Makefile
            data/levels/enigma_ix/Makefile
            data/levels/enigma_x/Makefile
+           data/levels/enigma_xi/Makefile
            data/levels/enigma_cross/Makefile
            data/levels/enigma_esprit/Makefile
            data/levels/enigma_oxyd/Makefile
@@ -423,12 +427,14 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/lib/Makefile
            data/levels/patches/Makefile
            data/fonts/Makefile
+           data/fonts/MicroHei/Makefile
            data/music/Makefile
            data/music/game/Makefile
            data/music/menu/Makefile
            data/soundsets/Makefile
            data/soundsets/enigma/Makefile
            data/schemas/Makefile
+           data/locale/Makefile
 	   doc/Makefile
 	   doc/images/Makefile
 	   doc/images/flags25x15/Makefile
@@ -437,7 +443,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
 	   doc/reference/Makefile
 	   doc/reference/images/Makefile
 	   etc/Makefile
-           lib-src/Makefile
+	   lib-src/Makefile
 	   lib-src/oxydlib/Makefile
 	   lib-src/tinygettext/Makefile
 	   lib-src/lua/Makefile
@@ -447,10 +453,10 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
 	   etc/enigma.spec
 	   etc/enigma.nsi
 	   etc/Info.plist
-	   po/Makefile.in
 ])
 
 AC_CONFIG_FILES([etc/mingw32-dist.sh],[chmod +x etc/mingw32-dist.sh])
+AC_CONFIG_FILES([etc/mxe-dist.sh],[chmod +x etc/mxe-dist.sh])
 
 AC_OUTPUT
 

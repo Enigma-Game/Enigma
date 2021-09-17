@@ -21,7 +21,9 @@ namespace nls
 {
     extern std::unique_ptr<tinygettext::DictionaryManager> theDictionaryManager;
 
-    void SetMessageLocale (const std::string &language);
+    void SetMessageLocale(const std::string &language);
+    void CycleLocale(bool direction);
+    int GetCurrentLocaleNr();
 
     struct Language {
         const char *name;
@@ -30,28 +32,32 @@ namespace nls
     };
     
     const Language languages[] = {
-        { "default",    "",      "par" },
-        { "беларуская", "be_BY", "flags25x15/by" },
-        { "Česky",      "cs_CZ", "flags25x15/cz" },
-        { "Dansk",      "da_DK", "flags25x15/dk" },
-        { "Deutsch",    "de_DE", "flags25x15/de" },
-        { "Ελληνικά",   "el_GR", "flags25x15/gr" },
-        { "English",    "en_GB", "flags25x15/gb" },
-        { "Español",    "es_ES", "flags25x15/es" },
-        { "Suomi",      "fi_FI", "flags25x15/fi" },
-        { "Français",   "fr_FR", "flags25x15/fr" },
-        { "Gàidhlig",   "gd_GB", "flags25x15/gb-sct" },
-        { "Hrvatski",   "hr_HR", "flags25x15/hr" },
-        { "Magyar",     "hu_HU", "flags25x15/hu" },
-        { "Italiano",   "it_IT", "flags25x15/it" },
-        { "Nederlands", "nl_NL", "flags25x15/nl" },
-        { "Polski",     "pl_PL", "flags25x15/pl" },
-        { "Português",  "pt_BR", "flags25x15/pt" },
-        { "Русский",    "ru_RU", "flags25x15/ru" },
-        { "Svenska",    "sv_SE", "flags25x15/se" },
-        { "Slovenčina", "sk_SK", "flags25x15/sk" },
-        { "українська", "uk_UA", "flags25x15/ua" },
-        { "中文",       "zh_CN", "flags25x15/zh-cn" },
+        { "default",     "",      "par" },
+        { "беларуская",  "be_BY", "flags25x15/by" },
+        { "Bosanski",    "bs_BA", "" },
+        { "Česky",       "cs_CZ", "flags25x15/cz" },
+        { "Dansk",       "da_DK", "flags25x15/dk" },
+        { "Deutsch",     "de_DE", "flags25x15/de" },
+        { "Ελληνικά",    "el_GR", "flags25x15/gr" },
+        { "English",     "en_GB", "flags25x15/gb" },
+        { "Español",     "es_ES", "flags25x15/es" },
+        { "Français",    "fr_FR", "flags25x15/fr" },
+        { "Gàidhlig",    "gd_GB", "flags25x15/gb-sct" },
+        { "Hrvatski",    "hr_HR", "flags25x15/hr" },
+        { "Italiano",    "it_IT", "flags25x15/it" },
+        { "Magyar",      "hu_HU", "flags25x15/hu" },
+        { "Nederlands",  "nl_NL", "flags25x15/nl" },
+        { "Norsk",       "no_NO", "" },
+        { "Polski",      "pl_PL", "flags25x15/pl" },
+        { "Português",   "pt_BR", "flags25x15/pt" },
+        { "Русский",     "ru_RU", "flags25x15/ru" },
+        { "Slovenčina",  "sk_SK", "flags25x15/sk" },
+        { "Slovenščina", "sl_SI", "" },
+        { "Suomi",       "fi_FI", "flags25x15/fi" },
+        { "Svenska",     "sv_SE", "flags25x15/se" },
+        { "українська",  "uk_UA", "flags25x15/ua" },
+        { "中文",         "zh_CN", "flags25x15/zh-cn" },
+        { "日本語",       "ja_JP", "" },
      };
 
     static inline std::string translate(const std::string& msg) {

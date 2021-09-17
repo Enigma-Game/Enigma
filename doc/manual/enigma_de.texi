@@ -5,7 +5,7 @@
 @set VERSION 1.30
 
 @copying
-Copyright @copyright{} 2003--2020 Daniel Heck und Beitragende
+Copyright @copyright{} 2003--2021 Daniel Heck und Beitragende
 
 Das Kopieren und Verteilen dieser Datei, mit oder ohne @"Anderungen, ist
 gestattet, unter der Voraussetzung, dass obiger Copyright-Vermerk und
@@ -20,7 +20,7 @@ dieser Abschnitt erhalten bleiben.
 @center @titlefont{Enigma Handbuch}
 @center f@"ur Version @value{VERSION}
 @sp 2
-@c @center Copyright @copyright{} 2003--2020 Daniel Heck (@email{dheck@@gmx.de})
+@c @center Copyright @copyright{} 2003--2021 Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -35,7 +35,7 @@ dieser Abschnitt erhalten bleiben.
 Dieses Handbuch beschreibt die Installation und das Spielprinzip von
 Enigma.  Es bezieht sich auf Enigma Version @value{VERSION}.
 
-Copyright @copyright{} 2003--2020 Daniel Heck (@email{dheck@@gmx.de}) und Beitragende
+Copyright @copyright{} 2003--2021 Daniel Heck (@email{dheck@@gmx.de}) und Beitragende
 
 Das Kopieren und Verteilen dieser Datei, mit oder ohne @"Anderungen, ist
 gestattet, unter der Voraussetzung, dass obiger Copyright-Vermerk und
@@ -1492,13 +1492,16 @@ Landschaftsdesign, Grafik
 Landschaftsdesign, Grafik, Programmierung
 
 @item Daniel Heck
-Hauptentwickler, Grafik, Dokumentation
+Hauptentwickler bis 0.92, Grafik, Dokumentation, SDL 2
+
+@item Georg Honold
+Landschaftsverwaltung und -design
 
 @item Ronald Lamprecht
-XML, Gui, Portierung, Kernel-Programmierung, Dokumentation, Homepage, Auswertung
+Hauptentwickler bis 1.1, XML, neue API, Kernel-Programmierung, Portierung, GUI, Dokumentation, Homepage, Auswertung
 
 @item Andreas Lochmann
-Koordination, Programmierung, Landschaftsverwaltung und -design, Dokumentation, Homepage
+Programmierung, Landschaftsverwaltung und -design, Dokumentation, Homepage, SDL 2
 
 @item Petr Machata
 Landschaftsdesign, Programmierung
@@ -1529,6 +1532,9 @@ Mac OS X Portierung, Programmierunterst@"utzung, Grafik
 
 @item illmind
 Forum mag-heut.net Administration, Landschaftsdesign
+
+@item Sidney Markowitz
+Mac OS X Portierung und Homebrew-Formel
 
 @c waiting for licence to add the sounds
 @c @item ``Cellar of Rats''
@@ -1571,92 +1577,132 @@ F@"ur verschiedene kleinere Beitr@"age danken wir:
 
 @itemize @bullet
 @item Andreas Abraham (Deutsche @"Ubersetzung)
-@item Samuel El@'ias Mart@'inez @'Alvarez  (Spanische @"Ubersetzung f@"ur 0.92)
+@item Samuel El@'ias Mart@'inez @'Alvarez (Spanische @"Ubersetzung)
 @item Another (Landschaftsdesign)
 @item Yannis Anthymidis (Griechische @"Ubersetzung)
+@item S@'ebastien Aperghis-Tramoni (Franz@"osische @"Ubersetzung)
 @item Ash (Landschaftsdesign)
 @item Claudio B. (Italienische @"Ubersetzung)
+@item Andriy Bandura (Ukrainische @"Ubersetzung)
 @item Roberto Bardin (Landschaftsdesign)
+@item C.W. Betts (Updates f@"ur .gitignore and .DS_Store)
+@item George Birbilis (Griechische @"Ubersetzung)
 @item Helge Blohmer (Landschaftsdesign)
 @item Nathan Bronecke (Landschaftsdesign)
 @item Harry Bruder (Landschaftsdesign, LotM-Artikel)
 @item Alain Busser (Landschaftsdesign, franz@"osische @"Ubersetzung und Handbuch)
 @item Guy Busser (Landschaftsdesign)
 @item Richi B@"utzer (Landschaftsdesign)
+@item Espen Bye (Norwegische @"Ubersetzung)
+@item Guglielmo Cafaggi (Italienische @"Ubersetzung)
 @item Calinou (Franz@"osische @"Ubersetzung)
 @item capkoh (Landschaftsdesign)
 @item Manfredi Carta (Landschaftsdesign)
+@item Yuri Chornoivan (Ukrainische @"Ubersetzung)
 @item Christoph & Anita (Landschaftsdesign)
+@item Dan Church (Behebung eines Fehlers zum lokalen Verzeichnis)
+@item David D (Franz@"osische @"Ubersetzung)
 @item Dawid (Polnische @"Ubersetzung)
-@item Serge Dremuk (Russische @"Ubersetzung)
+@item Serge Dremuk (Russische und ukrainische @"Ubersetzung)
 @item Joseph Dunne (Landschaftsdesign)
 @item Xerxes M. Dynatos (Landschaftsdesign)
 @item Edward (Landschaftsdesign)
 @item Els van Eijk (Niederl@"andische @"Ubersetzung)
 @item Manuel Eisentraut (Landschaftsdesign)
 @item Stephanie Fabian (Wertvolle Fehlerberichte)
+@item Irina Fedulova (Russische @"Ubersetzung)
 @item Johann Freymuth (Landschaftsdesign, wertvolle Fehlerberichte)
 @item fri (Tschechische @"Ubersetzung)
 @item firespin (Griechische @"Ubersetzung)
 @item Stefan Gagner (Schwedische @"Ubersetzung)
 @item Roberto Garc@'ia (Spanische @"Ubersetzung)
+@item Jo@~ao Gaspar (Portugiesische @"Ubersetzung)
 @item Andy Geldmacher (Landschaftsdesign)
+@item Helmut Grohne (Behebung eines Fehlers w@"ahrend Crosscompilation)
 @item Edwin Groothuis (FreeBSD Portierung)
 @item GunChleoc (Schottisch-G@"alische @"Ubersetzung)
 @item Daniel Hadas (Landschaftsdesign)
 @item Jonatan Hadas (Landschaftsdesign)
 @item Hairball (Landschaftsdesign)
 @item Joe Hansen (D@"anische @"Ubersetzung)
+@item Haris (Bosnische @"Ubersetzung)
 @item hasufell (Verbesserte Unterst@"utzung f@"ur enet)
+@item heiko123abc (H@"ohere Aufl@"osungsmodi)
 @item Immanuel Herrmann (Landschaftsdesign)
+@item Hoa (Chinesische @"Ubersetzung)
 @item Zoltan Hopp@'ar (Ungarische @"Ubersetzung)
 @item Tea Horvatic (Kroatische @"Ubersetzung)
+@item Michal Hri@v{n} (Slowakische @"Ubersetzung)
 @item Brian Huffman (Landschaftsdesign)
 @item Johannes H@"using (Landschaftsdesign)
 @item Hypocrite (Finnische @"Ubersetzung)
 @item Icewing (Landschaftsdesign)
+@item ItTheIt (Landschaftsdesign)
 @item M@'at@'e Lehel Juh@'asz (Ungarische @"Ubersetzung)
+@item Stian J@o{}rgensrud (Norwegische @"Ubersetzung)
 @item Samuele Kaplun (Italienische @"Ubersetzung)
+@item Jorma Karvonen (Finnische @"Ubersetzung)
 @item Ivica Koli@'c (Kroatische @"Ubersetzung)
 @item Manuel K@"onig (Landschaftsdesign, Fehlerberichte)
 @item Jens-Christian Korth (Landschaftsdesign)
+@item H@aa{}vard Kristoffersen (Norwegische @"Ubersetzung)
 @item Johannes Laire (Landschaftsdesign)
 @item Joona Laire (Landschaftsdesign)
 @item Markus Laire (Landschaftsdesign)
+@item J@"rgen Lange (Landschaftsdesign)
+@item Legimet (Behebung eines Kompilationsfehlers mit GCC 6)
 @item Dominik Lehmann (Landschaftsdesign)
+@item Roger Leigh (Behebung eines Fehlers bei Flie@ss{}kommaumrechnungen)
 @item Dominik Leipold (Landschaftsdesign)
 @item Ryan Lerch (AppData-Datei)
 @item Edward Leuf (Feedback, Fehlerberichte)
 @item Christophe Lherieau (Franz@"osische @"Ubersetzung)
+@item Ricky Qi Li (Chinesische @"Ubersetzung)
 @item Lasse Liehu (Finnische @"Ubersetzung)
 @item Ingo van Lil (Feedback, Fehlerberichte)
+@item Hugo Locurcio (Franz@"osische @"Ubersetzung)
 @item Frank van der Loo (Niederl@"andische @"Ubersetzung)
 @item @dotaccent{L}uboslava (Slowakische @"Ubersetzung)
-@item Dzmitry Ludzik (Russische und wei@ss{}russische @"Ubersetzung)
 @item luigif (Italienische @"Ubersetzung)
+@item Dzmitry Ludzik (Russische und wei@ss{}russische @"Ubersetzung)
 @item Lurcane (Landschaftsdesign)
-@item Sidney Markowitz (Mac OS X Portierung)
+@item Riccardo Di Maio (Italienische @"Ubersetzung)
+@item Wasilis Mandratzis-Walz (Griechische @"Ubersetzung)
+@item Dmitry Marakasov (Behebung eines Fehlers in Meditationen)
 @item S@'ergio Marques (Portugiesische @"Ubersetzung)
+@item Mat Mat (Schwedische @"Ubersetzung)
+@item MatteoMat01 (Italienische @"Ubersetzung)
 @item Barry & Lori Mead (Landschaftsdesign)
+@item Adnan Memija (Bosnische @"Ubersetzung)
+@item Merarom (Schwedische @"Ubersetzung)
 @item Linda Mihalic (Englisch Korrektur lesen)
 @item moonpearl (Landschaftsdesign)
-@item Stephen Morley (Safalra) (Landschaftsdesign)
+@item Carlos Moreira (Portugiesische @"Ubersetzung)
+@item Stephen Morley (Landschaftsdesign)
+@item Fumio Nakayama (Japanische @"Ubersetzung)
 @item nanook (Landschaftsdesign)
 @item Krishnamurti Lelis Lima Vieira Nunes (Portugiesische @"Ubersetzung)
 @item Daniel Nylander (Schwedische @"Ubersetzung)
 @item Nikola Parsifal (Kroatische @"Ubersetzung)
-@item Mark@'eta Pecoldov@'a(Tschechische @"Ubersetzung)
+@item Mark@'eta Pecoldov@'a (Tschechische @"Ubersetzung)
 @item Andreas Persenius (Landschaftsdesign)
+@item Karen Pouelle (Bereinigen der Landschaftsdaten)
 @item Grzegorz Pruchniakowski (Polnische @"Ubersetzung)
 @item Mark Pulley (Landschaftsdesign)
 @item pzykosiz (Landschaftsdesign)
 @item Bruno Queiros (Portugiesische @"Ubersetzung)
+@item Quipyowert2 (Behebung verschiedener Fehler und Leaks)
 @item Vincenzo Reale (Italienische @"Ubersetzung)
+@item A. Regnander (Schwedische @"Ubersetzung)
 @item Thomas De Rocker (Niederl@"andische @"Ubersetzung)
 @item Rudolf (Landschaftsdesign)
+@item Rui (Portugiesische @"Ubersetzung)
 @item Peter Santo (Landschaftsdesign)
+@item Sadie (Landschaftsdesign)
 @item Tobias Schmidbauer (Windows Installer und Icon)
 @item Lukas Sch@"uller (Landschaftsdesign)
+@item Michael Schwarz (@"Uberarbeitung des Enigma-Logos)
+@item Stefan Schwoon (Landschaftsdesign)
 @item Achim Settelmeier (RPM specfile)
 @item ShadowPhrogg32642342 (D@'aniel Borb@'ely) (Landschaftsdesign, ungarische @"Ubersetzung)
 @item Gon@,{c}alo Silva (Portugiesische @"Ubersetzung)
@@ -1667,11 +1713,13 @@ F@"ur verschiedene kleinere Beitr@"age danken wir:
 @item Spaceman (Landschaftsdesign)
 @item Ulf Stegemann (Landschaftsdesign)
 @item J@"urgen Sticht (Landschaftsdesign)
+@item Gabe Stilez (Ungarische @"Ubersetzung)
 @item Mikke Surakka (Finnische @"Ubersetzung)
 @item Andrzej Szombierski (Landschaftsdesign)
 @item Tacvek (Lua 5.1 Upgrade)
 @item James Taylor (Landschaftsdesign)
 @item Michael Terry (.desktop file)
+@item theschitz (Schwedische @"Ubersetzung)
 @item Vince38 (Franz@"osische @"Ubersetzung)
 @item Ray Wick (Landschaftsdesign)
 @item Martin Woyda-Wolf (Landschaftsdesign)
@@ -1679,6 +1727,7 @@ F@"ur verschiedene kleinere Beitr@"age danken wir:
 @item Heikki Ylipaavalniemi (Finnische @"Ubersetzung)
 @item Francisco Zamorano (Spanische @"Ubersetzung)
 @item Zephyr (Landschaftsdesign)
+@item Unknown contributor (Slowenische @"Ubersetzung)
 @end itemize
 
 @node Verwendete Software,  , Danksagungen, Autoren und Danksagungen

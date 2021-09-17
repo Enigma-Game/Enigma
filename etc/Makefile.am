@@ -18,19 +18,23 @@ dist_appdata_DATA = enigma.appdata.xml
 
 EXTRA_DIST = \
 	build-cross.sh \
-        xerces-mingw-conf.sh \
-        enigma.spec.in \
+	xerces-mingw-conf.sh \
+	enigma.spec.in \
 	enigma.spec \
 	mingw32-configure.sh \
 	mingw32-dist.sh.in \
 	mingw32-dist.sh \
+	mxe-configure.sh \
+	mxe-dist.sh.in \
+	mxe-dist.sh \
 	nlcvt.pl \
 	enigma.desktop \
-        enigma.appdata.xml \
+	enigma.appdata.xml \
 	enigma.png \
 	Info.plist \
 	enigma.icns \
-	mac-build.sh \
+	menu_bg.jpg \
+	enigmabuilddmg \
 	README-SDL.txt \
 	enigma.nsi.in \
 	enigma.nsi \

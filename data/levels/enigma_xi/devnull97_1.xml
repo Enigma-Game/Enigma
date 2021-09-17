@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Only two ..." el:subtitle="" el:id="devnull97"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2011, 2013 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="4:44"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_concrete"}
+ti[" ~"] = {"fl_abyss"}
+ti[" !"] = {"fl_bridge"}
+ti["# "] = {"st_fake_oxyda"}
+ti["+ "] = {"st_box_rock"}
+ti["B "] = {"st_passage_black", flavor = "frame"}
+ti["W "] = {"st_passage_white", flavor = "frame"}
+ti["fakeDoors"] = {"st_door", name = "fakeDoor%%#", faces = "ew"}
+ti["scales"] = {"fl_scales_concrete", target = "fakeDoor%%#*"}
+ti["doors"] = {"st_door_a", name = "door%%#"}
+ti["keyHoles"] = {"st_key", code = "%%", target = {"door%%#*", "fakeDoor%%#*"}}
+ti["fakeKeyHoles"] = {"st_key", code = "%%", target = "fakeDoor%%#*"}
+ti["keys"] = {"it_key", code = "%%"}
+ti["Q "] = {"st_fake_oxydb"}
+ti["O "] = {"st_oxyd", oxydcolor = OXYD_GRAY}
+ti["@0"] = {"ac_marble_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ti["@1"] = {"ac_marble_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"d", "fakeDoors"}, {"f", "fakeKeyHoles"}, {"s", "scales"}, {"D", "doors"}, {"k", "keys"}, {"K", "keyHoles"})), "  ", {
+  "# # # # # # # # # # # # # # # # # # #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  "#       W       #   W  ~#   W  ~daB #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  "#   # B # W #   # + #       B   # k2#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  "#   #   #   #   #   #   # # #   # # #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# K2# # ",
+  "#   B +   + + B  ~  B   #           #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# B D1O ",
+  "#   #   #   # # #   #  ~#   # + # W # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #   # # ",
+  "#   #      ~+ sa#   #   #   #   #                                                                                 D0  D3  #  ~",
+  "#   #  ~#  ~+ sb#   #   # W # B # B # # # # # # # # # #     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #   # # ",
+  "#   W   # # # # #   # + +!+     #   #  ~ ~ ~ ~ ~ ~ ~ ~#     #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# W D2O ",
+  "# # #  ~    + W  ~  B   #     # #   #  ~ ~ ~ ~ ~ ~ ~ ~#     #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# K1# # ",
+  "# k1#   # + #   # + #   # B W #     #  ~ ~ ~ ~# Q # K3#   @1# K0# Q #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  "# W db ~    B   #   W  ~#       +   #  ~ ~ ~ ~Q   d0k0d1  @0d2k3d3  Q  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+  "# # # # # # # # # # # # # # # # # # #  ~ ~ ~ ~# Q # # # f2f1# # # Q #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~"
+})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="King V." el:subtitle=""
+el:id="sadie001_3"/> <el:version el:score="1" el:release="2" el:revision="3"
+el:status="released"/> <el:author el:name="Sadie" el:email=""/>
+<el:copyright>Copyright © 2016 Sadie Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="true" el:single="true"
+el:network="false"/> <el:score el:easy="00:51" el:difficult="01:08"/> </el:info>
+<el:luamain><![CDATA[
+
+
+ti[" "] = {"fl_lawn"}
+ti["."] = {"fl_space"}
+ti["#"] = {"st_camouflage"}
+ti["H"] = {"st_camouflage_hollow"}
+ti["O"] = {"st_oxyd_d"}
+ti["@"] = {"#ac_marble"}
+ti["C"] = {"st_coinslot", target="door1", interval_m=COIN_IGNORE}
+ti["c"] = {"st_coinslot", target="door2"}
+ti["F"] = {"st_floppy", target="door3"}
+ti["K"] = {"st_knight"}
+ti["1"] = {"st_door_d", "door1", faces="ew"}
+ti["2"] = {"st_door_d", "door2", faces="ns"}
+ti["3"] = {"st_door_d", "door3", faces="ew"}
+ti["5"] = {"it_coin_m"}
+ti["x"] = {"st_camouflage_movable"}
+ti["L"] = {"st_laser_s", "laser"}
+ti["l"] = {"st_switch", target="laser"}
+ti["D"] = {"st_death"}
+ti["d"] = {"it_document", text="Gold is the money of kings..."}
+ti["<"] = {"st_oneway_black", orientation=WEST}
+if wo["IsDifficult"] then 
+   ti["m"] = ti["#"]
+   ti["E"] = ti["D"]
+   ti[":"] = ti["."]
+   ti["e"] = ti["D"]
+   ti["f"] = {"it_floppy"}
+   ti["g"] = ti["H"]
+else
+   ti["m"] = ti[" "]
+   ti["E"] = ti["#"]
+   ti[":"] = ti[" "]
+   ti["e"] = ti[" "]
+   ti["f"] = ti[" "]
+   ti["g"] = ti["H"] .. {"it_floppy"}
+end
+
+wo(ti, " ", {
+    "####L###############",
+    "#53                #",
+    "#F#      DDDDDDDEE##",
+    "#        .......:: #",
+    "##x      DDDDDDDee5#",
+    "O1             <d  #",
+    "#C       O     #####",
+    "#                  #",
+    "#m               ###",
+    "#                #@#",
+    "#  K   #c#2#     gH#",
+    "# KOK  #5 f#  O    #",
+    "#########l##########"
+})
+
+wo:shuffleOxyd()
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

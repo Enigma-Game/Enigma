@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Waste" el:subtitle="Wasted" el:id="mecke68"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:6 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2020 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+	  <el:compatibility el:enigma="1.3">
+	    <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libtrain" el:id="lib/libtrain" el:release="1" el:preload="true"/>
+		<el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>	     
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force"
+        el:scoreunit="duration" el:scoretarget="time"/>
+	  <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Georg Honold for testing</el:credits>
+      </el:comments>
+	  <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["AutoRespawn"] = true
+
+if wo ["IsDifficult"] then
+    ti["  "] = {"fl_lawn"}
+    ti["U "] = {"st_yellow"}
+else
+    ti["  "] = {"fl_lawn"}
+    ti["U "] = {"st_dispenser_extralife"}
+end
+
+ti["~ "] = {"fl_water"}
+--ti["  "] = {"fl_lawn"}
+ti["- "] = {"fl_sand", burnable=false}
+ti["r "] = {"fl_brick"}
+ti["d "] = ti["r "] .. {"it_drop"}
+ti["b "] = ti["- "] .. {"st_box_wood"}
+ti["u "] = ti["- "] .. {"st_break_oxydc"}
+ti["W "] = {"st_document", "Doc1", text = "W.A.S.T.E We Await Silent Tristeros Empire (Thomas Pynchon)" }
+ti["N "] = {"st_nil"}
+ti["P "] = {"st_greenbrown_growing"}
+ti["Y "] = ti["- "] .. {"st_actorimpulse_invisible"}
+ti["y "] = ti["~ "] .. {"st_actorimpulse_invisible"}
+
+--ti["XX"] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti[". "] = {"st_oxyd_e", selection={"=P ", "=N "}}
+
+
+
+wo(res.composer(ti), "  ", {
+--0                                    19                                    38                                  
+
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",  --00
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - ~ - - - - ~ - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - ~ - - - - - - ~ - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - u u - ~ - - - . . - - - ~ - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - u b ~ - - . . . . . . - - ~ - - - ",
+"- - - - - - - - - - - - - - - - - - - - r r r ~ - . . . . - - . . . . - ~ - - ",
+"- - - - - - - - - - - - - - - - - - - - - - u b ~ - - . . . . . . - - ~ - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - u u - ~ - - - . . - - - ~ - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - ~ - - - - - - ~ - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - ~ - - - - ~ - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - Y Y Y Y Y Y Y y U W y Y Y Y Y Y Y Y ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",  --12
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ",
+"- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "}) --24
+
+
+
+--------------------------------------------------------------------------------
+--- waste room ---
+--------------------------------------------------------------------------------
+
+ti["w "] = {"fl_sand"}
+ti["w-"] = {"fl_brick"}
+ti["wk"] = {"fl_sahara"}
+ti["w~"] = {"fl_water"}
+ti["wx"] = {"st_box_wood"}
+ti["wY"] = {"st_camouflage"}
+ti["wM"] = {"st_mail_n"}
+ti["wN"] = {"st_chameleon"}
+ti["w^"] = {"fl_forward_darkgray", orientation = NORTH}
+ti["wQ"] = ti["wx"] .. {"fl_forward_darkgray", orientation = NORTH}
+ti["wA"] = ti["w-"] .. {"st_door", name="door#11", flavor="d", faces="ew"}
+ti["wB"] = ti["w-"] .. {"st_door", name="door#21", flavor="d", faces="ew"}
+ti["wC"] = ti["w-"] .. {"st_door", name="door#31", flavor="d", faces="ew"}
+ti["wD"] = ti["wk"] .. {"st_door", name="door#41", flavor="d", faces="ew"}
+ti["wE"] = ti["wk"] .. {"st_door", name="door#51", flavor="d", faces="ew"}
+ti["wH"] = ti["wk"] .. {"st_door", name="door#61", flavor="d", faces="ns"}
+ti["ws"] = ti["wk"] .. {"it_seed"}
+ti["wl"] = ti["wk"] .. {"it_burnable_burning"}
+ti["wF"] = {"st_brick"}
+ti["wG"] = ti["wk"] .. {"st_rawglass"}
+ti["wJ"] = ti["wk"] .. {"it_sword"}
+ti["w1"] = {"it_trigger", target="door#11"}
+ti["w2"] = {"it_trigger", target="door#21"}
+ti["w3"] = {"it_trigger", target="door#31"}
+ti["w4"] = {"it_trigger", target="door#41"}
+ti["w5"] = {"it_trigger", target="door#51"}
+ti["w6"] = {"it_trigger", target="door#61"}
+ti["w@"] = {"#ac_marble_black"}
+
+ti["wd"] = {"it_trap", name="floory#"}
+ti["wg"] = {"it_trap", name="floory#"}
+ti["wb"] = {"it_death", name="floory#"}
+ti["we"] = {"it_bottle_broken", name="floory#"}
+ti["wf"] = {"it_glasses", state=SPOT_TRAP}
+ti["wt"] = {"it_bag"}
+ti["wP"] = ti["w-"] .. {"st_barrier", flavor="it_sword"}
+
+ti["w,"] = ti["w-"] .. {"it_wormhole", destination="psi1", range=2, strength=2}
+ti["wX"] = ti["w-"] .. {"st_grate_cross"}
+ti["w;"] = {"fl_red", name="psi1"}
+
+wo:add({"ot_timer", target="colorthefloory"})
+
+pmap_waste= {
+        "F##P#FFFFFFF##GX#FFF",
+        "F#   ABCDE,F   ~F ; ",
+        "FFGHGFFFFFFFFFFMFFFF", 
+        "F#Y~Y~~sG# t # J F~F",
+        "FFN~N ~~G# FxFx# #~F",
+        "F# N s ~##  3x1  ~FF",
+        "F# ^ ^  F#FG5@2G###F",
+        "Fk-Q----lF  6x4  GGF",
+        "F-i j YY#F FxFxF FFF",
+		"F-   i--sF   x   GGF",
+        "FF----#####F x FFFFF",
+        "FF  f           ~~~ ",
+        "FF###############FFF"}
+		
+map_waste = wo:newMap(" ", pmap_waste)
+
+
+local resolver2 = res.random(ti, "w#",{{"wg", 1/10}, {"wb", 2/10}, {"wd", 2/10}, {"we", 2/10}})
+local railway2 = res.train(resolver2, {"wi", edge=true}, {"wj", train={"wk", "w~", orientation=WEST, length=2}})
+wo:drawMap(res.composer(railway2), po(0,12), "w?", "w" * map_waste)
+
+function colorthefloory()
+    objs = no["floory#*"]:shuffle():sub(25)
+    for obj in objs do
+        wo:drawRect(obj, obj, "w#", resolver2)
+    end
+end
+
+
+--end Waste-Room
+
+--------------------------------------------------------------------------------
+--- hyper room ---
+--------------------------------------------------------------------------------
+ti["h "] = {"fl_bluegray"}
+ti["h1"] = {"fl_sand"}
+ti["h2"] = {"fl_inverse"}
+ti["h3"] = {"fl_red"}
+ti["h4"] = {"fl_metal"}
+--ti["h5"] = {"fl_ice"}
+ti["h6"] = {"fl_space"}
+ti["h="] = ti["h3"] .. {"it_magicwand"}
+--ti["h6"] = ti["h4"] .. {"st_chameleon"}
+ti["h7"] = {"st_box_wood"}
+ti["h8"] = {"it_bottle_idle"}
+ti["h9"] = {"it_bottle_broken"}
+ti["h0"] = {"st_brownie"}
+ti["hF"] = {"st_brick"}
+ti["hX"] = {"st_grate_cross"}
+ti["h~"] = ti["h8"] .. {"fl_water"}
+ti["hr"] = ti["h9"] .. {"fl_water"}
+ti[" -"] = {"fl_lawn"}
+ti["ha"] = {"fl_sahara"}
+--ti["h#"] = ti["h9"] .. {"fl_swamp"}
+ti["hD"] = ti["h3"] .. {"it_trap", name="floora#"}
+ti["ho"] = {"st_death_movable"}
+ti["hG"] = ti["h1"] .. {"it_trap", name="floora#"}
+ti["hB"] = ti["h6"] .. {"it_death", name="floora#"}
+ti["hC"] = ti["h2"] .. {"it_bottle_broken", name="floora#"}
+ti["hO"] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti["hS"] = ti["ha"] .. {"st_switch", name="psy1", target="las1#*"}
+ti["h>"] = {"fl_forward_darkgray", orientation = EAST}
+ti["h<"] = {"fl_forward_darkgray", orientation = WEST}
+ti["h^"] = {"fl_forward_darkgray", orientation = NORTH}
+ti["hv"] = {"fl_forward_darkgray", orientation = SOUTH}
+ti["hn"] = ti["h0"] .. {"fl_forward_darkgray", orientation = EAST}
+ti["hm"] = ti["ho"] .. {"fl_forward_darkgray", orientation = WEST}
+ti["hp"] = ti["h7"] .. {"fl_forward_darkgray", orientation = WEST}
+
+ti["hx"] = {"st_door", name="door#1", flavor="d", faces="ew"}
+ti["hy"] = {"st_door", name="door#2", flavor="d", faces="ew"}
+ti["hz"] = {"st_door", name="door#3", flavor="d", faces="ew"}
+--ti["hj"] = {"st_door", name="door#4", flavor="d", faces="ew"}
+ti["hl"] = {"st_door", name="door#5", flavor="d", faces="ew"}
+--ti["hZ"] = {"st_door", name="door#6", flavor="d", faces="ew"}
+
+ti["h,"] = {"it_trigger", target="door#1"}
+ti["h:"] = {"it_trigger", target="door#2"}
+ti["h;"] = {"it_trigger", target="door#3"}
+--ti["h="] = {"it_trigger", target="door#4"}
+ti["h."] = {"it_trigger", target="door#5"}
+--ti["h_"] = {"it_trigger", target="door#6"}
+
+ti["hc"] = ti["ha"] .. {"it_cherry"}
+ti["h5"] = ti["ha"] .. {"it_spring_drop"}
+ti["hq"] = {"st_stoneimpulse_movable"}
+ti["hT"] = {"st_thief"}
+
+
+
+
+wo:add({"ot_timer", target="colorthefloora"})
+
+
+
+pmap_hyper= {
+    "FFF#######  ########",
+    "-------------------#",
+    "F--.aaa;aaaa:aaa,--#",
+    "#--Wt            --#",
+    "#-- >>n>>n>>>n>v --#",
+    "#-- ^v<<m<<<p<<v --#",
+    "T=- ^v 5    q ^v -5#",
+    "#-- ^>>>n>>>>>^v --#",
+    "#-- ^<<<m<<<p<<p --#",
+    "#--             W--#",
+    "FFFFFFFFFFFFF#-----#",
+    "7Xx--c--yz-l~c-----#",
+    "FFF##FFFFFFFFFF#####"}
+	
+
+
+
+map_hyper = wo:newMap(" ", pmap_hyper)
+
+local resolver1 = res.random(ti, "h#",{{"hD", 1/10}, {"hC", 2/10}, {"hB", 2/10}, {"hG", 2/10}})
+local railway1 = res.train(resolver1, {"hW", edge=true}, {"ht", train={"h~", "hr", orientation=WEST, length=20}})
+wo:drawMap(res.composer(railway1), po(19,12), "h?", "h" * map_hyper)
+
+function colorthefloora()
+    objs = no["floora#*"]:shuffle():sub(25)
+    for obj in objs do
+        wo:drawRect(obj, obj, "h#", resolver1)
+    end
+end
+
+
+
+
+--end Hyper-Room
+
+
+
+
+--------------------------------------------------------------------------------
+--- start ---
+--------------------------------------------------------------------------------
+ti["k  "] = {"fl_sand"}
+
+ti["k~ "] = {"fl_adhesionless"}
+ti["kr "] = {"fl_aquamarine"}
+ti["k- "] = {"fl_brick"}
+ti["kb "] = {"fl_abyss"}
+ti["ka "] = {"st_brick", cluster=1}
+ti["kA "] = ti["k- "] .. {"st_brick"}
+ti["kB "] = ti["kr "] .. {"st_quake"}
+ti["k. "] = ti["k- "] .. {"it_seed"}
+
+
+ti["kD "] = ti["k- "] .. {"st_knight"}
+ti["k+ "] = ti["k- "] .. {"st_passage_black"}
+ti["k <"] = {"fl_forward_darkgray", orientation = WEST}
+
+--ti["kO "] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti["kc "] = ti["kr "] .. {"it_cherry"}
+ti["kC "] = {"st_knight"}
+ti["k4"] = {"st_puzzle_blue",  intensity=10}
+
+
+ti["kL "] = ti["k- "] .. {"st_laser_s", state=OFF, name="franzi"}
+ti["kS "] = ti["k- "] .. {"st_switch",  target="franzi"}
+ti["k4 "] = ti["k- "] .. {"st_door", name="franzy", flavor="d", faces="ew"}
+ti["kM "] = {"st_laserswitch", target = "toggleDoorfranzy", action = "signal"}
+ti["k1 "] = {"st_mirror_slab", movable = false, transparent = false, orientation = SOUTH}
+ti["k2 "] = {"st_mirror_slab", movable = true, transparent = false, orientation = SOUTH}
+ti["k3 "] = {"st_mirror_triangle", movable = true, transparent = false, orientation = SOUTH}
+
+ti["kE "] = ti["k- "] .. {"st_door_a", name="frenzy"}
+ti["kG "] = ti["k- "] .. {"st_rawglass"}
+
+ti["k0 "] = {"st_shogun_s"} .. ti({"it_shogun_l", target = "frenzy"})
+ti["k9 "] = {"st_shogun_m"}
+ti["k8 "] = {"st_shogun_l"}
+
+ti["k5 "] = ti["k- "] .. {"st_turnstile", flavor = "red"}
+ti["k6 "] = ti["k- "] .. {"st_turnstilearm", orientation = SOUTH}
+ti["k7 "] = ti["kb "] .. {"st_turnstilearm", orientation = EAST}
+
+wo:add({"ot_counter", "toggleDoorfranzy", state = 0, target="franzy", action_2="open", action_1="close"})
+
+pmap_start= {
+
+    "A A A A A A A A A A L A A A A A A A A A ",
+    "A M - - - - - - - - . - - b b b b b - A ",
+    "A A - 3 a a a B a a a a a a a a a a b A ",
+    "A A - -       D           b b b b b - A ",
+    "A A - - 9 A + + + + + + + + + + - b - A ",
+    "A A - -   + 4f4g4e4g4e4a  b b b + b - A ",
+    "A 1 b 2   D 4n4k3 4j  M 0 b D b A S E 4 ",
+    "A A - -   + 4l4m4e4m4e4a  b b b + b - A ",
+    "A A - - 8 A + + + + + + + + + + - b - A ",
+    "A A - -                   b b b b 5 7 A ",
+    "A A - - - - - - - - - - - - - - - - - A ",
+    "A A A G A A A A A A 1 A A A - 6 A A A A "}
+	
+
+
+map_start = wo:newMap("  ", pmap_start)
+
+local resolver = res.puzzle(ti, "4")
+
+wo:drawMap(res.puzzle(ti, "k4"), po(0,0), "k??", "k" * map_start)
+
+
+
+
+
+
+
+--end start -Room
+
+
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+      <el:i18n>
+        <el:string el:key="title">
+          <el:english el:translate="false"/>
+        </el:string>
+        <el:string el:key="subtitle">
+          <el:english el:translate="false"/>
+		</el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

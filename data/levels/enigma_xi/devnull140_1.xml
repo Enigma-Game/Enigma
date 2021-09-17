@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="AMGINE" el:subtitle="" el:id="devnull140"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2013 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10" />
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false"></el:credits>
+      </el:comments>
+      <el:score el:easy="12:13" el:difficult="17:18"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+
+ti["  "] = {"fl_dark"}
+ti[" ~"] = {"fl_abyss"}
+ti[" _"] = {"fl_fake_abyss"}
+ti[" ."] = {"fl_rock_framed"}
+ti[" u"] = cond(wo["IsDifficult"], ti[" ~"], ti["  "])
+ti["# "] = {"st_yellow"}
+ti["+ "] = {"st_box_rock"}
+ti["8B"] = {"st_oneway_n", color = BLACK}
+ti["8W"] = {"st_oneway_n", color = WHITE}
+ti["_ "] = {"it_pipe_ew"}
+ti["M>"] = ti["_ "] .. {"st_mail_e"}
+ti["M<"] = ti["_ "] .. {"st_mail_w"}
+ti[": "] = ti["_ "] .. {"st_disco_dark"}
+ti["Cw"] = {"st_chess_white"}
+ti["Cb"] = {"st_chess_black"}
+ti["F "] = {"st_thief"}
+ti["E "] = cond(wo["IsDifficult"], {"st_thief"}, {"st_bluegray"})
+ti["= "] = cond(wo["IsDifficult"], ti["+ "], ti["# "])
+ti["W "] = cond(wo["IsDifficult"], ti["+ "], {"st_nil"})
+ti["H "] = {"st_flat_hollow"}
+ti["* "] = {"st_flat_breakable"}
+ti["Z "] = {"st_disco_dark"}
+ti["X "] = {"st_grate"}
+ti["G "] = {"st_ghost_break"}
+ti["Q "] = {"st_rawglass_movable"}
+ti["R "] = {"st_rotator"}
+ti["I "] = {"st_stoneimpulse_movable"}
+ti["P "] = {"st_ghost_purplemarble"}
+ti["S "] = cond(wo["IsDifficult"], ti["P "], ti["G "])
+ti["V "] = cond(wo["IsDifficult"], {"st_invisible_movable"}, {"st_granite_movable"})
+
+ti["b "] = {"it_bomb_white"}
+ti[" !"] = ti[" ~"] .. ti["b "]
+ti["d "] = {"it_floppy"}
+ti[" b"] = cond(wo["IsDifficult"], {"it_brush"}, ti[" ~"])
+ti[" B"] = cond(wo["IsDifficult"], {"it_nil"}, {"it_brush"})
+ti["s "] = {"it_squashed"}
+ti[" s"] = {"it_spade"}
+ti[" m"] = cond(wo["IsDifficult"], {"it_magicwand"}, {"it_nil"})
+ti[" w"] = {"it_wrench"}
+ti["2 "] = ti["+ "] .. {"it_coin_s"}
+ti[" c"] = cond(wo["IsDifficult"], {"it_banana"}, {"fl_abyss"})
+ti[" C"] = {"it_cherry"}
+ti[" o"] = {"it_meditation"}
+ti[" O"] = {"it_meditation", essential = 1}
+ti[" l"] = cond(wo["IsDifficult"], {"it_nil"}, {"it_extralife"})
+
+ti["TL"] = {"st_floppy", target = "laser"}
+ti["TD"] = {"st_floppy", target = "gateway#*"}
+ti["TB"] = {"it_trigger", target = "bridge#*"}
+ti["TF"] = {"it_trigger", target = "bridgeFake#*"}
+ti["T1"] = ti["+ "] .. {"it_trigger", target = "door%1"}
+ti["T2"] = {"it_trigger", target = "door%2"}
+ti["T3"] = {"it_trigger", target = "door%3"}
+ti["T4"] = {"it_trigger", target = "door%4"}
+ti["L "] = {"st_laser_w", name = "laser"}
+ti["- "] = {"fl_bridge", name = "bridge#"}
+ti[" -"] = {"fl_bridge", name = "bridgeFake#"}
+ti[" ,"] = {"fl_bridge", name = "gateway#"}
+ti[" ;"] = {"fl_bridge"}
+ 
+ti["doors"] = {"st_door_a", name = "door%%"}
+ti["keys"] = {"it_key", code = "%%"}
+ti["keyHoles"] = {"st_key", code = "%%", target = "door%%"}
+ti["wormHoleDests"] = {"fl_rock_framed", name = "wormHoleDest%%"}
+ti["wormHoles"] = {"it_wormhole", destination = "wormHoleDest%%", strength = 0.0}
+ti["wormHoleCharDests"] = {"fl_rock_framed", name = "wormHoleCharDest%%"}
+ti["wormHoleChars"] = ti[" ."] .. ti({"st_box_rock"}) .. {"it_wormhole", destination = "wormHoleCharDest%%", strength = 0.0}
+
+ti["OB"] = {"st_oxyd_a", name = "oxydsBlack#"}
+ti["OW"] = {"st_oxyd_a", name = "oxydsWhite#"}
+ti["@0"] = cond(wo["IsDifficult"], {"#ac_marble_black", essential = INDISPENSABLE}, {"#ac_pearl_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE})
+ti["@1"] = cond(wo["IsDifficult"], {"#ac_marble_white", essential = INDISPENSABLE}, {"#ac_pearl_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE})
+
+local resAutotile = res.autotile(ti, 
+  {"D", "doors"}, {"k", "keys"}, {"K", "keyHoles"},
+  {"e", "wormHoleDests"}, {"E", "wormHoles"}, {"f", "wormHoleCharDests"}, {"F", "wormHoleChars"})
+wo(res.composer(resAutotile), "  ", {
+  "#O# # # # # # # # # # # # # # # # # # # # #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# # # # # # # # # # # # # # # # # # # # # # ",
+  "#  ~ ~ ~ ~ ~ ~ ~# d  ~+  ~+~ ~+  ~+~      #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#        ~  F      ~ZbZ   #  ~ ~ ~ ~ ~ ~ ~# ",
+  "#  ~ . . . .OB ~# + +! ! !+! !+! !+!  #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   # CwE     +    ~ ~ ~ ~#  ~ . . . . . ~# ",
+  "#  ~ . ~ ~ ~ ~ ~#  ~ ~ ~ ~+  ~+~ ~+   #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #       F    ~ ~      #  ~eG ~ ~ ~OW ~# ",
+  "#  ~ . ~ ~ ~ ~ ~#  ~+  !+s ! ! ! ! !+!#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #       E       E  ~+B#  ~ . ~ ~ ~ ~ ~# ",
+  "#  ~ . ~ ~ ~ ~ ~#  ! ~ ~2~ ~ ~+  ~+  ~#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #  ~ ~F  ~ ~X~F    ~  #  ~ . ~ ~ ~ ~ ~# ",
+  "#  ~ ~FeeE ~ ~ ~KEG +  ~ ~ ~ ~+~+ +~T1#  oM>:~:~:~:~:~:~:~:~:~:~:~:~:~:~M<s # T2 ~    X~TBX~   ~  KG ~Fg ~OW . . ~# ",
+  "#  ~ . ~ ~ ~ ~ ~#  ! ~+  ~+  ~ ~ ~+~ ~#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #  ~E     E X~ ~  +  ~#  ~ . ~ ~ ~ . ~# ",
+  "#  ~ . ~ ~ ~ ~ ~#  ~+l+!+!+!+! ~ ~ ~ ~#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #           F      ~  #  ~ . ~ ~ ~ . ~# ",
+  "#  ~ . ~ ~ ~ ~ ~#  ~ ~+  ~ ~ ~ ~ ~+  ~#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #  ~ ~ ~-  ~ ~ ~ ~ ~  #  ~ ~ ~ ~ ~ . ~# ",
+  "#  ~ . . . .OB ~#  !TL+! ! !+! ! ! !+ #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #  ~ ~E -    ~ ~ ~ ~ ~#  ~ . . . . . ~# ",
+  "#  ~ ~ ~ ~ ~ ~ ~# kAD2 ~ ~+~ ~+  ~+  ~#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #       - +  ~+  ~D1kI#  ~ ~ ~ ~ ~ ~ ~# ",
+  "# # # # # # # # # # # # # # # # # # Q # 8B# # # #  ~ ~ ~ ~ ~ ~ ~ ~# # # # 8W#   # # # # # # # # # # # # # # # # # # ",
+  "#  ~ ~ ~ ~ ~ ~ ~#                 #   #   DEfeEE#  ~ ~ ~ ~ ~ ~ ~ ~# EGfgDG  #     V  C     l  G   #  ~ ~ ~ ~ ~ ~ ~# ",
+  "#  ~eN ~ ~ ~OB ~# Q # # # # #   # #   #   # # # #  ~ ~ ~ ~ ~ ~ ~ ~# # # #   # P P P P P   +   P   #  ~eM ~ ~ ~fM ~# ",
+  "#  ~FN . ~ ~ . ~#           #   #     #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #         V~    TFP   #  ~FM . ~ .Fm ~# ",
+  "#  ~ ~ ~ . ~ ~ ~#  C# # #   #        C#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #   P P   P P P P P   #  ~ ~ ~ . ~ ~ ~# ",
+  "#  ~ . ~ ~ .Fn ~# #    !#   #   # # # #   # # # #  ~ ~ ~ ~ ~ ~ ~ ~# # # #   #           P    ~P   #  ~ . ~ ~ ~ . ~# ",
+  "#  ~ . ~ ~ ~fN ~KN  Q   #   #   Q b kM# @0DNfnEN#  ~ ~ ~ ~ ~ ~ ~ ~# EMfmDM@1# P P P P   P +w+oL   KM ~ . ~ ~ ~ . ~# ",
+  "#  ~ . ~ ~ ~ . ~#  CQ   #   # # # # # #   # # # #  ~ ~ ~ ~ ~ ~ ~ ~# # # #   #           P G~  P   #  ~ . ~ ~ ~ . ~# ",
+  "#  ~ . ~ ~ ~ . ~# # # Q #             #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #   P P P P P     P   #  ~ . ~ ~ ~ . ~# ",
+  "#  ~ . ~ ~ ~ . ~#       # # # # # #   #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   #     V  CP     P P   #  ~ . ~ ~ ~ . ~# ",
+  "#  ~OB ~ ~ ~OB ~#   #     Q       Q   #   # # # #  ~ ~ ~ ~ ~ ~ ~ ~# # # #   #   P   P P   P  - - -#  ~OW ~ ~ ~OW ~# ",
+  "#  ~ ~ ~ ~ ~ ~ ~#       X     Q   Q   #   DIfiEI#  ~ ~ ~ ~ ~ ~ ~ ~# EAfaDA  #   P         P     kN#  ~ ~ ~ ~ ~ ~ ~# ",
+  "# # # # # # # # # # # # # # # # # #   # 8B# # # #  ~ ~ ~ ~ ~ ~ ~ ~# # # # 8W#   # # # # # # # # # # # # # # # # # # ",
+  "#  ~ ~ ~ ~ ~ ~ ~# kG# T3R         I   #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   # H * H * *~H * H *~TD#  ~ ~ ~ ~ ~ ~ ~# ",
+  "#  ~ ~ ~OB ~ ~ ~#   #       W~ ~=~# R #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   # *~*~*~* *~* *~* *~H #  ~ . .eA . . ~# ",
+  "#  ~ ~ ~ . ~ ~ ~#   #   #        ! ! !#!  #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   # H * H * *~Hm*~H *~* #  ~ . ~ ~ ~ . ~# ",
+  "#  ~ ~ ~ . ~ ~ ~#   #   X       #  ~T4#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   # * *~*~*~*~*~*~* *~H #  ~ . ~ ~ ~ . ~# ",
+  "#  ~ ~ ~ . ~ ~ ~#   #  ,# #     D3    #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   # H * H * H * *~* * * #  ~ . ~ ~ ~ . ~# ",
+  "#  ~ ~ ~ ~ ~ ~ ~KID4      #  ;# # #   #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   # *~*~*~*~*~H * *~*~H KA ~ . .Fa . . ~# ",
+  "#  ~ ~ ~ . ~ ~ ~#                     #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   # H * H * *~*~* * *~* #  ~ . ~ ~ ~ . ~# ",
+  "#  ~ ~ ~ . ~ ~ ~# +u# # # # # # # X  ~#   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   # * *~*~* H *~*~* *~H #  ~ . ~ ~ ~ . ~# ",
+  "#  ~ ~ ~Fi ~ ~ ~#  C#       # SC# # # #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   # H * H *~* H * H *~* #  ~ ~ ~ ~ ~ . ~# ",
+  "#  ~ ~ ~eI ~ ~ ~#   #   # V           #   #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#   # *~*~* *~*~* *~*~*~H #  ~OW ~ ~ ~OW ~# ",
+  "#  ~ ~ ~ ~ ~ ~ ~#  ~    #    ~ ~Zc ~      #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#     H * H *~*~H * H * kE#  ~ ~ ~ ~ ~ ~ ~# ",
+  "# # # # # # # # # # # # # # # # # # # # # #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# # # # # # # # # # # # # # # # # # # # # # "
+})
+wo:shuffleOxyd({"oxydsBlack#*", max = 0}, {"oxydsWhite#*", max = 0})
+if not wo["IsDifficult"] then
+  wo:add(YIN, {"it_pin"})
+  wo:add(YANG, {"it_pin"})
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

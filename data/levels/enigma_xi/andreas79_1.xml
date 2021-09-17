@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Deadly Hollows" el:subtitle="" el:id="andreas79"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2020 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="9:14" el:difficult="16:51"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+if wo["IsDifficult"] then
+    wo["ConserveLevel"] = false
+    wo["ProvideExtralifes"] = false
+end
+
+ti[" "] = {"fl_fake_abyss", friction = 3.5}
+ti["@"] = {"#ac_marble_black", controllers = CTRL_YIN, owner = YIN} .. ti{"it_yinyang"}
+ti["$"] = {"#ac_marble_black", controllers = CTRL_YANG, owner = YANG} .. ti{"it_yinyang"}
+ti["#"] = {"st_redfiber"}
+ti["x"] = {"it_death"}
+ti["y"] = {"it_death"} .. ti{"fl_scales_bridgewood", target = "showme", friction = 3.5, min = 0.9}
+ti["1"] = {"st_passage", "house_1#"} .. ti["y"]
+ti["2"] = {"st_passage", "house_2#"} .. ti["y"]
+ti["3"] = {"st_passage", "house_3#"} .. ti["y"]
+ti["4"] = {"st_passage", "house_4#"} .. ti["y"]
+ti["5"] = {"st_passage", "house_5#"} .. ti["y"]
+ti["6"] = {"st_passage", "house_6#"} .. ti["y"]
+ti["O"] = {"st_oxyd", oxydcolor = OXYD_BLACK}
+ti["P"] = {"st_polarswitch", state = ON}
+ti["p"] = {"st_polarswitch", state = OFF}
+ti[">"] = {"st_laser", orientation = EAST, state = ON}
+ti["<"] = {"st_laser", orientation = WEST, state = ON}
+ti["^"] = {"st_laser", orientation = NORTH, state = ON}
+ti["v"] = {"st_laser", orientation = SOUTH, state = ON}
+ti["/"] = {"st_mirror_slab", transparent = false, movable = true, state = EAST}
+ti["V"] = {"st_mirror_slab", transparent = false, movable = true, state = WEST}
+ti["T"] = {"st_mirror_triangle", transparent = false, movable = true, state = SOUTH}
+
+if wo["IsDifficult"] then
+  ti["d"] = ti["6"]
+else
+  ti["d"] = ti["#"]
+end
+
+w, h = wo(ti, " ", {
+ -- 01234567890123456789
+   "              xx ##x##x#x#####xx##x#   ",
+   "         /   #  #      /            x# ",
+   "            x    /  xv#x##x#2##       #",
+   "            #  x x # P  x      ##  /  x",
+   "            x      x   # x1#x    #   x ",
+   "          x# #    # /  x$   @x   #   # ",
+   "         #   #    x    # / / 1    # #  ",
+   "        x    3     #   # P  #    P< x  ",
+   "        # /  #     2    x^Ox#  T  # #  ",
+   "     ##x      #     x#   x#     x#   x ",
+   "   #x   #4#    #3     #x     ##x    #  ",
+   "  x        4x    x      #x#2#/     x   ",
+   " x   /       x    ##           xx##    ",
+   "  #     5x    #     #3#xx#x#3x#        ",
+   " #    x#  # /  4>P V           x       ",
+   " x   x    x     x#    x4x#  # #        ",
+   "#   5  6x  #x     x# #    4  x       ",
+   "x  #  6  6x  5  /   x      x#        ",
+   "x  x  x O x   x   V     #    x       ",
+   "#  #   dx6    #    /      V  #       ",
+   "#   x        #    #x #      x        ",
+   " x   x#  ##5#   x#  x x##xx#         ",
+   " #  V  #x      x                     ",
+   "  # x      # ##                      ",
+   "   x ###x#x x                        "
+})
+
+wo:shuffleOxyd()
+
+-- Remove one it_death from each house_X-group:
+for j = 1, 6 do
+    gp = no["house_" .. j .. "#*"]
+    wo[gp[random(#gp)]] = {"it_nil"}
+end
+
+function showme(onoff, sender)
+    if not onoff then
+        wo[po(sender)] = {"st_passage_black", flavor = "frame"}
+    end
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

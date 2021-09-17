@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Four Horsemen" el:subtitle=""
+el:id="gorg045_2"/> <el:version el:score="1" el:release="2" el:revision="4"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="04:11"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+ti["  "]={"fl_abyss"}
+ti["# "]={"st_tigris"}
+ti[", "]={"fl_bluegray", adhesion=2.0, friction=6.0}
+ti["; "]={"fl_tigris", adhesion=2.0, friction=6.0}
+ti["O "]={"st_oxyd_e", "ox#", oxydcolor=OXYD_RED}
+ti["o "]={"st_oxyd_e", "ox#", oxydcolor=OXYD_WHITE}
+ti["B "]={"fl_bridge", "bridge1#", adhesion=2.0, friction=6.0}
+ti["X "]={"fl_bridge", "bridge2#", adhesion=2.0, friction=6.0} 
+ti["! "]={"fl_bluegray", "spot#", adhesion=2.0, friction=6.0}
+ti[" @"]={"#ac_pearl_black"}
+ti[" K"]={"st_chess"}
+ti[" J"]={"st_stoneimpulse_movable"}
+ti[" s"]={"it_spring_drop"}
+ti[" x"]={"st_grate"}
+ti[" a"]={"it_trigger", invisible=true, target="counter2", action="signal"}
+ti[" b"]={"it_trigger", invisible=true, target="counter1", action="signal"}
+ti[" c"]={"it_trigger", invisible=true, target="counter3", action="signal"}
+
+wo(res.composer(ti) , "  ",{
+    "                                                                            ",
+    "   x                                                ;c    ;c               x",
+    "o XsXxX ; ;   ; ; ; ; ;   ; ; ;                                       , ,xO ",
+    "   x    ;  J  ;   ;   ; ; ;  J;                       , ,             ,  x  ",
+    "   x    ; ; ; ;   ;x      ;   ;                     , , , ,   , , , , ,  x  ",
+    "   x    ;     ;     ,a    ; ;x;                     ,K;b,K,              x  ",
+    "   x    ; ;x    ,a    ,a      ; , , , , , , , , , B ! ;b;b,              x  ",
+    "   x    ;   ; ;   ,a      ; ; ;                     , ,K;b,K             x  ",
+    "   x    ;   ;   ;x    ;   ;   ;                     , ,@, ,   , , , , ,  x  ",
+    "   x    ;  J;   ; ;   ; ; ; ;J;                       , ,             ,  x  ",
+    "o XsXxX ; ; ; ;   ; ; ;   ;   ;                                       , ,xO ",
+    "   x                                                ;c    ;c               x",
+    "                                                                            "
+})
+
+function getspring() 
+    wo[no["spot#*"]] = ti[", "] .. {"it_spring_drop"} 
+end 
+
+wo:add({"ot_counter", "counter1", state=0, target="bridge1#*", action_3="open", action_4="close"})
+wo:add({"ot_counter", "counter2", state=0, target="getspring", action_3="nop", action_4="callback"})
+wo:add({"ot_counter", "counter3", state=0, target="bridge2#*", action_3="open", action_4="close"})
+wo:shuffleOxyd({no["ox#*"]:sort("circular"), circular=true})
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

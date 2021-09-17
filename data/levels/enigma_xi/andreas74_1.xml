@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Cherry of Secrets" el:subtitle="" el:id="andreas74"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2020 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="1:17" el:difficult="1:52"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+fric = 2.5
+
+ti["  "] = {"fl_red", friction = fric}
+ti[" ."] = {"fl_wood", friction = fric}
+ti[" ,"] = {"fl_abyss"}
+ti["##"] = {"st_redrock"}
+ti["* "] = {"st_greenbrown"}
+ti["~ "] = {"st_greenbrown_hollow"}
+ti["+ "] = {"st_camouflage"}
+ti["O "] = {"st_oxyd", oxydcolor = OXYD_RED}
+ti[" @"] = {"#ac_marble_black", "marble"}
+ti[" &"] = {"#ac_bug"}
+ti["B "] = {"st_break_bug"}
+ti["| "] = {"st_window_w", secure = true}
+ti["> "] = {"st_window_e", secure = true}
+ti["_ "] = {"st_window_s", secure = true}
+ti["^ "] = {"st_window_n", secure = true}
+ti["= "] = {"st_window_ns", secure = true}
+ti["L "] = {"st_window_sw", secure = true}
+ti["/ "] = {"st_window_es", secure = true}
+ti[" A"] = {"it_wormhole", destination = "exit_a", state = OFF}
+ti[" a"] = {"fl_red", "exit_a", friction = fric}
+ti[" B"] = {"it_wormhole", destination = "exit_b", state = OFF}
+ti[" b"] = {"fl_red", "exit_b", friction = fric}
+ti[" C"] = {"it_wormhole", destination = "exit_c", state = OFF}
+ti[" c"] = {"fl_red", "exit_c", friction = fric}
+ti[" D"] = {"it_wormhole", destination = "exit_d", state = OFF}
+ti[" d"] = {"fl_red", "exit_d", friction = fric}
+ti[" E"] = {"it_wormhole", destination = "exit_e", state = OFF}
+ti[" e"] = {"fl_red", "exit_e", friction = fric}
+ti[" F"] = {"it_wormhole", destination = "exit_f", state = OFF}
+ti[" f"] = {"fl_red", "exit_f", friction = fric}
+ti[" G"] = {"it_wormhole", destination = "exit_g", state = OFF}
+ti[" g"] = {"fl_red", "exit_g", friction = fric}
+ti[" H"] = {"it_wormhole", destination = "exit_h", state = OFF}
+ti[" h"] = {"fl_red", "exit_h", friction = fric}
+ti[" I"] = {"it_wormhole", destination = "exit_i", state = OFF}
+ti[" i"] = {"fl_red", "exit_i", friction = fric}
+ti[" J"] = {"it_wormhole", destination = "exit_j", state = OFF}
+ti[" j"] = {"fl_red", "exit_j", friction = fric}
+ti[" K"] = {"it_wormhole", destination = "exit_k", state = OFF}
+ti[" k"] = {"fl_red", "exit_k", friction = fric}
+ti[" L"] = {"it_wormhole", destination = "exit_l", state = OFF}
+ti[" l"] = {"fl_red", "exit_l", friction = fric}
+ti[" M"] = {"it_wormhole", destination = "exit_m", state = OFF}
+ti[" m"] = {"fl_red", "exit_m", friction = fric}
+ti[" N"] = {"it_wormhole", destination = "exit_n", state = OFF}
+ti[" n"] = {"fl_red", "exit_n", friction = fric}
+ti[" O"] = {"it_wormhole", destination = "exit_o", state = OFF}
+ti[" o"] = {"fl_red", "exit_o", friction = fric}
+ti[" P"] = {"it_wormhole", destination = "exit_p", state = OFF}
+ti[" p"] = {"fl_red", "exit_p", friction = fric}
+ti[" Q"] = {"it_wormhole", destination = "exit_q", state = OFF}
+ti[" q"] = {"fl_red", "exit_q", friction = fric}
+ti[" R"] = {"it_wormhole", destination = "exit_r", state = OFF}
+ti[" r"] = {"fl_red", "exit_r", friction = fric}
+ti[" S"] = {"it_wormhole", destination = "exit_s", state = OFF}
+ti[" s"] = {"fl_red", "exit_s", friction = fric}
+ti[" T"] = {"it_wormhole", destination = "exit_t", state = OFF}
+ti[" t"] = {"fl_red", "exit_t", friction = fric}
+ti[" U"] = {"it_wormhole", destination = "exit_u", state = OFF}
+ti[" u"] = {"fl_red", "exit_u", friction = fric}
+ti[" V"] = {"it_wormhole", destination = "exit_v", state = OFF}
+ti[" v"] = {"fl_red", "exit_v", friction = fric}
+ti[" W"] = {"it_wormhole", destination = "exit_w", state = OFF}
+ti[" w"] = {"fl_red", "exit_w", friction = fric}
+ti[" X"] = {"it_wormhole", destination = "exit_x", state = OFF}
+ti[" x"] = {"fl_red", "exit_x", friction = fric}
+ti[" Y"] = {"it_wormhole", destination = "exit_y", state = OFF}
+ti[" y"] = {"fl_red", "exit_y", friction = fric}
+ti[" Z"] = {"it_wormhole", destination = "exit_z", state = OFF}
+ti[" z"] = {"fl_red", "exit_z", friction = fric}
+ti[" 0"] = {"it_wormhole", destination = "exit_1", state = OFF}
+ti[" 1"] = {"fl_red", "exit_1", friction = fric}
+ti[" 2"] = {"it_wormhole", destination = "exit_3", state = OFF}
+ti[" 3"] = {"fl_red", "exit_3", friction = fric}
+ti[" 4"] = {"it_wormhole", destination = "exit_5", state = OFF}
+ti[" 5"] = {"fl_red", "exit_5", friction = fric}
+ti[" 6"] = {"it_wormhole", destination = "exit_7", state = OFF}
+ti[" 7"] = {"fl_red", "exit_7", friction = fric}
+ti[" 8"] = {"it_wormhole", destination = "exit_9", state = OFF}
+ti[" 9"] = {"fl_red", "exit_9", friction = fric}
+ti[" ("] = {"it_wormhole", destination = "exit_11", state = OFF}
+ti[" )"] = {"fl_red", "exit_11", friction = fric}
+ti[" ["] = {"it_wormhole", destination = "exit_13", state = OFF}
+ti[" ]"] = {"fl_red", "exit_13", friction = fric}
+ti[" {"] = {"it_wormhole", destination = "exit_15", state = OFF}
+ti[" }"] = {"fl_red", "exit_15", friction = fric}
+ti[" >"] = {"it_wormhole", destination = "exit_17", state = OFF}
+ti[" <"] = {"fl_red", "exit_17", friction = fric}
+ti[" :"] = {"it_wormhole", destination = "exit_19", state = OFF}
+ti[" ;"] = {"fl_red", "exit_19", friction = fric}
+ti[" ?"] = {"it_wormhole", destination = "exit_21", state = OFF}
+ti[" !"] = {"fl_red", "exit_21", friction = fric}
+ti[" /"] = {"it_wormhole", destination = "exit_23", state = OFF}
+ti[" *"] = {"fl_red", "exit_23", friction = fric}
+ti[" -"] = {"it_wormhole", destination = "exit_25", state = OFF}
+ti[" +"] = {"fl_red", "exit_25", friction = fric}
+ti[" ="] = {"it_wormhole", destination = "exit_27", state = OFF}
+ti[" ^"] = {"fl_red", "exit_27", friction = fric}
+ti["S "] = {"st_switch", target = "doorS"}
+ti["s "] = {"st_door_c", "doorS", state = CLOSED}
+ti["T "] = {"st_switch", target = "doorT"}
+ti["t "] = {"st_door_c", "doorT", state = CLOSED}
+ti["U "] = {"st_switch", target = "doorU"}
+ti["u "] = {"st_door_c", "doorU", state = CLOSED}
+ti["V "] = {"st_switch", target = "doorV"}
+ti["v "] = {"st_door_c", "doorV", state = CLOSED}
+
+if wo["IsDifficult"] then
+    ti["X "] = {"st_barrier", flavor = "it_cherry"}
+    ti[" ~"] = {"it_cherry"}
+    ti["& "] = ti["~ "] .. ti{"it_cherry"}
+    ti["G "] = {"st_lightglass"}
+else
+    ti["X "] = ti["  "]
+    ti[" ~"] = ti["  "]
+    ti["& "] = ti["~ "]
+    ti["G "] = ti["  "]
+end
+
+w, h = wo(res.composer(ti), "  ", {
+ -- 01234567890123456789
+      " , , , , , , , , , ,+,+,+,+, , , , , ,", 
+      " , , , , , , , , ,+,+, , , , , , , , ,", 
+      " , , ,########## ,+, ,########## , , ,", 
+      " , ,## ;_ Lk  |C###### *_ _ _   ## , ,", 
+      " ,##_?/ X _nLL| |    F  Lr_ G L  e## ,", 
+      " ,## >LB_ _ V |m*.*.*._g| |^Lu  L-## ,", 
+      " ,## @|oL  A| &. . . .~._   LQX |W## ,", 
+      " ,##_h  s~_ L8*. .O. .*.T _ _ |p| ## ,", 
+      " ,## ZLD| |  4*. . . .*.^ L u _ | ## ,", 
+      " ,##    LY| | >7~.*.*. )|{|   |  X## ,", 
+      " , ,##    _ L | | _ _J| G LT|S|v## , ,", 
+      " , , ,#### 0    |i|[       2#### , , ,", 
+      " , , , , ,################## , , , , ,", 
+      " , , , , , , , , , , , , , , , , , , ,", 
+      " , , , , , , , , , , , , , , , , , , ,", 
+      " , , , , , , , , , , , , , , , , , , ,", 
+      " , , , , , , , , , , , , , , , , , , ,", 
+      " , , , , , , , , , , , , , , , , , , ,", 
+      " , , , , , , , , , , , , , , , , , , ,", 
+      " , , , , , , , , , , , , , , , , , , ,", 
+      " , , , , , , , , , , , , , , , , , , ,", 
+      " , , , , , , , , , , , , , , , , , , ,", 
+      " , , , , , , , , , , , , , , , , , , ,", 
+      " , , , , , , , , , , , , , , , , , , ,", 
+      " , , , , ,+,+,+,+, , , , , , , , , , ,", 
+      " , , , , , , , ,+,+, , , , , , , , , ,", 
+      " , , ,########## ,+, ,########## , , ,", 
+      " , ,##    | _ _/######_cL _K  |:## , ,", 
+      " ,##_E  L _ LR_  f    _  l_N| L  !## ,", 
+      " ,## +_ |U|=|  G*.*.*. Mv _ | |b|<## ,", 
+      " ,## wL _q_   *. . . .*._ La_ LOL ## ,", 
+      " ,##  LP_&_ t *. .O. .*. 9| S | _H## ,", 
+      " ,##_ > U X ^ *. . . .*. 5| L  d|z## ,", 
+      " ,## x| = >  }|(*.B.*._6_ _ _y| | ## ,", 
+      " , ,## V|s=t^ L _j| L _ G _     ## , ,", 
+      " , , ,#### 3|      ]|I    |1#### , , ,", 
+      " , , , , ,################## , , , , ,", 
+})
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

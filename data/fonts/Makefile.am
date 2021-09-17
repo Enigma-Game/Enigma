@@ -1,3 +1,5 @@
+SUBDIRS = MicroHei
+
 pkgdatadir = $(datadir)/@PACKAGE@/fonts
 pkgdata_DATA = $(wildcard $(srcdir)/*.ttf) \
 	levelmenu.bmf levelmenu.png \

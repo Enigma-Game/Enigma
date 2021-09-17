@@ -2,6 +2,8 @@
 #include "main.hh"
 #include "ecl_system.hh"
 #include "tinygettext/include/tinygettext/file_system.hpp"
+#include "enigma.hh"
+#include "options.hh"
 
 #include <locale.h>
 #include <fstream>
@@ -31,7 +33,7 @@ static void my_setenv (const char* var, const char* val)
 #endif
 }
 
-void nls::SetMessageLocale (const std::string &language)
+void nls::SetMessageLocale(const std::string &language)
 {
     if (language != "") {
         theDictionaryManager->set_language(tinygettext::Language::from_name(language));
@@ -56,10 +58,26 @@ void nls::SetMessageLocale (const std::string &language)
     setlocale (LC_MESSAGES, "C");
     setlocale (LC_MESSAGES, ""); //language.c_str());
 #endif
+}
 
-    std::string li = ecl::SysMessageLocaleName();
-    enigma::Log << "locale name: " << li << endl;
-    enigma::Log << "language code: " << ecl::GetLanguageCode (li) << endl;
+void nls::CycleLocale(bool direction)
+{
+    int locnr = GetCurrentLocaleNr();
+    locnr = ((locnr + (direction ? 0 : -2)) % (NUMENTRIES(nls::languages) - 1)) + 1;
+    std::string localename = nls::languages[locnr].localename;
+    enigma::Log << "cycle to: " << localename << endl;
+    enigma::app.setLanguage(localename);
+    enigma::options::SetOption("Language", localename);
+}
+
+int nls::GetCurrentLocaleNr() {
+    std::string localename;
+    enigma::options::GetOption("Language", localename);
+    for (size_t i = 0; i < NUMENTRIES(nls::languages); ++i) {
+        if (localename == nls::languages[i].localename)
+            return int(i);
+    }
+    return 0; // unknown or default language
 }
 
 std::vector<std::string> TinyGetTextFileSystem::open_directory(const std::string& pathname) {

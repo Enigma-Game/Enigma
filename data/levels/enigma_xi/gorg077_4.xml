@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Go East" el:subtitle=""
+el:id="gorg077_4"/> <el:version el:score="3" el:release="4" el:revision="5"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2019, 2021 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.30"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="07:34"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+ti["  "] = {"fl_rock"}
+ti["~ "] = {"fl_abyss"}
+ti["f "] = {"fl_forward_rough", orientation=EAST}
+ti["# "] = {"st_redrock"}
+ti[" S"] = {"st_shogun"}
+ti["I "] = {"st_stoneimpulse"}
+ti[" i"] = {"st_stoneimpulse_movable"}
+ti[" x"] = {"st_box_rock"}
+ti[" y"] = ti[" x"]..{"it_banana"}
+ti[" z"] = ti[" x"]..{"it_key"}
+ti[" X"] = {"st_grate"}
+ti[" P"] = {"st_lightpassenger"}
+ti["R "] = {"st_rawglass"}
+ti[" r"] = {"st_rawglass_movable"}
+ti["O "] = {"st_oxyd_a", "ox#"}
+ti["Q "] = {"st_oxyd_a"}
+ti["t3"] = {"fl_scales", target="door3#*"}
+ti["t4"] = {"fl_scales", target="door4#*"}
+ti["D1"] = {"st_door_a", "door"}
+ti["D2"] = {"fl_metal"} .. ti{"st_door_a", "door2"}
+ti["D3"] = {"fl_metal"} .. ti{"st_door_a", "door3#"}
+ti["D4"] = {"fl_metal"} .. ti{"st_door_a", "door4#"}
+ti["T "] = {"st_turnstile"} 
+ti["aw"] = ti["~ "] .. {"st_turnstilearm_w"}
+ti["ae"] = ti["~ "] .. {"st_turnstilearm_e"}
+ti["an"] = ti["~ "] .. {"st_turnstilearm_n"}
+ti["as"] = ti["~ "] .. {"st_turnstilearm_s"}
+ti["o1"] = ti["~ "] .. {"it_shogun", target="laser1"}
+ti["o2"] = ti["~ "] .. {"it_shogun", target="laser2"}
+ti["o3"] = ti["~ "] .. {"it_shogun", target="door"}
+ti["L1"] = {"st_laser_s", "laser1", state=ON}
+ti["L2"] = {"st_laser_n", "laser2"}
+ti["K "] = {"st_key", target="door2"}
+ti["@ "] = {"#ac_marble_black"}
+ti[" c"] = {"it_cherry"}
+ti[" e"] = {"it_extralife"}
+
+wo(res.composer(ti), "  ", {
+    "# # # # # # # # # # # # # # # # # # # L1# # # # # # # # # # # # # # # # # # # ",
+    "# O D3# # # # # ~ ~     an          o2~           #     R R R R # # # RcR Rc# ",
+    "# D3D3#     # # ~     ~ T ~ ~       # ~X#   ~x  ~x~   ~ R R R R R R R       # ",
+    "# #    i    # ~ ~   ~   as  an      # t3# ~ ~  S    ~   R R R R # # # R     # ",
+    "# #     #   # ~ ~ awT ae    T      X  ~ # # #  y  # ~     R R # Q # Q #     # ",
+    "#    x  #     ~ #   ~   ~  xas    f f   # # #    X#   ~   R R #   an  # R   # ",
+    "#   @ ~S~  x x~ ~  P    O  x~ ~iO o3    D1   x~e  #   ~   R R # awT   D2R R K ",
+    "#    x  #     ~ #   ~   ~  xan    f f   # # #    X#   ~   R R #   as  # R   # ",
+    "# #     #   # ~ ~ awT ae    T      X  ~ # # #  z  # ~     R R # Q # Q #     # ",
+    "# #    i    # ~ ~   ~   an  as      # t4# ~    S    ~ ~ R R R R # # # R     # ",
+    "# D4D4#     # # ~     ~ T ~   ~     # ~X#   ~x  ~x  ~   R R R R R R R       # ",
+    "# O D4# # # # # ~ ~     as    ~     o1~         # #     R R R R # # # RcR Rc# ",
+    "# # # # # # # # # # # # # # # # # # # L2# # # # # # # # # # # # # # # # # # # "})
+
+wo:shuffleOxyd({"ox#*", min=1, max=1} )
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+
+

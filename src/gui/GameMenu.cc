@@ -63,13 +63,13 @@ namespace enigma { namespace gui {
             add(abort,      Rect(150,45,145,40));
             add(bosskey,    Rect(150,90,145,40));
         } else {
-            add(resume,     Rect(0,0,220,40));
-            add(restart,    Rect(0,45,220,40));
-            add(options,    Rect(0,90,220,40));
-            add(info,       Rect(0,135,220,40));
-            add(scrshot,    Rect(0,180,220,40));
-            add(abort,      Rect(0,270,220,40));
-            add(bosskey,    Rect(0,315,220,40));
+            add(resume,     Rect(0,0,270,40));
+            add(restart,    Rect(0,45,270,40));
+            add(options,    Rect(0,90,270,40));
+            add(info,       Rect(0,135,270,40));
+            add(scrshot,    Rect(0,180,270,40));
+            add(abort,      Rect(0,270,270,40));
+            add(bosskey,    Rect(0,315,270,40));
         }
         center();
     }

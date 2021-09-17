@@ -4,7 +4,7 @@
 @set VERSION 1.30
 
 @copying
-Copyright @copyright{} 2003--2020 Daniel Heck and other contributors
+Copyright @copyright{} 2003--2021 Daniel Heck and other contributors
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -19,7 +19,7 @@ notice and this notice are preserved.
 @center @titlefont{Enigma Manual}
 @center for version @value{VERSION}
 @sp 2
-@c @center Copyright @copyright{} 2003--2020 Daniel Heck (@email{dheck@@gmx.de})
+@c @center Copyright @copyright{} 2003--2021 Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -34,7 +34,7 @@ notice and this notice are preserved.
 This manual describes how to install and play Enigma, and corresponds
 to Enigma version @value{VERSION}.
 
-Copyright @copyright{} 2003--2020 Daniel Heck (@email{dheck@@gmx.de}) and other contributors
+Copyright @copyright{} 2003--2021 Daniel Heck (@email{dheck@@gmx.de}) and other contributors
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -1377,13 +1377,16 @@ Level design, graphics
 Level design, graphics, programming
 
 @item Daniel Heck
-Main developer, graphics, documentation
+Main developer up to 0.92, graphics, documentation, SDL 2
+
+@item Georg Honold
+Level administration and design
 
 @item Ronald Lamprecht
-XML, Gui, portability, core programming, documentation, homepage, score evaluation
+Main developer up to 1.1, XML, new API, engine, portability, GUI, documentation, homepage, score evaluation
 
 @item Andreas Lochmann
-Coordinator, programming, level administration and design, documentation, homepage
+Programming, level administration and design, documentation, homepage, SDL 2
 
 @item Petr Machata
 Level design, programming
@@ -1418,6 +1421,9 @@ Forum mag-heut.net administration, Level design
 @c waiting for licence to add the sounds
 @c @item ``Cellar of Rats''
 @c Sound effects
+
+@item Sidney Markowitz
+Mac OS X port and Homebrew Formula
 
 @item Jennifer Robertson
 Graphics second generation
@@ -1455,92 +1461,132 @@ For various smaller contributions, thanks go to:
 
 @itemize @bullet
 @item Andreas Abraham (German translation)
-@item Samuel El@'ias Mart@'inez @'Alvarez (Spanish translation for 0.92)
+@item Samuel El@'ias Mart@'inez @'Alvarez (Spanish translation)
 @item Another (Level design)
 @item Yannis Anthymidis (Greek translation)
+@item S@'ebastien Aperghis-Tramoni (French translation)
 @item Ash (Level design)
 @item Claudio B. (Italian translation)
+@item Andriy Bandura (Ukrainian translation)
 @item Roberto Bardin (Level design)
+@item C.W. Betts (Updates to .gitignore and .DS_Store)
+@item George Birbilis (Greek translation)
 @item Helge Blohmer (Level design)
 @item Nathan Bronecke (Level design)
 @item Harry Bruder (Level design, LotM articles)
 @item Alain Busser (Level design, French translation, manual)
 @item Guy Busser (Level design)
 @item Richi B@"utzer (Level design)
+@item Espen Bye (Norwegian translation)
+@item Guglielmo Cafaggi (Italian translation)
 @item Calinou (French translation)
 @item capkoh (Level design)
 @item Manfredi Carta (Level design)
+@item Yuri Chornoivan (Ukrainian translation)
 @item Christoph & Anita (Level design)
+@item Dan Church (Fix locale directory)
+@item David D (French translation)
 @item Dawid (Polish translation)
-@item Serge Dremuk (Russian translation)
+@item Serge Dremuk (Russian and Ukrainian translation)
 @item Joseph Dunne (Level design)
 @item Xerxes M. Dynatos (Level design)
 @item Edward (Level design)
 @item Els van Eijk (Dutch translation)
 @item Manuel Eisentraut (Level design)
 @item Stephanie Fabian (Invaluable bug reports)
+@item Irina Fedulova (Russian translation)
 @item Johann Freymuth (Level design, invaluable bug reports)
 @item fri (Czech translation)
 @item firespin (Greek translation)
 @item Stefan Gagner (Swedish translation)
 @item Roberto Garc@'ia (Spanish translation)
+@item Jo@~ao Gaspar (Portuguese translation)
 @item Andy Geldmacher (Level design)
+@item Helmut Grohne (Patch to ease cross compilation)
 @item Edwin Groothuis (FreeBSD port)
 @item GunChleoc (Scottish Gaelic translation)
 @item Daniel Hadas (Level design)
 @item Jonatan Hadas (Level design)
 @item Hairball (Level design)
 @item Joe Hansen (Danish translation)
+@item Haris (Bosnian translation)
 @item hasufell (Improved enet support)
+@item heiko123abc (Higher resolution modes)
 @item Immanuel Herrmann (Level design)
+@item Hoa (Chinese translation)
 @item Zoltan Hopp@'ar (Hungarian translation)
 @item Tea Horvatic (Croatian translation)
+@item Michal Hri@v{n} (Slovak translation)
 @item Brian Huffman (Level design)
 @item Johannes H@"using (Level design)
 @item Hypocrite (Finnish translation)
 @item Icewing (Level design)
+@item ItTheIt (Level design)
 @item M@'at@'e Lehel Juh@'asz (Hungarian translation)
+@item Stian J@o{}rgensrud (Norwegian translation)
 @item Samuele Kaplun (Italian translation)
+@item Jorma Karvonen (Finnish translation)
 @item Ivica Koli@'c (Croatian translation)
 @item Manuel K@"onig (Level design, bug reports)
 @item Jens-Christian Korth (Level design)
+@item H@aa{}vard Kristoffersen (Norwegian translation)
 @item Johannes Laire (Level design)
 @item Joona Laire (Level design)
 @item Markus Laire (Level design)
+@item J@"rgen Lange (Level design)
+@item Legimet (Fix build error with GCC 6)
 @item Dominik Lehmann (Level design)
+@item Roger Leigh (Fix invalid conversions to double)
 @item Dominik Leipold (Level design)
 @item Ryan Lerch (AppData file)
 @item Edward Leuf (Feedback, bug reports)
 @item Christophe Lherieau (French translation)
+@item Ricky Qi Li (Chinese translation)
 @item Lasse Liehu (Finnish translation)
 @item Ingo van Lil (Feedback, bug reports)
+@item Hugo Locurcio (French translation)
 @item Frank van der Loo (Dutch translation)
 @item @dotaccent{L}uboslava (Slovak translation)
-@item Dzmitry Ludzik (Belorussian and Russian translations)
 @item luigif (Italian translation)
+@item Dzmitry Ludzik (Belorussian and Russian translations)
 @item Lurcane (Level design)
-@item Sidney Markowitz (Mac OS X port)
+@item Riccardo Di Maio (Italian translation)
+@item Wasilis Mandratzis-Walz (Greek translation)
+@item Dmitry Marakasov (Fix to meditation bug)
 @item S@'ergio Marques (Portuguese translation)
+@item Mat Mat (Swedish translation)
+@item MatteoMat01 (Italian translation)
 @item Barry & Lori Mead (Level design)
+@item Adnan Memija (Bosnian translation)
+@item Merarom (Swedish translation)
 @item Linda Mihalic (English proof reading)
 @item moonpearl (Level design)
-@item Stephen Morley (Safalra) (Level design)
+@item Carlos Moreira (Portuguese translation)
+@item Stephen Morley (Level design)
+@item Fumio Nakayama (Japanese translation)
 @item nanook (Level design)
 @item Krishnamurti Lelis Lima Vieira Nunes (Portuguese translation)
 @item Daniel Nylander (Swedish translation)
 @item Nikola Parsifal (Croatian translation)
-@item Mark@'eta Pecoldov@'a(Czech translation)
+@item Mark@'eta Pecoldov@'a (Czech translation)
 @item Andreas Persenius (Level design)
+@item Karen Pouelle (Level data clean-up)
 @item Grzegorz Pruchniakowski (Polish translation)
 @item Mark Pulley (Level design)
 @item pzykosiz (Level design)
 @item Bruno Queiros (Portuguese translation)
+@item Quipyowert2 (Fixing leaks and bugs)
 @item Vincenzo Reale (Italian translation)
+@item A. Regnander (Swedish translation)
 @item Thomas De Rocker (Dutch translation)
 @item Rudolf (Level design)
+@item Rui (Portuguese translation)
 @item Peter Santo (Level design)
+@item Sadie (Level design)
 @item Tobias Schmidbauer (Windows installer and icon)
 @item Lukas Sch@"uller (Level design)
+@item Michael Schwarz (Update to Enigma logo)
+@item Stefan Schwoon (Level design)
 @item Achim Settelmeier (RPM specfile)
 @item ShadowPhrogg32642342 (D@'aniel Borb@'ely) (Level design, Hungarian translation)
 @item Gon@,{c}alo Silva (Portuguese translation)
@@ -1551,11 +1597,13 @@ For various smaller contributions, thanks go to:
 @item Spaceman (Level design)
 @item Ulf Stegemann (Level design)
 @item J@"urgen Sticht (Level design)
+@item Gabe Stilez (Hungarian translation)
 @item Mikke Surakka (Finnish translation)
 @item Andrzej Szombierski (Level design)
 @item Tacvek (Lua 5.1 upgrade)
 @item James Taylor (Level design)
 @item Michael Terry (.desktop file)
+@item theschitz (Swedish translation)
 @item Vince38 (French translation)
 @item Ray Wick (Level design)
 @item Martin Woyda-Wolf (Level design)
@@ -1563,6 +1611,7 @@ For various smaller contributions, thanks go to:
 @item Heikki Ylipaavalniemi (Finnish translation)
 @item Francisco Zamorano (Spanish translation)
 @item Zephyr (Level design)
+@item Unknown contributor (Slovenian translation)
 @end itemize
 
 @node Utilized Software,  , Contributors, Credits

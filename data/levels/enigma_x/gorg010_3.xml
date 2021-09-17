@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Double-Crossed" el:subtitle=""
+el:id="gorg010_3"/> <el:version el:score="4" el:release="3" el:revision="9"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright 2016, 2021 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="false"
+el:network="false"/> <el:score el:easy="-" el:difficult="11:16"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AllowSingleOxyds"] = true
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti[" "] = {"fl_wood_framed"}
+ti["_"] = {"fl_abyss"}
+ti["~"] = {"fl_swamp"}
+ti[":"] = {"fl_mortar"}
+ti["#"] = {"st_darkglass"}
+ti["G"] = {"st_darkglass_hollow"}
+ti["W"] = {"st_passage_white", flavor="cross"}
+ti["N"] = {"st_passage_black", flavor="cross"}
+ti["h"] = {"st_break"}
+ti["Z"] = {"st_flash", hit_strength=38.0}
+ti["@"] = ti[":"]..{"#ac_marble_black", essential=INDISPENSABLE, owner=YIN, controllers=CTRL_YIN}
+ti["&"] = {"#ac_marble_white", essential=INDISPENSABLE, owner=YANG, controllers=CTRL_YANG} 
+ti["q"] = ti["h"] .. {"#ac_pearl", essential=INDISPENSABLE, owner=DEFAULT, controllers=CTRL_NONE}
+ti["p"] = ti["h"] .. {"#ac_pearl_black", essential=INDISPENSABLE, owner=DEFAULT, controllers=CTRL_NONE}
+ti["b"] = {"st_box"}
+ti["i"] = {"it_bomb_white"}
+ti["D"] = {"st_door_a", "door"}
+ti["S"] = {"st_switch_white", target="door"}
+ti["d"] = {"st_door_a", "door2"}
+ti["Q"] = {"st_laserswitch", target="door2"}
+ti["L"] = {"st_laser_s", "laser", state=ON}
+ti["s"] = {"st_switch_white", target="laser"}
+ti["M"] = {"st_mirror_slab", orientation=RANDOMDIR, movable=true}
+ti["!"] = {"it_dynamite"}
+ti["H"] = ti["b"] .. {"it_hammer"}
+ti["E"] = ti["G"] .. {"it_extralife"}
+ti["K"] = {"st_oneway", orientation=EAST}
+ti["Y"] = ti["h"]..{"it_yinyang"}
+ti["o"] = {"it_meditation_dent", essential=INDISPENSABLE}
+ti["O"] = {"st_oxyd", oxydcolor=OXYD_BLACK}
+ti["?"] = {"st_oxyd", oxydcolor=OXYD_FAKE}
+ti["e"]=ti["_"]..{"it_extralife"}
+
+wo(ti, " ", {
+    "__________L#s______",
+    "__  __ #  H ___#Y#_",
+    "__ _b_ # bobe#Nd p?",
+    "_&b ~#b   W_W__###_",
+    "__ _b__##N MbO##___",
+    "__   _ # #___~N#___",
+    "______S# ___b#b#___",
+    "__###_###M~beb_#___",
+    "_#:::## M_M N#_Q___",
+    "_#:Z:@DNb# ~b~_###_",
+    "_#:::##  bbMbiWh q?",
+    "__###__#   ~W~!#Y#_",
+    "___________________"})
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Prisoner of Sokoban" el:subtitle="" el:id="andreas75"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2020 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="3:42" el:difficult="4:04"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+fric = 3.0
+adh = 1.6
+
+ti[" "] = {"fl_darkgray", friction = fric, adhesion = adh}
+ti["."] = {"fl_abyss"}
+ti["-"] = {"fl_dunes", friction = fric, adhesion = adh}
+ti["#"] = {"st_darkgray"}
+ti["X"] = {"st_ancient"} .. ti["-"]
+ti["t"] = {"it_trigger", target = "counter", action = "signal"}
+ti["D"] = {"st_door_a", "oxyddoor#"}
+ti["O"] = {"st_oxyd", oxydcolor=OXYD_GREEN}
+ti["Q"] = {"st_oxyd", oxydcolor=OXYD_PINE}
+ti["@"] = {"#ac_marble_black"}
+ti["B"] = {"st_box_rock"}
+ti["b"] = {"st_box_rock"} .. ti["-"]
+
+if wo["IsDifficult"] then
+  ti["~"] = ti["-"]
+  ti["+"] = {"#ac_top", gohome = false, range = 8, strength = 5} .. ti["-"]
+  ti["S"] = ti["X"]
+  ti["T"] = ti["X"]
+else
+  ti["~"] = {"#ac_top", gohome = false, range = 8, strength = 5}
+  ti["+"] = {"st_door", "door"}
+  ti["S"] = {"st_switch", target = "door"}
+  ti["T"] = ti["#"]
+end
+
+w, h = wo(ti, " ", {
+ -- 0123456789012345678901234567
+   ".........###......",
+   ".........#O#......",
+   ".........#D#......",
+   ".....##### ###....",
+   ".....#       #....",
+   "..####   ttt ####.",
+   "..#QD  @ ttt  DQ#.",
+   "..####   ttt ####X",
+   ".....#       B---X",
+   "..XXX## ## ###---X",
+   "..X------#D#~T-XXX",
+   ".XXbX-XbX#O#+S--X.",
+   "XX-b--X-X###--b-X.",
+   "X---b-X-X..X-X--X.",
+   "X---X-X-XXXX-XXXX.",
+   "XX---bX------X....",
+   ".XXX--b-XXXXXX....",
+   "...X--XXX.........",
+   "...XXXX...........",
+})
+
+wo:shuffleOxyd()
+
+wo:add({"ot_counter", "counter", state = 0, target = "oxyddoor#*", action_8 = "close", action_9 = "open"})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

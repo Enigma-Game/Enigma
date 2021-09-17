@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Papillon" el:subtitle=""
+el:id="gorg044_2"/> <el:version el:score="1" el:release="2" el:revision="2"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="04:25"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+ti["  "]={"fl_water"}
+ti["# "]={"st_darkgray"}
+ti["; "]={"fl_rock"}
+ti["O "]={"st_oxyd_e", "ox#", oxydcolor=OXYD_GRAY}
+ti["o "]={"st_oxyd_e", "ox#", oxydcolor=OXYD_BLACK}
+ti["@ "]=ti["; "] .. {"#ac_pearl_white"}
+ti["X "]=ti["; "] .. {"st_grate_framed"}
+ti["Q "]=ti["; "] .. {"st_rawglass"}
+ti["L "]={"st_laser_n", state=ON}
+ti["! "]=ti["; "] .. {"st_break_laser"}   
+ti["t "]=ti["; "] .. {"it_trigger", target="counter", action="signal"}
+ti["M1"]=ti["; "] .. {"st_mirror", movable=true, transparent=true, state=EAST}
+ti["M2"]=ti["; "] .. {"st_mirror", movable=true, state=EAST}
+ti["M3"]=ti["; "] .. {"st_mirror", movable=true, state=WEST}
+ti["M4"]=ti["; "] .. {"st_mirror", state=SOUTH}
+ti["D "]=ti["; "] .. {"st_door_a", "door#"}
+
+wo(res.composer(ti) , "  ",{
+    "                                        ",
+    "                                        ",
+    "        # # #             # # #         ",
+    "    O Q t ; ; Q         Q ; ; t Q o     ",
+    "    Q Q ; Q M2; Q Q Q Q ; M3; ; ; Q     ",
+    "    D ; ; ; ; ; ; M2@ M3; M2# M2; D     ",
+    "  D D t M3t Q ; Q Q ; M2; ; t ; t D D   ",
+    "  o Q Q # ! ! M1Q # # Q ! Q ; Q M4# O   ",
+    "        Q ! Q ! Q     Q ! Q ! Q         ",
+    "        Q ; ! ! Q     Q t ! ! Q         ",
+    "      L # M4Q M4        M4Q M4# L       ",
+    "                                        ",
+    "                                        "
+})
+
+wo:add({"ot_counter", "counter", state=0, target="door#*", action_6="close", action_7="open"})
+
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

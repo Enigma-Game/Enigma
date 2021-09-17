@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Flip Flop" el:subtitle="" el:id="devnull154"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2013 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="2:22"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_rock"}
+ti[" ~"] = {"fl_water"}
+ti["# "] = {"st_granite"}
+ti["+ "] = {"st_box_rock"}
+ti["B "] = {"st_passage_black", flavor = "frame"}
+ti["W "] = {"st_passage_white", flavor = "frame"}
+ti["doors"] = {"st_door_a", name = "door%%#"}
+ti["flops"] = {"st_monoflop", target = "door%%#*"}
+ti["O "] = {"st_oxyd_a", name = "oxydsBlack#"}
+ti["0 "] = {"st_oxyd_a", name = "oxydsWhite#"}
+ti["@0"] = {"#ac_pearl_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ti["@1"] = ti["B "] ..{"#ac_pearl_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"M", "flops"}, {"D", "doors"})), "  ", {
+  "# # # # # # # # # # # # # # 0~# # Mh# # ", 
+  "# @0        DaB          ~ ~W         # ", 
+  "#    ~ ~ ~MbW  ~ ~ ~ ~Dd ~ ~ ~Df ~ ~De# ", 
+  "#    ~@1      B   Mc ~           ~ ~  # ", 
+  "Ma   ~   ~ ~ ~ ~     ~ ~ ~Mf ~ ~ ~ ~  # ", 
+  "# DbB    ~ ~0~ ~ ~   ~ ~ ~ ~    W     # ", 
+  "# W  ~ ~ ~0~    W   B Di      Me ~Mi  # ", 
+  "#    ~ ~ ~ ~0~ ~   ~ ~   ~ ~   ~B     # ", 
+  "#     Dc ~Md ~ ~         ~ ~       ~  # ", 
+  "O~B  ~       ~ ~ ~B  ~ ~ ~ ~ ~ ~Dh ~Df# ", 
+  "#  ~ ~ ~ ~   ~ ~  Df   ~    Dg     ~  O~", 
+  "#           De     ~    Dh ~ ~ ~ ~ ~B O~", 
+  "# Me# # # # # # # # Mg# # # # # # # O~# "  
+})
+wo:shuffleOxyd({"oxydsBlack#*", max = 0}, {"oxydsWhite#*", max = 0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

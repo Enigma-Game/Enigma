@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Valet Parking" el:subtitle=""
+el:id="gorg043_2"/> <el:version el:score="1" el:release="2" el:revision="2"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="02:00"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+ti["  "]={"fl_concrete"}
+ti["# "]={"st_brick", cluster=1}
+ti[". "]={"fl_dark"}
+ti["O "]={"st_oxyd_e", oxydcolor=OXYD_BLACK}
+ti["o "]={"st_oxyd_e", oxydcolor=OXYD_GRAY}
+ti["@ "]=ti[". "] .. {"#ac_pearl_white"}
+ti["t "]={"fl_scales_concrete", target={"counter", "nswitch"}, action={"signal", "toggle"}}
+ti["u "]={"fl_scales_concrete", target={"counter", "sswitch"}, action={"signal", "toggle"}}
+ti["w "]={"fl_scales_brick", target={"counter", "eswitch"}, action={"signal", "toggle"}}
+ti["y "]={"fl_scales_brick", target={"counter", "wswitch"}, action={"signal", "toggle"}}
+ti["x "]=ti[". "] .. {"st_plop"}
+ti["D "]=ti[". "] .. {"st_door_d", "door#", faces="ew"}
+ti["d "]=ti[". "] .. {"st_door_d", "door#"}
+ti["N "]={"st_fourswitch", "nswitch", state=NORTH, target="bouldern#*", action="orientate"}
+ti["S "]={"st_fourswitch", "sswitch", state=SOUTH, target="boulders#*", action="orientate"}
+ti["E "]={"st_fourswitch", "eswitch", state=EAST, target="bouldere#*", action="orientate"}
+ti["W "]={"st_fourswitch", "wswitch", state=WEST, target="boulderw#*", action="orientate"}
+ti[" ^"]={"st_boulder_n", "bouldern#"}
+ti[" v"]={"st_boulder_s", "boulders#"}
+ti[" >"]={"st_boulder_e", "bouldere#"}
+ti[" <"]={"st_boulder_w", "boulderw#"}
+
+wo(res.composer(ti), "  ",{
+    "                                        ",
+    "                    N                   ",
+    "                    O                   ",
+    "        # # # # # # d # # # # #         ",
+    "        # . . .^. . .^. . .^. #         ",
+    "        # .<t x . x u . x w .>D o E     ",
+    "        # . x . y . @ t . x . #         ",
+    "    W o D .<u x . w x . x y .>#         ",
+    "        # . .v. . .v. . .v. . #         ",
+    "        # # # # # d # # # # # #         ",
+    "                  O                     ",
+    "                  S                     ",
+    "                                        "
+})
+
+wo:add({"ot_counter", "counter", state=0, target="door#*", action_7="close", action_8="open"})
+wo:shuffleOxyd() 
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

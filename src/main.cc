@@ -552,6 +552,8 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     // the self-containedness.
 
     systemAppDataPath = progDir + "/../Resources/data";
+    if (!ecl::FolderExists(systemAppDataPath))
+        systemAppDataPath = systemPath;
 
 #else
     // Unix -- we get our data path from the installation
@@ -571,7 +573,8 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         docPath = progDir;
     }
 #elif MACOSX
-    docPath = progDir + "/../Resources/doc";
+    if (ecl::FolderExists(progDir + "/../Resources/doc"))
+      docPath = progDir + "/../Resources/doc";
 #endif
 
     // prefPath
@@ -843,19 +846,14 @@ void Application::init_i18n()
     if (l10nPath == "") {
         app.prefs->getProperty("LocalizationPath", l10nPath);
         if (l10nPath == "") {
-            l10nPath = LOCALEDIR;    // defined in src/Makefile.am
+            l10nPath = systemAppDataPath + ecl::PathSeparator + "locale";
 #ifdef __MINGW32__
             std::string progDir;          // directory path part of args[0]
             std::string progName;         // filename part of args[0]
             bool progDirExists = split_path(progCallPath, &progDir, &progName);
             if (progDirExists) {
-                l10nPath = progDir + "/" + l10nPath;
+                l10nPath = progDir + ecl::PathSeparator + "data" + ecl::PathSeparator + "locale";
             }
-#elif MACOSX
-            std::string progDir;          // directory path part of args[0]
-            std::string progName;         // filename part of args[0]
-            bool progDirExists = split_path(progCallPath, &progDir, &progName);
-            l10nPath = progDir + "/../Resources/locale";
 #endif
         }
     }

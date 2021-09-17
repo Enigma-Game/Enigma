@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> 
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Arrested Development" el:id="gorg001_6" el:subtitle="Watch your inventory!"/>
+<el:version el:status="released" el:revision="7" el:release="6" el:score="3"/>
+<el:author el:email="" el:name="gorg"/>
+<el:copyright>Copyright © 2016 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="true" el:single="true"
+el:network="false"/><el:comments> <el:credits el:showinfo="true" el:showstart="false">Thanks to Mousetorturer and ItTheIt for testing and feedback</el:credits>
+</el:comments> <el:score el:easy="06:45" el:difficult="-"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["ProvideExtralifes"] = false 
+
+ti[" "] = {"fl_concrete"} 
+ti["#"] = {"st_yellow"} 
+ti["t"] = {"fl_thief"} 
+ti["T"] = {"st_thief"} 
+ti["y"] = {"fl_bluegray"} 
+ti["U"] = ti["y"] .. {"st_thief"}
+ti["O"] = {"st_oxyd"} 
+ti["@"] = {"#ac_marble", owner=YIN} 
+ti["_"] = {"fl_abyss"} 
+ti["K"] = {"st_chess"} 
+ti["*"] = {"st_break_boulder"} 
+ti["R"] = {"st_rawglass"} 
+ti["r"] = ti["t"] .. {"st_rawglass"} 
+ti["X"] = {"st_mail_e"} 
+ti["x"] = {"st_mail_w"} 
+ti["W"] = {"st_oneway", orientation=NORTH} 
+ti["L"] = {"st_laser", orientation=NORTH, state=ON} 
+ti["m"] = {"it_coin"} 
+ti["p"] = {"it_pipe_es"} 
+ti["P"] = {"it_pipe_sw"} 
+ti["q"] = ti["y"] .. {"it_pipe_ns"} 
+ti["n"] = ti["y"] .. {"it_coin"} 
+ti["w"] = ti["y"] .. {"it_magicwand"} 
+ti["a"] = {"st_door_c", "doora#"} 
+ti["b"] = {"st_door_c", "doorb#"} 
+ti["A"] = {"fl_scales_concrete", target="@doora#*", action="open"} 
+ti["B"] = {"fl_scales_concrete", target="@doorb#*", action="open"} 
+ti["f"] = {"st_door_c", "lastdoor"}
+ti["F"] = {"fl_scales_concrete", target="lastdoor"}
+if wo["IsDifficult"] then 
+  ti["d"] = ti["t"]
+  ti["g"] = ti["t"]..{"st_door_c", "doordiff"}  
+  ti["G"] = {"fl_scales_concrete", target="doordiff"} 
+  ti["E"] = ti["t"] .. {"st_barrier", flavor="it_magicwand"}
+  ti["s"] = ti["y"] .. {"it_seed"} .. ti{"st_break_boulder"} 
+  ti["&"] = ti["T"] .. {"it_weight"}
+  ti["C"] = ti["T"] .. {"it_bottle"}
+    ti["k"] = {"st_chess_white"}
+  ti["$"] = ti[" "] 
+else
+  ti["d"] = ti[" "]
+  ti["g"] = ti["d"]
+  ti["G"] = ti[" "]
+  ti["E"] = {"st_barrier", flavor="it_magicwand"}
+  ti["s"] = {"it_seed"} .. ti{"st_break_boulder"} 
+  ti["&"] = ti["T"] 
+  ti["C"] = ti["T"]
+  ti["k"] = {"st_chess"}
+  ti["$"] = {"it_bottle"} 
+end
+
+wo(ti, " ", { 
+   "#O################O#",
+   "O@#  # dEdg#tttq#wtO",
+   "#K& ##A ##stt#ttbBt#",
+   "# p   # t######Rx##T", 
+   "# T###t t# #P ARrtUT", 
+   "#a##    tb m#t _ttt#", 
+   "T  t  ####B$#d#trtt#", 
+   "TT##C#   ####a#Uttt#", 
+   "#    b ###    XR#tt#", 
+   "#   ##  a t ## k Wf#", 
+   "# ## B  #A ## **## #", 
+   "O  #G   #m #F#  #  O", 
+   "#O#####L##########O#"
+}) 
+
+wo:shuffleOxyd()
+wo:add(YIN, {"it_ring"})
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="">
+<el:english el:translate="true"></el:english>
+ <el:translation el:lang="de"></el:translation>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>

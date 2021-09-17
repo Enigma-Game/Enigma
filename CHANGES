@@ -1,14 +1,15 @@
-Changes in Version 1.30-alpha
-=============================
+Changes in Version 1.30
+=======================
 
 User-Visible Changes
 --------------------
 
+    - New translations: Bosnian, Chinese, Japanese, Norwegian, and Slovene
     - New game objects: forward floors, glass marble, st_inkwell,
         st_portal_glass, st_document, st_pebble
-    - 22 new main-pack levels (now a total of 1006 main-pack levels,
-        plus 21 tutorials, 1119 sokoballs, 95 pentominoes, and
-        268 dejavus; altogether 2509)
+    - 116 new main-pack levels (now a total of 1100 main-pack levels,
+        plus 22 tutorials, 1119 sokoballs, 95 pentominoes, 268 dejavus,
+        and 2 training levels; altogether 2606)
     - window can be resized
     - middle mouse key can be customized
 
@@ -18,6 +19,7 @@ Internal changes
     - switched from SDL 1.2 to SDL 2.0
     - several bug fixes
     - support for additional tilesets
+    - use of tinygettext instead of gettext
 
 Changes in Version 1.21
 =======================

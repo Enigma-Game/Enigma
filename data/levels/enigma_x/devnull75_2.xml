@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Meditation -" el:subtitle="" el:id="devnull75"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="0:50"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_pinkbumps"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_pinkbumps"}
+ti["triggersE"] = ti["~"]  .. {"it_trigger", target = "boulderE%%", action_1 = "turn", invisible = true}
+ti["bouldersE"] = ti["~"] .. {"st_boulder_e", name = "boulderE%%"}
+ti["triggersW"] = ti["~"]  .. {"it_trigger", target = "boulderW%%", action_1 = "turn", invisible = true}
+ti["bouldersW"] = ti["~"] .. {"st_boulder_w", name = "boulderW%%"}
+ti["o"] = {"it_meditation_hollow"}
+ti["@"] = {"#ac_pearl_white", essential = INDISPENSABLE}
+
+wo(res.autotile(ti, {"a", "b", "triggersE"}, {"A", "B", "bouldersE"}, {"c", "d", "triggersW"}, {"C", "D", "bouldersW"}), " ", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "#@#o##@#o##o#@##o#@#",
+    "a A ~~ ~ ~~ ~ ~~ ~ a",
+    "~ c ~~ ~ ~~ ~ ~~ c ~",
+    "~ ~ d~ ~ ~~ ~ ~d ~ ~",
+    "~ ~ ~b ~ B~ ~ b~ ~ ~",
+    "~ ~ ~~ ~ ~~ ~ ~~ ~ ~",
+    "~ ~ ~b ~ ~~ ~ b~ ~ ~",
+    "~ ~ d~ ~ ~D ~ ~d ~ ~",
+    "~ c ~~ ~ ~~ ~ ~C c ~",
+    "a ~ ~~ ~ ~~ ~ ~~ ~ a",
+    "#   ##   ##   ##   #",
+    "~~~~~~~~~~~~~~~~~~~~"
+})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

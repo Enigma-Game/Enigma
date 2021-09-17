@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Disarm" el:subtitle=""
+el:id="gorg039_2"/> <el:version el:score="1" el:release="2" el:revision="2"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="05:03"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+ti[" "] = {"fl_lawn"}
+ti["#"] = {"st_yellow"}
+ti["~"] = {"fl_water"}
+ti["@"] = {"#ac_pearl_white"}
+ti["K"] = {"st_chess_white"}
+ti["O"] = {"st_oxyd_a", oxydcolor=OXYD_GREEN}
+ti["o"] = {"st_oxyd_a", oxydcolor=OXYD_PINE}
+ti["D"] = {"st_door_a", "door#"}
+ti["t"] = {"it_trigger", target="counter", action="signal"}
+ti["T"] = {"st_turnstile", name="ts#", flavor="green", action="turn", target="ts#*"}
+ti["N"] = {"st_turnstilearm", orientation=NORTH}
+ti["E"] = {"st_turnstilearm", orientation=EAST}
+ti["W"] = {"st_turnstilearm", orientation=WEST}
+ti["S"] = {"st_turnstilearm", orientation=SOUTH}
+ti["n"] = {"st_puzzle_blue", connections="s"}
+ti["s"] = {"st_puzzle_blue", connections="n"}
+ti["e"] = {"st_puzzle_blue", connections="w"}
+ti["w"] = {"st_puzzle_blue", connections="e"}
+
+wo(ti, " ", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~O~~~~~~~~~~~",
+    "~~~~####D#######~~~~",
+    "~~~~#tN  t@  Nt#~~~~",
+    "~~~~#WTE N  wTE#~~~~",
+    "~~~~#ts wTEK S Do~~~",
+    "~~~~#    SN    #~~~~",
+    "~~~oD N KWTe nt#~~~~",
+    "~~~~#WTe  S WTE#~~~~",
+    "~~~~#tS   t  St#~~~~",
+    "~~~~#######D####~~~~",
+    "~~~~~~~~~~~O~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~"
+})
+
+wo:add({"ot_counter", "counter", state=0, target="door#*", action_7="close", action_8="open"})
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

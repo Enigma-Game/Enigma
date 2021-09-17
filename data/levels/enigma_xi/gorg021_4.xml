@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Tilt Meditation" el:subtitle=""
+el:id="gorg021_4"/> <el:version el:score="4" el:release="4" el:revision="7"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2016 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="true" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="-"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["ProvideExtralifes"] = false
+if wo["IsDifficult"] then 
+  wo["SlopeStrength"] = 70.0
+   wo["MeditationStrength"] = 0.1
+else
+  wo["SlopeStrength"] = 40.0
+   wo["MeditationStrength"] = 0.2
+end
+
+ti["  "]={"fl_adhesionless"}
+ti[". "]={"fl_slope", "court_#", adhesion=1.0, friction=1.0}
+ti[", "]={"fl_scales_platinum", min=0.8, target="slope", _force_x=0, _force_y=0, _shape=""}
+ti[" ^"]={"fl_scales_platinum", min=0.8, target="slope", _force_x=0, _force_y=-6, _shape="pn"}
+ti[" >"]={"fl_scales_platinum", min=0.8, target="slope", _force_x=6, _force_y=0, _shape="pe"}
+ti[" <"]={"fl_scales_platinum", min=0.8, target="slope", _force_x=-6, _force_y=0, _shape="pw"}
+ti[" V"]={"fl_scales_platinum", min=0.8, target="slope", _force_x=0, _force_y=6, _shape="ps" }
+ti[" @"]={"#ac_marble_black", owner=YIN}
+ti[" &"]={"#ac_pearl_white", owner=YANG, controllers=CTRL_NONE}
+ti[" o"]={"it_meditation_dent"}
+ti["N "]=ti[". "] .. {"st_window", faces="n", secure=true}
+ti["E "]=ti[". "] .. {"st_window", faces="e", secure=true}
+ti["W "]=ti[". "] .. {"st_window", faces="w", secure=true}
+ti["S "]=ti[". "] .. {"st_window", faces="s", secure=true}
+ti["n "]=ti[". "] .. {"st_window", faces="nw", secure=true}
+ti["s "]=ti[". "] .. {"st_window", faces="sw", secure=true}
+ti["e "]=ti[". "] .. {"st_window", faces="es", secure=true}
+ti["z "]=ti[". "] .. {"st_window", faces="ne", secure=true}
+ti["y "]=ti[". "] .. {"st_window", faces="ew", secure=true}
+
+wo(res.composer(ti), "  ", {  
+    "                                        ",
+    "                                        ",
+    "                                        ",
+    "    n&n N N N&N zoz                     ",
+    "    W W&n N NoN N E                     ",
+    "    W W W&n N NoN z            ^        ",
+    "    W WoW n&N N Noy          <,@ >      ",           
+    "    W s WoW n&n W yo           V        ",           
+    "    s S S WoW W&W y                     ",
+    "    Wos S S WoW s&y                     ",
+    "    s S S&S S s S e&                    ",
+    "                                        ",
+    "                                        "})
+wo:add(YIN, {"it_spoon"}) 
+
+local court = no["court_#*"] 
+
+function slope(value, sender) 
+   court["force_x"] = sender["_force_x"] 
+     court["force_y"] = sender["_force_y"] 
+       court ["shape"] = sender["_shape"] 
+end 
+
+
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

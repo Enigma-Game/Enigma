@@ -1,0 +1,5119 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Dremuk Serge, 2006
+# Yuri Chornoivan, 2014,2018
+# Yuriy Zhyromskiy, 2010
+# Андрій Бандура, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Enigma\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
+"POT-Creation-Date: 2021-02-10 23:19+0100\n"
+"PO-Revision-Date: 2021-02-10 22:22+0000\n"
+"Last-Translator: Andreas Lochmann\n"
+"Language-Team: Ukrainian (http://www.transifex.com/michtrz/enigma/language/uk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: src/server.cc:177 src/server.cc:189 src/gui/LevelInspector.cc:205
+msgid "Server Error: could not load level '"
+msgstr "Помилка серверу: рівень не можна завантажити '"
+
+#: src/client.cc:67
+#, c-format
+msgid "Mouse speed: %d"
+msgstr "Швидкість миші: %d"
+
+#: src/client.cc:77
+msgid "Another nameless level"
+msgstr "Інший безіменний рівень"
+
+#: src/client.cc:81
+msgid " by "
+msgstr " Автор: "
+
+#: src/client.cc:506
+msgid "Left mouse button:"
+msgstr "Ліва кнопка миші:"
+
+#: src/client.cc:506
+msgid "Activate/drop leftmost inventory item"
+msgstr "Використати/кинути лівий предмет"
+
+#: src/client.cc:507 src/gui/GameMenu.cc:146
+msgid "Right mouse button:"
+msgstr "Права кнопка миші:"
+
+#: src/client.cc:507
+msgid "Rotate inventory items"
+msgstr "Прокрутити інвентар"
+
+#: src/client.cc:508 src/gui/LevelMenu.cc:194 src/gui/ScreenshotViewer.cc:35
+msgid "Escape:"
+msgstr "Esc:"
+
+#: src/client.cc:508
+msgid "Show game menu"
+msgstr "Меню гри"
+
+#: src/client.cc:509
+msgid "Shift+Escape:"
+msgstr "Shift + Esc:"
+
+#: src/client.cc:509
+msgid "Quit game immediately"
+msgstr "Миттєво залишити гру"
+
+#: src/client.cc:510 src/gui/GameMenu.cc:142
+msgid "F1:"
+msgstr "F1:"
+
+#: src/client.cc:510 src/gui/LevelMenu.cc:195 src/gui/ScreenshotViewer.cc:36
+#: src/gui/GameMenu.cc:142
+msgid "Show this help"
+msgstr "Показати цю довідку"
+
+#: src/client.cc:511 src/gui/GameMenu.cc:143
+msgid "F3:"
+msgstr "F3:"
+
+#: src/client.cc:511 src/gui/GameMenu.cc:143
+msgid "Kill current marble"
+msgstr "Зруйнувати кулю"
+
+#: src/client.cc:512 src/gui/GameMenu.cc:144
+msgid "Shift+F3:"
+msgstr "Shift+F3:"
+
+#: src/client.cc:512 src/gui/GameMenu.cc:144
+msgid "Restart the current level"
+msgstr "Розпочати наново"
+
+#: src/client.cc:513 src/gui/GameMenu.cc:145
+msgid "Shift+Ctrl+F3:"
+msgstr ""
+
+#: src/client.cc:513 src/gui/GameMenu.cc:145
+msgid "Reload and restart the current level"
+msgstr ""
+
+#: src/client.cc:514
+msgid "F4:"
+msgstr "F4:"
+
+#: src/client.cc:514
+msgid "Skip to next level"
+msgstr "Перейти до наступного рівня"
+
+#: src/client.cc:515 src/gui/LevelPackComposer.cc:51
+msgid "F5:"
+msgstr "F5:"
+
+#: src/client.cc:516 src/gui/LevelPackComposer.cc:44
+msgid "F6:"
+msgstr "F6:"
+
+#: src/client.cc:516
+msgid "Jump back to last level"
+msgstr "Повернутись до попереднього рівня"
+
+#: src/client.cc:517
+msgid "F10:"
+msgstr "F10:"
+
+#: src/client.cc:517
+msgid "Make screenshot"
+msgstr "Знімок екрану"
+
+#: src/client.cc:518
+msgid "Left/right arrow:"
+msgstr "Ліва/Права стрілки:"
+
+#: src/client.cc:518
+msgid "Change mouse speed"
+msgstr "Змінити швидкість миші"
+
+#: src/client.cc:519
+msgid "Alt+x:"
+msgstr "Alt+x:"
+
+#: src/client.cc:519
+msgid "Return to level menu"
+msgstr "Меню рівнів"
+
+#: src/client.cc:528
+msgid "Skip to next level for best score hunt"
+msgstr "Перейти до наступного рівня для поліпшення рекорду"
+
+#: src/client.cc:529
+msgid "Skip to next unsolved level"
+msgstr "Перейти до наступного нерозв'язаного рівня"
+
+#: src/client.cc:675
+msgid "Too slow for "
+msgstr "Занадто повільно у порівнянні з "
+
+#: src/client.cc:679
+msgid "You are slow today ... Ctrl-A"
+msgstr "Ви повільні сьогодні… Ctrl-A"
+
+#: src/client.cc:748
+msgid "Exactly the world record of "
+msgstr "Той самий рекордний час, що й у "
+
+#: src/client.cc:750
+msgid "Great! A new world record!"
+msgstr "Чудово! Новий світовий рекорд!"
+
+#: src/client.cc:755
+msgid "Again your personal record..."
+msgstr "Знову Ваш особистий рекорд..."
+
+#: src/client.cc:760
+msgid "New personal record - better than par!"
+msgstr "Новий особистий рекорд — нижче за PAR!"
+
+#: src/client.cc:766
+msgid "New personal record!"
+msgstr "Новий особистий рекорд!"
+
+#: src/client.cc:777
+msgid "Your record, "
+msgstr "Ваш рекорд, "
+
+#: src/client.cc:783
+msgid "behind world record."
+msgstr " запізнення у порівнянні зі світовим рекордом."
+
+#: src/client.cc:785
+msgid "behind your record."
+msgstr " запізнення у порівнянні з Вашим рекордом."
+
+#: src/client.cc:793
+msgid "Level finished - better than par!"
+msgstr "Рівень завершено - нижче за PAR!"
+
+#: src/client.cc:799
+msgid "Level finished!"
+msgstr "Рівень завершено!"
+
+#: src/client.cc:802
+msgid " Cheater!"
+msgstr " Дурисвіт!"
+
+#: src/client.cc:825
+#, c-format
+msgid "Enigma pack %s - level #%d: %s"
+msgstr "Пакет рівнів %s - рівень #%d: %s"
+
+#: src/client.cc:837
+msgid "Your record: "
+msgstr "Ваш рекорд: "
+
+#: src/client.cc:839
+msgid "World record to beat: "
+msgstr "Рекордний час: "
+
+#: src/main.cc:353
+#, c-format
+msgid "Error in configuration file.\n"
+msgstr "Помилка у файлі налаштувань.\n"
+
+#: src/main.cc:591 src/main.cc:614
+#, c-format
+msgid "Error: Home directory does not exist.\n"
+msgstr "Помилка: домашньої теки не існує.\n"
+
+#: src/main.cc:606
+#, c-format
+msgid "Error: Application Data directory does not exist.\n"
+msgstr "Помилка: тека з даними гри не існує.\n"
+
+#: src/main.cc:633 src/main.cc:682
+#, c-format
+msgid "Error in XML initialization.\n"
+msgstr "Помилка під час ініціалізації XML.\n"
+
+#: src/main.cc:760
+#, c-format
+msgid ""
+"Mac OS X upgrade from Enigma 1.00\n"
+"\n"
+"The default user data path has changed from\n"
+"  %s \n"
+"\n"
+"to the visible data path\n"
+"  %s \n"
+"\n"
+"If ok Enigma will move your data to this new location.\n"
+"Note that you have to restart Enigma once for completion of this update."
+msgstr "Оновлення Enigma для Mac OS X з версії 1.00\n\nТиповий каталог користувача змінився з \n  %s \n\nна видиму директорію з даними\n  %s \n\nЯкщо Ви згодні, Enigma перенесе Ваші дані до нової директорії.\nЩоб завершити оновлення, Вам необхідно перезапустити гру."
+
+#: src/main.cc:761
+msgid "OK"
+msgstr "Підтвердити"
+
+#: src/main.cc:761 src/gui/OptionsMenu.cc:319 src/gui/OptionsMenu.cc:323
+msgid "Never"
+msgstr "Не оновлювати"
+
+#: src/main.cc:761
+msgid "Remind"
+msgstr "Нагадувати"
+
+#: src/main.cc:991
+msgid ""
+"Fatal error that caused the application to quit:\n"
+"\n"
+msgstr "Фатальна помилка, що  призвела до завершення програми:\n\n"
+
+#: src/main.cc:993 src/gui/MainMenu.cc:425
+msgid "Quit"
+msgstr "Вихід"
+
+#: src/gui/MainMenu.cc:50 src/gui/MainMenu.cc:414 src/gui/LevelPackMenu.cc:65
+msgid "Start Game"
+msgstr "Розпочати гру"
+
+#: src/gui/MainMenu.cc:51
+msgid "Join Game"
+msgstr "Приєднатися до гри"
+
+#: src/gui/MainMenu.cc:52 src/gui/MainMenu.cc:279
+#: src/gui/ScreenshotViewer.cc:35
+msgid "Back"
+msgstr "Повернутися"
+
+#: src/gui/MainMenu.cc:78
+msgid "Enigma - Network Menu"
+msgstr ""
+
+#: src/gui/MainMenu.cc:89
+msgid "Main developers of the 1.21 release:"
+msgstr "Основні розробники випуску 1.21:"
+
+#: src/gui/MainMenu.cc:91
+msgid "  RONALD LAMPRECHT (lead)"
+msgstr "  RONALD LAMPRECHT (головний розробник)"
+
+#: src/gui/MainMenu.cc:97
+msgid "Special Thanks To:"
+msgstr "Особлива подяка:"
+
+#: src/gui/MainMenu.cc:99
+msgid "  DANIEL HECK (project founder)"
+msgstr "  DANIEL HECK (засновник проекту)"
+
+#: src/gui/MainMenu.cc:100
+msgid "  MEINOLF SCHNEIDER (game idea, level design)"
+msgstr "  MEINOLF SCHNEIDER (задум гри, створення рівнів)"
+
+#: src/gui/MainMenu.cc:102
+msgid "Please refer to the manual or the next pages for full credits."
+msgstr "Про усіх розробників дивіться в інструкції або на наступних сторінках."
+
+#: src/gui/MainMenu.cc:104
+msgid "Home Page: http://www.nongnu.org/enigma"
+msgstr "Домашня сторінка: http://www.nongnu.org/enigma"
+
+#: src/gui/MainMenu.cc:105
+msgid "Contact: enigma-devel@nongnu.org"
+msgstr "Контакти: enigma-devel@nongnu.org"
+
+#: src/gui/MainMenu.cc:107
+msgid "Enigma is free software and may be distributed under the"
+msgstr "Enigma - вільне програмне забезпечення та розповсюджується"
+
+#: src/gui/MainMenu.cc:108
+msgid "terms of the GNU General Public License, version 2."
+msgstr "за умовами GNU GPL версії 2."
+
+#: src/gui/MainMenu.cc:110
+msgid "Copyright (C) 2002-2014 Daniel Heck and contributors."
+msgstr "Copyright (C) 2002-2014 Daniel Heck та інші учасники."
+
+#: src/gui/MainMenu.cc:112
+msgid "Main developers of all releases:"
+msgstr "Головні розробники усіх версій:"
+
+#: src/gui/MainMenu.cc:128
+msgid "Special Thanks:"
+msgstr "Особлива подяка:"
+
+#: src/gui/MainMenu.cc:145
+msgid "Contributors"
+msgstr "Учасники розробки"
+
+#: src/gui/MainMenu.cc:273
+msgid "Homepage"
+msgstr "Сторінка"
+
+#: src/gui/MainMenu.cc:274
+msgid "Documentation"
+msgstr "Документація"
+
+#: src/gui/MainMenu.cc:275 src/gui/OptionsMenu.cc:802
+msgid "Paths"
+msgstr "Шляхи"
+
+#: src/gui/MainMenu.cc:276
+msgid "Locate Auto"
+msgstr "Розташування Auto"
+
+#: src/gui/MainMenu.cc:277
+msgid "Locate Score"
+msgstr "Розташув. досягн."
+
+#: src/gui/MainMenu.cc:278
+msgid "Credits"
+msgstr "Автори"
+
+#: src/gui/MainMenu.cc:314
+msgid "Enigma - Help Menu"
+msgstr ""
+
+#: src/gui/MainMenu.cc:330
+msgid "Preferences Path:"
+msgstr "Шлях до налаштувань:"
+
+#: src/gui/MainMenu.cc:340
+msgid "User Path:"
+msgstr "Каталог користувача:"
+
+#: src/gui/MainMenu.cc:350
+msgid "User Image Path:"
+msgstr "Каталог із зображеннями:"
+
+#: src/gui/MainMenu.cc:360
+msgid "System Path:"
+msgstr "Системна директорія:"
+
+#: src/gui/MainMenu.cc:370
+msgid "Resource Paths:"
+msgstr "Каталог із ресурсами:"
+
+#: src/gui/MainMenu.cc:380
+msgid "L10n Path:"
+msgstr "Каталог локалізації:"
+
+#: src/gui/MainMenu.cc:415 src/gui/LevelMenu.cc:50
+msgid "Level Pack"
+msgstr "Пакет рівнів"
+
+#: src/gui/MainMenu.cc:417
+msgid "Network Game"
+msgstr "Гра у мережі"
+
+#: src/gui/MainMenu.cc:419 src/gui/LevelPackMenu.cc:64
+#: src/gui/SearchMenu.cc:245
+msgid "Search"
+msgstr "Пошук"
+
+#: src/gui/MainMenu.cc:420 src/gui/GameMenu.cc:52
+msgid "Options"
+msgstr "Налаштування"
+
+#: src/gui/MainMenu.cc:422
+msgid "Update"
+msgstr "Оновлення"
+
+#: src/gui/MainMenu.cc:424
+msgid "Help"
+msgstr "Довідка"
+
+#: src/gui/MainMenu.cc:459
+msgid "Enigma - Main Menu"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:50
+msgid ""
+"This is a selection of the most important options. Each of them can be found"
+" in one of the submenus. For help on a specific option, please press F1 in "
+"its original submenu."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:54
+msgid "Screen brightness:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:55
+msgid ""
+"This changes the brightness of the entire screen on which Enigma's window is"
+" positioned. Default is '0'."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:56
+msgid "Fullscreen:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:57
+msgid ""
+"Choose 'yes' if you want Enigma to be displayed on the whole screen instead "
+"of within a window."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:58
+msgid "In fullscreen mode:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:59
+msgid ""
+"Screen resolution: This lists all resolutions that are supported both by "
+"your monitor and by Enigma. It is only used in fullscreen mode."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:60
+msgid ""
+"Tileset: The set of images used in the menus and in the game. In fullscreen "
+"mode, this depends on the chosen screen resolution."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:61
+msgid "In windowed mode:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:62
+msgid ""
+"Tileset: In windowed mode, you choose the tileset first. The tileset then "
+"defines the default size of Enigma's window."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:63
+msgid ""
+"Window size: While the tileset determines the default size of your window, "
+"you can scale it up by a factor. You can choose this factor in this field. "
+"You can still resize the window manually, however, when you restart Enigma, "
+"the size defined by this field is reinstated again. You can choose 'Not "
+"fixed', in which case Enigma will restart with the same window size you "
+"previously chose."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:67
+msgid "Sound set:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:68
+msgid ""
+"The collection of sounds used by Enigma. Unless you install a user sound set"
+" or other source of sound sets, only default ('Enigma') is available."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:69
+msgid "Menu music:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:70
+msgid ""
+"The selection of music that is played in menus. 'In game' means that the "
+"same music is played as would be during the play."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:71
+msgid "Music ingame:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:72
+msgid "Whether you want to hear Enigma's music while playing."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:73
+msgid "Sound volume / Music volume:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:74
+msgid ""
+"Loudness of sound effects / music. Please note that the volume settings of "
+"your operating system applies as well."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:75
+msgid "Stereo:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:76
+msgid ""
+"If active (by default), sound effects are changed to reflect the direction "
+"of their sources in a level. Choose 'mono' to deactivate this. In some "
+"setups, left and right speaker are swapped; you might choose 'reverse' then."
+" (Stereo effects might not work.)"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:80
+msgid "Language:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:81
+msgid ""
+"You can choose the language here. You can also choose a language by clicking"
+" on the flags above the main menu, if Enigma's window (or fullscreen "
+"resolution) is large enough to show them."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:82
+msgid "Mouse speed:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:83
+msgid ""
+"A factor which decides how fast you have to move your mouse to achieve a "
+"certain force on the marble. You can choose this factor during the game as "
+"well, by pressing the left and right arrow keys."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:84
+msgid "Middle mouse button:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:85
+msgid ""
+"What happens when you click your mouse's middle button in the game, 'Pause' "
+"by default."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:86
+msgid "Text speed:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:87
+msgid ""
+"The speed with which text flies by in the game. You can press the down arrow"
+" to display a text again, if you missed it."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:88
+msgid "Ratings update:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:89
+msgid ""
+"Whether Enigma should automatically download the latest rating file, with "
+"world records, user ratings of levels etc."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:90
+msgid "User name:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:91
+msgid ""
+"If you want to submit your scores, you should enter a user name here. This "
+"is the name shown to other players if you hold a world record for a level, "
+"and on the leaderboard on our web site. On our web site, you will find a "
+"list of all user names currently in use (and known to us)."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:95
+msgid "User path:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:96
+msgid "Location of your scores, some settings, and user level packs."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:97
+msgid "User image path:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:98
+msgid ""
+"Location of level screenshots (use F10 during the game to make a "
+"screenshot), and of level thumbnails. By default, this is the same as your "
+"user path."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:99
+msgid "Localization/translation path:"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:100
+msgid "Location of translations to all languages Enigma uses."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:280 src/gui/OptionsMenu.cc:301
+msgid "muted"
+msgstr "вимк."
+
+#: src/gui/OptionsMenu.cc:314
+msgid "Music in game"
+msgstr "Музика у грі"
+
+#: src/gui/OptionsMenu.cc:314
+msgid "No music in game"
+msgstr "Без музики"
+
+#: src/gui/OptionsMenu.cc:319
+msgid "Auto"
+msgstr "Автоматично"
+
+#: src/gui/OptionsMenu.cc:323
+msgid "Always"
+msgstr "Завжди"
+
+#: src/gui/OptionsMenu.cc:329 src/gui/OptionsMenu.cc:941
+#: src/gui/LevelPackConfig.cc:93 src/gui/SearchMenu.cc:105
+msgid "Yes"
+msgstr "Так"
+
+#: src/gui/OptionsMenu.cc:329 src/gui/OptionsMenu.cc:942
+#: src/gui/LevelPackConfig.cc:93 src/gui/SearchMenu.cc:105
+msgid "No"
+msgstr "Ні"
+
+#: src/gui/OptionsMenu.cc:382
+msgid "None found"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:497
+msgid "Not fixed"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:594
+msgid "reversed"
+msgstr "реверс"
+
+#: src/gui/OptionsMenu.cc:595
+msgid "mono"
+msgstr "моно"
+
+#: src/gui/OptionsMenu.cc:596
+msgid "normal"
+msgstr "норма"
+
+#: src/gui/OptionsMenu.cc:639 src/gui/LevelInspector.cc:345
+#: src/gui/LevelInspector.cc:361 src/gui/LevelInspector.cc:375
+msgid "unknown"
+msgstr "невідомий"
+
+#: src/gui/OptionsMenu.cc:671
+msgid "Deactivated"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:673
+msgid "Pause (ESC)"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:675 src/gui/GameMenu.cc:51
+msgid "Restart Level (Shift-F3)"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:694
+#, c-format
+msgid "Resetting video settings in %is ..."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:794
+msgid "Main"
+msgstr "Загальні"
+
+#: src/gui/OptionsMenu.cc:796
+msgid "Video"
+msgstr "Зображення"
+
+#: src/gui/OptionsMenu.cc:798
+msgid "Audio"
+msgstr "Звук"
+
+#: src/gui/OptionsMenu.cc:800
+msgid "Config"
+msgstr "Різне"
+
+#: src/gui/OptionsMenu.cc:821 src/gui/LevelPackComposer.cc:119
+#: src/gui/LevelPackConfig.cc:344 src/gui/LPGroupConfig.cc:101
+#: src/gui/LevelInspector.cc:178 src/gui/HelpMenu.cc:39
+msgid "Ok"
+msgstr "Згода"
+
+#: src/gui/OptionsMenu.cc:875 src/gui/OptionsMenu.cc:918
+msgid "Language: "
+msgstr "Мова: "
+
+#: src/gui/OptionsMenu.cc:877 src/gui/OptionsMenu.cc:898
+msgid "Fullscreen: "
+msgstr "Повний екран: "
+
+#: src/gui/OptionsMenu.cc:880 src/gui/OptionsMenu.cc:919
+msgid "Mouse speed: "
+msgstr "Швидкість миші: "
+
+#: src/gui/OptionsMenu.cc:881 src/gui/OptionsMenu.cc:913
+msgid "Sound volume: "
+msgstr "Гучність звуку: "
+
+#: src/gui/OptionsMenu.cc:882 src/gui/OptionsMenu.cc:914
+msgid "Music volume: "
+msgstr "Гучність музики: "
+
+#: src/gui/OptionsMenu.cc:883 src/gui/OptionsMenu.cc:922
+msgid "Ratings update: "
+msgstr "Оновлення оцінок: "
+
+#: src/gui/OptionsMenu.cc:885
+msgid "Score upload: "
+msgstr "Надсилання результатів:"
+
+#: src/gui/OptionsMenu.cc:890 src/gui/OptionsMenu.cc:926
+msgid "User name: "
+msgstr "Ім'я гравця: "
+
+#: src/gui/OptionsMenu.cc:895
+msgid "Sorry, no video changes during an ongoing game."
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:897
+msgid "Screen brightness: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:900
+msgid "In fullscreen mode: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:901
+msgid "Screen resolution: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:902 src/gui/OptionsMenu.cc:904
+msgid "Tileset: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:903
+msgid "In windowed mode: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:905
+msgid "Window size: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:910
+msgid "Sound set: "
+msgstr "Набір звуків: "
+
+#: src/gui/OptionsMenu.cc:911
+msgid "Menu music: "
+msgstr "Музика в меню:"
+
+#: src/gui/OptionsMenu.cc:912
+msgid "Music ingame: "
+msgstr "Музика у грі:"
+
+#: src/gui/OptionsMenu.cc:915
+msgid "Stereo: "
+msgstr "Стерео: "
+
+#: src/gui/OptionsMenu.cc:920
+msgid "Middle mouse button: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:921
+msgid "Text speed: "
+msgstr "Швидкість тексту: "
+
+#: src/gui/OptionsMenu.cc:931
+msgid "User path: "
+msgstr "Каталог користувача: "
+
+#: src/gui/OptionsMenu.cc:934
+msgid "User image path: "
+msgstr "Каталог із зображеннями: "
+
+#: src/gui/OptionsMenu.cc:937
+msgid "Localization/translation path: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:943
+msgid "Use these video settings?"
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:1177
+msgid "Enigma - Options Menu"
+msgstr ""
+
+#: src/gui/LevelMenu.cc:48 src/gui/LevelPackMenu.cc:66
+msgid "Main Menu"
+msgstr "Головне меню"
+
+#: src/gui/LevelMenu.cc:194
+msgid "Skip to main menu"
+msgstr "До головного меню"
+
+#: src/gui/LevelMenu.cc:197 src/gui/LevelPackComposer.cc:44
+msgid "Add all to clipboard"
+msgstr ""
+
+#: src/gui/LevelMenu.cc:198
+msgid "Update levelpack"
+msgstr "Оновити пакет"
+
+#: src/gui/LevelMenu.cc:199
+msgid "Arrows:"
+msgstr "Стрілки:"
+
+#: src/gui/LevelMenu.cc:199
+msgid "Select level"
+msgstr "Обрати рівень"
+
+#: src/gui/LevelMenu.cc:200
+msgid "Return:"
+msgstr "Enter:"
+
+#: src/gui/LevelMenu.cc:200 src/gui/LevelMenu.cc:205
+msgid "Play selected level"
+msgstr "Перейти до обраного рівня"
+
+#: src/gui/LevelMenu.cc:201
+msgid "Back/Space:"
+msgstr "Забій/Пропуск:"
+
+#: src/gui/LevelMenu.cc:201
+msgid "Previous/next levelpack"
+msgstr "Попередній/Наступний пакет рівнів"
+
+#: src/gui/LevelMenu.cc:202
+msgid "Mark current level as unsolved"
+msgstr "Відзначити обраний рівень як нерозв'язаний"
+
+#: src/gui/LevelMenu.cc:204
+msgid "Alt+Return:"
+msgstr "Alt+Enter:"
+
+#: src/gui/LevelMenu.cc:204
+msgid "Switch between fullscreen and window"
+msgstr "Повноекранний та віконний вигляд"
+
+#: src/gui/LevelMenu.cc:205 src/gui/LevelPackMenu.cc:48
+msgid "Left click:"
+msgstr "Клік лівою кнопкою:"
+
+#: src/gui/LevelMenu.cc:206 src/gui/LevelPackMenu.cc:49
+msgid "Right or control click:"
+msgstr "Клік правою кнопкою:"
+
+#: src/gui/LevelMenu.cc:206
+msgid "Inspect selected level"
+msgstr "Відомості щодо рівня"
+
+#: src/gui/LevelMenu.cc:223
+msgid "Select next level for world record hunt"
+msgstr "Обрати наступний рівень, щоб позмагатися за світовий рекорд"
+
+#: src/gui/LevelMenu.cc:225
+msgid "Select next unsolved level"
+msgstr "Обрати наступний нерозв'язаний рівень"
+
+#: src/gui/LevelMenu.cc:288
+msgid "You are not allowed to play this level yet."
+msgstr "Вам поки що не дозволяється грати на цьому рівні."
+
+#: src/gui/LevelMenu.cc:325 src/gui/LevelPackComposer.cc:350
+#, c-format
+msgid "%s: %d level"
+msgid_plural "%s: %d levels"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: src/gui/LevelMenu.cc:339
+#, c-format
+msgid "%d%% best"
+msgstr "%d%% рекордів"
+
+#: src/gui/LevelMenu.cc:344
+#, c-format
+msgid "%d%% par, hcp %.1f"
+msgstr "%d%% PAR, гкп %.1f"
+
+#: src/gui/LevelMenu.cc:348
+#, c-format
+msgid "%d%% solved"
+msgstr "Розв'язано %d%% "
+
+#: src/gui/LevelMenu.cc:383
+msgid "Your time: "
+msgstr "Ваш час:"
+
+#: src/gui/LevelMenu.cc:388
+msgid "That's world record."
+msgstr "Це світовий рекорд."
+
+#: src/gui/LevelMenu.cc:390
+#, c-format
+msgid "That's %s below world record."
+msgstr "На %s нижче світового рекорду."
+
+#: src/gui/LevelMenu.cc:399 src/gui/LevelMenu.cc:402
+msgid "World record: "
+msgstr "Світовий: "
+
+#: src/gui/LevelMenu.cc:401 src/gui/LevelMenu.cc:418
+msgid "Par: "
+msgstr "Par: "
+
+#: src/gui/LevelMenu.cc:415 src/gui/LevelMenu.cc:419
+#, c-format
+msgid "World record by %s: "
+msgstr "Рекорд встановлений %s:"
+
+#: src/gui/LevelMenu.cc:451
+msgid "No further unsolved level available!"
+msgstr "Усі рівні розв'язані!"
+
+#: src/gui/LevelPackComposer.cc:42
+msgid "Shift-click:"
+msgstr "Shift-клацання:"
+
+#: src/gui/LevelPackComposer.cc:42
+msgid "Add to clipboard"
+msgstr "Додати до буферу"
+
+#: src/gui/LevelPackComposer.cc:43
+msgid "Shift-delete:"
+msgstr "Shift-Delete:"
+
+#: src/gui/LevelPackComposer.cc:43
+msgid "Clear clipboard"
+msgstr "Звільнити буфер"
+
+#: src/gui/LevelPackComposer.cc:45
+msgid "F8:"
+msgstr "F8:"
+
+#: src/gui/LevelPackComposer.cc:45
+msgid "Insert clipboard as reference"
+msgstr "Вставити з буферу у якості посилання"
+
+#: src/gui/LevelPackComposer.cc:46
+msgid "F9:"
+msgstr "F9:"
+
+#: src/gui/LevelPackComposer.cc:46
+msgid "Insert clipboard as copy"
+msgstr "Вставити з буферу у якості копії"
+
+#: src/gui/LevelPackComposer.cc:48
+msgid "Alt-left arrow:"
+msgstr "Alt-стрілка вліво:"
+
+#: src/gui/LevelPackComposer.cc:48
+msgid "Exchange level with predecessor"
+msgstr "Чергувати рівень з попереднім"
+
+#: src/gui/LevelPackComposer.cc:49
+msgid "Alt-right arrow:"
+msgstr "Alt-стрілка вправо:"
+
+#: src/gui/LevelPackComposer.cc:49
+msgid "Exchange level with successor"
+msgstr "Чергувати рівень з наступним"
+
+#: src/gui/LevelPackComposer.cc:50
+msgid "Delete:"
+msgstr "Delete:"
+
+#: src/gui/LevelPackComposer.cc:50
+msgid "Delete level"
+msgstr "Вилучити рівень"
+
+#: src/gui/LevelPackComposer.cc:51
+msgid "Update index from levels"
+msgstr "Оновити індекс рівнів"
+
+#: src/gui/LevelPackComposer.cc:56
+msgid "F10"
+msgstr "F10"
+
+#: src/gui/LevelPackComposer.cc:57
+msgid "Move clipboard levels"
+msgstr "Розташувати рівні з буферу"
+
+#: src/gui/LevelPackComposer.cc:118 src/gui/LevelPackConfig.cc:343
+#: src/gui/LPGroupConfig.cc:100 src/gui/SearchMenu.cc:244
+msgid "Undo"
+msgstr "Відміна"
+
+#: src/gui/LevelPackComposer.cc:364
+#, c-format
+msgid "Clipboard: %d level"
+msgid_plural "Clipboard: %d levels"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: src/gui/LevelPackComposer.cc:385
+msgid "Enigma - Level Pack Composer"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:173
+msgid "Levelpack:"
+msgstr "Пакет рівнів:"
+
+#: src/gui/LevelPackConfig.cc:174
+msgid "Owner:"
+msgstr "Власник:"
+
+#: src/gui/LevelPackConfig.cc:175 src/gui/LPGroupConfig.cc:56
+msgid "Group:"
+msgstr "Група:"
+
+#: src/gui/LevelPackConfig.cc:176
+msgid "Location"
+msgstr "Розташування"
+
+#: src/gui/LevelPackConfig.cc:177
+msgid "in [All Packs]:"
+msgstr "в [All Packs]:"
+
+#: src/gui/LevelPackConfig.cc:234
+msgid "Edit Metadata"
+msgstr "Ред. метадані"
+
+#: src/gui/LevelPackConfig.cc:238
+msgid "Release:"
+msgstr "Випуск: "
+
+#: src/gui/LevelPackConfig.cc:239
+msgid "Revision:"
+msgstr "Версія: "
+
+#: src/gui/LevelPackConfig.cc:240
+msgid "Compatibility:"
+msgstr "Сумісність:"
+
+#: src/gui/LevelPackConfig.cc:241
+msgid "Default Location:"
+msgstr "Розташування: "
+
+#: src/gui/LevelPackConfig.cc:242
+msgid "Level types:"
+msgstr "Типи рівнів:"
+
+#: src/gui/LevelPackConfig.cc:334
+msgid "Please reassign levelpack to another group for group deletion"
+msgstr "Будь ласка, перепризначте цей пакет рівня інший групі для вилучення групи"
+
+#: src/gui/LevelPackConfig.cc:337
+msgid "Compose Pack"
+msgstr "Зібрати пакет"
+
+#: src/gui/LevelPackConfig.cc:339
+msgid "Update Pack"
+msgstr "Оновити пакет"
+
+#: src/gui/LevelPackConfig.cc:418
+msgid ""
+"Error: empty title not allowed - press \"Undo\" to exit without "
+"modifications"
+msgstr "Пусте ім'я не дозволяється. Натисніть \"Відміна\" для виходу без змін"
+
+#: src/gui/LevelPackConfig.cc:431
+msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
+msgstr "Для ім'я пакету використовуйте символи \"a-zA-Z0-9 _-#\""
+
+#: src/gui/LevelPackConfig.cc:442
+msgid "Error: title already in use - choose another title"
+msgstr "Ім'я вже використовується - оберіть інше ім'я"
+
+#: src/gui/LevelPackMenu.cc:46
+msgid "Left column:"
+msgstr "Лівий стовпчик:"
+
+#: src/gui/LevelPackMenu.cc:46
+msgid "Levelpack groups"
+msgstr "Групи пакетів"
+
+#: src/gui/LevelPackMenu.cc:47
+msgid "Right columns:"
+msgstr "Правий стовпчик:"
+
+#: src/gui/LevelPackMenu.cc:47
+msgid "Levelpacks of selected group"
+msgstr "Пакети обраної групи"
+
+#: src/gui/LevelPackMenu.cc:48
+msgid "Select group or levelpack"
+msgstr "Обрати групу або пакет"
+
+#: src/gui/LevelPackMenu.cc:49
+msgid "Configure group or levelpack"
+msgstr "Налаштувати групу або пакет"
+
+#: src/gui/LevelPackMenu.cc:63
+msgid "New Group"
+msgstr "Нова група"
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:125
+msgid ""
+"Welcome to Enigma! Please note that the game makes use of your mouse in "
+"another way than usual, and there will be no mouse cursor during the game. "
+"You can press the ESC key or the middle mouse button to pause the game and "
+"exit (or continue). You can also always press the F1 key to see available "
+"shortcut keys."
+msgstr ""
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:127 src/gui/LevelPackMenu.cc:138
+msgid ""
+"If you are an experienced gamer and prefer a challenge for a start, please "
+"click here:"
+msgstr ""
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:129
+msgid "If you prefer a more gentle introduction, please click here:"
+msgstr ""
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:131
+msgid ""
+"If you feel you need some more training with handling your mouse, you might "
+"find some helpful landscapes here:"
+msgstr ""
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:136
+msgid ""
+"Welcome to Enigma! Please note that there will be no mouse cursor during the"
+" game. You can press ESC or the middle mouse button to pause or exit. Use F1"
+" to see available shortcut keys."
+msgstr ""
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:140
+msgid "For a more gentle introduction, please click here:"
+msgstr ""
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:142
+msgid "You will find more training landscapes here:"
+msgstr ""
+
+#: src/gui/LevelPackMenu.cc:600
+msgid "Enigma - Level Pack Menu"
+msgstr ""
+
+#: src/gui/LPGroupConfig.cc:64
+msgid "Position:"
+msgstr "Позиція:"
+
+#: src/gui/LPGroupConfig.cc:98
+msgid "New Pack"
+msgstr "Новий пакет"
+
+#: src/gui/LPGroupConfig.cc:99
+msgid "Delete Group"
+msgstr "Видалити групу"
+
+#: src/gui/LPGroupConfig.cc:129
+msgid ""
+"Error: empty group name not allowed - press \"Undo\" to exit without "
+"modifications"
+msgstr "Пусте ім'я групи не дозволяється. Натисніть \"Відміна\" для виходу без змін"
+
+#: src/gui/LPGroupConfig.cc:140
+msgid "Error: group name is a duplicate of an existing group"
+msgstr "Помилка: це ім'я групи вже існує"
+
+#: src/gui/LPGroupConfig.cc:145
+msgid "Error: \"Every group\" is a reserved group name"
+msgstr "Помилка: \"Every group\" - зарезервоване ім'я"
+
+#: src/gui/LPGroupConfig.cc:150
+msgid "Error: group name must not be enclosed in square brackets"
+msgstr "Помилка: ім'я групи не повинно міститися у квадратних дужках"
+
+#: src/gui/LPGroupConfig.cc:206
+msgid "Error: group not empty"
+msgstr "Помилка: група не порожня"
+
+#: src/gui/LPGroupConfig.cc:229
+msgid "Enigma - Level Pack Group Configuration"
+msgstr ""
+
+#: src/gui/ScreenshotViewer.cc:37
+msgid "Page Up:"
+msgstr "Page Up:"
+
+#: src/gui/ScreenshotViewer.cc:37
+msgid "Show previous screenshot"
+msgstr "Попередній знімок"
+
+#: src/gui/ScreenshotViewer.cc:38
+msgid "Page Down:"
+msgstr "Page Down:"
+
+#: src/gui/ScreenshotViewer.cc:38
+msgid "Show next screenshot"
+msgstr "Наступний знімок"
+
+#: src/gui/ScreenshotViewer.cc:108
+msgid "No screenshot available:"
+msgstr "Знімків немає:"
+
+#: src/gui/SearchMenu.cc:41
+msgid "Searches for levels with given criteria."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:42
+msgid ""
+"Use 'Text Search' for a case independent search in levels' titles, author "
+"names, file names, and level identification names."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:43
+msgid ""
+"Levels are rated in their difficulty in five categories: intelligence, "
+"dexterity, patience, knowledge about Enigma, and speed control. Each rating "
+"ranges from 1 (easy) to 5 (difficult). Levels with special mechanisms may "
+"also be a 6 in knowledge. With the corresponding buttons, you can search for"
+" levels with certain difficulty ratings."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:44
+msgid ""
+"The five single ratings are combined into an overall difficulty rating, "
+"ranging from 1 to 100. You can also search for levels within a given overall"
+" difficulty range."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:45
+msgid ""
+"'Average rating' is the mean of player's ratings of the levels. You can rate"
+" a level on its level inspector page with a rating from 0 (worst) to 10 "
+"(best). You can search for levels which average rating is within a specified"
+" interval, too."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:46
+msgid ""
+"If you choose 'Only levels that are unsolved in easy mode', you filter for "
+"all levels which feature an easy mode, and that have not been solved by you "
+"in easy mode yet. Accordingly, you can choose 'Only levels that are unsolved"
+" in normal mode' to filter for those."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:48
+msgid ""
+"Finally, you can sort the results randomly, by average rating, by overall "
+"difficulty, or by their sequence on load time, which mostly is the sequence "
+"in which they appear in the level packs (sort by 'None')."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:49
+msgid ""
+"The number of levels satisfying all chosen criteria is shown on the line "
+"above the search button. Please note that some levels have no ratings, or no"
+" average ratings, and are therefore automatically excluded as soon as you "
+"choose to search for ratings or average ratings or sort by them."
+msgstr ""
+
+#: src/gui/SearchMenu.cc:133
+msgid "None"
+msgstr ""
+
+#. TRANSLATORS: Would be shown as "Sort by: Random".
+#: src/gui/SearchMenu.cc:135
+msgid "Random"
+msgstr ""
+
+#. TRANSLATORS: Would be shown as "Sort by: Difficulty".
+#: src/gui/SearchMenu.cc:137
+msgid "Difficulty"
+msgstr ""
+
+#. TRANSLATORS: Would be shown as "Sort by: Average rating".
+#: src/gui/SearchMenu.cc:139
+msgid "Average rating"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:143
+msgid "Unknown"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:161
+msgid "Text Search:"
+msgstr ""
+
+#. TRANSLATORS: the translation can have double size of the english text
+#: src/gui/SearchMenu.cc:163
+msgid "case independent search in title, author, filename"
+msgstr "пошук за назвою, автором, ім'ям файлу не враховуючи регістр"
+
+#: src/gui/SearchMenu.cc:172 src/gui/LevelInspector.cc:264
+msgid "Intelligence: "
+msgstr "Інтелект: "
+
+#: src/gui/SearchMenu.cc:173 src/gui/LevelInspector.cc:265
+msgid "Dexterity: "
+msgstr "Спритність: "
+
+#: src/gui/SearchMenu.cc:174 src/gui/LevelInspector.cc:266
+msgid "Patience: "
+msgstr "Терпіння: "
+
+#: src/gui/SearchMenu.cc:175 src/gui/LevelInspector.cc:267
+msgid "Knowledge: "
+msgstr "Знання: "
+
+#: src/gui/SearchMenu.cc:176 src/gui/LevelInspector.cc:268
+msgid "Speed: "
+msgstr "Швидкість: "
+
+#: src/gui/SearchMenu.cc:177 src/gui/LevelInspector.cc:269
+msgid "Difficulty: "
+msgstr "Складність: "
+
+#: src/gui/SearchMenu.cc:178
+msgid "Average Rating: "
+msgstr ""
+
+#: src/gui/SearchMenu.cc:179
+msgid "Only levels that are unsolved in easy mode:"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:180
+msgid "Only levels that are unsolved in normal mode:"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:182
+msgid "Sort by: "
+msgstr ""
+
+#: src/gui/SearchMenu.cc:243
+msgid "Reset"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:299
+#, c-format
+msgid "Levels fitting these criteria: %d"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:305
+msgid "Enigma - Search Menu"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:179
+msgid "Screenshot"
+msgstr "Знімок екрану"
+
+#: src/gui/LevelInspector.cc:233
+msgid "Level: "
+msgstr "Рівень: "
+
+#: src/gui/LevelInspector.cc:235 src/gui/LevelInspector.cc:297
+msgid "Author: "
+msgstr "Автор: "
+
+#: src/gui/LevelInspector.cc:236
+msgid "Contact: "
+msgstr "Контакти: "
+
+#: src/gui/LevelInspector.cc:237
+msgid "Homepage: "
+msgstr "Сторінка: "
+
+#: src/gui/LevelInspector.cc:262
+msgid "Public Ratings"
+msgstr "Оцінки спільноти"
+
+#: src/gui/LevelInspector.cc:290
+msgid "Scores"
+msgstr "Бали"
+
+#: src/gui/LevelInspector.cc:293
+msgid "You: "
+msgstr "Ви: "
+
+#: src/gui/LevelInspector.cc:294
+msgid "World: "
+msgstr "Світовий: "
+
+#. TRANSLATORS: PAR = professional average rate - an expression used by
+#. golfers
+#: src/gui/LevelInspector.cc:296
+msgid "PAR: "
+msgstr "PAR: "
+
+#: src/gui/LevelInspector.cc:298
+msgid "Solved %: "
+msgstr "Здолали %: "
+
+#: src/gui/LevelInspector.cc:299
+msgid "Solved #: "
+msgstr "Здолали #: "
+
+#: src/gui/LevelInspector.cc:321
+msgid "Version"
+msgstr "Версія"
+
+#: src/gui/LevelInspector.cc:324
+msgid "Score: "
+msgstr "Версія: "
+
+#: src/gui/LevelInspector.cc:326 src/gui/LevelInspector.cc:330
+msgid "Status: "
+msgstr "Статус: "
+
+#: src/gui/LevelInspector.cc:327
+msgid "Release: "
+msgstr "Випуск: "
+
+#: src/gui/LevelInspector.cc:328
+msgid "Revision: "
+msgstr "Видання: "
+
+#: src/gui/LevelInspector.cc:331
+msgid "Control: "
+msgstr "Контроль: "
+
+#: src/gui/LevelInspector.cc:332
+msgid "Target: "
+msgstr "Мета: "
+
+#: src/gui/LevelInspector.cc:339 src/gui/LevelInspector.cc:355
+msgid "stable"
+msgstr "стабільний"
+
+#: src/gui/LevelInspector.cc:341 src/gui/LevelInspector.cc:357
+msgid "test"
+msgstr "тестовий"
+
+#: src/gui/LevelInspector.cc:343 src/gui/LevelInspector.cc:359
+msgid "experimental"
+msgstr "експериментальний"
+
+#: src/gui/LevelInspector.cc:353
+msgid "released"
+msgstr "випущений"
+
+#: src/gui/LevelInspector.cc:366
+msgid "force"
+msgstr "сила"
+
+#: src/gui/LevelInspector.cc:369
+msgid "balance"
+msgstr "баланс"
+
+#: src/gui/LevelInspector.cc:372
+msgid "key"
+msgstr "клавіша"
+
+#: src/gui/LevelInspector.cc:380
+msgid "time"
+msgstr "час"
+
+#: src/gui/LevelInspector.cc:381
+msgid "pushes"
+msgstr "поштовхів"
+
+#: src/gui/LevelInspector.cc:382
+msgid "moves"
+msgstr "рухів"
+
+#: src/gui/LevelInspector.cc:399
+msgid "World Record Holders: "
+msgstr "Світові рекордсмени: "
+
+#: src/gui/LevelInspector.cc:460
+msgid "Credits: "
+msgstr "Подяка: "
+
+#: src/gui/LevelInspector.cc:471
+msgid "Dedication: "
+msgstr "Присвячення: "
+
+#: src/gui/LevelInspector.cc:482
+msgid "Level Path: "
+msgstr "Шлях рівня: "
+
+#: src/gui/LevelInspector.cc:504
+msgid "Id: "
+msgstr "Id: "
+
+#: src/gui/LevelInspector.cc:506
+msgid "Load time: "
+msgstr "Час завантаження: "
+
+#: src/gui/LevelInspector.cc:511
+msgid "Compatibility: "
+msgstr "Сумісний з: "
+
+#: src/gui/LevelInspector.cc:519
+msgid "Annotation: "
+msgstr "Анотація: "
+
+#: src/gui/LevelInspector.cc:524
+msgid "Rating: "
+msgstr "Оцінка: "
+
+#: src/gui/LevelInspector.cc:526
+msgid "Average: "
+msgstr "Середнє: "
+
+#: src/gui/GameMenu.cc:50
+msgid "Resume Level (ESC)"
+msgstr ""
+
+#: src/gui/GameMenu.cc:53
+msgid "Level Info"
+msgstr "Інфо про рівень"
+
+#: src/gui/GameMenu.cc:54
+msgid "Screenshot (F10)"
+msgstr ""
+
+#: src/gui/GameMenu.cc:55
+msgid "Abort Level"
+msgstr "Перервати рівень"
+
+#: src/gui/GameMenu.cc:56
+msgid "Exit Enigma (Shift-ESC)"
+msgstr ""
+
+#: src/gui/GameMenu.cc:146
+msgid "Return to level"
+msgstr ""
+
+#: src/gui/GameMenu.cc:149
+msgid "For a list of shortcut keys during the game, press F1 during the game."
+msgstr ""
+
+#: src/lev/Proxy.cc:205
+msgid "Error on auto registration of levelfile: "
+msgstr "Помилка під час автореєстрації файлу рівня: "
+
+#: src/lev/Proxy.cc:207
+msgid ""
+"Note: the level will not show up in the \"Auto Folder\" levelpack!\n"
+"\n"
+msgstr "Рівень не буде відображено у пакеті рівнів \"Auto Folder\"!\n\n"
+
+#: src/lev/Proxy.cc:209 src/lev/PersistentIndex.cc:478 src/d_models.cc:203
+#: src/d_models.cc:215 src/PreferenceManager.cc:181 src/StateManager.cc:178
+msgid "Continue"
+msgstr "Продовжити"
+
+#: src/lev/PersistentIndex.cc:464
+msgid "Error on update of levelpack index: \n"
+msgstr "Помилка під час оновлення індексу пакета рівня: \n"
+
+#: src/lev/PersistentIndex.cc:466
+msgid ""
+"Note: the current version will be reloaded!\n"
+"\n"
+msgstr "Увага! Поточна версія буде перезавантажена!\n\n"
+
+#: src/lev/PersistentIndex.cc:473
+msgid "Error on registration of levelpack index: \n"
+msgstr "Помилка під час реєстрації індексу пакету рівня: \n"
+
+#: src/lev/PersistentIndex.cc:475
+msgid ""
+"Note: the levelpack will not show up!\n"
+"\n"
+msgstr "Пакет рівнів не буде показан!\n\n"
+
+#: src/lua.cc:3896
+#, c-format
+msgid "Cannot find '%s'.\n"
+msgstr "Неможливо знайти '%s'.\n"
+
+#: src/lua.cc:3897 src/lua.cc:3904
+#, c-format
+msgid "Your installation may be incomplete or invalid.\n"
+msgstr "Установка не повна або виконана з помилкою.\n"
+
+#: src/lua.cc:3903
+#, c-format
+msgid "There was an error loading '%s'.\n"
+msgstr "Помилка під час завантаження '%s'.\n"
+
+#: src/lua.cc:3905
+#, c-format
+msgid "Error: '%s'\n"
+msgstr "Помилка: '%s'\n"
+
+#: src/d_models.cc:202 src/d_models.cc:214
+msgid ""
+"\n"
+"\n"
+"This error may cause the application to behave strange!"
+msgstr "\n\nЦя помилка може призвести до дивної поведінки програми!"
+
+#: src/stones/KnightStone.cc:60
+msgid "All right, we'll call it a draw"
+msgstr "Все гаразд, вважатимемо, що це нічия"
+
+#: etc/enigma.desktop:4 level_i18n.cc:1469
+msgid "Enigma"
+msgstr "Enigma"
+
+#: etc/enigma.desktop:23
+msgid "Uncover pairs of stones while navigating obstacles using a marble"
+msgstr "Розкрийте пари каменів, обходячи перешкоди за допомогою кульки"
+
+#: etc/enigma.desktop:46
+msgid "enigma"
+msgstr "enigma"
+
+#: level_i18n.cc:4
+msgid "Let there be light!"
+msgstr "Нехай буде світло!"
+
+#: level_i18n.cc:44
+msgid "You really will need every penny!"
+msgstr "Вам дійсно знадобиться кожен пені!"
+
+#: level_i18n.cc:60
+msgid "Umbrellas prevent free fall!"
+msgstr "Парасольки захищають від падіння!"
+
+#: level_i18n.cc:76
+msgid "No problem! Piece of cake!"
+msgstr "Жодних проблем! Простіше нікуди!"
+
+#: level_i18n.cc:77
+msgid "It was easy, wasn't it!"
+msgstr "Це було нескладно, згодні?"
+
+#: level_i18n.cc:93
+msgid "You need to be fast!"
+msgstr "Вам необхідно бути спритним!"
+
+#: level_i18n.cc:125
+msgid "It's a ring!"
+msgstr "Це кільце!"
+
+#: level_i18n.cc:135
+msgid "Business hours from 8am to 4pm"
+msgstr "Час роботи: з 8 до 16"
+
+#: level_i18n.cc:163 level_i18n.cc:876
+msgid "Everything's been counted carefully!"
+msgstr "Все було ретельно розраховано!"
+
+#: level_i18n.cc:164 level_i18n.cc:877
+msgid "Parts of the tubes disappear during detonation!"
+msgstr "Частини труб зникають під час детонації!"
+
+#: level_i18n.cc:171
+msgid "Don't believe all that you see!"
+msgstr "Не довіряйте всьому, що бачите!"
+
+#: level_i18n.cc:178
+msgid "An English text based riddle"
+msgstr "Загадка з відповіддю на англійські мові"
+
+#: level_i18n.cc:233
+msgid "You can fly for a short time if you use the umbrella."
+msgstr "За допомогою парасольки Ви можете літати деякий час."
+
+#: level_i18n.cc:293
+msgid "The Enigmhanoi Towers"
+msgstr "Ханойські Вежі Enigma"
+
+#: level_i18n.cc:295
+msgid "Who speaks, does not know (Lao Tse)"
+msgstr "Той хто розмовляє - не знає (Лао Цзи)"
+
+#: level_i18n.cc:297
+msgid "The wise man laughs (Lao Tse)"
+msgstr "Мудра людина сміється (Лао Цзи)"
+
+#: level_i18n.cc:299
+msgid "Who knows, does not speak (Lao Tse)"
+msgstr "Той, хто знає, не розмовляє (Лао Цзи)"
+
+#: level_i18n.cc:309
+msgid ""
+"Sections which have the same color always turn at the same time and in the "
+"same way."
+msgstr "Секції одного кольору завжди повертаються одночасно та в одному напрямку."
+
+#: level_i18n.cc:310
+msgid ""
+"Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-"
+"stone."
+msgstr "Інструкція з експлуатації:: метал-каміння-каміння-каміння-червоний-жовтий-жовтий-червоний-червоний-каміння-каміння."
+
+#: level_i18n.cc:324 level_i18n.cc:1387 level_i18n.cc:2321 level_i18n.cc:2660
+#: level_i18n.cc:3246 level_i18n.cc:3401 level_i18n.cc:3668 level_i18n.cc:4579
+#: level_i18n.cc:4700 level_i18n.cc:5131
+msgid "Welcome"
+msgstr "Ласкаво просимо"
+
+#: level_i18n.cc:368
+msgid "The Grim Reaper"
+msgstr "Похмурий жнець"
+
+#: level_i18n.cc:444
+msgid "... There are more than two ..."
+msgstr ""
+
+#: level_i18n.cc:453
+msgid "The witch of this switch waits for your wish."
+msgstr "Перемикач чекає на Ваші накази."
+
+#: level_i18n.cc:455
+msgid "The witch of this switch resets the awale game."
+msgstr "Цей перемикач розпочинає гру наново."
+
+#: level_i18n.cc:457
+msgid ""
+"A turn consists in taking the walnuts of a row behind the windowy walls and "
+"sowing them 1 by 1 in the following rows."
+msgstr "Гравець бере ряд горіхів за скляними стінами та кидає їх один за одним у наступні ряди."
+
+#: level_i18n.cc:459
+msgid ""
+"Warning: What awaits the wailing warrior at the end of a turn? If there are "
+"2 or 3 walnuts in a row, they are a warm award for the warrior, as are the "
+"walnuts in the rows which are in the way to this row, if they are 2 or 3 per"
+" row."
+msgstr "То ж що очікує на воїна після ходу? Якщо у ряді опиняться два чи три горіха, вони стануть нагородою для воїна, так само як і горіхи у рядах, розташованих на шляху до цього ряду, якщо їх також два чи три у кожному ряді."
+
+#: level_i18n.cc:461
+msgid "Warning: If one warrior's walls are empty, this awesome warrior wins."
+msgstr "Увага: Якщо стіни воїна порожні, цей воїн перемагає."
+
+#: level_i18n.cc:463
+msgid ""
+"When a warrior has awarded more than half the walnuts, he wins. What does he"
+" win? The way to the waiting oxyds he wants."
+msgstr "Коли воїн збере більш ніж половину горіхів, він перемагає. Що ж він отримує? Шлях до такого необхідного йому каміння-оксидів."
+
+#: level_i18n.cc:465
+msgid "Congratulations! You are the most aware awale player of the valley ..."
+msgstr "Вітаємо! Ви кращий гравець долу..."
+
+#: level_i18n.cc:467
+msgid ""
+"Lost in the savannah? Don't wait and walk on the way to the reset switch on "
+"the far left ..."
+msgstr "Заблукали у савані? Не зволікайте та прямуйте до крайнього лівого перемикача, щоб розпочати гру наново..."
+
+#: level_i18n.cc:469
+msgid "Validate your choice here."
+msgstr "Підтвердження вибору."
+
+#: level_i18n.cc:471
+msgid "Reset the game."
+msgstr "Розпочати гру наново."
+
+#: level_i18n.cc:473
+msgid ""
+"A turn consists in taking the stones of a row and sowing them 1 by 1 in "
+"one's other rows, counterclockwise, coming back to the beginning."
+msgstr "Гравець бере ряд камінців та кидає їх один за одним в інші ряди проти годинникової стрілки, повертаючись до початку."
+
+#: level_i18n.cc:475
+msgid ""
+"At the end of a turn, if the last stone falls in a nonempty row, one takes "
+"the stones of the facing row if there is any, and repeats a turn."
+msgstr "Під кінець ходу, якщо останній камінець падає у непустий ряд, гравець бере камінці з першого ряду, якщо вони там є, та одразу робить наступний хід."
+
+#: level_i18n.cc:477
+msgid "A turn begins in one of the leftmost rows, unless impossible."
+msgstr "Хід починається в одній з лівих колонок, окрім тих випадків, коли це неможливо."
+
+#: level_i18n.cc:479
+msgid ""
+"At the end of the game (if one player cannot move anymore), the player who "
+"has the most stones wins."
+msgstr "Наприкінці гри (якщо один з гравців не може більше нічого пересунути), гравець, в якого виявляється більше камінців, перемагає."
+
+#: level_i18n.cc:481
+msgid "A yellow stone stands for 10 blue stones (then for 2 brown stones)."
+msgstr "Один жовтий камінець відповідає 10 блакитним або двом коричневим."
+
+#: level_i18n.cc:483
+msgid "A brown stone stands for 5 blue stones."
+msgstr "Один коричневий камінець відповідає 5 блакитним."
+
+#: level_i18n.cc:485
+msgid ""
+"This katro game comes from Madagascar; in Easy mode there is an african "
+"Awale."
+msgstr "Ця гра має назву Катро. Вона виникла на Мадагаскарі. У легкому режимі ми пропонуємо Вам зіграти у африканську гру авале."
+
+#: level_i18n.cc:487
+msgid "Only reset or Shift-F3 can make things evolve ..."
+msgstr "Лише відновлення типових параметрів або Shift-F3 може це вирішити..."
+
+#: level_i18n.cc:512
+msgid "Same room, new mirrors ..."
+msgstr "Та сама кімната, нові дзеркала..."
+
+#: level_i18n.cc:564
+msgid "Umbrellas protect!"
+msgstr "Парасольки роблять Вас невразливим!"
+
+#: level_i18n.cc:577
+msgid "It's easier with a shovel!"
+msgstr "Тут не завадила б лопата!"
+
+#: level_i18n.cc:584
+msgid "Watch out!!"
+msgstr "Обережно!!!"
+
+#: level_i18n.cc:675
+msgid "Please remember:    42"
+msgstr "Будь ласка, запам'ятайте:     42"
+
+#: level_i18n.cc:688
+msgid "If you think this is too easy, then play -Bavarian Madness-"
+msgstr "Якщо Ви вважаєте, що цей рівень занадто простий, зіграйте у -Bavarian Madness-"
+
+#: level_i18n.cc:716
+msgid "Sorry for inconvenience, the Bank-O-Mat is empty."
+msgstr "Вибачте за незручності, банкомат порожній."
+
+#: level_i18n.cc:756
+msgid "Take the key to the left first!"
+msgstr "Спочатку візьміть лівий ключ!"
+
+#: level_i18n.cc:772
+msgid "Sunday, bloody Sunday!"
+msgstr "Неділя, ненавиджу неділі!"
+
+#: level_i18n.cc:776
+msgid "Can you see the hidden oxyd stones?"
+msgstr "Чи зможете Ви знайти сховане каміння-оксиди?"
+
+#: level_i18n.cc:801
+msgid "If you haven't won, you've lost!"
+msgstr "Якщо Ви ще не перемогли, то Ви програли!"
+
+#: level_i18n.cc:808
+msgid "Easy?"
+msgstr "Легко?"
+
+#: level_i18n.cc:815
+msgid "Watch out, slippery!"
+msgstr "Обережно! Ожеледь!"
+
+#: level_i18n.cc:927
+msgid "Open the Doors, Open the Oxyds"
+msgstr "Відчиніть двері, відкрийте оксиди"
+
+#: level_i18n.cc:941
+msgid "Riverside"
+msgstr "Біля річки"
+
+#: level_i18n.cc:943
+msgid "Wrong side!                   F3"
+msgstr "Не сюди!                     F3"
+
+#: level_i18n.cc:954
+msgid "The moving boulder can fall down holes but cannot fall into water."
+msgstr "Вода не загроза для болдерів, але перетнути прірву вони не можуть."
+
+#: level_i18n.cc:967
+msgid ""
+"Oh, ridiculous riddle rule my marble's meaningless mind, continue creating "
+"confusion being blackball's brain's blind."
+msgstr "Ах, кумедна загадка заволоділа маленьким мозком мого дорогоцінного друга, продовжує перешкоджати раціональному розв’язанню та розміщувати шори на очі кульки."
+
+#: level_i18n.cc:975
+msgid "Feed me!"
+msgstr "Нагодуйте мене!"
+
+#: level_i18n.cc:977
+msgid "Beware of Sadistic Dentist!"
+msgstr "Обережно! Зубний лікар-садист!"
+
+#: level_i18n.cc:979
+msgid "The innocent victim."
+msgstr "Безвинна жертва."
+
+#: level_i18n.cc:981
+msgid "Office of your boss."
+msgstr "Офіс твого керівника."
+
+#: level_i18n.cc:983
+msgid "Aaaaaarrrrggghhhhhh!!!!!"
+msgstr "А-а-а-а-а-а-хр-р-р-р-р-р!!!!!!!!!"
+
+#: level_i18n.cc:985
+msgid "Everyone has gone, but the plant's still hungry!"
+msgstr "Нікого вже не залишилось, а рослина все ще хоче їсти."
+
+#: level_i18n.cc:987
+msgid "No! No! Aaaarrrrgggghhhh!"
+msgstr "Ні! Ні! А-а-а-а-а-а-хр-р-р-р-р-р!!!!!!!!!"
+
+#: level_i18n.cc:994
+msgid "You shouldn't have done that."
+msgstr "Тобі не слід було цього робити."
+
+#: level_i18n.cc:995
+msgid "Careful."
+msgstr "Обережно."
+
+#: level_i18n.cc:1000
+msgid "Balance Beam"
+msgstr "Промінь, що балансує"
+
+#: level_i18n.cc:1005
+msgid "Remote Meditation"
+msgstr "Дистанційна медитація "
+
+#: level_i18n.cc:1010
+msgid "The Wild Hunt"
+msgstr "Дике полювання"
+
+#: level_i18n.cc:1030
+msgid "Freeze by the Power of Light"
+msgstr "Заморозити силою світла"
+
+#: level_i18n.cc:1034
+msgid "Rainbow Adjacencies"
+msgstr "Веселкова суміжність"
+
+#: level_i18n.cc:1038
+msgid "Recover the Stone"
+msgstr "Повернути каміння"
+
+#: level_i18n.cc:1043 level_i18n.cc:1291 level_i18n.cc:3942
+msgid "Open the Doors"
+msgstr "Відкрийте двері"
+
+#: level_i18n.cc:1050
+msgid ""
+"This is a color maze. You have to work out what order you need to traverse "
+"the colored floors in order to reach the oxyds."
+msgstr "Це кольоровий лабіринт. Вам потрібно визначити, в якій послідовності треба проходити кольорові покриття, щоб дістатися оксидів."
+
+#: level_i18n.cc:1067
+msgid "Restless Meditation"
+msgstr "Медитація без зупинки"
+
+#: level_i18n.cc:1069
+msgid "Caution - Quick Sand!"
+msgstr "Обережно! Грузький пісок!"
+
+#: level_i18n.cc:1073
+msgid "Left or Right Drive?"
+msgstr "Ліворуч чи праворуч?"
+
+#: level_i18n.cc:1080
+msgid "Can you relax amid all this chaos?"
+msgstr "Хіба можна заспокоїтись серед всього цього хаосу?"
+
+#: level_i18n.cc:1085
+msgid "Carry that oxygen around."
+msgstr "Роздайте кисень."
+
+#: level_i18n.cc:1090
+msgid "Audience in Venice"
+msgstr "Аудієнція у Венеції"
+
+#: level_i18n.cc:1092
+msgid "Press the Triggers"
+msgstr "Натисніть тригери"
+
+#: level_i18n.cc:1094
+msgid "Welcome to Venice"
+msgstr "Ласкаво просимо до Венеції"
+
+#: level_i18n.cc:1096
+msgid "Welcome to the Audience"
+msgstr "Ласкаво просимо до аудієнції"
+
+#: level_i18n.cc:1098
+msgid "rialto"
+msgstr "ріальто"
+
+#: level_i18n.cc:1100
+msgid "... under construction"
+msgstr "... іде будівництво"
+
+#: level_i18n.cc:1102
+msgid "try the boulders as gondola"
+msgstr "Скористайтесь болдерами замість гондол."
+
+#: level_i18n.cc:1104
+msgid "piazza san marco"
+msgstr "площа Сан-Марко"
+
+#: level_i18n.cc:1106
+msgid "danger"
+msgstr "небезпечно"
+
+#: level_i18n.cc:1108
+msgid "san giorgio"
+msgstr "Сан-Джорджіо"
+
+#: level_i18n.cc:1110
+msgid "guardian ducale"
+msgstr "охоронець Дукале"
+
+#: level_i18n.cc:1112
+msgid "gondoliere on strike"
+msgstr "гондольєри страйкують"
+
+#: level_i18n.cc:1114
+msgid "palace ducale"
+msgstr "палац Дукале"
+
+#: level_i18n.cc:1116
+msgid "look at san michele"
+msgstr "погляньте на Сан-Мікеле"
+
+#: level_i18n.cc:1118
+msgid "use the gondola below"
+msgstr "скористайтесь гондолою знизу"
+
+#: level_i18n.cc:1120
+msgid "hurry to san giorgio"
+msgstr "покваптесь до Сан-Джорджіо"
+
+#: level_i18n.cc:1125
+msgid "The Green Hell"
+msgstr "Зелене пекло"
+
+#: level_i18n.cc:1127
+msgid "Exploration Trip to Green Waters"
+msgstr "Дослідницька експедиція до зелених вод"
+
+#: level_i18n.cc:1131
+msgid "4D Confusion ..."
+msgstr "Чотиривимірна плутанина ..."
+
+#: level_i18n.cc:1132
+msgid ""
+"Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four "
+"dimensions ... Some hints: size of the labyrinth is 4x4x4x4; your current "
+"position is (2|3|3|2); in all of the 16 corners of the hypercube is a blue "
+"oxyd ..."
+msgstr "Чи бачили Ви коли-небудь чотиривимірний лабіринт? Гаразд, настав час міркувати у чотирьох вимірах ... Невелика підказка: розмір лабіринту 4x4x4x4; Ви знаходитесь у секції 2|3|3|2; у кожному з 16 кутів цього гіперкубу розташовано по блакитному оксиду ..."
+
+#: level_i18n.cc:1133
+msgid ""
+"Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four "
+"dimensions ... Some hints: size of the labyrinth is 3x3x3x3; your current "
+"position is (2|2|2|2); in all of the 16 corners of the hypercube is a blue "
+"oxyd ..."
+msgstr "Чи бачили Ви коли-небудь чотиривимірний лабіринт? Гаразд, настав час міркувати у чотирьох вимірах ... Невелика підказка: розмір лабіринту 3x3x3x3; Ви знаходитесь у секції 2|2|2|2; у кожному з 16 кутів цього гіперкубу розташовано по блакитному оксиду ..."
+
+#: level_i18n.cc:1150
+msgid "Funeral on Deep Sea"
+msgstr "Похорон у Глибокому Морі"
+
+#: level_i18n.cc:1152
+msgid ""
+"Warning: Do not play this level for more than 10 minutes - you may suffer "
+"sea sickness yourself!"
+msgstr "Увага! Щоб уникнути морської хвороби не рекомендується грати на цьому рівні більш ніж десять хвилин."
+
+#: level_i18n.cc:1162
+msgid ""
+"Watch out for mines!        White = 0, Blue = 1, Black = 2, Red = 3, Yellow "
+"= 4, Deep Blue = 5, Deep Red = 6 ..."
+msgstr "Обережно, міни!       Білий = 0, Блакитний = 1, Чорний = 2, Червоний = 3, Жовтий = 4, Синій = 5, Темно-червоний = 6 ..."
+
+#: level_i18n.cc:1163
+msgid ""
+"Hint: Mines are never located along the edges.  If you still get stuck, look"
+" behind the wall!"
+msgstr "Підказка: міни ніколи не розміщуються по краях. Якщо опинитесь у скрутному становищі, зазирніть за стіну!"
+
+#: level_i18n.cc:1164
+msgid ""
+"Hit the switch to uncover one tile, but you will have to wait 10 seconds."
+msgstr "Скористайтесь перемикачем, щоб відкрити одну ділянку. Але Вам доведеться зачекати 10 секунд."
+
+#: level_i18n.cc:1184
+msgid "Change guaranteed"
+msgstr "Зміни гарантовано"
+
+#: level_i18n.cc:1188
+msgid "Clue: The starting point is where all dead marbles go"
+msgstr "Підказка: початок там, куди кульки потрапляють після смерті"
+
+#: level_i18n.cc:1213
+msgid "Perfect Trajectory"
+msgstr "Досконала траєкторія"
+
+#: level_i18n.cc:1226
+msgid "Bridge those synapses!"
+msgstr "З'єднайте ці клітини."
+
+#: level_i18n.cc:1234
+msgid "Hey, where am i now?"
+msgstr "Агов, а де я зараз?"
+
+#: level_i18n.cc:1236
+msgid ""
+"Moments ago i've been at home and wanted to take care about my two oxyd "
+"stones."
+msgstr "Щойно я був удома і хотів розібратися з моїми двома каменями-оксидами."
+
+#: level_i18n.cc:1238
+msgid "And now i'm stranded in this weird forest. How can i escape from here?"
+msgstr "Тепер я заблукав у дивному лісі. Як звідси вибратися?"
+
+#: level_i18n.cc:1240
+msgid ""
+"If i should have a look-around? Perhaps i can find some things that could "
+"help me to find an exit."
+msgstr "Може треба трохи роздивитися? Можливо, я знайду щось, що допоможе мені знайти вихід."
+
+#: level_i18n.cc:1242
+msgid "WARNING: Highest caution is necessary."
+msgstr "УВАГА! Будьте дуже обережні."
+
+#: level_i18n.cc:1244
+msgid "Wild buffaloes are crossing the way."
+msgstr "Дикі воли переходять дорогу."
+
+#: level_i18n.cc:1246
+msgid "Help me, the forest is on fire!"
+msgstr "Подивіться! Ліс палає!"
+
+#: level_i18n.cc:1248
+msgid "A herd of wild horses blocks the way."
+msgstr "Табун диких коней перешкоджає Вам шлях."
+
+#: level_i18n.cc:1250
+msgid "A small hamlet with a fence, a few huts, a pond, some bales of straw."
+msgstr "Маленьке селище: паркан, декілька хатинок, ставок, стіжки соломи."
+
+#: level_i18n.cc:1252
+msgid "If there is finally an exit?"
+msgstr "Все таки, звідси є вихід?"
+
+#: level_i18n.cc:1254
+msgid "I'm afraid, i need some assistance!"
+msgstr "Здається, мені знадобиться певна допомога!"
+
+#: level_i18n.cc:1256
+msgid "Filling station for empty extinguishers."
+msgstr "Поповнення порожніх вогнегасників."
+
+#: level_i18n.cc:1258
+msgid "Watch out: Angry mosquitoes!"
+msgstr "Обережно! Розгнівані москіти!"
+
+#: level_i18n.cc:1260
+msgid "Useful things may also be hidden!"
+msgstr "Корисні предмети також можуть бути схованими."
+
+#: level_i18n.cc:1264
+msgid "Spaceship Control"
+msgstr "Панель керування космічним кораблем"
+
+#: level_i18n.cc:1265
+msgid "Bound to the blue nowhere"
+msgstr "Уперед, до невідомості."
+
+#: level_i18n.cc:1308
+msgid "The journey is the reward"
+msgstr "Подорож вже сама по собі є винагородою"
+
+#: level_i18n.cc:1312
+msgid "Lady in Red"
+msgstr "Жінка в червоному"
+
+#: level_i18n.cc:1319
+msgid "Watchmaker"
+msgstr "Годинникар"
+
+#: level_i18n.cc:1323
+msgid "Mend the clockwork"
+msgstr "Налагодьте годинниковий механізм."
+
+#: level_i18n.cc:1324
+msgid ""
+"Don't close the pools before the clockwork is done, unless you are Fred "
+"Astaire"
+msgstr "Якщо Ви не вмієте танцювати, наче Фред Астер, Вам не варто зачиняти водоймище, перш ніж не буде налагоджено годинникового механізму."
+
+#: level_i18n.cc:1329
+msgid "Every marble is the architect of its own fortune"
+msgstr "Кожна куля — коваль свого щастя"
+
+#: level_i18n.cc:1340
+msgid ""
+"Your faithful friend Tonto, your horse Silver, and Tonto's horse Scout have "
+"been captured."
+msgstr "Вашого відданого друга Тонто, Вашого коня Сільвера та коня Тонто Скаута викрали."
+
+#: level_i18n.cc:1342
+msgid "Don't forget your disguise!"
+msgstr "Не забудьте загримируватись!"
+
+#: level_i18n.cc:1344
+msgid "Here lies the grave of John Reid."
+msgstr "Тут покоїться Джон Рід."
+
+#: level_i18n.cc:1346
+msgid "Hi-yo Silver, away!"
+msgstr "Но-о-о-о, Сільвер."
+
+#: level_i18n.cc:1348
+msgid "Who was that masked man?"
+msgstr "Що то була за людина у масці?"
+
+#: level_i18n.cc:1350
+msgid "Hey! This tomb is empty!"
+msgstr "Гей! Могила порожня!"
+
+#: level_i18n.cc:1354
+msgid "Take the first exit"
+msgstr "Скористайтесь першим виходом."
+
+#: level_i18n.cc:1367
+msgid "Who broke the pearl necklace?"
+msgstr "Хто розірвав перламутрове намисто?"
+
+#: level_i18n.cc:1368
+msgid ""
+"Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls "
+"rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "
+"knows that succeeding pearls connect, when each is placed on a neighboring "
+"dot and a coin is inserted into the slot."
+msgstr "Вражаюче намисто місіс Скарлет розірвалось і усі різнокольорові перлини покотились по підлозі. Місіс Скарлет не пам’ятає послідовність перлин, але вона знає, що перлини, які повинні знаходитись поряд, з’єднуються, якщо їх розташувати на сусідніх точках та кинути монету до автомату."
+
+#: level_i18n.cc:1369
+msgid ""
+"You did invert the sequence of this pair of pearls. You need to correct this"
+" fault to finish the necklace."
+msgstr "Ця пара перлин з’єднана у хибній послідовності. Щоб скінчити збирати намисто, Виправте помилку."
+
+#: level_i18n.cc:1374
+msgid "Jack-Of-All-Trades"
+msgstr "Майстер-недоуч"
+
+#: level_i18n.cc:1376
+msgid "Find The Paradise"
+msgstr "Знайти рай"
+
+#: level_i18n.cc:1388
+msgid "Welcome to Enigma VII"
+msgstr "Ласкаво просимо до Enigma VII"
+
+#: level_i18n.cc:1392
+msgid ""
+"Move all small marbles into the holes. Only one marble per hole is allowed."
+msgstr "Розташуйте усі кульки в отворах. У кожному отворі повинно бути по одній кульці."
+
+#: level_i18n.cc:1396
+msgid "Careful - you can not swim in the water."
+msgstr "Обережно! Кулька не вміє плавати."
+
+#: level_i18n.cc:1400
+msgid ""
+"Use the right mouse-button to rotate your inventory,  it's the bar at the "
+"bottom of the screen.   And guess what these three items down there can be "
+"used to."
+msgstr "Використовуйте праву кнопку миші, щоб прокрутити інвентар (панель унизу екрану). Як Ви вважаєте, для чого можна використовувати ці предмети?"
+
+#: level_i18n.cc:1401
+msgid ""
+"There are lots of different items to use in Enigma, as well as special "
+"floors and stones.   Let's explore some more of the actual Enigma levels!   "
+"And if you have problems with a level - take a look at the manual:   For "
+"some levels, there are hints."
+msgstr "У Enigma є багато різних інструментів, а також спеціального каміння та поверхонь. Дослідимо ще декілька рівнів гри! А якщо виникнуть складності з розв'язанням рівня, зазирніть у керівництво — для деяких рівнів там є натяки."
+
+#: level_i18n.cc:1405
+msgid "Prepare for even more mouse gymnastics in the next levels."
+msgstr "Приготуйтесь до того, що у наступних рівнях Вашій мишці доведеться рухатись ще більш несподіваним чином."
+
+#: level_i18n.cc:1409
+msgid "Don't drown in the swamp."
+msgstr "Не потоніть у болоті."
+
+#: level_i18n.cc:1416
+msgid ""
+"This oscillating stone is a timer-stone. You cannot interact with it, but "
+"nevertheless be aware when you see one: After some time-period anything "
+"might happen ..."
+msgstr "Цей камінь, що тримтить, є каменем-таймером. Ви не можете подіяти на нього, але будьте уважні: за деякий час може трапитися усе, що завгодно…"
+
+#: level_i18n.cc:1417
+msgid ""
+"The stones with arrows are one-way-stones. As you might have guessed, you "
+"can only pass them in one direction.                Mazes are cherished "
+"elements of Enigma - you will see lots of them."
+msgstr "Каміння із стрілками — це одностороннє каміння. Як Ви, напевно, вже здогадались, Ви можете проходити крізь них лише в одному напрямку.              Лабіринти — часті елементи Enigma. Вам ще доведеться зустрітися з ними."
+
+#: level_i18n.cc:1418
+msgid ""
+"Well done!     When you have finished this level, let's play some example "
+"levels from the actual Enigma packs!"
+msgstr "Гарна робота!     Коли Ви розв'яжете цей рівень, спробуйте пройти декілька рівнів з основної групи пакетів Enigma!"
+
+#: level_i18n.cc:1422
+msgid ""
+"The blue stones are Oxyd stones. Open them by touching them with your black "
+"marble."
+msgstr "Синє каміння — це каміння-оксиди. Розкрийте їх, доторкнувшись до них кулькою."
+
+#: level_i18n.cc:1426
+msgid ""
+"But before this, take a look at the final tutorial level Jacob devised for "
+"you.   See it as an exam, if you want to.   It's quite difficult, so don't "
+"despair if you don't get through it at the first time.   Bye!"
+msgstr "Та спершу подивіться на останній тренувальний рівень, розроблений для Вас Якобом. Можете вважати його іспитом. Цей рівень доволі складний, то ж не втрачайте надію, якщо не розв'яжете його з першої спроби. Бувайте!"
+
+#: level_i18n.cc:1427
+msgid ""
+"Well, I hope you enjoyed this tutorial-pack.   You will see most of these "
+"levels a second time in the Enigma packs, together with many new and much "
+"more difficult ones.   Just don't give up on them!"
+msgstr "Я сподіваюсь, що Вам сподобався тренувальний пакет. Більшість із цих рівнів Ви побачите ще раз у пакетах Enigma разом з величезною кількістю нових та значно більш складних. Проте нехай складності Вас не лякають!"
+
+#: level_i18n.cc:1431
+msgid "Levels can be larger than one screen."
+msgstr "Рівні можуть охоплювати більш ніж один екран."
+
+#: level_i18n.cc:1435
+msgid "Remember the colors."
+msgstr "Запам'ятовуйте кольори."
+
+#: level_i18n.cc:1439
+msgid "Friction and acceleration depend on the floor type."
+msgstr "Тертя та прискорення залежать від типу поверхні."
+
+#: level_i18n.cc:1443
+msgid "Some stones look exactly like the Oxyd stones!"
+msgstr "Деяке каміння виглядає просто як оксиди!"
+
+#: level_i18n.cc:1447
+msgid ""
+"This wooden block is movable and heavy enough to hold down the trigger on "
+"the right.   Try to push it there!"
+msgstr "Цей дерев'яний ящик — пересувний і достатньо важкий, щоб утримувати тригер у натисненому стані. Спробуйте зсунути його на тригер."
+
+#: level_i18n.cc:1448
+msgid ""
+"Remember?  There are different kinds of floors.  And these are steep ..."
+msgstr "Пам'ятаєте? Існують різноманітні типи поверхонь. Це, наприклад, схили..."
+
+#: level_i18n.cc:1449
+msgid ""
+"Is there more one can do with wooden blocks?   Yes!  Just explore the next "
+"levels."
+msgstr "Чи можна робити ще щось із дерев'яними ящиками?? Так! Спробуйте дослідити наступні рівні."
+
+#: level_i18n.cc:1453
+msgid "Take your time ..."
+msgstr "Не поспішайте..."
+
+#: level_i18n.cc:1457
+msgid ""
+"The bright light beam is a laser beam.   Don't get too close to it!   But it"
+" has its uses ...    You can use the mirrors to direct the laser to its "
+"targets.   From these, only the light-gray ones are movable, just try it!"
+msgstr "Цей яскравий промінь — лазер. Не наближайтесь до нього занадто близько! Проте він може статися у нагоді... Його можна спрямувати на ціль за допомогою дзеркал. Ви можете зрушити лише світло-сірі дзеркала. Спробуйте!"
+
+#: level_i18n.cc:1461
+msgid "Learn to move your black ball properly."
+msgstr "Навчіться пересувати кульку належним чином."
+
+#: level_i18n.cc:1465
+msgid "Don't touch everything!"
+msgstr "Дивіться, до чого торкаєтесь!"
+
+#: level_i18n.cc:1470
+msgid ""
+"Welcome!    Enigma features hundreds of different objects and ideas. Do not "
+"mind them for now---we will show you some in this tutorial, but most of the "
+"time the fun actually is in discovering these objects for yourself. The "
+"stones with colored spots and shapes you matched in the room above are "
+"called Oxyd stones. Most of the time, your goal is to find and open them. "
+"Since this level is not solved yet, there might be more Oxyd stones ahead? "
+"When you want to pause or quit, just press the ESC key."
+msgstr ""
+
+#: level_i18n.cc:1474
+msgid ""
+"The stone with the horse's head is called ''chess stone''. Watch how the "
+"other marble hits one of them to move it. The angle is important."
+msgstr "Камінь із зображенням голови коня називається «шаховим каменем». Спостерігайте за тим, які інша кулька вдариться об нього, щоб зрушити його. Тут важливий кут зіткнення."
+
+#: level_i18n.cc:1475
+msgid ""
+"Now try to move these chess stones onto the triggers. They always move two "
+"steps plus one step."
+msgstr "Спробуйте пересунути це шахове каміння до тригерів. Вони завжди прямують на два кроки уперед та один крок убік."
+
+#: level_i18n.cc:1479
+msgid ""
+"Those doors on the right block your way to the oxyds ... on the left you see"
+" some triggers. Maybe they are somehow connected?"
+msgstr "Двері праворуч блокують вам шлях до оксидів… ліворуч ви бачити перемикачі. Можливо, двері і перемикачі якось з’єднано?"
+
+#: level_i18n.cc:1774
+msgid "Nothing can stop us!"
+msgstr "Ніщо не може нас зупинити!"
+
+#: level_i18n.cc:1820
+msgid "Rest on the bright spot for a minute."
+msgstr "Зупиніться на хвилинку на світлій дільниці."
+
+#: level_i18n.cc:1821
+msgid "You'll do anything you're told!"
+msgstr "Ви що, завжди робите усе, що Вам скажуть?!"
+
+#: level_i18n.cc:1826
+msgid "... did it!"
+msgstr "Ти впорався!"
+
+#: level_i18n.cc:1830
+msgid "Dig in ..."
+msgstr "Копайте ..."
+
+#: level_i18n.cc:1865
+msgid "Did you bring your flag?"
+msgstr "Ви принесли прапор?"
+
+#: level_i18n.cc:1873
+msgid "Watch out for water holes!"
+msgstr "Обережно! Не потоніть!"
+
+#: level_i18n.cc:1905
+msgid "Some stones and stone rows can be moved!"
+msgstr "Деяке каміння та ряди каміння можна зсунути!"
+
+#: level_i18n.cc:1954
+msgid ""
+"Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
+"how to play."
+msgstr "Ласкаво просимо до гри під назвою Enigma! Цей тренувальний рівень, розроблений мною (Якобом Скоттом), допоможе Вам навчитися в неї грати."
+
+#: level_i18n.cc:1955
+msgid ""
+"You control the black ball.  To pick up an object, just roll over it.  You "
+"can bounce off most walls (try it), but avoid the blue floor near the bottom"
+" of the room (actually, try falling into it and then restarting the level "
+"with the 'Esc' key).  While these messages are being displayed, don't click "
+"any buttons or push any keys or the message will stop."
+msgstr "Ви керуєте чорною кулькою. Для того, щоб підняти об'єкт, треба лише прокотити кульку повз нього. Ви здатні відскакувати від більшості стін (спробуйте), але не ставайте на блакитну поверхню унизу екрану (хоча спробуйте це зробити, а потім перезавантажте рівень за допомогою клавіші Esc). Нічого не натискайте, поки Ви читаєте ці повідомлення, інакше вони зникнуть."
+
+#: level_i18n.cc:1956
+msgid "This is pretty self-explanatory."
+msgstr "Коментарі зайві."
+
+#: level_i18n.cc:1957
+msgid ""
+"Enigma is full of puzzles of various types.  In the next room, you will "
+"encounter your first one."
+msgstr "Enigma сповнена найрізноманітнішими головоломками. У наступній кімнаті Вам доведеться розв'язати першу з них."
+
+#: level_i18n.cc:1958
+msgid ""
+"You can't walk on water!  Try pushing the blocks into the water to get to "
+"the other side."
+msgstr "Ви не можете прямувати водою! Спробуйте скинути ящики до води, щоб дістатися до протилежного берега."
+
+#: level_i18n.cc:1959
+msgid ""
+"Notice that you can't push a row of two or more blocks.  Also, blocks can't "
+"be on the same squares as grates but you can."
+msgstr "Зверніть увагу, що Ви не можете штовхати декілька блоків одночасно. Також  блоки не можуть знаходитись на тих самих клітинках, що й грати, (на відміну від Вас)."
+
+#: level_i18n.cc:1960
+msgid ""
+"There are different types of blocks here.  Those black blocks sink when they"
+" fall into water.  The tan blocks don't sink but don't form bridges either."
+msgstr "Тут Ви бачите інші типи блоків. Чорні блоки тонуть у воді. Жовтувато-коричневі блоки не тонуть, проте і міст з них Ви побудувати не можете."
+
+#: level_i18n.cc:1961
+msgid ""
+"That thing is a top -- it will destroy your ball if they touch.  Also, as "
+"long as you are close enough to it, the top will chase you.  If you die, you"
+" will restart at the beginning of the level (if you have any balls left).  "
+"Try to find a way to get past and into the next room (you can use the blocks"
+" in the center of the room as barricades)."
+msgstr "Це дзига. Вона зруйнує Вашу кульку, якщо торкнеться її. Також, поки Ви знаходитесь достатньо близько від неї, дзига буде переслідувати Вас. Якщо Ви загинете, Вам доведеться розпочати все з початку (звісно, якщо, у Вас залишаться кульки). Спробуйте перейти до наступної кімнати (можливо блоки у центрі кімнати допоможуть Вам перехитрувати дзигу)."
+
+#: level_i18n.cc:1962
+msgid ""
+"Good job!  Notice that the top can't go beneath that block with a black "
+"outline -- you're safe."
+msgstr "Гарна робота! Зверніть увагу, що дзига не може проходити під цим блоком з чорною смужкою — там Ви у безпеці."
+
+#: level_i18n.cc:1963
+msgid "Those are different types of floors.  Try going over them."
+msgstr "Це інші типи поверхонь. Спробуйте прямувати просто ними."
+
+#: level_i18n.cc:1964
+msgid ""
+"The grayish floors are slopes.  The white floor is inverse-floor (you will "
+"see)."
+msgstr "Сіруваті поверхні — це схили. Біла поверхня — інверсна (Ви самі зрозумієте, що це означає)."
+
+#: level_i18n.cc:1965
+msgid ""
+"Watch what happens when you go over those triggers.  See if you can get the "
+"extra ball."
+msgstr "Перевірте, що трапиться, коли Ви пройдете цими тригерами. Подивіться, чи здатні Ви дістатись додаткової кулі."
+
+#: level_i18n.cc:1966
+msgid ""
+"That's dynamite.  Try dropping some next to that yellowish wall (and moving "
+"out of the way)."
+msgstr "Це динаміт. Спробуйте кинути його біля жовтої стіни (та відразу тікайте)."
+
+#: level_i18n.cc:1967
+msgid "Try using the spade on the holes caused by the dynamite."
+msgstr "Спробуйте попрацювати лопатою у вирвах, що залишилися після вибуху."
+
+#: level_i18n.cc:1968
+msgid ""
+"Those things are boulders -- try moving one of the tan blocks.  Don't fall "
+"into the water or abyss (the black floor)."
+msgstr "Це болдери. Спробуйте зрушити з місця один із жовтуватих блоків. Тільки не впадіть у воду або прірву (чорна поверхня)."
+
+#: level_i18n.cc:1969
+msgid ""
+"Take the magic wand and hit a boulder.  Try to let the row of three boulders"
+" pass the large column."
+msgstr "Візьміть чарівну паличку та торкніться болдера. Спробуйте допомогти групі з трьох болдерів пройти повз велику колону."
+
+#: level_i18n.cc:1970
+msgid "Hit it hard enough!"
+msgstr "Вдарте сильніше!"
+
+#: level_i18n.cc:1971
+msgid ""
+"It appears to be a simple room, but you're getting an extra ball anyway.  "
+"Maybe there is a reason ..."
+msgstr "Здавалось б, в цій кімнаті немає нічого складного, проте Вам дають додаткову кульку. Можливо, для цього є підстави..."
+
+#: level_i18n.cc:1972
+msgid ""
+"Try to get the laser beam to hit that black stone, but don't get hit by it!"
+"  Use the mirrors to direct the beam."
+msgstr "Спробуйте спрямувати лазерний промінь на чорне каміння, але самі не зазнайте пошкодження. Прямуйте промінь за допомогою дзеркал."
+
+#: level_i18n.cc:1973
+msgid ""
+"Many objects change when hit with a laser beam.  Try hitting some of the "
+"coins with the laser beam.  Also, try hitting a block over a coin.  Those "
+"stones to your right are knights -- you need to fight (hit) them with a "
+"sword (in the front of your inventory) to get past."
+msgstr "Більшість об'єктів змінюється під впливом лазерного променя. Спробуйте поекспериментувати з монетами. Також подивіться, що вийде, якщо по монеті пройтись блоком. Каміння праворуч від Вас — лицарі. Щоб пройти повз лицарів, Вам потрібно вразити їх мечем (він повинен знаходитись ліворуч у Вашому інвентарі)."
+
+#: level_i18n.cc:1974
+msgid ""
+"Do you have any umbrellas?  Each one will give you approximately ten seconds"
+" of protection from danger (such as falling)."
+msgstr "Чи маєте Ви парасольки? Кожна з них надасть Вам приблизно десять секунд невразливості (наприклад, від падіння)."
+
+#: level_i18n.cc:1975
+msgid ""
+"Those black stones are quake stones -- they reset all progress made with the"
+" oxyd stones.  The other stones are the oxyd stones.  Match them up to win!"
+msgstr "Чорні камені — камені-руйнівники. Вони знищують увесь поступ, якого ви досягли з каменями-оксидами. Інші камені є каменями-оксидами. Знайдіть їхні відповідники, щоб виграти!"
+
+#: level_i18n.cc:1976
+msgid ""
+"This area at the bottom of the screen is your inventory -- when you pick "
+"things up, they go here (there is a maximum of twelve).  To scroll through "
+"the inventory, use the right mouse button or the 'tab' key.  To drop or use "
+"an object, click the left mouse button.  Some objects, such as documents "
+"(like this one), can't be dropped but are instead used.  Those two balls in "
+"your inventory are your extra lives -- if you die in this level, you will "
+"restart at the beginning of the level if you have any balls left (and you "
+"will lose one of the balls)."
+msgstr "Область унизу екрану — це Ваш інвентар. Коли Ви підбираєте який-небудь предмет, він опиняється тут. У інвентарі може знаходитись максимум дванадцять предметів. Інвентар прокручується правою кнопкою миші або клавішею TAB. Щоб скинути або використати предмет, клацніть лівою кнопкою миші. Деякі об'єкти, наприклад, документи (такі, як цей), неможливо скинути — їх можна лише використати. Дві кульки у Вашому інвентарі — це додаткове життя. Якщо Ви загинете на цьому рівні, то загубивши одну кульку (якщо, вона у Вас була), опинитесь на початку шляху."
+
+#: level_i18n.cc:1977
+msgid ""
+"Naturally, you're supposed to go through those closed gates at the top of "
+"the screen.                         Try going down that slope near the "
+"bottom of the room to see what's to the left."
+"                                                         Don't bother with "
+"that trigger below the abyss yet.                                 If you "
+"could hit that small white ball through the one-way blocks (with the "
+"arrows), it might roll down and stop on that trigger.                  You "
+"will need to go in with it but you can't go through the white one-way block."
+"                            Take the spoon and use it once the white ball is"
+" through (hit it hard)."
+msgstr "Як того і слід було очікувати, Вам потрібно пройти крізь браму зверху екрану.                              Спробуйте спуститись схилом знизу екрану, щоб подивитись, що там зліва.                                  Поки що, Ви нічого не можете вдіяти з тригером на іншому краю безодні.                          Якщо Вам вдасться штовхнути білу кульку таким чином, щоб вона пройшла крізь одностороннє каміння (зі стрілкою), то вона скотиться донизу та зупиниться на тригері.                     Вам потрібно піти з нею, але Ви не можете пройти крізь біле одностороннє каміння.                               Візьміть ложку та використайте її, коли біла кулька опиниться на тригері (вдарте її сильніше)."
+
+#: level_i18n.cc:1978
+msgid ""
+"The stone in the top-right of the room is a switch.  Hit it -- it is "
+"probably useful.  In this case the switch opens and closes a door (Do you "
+"remember a door that you weren't able to open?).  The bluish line is a "
+"window -- bridge the water before you do anything with it."
+msgstr "У правому верхньому куті кімнати знаходиться перемикач. Увімкніть його. Можливо він для чогось призначений. У цьому випадку перемикач відчиняє та зачиняє двері (пам'ятаєте двері, що Ви не могли відчинити?). Блакитна смужка — це вікно. Перейдіть через воду перш, ніж спробувати з ним щось вдіяти."
+
+#: level_i18n.cc:1979
+msgid ""
+"That was a rotor (similar to a top).  Some levels have many rotors and tops "
+"to make them difficult.                            However, maybe this rotor"
+" has a purpose; maybe you could get it on that trigger near where the spoon "
+"was.                      It might be convenient to close the gate."
+msgstr "Це був ротор (предмет, що схожий на дзигу). На деяких рівнях є багато роторів та дзиг, щоб завадити Вам їх пройти.                     Проте, можливо, цей ротор надасть Вам послугу? Спробуйте заманити його на тригер поряд з тим місцем, де Ви знайшли ложку                                    (Перед цим я б порадив Вам зачинити браму)."
+
+#: level_i18n.cc:1992
+msgid "If I only had a bag."
+msgstr "Якщо б тільки в мене була торбина."
+
+#: level_i18n.cc:1993
+msgid "shh ... listen!"
+msgstr "Тсссс... Прислухайтесь!"
+
+#: level_i18n.cc:2004
+msgid "Could you need something?"
+msgstr "Можливо, Вам дещо потрібно?"
+
+#: level_i18n.cc:2022
+msgid ""
+"The most dangerous animals of the bayou are the alligators, the mosquitoes "
+"... and the zombies! (But the zombies at least, don't move ...)"
+msgstr "Найнебезпечніші мешканці болота — це алігатори, москіти... та зомбі! (Але зомбі принаймні, не можуть рухатись...)"
+
+#: level_i18n.cc:2029
+msgid "Look carefully at everything!"
+msgstr "Уважно дослідіть тут усе!"
+
+#: level_i18n.cc:2030
+msgid "Do you need a helping hand?"
+msgstr "Потрібна допомога?"
+
+#: level_i18n.cc:2035
+msgid "Send me the keys !"
+msgstr "Надішли мені ключі!"
+
+#: level_i18n.cc:2037
+msgid "ALL the keys!!!"
+msgstr "УСІ ключі!!!"
+
+#: level_i18n.cc:2046
+msgid "April 1st"
+msgstr "1-е квітня"
+
+#: level_i18n.cc:2048
+msgid "Do you REALLY want to do this???"
+msgstr "Ти СПРАВДІ бажаєш це зробити???"
+
+#: level_i18n.cc:2050
+msgid ""
+"Didn't your mother tell you that you should not spend your money in such a "
+"careless manner?"
+msgstr "Хіба мати в дитинстві не казала, що не варто розкидуватися грішми?"
+
+#: level_i18n.cc:2052
+msgid "What is the current month?"
+msgstr "Який зараз місяць?"
+
+#: level_i18n.cc:2054
+msgid "What is this level's name?"
+msgstr "А яка назва у цього рівня?"
+
+#: level_i18n.cc:2071
+msgid "Catwalk Meditation"
+msgstr "Медитація над безоднею"
+
+#: level_i18n.cc:2106
+msgid ""
+"When you change the color of one square, the colors of the 2 nearest squares"
+" change as well; you must get as many green squares as possible."
+msgstr "Коли Ви змінюєте колір одного квадрату, кольори 2 найближчих також змінюються; Вам необхідно здобути якнайбільше зелених квадратів."
+
+#: level_i18n.cc:2108
+msgid ""
+"You are only allowed to change a color when it is surrounded by the other "
+"color."
+msgstr "Ви можете змінити колір квадрату тільки тоді, коли він знаходиться проміж квадратів іншого кольору."
+
+#: level_i18n.cc:2112
+msgid ""
+"Beware, stranger! The ancient gods of Enigma have set many traps to protect "
+"their holy Oxyds! You will have to get through the Four Tests to prove your "
+"worth!"
+msgstr "Стережись, незнайомець! Прадавні боги Енігми розташували безліч пасток, щоб захистити своє священне каміння-оксиди! Ти повинен здолати Чотири Випробування, щоб довести, що ти гідний їх!"
+
+#: level_i18n.cc:2113
+msgid "Prove your speed in the Test of Fire!"
+msgstr "Доведи свою швидкість у Випробуванні Вогнем!"
+
+#: level_i18n.cc:2114
+msgid "You have proven your worth! The ancients grant you a FLAG!"
+msgstr "Ти довів свою швидкість! Боги дають тобі у якості нагороди ПРАПОР!"
+
+#: level_i18n.cc:2115
+msgid "Prove your intelligence in the Test of Earth!"
+msgstr "Доведи свою кмітливість у Випробуванні Землею!"
+
+#: level_i18n.cc:2116
+msgid "You have proven your worth! The ancients grant you a SPRING!"
+msgstr "Ти довів свою кмітливість! Боги дають тобі у якості нагороди ПРУЖИНУ!"
+
+#: level_i18n.cc:2117
+msgid "Prove your dexterity in the Test of Air!"
+msgstr "Доведи свою спритність у Випробуванні Повітрям!"
+
+#: level_i18n.cc:2118
+msgid "You have proven your worth! The ancients grant you a NAIL!"
+msgstr "Ти довів свою спритність! Боги дають тобі у якості нагороди ЦВЯХ!"
+
+#: level_i18n.cc:2119
+msgid "Prove your patience in the Test of Water!"
+msgstr "Доведи своє терпіння у Випробуванні Водою!"
+
+#: level_i18n.cc:2120
+msgid ""
+"This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more!"
+" Bwahahahaha!"
+msgstr "Це неможливо! Жоден смертний не може отримати наші Священні Оксиди! Доведи, що ти гідний їх ще раз! Бу-га-га-га!"
+
+#: level_i18n.cc:2126
+msgid ""
+"Mightie art the Knightes of The Olde Ages who keepe the Elfic Oxyde Stones, "
+"and numerous art the Ghostes who lye in the waye to them; many art the "
+"adventurers who tryed to steale Aylendil the Sworde but none has ever come "
+"back. Hazy is the swampe where the Magick of the Ancients is buryed; the "
+"lair of WhiteHorse the dragon thu shalt avoyd in feare of awaken him ..."
+msgstr "Могутні чари Витязів Минулих Літ охороняють ельфійські камені-оксиди. Несчисленні привиди підстерігають подорожніх на шляху до них. Багато хто намагався викрасти Айлендильський меч, але ніхто ще не повернувся з ним. Древні чари заховано у трясовині. Намагайся уникати лігва дракона Білого Коня, щоб не розбудити його..."
+
+#: level_i18n.cc:2136
+msgid ""
+"You again! We won't let you pass this time! See these Oxyds? You can't reach"
+" them unless you rob our Four Holy Items! But they are well guarded! "
+"Bwahahahaha!"
+msgstr "Знову ти! Цього разу ми не дозволимо тобі пройти! Бачиш ці оксиди? Ти не зможеш дістатися до них, доки не здобудеш наші Чотири Святині! Але вони добре охороняються! Ха-Ха-Ха!"
+
+#: level_i18n.cc:2137
+msgid ""
+"Fire burns and destroys ... Want to remove blocking stones? Then dig your "
+"way to the Holy Hammer!"
+msgstr "Вогонь спалює та винищує усе на своєму шляху... Бажаєш прибрати зі свого шляху каміння, що стає на заваді? Тоді здобудь Священний Молот!"
+
+#: level_i18n.cc:2138
+msgid "Try again! Bwahahahaha!"
+msgstr "Спробуй ще раз! Ха-ха-ха!"
+
+#: level_i18n.cc:2139
+msgid ""
+"Earth fills and lasts ... Want to replace missing floors? Then build your "
+"way to the Holy Seed!"
+msgstr "Земля заповнює порожнечу... Бажаєш замінити поверхні, яких бракує? Тоді здобудь Святу Насінину!"
+
+#: level_i18n.cc:2140
+msgid ""
+"Air blows and goes by ... Want to jump across the void? Then make your way "
+"to the Holy Spring!"
+msgstr "Повітря здуває все на своєму шляху та проноситься геть... Бажаєш перестрибнути над прірвою? Тоді здобудь Священну Пружину!"
+
+#: level_i18n.cc:2141
+msgid ""
+"Water waves and shifts ... Want to trade minds with your partner? Then find "
+"your way to the Holy Yin-Yang!"
+msgstr "Вода тече та плещеться... Бажаєш попросити допомоги у свого товариша? Тоді здобудь Священний символ Інь-Янь!"
+
+#: level_i18n.cc:2152
+msgid "Did you really think this one was so easy!?"
+msgstr "Ви справді вважали, що рівень буде таким простим?!"
+
+#: level_i18n.cc:2154
+msgid "Did you forget something?"
+msgstr "Ви нічого не забули?"
+
+#: level_i18n.cc:2156
+msgid "Go on! There's no way back now!"
+msgstr "Продовжуйте! Шляху назад відтепер нема!"
+
+#: level_i18n.cc:2158
+msgid "STOP! Not this way! There's a short-cut ..."
+msgstr "СТОП! Не сюди! Є шлях навпростець..."
+
+#: level_i18n.cc:2160
+msgid ""
+"There's a trigger one step to the left. If you could keep it depressed, it "
+"would help you a lot if you go back!"
+msgstr "У кроці ліворуч розташовано перемикач. Якщо б вдалося його чимось утримати, це б дуже допомогло вам повернутися!"
+
+#: level_i18n.cc:2173
+msgid "Make an umbrella."
+msgstr "Змайструйте парасольку."
+
+#: level_i18n.cc:2177
+msgid "Keypad Corners"
+msgstr "Кути клавіатури"
+
+#: level_i18n.cc:2181
+msgid "Don't get too attracted!"
+msgstr "Не підкоряйтесь силі тяжіння!"
+
+#: level_i18n.cc:2191
+msgid "It is not quite that easy."
+msgstr "Це не так вже й легко."
+
+#: level_i18n.cc:2195
+msgid "Don't get attracted!"
+msgstr "Не підкоряйтесь силі тяжіння!"
+
+#: level_i18n.cc:2202
+msgid ""
+"Here lies Black Ball the pirate, marooned in the year 1802 after travelling "
+"in the wrong direction."
+msgstr "Тут покоїться пірат на прізвисько Чорна Куля, висаджений своєю командою у 1802 р. після того, як поплив у хибному напрямку."
+
+#: level_i18n.cc:2203
+msgid ""
+"To cure sea sickness hold a large bank note between your teeth and lean over"
+" the side."
+msgstr "Щоб вилікувати морську хворобу, візьміть велику банкноту у зуби та нахилитесь за борт."
+
+#: level_i18n.cc:2212
+msgid ""
+"Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa "
+"guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!"
+msgstr "Карамба! У Ель Диктатора багато песо у кришталевому сейфі, але багато і коста гардіа! А у незаможного Бола Негро лише фрукти та лазер!!!"
+
+#: level_i18n.cc:2222
+msgid "This is a meditation landscape: put a small marble into every hole ..."
+msgstr "Це рівень для медитації, розмістіть по кульці у кожному отворі..."
+
+#: level_i18n.cc:2253
+msgid "No way out?"
+msgstr "Виходу нема?"
+
+#: level_i18n.cc:2254
+msgid "Do you miss something?"
+msgstr "Ви нічого не забули?"
+
+#: level_i18n.cc:2276
+msgid ""
+"If you have never heard about Brainf***, visit e.g. "
+"http://en.wikipedia.org/wiki/Brainfuck before you try to solve this level."
+msgstr "Якщо Ви не знаєте, що таке Brainf***, зверніться до http://uk.wikipedia.org/wiki/Brainfuck перш, ніж спробуєте розв'язати цей рівень."
+
+#: level_i18n.cc:2283
+msgid ""
+"Remember Seed Puzzle 2? There was a similar problem. Or was it Portable "
+"Laser ...?"
+msgstr "Пам'ятаєте рівень Seed Puzzle 2? Там нам вже зустрічалось схоже завдання. Чи то був Portable Laser...?"
+
+#: level_i18n.cc:2289
+msgid "Pirates Island"
+msgstr "Острів Піратів"
+
+#: level_i18n.cc:2291
+msgid "The pirates have lost several hidden things on this island ..."
+msgstr "На цьому острові пірати загубили декілька речей..."
+
+#: level_i18n.cc:2304
+msgid "Try the easy mode first ..."
+msgstr "Спробуйте спочатку легкий режим ..."
+
+#: level_i18n.cc:2322
+msgid "Welcome to Enigma V"
+msgstr "Ласкаво просимо до Enigma V"
+
+#: level_i18n.cc:2337
+msgid "Fire or be fired"
+msgstr "Підпали або спалахни сам"
+
+#: level_i18n.cc:2350
+msgid "This level is symmetric ..."
+msgstr "Цей рівень симетричний..."
+
+#: level_i18n.cc:2355
+msgid ""
+"This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
+msgstr "Це мій перший рівень і я присвячую його моєму батькові. Я сподіваюсь, він Вам сподобається!"
+
+#: level_i18n.cc:2359
+msgid "Warning ... ... thieves!"
+msgstr "Обережно ... ... крадії!"
+
+#: level_i18n.cc:2369
+msgid ""
+"Why has there always to be an active volcano and a village of marble-eating "
+"inhabitants on a tropical island?"
+msgstr "Ну чому на тропічному острові обов'язково повинен бути діючий вулкан та селище кулькоїдів?!"
+
+#: level_i18n.cc:2389
+msgid "Translate or let it be translated"
+msgstr "Перекладіть або нехай його перекладуть"
+
+#: level_i18n.cc:2403
+msgid "Welcome to Liberty Island, New York City"
+msgstr "Ласкаво просимо до Острову Свободи, міста Нью-Йорк"
+
+#: level_i18n.cc:2405
+msgid ""
+"To get a fuller picture of New York City, you should view it through every "
+"pair of glasses you can find."
+msgstr "Щоб отримати повнішу картину міста Нью-Йорк, подивіться на нього скрізь кожну пару окулярів, яку знайдете."
+
+#: level_i18n.cc:2407
+msgid ""
+"There's always a terrible traffic jam on Broadway at Times Square.  It's a "
+"pity you don't have time to see a show!"
+msgstr "На Бродвеї у Тайм-Сквер завжди страшенні затори. Який жаль, що у Вас немає часу подивитися шоу."
+
+#: level_i18n.cc:2409
+msgid ""
+"Charles Ives was the composer of \"Central Park in the Dark\". Enjoy his "
+"music, and use the shogun to open some gates!"
+msgstr "Чарльз Айвз створив \"Central Park in the Dark\". Насолоджуйтесь його музикою та скористайтесь сьогуном, щоб відчинити ворота."
+
+#: level_i18n.cc:2411
+msgid ""
+"These mechanized traffic signals are strange.  An outbound traffic sensor at"
+" Central park seems to be responsible for this street.  Use your glasses!"
+msgstr "Якісь дивні тут механічні світлофори. Схоже, за цю вулицю відповідає зовнішній транспортний датчик Центрального парку. Скористайтесь окулярами!"
+
+#: level_i18n.cc:2413
+msgid ""
+"It's funny that a fountain in Central Park should control the traffic flow."
+msgstr "Кумедно. Транспортним потоком у Центральному Парку керує фонтан."
+
+#: level_i18n.cc:2415
+msgid "Welcome to Chinatown"
+msgstr "Ласкаво просимо до Чайнатаун"
+
+#: level_i18n.cc:2420
+msgid "A Baroque Game"
+msgstr "Гра у стилі бароко"
+
+#: level_i18n.cc:2425 level_i18n.cc:2724
+msgid "Keep distance!"
+msgstr "Зберігайте відстань!"
+
+#: level_i18n.cc:2427 level_i18n.cc:2726
+msgid "Help! I can't see the forest for the trees!"
+msgstr "Допоможіть! Через дерева я не можу роздивитись ліс!"
+
+#: level_i18n.cc:2438
+msgid "This is a SuperSecret!! Well done on finding it!!"
+msgstr "Це суперсекрет!! Чудово, що ви дізналися його!!"
+
+#: level_i18n.cc:2442
+msgid "FizzBuzz"
+msgstr "FizzBuzz"
+
+#: level_i18n.cc:2443
+msgid ""
+"Counting the first pearl as 1, you must save every pearl that's a multiple "
+"of 3 or of 5 (or both)."
+msgstr "Припустивши, що перша перлина є 1, Ви повинні зберегти кожну перлину чий номер ділиться націло на 3 чи 5 (чи на обидва числа)."
+
+#: level_i18n.cc:2448
+msgid "My First Level"
+msgstr "Мій перший рівень"
+
+#: level_i18n.cc:2450
+msgid "Secrets? Use the items, ... use the glasses ..."
+msgstr "Таємниці? Скористайтесь предметами ... скористайтесь окулярами ..."
+
+#: level_i18n.cc:2457
+msgid "It's not symmetric!"
+msgstr "Тут немає симетрії."
+
+#: level_i18n.cc:2465
+msgid "Deep ..."
+msgstr "Глибина ..."
+
+#: level_i18n.cc:2476
+msgid "Tutoxyd's Pyramid"
+msgstr "Піраміда Тутоксида"
+
+#: level_i18n.cc:2478
+msgid ""
+"Welcome Mr. Jones! Back from your \"Alternatives\" and \"The Walls\" "
+"training camp?  Got everything you ordered:  some money  --  40 marbleons --"
+" and a horse outside this shopping center.    Many adventurers lost their "
+"life in this pyramid.    Beware of the dangerous sand vipers and "
+"Enighomathep's curses."
+msgstr "Ласкаво просимо, містер Джонс! Вже повернулись із свого тренувального табору \"Alternatives\" і \"The Walls\"? Я здобув усе, що Ви прохали: трохи грошей — 40 кульконів — і коня, він чекає на Вас біля торгового центру. Чимало мандрівників втратили життя в цій піраміді. Стережіться піщаних гадюк та прокляття Енігмахотепу."
+
+#: level_i18n.cc:2480
+msgid ""
+"Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
+"were the most useful items in this desert. But nobody was willing to spend 2"
+" marbleons.  ---  Now a blacksmith offers his service."
+msgstr "Ця крамниця раніше належала містеру Рейнмейкеру. Він стверджував, що його парасольки — найпотрібніша річ у цій пустелі. Проте охочих придбати їх за два кулькони було небагато. — Зараз тут працює коваль."
+
+#: level_i18n.cc:2482
+msgid ""
+"Safety Precaution: in case one of these dangerous animals escapes, the gates"
+" of the shopping center will be closed immediately!"
+msgstr "Увага: в разі втечі одного з цих небезпечних звірів, ворота торговельного центра будуть негайно зачинені."
+
+#: level_i18n.cc:2484
+msgid ""
+"Not much is known of the pyramid's architect Enighomathep. But it is said "
+"that he loved cherries. He ate so many of them that he sometimes became "
+"invisible."
+msgstr "Про архітектуру піраміди Енігмахотепа відомо небагато. Подейкують, що він полюбляв вишні. Він їв їх стільки, що інколи ставав прозорим."
+
+#: level_i18n.cc:2486
+msgid ""
+"Have a look at my collection!    A white scorpion   --   a rotodile   --  "
+"and a sand viper.  They cannot be sold.        But I can offer you a scarab "
+"that will be a better choice for you."
+msgstr "Подивіться на моє колекцію! Білий скорпіон — ротодил — та піщана гадюка. Вони не продаються. Але я можу запропонувати Вам скарабея, Вам не знайти нічого кращого за нього."
+
+#: level_i18n.cc:2488
+msgid ""
+"Ali Barber's shop for quick hair cuts. Want to know what is going on?  A "
+"thief is hanging around and nobody knows where the 4 pale kids that are "
+"playing with your horse came from."
+msgstr "Перукарня Алі Барбера — найкраще місце, щоб швидше підстригтися. Бажаєте знати, що тут відбувається? Десь поряд переховується крадій і ніхто не знає звідки з’явилися чотири дитини, котрі грають з Вашим конем."
+
+#: level_i18n.cc:2490
+msgid ""
+"Home of the last adventurer who never returned.   Said he would drill for "
+"oil -- but no one believed him."
+msgstr "Дім останнього мандрівника, який не повернувся. Подейкують, що він збирався видобувати нафту, проте ніхто у це не вірив."
+
+#: level_i18n.cc:2492
+msgid ""
+"Be cursed for trying to explore Tutoxyd's last secret -- may your homework "
+"remain undone until you prove worthy!"
+msgstr "Будь ти проклятий за свої намагання дослідити останній секрет Тутоксида — нехай твоє домашнє завдання залишиться невиконаним, доки ти не доведеш чого вартий!"
+
+#: level_i18n.cc:2494
+msgid ""
+"It's a pity that some explorers damaged this historic monument and did "
+"litter the environment.   But the pyramid magically repairs itself every "
+"time an adventurer gives up."
+msgstr "Шкода, що дослідники пошкодили цю пам’ятку історії та залишили навколо сміття. Але піраміда чарівним чином ремонтує сама себе кожного разу, коли черговий мандрівник здається."
+
+#: level_i18n.cc:2496
+msgid ""
+"Be cursed for disturbing Tutoxyd's peace -- may the earth part under your "
+"feet!"
+msgstr "Будь ти проклятий за те, що наважився потурбувати Тутоксида! Нехай розверзнеться земля під твоїми ногами!"
+
+#: level_i18n.cc:2498
+msgid ""
+"Be cursed for disturbing Tutoxyd's peace -- may your legs no longer be under"
+" your control!"
+msgstr "Будь ти проклятий за те, що наважився потурбувати Тутоксида — нехай ти більше не зможеш керувати своїми ногами!"
+
+#: level_i18n.cc:2500
+msgid ""
+"Trapped?   Either wait for a stupid tourist willing to exchange positions "
+"with you by using a magic ring - or press Shift-F3"
+msgstr "Втрапив у халепу? Тепер чекай на дурника-туриста, який захоче помінятися із тобою місцями за допомогою чарівного персня, або натисни Shift-F3"
+
+#: level_i18n.cc:2502
+msgid ""
+"Private Property! This claim belongs to Mr. Whiteoil. In case of absence "
+"please send a letter."
+msgstr "Приватна власність! Цей об’єкт належить містеру Уайтойлу. В разі його відсутності, будь ласка надішліть йому листа."
+
+#: level_i18n.cc:2504
+msgid "Invoice -- 40 marbleons for 20 barrels of oil."
+msgstr "Накладна — 40 кульконів за 20 барелів нафти."
+
+#: level_i18n.cc:2506
+msgid ""
+"Welcome stranger -- have a look at our holy stone. It is said that it shows "
+"everyone his personal fortune color. As all visitors tried to touch it, we "
+"had to set up some protection."
+msgstr "Ласкаво просимо, чужинець. Поглянь на наше священне каміння. Подейкують, що він відкриває кожному колір його долі. Оскільки кожен, хто приходив сюди, намагався його торкнутись, нам довелось встановити тут засоби захисту."
+
+#: level_i18n.cc:2508
+msgid ""
+"May I ask for a donation. Just a few bugs - throw the donation into the holy"
+" fire. Tutoxyd will be grateful."
+msgstr "Чи можу я Вас попрохати про невелике пожертвування? Усього декілька жуків — киньте їх до священного вогню. Тутоксид буде задоволений."
+
+#: level_i18n.cc:2510
+msgid ""
+"Mr. Whiteoil, we finished our library research. Enighomathep reports that 4 "
+"keys are required. One key got lost immediately after sealing the pyramid. "
+"One is hidden at the border of the pyramid. For the others you have to "
+"demonstrate boldness and cleverness."
+msgstr "Містере Вайтойле, ми завершили наші пошуки у бібліотеці. Енігхоматеп повідомляє, що потрібно 4 ключа. Один з ключів було втрачено одразу після запечатування піраміди. Ще один сховано на межі піраміди. Щоб знайти інші, вам доведеться продемонструвати вашу хоробрість та розум."
+
+#: level_i18n.cc:2512
+msgid "Facing Death you can walk without fear."
+msgstr "Перед лицем Загибелі ти можеш йти без страху."
+
+#: level_i18n.cc:2514
+msgid "Sorry, the useful item that was hidden here has been stolen."
+msgstr "Шкода, але корисний предмет, схований тут, було вкрадено."
+
+#: level_i18n.cc:2516
+msgid ""
+"Tomb raiders are cursed to be frozen in stone or floor for all eternity."
+"     Have a look at all these little funny sticks that they used to fight "
+"the curses."
+msgstr "Розкрадачі гробниць прокляті. Їх буде навіки замуровано у каміння або підлогу. Поглянь на всі ці кумедні палички, якими вони намагались відвести прокляття."
+
+#: level_i18n.cc:2518
+msgid "Remove all parts of the memorial plate before conjuring up Tutoxyd."
+msgstr "Перш ніж викликати Тутоксида, прибери усі частини надгробку."
+
+#: level_i18n.cc:2520
+msgid ""
+"Who dares to disturb my peace? Stranger - you have proven to be honorable. "
+"Bring back my children for a joint meditation. But beware that upon seeing "
+"me they may want to join me instead of meditate. I make you responsible for "
+"the security of my children."
+msgstr "Хто наважився порушити мій спокій? Чужоземцю, ти заслужив нашу повагу. Приведи сюди моїх дітей для спільної медитації. Але пам’ятай, що, побачивши мене, вони можуть просто приєднатися до мене, замість медитації. За безпеку моїх дітей тепер відповідаєш ти."
+
+#: level_i18n.cc:2522
+msgid ""
+"You are bringing back my children. As soon as they come to rest, I will "
+"deliver you from Enighomathep's curses so you may seek your next adventure."
+msgstr "Ти привів моїх дітей! Як тільки вони вгамуються, я зніму з тебе прокляття Енігмахотепа, щоб ти зміг вирушити на пошуки нових пригод."
+
+#: level_i18n.cc:2533
+msgid "Just a Dance ?"
+msgstr "Лише танок?"
+
+#: level_i18n.cc:2559 level_i18n.cc:2579
+msgid "Use the Lightpassenger"
+msgstr "Скористайтесь вершником"
+
+#: level_i18n.cc:2568
+msgid "The Hand Mirror Cabinet"
+msgstr "Дзеркальний кабінет"
+
+#: level_i18n.cc:2570
+msgid "Ever tried to look at the back of your head in the mirror?"
+msgstr "Коли-небудь намагались подивитись на свою потилицю у дзеркало?"
+
+#: level_i18n.cc:2574
+msgid "Danger Flag"
+msgstr "Прапор, що застерігає про небезпеку"
+
+#: level_i18n.cc:2586
+msgid "Number Crunching"
+msgstr "Розгризання чисел"
+
+#: level_i18n.cc:2591
+msgid "Survival Training in wasted Landscapes ..."
+msgstr "Навчання виживанню у пустинні..."
+
+#: level_i18n.cc:2599
+msgid "Crabwise IV"
+msgstr "Задкуючи IV"
+
+#: level_i18n.cc:2607
+msgid "Plutos Confusion"
+msgstr "Плутанина на Плутоні"
+
+#: level_i18n.cc:2609
+msgid "Dont eat cherries"
+msgstr "Не їжте вишень"
+
+#: level_i18n.cc:2650
+msgid "Crabwise II"
+msgstr "Задкуючи II"
+
+#: level_i18n.cc:2655
+msgid "Inkblot 1"
+msgstr "Чорнильна пляма 1"
+
+#: level_i18n.cc:2661
+msgid "Welcome to Enigma VIII"
+msgstr "Ласкаво просимо до Enigma VIII"
+
+#: level_i18n.cc:2672
+msgid "Alternation I"
+msgstr "Чергування I "
+
+#: level_i18n.cc:2674
+msgid "Alternation in a Blue Area"
+msgstr "Чергування у блакитній зоні"
+
+#: level_i18n.cc:2679
+msgid "Alternation II"
+msgstr "Чергування II"
+
+#: level_i18n.cc:2681
+msgid "Alternation in a Dark Area"
+msgstr "Чергування на темній території"
+
+#: level_i18n.cc:2694
+msgid "Listen for the best place for an explosion"
+msgstr "Найкраще місце для вибуху можна знайти прислухавшись."
+
+#: level_i18n.cc:2701
+msgid "Every pencil must go"
+msgstr "Не повинно залишитись жодного олівця"
+
+#: level_i18n.cc:2705
+msgid "Floating ..."
+msgstr "Парим ..."
+
+#: level_i18n.cc:2706
+msgid "Don't be afraid -- It's only a ten mile drop!"
+msgstr "Не лякайтесь. Падати-то Вам лише якийсь там десяток миль."
+
+#: level_i18n.cc:2719
+msgid ""
+"... illmind's mad-ill-tation ... a tribute to esprit meditation levels from "
+"the past. thank you ..."
+msgstr "...mad-ill-tation від illmind'а... на честь медитативних рівнів минулого з \"Esprit\". Спасибі..."
+
+#: level_i18n.cc:2731
+msgid "Crabwise III"
+msgstr "Задкуючи III"
+
+#: level_i18n.cc:2745
+msgid "Meditation! Silence? ... Have a Look ..."
+msgstr "Медитація! Тиша? ... Придивіться ..."
+
+#: level_i18n.cc:2747
+msgid "These stormy days ..."
+msgstr "Ах, ці непогожі дні ..."
+
+#: level_i18n.cc:2752
+msgid "Crabwise I"
+msgstr "Задкуючи I"
+
+#: level_i18n.cc:2780
+msgid "There's more help than you first think!"
+msgstr "Допомога ближче, ніж здається!"
+
+#: level_i18n.cc:2793
+msgid "Missing Oxyds?"
+msgstr "Не вистачає оксидів?"
+
+#: level_i18n.cc:2797
+msgid "Not everything is as it seems ..."
+msgstr "Не все виявляється тим, чим здається ..."
+
+#: level_i18n.cc:2801
+msgid "Make sure you find all of them"
+msgstr "Переконайтесь, що Ви знайшли їх усі"
+
+#: level_i18n.cc:2806
+msgid "Only A Labyrinth"
+msgstr "Лише лабіринт"
+
+#: level_i18n.cc:2829
+msgid "Ball Alley"
+msgstr "Кульковий провулок"
+
+#: level_i18n.cc:2848
+msgid "Double Pendulum"
+msgstr ""
+
+#: level_i18n.cc:2978
+msgid "Too many wooden blocks!  Try the other way ..."
+msgstr "Забагато дерев'яних ящиків! Спробуйте інший спосіб..."
+
+#: level_i18n.cc:2979
+msgid ""
+"Greetings, adventurer!    The road ahead is long and dangerous, so be "
+"careful!"
+msgstr "Вітаємо, шукач пригод!       На тебе чекає довгий та небезпечний шлях, то ж не втрачай пильності!"
+
+#: level_i18n.cc:2980
+msgid "Well done, adventurer!    Good luck!"
+msgstr "Чудово, шукач пригод!     Хай щастить!"
+
+#: level_i18n.cc:2981
+msgid "Congratulations, adventurer!  You did it!"
+msgstr "Вітаємо! Ти впорався з цим!"
+
+#: level_i18n.cc:3015
+msgid "What a pity, and there's so much paint left ..."
+msgstr "Який жаль... Залишилось стільки фарби..."
+
+#: level_i18n.cc:3020
+msgid ".moor txen eht ot teg ot syaw owt era erehT"
+msgstr ".ихялш авд є итанмік їонпутсан од итйорп боЩ."
+
+#: level_i18n.cc:3063
+msgid "Danger ... laser beams!"
+msgstr "Обережно... лазерні промені!"
+
+#: level_i18n.cc:3080
+msgid "The Life Game"
+msgstr "Гра \"Життя\""
+
+#: level_i18n.cc:3108
+msgid "! -  DANGER  -  NO TRESPASSING  -  DANGER  - !"
+msgstr "! - НЕБЕЗПЕЧНО - НЕМА ПРОХОДУ - НЕБЕЗПЕЧНО - !"
+
+#: level_i18n.cc:3115
+msgid ""
+"As long as there is motion around the oxyd-stones, you won't reach them.   "
+"So: Don't lose control of the level! It's possible."
+msgstr "Доки навколо камінь-оксидів є рух, Вам до них не дістатись. Тож не втрачайте контроль за тим, що відбувається. Це цілком можливо."
+
+#: level_i18n.cc:3119
+msgid "Calm down!"
+msgstr "Заспокойтесь!"
+
+#: level_i18n.cc:3126
+msgid "Fight appearing lava."
+msgstr "Боріться з лавою."
+
+#: level_i18n.cc:3127
+msgid "A hammer destroys some black stones."
+msgstr "Деяке чорне каміння можна розбити молотком."
+
+#: level_i18n.cc:3137
+msgid "Alfred Nobel says: This is definitely a meditation landscape!"
+msgstr "Як казав Альфред Нобіль, це безумовно пейзаж для медитації!"
+
+#: level_i18n.cc:3156
+msgid "Oops ... you're stuck ...     Try again ..."
+msgstr "Все, звідси немає виходу... Спробуйте ще раз..."
+
+#: level_i18n.cc:3157
+msgid ""
+"Congratulations, you reached this side ...     but can you get to the oxyds?"
+msgstr "Вітаємо, ви вдало переправилися на цей берег... але ви зможете дістатися до оксидів?"
+
+#: level_i18n.cc:3158
+msgid "Well done!"
+msgstr "Відмінно!"
+
+#: level_i18n.cc:3162
+msgid "Don't wake it up!"
+msgstr "Не розбудіть її!"
+
+#: level_i18n.cc:3172
+msgid ""
+"That wasn't fast enough; try F3."
+"                                                                              "
+"(Or search for non-solid stones, if you want.)"
+"                                                                                                        "
+"(But you won't find any.)"
+"                                                                                                                  "
+"(Really!)"
+msgstr "Занадто повільно. Натисніть F3 (або продовжуйте шукати порожнисті камені, якщо хочете) (Тільки Ви нічого не знайдете) (Справді нічого)"
+
+#: level_i18n.cc:3173
+msgid ""
+"You can believe me: All stones you see in this level are solid!"
+"                                                                                      "
+"You can really believe me!"
+"                                                                               "
+"Really!"
+msgstr "Можете мені повірити: всі камені, які ви тут бачите, абсолютно непроникні! Справді! Чесно-чесно!"
+
+#: level_i18n.cc:3184
+msgid "Wood robbing"
+msgstr "Крадіжка деревини"
+
+#: level_i18n.cc:3189
+msgid "The Flagstone Reaper"
+msgstr "Жнець та каміння"
+
+#: level_i18n.cc:3192
+msgid ""
+"No hint today ...    Those flagstones pass away ...    The docu stands alone"
+" ...    Why is it so alone?    --    This hint today ...    Why is it on "
+"this side ...    The reaper passing by ...    Could know the reason why!"
+"     (orig. by Herman's Hermits)   "
+msgstr "На жаль, підказок немає... В той час, як каміння зникає...  Під натиском женця... А сувій на одинці... Чому ж так?.. Можливо, це знак?.. Чи може, натяк?.. То ж чому він на цій стороні?.. Можливо він потрібен... Женцю, що крокує? (ориг. групи Herman's Hermits)"
+
+#: level_i18n.cc:3205
+msgid "Paint Ahead!"
+msgstr "Малюйте!"
+
+#: level_i18n.cc:3247
+msgid "Welcome to Enigma IV"
+msgstr "Ласкаво просимо до Enigma IV"
+
+#: level_i18n.cc:3251
+msgid "It's a race!"
+msgstr "Це перегони!"
+
+#: level_i18n.cc:3275
+msgid ""
+"Your uncle Sir Blackball has been murdered last night in his manor, in one "
+"of his 6 rooms, by one of the weapons which are in the cellar; the suspects "
+"are the shy Mrs Peacock, the secret Colonel Mustard, the absent-minded "
+"Professor Plum, the mysterious Rev. Green, the nurse Mrs Whiteball, who "
+"discovered the corpse, and Miss Scarlett whose beauty might be fatal ... you"
+" must find who killed your uncle, where and how."
+msgstr "Вашого дядю Сера Кулю було вбито минулої ночі у його маєтку, в одній з 6 кімнат, одним з видів зброї, що знаходяться у підвалі; у вбивстві підозрюються: боязка місіс Павлінія Пікок, потайливий полковник Гірчиця, неуважний професор Слива, загадковий преподобний Грін, няня-емігрантка з Росії Білошарова, яка виявила тіло, та фатальна красуня на ім'я Роза Адамс. Ви повинні з'ясувати, хто вбив Вашого дядю, де та як."
+
+#: level_i18n.cc:3277
+msgid "This room is not the crime scene."
+msgstr "Вашого дядю було вбито в іншій кімнаті."
+
+#: level_i18n.cc:3279
+msgid "The murderer is not Mrs Peacock."
+msgstr "Місіс Пікок не вбивала Вашого дядька."
+
+#: level_i18n.cc:3281
+msgid "The murderer is not Colonel Mustard."
+msgstr "Полковник Гірчиця не вбивав Вашого дядька."
+
+#: level_i18n.cc:3283
+msgid "The murderer is not Professor Plum."
+msgstr "Професор Слива не вбивав Вашого дядька."
+
+#: level_i18n.cc:3285
+msgid "The murderer is not Reverend Green."
+msgstr "Преподобний Грін не вбивав Вашого дядька."
+
+#: level_i18n.cc:3287
+msgid "The murderer is not Mrs Whiteball."
+msgstr "Місіс Білошарова не вбивала Вашого дядька."
+
+#: level_i18n.cc:3289
+msgid "The murderer is not Miss Scarlett."
+msgstr "Міс Адамс не вбивала Вашого дядька."
+
+#: level_i18n.cc:3291
+msgid "Sir Blackball has not been killed with the bomb."
+msgstr "Сера Кулю було вбито не бомбою."
+
+#: level_i18n.cc:3293
+msgid "Sir Blackball has not been killed with the dagger."
+msgstr "Сера Кулю було вбито не ножем."
+
+#: level_i18n.cc:3295
+msgid "Sir Blackball has not been killed with poison."
+msgstr "Сера Кулю не отруїли за допомогою отрути."
+
+#: level_i18n.cc:3297
+msgid "Sir Blackball has not been killed with the wrench."
+msgstr "Сера Кулю було вбито не ключем."
+
+#: level_i18n.cc:3299
+msgid "Sir Blackball has not been killed with the candlestick."
+msgstr "Сера Кулю було вбито не свічником."
+
+#: level_i18n.cc:3301
+msgid "Sir Blackball has not been killed with the hammer."
+msgstr "Сера Кулю не було вбито молотком."
+
+#: level_i18n.cc:3314
+msgid "White helps black, black helps white."
+msgstr "Біла допомагає чорній, чорна допомагає білій."
+
+#: level_i18n.cc:3321
+msgid "Don't forget to open the door ..."
+msgstr "Не забудьте відчинити двері..."
+
+#: level_i18n.cc:3322
+msgid "Good Luck!"
+msgstr "ХАЙ ЩАСТИТЬ!"
+
+#: level_i18n.cc:3323
+msgid "Hurry!"
+msgstr "Поспішайте!"
+
+#: level_i18n.cc:3324
+msgid "Congratulations! (or try again)"
+msgstr "Вітаємо! (спробуйте ще раз)"
+
+#: level_i18n.cc:3325
+msgid "Almost finished ..."
+msgstr "Майже у мети..."
+
+#: level_i18n.cc:3330
+msgid "Restart with F3 ..."
+msgstr "Розпочніть наново (F3)..."
+
+#: level_i18n.cc:3334
+msgid ""
+"Welcome to the control room. Use the triggers and switches to plan the "
+"movement of the turtle. The switches are, clockwise: Add, Run and Restart."
+msgstr "Ласкаво просимо в пункт управління. Використовувати тригери і перемикачі, щоб задавати напрям руху черепахи. Перемикачі за годинниковою стрілкою: ДОДАТИ, ПУСК і ПЕРЕЗАПУСК."
+
+#: level_i18n.cc:3359
+msgid "The danger is not visible!!!"
+msgstr "Небезпека невидима!!!"
+
+#: level_i18n.cc:3396
+msgid ""
+"One more and you won't get this hammer until you don't need it anymore!"
+msgstr "Ще один удар, і Ви не отримаєте цей молоток, поки він вам не стане непотрібний!"
+
+#: level_i18n.cc:3402
+msgid "Welcome to Enigma III"
+msgstr "Ласкаво просимо до Enigma III"
+
+#: level_i18n.cc:3407
+msgid "Risk your life ..."
+msgstr "Ризикніть життям..."
+
+#: level_i18n.cc:3468
+msgid ""
+"Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
+"room  ..."
+msgstr "Зсуньте саме стільки каміння, скільки потрібно, щоб зазирнути до сусідньої кімнати..."
+
+#: level_i18n.cc:3487
+msgid ""
+"I don't believe that you are the Marble. I won't let you pass until you "
+"prove me wrong: you have to be faster than my champion!"
+msgstr "Я не вірю, що ти — та сама Кулька. Я не дозволю тобі пройти, доки ти не переконаєш мене в цьому. Ти повинен бути швидше за мого чемпіона!"
+
+#: level_i18n.cc:3488
+msgid "Congratulations! You may pass!"
+msgstr "Вітаю! Ти можеш пройти!"
+
+#: level_i18n.cc:3495
+msgid "Watch your step!"
+msgstr "Дивись не впади!"
+
+#: level_i18n.cc:3508
+msgid "Look ... they're over there!"
+msgstr "Подивіться ... вони там!"
+
+#: level_i18n.cc:3527
+msgid "The left-most room is important!"
+msgstr "Кімната з лівого краю — дуже важлива!"
+
+#: level_i18n.cc:3528
+msgid "This is the control panel."
+msgstr "Це панель керування."
+
+#: level_i18n.cc:3541
+msgid "A castle lies before you ... beware of guardians!"
+msgstr "Фортеця з'явилася перед Вами... стережіться охоронців!"
+
+#: level_i18n.cc:3551
+msgid "The block near the top-left can move."
+msgstr "Блок зверху зліва можна зсунути."
+
+#: level_i18n.cc:3555
+msgid "Flood Control Dam #3 seems rather unstable. Be quick or be dead."
+msgstr "Як на мене, Дамба №3 вкрай ненадійна. Тікайте, якщо Ви цінуєте своє життя."
+
+#: level_i18n.cc:3578
+msgid "when you've been particular places"
+msgstr "коли ви були у певних місцях"
+
+#: level_i18n.cc:3580
+msgid "that you know you've never seen before"
+msgstr "який, як вам відомо, ви ще ніколи не бачили"
+
+#: level_i18n.cc:3582
+msgid "can you be sure?"
+msgstr "впевнені?"
+
+#: level_i18n.cc:3584
+msgid "feel like I've been here before"
+msgstr "здається, я вже тут був"
+
+#: level_i18n.cc:3586
+msgid "quote: Iron Maiden - Deja-Vu"
+msgstr "цитата: Iron Maiden - Deja-Vu"
+
+#: level_i18n.cc:3588
+msgid "for illmind's deja vu try the top left corner ..."
+msgstr "Щоб відчути дежа-вю, йдіть до верхнього лівого кута..."
+
+#: level_i18n.cc:3601
+msgid "This level is much bigger! Press F3!"
+msgstr "Цей рівень значно більше, ніж Ви вважали! Натисніть F3!"
+
+#: level_i18n.cc:3605
+msgid "It's a long way ..."
+msgstr "На Вас чекає довгий шлях..."
+
+#: level_i18n.cc:3639
+msgid "Look closely!"
+msgstr "Придивіться ближче!"
+
+#: level_i18n.cc:3669
+msgid "Welcome to Enigma X"
+msgstr "Ласкаво просимо до Enigma X"
+
+#: level_i18n.cc:3692
+msgid "Interlude III"
+msgstr "Інтерлюдія III"
+
+#: level_i18n.cc:3712
+msgid "Christmas Star"
+msgstr "Різдвяна зірка"
+
+#: level_i18n.cc:3728
+msgid "Enigmas wildcat"
+msgstr "Дика кішка Enigma"
+
+#: level_i18n.cc:3750
+msgid "Steering The Flood"
+msgstr "Керуючи потоком"
+
+#: level_i18n.cc:3782
+msgid "Interlude II"
+msgstr "Інтерлюдія II"
+
+#: level_i18n.cc:3787
+msgid "No clear view? How about visiting an optician?"
+msgstr "Все розпливається? Відвідайте окуліста."
+
+#: level_i18n.cc:3800
+msgid "Meandering Impulses"
+msgstr "Блукаючі імпульси"
+
+#: level_i18n.cc:3816
+msgid "An Ancient Game"
+msgstr ""
+
+#: level_i18n.cc:3839
+msgid "Attention! One way ticket to the island."
+msgstr "Увага! Квиток у один кінець острова!"
+
+#: level_i18n.cc:3849
+msgid "Sokoban 1D"
+msgstr ""
+
+#: level_i18n.cc:3862
+msgid "Color Memory"
+msgstr ""
+
+#: level_i18n.cc:3946
+msgid "Dichotomy II"
+msgstr ""
+
+#: level_i18n.cc:3974
+msgid "Dichotomy I"
+msgstr ""
+
+#: level_i18n.cc:3978
+msgid "Braking Distance"
+msgstr "Гальмівний шлях"
+
+#: level_i18n.cc:3979
+msgid "Make the white marble wait on the cross for 3 seconds."
+msgstr "Затримайте білий кульку біля хреста на 3 секунди."
+
+#: level_i18n.cc:3983
+msgid "Volatile Storage"
+msgstr "Енергозалежна пам'ять"
+
+#: level_i18n.cc:3984
+msgid "Handle with care!"
+msgstr "Поводитися з обережністю!"
+
+#: level_i18n.cc:4111
+msgid "Drop the hammer on side of a pentomino and use the switch!"
+msgstr "Покладіть молоток біля краю пентаміно та застосуйте перемикач!"
+
+#: level_i18n.cc:4112
+msgid "Drop the hammer on side of a pentomino, not beneath it!"
+msgstr "Покладіть молоток біля краю пентаміно, а не під ним!"
+
+#: level_i18n.cc:4135
+msgid ""
+"If the mountain won't come to Muhammad, Muhammad must go to the mountain..."
+msgstr ""
+
+#: level_i18n.cc:4146
+msgid "Use the wooden boxes for bridge building!"
+msgstr ""
+
+#: level_i18n.cc:4148
+msgid "You will need two dynamite sticks in this room."
+msgstr ""
+
+#: level_i18n.cc:4150
+msgid "Red floors will ignite."
+msgstr ""
+
+#: level_i18n.cc:4152
+msgid "Avoid crack spreading!"
+msgstr ""
+
+#: level_i18n.cc:4158
+msgid ""
+"Up there in Orthanc I see Sarumarble the White, the mightiest magician of "
+"this Country. He made the Ring. He masters metamorphosis. He could help me. "
+"If only I could enter the Castle!"
+msgstr ""
+
+#: level_i18n.cc:4166
+msgid "Opening instructions: The clue lies within. On your marks!"
+msgstr ""
+
+#: level_i18n.cc:4170
+msgid "The Hammer"
+msgstr ""
+
+#: level_i18n.cc:4171
+msgid "The Sword"
+msgstr ""
+
+#: level_i18n.cc:4172
+msgid "The Key"
+msgstr ""
+
+#: level_i18n.cc:4173
+msgid "The Wrench"
+msgstr ""
+
+#: level_i18n.cc:4174
+msgid "The Floppy"
+msgstr ""
+
+#: level_i18n.cc:4175
+msgid "The Coin"
+msgstr ""
+
+#: level_i18n.cc:4176
+msgid "The Spade"
+msgstr ""
+
+#: level_i18n.cc:4177
+msgid "The Glasses"
+msgstr ""
+
+#: level_i18n.cc:4182
+msgid "Tiles marked with a cross are safe."
+msgstr ""
+
+#: level_i18n.cc:4193
+msgid "Exact change only."
+msgstr ""
+
+#: level_i18n.cc:4270
+msgid "Tandem Chess"
+msgstr "Шаховий тандем"
+
+#: level_i18n.cc:4272
+msgid "Work together!"
+msgstr "Працюйте разом!"
+
+#: level_i18n.cc:4280
+msgid "Sorry, this switch is currently out of order."
+msgstr "Виказуємо свої вибачення, перемикач не працює."
+
+#: level_i18n.cc:4282
+msgid "As I already told you, this switch is out of order!"
+msgstr "Як я вже казав Вам, перемикач не працює."
+
+#: level_i18n.cc:4284
+msgid "How often are you going to try this?"
+msgstr "Доки Ви будете намагатися?"
+
+#: level_i18n.cc:4286
+msgid "Did anything happen? I'm not sure ..."
+msgstr "Щось трапилось? Не розумію..."
+
+#: level_i18n.cc:4288
+msgid "Congrats, now it works again!"
+msgstr "Ура!!! Запрацював!"
+
+#: level_i18n.cc:4290
+msgid "No hints available at the moment."
+msgstr "Поки що підказок немає."
+
+#: level_i18n.cc:4292
+msgid "There is a passage right beneath this stone!"
+msgstr "Одразу під цим камінням є прохід."
+
+#: level_i18n.cc:4302
+msgid "illmind's be quick or be dead"
+msgstr "be quick or be dead від illmind'а"
+
+#: level_i18n.cc:4307
+msgid "Correspondence Chess"
+msgstr "Шахи за листуванням"
+
+#: level_i18n.cc:4309
+msgid "Send smartly!"
+msgstr "Добре поміркуйте, перед тим як відіслати свій крок!"
+
+#: level_i18n.cc:4329
+msgid "Magic Trinity"
+msgstr "Чарівна Трійця"
+
+#: level_i18n.cc:4334
+msgid "The art of steering a quadriga"
+msgstr "Мистецтво керування квадригою"
+
+#: level_i18n.cc:4337
+msgid "Dropping the spoon redeems from being quartered!"
+msgstr "Ложка допоможе Вам уникнути четвертування!"
+
+#: level_i18n.cc:4342
+msgid "One-Way Woods"
+msgstr "Шляху назад немає"
+
+#: level_i18n.cc:4343
+msgid "Recycling by Swapping"
+msgstr "Що можна створити за допомогою обмінного каміння"
+
+#: level_i18n.cc:4362
+msgid "No Memory"
+msgstr "Нічого не пам'ятаю"
+
+#: level_i18n.cc:4367
+msgid "Polar Bears' Paradise"
+msgstr "Рай для полярних ведмедів"
+
+#: level_i18n.cc:4369
+msgid "Witch Hunt on Ice"
+msgstr "Льодяне полювання на відьом"
+
+#: level_i18n.cc:4407
+msgid "Pass the ball in time"
+msgstr "Пограв — дай пограти іншому"
+
+#: level_i18n.cc:4415
+msgid "The real value of coffee"
+msgstr "Справжня цінність кави"
+
+#: level_i18n.cc:4419
+msgid "Dialers"
+msgstr "Пристрої для набору"
+
+#: level_i18n.cc:4436
+msgid "Toreador"
+msgstr "Тореадор"
+
+#: level_i18n.cc:4440
+msgid "It isn't as easy as it looks."
+msgstr "Завдання не таке просте, як здається на перший погляд."
+
+#: level_i18n.cc:4453
+msgid "Al Capone's training camp."
+msgstr "Тренувальний табір Аль Капоне."
+
+#: level_i18n.cc:4454
+msgid "There are at least two patterns to break through the wall."
+msgstr "Існує щонайменш два способи прорватись крізь стіну."
+
+#: level_i18n.cc:4455
+msgid "It is a well known secret that a few prisoners did escape."
+msgstr "Добре відома усім таємниця: деяким в'язням все ж таки пощастило втекти."
+
+#: level_i18n.cc:4456
+msgid "A window in the wall would be really nice."
+msgstr "Вікно у стіні Вам би не завадило."
+
+#: level_i18n.cc:4466
+msgid "Mark stones burnable"
+msgstr "Відзначте каміння, як запальне"
+
+#: level_i18n.cc:4474
+msgid "Pleasure Garden"
+msgstr "Сад насолод"
+
+#: level_i18n.cc:4475
+msgid ""
+"Quickly ..."
+"                                                                             "
+"or trickily!"
+msgstr "Швидко… або хитро!"
+
+#: level_i18n.cc:4483
+msgid "A really annoying Level"
+msgstr "Дійсно дратівний рівень"
+
+#: level_i18n.cc:4506
+msgid "Procrustes"
+msgstr "Прокрустове ложе"
+
+#: level_i18n.cc:4514
+msgid "Blitz Chess"
+msgstr "Швидкі шахи"
+
+#: level_i18n.cc:4516
+msgid "Move fast!"
+msgstr "Не зволікай!"
+
+#: level_i18n.cc:4530
+msgid "Hanging around in the Jungle"
+msgstr "Стрибаємо по деревах"
+
+#: level_i18n.cc:4538
+msgid "Meditation Disturbance"
+msgstr "Перешкода медитації"
+
+#: level_i18n.cc:4541
+msgid "Hit by a bolting horse"
+msgstr "ҐВАЛТ! КІНЬ ПОМЧАВ!"
+
+#: level_i18n.cc:4547
+msgid "Escape by Chaining Thieves"
+msgstr "Втечіть від крадіїв"
+
+#: level_i18n.cc:4550
+msgid "Remember Atreyu's horse Artax!"
+msgstr "Згадайте Атракса, скакуна Атрея!"
+
+#: level_i18n.cc:4552
+msgid "I am innocent! I've never stolen anything!"
+msgstr "Я невинний! Я ніколи нічого не крав."
+
+#: level_i18n.cc:4554
+msgid "It is said that pirates have taken the treasure."
+msgstr "Кажуть, що скарби викрали корсари."
+
+#: level_i18n.cc:4556
+msgid "Pirates usually hide their treasure!"
+msgstr "Корсари зазвичай ховають свої скарби!"
+
+#: level_i18n.cc:4558
+msgid "A closed door gives a better overview!"
+msgstr "Зачинені двері дають ліпший огляд!"
+
+#: level_i18n.cc:4562
+msgid "Edwards Mountain"
+msgstr "Гора Едварда"
+
+#: level_i18n.cc:4580
+msgid "Welcome to Enigma VI"
+msgstr "Ласкаво просимо до Enigma VI"
+
+#: level_i18n.cc:4587
+msgid ""
+"Welcome to Mexico! Eight hours ago, your plane arrived at the Airport of "
+"\"Coatlicue\", which is a small village surrounded by unexplored jungle "
+"terrain. Now you find yourself in front of an impressive temple, which seems"
+" to be a relic of the ancient Aztec empire. But the temple is in "
+"surprisingly good condition ..."
+msgstr "Ласкаво просимо до Мексики! Вісім годин тому Ваш літак прибув до Коатлику — маленького селища, оточеного джунглями, до яких ще не ступала нога дослідника. Там Ви знайшли вражаючий храм, побудований, судячи з усього, стародавніми ацтеками. Проте храм у несподівано доброму стані ..."
+
+#: level_i18n.cc:4588
+msgid ""
+"Next to the giant doors of the temple you see a chrome sign: \"Restoration "
+"by: G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of "
+"G. G. Goshers. Trespassing prohibited!\". Now you notice the dog kennels "
+"built up along the front side of the temple. \"Goshers made this ancient "
+"relic a fortress\", you think, \"this cannot be legal, for Goshers received "
+"funding from the UK Government. I'll try to call him to account!\""
+msgstr "Поряд із гігантськими дверима храму Ви бачите хромовану табличку: \"Реставрація виконана Дж. Г. Гошерсом, 1998 від Різдва Христова\". Унизу на табличці меншого розміру вибито попередження: \"Власність Дж. Г. Гошерса. Вхід заборонено!\". Ви помічаєте, що впродовж зовнішньої сторони храму стоять собачі будки. \"Гошерс перетворив цю стародавню пам'ятку архітектури на фортецю\", — розмірковуєте Ви. \"Я переконаний, що це незаконно. Адже Гошерс отримував фінансування від уряду Об'єднаного Королівства. Спробую притягти його до відповідальності!\""
+
+#: level_i18n.cc:4589
+msgid "This guard doesn’t notice me."
+msgstr "Схоже, цей вартовий мене не помічає."
+
+#: level_i18n.cc:4590
+msgid ""
+"This lake was obviously made by Goshers. I think the correct way is south."
+msgstr "Це озеро напевно було вирите за наказом Гошерса. Гадаю, я мушу іти на південь."
+
+#: level_i18n.cc:4591
+msgid ""
+"There's an inscription on the old wall, saying in spanish: \"Careful! What "
+"you touch could be the last thing you touch!\""
+msgstr "На старезній стіні Ви бачите напис іспанською мовою,  \"Не торкайтесь ні до чого. Я не несу відповідальність за наслідки!\""
+
+#: level_i18n.cc:4592
+msgid "Chrome sign: \"Control of the beast’s cage.\""
+msgstr "Хромована табличка: \"Керування кліткою.\""
+
+#: level_i18n.cc:4593
+msgid "Oooh, this slope is steep! Try not to touch the skull!"
+msgstr "О-о-о, який стрімкий спуск! Намагайтесь не торкатися черепів!"
+
+#: level_i18n.cc:4594
+msgid ""
+"This building down there looks like a prison. Let's see if I can determine "
+"its purpose ... Ah, there's another chrome sign. Goshers seems to favour "
+"chrome signs. It says: \"Natives’ prison\"."
+msgstr "Ця будівля унизу схожа на в'язницю. Подивимось, чи зможу я зрозуміти, навіщо її збудували... Еге, там є ще одна хромована табличка. Схоже, Гошерс полюбляє хромовані таблички. На ній вибито напис: \"В'язниця для тубільців\"."
+
+#: level_i18n.cc:4595
+msgid ""
+"Getting beyond the prison building was a really good idea. But now you have "
+"to cross this lake. Be thrifty with those boxes!"
+msgstr "Пробратися за будівлю в'язниці було вдалим рішенням. Але тепер Вам потрібно перетнути це озеро. Бережіть ящики!"
+
+#: level_i18n.cc:4596
+msgid ""
+"Now, peering through the grilled prison windows, you see a native woman "
+"imprisoned there. Obviously Goshers locked up all the natives, who disturbed"
+" his \"work\"; trying to enter the temple and to get rich from the treasures"
+" of the Aztecs. It might be helpful to be accompanied by someone, who knows "
+"the secrets of the jungle and this temple ..."
+msgstr "Придивляючись крізь ґрати в'язниці, Ви бачите жінку-тубілку. Напевно, місцеві мешканці заважали Гошерсу грабувати стародавній храм і він замкнув їх усіх. Було б непогано знайти супровідного, який знає таємниці цього храму та навколишніх джунглів..."
+
+#: level_i18n.cc:4597
+msgid ""
+"Since the white man there freed me from the prison, he certainly cannot be "
+"as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers "
+"and free my people. And even if this is not the case, it's better to be free"
+" than imprisoned. I think I should thank him."
+msgstr "Якщо біла людина визволила мене із в'язниці, вона не може бути такою ж лихою, як Гошерс. Можливо, він бажає покласти край пануванню Гошерса та визволити мій народ. Навіть якщо це не так, ліпше бути на волі, аніж у в'язниці. Гадаю, я мушу віддячити йому."
+
+#: level_i18n.cc:4598
+msgid ""
+"You meet the English adventurer in the front of the prison. \"Hello, I'm "
+"Xila!\", you tell him in broken English. After he introduced himself as "
+"well, both of you begin to work out a plan against the evil G. G. Goshers."
+msgstr "Біля входу до храму Ви зустрічаєте англійського мандрівника. \"Привіт, Я - Ксіла!\", — кажете Ви йому ламаною англійською мовою. Після вашого знайомства, Ви починаєте розробляти план дій проти Дж. Г. Гошерса."
+
+#: level_i18n.cc:4599
+msgid ""
+"This is a really hard puzzle. The English man will have to help me, if this "
+"enigma is to be solved."
+msgstr "Це дійсно складне завдання. Щоб його подолати, мені знадобиться допомога англійця."
+
+#: level_i18n.cc:4600
+msgid "You wonder what this switch could trigger."
+msgstr "Ви намагаєтесь здогадатись, для чого призначений цей тригер."
+
+#: level_i18n.cc:4601
+msgid "Xila knows how to drain the lake!"
+msgstr "Ксіла знає, як висушити озеро!"
+
+#: level_i18n.cc:4602
+msgid "You were lucky to find this hole. It prevents you from drowning."
+msgstr "Вам поталанило, що Ви знайшли цей отвір. Він не дасть Вам потонути."
+
+#: level_i18n.cc:4603
+msgid "This glass stone must fulfill a purpose ..."
+msgstr "Це скляне каміння ще зіслужить нам службу..."
+
+#: level_i18n.cc:4604
+msgid "It's funny that such a temple should have a side entrance."
+msgstr "Дивно, що у такого храму є боковий вхід."
+
+#: level_i18n.cc:4605
+msgid "Be careful! There are sensors in the walls."
+msgstr "Будьте наготові! На стінах є сенсори."
+
+#: level_i18n.cc:4606
+msgid ""
+"After the huge doors of the old temple have opened, you see, that the "
+"entrance is protected by 11 knights, armed with spears. These guards are "
+"very dangerous. Without a sword you'll never be able to enter. Be careful. "
+"There are not only knights, but also thieves."
+msgstr "Після того, як величезні двері старого храму відчинились, Ви бачите, що вхід охороняють 11 лицарів, озброєні списами. Ця охорона дуже небезпечна. Без меча Вам ніколи сюди не увійти. Будьте обережні. Тут є ще й злодії."
+
+#: level_i18n.cc:4607
+msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
+msgstr "\"Вітаємо, Вам вдалося увійти до цього стародавнього храму Ацтеків.\""
+
+#: level_i18n.cc:4608
+msgid ""
+"\"You've been smarter than I expected. But you'll never enter the treasure "
+"room nor escape from here!\""
+msgstr "\"Ви розумніші, ніж я гадав. Проте Вам ніколи не знайти скарбів та не втекти звідси!\""
+
+#: level_i18n.cc:4609
+msgid ""
+"\"I, Goshers, will certainly be able to rid myself of one of my archenemies "
+"by just killing you!\""
+msgstr "\"Я, Гошерс, без сумніву позбавлюсь одного із своїх найстрашніших ворогів, убивши Вас!\""
+
+#: level_i18n.cc:4610
+msgid "\"Run for your life!\""
+msgstr "\"Рятуйтесь!\""
+
+#: level_i18n.cc:4611
+msgid ""
+"Xila and you just entered the Diamond Room of the old Aztec Temple. By "
+"taking him back to Great Britain and rendering him to the police, you have "
+"ended the evil career of Gerald Gregory Goshers. Congratulations on the "
+"success of your expedition!"
+msgstr "Ксіла та Ви увійшли до Діамантовою Кімнати стародавнього храму. Відрядивши Джеральда Грегорі Гошерса до Об'єднаного Королівства та віддавши його до рук поліції, Ви поклали край його лиходійствам. Вітаємо із вдалим завершенням експедиції!"
+
+#: level_i18n.cc:4616
+msgid "Hot Hurdle Race"
+msgstr "Біг з перешкодами"
+
+#: level_i18n.cc:4618
+msgid "Run for your life!"
+msgstr "Тікайте, якщо цінуєте своє життя"
+
+#: level_i18n.cc:4631
+msgid "Useful unsuccessful drillings"
+msgstr "Невдало, проте корисно"
+
+#: level_i18n.cc:4642
+msgid "In the line of thieves"
+msgstr "Крадії, скрізь крадії"
+
+#: level_i18n.cc:4668
+msgid "Rotor Guards"
+msgstr "Ротори-вартові"
+
+#: level_i18n.cc:4670
+msgid "Hoisting guards with their own petard"
+msgstr "Переможіть вартових їх же петардою"
+
+#: level_i18n.cc:4675
+msgid "Charging live ammunition"
+msgstr "Стріляємо живими набоями"
+
+#: level_i18n.cc:4680
+msgid "Are chess knights resistent to laser beams?"
+msgstr "Чи вразливі шахові коні до проміння лазеру?"
+
+#: level_i18n.cc:4684
+msgid "illmind's jumping ball flash ..."
+msgstr "jumping ball flash від illmind'а"
+
+#: level_i18n.cc:4685
+msgid "... of heaven comes the beast from the ..."
+msgstr "...небес йде звір з..."
+
+#: level_i18n.cc:4686
+msgid "... t r a p p e d ..."
+msgstr "...п о п а в с я..."
+
+#: level_i18n.cc:4701
+msgid "Welcome to Enigma II"
+msgstr "Ласкаво просимо до Enigma II"
+
+#: level_i18n.cc:4717
+msgid "Five form twelve!"
+msgstr "З п'яти — дванадцять!"
+
+#: level_i18n.cc:4721
+msgid "Do not use too much magic!"
+msgstr "Не треба зайвих рухів чарівною паличкою!"
+
+#: level_i18n.cc:4746
+msgid "Some stones are movable."
+msgstr "Деяке каміння можна зрушити."
+
+#: level_i18n.cc:4747
+msgid "You lost!"
+msgstr "Ви програли!"
+
+#: level_i18n.cc:4762
+msgid "Road to Eden"
+msgstr "Шлях до Едему"
+
+#: level_i18n.cc:4777
+msgid "The other document lies and the left wormhole is the right one."
+msgstr "Правий документ бреше: Вам потрібно до правого телепорту."
+
+#: level_i18n.cc:4780
+msgid ""
+"The other document tells the truth and the other wormhole has been left on "
+"the right side."
+msgstr "Лівий документ бреше: Вам потрібно до лівого телепорту."
+
+#: level_i18n.cc:4796
+msgid "Give it another try ..."
+msgstr "Спробуйте ще раз..."
+
+#: level_i18n.cc:4800
+msgid "Press F3 or finish."
+msgstr "Натисніть F3 або закінчить гру."
+
+#: level_i18n.cc:4807
+msgid "You'd need a portable box!"
+msgstr "Тут би не завадив рухомий ящик!"
+
+#: level_i18n.cc:4808
+msgid ""
+"Congratulations! You found a seed! Try to use it behind the grate (and move "
+"away quickly)"
+msgstr "Вітаємо! Ви знайшли насінину! Покладіть її під грати (та тікайте)"
+
+#: level_i18n.cc:4809
+msgid ""
+"Remember that you can't fill a closed bridge with a box ..."
+"                                           but maybe you can use the 3rd "
+"seed differently!"
+msgstr "Пам'ятайте, що Ви не в змозі заповнити ящиком нахилений міст...                але, можливо, третє насіння можна використати інакше?"
+
+#: level_i18n.cc:4810
+msgid "There are different kinds of seeds ... Try to use them!"
+msgstr "Є декілька типів насіння... Поекспериментуйте з ними!"
+
+#: level_i18n.cc:4812
+msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
+msgstr "Комярпан йишні етйуборпс! Идохив авд? Олакрезд, олакрезд ..."
+
+#: level_i18n.cc:4832
+msgid ""
+"A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   "
+"Between Might Lay   --   A Secret Way!   --   (If this you see, press "
+"Shift-F3.)"
+msgstr "Каміння, дерево — їх три! Слідкуйте пильно! Десь поряд Ви знайдете від ворогів порятунок. Щоб довго Вас не катувати: Shift-F3 — ось Ваша доля."
+
+#: level_i18n.cc:4857
+msgid "is  black  always  beautiful?"
+msgstr "Хіба чорне завжди красиве?"
+
+#: level_i18n.cc:4867
+msgid "Dead end!"
+msgstr "Безвихідь!"
+
+#: level_i18n.cc:4868
+msgid "There are two HIDDEN items!"
+msgstr "Десь поряд СХОВАНО два інструменти!"
+
+#: level_i18n.cc:4869
+msgid "Third stone from the rock is the hole!"
+msgstr "Третій блок, рахуючи від сірого каміння — порожній!"
+
+#: level_i18n.cc:4879
+msgid "Beware! Black holes!"
+msgstr "Обережно! Чорні діри!"
+
+#: level_i18n.cc:4883
+msgid "Make a Sword, & Umbrella."
+msgstr "Змайструйте меч та парасольку."
+
+#: level_i18n.cc:4898
+msgid "Doomed ... Shift-F3!!!"
+msgstr "Прокляття ... Shift-F3!!!"
+
+#: level_i18n.cc:4923
+msgid "Take some money and build yourself the tools you need."
+msgstr "Зберіть гроші та власноруч створіть усі необхідні інструменти."
+
+#: level_i18n.cc:4971
+msgid ""
+"Our full attention this is worth:           Air and Fire, Water, Earth."
+msgstr "Повітря, Вогонь, Вода та Земля — згадали ми їх не даремно."
+
+#: level_i18n.cc:4974
+msgid ""
+"And if your answer can’t be found           then shame on you, eyes to the "
+"ground!"
+msgstr "Якщо ж не можете відповісти — Ганьба! Очі до підлоги нахиліть!"
+
+#: level_i18n.cc:4981
+msgid "Dedicated to my friend Frank."
+msgstr "Присвячується моєму другу Френку."
+
+#: level_i18n.cc:4982
+msgid "This level is quite straightforward, isn't it? Just continue ... ;-)"
+msgstr "Цей рівень простий та зрозумілий, згідні зі мною? Продовжуйте ... ;-)"
+
+#: level_i18n.cc:4998
+msgid "...  now  go  back  and  get  the  hammer!"
+msgstr "... тепер поверніться та візьміть молоток!"
+
+#: level_i18n.cc:5015
+msgid ""
+"Each color appears once. Each correct color produces whites in the wrong "
+"place, blacks in the right one."
+msgstr "Кожен колір може використовуватися тільки один раз; кожен вірно вгаданий колір дає біле каміння, якщо його розміщення вгадане не вірно, та чорне, якщо воно вгадане вірно."
+
+#: level_i18n.cc:5017
+msgid "This switch is to validate your guess."
+msgstr "Перевірка припущення."
+
+#: level_i18n.cc:5021
+msgid ""
+"One of the puzzle stones needs to be placed onto the trigger field."
+"                       Guess which ... :)"
+msgstr "Одне з камінь-мозаїк необхідно розташувати на полі тригерів.                            Вгадайте, яке... :)"
+
+#: level_i18n.cc:5022
+msgid "The level preview might help ..."
+msgstr "Вам може допомогти ескіз рівня..."
+
+#: level_i18n.cc:5044
+msgid "So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!"
+msgstr "А де ж лицарі? - Ти пошкодуєш, що запитав!"
+
+#: level_i18n.cc:5048
+msgid "Just a hint: Try the easy-mode first ..."
+msgstr "Моя Вам порада: спочатку розв'яжіть легший варіант..."
+
+#: level_i18n.cc:5049
+msgid "Don't think too long ... it's easy!"
+msgstr "Рівень зовсім не складний... Не перемудруйте!"
+
+#: level_i18n.cc:5059
+msgid "Place 9 different items in each row, column, and 3x3 box."
+msgstr "Розташуйте у кожнім рядку, стовпчику та полі 3x3 дев'ять різних предметів."
+
+#: level_i18n.cc:5060
+msgid ""
+"Place 9 different items in each row, column, and 3x3 box. Hit the switch to "
+"see if any of your items are misplaced, or which locations you can deduce "
+"items for next; you can only get 1 hint per minute this way, though."
+msgstr "Розташуйте у кожнім рядку, стовпчику та полі 3x3 дев'ять різних предметів. Щоб позначити предмети, що лежать не на своїх місцях, та щоб обрати місця для наступних предметів, застосуйте перемикач. Пам'ятайте, що за 1 хвилину Ви можете отримати лише одну таку підказку."
+
+#: level_i18n.cc:5076
+msgid "and do not destroy the puzzles"
+msgstr "і не руйнуйте головоломок"
+
+#: level_i18n.cc:5086
+msgid "Origami"
+msgstr "Орігамі"
+
+#: level_i18n.cc:5106
+msgid "Trickshot?"
+msgstr "Обманний удар?"
+
+#: level_i18n.cc:5110
+msgid "Seasonal Timings"
+msgstr "Сезонні товари"
+
+#: level_i18n.cc:5111
+msgid "5, 8, or 10 seconds?"
+msgstr "5, 8 чи 10 секунд?"
+
+#: level_i18n.cc:5132
+msgid "Welcome to Enigma IX"
+msgstr "Ласкаво просимо до Enigma IX"
+
+#: level_i18n.cc:5154
+msgid "Marching Formation"
+msgstr "Передбойовий порядок"
+
+#: level_i18n.cc:5155
+msgid "No sharing!"
+msgstr "Не поширювати!"
+
+#: level_i18n.cc:5166
+msgid ""
+"There are 56 fully connected puzzle piece arrangements, but just 34 of them "
+"are reachable from this first distribution."
+msgstr "Існує 56 варіантів розв’язання загадки, але при заданому розподілі у Вас є лише 34."
+
+#: level_i18n.cc:5168
+msgid ""
+"This second distribution can just be converted to any of the other 28 "
+"arrangements."
+msgstr "А з цього розподілу можна скласти 28 інших варіантів."
+
+#: level_i18n.cc:5190
+msgid "Build me a Sokoban"
+msgstr "Побудуй для мене Сокобан"
+
+#: level_i18n.cc:5191
+msgid ""
+"Build me a solvable Sokoban puzzle that will take me 30 pushes or more to "
+"solve. The seeds grow into boxes; the dice grow into walls."
+msgstr "Побудуй для мене загадку Сокобан, на розв'язання якої мені знадобиться щонайменше 30 поштовхів. Насіння зростає до ящиків, а з гральних костей зростають стіни."
+
+#: level_i18n.cc:5192
+msgid ""
+"Build me a solvable Sokoban puzzle that will take me 25 pushes or more to "
+"solve. The seeds grow into boxes; the dice grow into walls."
+msgstr "Побудуйте для мене загадку Сокобан, на розв'язання якої мені знадобиться щонайменше 25 поштовхів. Насіння зростає до ящиків, а з гральних костей зростають стіни."
+
+#: level_i18n.cc:5193
+msgid ""
+"I can't solve that puzzle; there aren't enough boxes! Use the spoon, and "
+"next time make sure the boxes finish growing before hitting the switch."
+msgstr "Я не можу розв'язати цю загадку, мені не вистачає ящиків! Скористуйтесь ложкою та наступного разу перед використанням перемикача переконайтесь, що ящики припинили зростати."
+
+#: level_i18n.cc:5194
+msgid ""
+"I don't think that puzzle can be solved. If you think you can prove me "
+"wrong, go get the oxyd!"
+msgstr "Я вважаю, що цю загадку неможливо розв'язати. Якщо Ви не згодні доведіть мені, що це не так, спробуйте дістатись оксидів!"
+
+#: level_i18n.cc:5195
+msgid ""
+"That puzzle was too easy! Use the spoon, and give me a harder one next time!"
+msgstr "Це було надто просто! Скористайтесь ложкою та наступного разу запропонуйте мені щось складніше."
+
+#: level_i18n.cc:5196
+msgid "Thanks for that excellent puzzle, I really enjoyed solving it!"
+msgstr "Дякую за таку чудову загадку, мені дійсно сподобалось її розв'язувати!"
+
+#: level_i18n.cc:5204
+msgid "Beware of shady mates!"
+msgstr "Стережіться ненадійних знайомих!"
+
+#: level_i18n.cc:5215
+msgid ""
+"I your dear friend am in myself undone, by reason of a Burden that lieth "
+"hard upon me."
+msgstr "Я, любий друже твій, занапастив себе Тягарем, що значно ускладнює моє життя."
+
+#: level_i18n.cc:5217
+msgid "Do you see yonder Wicket Gate?"
+msgstr "Чи бачите ви он ту Вузеньку Браму?"
+
+#: level_i18n.cc:5219
+msgid ""
+"They drew nigh to a very miry Slough. The name of the Slough was Despond."
+msgstr "Вони майже наблизилися до вкрай багнистого Болота. Звалося те Болото Сумом."
+
+#: level_i18n.cc:5221
+msgid "Knock, and it shall be opened unto you."
+msgstr "Стукайте, та відчинять вам."
+
+#: level_i18n.cc:5223
+msgid ""
+"His Burden loosed from off his shoulders, and fell from his back, and began "
+"to tumble, and so continued to do, till it came to the mouth of the "
+"Sepulchre, where it fell in, and I saw it no more."
+msgstr "Його Тягар звалився з плечей та впав за спину та почав перекидатись аж доки не потрапив до гирла Труни і полетів в безодню де я і втратив слід його."
+
+#: level_i18n.cc:5225
+msgid "They came to the foot of the hill Difficulty."
+msgstr "Вони підійшли до підніжжя гори Скрута."
+
+#: level_i18n.cc:5227
+msgid ""
+"There was a very stately palace before him, the name of which was Beautiful."
+msgstr "Та був там дуже величний палац, ім'я якому було Врода."
+
+#: level_i18n.cc:5229
+msgid ""
+"He had gone but a little way, before he espied a foul Fiend coming over the "
+"field to meet him."
+msgstr "Не здужав він шляху і малої частини та вже побачив нечистого Біса, що полем прямував до нього."
+
+#: level_i18n.cc:5231
+msgid ""
+"At the end of this Valley was another, called, The Valley of the Shadow Of "
+"Death."
+msgstr "Наприкінці цього Долу очікував інший, що назву мав: Дол Загибелі, що Всюди Ходить По П'ятам."
+
+#: level_i18n.cc:5233
+msgid "He saw Faithful before him on his Journey."
+msgstr "Та Вірного побачив він перед собою на своїй дорозі."
+
+#: level_i18n.cc:5235
+msgid ""
+"As they went on, Faithful, as he chanced to look to one side, saw a man "
+"whose name was Talkative."
+msgstr "Під час подорожі Вірний, поглянувши у інший бік, побачив людину, що звалася Балакучим."
+
+#: level_i18n.cc:5237
+msgid ""
+"They presently saw a Town before them, and the name of that Town is Vanity."
+msgstr "Незабаром побачили вони Місто проти себе, назвою його було Місто Марнославства."
+
+#: level_i18n.cc:5239
+msgid ""
+"Christian went not forth alone; for there was one whose name was Hopeful who"
+" joined himself unto him."
+msgstr "Християнин йшов уперед не сам, з ним поруч був той, Хто Сподівається."
+
+#: level_i18n.cc:5241
+msgid ""
+"There was on the Left Hand of the road a Meadow, and a Stile to go over into"
+" it, and that meadow is called By-Path-Meadow."
+msgstr "Ліворуч від шляху був Луг та Стежка, що вела до нього, а луг цей назву мав Луг що По Дорозі."
+
+#: level_i18n.cc:5243
+msgid ""
+"Now there was, not far from the place where they lay, a castle, called "
+"Doubting-Castle, the owner of which was Giant Despair."
+msgstr "Не далеко від місця, де вони спинились, була фортеця, що звалась Фортеця Вагання і власником її був Велетенський Розпач."
+
+#: level_i18n.cc:5245
+msgid "They went then till they came to the Delectable Mountains."
+msgstr "І йшли вони аж доки не дійшли до Чудових Гір."
+
+#: level_i18n.cc:5247
+msgid "Beware of the Flatterer."
+msgstr "Остерігайтеся Підлесника."
+
+#: level_i18n.cc:5249
+msgid ""
+"Follow me, said the Flatterer, it is to the Coelestial City that I am going."
+msgstr "\"Рушайте за мною,\" - промовив Підлесник. \"Разом підемо до Міста Небесного.\""
+
+#: level_i18n.cc:5251
+msgid ""
+"They came into a certain Country, whose air naturally tended to make one "
+"drowzy."
+msgstr "Вони увійшли до певної Країни, у якій повітря зазвичай сприяло марам."
+
+#: level_i18n.cc:5253
+msgid ""
+"The Pilgrims were got over the Enchanted ground, and entering into the "
+"Country of Beulah."
+msgstr "Мандрівники лишили за спинами своїми Зачакловану Землю та увійшли до Країни Сполучення."
+
+#: level_i18n.cc:5255
+msgid ""
+"There was then in that place one Vain-Hope, a ferryman, that with his boat "
+"helped him over."
+msgstr "Там був один поромник на ім'я Той, що намарне сподівається, котрий допоміг їм перепливти в своїм човні до протилежного берега."
+
+#: level_i18n.cc:5257
+msgid ""
+"At the sight therefore of this River, the Pilgrims were much astounded, but "
+"the men that went with them, said, You must go through, or you cannot come "
+"at the Gate."
+msgstr "Вигляд Ріки збентежив Мандрівників, але супутники їх, сказали, що це єдиний шлях до Брами і вони повинні йти."
+
+#: level_i18n.cc:5259
+msgid "I looked in after them; and behold the City shone like the Sun."
+msgstr "Я подивився у напрямку, що вони вказали, та вбачив Місто, що палало наче Сонце."
+
+#: level_i18n.cc:5261
+msgid ""
+"They also thought they heard there a rumbling noise, as of fire, and a Cry "
+"of some tormented, and that they smelt the scent of Brimstone."
+msgstr "Й здалося їм, що чують вони шум, який доноситься звідтіль і схожий він на тріскотіння вогнища, та Галас Змучених і сморід Сірки відчувався поруч."
+
+#: level_i18n.cc:5268
+msgid "Search it."
+msgstr "Шукайте."
+
+#: level_i18n.cc:5288
+msgid "Poe's Nightmare"
+msgstr "Страшний сон По"
+
+#: level_i18n.cc:5290
+msgid ""
+"You find yourself in a dark, damp chamber. There's a light switch to the "
+"northeast and a passage to the west."
+msgstr "Ви опинилися в темній сирій кімнаті. На північний схід від вас знаходиться вимикач, а на захід - вихід."
+
+#: level_i18n.cc:5292
+msgid ""
+"The corridor leads northwards and opens into a dim lit room packed with "
+"crates. You have an uneasy feeling about what lies ahead of you."
+msgstr "Коридор веде на північ до тьмяно освітленої кімнати, заповнену ящиками. Вас охоплює погане передчуття."
+
+#: level_i18n.cc:5294
+msgid ""
+"Huh, that was close. The way behind you is blocked. Maybe you should look "
+"for a place to leave a flag?!"
+msgstr "Ух, майже... Прохід за Вашою спиною заблоковано. Можливо, Вам варто знайти місце, щоб розташувати прапор?!"
+
+#: level_i18n.cc:5296
+msgid ""
+"To the east the passage is blocked by laser beams. To the west a tunnel "
+"leads to a large pendulum. At the wall you see a hole where your flag fits "
+"in. What now?"
+msgstr "На сході прохід заблоковано лазерними променями. На заході є тунель, який веде до великого дзигаря. У стіні Ви бачите дірку, наче створену для прапору. Що далі?"
+
+#: level_i18n.cc:5298
+msgid ""
+"Shrinking rooms, a pendulum with razor sharp blades, laser beams ... what "
+"may lurk behind the next corner?"
+msgstr "Кімнати, що звужуються, дзигар, гострий немов лезо бритви, лазерні промені ... Що може статися за рогом?"
+
+#: level_i18n.cc:5300
+msgid ""
+"The room to the east does not look very stable, but does the passage to the "
+"south lead anywhere?"
+msgstr "Кімната на сході здається не дуже надійною, проте можливо прохід до півдня куди-небудь приведе?"
+
+#: level_i18n.cc:5302
+msgid "Hmmm, these keys might prove useful."
+msgstr "Гмм, ці ключі можуть знадобитись."
+
+#: level_i18n.cc:5304
+msgid ""
+"Passing by the entrance you get a glimpse of the room to the south ... and "
+"suddenly feel very uneasy."
+msgstr "Проходячи повз входу, Ви помічаєте, що знаходиться у кімнаті на півдні ... і Вас охоплює погане передчуття."
+
+#: level_i18n.cc:5306
+msgid "Uh-oh, the steps leading down are small and extremely slippery."
+msgstr "Ой-ой, сходи, що ведуть донизу малі та надзвичайно небезпечні."
+
+#: level_i18n.cc:5308
+msgid ""
+"The passage opens into a room with a huge iron door to the east. The air "
+"seems to smell much fresher here."
+msgstr "Прохід переходить до кімнати з масивними залізними дверми на сході. Здається повітря тут значно свіжіше."
+
+#: level_i18n.cc:5310
+msgid "Congratulations! You've survived Poe's Nightmare."
+msgstr "Вітаємо! Ви вижили у страшному сні Едгара По."
+
+#: level_i18n.cc:5320
+msgid "Use ~all~ Stones"
+msgstr "Скористайтесь ~усім~ Камінням."
+
+#: level_i18n.cc:5339
+msgid ""
+"This is Babylon. Be careful, stranger! It's dangerous to go inside.     "
+"There are some gates, unfortunately closed, like the famous Gate of Ishtar, "
+"and have a look to the lions, the tigers. Semiramis is waiting for you, "
+"stranger, ha ha."
+msgstr "Це Вавилон! Будь обережний, подорожній! Заходити сюди небезпечно. Тут є ворота, на жаль, закриті, наприклад, знамениті Ворота Іштар. Зверни увагу на левів, тигрів. Семіраміда чекає тебе, подорожній, ха-ха-ха."
+
+#: level_i18n.cc:5340
+msgid "Try to find the mechanism to open the gate, stranger"
+msgstr "Спробуй знайти механізм, що відчиняє ворота, чужинцю."
+
+#: level_i18n.cc:5341
+msgid "Be afraid about the ~water~ , it is so deep, *hihi*, isn't it, Yeah???"
+msgstr "Стережись ~води~, вона така глибока, *хі-хі*, чи не так?"
+
+#: level_i18n.cc:5346
+msgid "With respects to Dante Alighieri"
+msgstr "Присвячується Данте Аліг'єрі"
+
+#: level_i18n.cc:5348
+msgid ""
+"Switch on, if you like to play the regular difficulty with many jokers, or "
+"leave it switched off, if you like to face easier challenges with less "
+"jokers."
+msgstr "Увімкніть, якщо бажаєте грати на звичайній складності з великою кількістю непередбачених складностей або залиште його вимкненим, якщо бажаєте мати справу з меншою їх кількістю."
+
+#: level_i18n.cc:5351
+msgid ""
+"BEFORE ME NOTHING WAS BUT THINGS ETERNAL, / AND I ENDURE ETERNALLY. / "
+"ABANDON ALL HOPE, YOU WHO ENTER HERE."
+msgstr "РЕЧЕЙ БУЛО ДО МЕНЕ БЕЗЛІЧ, / ТА ВІЧНІСТЬ МУШУ Я СТРАЖДАТИ. / ОБЛИШ НАДІЮ КОЖЕН, ХТО СЮДИ ЗАХОДИТЬ"
+
+#: level_i18n.cc:5354
+msgid ""
+"... stilled the shaggy jowls / of the pilot of the livid marsh, / about "
+"whose eyes burned wheels of flame."
+msgstr "… І перестав тоді мене тривожить / Кудлай-човняр з мертвотного багна, / Що міг з очей зірниці сяйні множить."
+
+#: level_i18n.cc:5356
+msgid ""
+"I am Charon, ferryman of the underworld.  I will transport you through the "
+"perilous swamps of Acheron, but the price is not cheap.              Wait!  "
+"You still seem alive ...                                                   "
+"It cannot be -- only the dead may enter this place.  Quickly -- sacrifice a "
+"symbol of life on that altar to keep the guards at bay, and then perhaps I "
+"will consider taking you across."
+msgstr "Я Харон, поромник підземного світу. Я перевезу тебе через повні небезпек болота Ахерона, але ціна моїх послуг дуже висока. Стій! Та ти, здається, ще живий... Цього не може бути... Тільки мертві можуть проникнути сюди. Швидко! Принеси символ життя на той вівтар, щоб сторожі не напали на тебе, і тоді, можливо, я перевезу тебе на інший берег."
+
+#: level_i18n.cc:5358
+msgid ""
+"Very well.  The demons and spirits that guard this place may now believe "
+"that you are truly dead, but I would still be cautious if I were you ..."
+"                                             But you still need a coin.  "
+"Hmm, well normally I wouldn't do this, but that fellow over there has me "
+"kind of worried -- I think he's plotting something.  If he has a coin, maybe"
+" you could get it from him somehow."
+msgstr "Чудово! Демони та духи, що охороняють це місце, тепер, можливо, приймуть тебе за мерця, але на твоєму місці я був би обережний... Але тобі все ще потрібна монета. Хм, в інших обставинах я б цього не зробив, але ось той чоловік здається мені підозрілим. Здається, він щось замишляє. Якщо у нього є монета, то, можливо, тобі вдасться її у нього відібрати."
+
+#: level_i18n.cc:5360
+msgid ""
+"No!  I will not ferry you across unless you make a proper sacrifice, ridding"
+" yourself of anything that could be interpreted as a sign of life.  Now "
+"begone!"
+msgstr "Ні! Я не перевезу тебе до протилежного берега доки ти не принесеш відповідну жертву, лишившись усього, що може скинутись на ознаки життя. А зараз йди!"
+
+#: level_i18n.cc:5363
+msgid ""
+"... for then I knew that beings of great worth / were here suspended in this"
+" Limbo."
+msgstr "...і зрозумів я, що в цьому лімбі перебували / душі у вищій мірі гідні."
+
+#: level_i18n.cc:5365
+msgid ""
+"You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go "
+"back now, or forever face the consequences!"
+msgstr "Тобі тут не місце! Я, Мінос, суддя мертвих, не допущу цього. Забирайся геть, або навіки пошкодуєш про свою нерозсудливість!"
+
+#: level_i18n.cc:5367
+msgid "In that case, then begone!"
+msgstr "У цьому разі забирайся геть!"
+
+#: level_i18n.cc:5370
+msgid ""
+"There stands Minos, snarling, terrible. / He examines each offender at the "
+"entrance, / judges and dispatches as he encoils himself."
+msgstr "Я бачу Міноса, що гарчить. / Він судить кожного, хто прямує до входу, / та повідомляє долю їх."
+
+#: level_i18n.cc:5373
+msgid ""
+"The hellish squall, which never rests, / sweeps spirits in its headlong rush"
+" ..."
+msgstr "І крутить вихор душі в шаленім хороводі, / і їм нема спокою..."
+
+#: level_i18n.cc:5376
+msgid ""
+"I am in the third circle, of eternal, / hateful rain, cold and leaden, / "
+"changeless in its monotony."
+msgstr "У третім колі я, / ненависно дощить та краплі в нім немов свинець, / здається дощ не спиниться ніколи."
+
+#: level_i18n.cc:5379
+msgid ""
+"... they, with great shouts, from opposite sides / were shoving burdens "
+"forward with their chests. / They crashed into each other, turned / and beat"
+" retreat, shoving their loads and shouting ..."
+msgstr "… Примушених з усіх боків штовхать / Грудьми й всім тілом кляту перепону. / Тут люто пхала одна одну рать / І вантажі носила з ревним криком…"
+
+#: level_i18n.cc:5382
+msgid ""
+"This dreary stream, once it has reached /  these malignant, ashen slopes, / "
+"drains out into the swamp called Styx. / And I, my gaze transfixed, could "
+"see / people with angry faces in that bog, / naked, their bodies smeared "
+"with mud."
+msgstr "Цей суму струм, діставшись похмурих попільних схилів, / потрапив до болота, що має назву Стікс. / Переді мною там стояли грішники нагі. / Обличчя їх спотворила страшенна лють, а тіло було вкрито шаром бруду."
+
+#: level_i18n.cc:5385
+msgid ""
+"... we approach the city known as Dis, / with its vast army and its burdened"
+" citizens."
+msgstr "… Це місто, де страждає люд без меж; / Воно, прокляте, має назву Діте!"
+
+#: level_i18n.cc:5388
+msgid ""
+"At the threshold I saw more than a thousand angels / fallen from Heaven ... "
+"they reined in their great disdain / enough to say: 'You come -- alone.  Let"
+" him be gone, / who has so boldly made his way into this kingdom. / Let him "
+"retrace his reckless path alone' ..."
+msgstr "Було при брамі кількасот химер, / Колись рясним дощем упалих з неба… вони / Сказали: «Йди, цього ж лиши в пащеках / Страхів, як він не боягуз дурний, / То хай вертається стежок далеких / Собі шукати, ти ж лишайся тут…»"
+
+#: level_i18n.cc:5391
+msgid ""
+"Now my master takes a hidden / path between the city's ramparts and the "
+"torments, / and I come close behind him ..."
+msgstr "І от іде стежиною вузькою / Між мурами товстими й полем мук / Учитель мій, і я за ним ступою…"
+
+#: level_i18n.cc:5394
+msgid ""
+"... his hands, ready, encouraging, / thrust me towards him among the tombs."
+msgstr "Вожай до нього між могильні груди / Штовхнув мене, уміло ведучи."
+
+#: level_i18n.cc:5397
+msgid ""
+"Like the bull that breaks its tether / just as it receives the mortal blow /"
+" and cannot run, but lunges here and there, // so raged the Minotaur.  My "
+"artful guide / called out: 'Run to the passage: / hurry down while he is in "
+"his fury.'"
+msgstr "Немов бики, що прив’язь рвуть / коли удар отримують смертельний / та бігти вже не можуть, але кидаються й туди, й сюди, // як кидався сам Мінотавр. Мій хитрий провідник тут крикнув: \"Біжи до ходу: / та поквапся доки він у люті тебе не помічає.\""
+
+#: level_i18n.cc:5400
+msgid ""
+"... we went on, / skirting the edge of the vermilion boil / from which the "
+"boiled cried out with piercing shrieks."
+msgstr "Повів він берегом одної з рік, / Де вир кипів клекочучої крові / І звідки чувся відчайдушний крик."
+
+#: level_i18n.cc:5403
+msgid ""
+"Here the filthy Harpies nest, / who drove the Trojans from the Strophades / "
+"with doleful prophecies of woe to come."
+msgstr "А тут гніздо п’яти десятків гарпій, / що відігнали зі Строфад троянців / пророцтвом про загибель неминучу."
+
+#: level_i18n.cc:5406
+msgid ""
+"... Here, at the very edge, we stayed our steps / at an expanse of deep and "
+"arid sand ..."
+msgstr "І зупинили кроки ми свої. / Блищали там жаркі піски безжальні…"
+
+#: level_i18n.cc:5409
+msgid ""
+"A path that circles like a belt around / the base of that high rock runs "
+"round the pit, / its sides descending in ten ditches."
+msgstr "Стежка кружляла там, навколо скелі величезної / та прірви в якій можна було побачити десять ровів."
+
+#: level_i18n.cc:5412
+msgid ""
+"Under my feet I saw a lake / so frozen that it seemed more glass than water."
+" / Never in winter did the Austrian Danube / nor the far-off Don, under its "
+"frigid sky, / cover their currents with so thick a veil / as I saw there."
+msgstr "Біля ніг моїх лежало озеро, яке замерзло і здавалось склом. / Та навіть Дунай австрійський / або далекий Дон під своїм байдужим небом, / не вривають струм свій так, / як я побачив тут."
+
+#: level_i18n.cc:5415
+msgid ""
+"... we made our way toward the center, / where all things that have weight "
+"converge, / and I was shivering in the eternal chill ..."
+msgstr "… Чим більше наближалися ми к ложу, / Куди стремить усяка річ важка, / Тим я від страху був у більшім дрожу."
+
+#: level_i18n.cc:5418
+msgid ""
+"It is no enterprise undertaken lightly -- / to describe the very bottom of "
+"the universe ..."
+msgstr "Бо значно важча справа – без остатку / Дна світового дати малюнки…"
+
+#: level_i18n.cc:5421
+msgid ""
+"The emperor of the woeful kingdom / rose from the ice below his breast, / "
+"and I in size am closer to a giant / than giants are when measured to his "
+"arms."
+msgstr "Володар скорботи королівства / з’явився з льоду, що його вкривав / і велетні зі мною в порівнянні / — як його руки з велетнями в порівнянні."
+
+#: level_i18n.cc:5423
+msgid ""
+"You refused many times to leave my kingdom -- now you shall pay the "
+"consequences for your foolishness!"
+msgstr "Багато разів відмовлявся ти лишити світ мій — платити за свою безглуздість час настав!"
+
+#: level_i18n.cc:5425
+msgid "Faithlessness"
+msgstr "Недовіра"
+
+#: level_i18n.cc:5427
+msgid "Lust"
+msgstr "Пристрасть"
+
+#: level_i18n.cc:5429
+msgid "Gluttony"
+msgstr "Ненаситність"
+
+#: level_i18n.cc:5431
+msgid "Avarice"
+msgstr "Жадібність"
+
+#: level_i18n.cc:5433
+msgid "Sloth"
+msgstr "Лінощі"
+
+#: level_i18n.cc:5435
+msgid "Heresy"
+msgstr "Єресь"
+
+#: level_i18n.cc:5437
+msgid "Violence"
+msgstr "Насильство"
+
+#: level_i18n.cc:5439
+msgid "Fraud"
+msgstr "Шахрайство"
+
+#: level_i18n.cc:5441
+msgid "Treachery"
+msgstr "Зрада"
+
+#: level_i18n.cc:5444
+msgid "... passed the point / to which all weights are drawn from every side."
+msgstr "...Але там оберт я зробив крутий / Куди всі тягарі стримлять ізроду."
+
+#: level_i18n.cc:5447
+msgid ""
+"... climbed up ... far enough to see, through a round opening, / a few of "
+"those fair things the heavens bear. / Then we came forth, to see again the "
+"stars."
+msgstr "...Угору йшли.... Аж поки не уздрів я в шпару скелі / Усю красу небесного буття. / Ми вийшли й зір звели на зорні стелі."
+
+#: level_i18n.cc:5454
+msgid ""
+"Choose your hemisphere: left switch for northern, right switch for southern."
+msgstr "Оберіть свою півкулю: лівий перемикач — північне, правий — південне."
+
+#: level_i18n.cc:5462
+msgid "Interlude I"
+msgstr "Інтерлюдія I"
+
+#: level_i18n.cc:5488
+msgid "Danger!"
+msgstr "Небезпечно!"
+
+#: level_i18n.cc:5525
+msgid "What I Don't Have"
+msgstr "Чого мені не вистачає"
+
+#: level_i18n.cc:5530
+msgid ""
+"Dorothy left the house to play with her little dog Toto, when suddenly the "
+"sky turned dark and a giant tornado rushed across Kansas."
+msgstr "Дороті вийшла з будиночка, щоб погратися зі своїм маленьким песиком Тото, коли несподівано небо нахмарилося і на Канзас налетів страшний буревій."
+
+#: level_i18n.cc:5532
+msgid ""
+"The Good Witch of the North speaks: 'Your house has killed the ruler of this"
+" land, the Wicked Witch of the East. Take her Silver Shoes and follow the "
+"Yellow Brick Road to Emerald City, where the Wizard of Oz should be more "
+"than pleased to help you return home. Go with my blessings!'"
+msgstr "Добра Відьма Півночі говорить: «Твій будиночок вбив правительку цієї землі, Лиху Відьму Сходу. Візьми її срібні черевички і рушай Жовтою Цегляною Дорогою до Смарагдового Міста, де Чарівник Країни Оз із задоволенням допоможе тобі повернутися додому. Щасливої тобі дороги!»"
+
+#: level_i18n.cc:5534
+msgid ""
+"A Scarecrow dangles helplessly from a pole. After talking to Dorothy, it "
+"agrees to join her for an audience with the Wizard of Oz to ask him for a "
+"brain. 'If only you could release me from this pole, that is ...'"
+msgstr "Страшило безпомічно стирчить на палі. Після розмови із Дороті він погоджується приєднатися до неї, щоб зустрітися із Чарівником і попросити у нього мізків. «Аби ти якось змогла зняти мене з цієї палі…»"
+
+#: level_i18n.cc:5536
+msgid ""
+"The rusty Tin Woodman can't move anymore by himself. 'Though I wish to join "
+"you on your journey, Dorothy, for I need to ask the Wizard why I did not "
+"receive a heart, I fear I'm stuck here. It would be nice if you could help "
+"me out a bit ...'"
+msgstr "Іржавий Бляшаний Лісоруб вже не може самостійно рухатися. «Я б хотів піти разом із тобою, Дороті, щоб спитати Чарівника, чому у мене немає серця, але я вкляк тут. Було б дуже люб’язно, аби ти мені трохи допомогла…»"
+
+#: level_i18n.cc:5538
+msgid ""
+"Among the shallow waters of a merry creek, the Cowardly Lion sits shivering "
+"of fear. Dorothy shouts: 'Lion, it's not wide! You can jump over the creek! "
+"Let's see the Wizard of Oz, maybe he can do something to give you courage!'"
+msgstr "Серед мілких вод веселого струмка сидить Лякливий Лев, що тремтить зі страху. Дороті кричить до нього: «Леве, струмок зовсім вузький! Ти можеш його просто перестрибнути! Пішли зі мною до Чарівника Країни Оз. Можливо, він дасть тобі хоробрості!»"
+
+#: level_i18n.cc:5540
+msgid ""
+"The gate guardian says: 'Welcome to Emerald City! Please always wear these "
+"spectacles, or the splendid brilliance of the Wizard's city may blind you. "
+"The Wizard resides to the north.'"
+msgstr "Вартовий міської брами сказав: «Ласкаво просимо до Смарагдового Міста! Будь ласка, не знімайте ці окуляри, щоб величний блиск міста Чарівника не осліпив вас. Чарівник чекає на вас у північній частині міста.»"
+
+#: level_i18n.cc:5542
+msgid ""
+"A booming voice echoes through the corridor: 'I, the Wonderful Wizard of Oz,"
+" will help Thee find what Thou are looking for. However before Thou may pass"
+" here and see me, travel on to Winkie Country and defeat my arch rival, the "
+"Wicked Witch of the West.'"
+msgstr "У коридорі загримів гучний голос: «Я, Дивовижний Чарівник Країни Оз, допоможу тобі знайти те, що ти шукаєш. Втім, перш ніж ти зможеш увійти сюди і побачити мене, вирушай до Країни моргунів і знищ мого головного ворога — Лиху Відьму Заходу.»"
+
+#: level_i18n.cc:5544
+msgid ""
+"This is the domain of the Wicked Witch of the West. She sends her minions "
+"against Dorothy and her friends. To destroy the witch, they need to steal "
+"her magic wand, kept deep inside her ice fortress."
+msgstr "Це земля Лихої Відьми Заходу. Вона спрямувала своїх посіпак проти Дороті та її друзів. Щоб знищити Відьму, їм слід викрасти її чарівну паличку, яку надійно сховано у відьминій крижаній фортеці."
+
+#: level_i18n.cc:5546
+msgid ""
+"Now that Dorothy finally made it to the Wonderful Wizard's dwelling, she "
+"realizes that he is nothing more but a humbug. Watching him flee with his "
+"hot-air balloon, Dorothy loses all hope of ever returning home. All that's "
+"left of the Wizard is now his shrinkable cupboard."
+msgstr "Діставшись оселі Чарівника країни Оз, Дороті зрозуміла, що він усього лише пройдисвіт. Спостерігаючи за втечею Чарівника на повітряній кулі, вона відчувала, як тануть усі її надії на повернення додому. Усе, що дісталося їй від Чарівника, — усього лише складний сервант."
+
+#: level_i18n.cc:5550
+msgid "Choices, choices ..."
+msgstr "Вибір, вибір ..."
+
+#: level_i18n.cc:5551
+msgid ""
+"Before trying this level in hard mode, it's a good idea to switch to easy "
+"mode to practice on the individual puzzles."
+msgstr "Перш ніж Ви спробуєте розв’язати цей рівень у звичайному режимі складності, є сенс попрактикуватись у розв’язанні окремих загадок у легкому режимі."
+
+#: level_i18n.cc:5552
+msgid "These dispensers are all empty ..."
+msgstr "Усі розподільні пристрої тут порожні ..."
+
+#: level_i18n.cc:5553
+msgid "The glass next to this document can be pushed to let you back out."
+msgstr "Скло поряд з цим документом можна зрушити, щоб Ви змогли пройти."
+
+#: level_i18n.cc:5557
+msgid "Once, No More No Less"
+msgstr "Лише один, ні більше, ні менше"
+
+#: level_i18n.cc:5562
+msgid ""
+"Each of the 6 women has a profession; and each of them carries or wears only"
+" one of the items."
+msgstr "У кожної із 6 жінок є професія, і у кожної з них є із собою якийсь предмет або елемент одягу."
+
+#: level_i18n.cc:5564
+msgid "Miss Black's best friends are the poet and the locksmith."
+msgstr "Найкращими друзями міс Блек є поетеса і майстер-слюсар."
+
+#: level_i18n.cc:5566
+msgid ""
+"Miss Black, Miss White and Miss Pearl are impressed by the magician's "
+"talent."
+msgstr "Міс Блек, міс Вайт та міс Перл у захопленні від таланту ілюзіоністки."
+
+#: level_i18n.cc:5568
+msgid "Miss Pearl tells jokes to the poet, the hacker and the locksmith."
+msgstr "Міс Перл розповідає анекдоти поетесі, комп’ютерниці та майстрові-слюсарю."
+
+#: level_i18n.cc:5570
+msgid ""
+"The hacker, the locksmith and the firewoman enjoy looking at their "
+"reflection in the glasses."
+msgstr "Комп’ютерниця, майстер-слюсар та пожежниця полюбляють роздивлятися у дзеркала."
+
+#: level_i18n.cc:5572
+msgid "The magician carries the umbrella."
+msgstr "Ілюзіоністка тримає парасольку."
+
+#: level_i18n.cc:5574
+msgid "Neither the magician nor the firewoman are permitted to wear the ring."
+msgstr "Ні ілюзіоністка, ні пожежниця не можуть носити персня."
+
+#: level_i18n.cc:5576
+msgid ""
+"Miss Black, Miss White and Miss Rotor like to tease the girl with the ring."
+msgstr "Міс Блек, міс Вайт та міс Ротор полюбляють дражнитися з дівчини з перснем."
+
+#: level_i18n.cc:5578
+msgid ""
+"Miss Top prefers to be unencumbered: She doesn't carry an umbrella, nor a "
+"bag and certainly not a weight."
+msgstr "Міс Топ не любить переобтяжуватися: вона не носить ні парасольки, ні сумки, ні, тим більше, гирі."
+
+#: level_i18n.cc:5580
+msgid ""
+"Sometimes, Miss White and Miss Pearl help their friend to carry her weight."
+msgstr "Іноді, міс Вайт та міс Перл допомагають подрузі носити гирю."
+
+#: level_i18n.cc:5585
+msgid ""
+"There are 19 fully connected puzzle piece arrangements, but just 9 of them "
+"are reachable from this first distribution."
+msgstr "Існує 19 варіантів розв’язання загадки, але при заданому розподілі у Вас є лише 9."
+
+#: level_i18n.cc:5587
+msgid ""
+"This second distribution can just be converted to any of the other 10 "
+"arrangements."
+msgstr "А з цього розподілу можна скласти 10 інших варіантів."
+
+#: level_i18n.cc:5589
+msgid ""
+"There are just two symmetric puzzle piece arrangements that both are "
+"reachable."
+msgstr "Існує всього два симетричних розв’язання загадки. Ви можете скористатися обома."
+
+#: level_i18n.cc:5595
+msgid "Marblics and Pearlics I"
+msgstr "Marblics та Pearlics I"
+
+#: level_i18n.cc:5598
+msgid ""
+"Doping 'en Tour' not allowed for taking shortcuts, doping just allowed for "
+"self defence!"
+msgstr "Користуватись допінгом en Tour, щоб зрізати шлях, заборонено, проте це дозволяється під час самозахисту!"
+
+#: level_i18n.cc:5601
+msgid "Rotomagus - Rouen"
+msgstr "Rotomagus - Руан"
+
+#: level_i18n.cc:5604
+msgid "Lutetia - Paris"
+msgstr "Lutetia - Париж"
+
+#: level_i18n.cc:5607
+msgid "Camaracum - Cambrai"
+msgstr "Camaracum - Камбре"
+
+#: level_i18n.cc:5610
+msgid "Durocortorum - Rheims"
+msgstr "Durocortorum - Реймс"
+
+#: level_i18n.cc:5613
+msgid "Lugdunum - Lyons"
+msgstr "Lugdunum - Ліон"
+
+#: level_i18n.cc:5616
+msgid "Nicae - Nice"
+msgstr "Nicae - Ніца"
+
+#: level_i18n.cc:5619
+msgid "Massilia - Marseilles"
+msgstr "Massilia - Марсель"
+
+#: level_i18n.cc:5622
+msgid "Aginum - Agen"
+msgstr "Aginum - Ажен"
+
+#: level_i18n.cc:5625
+msgid "Detour de Tour - Detour of the Tour"
+msgstr "Detour de Tour - відхилення від маршруту."
+
+#: level_i18n.cc:5628
+msgid "Burdigala - Bordeaux"
+msgstr "Burdigala - Бордо"
+
+#: level_i18n.cc:5631
+msgid "Gallia omnis divisa est ... - The whole of Gaul is divided ..."
+msgstr "Gallia omnis divisa est ... — Уся Галлія ділиться..."
+
+#: level_i18n.cc:5634
+msgid "Veni, vidi, vici - I came, I saw, I conquered"
+msgstr "Veni, vidi, vici - прийшов, побачив, переміг"
+
+#: level_i18n.cc:5636
+msgid "Welcome in L’Alpe d’Huez. Sorry, it is not yet stage of the Tour"
+msgstr "Ласкаво просимо до Альп-д'Юез. Вибачте, але зараз це місто не входить до маршруту."
+
+#: level_i18n.cc:5643
+msgid "Distribution Meditation"
+msgstr "Медитація розподілу"
+
+#: level_i18n.cc:5658
+msgid "more is not less"
+msgstr "Краще більше, ніж менше."
+
+#: level_i18n.cc:5661
+msgid "Sorry, but in difficult mode you need more ... Restart."
+msgstr "Вибачте, але у складному режимі Вам слід попрацювати краще... Перезапустіть рівень."

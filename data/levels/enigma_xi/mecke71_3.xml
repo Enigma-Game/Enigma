@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Spiders...!" el:subtitle="...but: dont worry!" el:id="mecke71"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:3 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2021 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+	  <el:compatibility el:enigma="1.3">
+	    <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+	  </el:compatibility>	     
+      <el:modes el:easy="true" el:single="false" el:network="false" el:control="force"
+        el:scoreunit="duration" el:scoretarget="time"/>
+	  <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Andreas Lochmann for testing</el:credits>
+      </el:comments>
+	  <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["AutoRespawn"] = true
+
+if wo ["IsDifficult"] then
+    ti["  "] = {"fl_metal"}
+	ti["& "] = {"fl_aquamarine"}
+	ti["% "] = {"fl_ice"}
+	ti["' "] = {"fl_inverse"}
+	ti["Z5"] = {"st_oneway_white_e"}
+    ti["O "] = {"st_oxyd_d"}
+	ti["O1"] = {"st_oxyd_d", name="oxydsuper", oxydcolor = OXYD_BLUE}
+else
+    ti["  "] = {"fl_metal"}
+	ti["& "] = {"fl_himalaya"}
+	ti["% "] = {"fl_bluegreen"}
+	ti["' "] = {"fl_ivory"}
+	ti["Z5"] = {"st_passage_white_frame"}
+    ti["O "] = {"st_oxyd_d", oxydcolor = OXYD_BLUE}
+	ti["O1"] = {"st_oxyd_d", name="oxydsuper", oxydcolor = OXYD_BLUE}
+end
+
+
+--ti["  "] = {"fl_metal"}
+--ti["& "] = {"fl_aquamarine", name="floor#"}
+ti["1 "] = {"fl_ice", name="floorb#"}
+ti["2 "] = {"fl_blueslab", name="floorb#"}
+ti["! "] = {"fl_space", name="floorb#"}
+ti["3 "] = {"fl_space", name="floor#"}
+--ti["% "] = {"fl_ice", name="floor#"}
+ti["$ "] = {"fl_lawn"}
+ti[" $"] = {"fl_lawn", name="floora#"}
+ti[" d"] = {"fl_adhesionless"}
+ti["_ "] = {"fl_red", name="floor#"}
+ti[" _"] = {"fl_red", name="floora#"}
+ti["~ "] = {"fl_water"}
+ti["v1"] = {"fl_red", name="willi1"}
+ti[", "] = {"fl_sahara"}
+ti[" ,"] = {"fl_sahara", name="floora#"}
+ti["+ "] = {"st_grate"}
+ti["B "] = {"st_passage_black"}
+ti["# "] = {"fl_redslab"}
+--ti["' "] = {"fl_inverse", name="floor#"}
+ti["* "] = {"fl_brick"}
+ti["l "] = {"it_yinyang"}
+ti["m "] = {"it_magicwand"}
+ti["s "] = {"it_seed"}
+ti[". "] = {"it_drop"}
+--ti["y "] = {"it_glasses",state=SPOT_TRAP }
+--ti["/ "] = {"it_trap"}
+ti["a "] = {"it_crack"}
+ti["= "] = {"fl_abyss"}
+ti["w "] = {"it_weight"}
+ti["U "] = {"st_laserswitch"}
+ti[" U"] = {"st_mail_n"}
+ti[" Y"] = {"st_mail_s"}
+ti["Y "] = {"st_yellow"}
+ti["X "] = {"st_grate", name="starty"}
+ti["A "] = ti["! "] .. {"st_actorimpulse"}
+ti[" /"] = ti["$ "] .. {"it_wrench"}
+ti["S "] = {"st_scissors"}
+ti["E "] = {"st_document"}
+ti["C "] = {"st_pebble"}
+ti["F "] = {"st_rubberband"}
+ti["K "] = {"st_granite"}
+ti["k "] = {"st_rotator", movable=true}
+ti[" G"] = {"st_rawglass"}
+ti[" D"] = {"st_death_movable"}
+ti["!G"] = ti["! "] .. {"st_rawglass"}
+--ti["O "] = {"st_oxyd_d", oxydcolor = OXYD_BLUE}
+ti["Z0"] = {"st_inkwell_empty"}
+ti["z1"] = {"st_inkwell_white"}
+ti["z2"] = {"st_inkwell_black"}
+ti["Z1"] = {"st_oneway_black_w"}
+ti["Z2"] = {"st_oneway_white_e"}
+ti["Z3"] = {"st_oneway_white_w"}
+ti[" #"] = {"st_box_wood"}
+ti["h "] = {"it_rubberband"}
+ti["? "] = {"it_sensor"}
+ti[" u"] = {"it_floppy"}
+ti["9 "] = ti["# "] .. {"it_hammer"}
+ti["s1"] = ti["& "] .. {"fl_aquamarine", name="ho1"}
+ti["s2"] = ti["& "] .. {"fl_aquamarine", name="ho2"}
+ti["s3"] = ti["& "] .. {"fl_aquamarine", name="ho3"}
+ti["s4"] = ti["& "] .. {"fl_aquamarine", name="ho4"}
+
+ti[" B"] = {"st_window_w", secure=true}
+ti[" C"] = {"st_window_s", secure=true}
+ti[" H"] = {"st_window_e", secure=true}
+ti[" E"] = {"st_window_n", secure=true}
+ti[" X"] = {"st_grate"}
+ti[" S"] = {"st_swap"}
+
+ti["M "] = ti[", "] .. {"st_magic"}
+ti[" m"] = ti[", "] .. {"it_magicwand"}
+ti[" R"] = ti[" m"] .. {"st_magic"}
+ti[" M"] = {"st_barrier", flavor="it_magicwand"}
+ti[" n"] = ti[", "] .. {"it_pipe_ns"}
+ti[" *"] = ti[", "] .. {"it_pipe_sw"}
+ti[" +"] = ti[", "] .. {"it_pipe_ne"}
+
+ti["u1"] = ti["_ "] .. ti[" X"] .. {"it_trigger", action="toggle", target="doori7"}
+ti["u2"] = ti["_ "] .. ti[" X"] .. {"it_trigger", action="toggle", target="doori8"}
+ti["u3"] = ti["_ "] .. ti[" X"] .. {"it_trigger", action="toggle", target="doori6"}
+ti["u4"] = ti["_ "] .. ti[" X"] .. {"it_trigger", action="toggle", target="doori5"}
+
+ti[" >"] = {"fl_forward_darkgray", orientation = EAST}
+ti[" <"] = {"fl_forward_darkgray", orientation = WEST}
+ti[" ^"] = {"fl_forward_darkgray", orientation = NORTH}
+ti[" v"] = {"fl_forward_darkgray", orientation = SOUTH}
+ti["t1"] = {"it_trigger", target="doori1"}
+ti["t2"] = {"it_trigger", target="doori2"}
+ti["t3"] = {"it_trigger", target="doori3"}
+ti["t4"] = {"it_trigger", target="doori4"}
+ti["t5"] = {"it_trigger", target="franzi1"}
+ti["t6"] = {"it_trigger", target={"franzi2","franzi3"}}
+ti[" A"] = ti["t6"] .. {"st_grate_framed"}
+ti["q7"] = {"fl_bridge_gc", name="franzi1"}
+ti["q0"] = {"fl_bridge_gc", name="franzi3"}
+ti["i9"] = {"st_door", name="franzi2", flavor="d", faces="ew"}
+
+ti["v2"] = {"st_shogun_s"} 
+ti["v3"] = {"st_shogun_m"}
+ti["v4"] = {"st_shogun_l"}
+ti["v6"] = {"st_door", name="frenzy", flavor="d", faces="ns"}
+ti["v5"] = {"it_shogun_l", target = "frenzy"}
+ti["v7"] = {"st_switch_white", target = "door7"}
+ti["v8"] = {"st_door", name="door7", flavor="d", faces="ew"}
+ti["v9"] = {"st_door", name="doorfs", flavor="d", faces="ns"}
+
+ti["i1"] = ti["$ "] .. {"st_door", name="doori1", flavor="d", faces="ew"}
+ti["i2"] = ti["$ "] .. {"st_door", name="doori2", flavor="d", faces="ew"}
+ti["i3"] = ti["$ "] .. {"st_door", name="doori3", flavor="d", faces="ew"}
+ti["i4"] = ti["$ "] .. {"st_door", name="doori4", flavor="d", faces="ew"}
+ti["i5"] = ti["$ "] .. {"st_door", name="doori5", flavor="d", faces="ew"}
+ti["i6"] = ti["$ "] .. {"st_door", name="doori6", flavor="d", faces="ew"}
+ti["i7"] = ti["$ "] .. {"st_door", name="doori7", flavor="d", faces="ew"}
+ti["i8"] = ti[" /"] .. {"st_door", name="doori8", flavor="d", faces="ew"}
+
+ti["L1"] = {"st_fourswitch",state= NORTH ,name="fs1", target="dox", action="callback"}
+ti["L2"] = {"st_fourswitch",state= NORTH ,name="fs2", target="dox", action="callback"}
+ti["L3"] = {"st_fourswitch",state= NORTH ,name="fs3", target="dox", action="callback"}
+ti["L4"] = {"st_fourswitch",state= NORTH ,name="fs4", target="dox", action="callback"}
+
+
+ti["8 "] = ti["_ "] .. {"#ac_top", range=10, strength=1}
+ti[" l"] = ti["X "] .. {"it_yinyang"}
+ti["s5"] = ti["& "] .. {"it_yinyang"}
+ti["@ "] = ti["s5"] .. {"#ac_marble_white",  owner=YANG}
+ti["Q "] = ti[" l"] .. {"#ac_marble_black",  owner=YIN, name="hi"}
+ti["b1"] = ti["! "] .. {"#ac_bug",  name="h1"}
+ti["b2"] = ti["! "] .. {"#ac_bug",  name="h2"}
+ti["b3"] = ti["! "] .. {"#ac_bug",  name="h3"}
+ti["b4"] = ti["! "] .. {"#ac_bug",  name="h4"}
+ti["b5"] = ti["! "] .. {"#ac_bug",  name="h5"}
+ti["b6"] = ti["! "] .. {"#ac_bug",  name="h6"}
+ti["b7"] = ti["! "] .. {"#ac_bug",  name="h7"}
+ti["b8"] = ti["! "] .. {"#ac_bug",  name="h8"}
+ti["c1"] = ti["& "] .. {"#ac_bug",  name="he1"}
+ti["c2"] = ti["& "] .. {"#ac_bug",  name="he2"}
+ti["c3"] = ti["& "] .. {"#ac_bug",  name="he3"}
+ti["c4"] = ti["& "] .. {"#ac_bug",  name="he4"}
+
+ti["c5"] = ti["$ "] .. {"#ac_rotor", range=20, strength=20}
+
+ti["L9"] = {"st_switch", action="open", target="vortex1"}
+ti[" w"] = ti["A "] .. {"it_magnet" , name="wormysuper#", state=ON} 
+ti["w1"] = ti["B "] .. {"it_wormhole" , range=2, strength=2, destination="willi1"}
+ti["w2"] = ti["$ "] .. {"it_vortex"}
+ti["w3"] = ti["$ "] .. {"it_vortex_closed", name="vortex1", destination="vortex2"}
+ti["w4"] = ti["$ "] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
+ti["L8"] = {"st_switch", target = "wormysuper#*", action="off"}
+
+ti["q1"] = {"st_laser", "laser1", state = ON, orientation = WEST}
+ti["q2"] = {"st_fourswitch", target= "laser1", state=3, action= "turn"}
+ti["U1"] = {"st_laserswitch", action="toggle", target="oxydsuper"}
+--ti["O1"] = {"st_oxyd_d", name="oxydsuper", oxydcolor = OXYD_BLUE}
+
+ti["q3"] = {"st_mirror_slab", movable=false, transparent=false, orientation=EAST}
+ti["q4"] = {"st_laser", "laser2", state = ON, orientation = NORTH}
+ti["q5"] = {"st_mirror_triangle", movable = false, transparent = false, orientation = SOUTH}
+ti["q6"] = {"st_mirror_slab", movable=true, transparent=false, orientation=EAST}
+ti["q8"] = {"st_door", name="dooru1", flavor="d", faces="ns"}
+ti["q9"] = {"st_floppy", target="dooru1"}
+
+ti["r "] = {"it_rubberband", anchor2 = "@pyramid#*", scissor = true, strength = 1}
+ti["R "] = {"st_brownpyramid", "pyramid#"}
+
+ti["P"] = {"st_puzzle_yellow",  intensity=10}
+
+ti["H1"] = ti["& "] .. {"#ac_horse", destination={"ho1","ho2","ho3","ho4"}, strength=7.0, name="horsy"}
+
+local puzzler = res.puzzle(ti, "P","p")
+local resolver1 = res.random(puzzler, "- ",{{" $", 3/10}, {" _", 3/10}, {" ,", 2/10}, {" ,", 2/10}})
+local resolver2 = res.random(resolver1, "! ",{{"! ", 7/10}, {"1 ", 1/10}, {"2 ", 1/10}, {"! ", 1/10}})
+wo(resolver2, "  ", {
+       "U U U U U U U U U U U U U U U U U U U U Y Y Y Y Y Y Y Y Y Y q3!G!G!G!Gq3Y Y Y ", --00
+       "U & & & & & & & & w1& & & & & & & & & U % - - - - - - - - - - - - - - - - - O ",
+       "U & ! ! ! & ! ! ! b8! ! ! ! & ! ! ! & Z1% %  w%  w% L8% %  w% v1L9%  w% % % Y ",
+       "U & ! ! & ! ! ! !   ! ! ! ! ! & ! ! & U Y Y Y ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' O ",
+       "U & ! &  w! ! b1!   ! b2! !  w! & ! & U % % Y % % % % % % % % % % % % % % % Y ",
+       "U & & ! ! ! ! ! ! ? ! ! ! ! ! ! ! & & U Y  nz2Y Y Y Y Y Y Y q1Y Y Y Y !GY Y Y ",
+       "Z0& ! ! ! b6! ! ? Q ? ! ! b5! ! ! ! & Z1* * q2Y U1, , , , , , , , , , , , , Y ",
+       "U & & ! ! ! ! ! ! ? ! ! ! ! ! ! ! & & U Y  nZ0U K K K K K K U % Y Y Y % % , Y ",
+       "U & ! &  w! ! ! b3! ! ! b4!  w! & ! & U - - Y - - - - - - K % & Y O1Y & % , Z0",
+       "U & ! ! & ! ! ! ! ! ! ! ! ! ! & ! ! & U Y Z2Y % w4% % % % K % & Y Y Y & % , Y ",
+       "U & ! ! ! & ! ! ! b7! ! ! ! & ! ! ! & Z1' ' ' ' ' ' ' ' ' K % & & & & & % , Y ",
+       "U & & & & & & & & w3& & & & & & & & & U ' + + + + + + + + K % & & q6& & % , Y ",
+       "U U U U U U U z2U U U U z1U U U U U U U ' + & & ' ' & & + K % & & & & & % , Y ",  --12 --00
+       "# # # # # # # # # # # # # # # # # # # Y $       K       $ Y % & Y q8q9& % , Y ",
+       "#  v < <#  v < <#  v < <#  v < < < <# Y 2    B E B B H  2 Y % & Y O Y & % , Y ",
+       "#  vK  ^#  vK  ^#  vK  ^#  v#  D D- # Y 2    H Hu1 H H  2 Y % % Y Y Y % % , z1",
+       "#  v#  ^#  v#  ^#  v#  ^#  v#  D D- # Y 2 Y  Cu2 Su3 B A2 Y , , , , , , % , Y ",
+       "#  v#  ^#  v#  ^#  v#  ^#  v# 2 2 - - k      B Hu4 H C  2 Y , q5 m, , q5% , z2",
+       "#  vK  ^K  vK  ^K  vK  ^K  vK K K Z2K K '    C H C H B  2 Y , q3, , , , % , Y ",
+       "$  v$  ^$  v$  ^$  v$  ^$  v$         t5        !G      2 Y , , M  R, , % , Y ",
+       "$  v$  ^$  v$  ^$  v$  ^$  v$     t1t2Y  M MU U U U U U U Y ,  RM M , , % , Y ",
+       "$  vK  ^ < <K  ^ < <K  ^ < <K  ^$ t3t4Y $ q0i5i6i7i8i1i2i3i4q7-  RM - U1% , Y ",
+       "$  v$ $ $ $ $ $ $ $ $ $ $ $ $  ^Y Y Y Y Y Y Y Y Y Y  YY Y Y q4Y % M Y % Y Y Y ",
+       "$  > > > > > > > > > > > > > > ^F .   i9Z2U U U U U U U U U U U U  UU U U U U ",
+       "U U U U U U U U U z1U U U U U U U U U U - - - - - - - - U    n   *     n +  U ",  --12 --00
+	   "U & & & & & 1 & & & & & c11 & & & & & U F F F F F F F * U * * * * * * * * * U ",
+       "U & & & & 1 & & & & & & & & 1 & & & & U +           F   U       O  u      + U ",
+       "U & & & 1 & & & & s1& & & & & 1 & & & U E C S C F ! F ! !G! ! ! ! ! ! ! ! ! !G",
+       "U & & 1 & & & & & c4& & H1& & c21 & & U S S E E C   F   U U U U U U U       !G",
+       "U & 1 & & & & & & & & & & & & & & 1 & U C E E S C ! F Z2! !   !   ! U !G!Gv6!G",
+       "Z01 & & s2& & & & @ & & & & & s4& & 1 Z2* * * C E * * * * * * * * - U * * * U ",
+       "U & 1 & & & & & & & & & c3& & & & 1 & U S S E E S   F Z2v5  v2v4v3  U       U ",
+       "U & & 1 & & & & & & & & & & & & 1 & & U C E E S E ! F ! !G!       - !G! !   U ",
+       "U & & & 1 & & & & & & & & & & 1 & & & U C S S E F   F   U U U U U U U   !   U ",
+       "U & & & & 1 & & & s3& & & & 1 & & & & U * * * * * * F * U * !GE C S C Z2!   U ",
+       "U & & & & & 1 & & & & & & 1 & & & & & U F F F F F F F   U   !G        S !   U ",
+       "U U U U U U U U U z2U U U U U U U U U U                 U O !G  R   R C !   U ",  --12 --00
+       "!G- - - - - - - - - - - - - - - - - - - Z2U U U U U U U U   !G  3 3 3 C !   U ",
+       "!G     #  Pa   #   # # #   #  Y Y Y Y Z2 #, , & & & & & & & !G  3 3 3 E !   U ",
+       "!G            Pi         #  ~ ~ ~ ~ ~ ~ ~ ~ ~  #~   ~ ~ Y Y !G  3 3 3 S !   U ",
+       "U U U U U U U U U U U U U U U &  # #~  #~ ~ ,  #        Y & !G!G!Gv9!G!GU   U ",
+       "Y # # # # Y # ~ # # # # # ~ Y & ~ PfPePg      PgPePc    Y & !G d d d d d!G  U ",
+       "Y # # # # Y # # # # # # # # Y Y  #PjO Pj      PjO Pj      PdZ3   d d d  !G  U ",
+       "U   c5    v8     #   #   #  $ & ~ PlPePmPaU PdPmPe      Y & !G  L2r L3  !G  U ",
+       "Y # c5# # Y # # # # # # # # Y &           U U U U U U U Y & !G          !G  U ",
+       "Y # c5# # Y # ~ # # # # # ~ Y & Y Y Y Y Y Y Y Y         Y & !G    L1    !G  U ",
+       "Y         U  # #v7U U U U U U U U & & & & & U & &  #& & Y Y !     L4    !G nU ",
+       "Y # # # # # # Z5# # # # # # # ! ! $ $ $ $ w2~ $ $ $ $ $ ! ! ! ! !   ! ! !GO U ",
+       "Y U U U U U U U U U U U U U U O U ~ ~ ~ ~ Y Y Y ~ ~ ~ ~ Y Y Y Y Y Y Y Y Y Y Y "})  --12 --00
+       
+
+wo:add({"ot_timer", target="colorthefloorb"})
+wo:add({"ot_timer", target="colorthefloora"})	
+
+wo:add({"ot_rubberband", anchor1="h1", anchor2="starty", strength=1.0}) 
+wo:add({"ot_rubberband", anchor1="h2", anchor2="starty", strength=1.0})
+wo:add({"ot_rubberband", anchor1="h3", anchor2="starty", strength=0.5})
+wo:add({"ot_rubberband", anchor1="h4", anchor2="starty", strength=0.5}) 
+wo:add({"ot_rubberband", anchor1="h5", anchor2="starty", strength=1.5})
+wo:add({"ot_rubberband", anchor1="h6", anchor2="starty", strength=1.0, length=20.0})
+wo:add({"ot_rubberband", anchor1="h7", anchor2="starty", strength=1.5})
+wo:add({"ot_rubberband", anchor1="horsy", anchor2="he1", strength=1.0, length=20.0})
+wo:add({"ot_rubberband", anchor1="horsy", anchor2="he2", strength=1.0}) 
+wo:add({"ot_rubberband", anchor1="horsy", anchor2="he3", strength=1.0})
+wo:add({"ot_rubberband", anchor1="horsy", anchor2="he4", strength=0.5})
+wo:add({"ot_rubberband", anchor1="he4", anchor2="he2", strength=0.5}) 
+wo:add({"ot_rubberband", anchor1="he1", anchor2="he3", strength=0.5})
+
+function dox(value, sender)
+    if no["fs1"]["state"] == SOUTH and no["fs2"]["state"] == EAST and no["fs3"]["state"] == WEST and no["fs4"]["state"] == SOUTH then
+        no["doorfs"]:open()
+        
+    else
+        no["doorfs"]:close()
+    end
+end 
+
+
+function colorthefloorb()
+    objs = no["floora#*"]:shuffle():sub(20)
+    for obj in objs do
+        wo:drawRect(obj, obj, "- ", resolver1)
+    end
+end
+
+function colorthefloora()
+    objs = no["floorb#*"]:shuffle():sub(20)
+    for obj in objs do
+        wo:drawRect(obj, obj, "! ", resolver2)
+    end
+end
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+      <el:i18n>
+        <el:string el:key="title">
+          <el:english el:translate="false"/>
+        </el:string>
+        <el:string el:key="subtitle">
+          <el:english el:translate="false"/>
+		</el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

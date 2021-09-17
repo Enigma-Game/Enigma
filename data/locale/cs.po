@@ -1,0 +1,5118 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# fri, 2013-2014,2018,2021
+# Markéta Pecoldová, 2013-2014
+# Michał Trzebiatowski, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Enigma\n"
+"Report-Msgid-Bugs-To: enigma-devel@nongnu.org\n"
+"POT-Creation-Date: 2021-02-10 23:19+0100\n"
+"PO-Revision-Date: 2021-04-14 20:00+0000\n"
+"Last-Translator: fri\n"
+"Language-Team: Czech (http://www.transifex.com/michtrz/enigma/language/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+#: src/server.cc:177 src/server.cc:189 src/gui/LevelInspector.cc:205
+msgid "Server Error: could not load level '"
+msgstr "Chyba serveru: nelze načíst úroveň '"
+
+#: src/client.cc:67
+#, c-format
+msgid "Mouse speed: %d"
+msgstr "Rychlost myši: %d"
+
+#: src/client.cc:77
+msgid "Another nameless level"
+msgstr "Další nepojmenovaná úroveň"
+
+#: src/client.cc:81
+msgid " by "
+msgstr " podle "
+
+#: src/client.cc:506
+msgid "Left mouse button:"
+msgstr "Levé tlačítko myši:"
+
+#: src/client.cc:506
+msgid "Activate/drop leftmost inventory item"
+msgstr "Aktivovat/Vyřadit první položku v seznamu"
+
+#: src/client.cc:507 src/gui/GameMenu.cc:146
+msgid "Right mouse button:"
+msgstr "Pravé tlačítko myši:"
+
+#: src/client.cc:507
+msgid "Rotate inventory items"
+msgstr "Otočit seznam položek"
+
+#: src/client.cc:508 src/gui/LevelMenu.cc:194 src/gui/ScreenshotViewer.cc:35
+msgid "Escape:"
+msgstr "Escape:"
+
+#: src/client.cc:508
+msgid "Show game menu"
+msgstr "Zobrazit nabídku"
+
+#: src/client.cc:509
+msgid "Shift+Escape:"
+msgstr "Shift+Escape:"
+
+#: src/client.cc:509
+msgid "Quit game immediately"
+msgstr "Ihned ukončit hru"
+
+#: src/client.cc:510 src/gui/GameMenu.cc:142
+msgid "F1:"
+msgstr "F1:"
+
+#: src/client.cc:510 src/gui/LevelMenu.cc:195 src/gui/ScreenshotViewer.cc:36
+#: src/gui/GameMenu.cc:142
+msgid "Show this help"
+msgstr "Zobrazit tuto nápovědu"
+
+#: src/client.cc:511 src/gui/GameMenu.cc:143
+msgid "F3:"
+msgstr "F3:"
+
+#: src/client.cc:511 src/gui/GameMenu.cc:143
+msgid "Kill current marble"
+msgstr "Zabít aktuální kuličku"
+
+#: src/client.cc:512 src/gui/GameMenu.cc:144
+msgid "Shift+F3:"
+msgstr "Shift+F3:"
+
+#: src/client.cc:512 src/gui/GameMenu.cc:144
+msgid "Restart the current level"
+msgstr "Začít nynější úroveň znovu"
+
+#: src/client.cc:513 src/gui/GameMenu.cc:145
+msgid "Shift+Ctrl+F3:"
+msgstr "Shift+Ctrl+F3:"
+
+#: src/client.cc:513 src/gui/GameMenu.cc:145
+msgid "Reload and restart the current level"
+msgstr "Nahrát znovu a začít nynější úroveň znovu"
+
+#: src/client.cc:514
+msgid "F4:"
+msgstr "F4:"
+
+#: src/client.cc:514
+msgid "Skip to next level"
+msgstr "Přejít na další úroveň"
+
+#: src/client.cc:515 src/gui/LevelPackComposer.cc:51
+msgid "F5:"
+msgstr "F5:"
+
+#: src/client.cc:516 src/gui/LevelPackComposer.cc:44
+msgid "F6:"
+msgstr "F6:"
+
+#: src/client.cc:516
+msgid "Jump back to last level"
+msgstr "Přejít na poslední úroveň"
+
+#: src/client.cc:517
+msgid "F10:"
+msgstr "F10:"
+
+#: src/client.cc:517
+msgid "Make screenshot"
+msgstr "Udělat snímek obrazovky"
+
+#: src/client.cc:518
+msgid "Left/right arrow:"
+msgstr "Šipka vlevo/vpravo:"
+
+#: src/client.cc:518
+msgid "Change mouse speed"
+msgstr "Změnit rychlost myši"
+
+#: src/client.cc:519
+msgid "Alt+x:"
+msgstr "Alt+x:"
+
+#: src/client.cc:519
+msgid "Return to level menu"
+msgstr "Zpět do nabídky úrovní"
+
+#: src/client.cc:528
+msgid "Skip to next level for best score hunt"
+msgstr "Přejít na další úroveň pro zajištění nejlepšího výsledku"
+
+#: src/client.cc:529
+msgid "Skip to next unsolved level"
+msgstr "Přejít na další nevyřešenou úroveň"
+
+#: src/client.cc:675
+msgid "Too slow for "
+msgstr "Příliš pomalé"
+
+#: src/client.cc:679
+msgid "You are slow today ... Ctrl-A"
+msgstr "Dnes jsi pomalý... Ctrl-A"
+
+#: src/client.cc:748
+msgid "Exactly the world record of "
+msgstr "Současný světový rekord"
+
+#: src/client.cc:750
+msgid "Great! A new world record!"
+msgstr "Skvělé! Nový světový rekod!"
+
+#: src/client.cc:755
+msgid "Again your personal record..."
+msgstr "Opět tvůj osobní rekord..."
+
+#: src/client.cc:760
+msgid "New personal record - better than par!"
+msgstr "Nový osobní rekord - lepší než par!"
+
+#: src/client.cc:766
+msgid "New personal record!"
+msgstr "Nový osobní rekord!"
+
+#: src/client.cc:777
+msgid "Your record, "
+msgstr "Tvůj rekord,"
+
+#: src/client.cc:783
+msgid "behind world record."
+msgstr "za světovým rekordem."
+
+#: src/client.cc:785
+msgid "behind your record."
+msgstr "za tvojím rekordem."
+
+#: src/client.cc:793
+msgid "Level finished - better than par!"
+msgstr "Konec úrovně - lepší než par!"
+
+#: src/client.cc:799
+msgid "Level finished!"
+msgstr "Konec úrovně!"
+
+#: src/client.cc:802
+msgid " Cheater!"
+msgstr "Podvodníku!"
+
+#: src/client.cc:825
+#, c-format
+msgid "Enigma pack %s - level #%d: %s"
+msgstr "Enigma balík %s -úroveň #%d: %s"
+
+#: src/client.cc:837
+msgid "Your record: "
+msgstr "Tvůj rekord:"
+
+#: src/client.cc:839
+msgid "World record to beat: "
+msgstr "Do překonání světového rekordu: "
+
+#: src/main.cc:353
+#, c-format
+msgid "Error in configuration file.\n"
+msgstr "Chyba: V konfiguračním souboru.\n"
+
+#: src/main.cc:591 src/main.cc:614
+#, c-format
+msgid "Error: Home directory does not exist.\n"
+msgstr "Chyba: Domovský adresář neexistuje.\n"
+
+#: src/main.cc:606
+#, c-format
+msgid "Error: Application Data directory does not exist.\n"
+msgstr "Chyba: Adresář Application Data neexistuje.\n"
+
+#: src/main.cc:633 src/main.cc:682
+#, c-format
+msgid "Error in XML initialization.\n"
+msgstr "Chyba v XML inicializaci.\n"
+
+#: src/main.cc:760
+#, c-format
+msgid ""
+"Mac OS X upgrade from Enigma 1.00\n"
+"\n"
+"The default user data path has changed from\n"
+"  %s \n"
+"\n"
+"to the visible data path\n"
+"  %s \n"
+"\n"
+"If ok Enigma will move your data to this new location.\n"
+"Note that you have to restart Enigma once for completion of this update."
+msgstr "Mac OS X aktualizace z Enigma 1.00\n\nVýchozí uživatelská datová cesta byla změněna z\n  %s \n\nna viditelné datové cestě\n  %s \n\nJestliže je Enigma v pořadku, budou data přesunuta do tohoto adresáře\nPo dokončení této aktualizace budete muset restartovat Enigmu."
+
+#: src/main.cc:761
+msgid "OK"
+msgstr "OK"
+
+#: src/main.cc:761 src/gui/OptionsMenu.cc:319 src/gui/OptionsMenu.cc:323
+msgid "Never"
+msgstr "Nikdy"
+
+#: src/main.cc:761
+msgid "Remind"
+msgstr "Připomenout"
+
+#: src/main.cc:991
+msgid ""
+"Fatal error that caused the application to quit:\n"
+"\n"
+msgstr "Závažná chyba, aplikace bude ukončena:\n\n"
+
+#: src/main.cc:993 src/gui/MainMenu.cc:425
+msgid "Quit"
+msgstr "Ukončit"
+
+#: src/gui/MainMenu.cc:50 src/gui/MainMenu.cc:414 src/gui/LevelPackMenu.cc:65
+msgid "Start Game"
+msgstr "Spustit hru"
+
+#: src/gui/MainMenu.cc:51
+msgid "Join Game"
+msgstr "Připojit se do hry"
+
+#: src/gui/MainMenu.cc:52 src/gui/MainMenu.cc:279
+#: src/gui/ScreenshotViewer.cc:35
+msgid "Back"
+msgstr "Zpět"
+
+#: src/gui/MainMenu.cc:78
+msgid "Enigma - Network Menu"
+msgstr "Enigma - nabídka pro síť"
+
+#: src/gui/MainMenu.cc:89
+msgid "Main developers of the 1.21 release:"
+msgstr "Hlavní vývojáři verze 1.21:"
+
+#: src/gui/MainMenu.cc:91
+msgid "  RONALD LAMPRECHT (lead)"
+msgstr "  RONALD LAMPRECHT (vedení)"
+
+#: src/gui/MainMenu.cc:97
+msgid "Special Thanks To:"
+msgstr "Zvláštní poděkování:"
+
+#: src/gui/MainMenu.cc:99
+msgid "  DANIEL HECK (project founder)"
+msgstr "  DANIEL HECK (zakladatel projektu)"
+
+#: src/gui/MainMenu.cc:100
+msgid "  MEINOLF SCHNEIDER (game idea, level design)"
+msgstr "  MEINOLF SCHNEIDER (myšlenka hry, provedení úrovní)"
+
+#: src/gui/MainMenu.cc:102
+msgid "Please refer to the manual or the next pages for full credits."
+msgstr "Další poděkování v uživatelské příručce nebo na dalších stránkách."
+
+#: src/gui/MainMenu.cc:104
+msgid "Home Page: http://www.nongnu.org/enigma"
+msgstr "Domovské stránky: http://www.nongnu.org/enigma"
+
+#: src/gui/MainMenu.cc:105
+msgid "Contact: enigma-devel@nongnu.org"
+msgstr "Spojení: enigma-devel@nongnu.org"
+
+#: src/gui/MainMenu.cc:107
+msgid "Enigma is free software and may be distributed under the"
+msgstr "Enigma je svobodný software a může být šířen pod"
+
+#: src/gui/MainMenu.cc:108
+msgid "terms of the GNU General Public License, version 2."
+msgstr "licencí GNU General Public License, verze 2."
+
+#: src/gui/MainMenu.cc:110
+msgid "Copyright (C) 2002-2014 Daniel Heck and contributors."
+msgstr "Autorské právo (C) 2002-2014 Daniel Heck a jeho spolupracovníci."
+
+#: src/gui/MainMenu.cc:112
+msgid "Main developers of all releases:"
+msgstr "Hlavní vývojář všech verzí:"
+
+#: src/gui/MainMenu.cc:128
+msgid "Special Thanks:"
+msgstr "Zvláštní poděkování:"
+
+#: src/gui/MainMenu.cc:145
+msgid "Contributors"
+msgstr "Přispěvatelé"
+
+#: src/gui/MainMenu.cc:273
+msgid "Homepage"
+msgstr "Domovská stránka"
+
+#: src/gui/MainMenu.cc:274
+msgid "Documentation"
+msgstr "Dokumentace"
+
+#: src/gui/MainMenu.cc:275 src/gui/OptionsMenu.cc:802
+msgid "Paths"
+msgstr "Cesty"
+
+#: src/gui/MainMenu.cc:276
+msgid "Locate Auto"
+msgstr "Automatické hledání"
+
+#: src/gui/MainMenu.cc:277
+msgid "Locate Score"
+msgstr "Vyhledání výsledků"
+
+#: src/gui/MainMenu.cc:278
+msgid "Credits"
+msgstr "Tvůrci a vývojáři"
+
+#: src/gui/MainMenu.cc:314
+msgid "Enigma - Help Menu"
+msgstr "Enigma - nabídka nápovědy"
+
+#: src/gui/MainMenu.cc:330
+msgid "Preferences Path:"
+msgstr "Cesta k nastavení"
+
+#: src/gui/MainMenu.cc:340
+msgid "User Path:"
+msgstr "Uživatelská cesta:"
+
+#: src/gui/MainMenu.cc:350
+msgid "User Image Path:"
+msgstr "Cesta k uživatelským obrázkům:"
+
+#: src/gui/MainMenu.cc:360
+msgid "System Path:"
+msgstr "Systémová cesta:"
+
+#: src/gui/MainMenu.cc:370
+msgid "Resource Paths:"
+msgstr "Zdrojová cesta:"
+
+#: src/gui/MainMenu.cc:380
+msgid "L10n Path:"
+msgstr "L10n cesta:"
+
+#: src/gui/MainMenu.cc:415 src/gui/LevelMenu.cc:50
+msgid "Level Pack"
+msgstr "Balík úrovní"
+
+#: src/gui/MainMenu.cc:417
+msgid "Network Game"
+msgstr "Pro více hráčů"
+
+#: src/gui/MainMenu.cc:419 src/gui/LevelPackMenu.cc:64
+#: src/gui/SearchMenu.cc:245
+msgid "Search"
+msgstr "Hledat"
+
+#: src/gui/MainMenu.cc:420 src/gui/GameMenu.cc:52
+msgid "Options"
+msgstr "Volby"
+
+#: src/gui/MainMenu.cc:422
+msgid "Update"
+msgstr "Aktualizace"
+
+#: src/gui/MainMenu.cc:424
+msgid "Help"
+msgstr "Nápověda"
+
+#: src/gui/MainMenu.cc:459
+msgid "Enigma - Main Menu"
+msgstr "Enigma - hlavní nabídka"
+
+#: src/gui/OptionsMenu.cc:50
+msgid ""
+"This is a selection of the most important options. Each of them can be found"
+" in one of the submenus. For help on a specific option, please press F1 in "
+"its original submenu."
+msgstr "Toto je výběr nejdůležitějších voleb. Každou z nich lze nalézt v jedné z podnabídek. Nápovědu k určité volbě získáte stisknutím F1 v původní podnabídce."
+
+#: src/gui/OptionsMenu.cc:54
+msgid "Screen brightness:"
+msgstr "Jas obrazovky:"
+
+#: src/gui/OptionsMenu.cc:55
+msgid ""
+"This changes the brightness of the entire screen on which Enigma's window is"
+" positioned. Default is '0'."
+msgstr "Tímto se změní jas celé obrazovky, na které je umístěno okno Enigmy. Výchozí hodnota je „0“."
+
+#: src/gui/OptionsMenu.cc:56
+msgid "Fullscreen:"
+msgstr "Celá obrazovka:"
+
+#: src/gui/OptionsMenu.cc:57
+msgid ""
+"Choose 'yes' if you want Enigma to be displayed on the whole screen instead "
+"of within a window."
+msgstr "Zvolte „ano“, pokud chcete, aby se Enigma zobrazovala na celé obrazovce místo v okně."
+
+#: src/gui/OptionsMenu.cc:58
+msgid "In fullscreen mode:"
+msgstr "V režimu celé obrazovky:"
+
+#: src/gui/OptionsMenu.cc:59
+msgid ""
+"Screen resolution: This lists all resolutions that are supported both by "
+"your monitor and by Enigma. It is only used in fullscreen mode."
+msgstr "Rozlišení obrazovky: Zde jsou uvedena všechna rozlišení, která jsou podporována monitorem i Enigmou. Používá se pouze v režimu celé obrazovky."
+
+#: src/gui/OptionsMenu.cc:60
+msgid ""
+"Tileset: The set of images used in the menus and in the game. In fullscreen "
+"mode, this depends on the chosen screen resolution."
+msgstr "Sada dlaždic: Sada obrázků použitých v nabídkách a ve hře. V režimu celé obrazovky toto závisí na zvoleném rozlišení obrazovky."
+
+#: src/gui/OptionsMenu.cc:61
+msgid "In windowed mode:"
+msgstr "V okenním režimu:"
+
+#: src/gui/OptionsMenu.cc:62
+msgid ""
+"Tileset: In windowed mode, you choose the tileset first. The tileset then "
+"defines the default size of Enigma's window."
+msgstr "Sada dlaždic: V režimu s okny si nejprve vyberete sadu dlaždic. Sada dlaždic pak stanovuje výchozí velikost okna Enigmy."
+
+#: src/gui/OptionsMenu.cc:63
+msgid ""
+"Window size: While the tileset determines the default size of your window, "
+"you can scale it up by a factor. You can choose this factor in this field. "
+"You can still resize the window manually, however, when you restart Enigma, "
+"the size defined by this field is reinstated again. You can choose 'Not "
+"fixed', in which case Enigma will restart with the same window size you "
+"previously chose."
+msgstr "Velikost okna: Zatímco sada dlaždic určuje výchozí velikost vašeho okna, můžete je zvětšit o násobek. Tento násobek můžete zvolit v tomto poli. Stále můžete změnit velikost okna ručně, ale při restartování Enigmy se velikost stanovená tímto polem znovu obnoví. Můžete zvolit „Neupraveno“, v takovém případě se Enigma restartuje se stejnou velikostí okna, jakou jste si dříve vybrali."
+
+#: src/gui/OptionsMenu.cc:67
+msgid "Sound set:"
+msgstr "Zvuková sada:"
+
+#: src/gui/OptionsMenu.cc:68
+msgid ""
+"The collection of sounds used by Enigma. Unless you install a user sound set"
+" or other source of sound sets, only default ('Enigma') is available."
+msgstr "Sbírka zvuků používaných Enigmou. Pokud nenainstalujete uživatelskou zvukovou sadu nebo jiný zdroj zvukových sad, je dostupná pouze výchozí („Enigma“)."
+
+#: src/gui/OptionsMenu.cc:69
+msgid "Menu music:"
+msgstr "Hudba v nabídce: "
+
+#: src/gui/OptionsMenu.cc:70
+msgid ""
+"The selection of music that is played in menus. 'In game' means that the "
+"same music is played as would be during the play."
+msgstr "Výběr hudby přehrávané v nabídkách. „Ve hře“ znamená, že se hraje stejná hudba, jako by to bylo během hraní."
+
+#: src/gui/OptionsMenu.cc:71
+msgid "Music ingame:"
+msgstr "Hudba ve hře: "
+
+#: src/gui/OptionsMenu.cc:72
+msgid "Whether you want to hear Enigma's music while playing."
+msgstr "Zda chcete při hraní poslouchat hudbu Enigmy."
+
+#: src/gui/OptionsMenu.cc:73
+msgid "Sound volume / Music volume:"
+msgstr "Hlasitost zvuku/hudby:"
+
+#: src/gui/OptionsMenu.cc:74
+msgid ""
+"Loudness of sound effects / music. Please note that the volume settings of "
+"your operating system applies as well."
+msgstr "Hlasitost zvukových efektů/hudby. Platí také nastavení hlasitosti vašeho operačního systému."
+
+#: src/gui/OptionsMenu.cc:75
+msgid "Stereo:"
+msgstr "Stereo:"
+
+#: src/gui/OptionsMenu.cc:76
+msgid ""
+"If active (by default), sound effects are changed to reflect the direction "
+"of their sources in a level. Choose 'mono' to deactivate this. In some "
+"setups, left and right speaker are swapped; you might choose 'reverse' then."
+" (Stereo effects might not work.)"
+msgstr "Pokud jsou zapnuty (ve výchozím nastavení), zvukové efekty se změní tak, aby odrážely směr jejich zdrojů v úrovni. Tuto funkci vypnete výběrem volby „mono“. V některých nastaveních je zaměněn levý a pravý reproduktor; pak můžete zvolit „obrácené“. (Stereo efekty nemusí fungovat.)"
+
+#: src/gui/OptionsMenu.cc:80
+msgid "Language:"
+msgstr "Jazyk:"
+
+#: src/gui/OptionsMenu.cc:81
+msgid ""
+"You can choose the language here. You can also choose a language by clicking"
+" on the flags above the main menu, if Enigma's window (or fullscreen "
+"resolution) is large enough to show them."
+msgstr "Zde si můžete vybrat jazyk. Jazyk můžete také vybrat klepnutím na praporky nad hlavní nabídkou, pokud je okno Enigmy (nebo rozlišení na celou obrazovku) dostatečně velké, aby je bylo možné zobrazit."
+
+#: src/gui/OptionsMenu.cc:82
+msgid "Mouse speed:"
+msgstr "Rychlost myši:"
+
+#: src/gui/OptionsMenu.cc:83
+msgid ""
+"A factor which decides how fast you have to move your mouse to achieve a "
+"certain force on the marble. You can choose this factor during the game as "
+"well, by pressing the left and right arrow keys."
+msgstr "Násobek, který rozhoduje o tom, jak rychle musíte pohybovat myší, abyste dosáhli určité síly na mramoru. Tento faktor si můžete vybrat také během hry stisknutím levé a pravé šipky."
+
+#: src/gui/OptionsMenu.cc:84
+msgid "Middle mouse button:"
+msgstr "Prostřední tlačítko myši:"
+
+#: src/gui/OptionsMenu.cc:85
+msgid ""
+"What happens when you click your mouse's middle button in the game, 'Pause' "
+"by default."
+msgstr "Co se stane, když ve hře klepnete na prostřední tlačítko myši, ve výchozím nastavení je to „Pozastavit“."
+
+#: src/gui/OptionsMenu.cc:86
+msgid "Text speed:"
+msgstr "Rychlost textu:"
+
+#: src/gui/OptionsMenu.cc:87
+msgid ""
+"The speed with which text flies by in the game. You can press the down arrow"
+" to display a text again, if you missed it."
+msgstr "Rychlost, s jakou text ve hře letí. Stisknutím šipky dolů můžete znovu zobrazit text, pokud jste jej zmeškali."
+
+#: src/gui/OptionsMenu.cc:88
+msgid "Ratings update:"
+msgstr "Aktualizace hodnocení:"
+
+#: src/gui/OptionsMenu.cc:89
+msgid ""
+"Whether Enigma should automatically download the latest rating file, with "
+"world records, user ratings of levels etc."
+msgstr "Zda má Enigma automaticky stáhnout nejnovější soubor hodnocení se světovými rekordy, uživatelskými hodnoceními úrovní atd."
+
+#: src/gui/OptionsMenu.cc:90
+msgid "User name:"
+msgstr "Uživatelské jméno:"
+
+#: src/gui/OptionsMenu.cc:91
+msgid ""
+"If you want to submit your scores, you should enter a user name here. This "
+"is the name shown to other players if you hold a world record for a level, "
+"and on the leaderboard on our web site. On our web site, you will find a "
+"list of all user names currently in use (and known to us)."
+msgstr "Chcete-li odeslat své výsledky, měli byste zde zadat uživatelské jméno. Toto je jméno, které se zobrazuje ostatním hráčům, pokud držíte světový rekord na určité úrovni, a na žebříčku na našich internetových stránkách. Na našich stránkách najdete seznam všech uživatelských jmen, která se v současnosti používají (a jsou nám známa)."
+
+#: src/gui/OptionsMenu.cc:95
+msgid "User path:"
+msgstr "Cesta k uživateli:"
+
+#: src/gui/OptionsMenu.cc:96
+msgid "Location of your scores, some settings, and user level packs."
+msgstr "Umístění vašich výsledků, některá nastavení a uživatelské balíčky úrovní."
+
+#: src/gui/OptionsMenu.cc:97
+msgid "User image path:"
+msgstr "Cesta k uživatelským obrázkům:"
+
+#: src/gui/OptionsMenu.cc:98
+msgid ""
+"Location of level screenshots (use F10 during the game to make a "
+"screenshot), and of level thumbnails. By default, this is the same as your "
+"user path."
+msgstr "Umístění snímků obrazovky úrovně (pro vytvoření snímku obrazovky použijte F10 během hry) a náhledů úrovní. Ve výchozím nastavení je to stejné jako vaše uživatelská cesta."
+
+#: src/gui/OptionsMenu.cc:99
+msgid "Localization/translation path:"
+msgstr "Cesta k lokalizaci/překladu:"
+
+#: src/gui/OptionsMenu.cc:100
+msgid "Location of translations to all languages Enigma uses."
+msgstr "Umístění překladů do všech jazyků, které Enigma používá."
+
+#: src/gui/OptionsMenu.cc:280 src/gui/OptionsMenu.cc:301
+msgid "muted"
+msgstr "ztlumeno"
+
+#: src/gui/OptionsMenu.cc:314
+msgid "Music in game"
+msgstr "Hudba ve hře"
+
+#: src/gui/OptionsMenu.cc:314
+msgid "No music in game"
+msgstr "Žádná hudba ve hře"
+
+#: src/gui/OptionsMenu.cc:319
+msgid "Auto"
+msgstr "Automaticky"
+
+#: src/gui/OptionsMenu.cc:323
+msgid "Always"
+msgstr "Vždy"
+
+#: src/gui/OptionsMenu.cc:329 src/gui/OptionsMenu.cc:941
+#: src/gui/LevelPackConfig.cc:93 src/gui/SearchMenu.cc:105
+msgid "Yes"
+msgstr "Ano"
+
+#: src/gui/OptionsMenu.cc:329 src/gui/OptionsMenu.cc:942
+#: src/gui/LevelPackConfig.cc:93 src/gui/SearchMenu.cc:105
+msgid "No"
+msgstr "Ne"
+
+#: src/gui/OptionsMenu.cc:382
+msgid "None found"
+msgstr "Žádné nenalezeny"
+
+#: src/gui/OptionsMenu.cc:497
+msgid "Not fixed"
+msgstr "Neupraveno"
+
+#: src/gui/OptionsMenu.cc:594
+msgid "reversed"
+msgstr "obráceno"
+
+#: src/gui/OptionsMenu.cc:595
+msgid "mono"
+msgstr "mono"
+
+#: src/gui/OptionsMenu.cc:596
+msgid "normal"
+msgstr "normální"
+
+#: src/gui/OptionsMenu.cc:639 src/gui/LevelInspector.cc:345
+#: src/gui/LevelInspector.cc:361 src/gui/LevelInspector.cc:375
+msgid "unknown"
+msgstr "neznámý"
+
+#: src/gui/OptionsMenu.cc:671
+msgid "Deactivated"
+msgstr "Vypnuto"
+
+#: src/gui/OptionsMenu.cc:673
+msgid "Pause (ESC)"
+msgstr "Pozastavit (Esc)"
+
+#: src/gui/OptionsMenu.cc:675 src/gui/GameMenu.cc:51
+msgid "Restart Level (Shift-F3)"
+msgstr "Začít úroveň znovu (Shift-F3)"
+
+#: src/gui/OptionsMenu.cc:694
+#, c-format
+msgid "Resetting video settings in %is ..."
+msgstr "Obnovení nastavení videa za %is ..."
+
+#: src/gui/OptionsMenu.cc:794
+msgid "Main"
+msgstr "Hlavní"
+
+#: src/gui/OptionsMenu.cc:796
+msgid "Video"
+msgstr "Obraz"
+
+#: src/gui/OptionsMenu.cc:798
+msgid "Audio"
+msgstr "Zvuk"
+
+#: src/gui/OptionsMenu.cc:800
+msgid "Config"
+msgstr "Nastavení"
+
+#: src/gui/OptionsMenu.cc:821 src/gui/LevelPackComposer.cc:119
+#: src/gui/LevelPackConfig.cc:344 src/gui/LPGroupConfig.cc:101
+#: src/gui/LevelInspector.cc:178 src/gui/HelpMenu.cc:39
+msgid "Ok"
+msgstr "OK"
+
+#: src/gui/OptionsMenu.cc:875 src/gui/OptionsMenu.cc:918
+msgid "Language: "
+msgstr "Jazyk:"
+
+#: src/gui/OptionsMenu.cc:877 src/gui/OptionsMenu.cc:898
+msgid "Fullscreen: "
+msgstr "Celá obrazovka:"
+
+#: src/gui/OptionsMenu.cc:880 src/gui/OptionsMenu.cc:919
+msgid "Mouse speed: "
+msgstr "Rychlost myši:"
+
+#: src/gui/OptionsMenu.cc:881 src/gui/OptionsMenu.cc:913
+msgid "Sound volume: "
+msgstr "Hlasitost zvuku:"
+
+#: src/gui/OptionsMenu.cc:882 src/gui/OptionsMenu.cc:914
+msgid "Music volume: "
+msgstr "Hlasitost hudby:"
+
+#: src/gui/OptionsMenu.cc:883 src/gui/OptionsMenu.cc:922
+msgid "Ratings update: "
+msgstr "Aktualizace hodnocení: "
+
+#: src/gui/OptionsMenu.cc:885
+msgid "Score upload: "
+msgstr "Nahrání výsledku: "
+
+#: src/gui/OptionsMenu.cc:890 src/gui/OptionsMenu.cc:926
+msgid "User name: "
+msgstr "Uživatelské jméno:"
+
+#: src/gui/OptionsMenu.cc:895
+msgid "Sorry, no video changes during an ongoing game."
+msgstr "Promiňte, během probíhající hry se video nemění."
+
+#: src/gui/OptionsMenu.cc:897
+msgid "Screen brightness: "
+msgstr "Jas obrazovky: "
+
+#: src/gui/OptionsMenu.cc:900
+msgid "In fullscreen mode: "
+msgstr "V režimu celé obrazovky: "
+
+#: src/gui/OptionsMenu.cc:901
+msgid "Screen resolution: "
+msgstr "Rozlišení obrazovky: "
+
+#: src/gui/OptionsMenu.cc:902 src/gui/OptionsMenu.cc:904
+msgid "Tileset: "
+msgstr "Sada dlaždic: "
+
+#: src/gui/OptionsMenu.cc:903
+msgid "In windowed mode: "
+msgstr "V okenním režimu: "
+
+#: src/gui/OptionsMenu.cc:905
+msgid "Window size: "
+msgstr "Velikost okna: "
+
+#: src/gui/OptionsMenu.cc:910
+msgid "Sound set: "
+msgstr "Ozvučení:"
+
+#: src/gui/OptionsMenu.cc:911
+msgid "Menu music: "
+msgstr "Hudba v nabídce: "
+
+#: src/gui/OptionsMenu.cc:912
+msgid "Music ingame: "
+msgstr "Hudba ve hře: "
+
+#: src/gui/OptionsMenu.cc:915
+msgid "Stereo: "
+msgstr "Stereo: "
+
+#: src/gui/OptionsMenu.cc:920
+msgid "Middle mouse button: "
+msgstr "Prostřední tlačítko myši: "
+
+#: src/gui/OptionsMenu.cc:921
+msgid "Text speed: "
+msgstr "Rychlost textu:"
+
+#: src/gui/OptionsMenu.cc:931
+msgid "User path: "
+msgstr "Uživatelská cesta:"
+
+#: src/gui/OptionsMenu.cc:934
+msgid "User image path: "
+msgstr "Cesta k uživatelským obrázkům:"
+
+#: src/gui/OptionsMenu.cc:937
+msgid "Localization/translation path: "
+msgstr "Cesta k lokalizaci/překladu: "
+
+#: src/gui/OptionsMenu.cc:943
+msgid "Use these video settings?"
+msgstr "Použít tato nastavení videa?"
+
+#: src/gui/OptionsMenu.cc:1177
+msgid "Enigma - Options Menu"
+msgstr "Enigma - nabídka pro volby"
+
+#: src/gui/LevelMenu.cc:48 src/gui/LevelPackMenu.cc:66
+msgid "Main Menu"
+msgstr "Hlavní nabídka"
+
+#: src/gui/LevelMenu.cc:194
+msgid "Skip to main menu"
+msgstr "Přejít do hlavní nabídky"
+
+#: src/gui/LevelMenu.cc:197 src/gui/LevelPackComposer.cc:44
+msgid "Add all to clipboard"
+msgstr "Přidat vše do schránky"
+
+#: src/gui/LevelMenu.cc:198
+msgid "Update levelpack"
+msgstr "Aktualizace balíku úrovní"
+
+#: src/gui/LevelMenu.cc:199
+msgid "Arrows:"
+msgstr "Šipky:"
+
+#: src/gui/LevelMenu.cc:199
+msgid "Select level"
+msgstr "Výběr úrovně"
+
+#: src/gui/LevelMenu.cc:200
+msgid "Return:"
+msgstr "Návrat:"
+
+#: src/gui/LevelMenu.cc:200 src/gui/LevelMenu.cc:205
+msgid "Play selected level"
+msgstr "Hrát vybranou úroveň"
+
+#: src/gui/LevelMenu.cc:201
+msgid "Back/Space:"
+msgstr "Backspace/Mezerník:"
+
+#: src/gui/LevelMenu.cc:201
+msgid "Previous/next levelpack"
+msgstr "Předešlý/další balík úrovní: "
+
+#: src/gui/LevelMenu.cc:202
+msgid "Mark current level as unsolved"
+msgstr "Označit tuto úroveň jako nevyřešenou"
+
+#: src/gui/LevelMenu.cc:204
+msgid "Alt+Return:"
+msgstr "Alt+Return:"
+
+#: src/gui/LevelMenu.cc:204
+msgid "Switch between fullscreen and window"
+msgstr "Přepíná mezi celou obrazovkou a oknem"
+
+#: src/gui/LevelMenu.cc:205 src/gui/LevelPackMenu.cc:48
+msgid "Left click:"
+msgstr "Levé tlačítko myši:"
+
+#: src/gui/LevelMenu.cc:206 src/gui/LevelPackMenu.cc:49
+msgid "Right or control click:"
+msgstr "Pravé tlačítko myši nebo tlačítko myši + Ctrl:"
+
+#: src/gui/LevelMenu.cc:206
+msgid "Inspect selected level"
+msgstr "Informace o vybrané úrovni"
+
+#: src/gui/LevelMenu.cc:223
+msgid "Select next level for world record hunt"
+msgstr "Zvolit další úroveň pro dosažení světového rekordu"
+
+#: src/gui/LevelMenu.cc:225
+msgid "Select next unsolved level"
+msgstr "Zvolit další nevyřešenou úroveň"
+
+#: src/gui/LevelMenu.cc:288
+msgid "You are not allowed to play this level yet."
+msgstr "Není ti povoleno hrát tuto úroveň."
+
+#: src/gui/LevelMenu.cc:325 src/gui/LevelPackComposer.cc:350
+#, c-format
+msgid "%s: %d level"
+msgid_plural "%s: %d levels"
+msgstr[0] "%s: %d úroveň"
+msgstr[1] "%s: %d úrovně"
+msgstr[2] "%s: %d úrovní"
+msgstr[3] "%s: %d úrovní"
+
+#: src/gui/LevelMenu.cc:339
+#, c-format
+msgid "%d%% best"
+msgstr "%d%% světový rekord"
+
+#: src/gui/LevelMenu.cc:344
+#, c-format
+msgid "%d%% par, hcp %.1f"
+msgstr "%d%% par, hcp %.1f"
+
+#: src/gui/LevelMenu.cc:348
+#, c-format
+msgid "%d%% solved"
+msgstr "%d%% vyřešeno"
+
+#: src/gui/LevelMenu.cc:383
+msgid "Your time: "
+msgstr "Tvůj čas:"
+
+#: src/gui/LevelMenu.cc:388
+msgid "That's world record."
+msgstr "Toto je světový rekord."
+
+#: src/gui/LevelMenu.cc:390
+#, c-format
+msgid "That's %s below world record."
+msgstr "To je %s pod světovým rekordem."
+
+#: src/gui/LevelMenu.cc:399 src/gui/LevelMenu.cc:402
+msgid "World record: "
+msgstr "Světový rekord:"
+
+#: src/gui/LevelMenu.cc:401 src/gui/LevelMenu.cc:418
+msgid "Par: "
+msgstr "Par:"
+
+#: src/gui/LevelMenu.cc:415 src/gui/LevelMenu.cc:419
+#, c-format
+msgid "World record by %s: "
+msgstr "Světový rekord v %s: "
+
+#: src/gui/LevelMenu.cc:451
+msgid "No further unsolved level available!"
+msgstr "K dispozici není žádná další nevyřešená úroveň!"
+
+#: src/gui/LevelPackComposer.cc:42
+msgid "Shift-click:"
+msgstr "Tlačítko myši + Shift:"
+
+#: src/gui/LevelPackComposer.cc:42
+msgid "Add to clipboard"
+msgstr "Přidat do schránky"
+
+#: src/gui/LevelPackComposer.cc:43
+msgid "Shift-delete:"
+msgstr "Shift + Delete: "
+
+#: src/gui/LevelPackComposer.cc:43
+msgid "Clear clipboard"
+msgstr "Vymazat schránku"
+
+#: src/gui/LevelPackComposer.cc:45
+msgid "F8:"
+msgstr "F8:"
+
+#: src/gui/LevelPackComposer.cc:45
+msgid "Insert clipboard as reference"
+msgstr "Vložit schránku jako odkaz"
+
+#: src/gui/LevelPackComposer.cc:46
+msgid "F9:"
+msgstr "F9:"
+
+#: src/gui/LevelPackComposer.cc:46
+msgid "Insert clipboard as copy"
+msgstr "Vložit schránku jako kopii"
+
+#: src/gui/LevelPackComposer.cc:48
+msgid "Alt-left arrow:"
+msgstr "Alt + levá šipka:"
+
+#: src/gui/LevelPackComposer.cc:48
+msgid "Exchange level with predecessor"
+msgstr "Vyměnit úroveň za předchozí"
+
+#: src/gui/LevelPackComposer.cc:49
+msgid "Alt-right arrow:"
+msgstr "Alt + pravá šipka:"
+
+#: src/gui/LevelPackComposer.cc:49
+msgid "Exchange level with successor"
+msgstr "Vyměnit úroveň za následující"
+
+#: src/gui/LevelPackComposer.cc:50
+msgid "Delete:"
+msgstr "Delete:"
+
+#: src/gui/LevelPackComposer.cc:50
+msgid "Delete level"
+msgstr "Vymazat úroveň"
+
+#: src/gui/LevelPackComposer.cc:51
+msgid "Update index from levels"
+msgstr "Aktualizace indexu úrovní"
+
+#: src/gui/LevelPackComposer.cc:56
+msgid "F10"
+msgstr "F10"
+
+#: src/gui/LevelPackComposer.cc:57
+msgid "Move clipboard levels"
+msgstr "Přesunout schránku úrovní"
+
+#: src/gui/LevelPackComposer.cc:118 src/gui/LevelPackConfig.cc:343
+#: src/gui/LPGroupConfig.cc:100 src/gui/SearchMenu.cc:244
+msgid "Undo"
+msgstr "Zrušit"
+
+#: src/gui/LevelPackComposer.cc:364
+#, c-format
+msgid "Clipboard: %d level"
+msgid_plural "Clipboard: %d levels"
+msgstr[0] "Schránka: %d úroveň"
+msgstr[1] "Schránka: %d úrovně"
+msgstr[2] "Schránka: %d úrovní"
+msgstr[3] "Schránka: %d úrovní"
+
+#: src/gui/LevelPackComposer.cc:385
+msgid "Enigma - Level Pack Composer"
+msgstr "Enigma - tvůrce balíčku úrovně"
+
+#: src/gui/LevelPackConfig.cc:173
+msgid "Levelpack:"
+msgstr "Balík úrovní:"
+
+#: src/gui/LevelPackConfig.cc:174
+msgid "Owner:"
+msgstr "Majitel:"
+
+#: src/gui/LevelPackConfig.cc:175 src/gui/LPGroupConfig.cc:56
+msgid "Group:"
+msgstr "Skupina:"
+
+#: src/gui/LevelPackConfig.cc:176
+msgid "Location"
+msgstr "Umístění"
+
+#: src/gui/LevelPackConfig.cc:177
+msgid "in [All Packs]:"
+msgstr "v [All Packs]:"
+
+#: src/gui/LevelPackConfig.cc:234
+msgid "Edit Metadata"
+msgstr "Upravit popisná data"
+
+#: src/gui/LevelPackConfig.cc:238
+msgid "Release:"
+msgstr "Verze:"
+
+#: src/gui/LevelPackConfig.cc:239
+msgid "Revision:"
+msgstr "Revize:"
+
+#: src/gui/LevelPackConfig.cc:240
+msgid "Compatibility:"
+msgstr "Kompatibilita:"
+
+#: src/gui/LevelPackConfig.cc:241
+msgid "Default Location:"
+msgstr "Výchozí umístění:"
+
+#: src/gui/LevelPackConfig.cc:242
+msgid "Level types:"
+msgstr "Typy úrovní:"
+
+#: src/gui/LevelPackConfig.cc:334
+msgid "Please reassign levelpack to another group for group deletion"
+msgstr "Prosím, přiřaďte balík úrovní do jiné skupiny, aby tato skupina mohla být vymazána"
+
+#: src/gui/LevelPackConfig.cc:337
+msgid "Compose Pack"
+msgstr "Vytvořit balík"
+
+#: src/gui/LevelPackConfig.cc:339
+msgid "Update Pack"
+msgstr "Aktualizovat balík"
+
+#: src/gui/LevelPackConfig.cc:418
+msgid ""
+"Error: empty title not allowed - press \"Undo\" to exit without "
+"modifications"
+msgstr "Chyba: Prázdný název není povolen - zvolte \"Zpět\" pro vrácení beze změny"
+
+#: src/gui/LevelPackConfig.cc:431
+msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
+msgstr "Chyba: Použijte pouze \"a-zA-Z0-9 _-#\" pro název balíku úrovní"
+
+#: src/gui/LevelPackConfig.cc:442
+msgid "Error: title already in use - choose another title"
+msgstr "Chyba: Název je již použitý - zvolte jiný název"
+
+#: src/gui/LevelPackMenu.cc:46
+msgid "Left column:"
+msgstr "Levý sloupec:"
+
+#: src/gui/LevelPackMenu.cc:46
+msgid "Levelpack groups"
+msgstr "Skupiny balíku úrovní"
+
+#: src/gui/LevelPackMenu.cc:47
+msgid "Right columns:"
+msgstr "Pravý sloupec:"
+
+#: src/gui/LevelPackMenu.cc:47
+msgid "Levelpacks of selected group"
+msgstr "Balík úrovní vybrané skupiny"
+
+#: src/gui/LevelPackMenu.cc:48
+msgid "Select group or levelpack"
+msgstr "Vyber skupinu nebo balík úrovní"
+
+#: src/gui/LevelPackMenu.cc:49
+msgid "Configure group or levelpack"
+msgstr "Nastavení skupiny nebo balíku úrovní"
+
+#: src/gui/LevelPackMenu.cc:63
+msgid "New Group"
+msgstr "Nová skupina"
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:125
+msgid ""
+"Welcome to Enigma! Please note that the game makes use of your mouse in "
+"another way than usual, and there will be no mouse cursor during the game. "
+"You can press the ESC key or the middle mouse button to pause the game and "
+"exit (or continue). You can also always press the F1 key to see available "
+"shortcut keys."
+msgstr "Vítejte v Enigmě! Vezměte, prosím, na vědomí, že hra využívá vaši myš jiným způsobem než je obvyklé a během hry nebude žádné ukazovátko myši. Stisknutím klávesy Esc nebo prostředního tlačítka myši můžete hru pozastavit a ukončit (nebo pokračovat). Můžete také kdykoli stisknout klávesu F1 a zobrazit dostupné klávesové zkratky."
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:127 src/gui/LevelPackMenu.cc:138
+msgid ""
+"If you are an experienced gamer and prefer a challenge for a start, please "
+"click here:"
+msgstr "Pokud jste zkušený hráč a pro začátek dáváte přednost výzvě, klepněte sem:"
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:129
+msgid "If you prefer a more gentle introduction, please click here:"
+msgstr "Pokud dáváte přednost jemnějšímu úvodu, klepněte sem:"
+
+#. TRANSLATORS: This is the longer of two versions, used on larger screens.
+#. Your translation can be longer.
+#: src/gui/LevelPackMenu.cc:131
+msgid ""
+"If you feel you need some more training with handling your mouse, you might "
+"find some helpful landscapes here:"
+msgstr "Pokud máte pocit, že potřebujete další cvičení v zacházení s myší, můžete zde najít užitečné krajiny:"
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:136
+msgid ""
+"Welcome to Enigma! Please note that there will be no mouse cursor during the"
+" game. You can press ESC or the middle mouse button to pause or exit. Use F1"
+" to see available shortcut keys."
+msgstr "Vítejte v Enigmě! Pamatujte, že ve hře nebude ukazovátko myši. Pro pozastavení nebo ukončení stiskněte klávesu Esc nebo prostřední tlačítko myši. Pomocí F1 zobrazíte dostupné zkratky."
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:140
+msgid "For a more gentle introduction, please click here:"
+msgstr "Pro jemnější úvod klepněte sem:"
+
+#. TRANSLATORS: This is the shorter of two versions, used on smaller screens.
+#. Please try to keep it short.
+#: src/gui/LevelPackMenu.cc:142
+msgid "You will find more training landscapes here:"
+msgstr "Více cvičných krajin najdete zde:"
+
+#: src/gui/LevelPackMenu.cc:600
+msgid "Enigma - Level Pack Menu"
+msgstr "Enigma - nabídka pro balíček úrovně"
+
+#: src/gui/LPGroupConfig.cc:64
+msgid "Position:"
+msgstr "Pozice:"
+
+#: src/gui/LPGroupConfig.cc:98
+msgid "New Pack"
+msgstr "Nový balík"
+
+#: src/gui/LPGroupConfig.cc:99
+msgid "Delete Group"
+msgstr "Vymazat skupinu"
+
+#: src/gui/LPGroupConfig.cc:129
+msgid ""
+"Error: empty group name not allowed - press \"Undo\" to exit without "
+"modifications"
+msgstr "Chyba: Prázdný název skupiny není povolen - zvolte \"Zpět\" pro vrácení beze změny"
+
+#: src/gui/LPGroupConfig.cc:140
+msgid "Error: group name is a duplicate of an existing group"
+msgstr "Chyba: Název skupiny je duplicitní s názvem jiné skupiny"
+
+#: src/gui/LPGroupConfig.cc:145
+msgid "Error: \"Every group\" is a reserved group name"
+msgstr "Chyba: \"Každé skupině\" je vyhrazený název skupiny"
+
+#: src/gui/LPGroupConfig.cc:150
+msgid "Error: group name must not be enclosed in square brackets"
+msgstr "Chyba: Název skupiny nesmí být uzavřený v hranatých závorkách"
+
+#: src/gui/LPGroupConfig.cc:206
+msgid "Error: group not empty"
+msgstr "Chyba: Skupina není prázdná"
+
+#: src/gui/LPGroupConfig.cc:229
+msgid "Enigma - Level Pack Group Configuration"
+msgstr "Enigma - nastavení skupiny balíčku úrovně"
+
+#: src/gui/ScreenshotViewer.cc:37
+msgid "Page Up:"
+msgstr "Nahoru:"
+
+#: src/gui/ScreenshotViewer.cc:37
+msgid "Show previous screenshot"
+msgstr "Zobrazit předchozí snímek obrazovky"
+
+#: src/gui/ScreenshotViewer.cc:38
+msgid "Page Down:"
+msgstr "Dolů:"
+
+#: src/gui/ScreenshotViewer.cc:38
+msgid "Show next screenshot"
+msgstr "Zobrazit další snímek obrazovky"
+
+#: src/gui/ScreenshotViewer.cc:108
+msgid "No screenshot available:"
+msgstr "Žádný dostupný snímek obrazovky:"
+
+#: src/gui/SearchMenu.cc:41
+msgid "Searches for levels with given criteria."
+msgstr "Hledání úrovní s danými hledisky."
+
+#: src/gui/SearchMenu.cc:42
+msgid ""
+"Use 'Text Search' for a case independent search in levels' titles, author "
+"names, file names, and level identification names."
+msgstr "Pomocí funkce „textové vyhledávání“ můžete samostatně vyhledávat názvy, názvy autorů, názvy souborů a identifikační názvy úrovní."
+
+#: src/gui/SearchMenu.cc:43
+msgid ""
+"Levels are rated in their difficulty in five categories: intelligence, "
+"dexterity, patience, knowledge about Enigma, and speed control. Each rating "
+"ranges from 1 (easy) to 5 (difficult). Levels with special mechanisms may "
+"also be a 6 in knowledge. With the corresponding buttons, you can search for"
+" levels with certain difficulty ratings."
+msgstr "Úrovně jsou hodnoceny podle obtížnosti v pěti kategoriích: inteligence, obratnost, trpělivost, znalosti o Enigmě a ovládání rychlosti. Každé hodnocení se pohybuje od 1 (snadné) do 5 (obtížné). Úrovně se zvláštními mechanismy mohou být také 6 ve znalostech. Pomocí příslušných tlačítek můžete vyhledávat úrovně s určitým hodnocením obtížnosti."
+
+#: src/gui/SearchMenu.cc:44
+msgid ""
+"The five single ratings are combined into an overall difficulty rating, "
+"ranging from 1 to 100. You can also search for levels within a given overall"
+" difficulty range."
+msgstr "Těchto pět jednotlivých hodnocení je sloučeno do celkového hodnocení obtížnosti v rozmezí od 1 do 100. Můžete také vyhledat úrovně v daném celkovém rozsahu obtížnosti."
+
+#: src/gui/SearchMenu.cc:45
+msgid ""
+"'Average rating' is the mean of player's ratings of the levels. You can rate"
+" a level on its level inspector page with a rating from 0 (worst) to 10 "
+"(best). You can search for levels which average rating is within a specified"
+" interval, too."
+msgstr "Průměrné hodnocení je průměr hodnocení hráče na jednotlivých úrovních. Úroveň můžete hodnotit na její stránce správce úrovně hodnocením od 0 (nejhorší) do 10 (nejlepší). Můžete také hledat úrovně, jejichž průměrné hodnocení je ve stanoveném rozmezí."
+
+#: src/gui/SearchMenu.cc:46
+msgid ""
+"If you choose 'Only levels that are unsolved in easy mode', you filter for "
+"all levels which feature an easy mode, and that have not been solved by you "
+"in easy mode yet. Accordingly, you can choose 'Only levels that are unsolved"
+" in normal mode' to filter for those."
+msgstr "Pokud vyberete možnost „Pouze úrovně, které nejsou vyřešeny v jednoduchém režimu“, filtrujete všechny úrovně, které mají snadný režim a které jste dosud v jednoduchém režimu nevyřešili. Podle toho můžete vybrat „Pouze úrovně, které jsou v normálním režimu nevyřešené“ a filtrovat je."
+
+#: src/gui/SearchMenu.cc:48
+msgid ""
+"Finally, you can sort the results randomly, by average rating, by overall "
+"difficulty, or by their sequence on load time, which mostly is the sequence "
+"in which they appear in the level packs (sort by 'None')."
+msgstr "Nakonec můžete výsledky seřadit náhodně, podle průměrného hodnocení, podle celkové obtížnosti nebo podle jejich pořadí v době nahrávání, což je většinou pořadí, ve kterém se objevují v balíčcích úrovní (seřadit podle 'Žádný')."
+
+#: src/gui/SearchMenu.cc:49
+msgid ""
+"The number of levels satisfying all chosen criteria is shown on the line "
+"above the search button. Please note that some levels have no ratings, or no"
+" average ratings, and are therefore automatically excluded as soon as you "
+"choose to search for ratings or average ratings or sort by them."
+msgstr "Počet úrovní splňujících všechna zvolená hlediska je zobrazen na řádku nad tlačítkem pro vyhledávání. Upozorňujeme, že některé úrovně nemají žádné hodnocení nebo nemají průměrné hodnocení, a proto jsou automaticky vyloučeny, jakmile se rozhodnete vyhledat hodnocení nebo průměrné hodnocení nebo řazení nechat provést podle nich."
+
+#: src/gui/SearchMenu.cc:133
+msgid "None"
+msgstr "Nic"
+
+#. TRANSLATORS: Would be shown as "Sort by: Random".
+#: src/gui/SearchMenu.cc:135
+msgid "Random"
+msgstr "Náhodně"
+
+#. TRANSLATORS: Would be shown as "Sort by: Difficulty".
+#: src/gui/SearchMenu.cc:137
+msgid "Difficulty"
+msgstr "Obtížnost"
+
+#. TRANSLATORS: Would be shown as "Sort by: Average rating".
+#: src/gui/SearchMenu.cc:139
+msgid "Average rating"
+msgstr "Průměrné hodnocení"
+
+#: src/gui/SearchMenu.cc:143
+msgid "Unknown"
+msgstr "Neznámý"
+
+#: src/gui/SearchMenu.cc:161
+msgid "Text Search:"
+msgstr "Hledání textu:"
+
+#. TRANSLATORS: the translation can have double size of the english text
+#: src/gui/SearchMenu.cc:163
+msgid "case independent search in title, author, filename"
+msgstr "Hledání podle názvu, autora a názvu souboru bez ohledu na velikost písmen"
+
+#: src/gui/SearchMenu.cc:172 src/gui/LevelInspector.cc:264
+msgid "Intelligence: "
+msgstr "Rozum: "
+
+#: src/gui/SearchMenu.cc:173 src/gui/LevelInspector.cc:265
+msgid "Dexterity: "
+msgstr "Obratnost: "
+
+#: src/gui/SearchMenu.cc:174 src/gui/LevelInspector.cc:266
+msgid "Patience: "
+msgstr "Trpělivost: "
+
+#: src/gui/SearchMenu.cc:175 src/gui/LevelInspector.cc:267
+msgid "Knowledge: "
+msgstr "Znalosti: "
+
+#: src/gui/SearchMenu.cc:176 src/gui/LevelInspector.cc:268
+msgid "Speed: "
+msgstr "Rychlost: "
+
+#: src/gui/SearchMenu.cc:177 src/gui/LevelInspector.cc:269
+msgid "Difficulty: "
+msgstr "Obtížnost: "
+
+#: src/gui/SearchMenu.cc:178
+msgid "Average Rating: "
+msgstr "Průměrné hodnocení: "
+
+#: src/gui/SearchMenu.cc:179
+msgid "Only levels that are unsolved in easy mode:"
+msgstr "Pouze úrovně, které jsou v jednoduchém režimu nevyřešené:"
+
+#: src/gui/SearchMenu.cc:180
+msgid "Only levels that are unsolved in normal mode:"
+msgstr "Pouze úrovně, které jsou v normálním režimu nevyřešené:"
+
+#: src/gui/SearchMenu.cc:182
+msgid "Sort by: "
+msgstr "Řadit dle: "
+
+#: src/gui/SearchMenu.cc:243
+msgid "Reset"
+msgstr "Obnovit výchozí"
+
+#: src/gui/SearchMenu.cc:299
+#, c-format
+msgid "Levels fitting these criteria: %d"
+msgstr "Úrovně vyhovující těmto hlediskům: %d"
+
+#: src/gui/SearchMenu.cc:305
+msgid "Enigma - Search Menu"
+msgstr "Enigma - nabídka pro hledání"
+
+#: src/gui/LevelInspector.cc:179
+msgid "Screenshot"
+msgstr "Screenshot"
+
+#: src/gui/LevelInspector.cc:233
+msgid "Level: "
+msgstr "Úroveň: "
+
+#: src/gui/LevelInspector.cc:235 src/gui/LevelInspector.cc:297
+msgid "Author: "
+msgstr "Autor: "
+
+#: src/gui/LevelInspector.cc:236
+msgid "Contact: "
+msgstr "Spojení: "
+
+#: src/gui/LevelInspector.cc:237
+msgid "Homepage: "
+msgstr "Stránka: "
+
+#: src/gui/LevelInspector.cc:262
+msgid "Public Ratings"
+msgstr "Hodnocení"
+
+#: src/gui/LevelInspector.cc:290
+msgid "Scores"
+msgstr "Výsledky"
+
+#: src/gui/LevelInspector.cc:293
+msgid "You: "
+msgstr "Ty: "
+
+#: src/gui/LevelInspector.cc:294
+msgid "World: "
+msgstr "Svět: "
+
+#. TRANSLATORS: PAR = professional average rate - an expression used by
+#. golfers
+#: src/gui/LevelInspector.cc:296
+msgid "PAR: "
+msgstr "PAR: "
+
+#: src/gui/LevelInspector.cc:298
+msgid "Solved %: "
+msgstr "Vyřešeno %: "
+
+#: src/gui/LevelInspector.cc:299
+msgid "Solved #: "
+msgstr "Vyřešeno #: "
+
+#: src/gui/LevelInspector.cc:321
+msgid "Version"
+msgstr "Verze"
+
+#: src/gui/LevelInspector.cc:324
+msgid "Score: "
+msgstr "Výsledek: "
+
+#: src/gui/LevelInspector.cc:326 src/gui/LevelInspector.cc:330
+msgid "Status: "
+msgstr "Stav: "
+
+#: src/gui/LevelInspector.cc:327
+msgid "Release: "
+msgstr "Verze: "
+
+#: src/gui/LevelInspector.cc:328
+msgid "Revision: "
+msgstr "Revize: "
+
+#: src/gui/LevelInspector.cc:331
+msgid "Control: "
+msgstr "Ovládání: "
+
+#: src/gui/LevelInspector.cc:332
+msgid "Target: "
+msgstr "Cíl: "
+
+#: src/gui/LevelInspector.cc:339 src/gui/LevelInspector.cc:355
+msgid "stable"
+msgstr "stabilní"
+
+#: src/gui/LevelInspector.cc:341 src/gui/LevelInspector.cc:357
+msgid "test"
+msgstr "zkouška"
+
+#: src/gui/LevelInspector.cc:343 src/gui/LevelInspector.cc:359
+msgid "experimental"
+msgstr "pokusný"
+
+#: src/gui/LevelInspector.cc:353
+msgid "released"
+msgstr "vydáno"
+
+#: src/gui/LevelInspector.cc:366
+msgid "force"
+msgstr "vynutit"
+
+#: src/gui/LevelInspector.cc:369
+msgid "balance"
+msgstr "rovnováha"
+
+#: src/gui/LevelInspector.cc:372
+msgid "key"
+msgstr "klávesa"
+
+#: src/gui/LevelInspector.cc:380
+msgid "time"
+msgstr "čas"
+
+#: src/gui/LevelInspector.cc:381
+msgid "pushes"
+msgstr "tlačil"
+
+#: src/gui/LevelInspector.cc:382
+msgid "moves"
+msgstr "tahy"
+
+#: src/gui/LevelInspector.cc:399
+msgid "World Record Holders: "
+msgstr "Světoví rekordmani: "
+
+#: src/gui/LevelInspector.cc:460
+msgid "Credits: "
+msgstr "Zásluhy: "
+
+#: src/gui/LevelInspector.cc:471
+msgid "Dedication: "
+msgstr "Věnování: "
+
+#: src/gui/LevelInspector.cc:482
+msgid "Level Path: "
+msgstr "Cesta úrovně: "
+
+#: src/gui/LevelInspector.cc:504
+msgid "Id: "
+msgstr "ID: "
+
+#: src/gui/LevelInspector.cc:506
+msgid "Load time: "
+msgstr "Doba načtení: "
+
+#: src/gui/LevelInspector.cc:511
+msgid "Compatibility: "
+msgstr "Kompatibilita: "
+
+#: src/gui/LevelInspector.cc:519
+msgid "Annotation: "
+msgstr "Poznámky: "
+
+#: src/gui/LevelInspector.cc:524
+msgid "Rating: "
+msgstr "Hodnocení: "
+
+#: src/gui/LevelInspector.cc:526
+msgid "Average: "
+msgstr "Průměr: "
+
+#: src/gui/GameMenu.cc:50
+msgid "Resume Level (ESC)"
+msgstr "Pokračovat v úrovni (Esc)"
+
+#: src/gui/GameMenu.cc:53
+msgid "Level Info"
+msgstr "Informace o úrovni"
+
+#: src/gui/GameMenu.cc:54
+msgid "Screenshot (F10)"
+msgstr "Snímek obrazovky (F10)"
+
+#: src/gui/GameMenu.cc:55
+msgid "Abort Level"
+msgstr "Přerušit úroveň"
+
+#: src/gui/GameMenu.cc:56
+msgid "Exit Enigma (Shift-ESC)"
+msgstr "Opustit Enigmu (Shift-Esc)"
+
+#: src/gui/GameMenu.cc:146
+msgid "Return to level"
+msgstr "Zpět do úrovně"
+
+#: src/gui/GameMenu.cc:149
+msgid "For a list of shortcut keys during the game, press F1 during the game."
+msgstr "Seznam klávesových zkratek během hry zobrazíte stisknutím klávesy F1 během hry."
+
+#: src/lev/Proxy.cc:205
+msgid "Error on auto registration of levelfile: "
+msgstr "Chyba při načítání úrovně: "
+
+#: src/lev/Proxy.cc:207
+msgid ""
+"Note: the level will not show up in the \"Auto Folder\" levelpack!\n"
+"\n"
+msgstr "Poznámka: Úroveň se nezobrazí v \"Auto složce\" balíku úrovní!\n\n"
+
+#: src/lev/Proxy.cc:209 src/lev/PersistentIndex.cc:478 src/d_models.cc:203
+#: src/d_models.cc:215 src/PreferenceManager.cc:181 src/StateManager.cc:178
+msgid "Continue"
+msgstr "Pokračovat"
+
+#: src/lev/PersistentIndex.cc:464
+msgid "Error on update of levelpack index: \n"
+msgstr "Chyba při aktualizaci indexu balíku úrovní: \n"
+
+#: src/lev/PersistentIndex.cc:466
+msgid ""
+"Note: the current version will be reloaded!\n"
+"\n"
+msgstr "Poznámka: Aktuální verze bude načtena!\n\n"
+
+#: src/lev/PersistentIndex.cc:473
+msgid "Error on registration of levelpack index: \n"
+msgstr "Chyba při registraci indexu balíku úrovní: \n"
+
+#: src/lev/PersistentIndex.cc:475
+msgid ""
+"Note: the levelpack will not show up!\n"
+"\n"
+msgstr "Poznámka: Balík úrovní se nezobrazí!\n\n"
+
+#: src/lua.cc:3896
+#, c-format
+msgid "Cannot find '%s'.\n"
+msgstr "Nelze najít '%s'.\n"
+
+#: src/lua.cc:3897 src/lua.cc:3904
+#, c-format
+msgid "Your installation may be incomplete or invalid.\n"
+msgstr "Vaše instalace může být neúplná nebo neplatná.\n"
+
+#: src/lua.cc:3903
+#, c-format
+msgid "There was an error loading '%s'.\n"
+msgstr "Chyba při načítání '%s'.\n"
+
+#: src/lua.cc:3905
+#, c-format
+msgid "Error: '%s'\n"
+msgstr "Chyba: '%s'\n"
+
+#: src/d_models.cc:202 src/d_models.cc:214
+msgid ""
+"\n"
+"\n"
+"This error may cause the application to behave strange!"
+msgstr "\n\nTato chyba může způsobit, že se aplikace nebude chovat správně!"
+
+#: src/stones/KnightStone.cc:60
+msgid "All right, we'll call it a draw"
+msgstr "No, řekněme, že to je nerozhodný výsledek"
+
+#: etc/enigma.desktop:4 level_i18n.cc:1469
+msgid "Enigma"
+msgstr "Enigma"
+
+#: etc/enigma.desktop:23
+msgid "Uncover pairs of stones while navigating obstacles using a marble"
+msgstr "Odhalujte dvojice kamenů pomocí kuličky ve světě naplněném překážkami"
+
+#: etc/enigma.desktop:46
+msgid "enigma"
+msgstr "enigma"
+
+#: level_i18n.cc:4
+msgid "Let there be light!"
+msgstr "Budiž světlo!"
+
+#: level_i18n.cc:44
+msgid "You really will need every penny!"
+msgstr "Opravdu budeš potřebovat každý cent!"
+
+#: level_i18n.cc:60
+msgid "Umbrellas prevent free fall!"
+msgstr "Deštníky chrání před pádem!"
+
+#: level_i18n.cc:76
+msgid "No problem! Piece of cake!"
+msgstr "Žádný problém! Je to hračka!"
+
+#: level_i18n.cc:77
+msgid "It was easy, wasn't it!"
+msgstr "To bylo jednoduché, ne?"
+
+#: level_i18n.cc:93
+msgid "You need to be fast!"
+msgstr "Musíš být rychlejší!"
+
+#: level_i18n.cc:125
+msgid "It's a ring!"
+msgstr "Je to prsten!"
+
+#: level_i18n.cc:135
+msgid "Business hours from 8am to 4pm"
+msgstr "Otevírací doba je od 8 do 16 hodin."
+
+#: level_i18n.cc:163 level_i18n.cc:876
+msgid "Everything's been counted carefully!"
+msgstr "Všechno bylo pečlivě spočítáno!"
+
+#: level_i18n.cc:164 level_i18n.cc:877
+msgid "Parts of the tubes disappear during detonation!"
+msgstr "Části trubek zmizí během výbuchu!"
+
+#: level_i18n.cc:171
+msgid "Don't believe all that you see!"
+msgstr "Nevěř všemu, co vidíš!"
+
+#: level_i18n.cc:178
+msgid "An English text based riddle"
+msgstr "Hádanka v angličtině"
+
+#: level_i18n.cc:233
+msgid "You can fly for a short time if you use the umbrella."
+msgstr "Na krátkou dobu můžeš létat, pokud použiješ deštník."
+
+#: level_i18n.cc:293
+msgid "The Enigmhanoi Towers"
+msgstr "Enigmhanoi věže"
+
+#: level_i18n.cc:295
+msgid "Who speaks, does not know (Lao Tse)"
+msgstr "Kdo mluví, neví (Lao Tse)"
+
+#: level_i18n.cc:297
+msgid "The wise man laughs (Lao Tse)"
+msgstr "Moudrý muž se směje (Lao Tse)"
+
+#: level_i18n.cc:299
+msgid "Who knows, does not speak (Lao Tse)"
+msgstr "Kdo ví, nemluví (Lao Tse)"
+
+#: level_i18n.cc:309
+msgid ""
+"Sections which have the same color always turn at the same time and in the "
+"same way."
+msgstr "Části, které mají stejnou barvu se vždy otočí současně ve stejném směru."
+
+#: level_i18n.cc:310
+msgid ""
+"Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-"
+"stone."
+msgstr "Udržovací kód: kov-kámen-kámen-kámen-červená-žlutá-žlutá-červená-červená-kámen-kámen."
+
+#: level_i18n.cc:324 level_i18n.cc:1387 level_i18n.cc:2321 level_i18n.cc:2660
+#: level_i18n.cc:3246 level_i18n.cc:3401 level_i18n.cc:3668 level_i18n.cc:4579
+#: level_i18n.cc:4700 level_i18n.cc:5131
+msgid "Welcome"
+msgstr "Vítej"
+
+#: level_i18n.cc:368
+msgid "The Grim Reaper"
+msgstr "Smrtka s kosou"
+
+#: level_i18n.cc:444
+msgid "... There are more than two ..."
+msgstr "... Je jich tam víc než dva ..."
+
+#: level_i18n.cc:453
+msgid "The witch of this switch waits for your wish."
+msgstr "Vypínač čeká na vaše rozkazy."
+
+#: level_i18n.cc:455
+msgid "The witch of this switch resets the awale game."
+msgstr "Tento přepínač začne znovu hru awale."
+
+#: level_i18n.cc:457
+msgid ""
+"A turn consists in taking the walnuts of a row behind the windowy walls and "
+"sowing them 1 by 1 in the following rows."
+msgstr "Hráč si vezme ořechy, které jsou za skleněnou stěnou, a zaseje je po jednom v těchto řádcích."
+
+#: level_i18n.cc:459
+msgid ""
+"Warning: What awaits the wailing warrior at the end of a turn? If there are "
+"2 or 3 walnuts in a row, they are a warm award for the warrior, as are the "
+"walnuts in the rows which are in the way to this row, if they are 2 or 3 per"
+" row."
+msgstr "Varování: Co čeká na žalostné bojovníky na konci kola? V případě 2 nebo 3 ořechů v řádku, je válečník odměněn."
+
+#: level_i18n.cc:461
+msgid "Warning: If one warrior's walls are empty, this awesome warrior wins."
+msgstr "Varování: Jestliže je zeď bojovníka prázdná, bojovník vyhrává."
+
+#: level_i18n.cc:463
+msgid ""
+"When a warrior has awarded more than half the walnuts, he wins. What does he"
+" win? The way to the waiting oxyds he wants."
+msgstr "Když bojovník získal více než polovinu ořechů, vyhrává. Jak to jde? Vítězství lze dosáhnout pomocí oxyd kamenů."
+
+#: level_i18n.cc:465
+msgid "Congratulations! You are the most aware awale player of the valley ..."
+msgstr "Gratuluji! Jsi nejlepší hráč v údolí ..."
+
+#: level_i18n.cc:467
+msgid ""
+"Lost in the savannah? Don't wait and walk on the way to the reset switch on "
+"the far left ..."
+msgstr "Ztracen v savaně? Nestyď se  a hru začni znovu pomocí vypínače vlevo ..."
+
+#: level_i18n.cc:469
+msgid "Validate your choice here."
+msgstr "Potvrď svou volbu zde."
+
+#: level_i18n.cc:471
+msgid "Reset the game."
+msgstr "Začít hru znovu."
+
+#: level_i18n.cc:473
+msgid ""
+"A turn consists in taking the stones of a row and sowing them 1 by 1 in "
+"one's other rows, counterclockwise, coming back to the beginning."
+msgstr "Hráč vezme kameny v řádku a rozestaví je postupně proti směru hodinových ručiček."
+
+#: level_i18n.cc:475
+msgid ""
+"At the end of a turn, if the last stone falls in a nonempty row, one takes "
+"the stones of the facing row if there is any, and repeats a turn."
+msgstr "Jesliže na konci kola poslední kámen je v neprázdném řádku, hráč vezme kameny z protějšího řádku a zopakuje si kolo."
+
+#: level_i18n.cc:477
+msgid "A turn begins in one of the leftmost rows, unless impossible."
+msgstr "Kolo začíná v řádku zcela vlevo, pokud je to možné."
+
+#: level_i18n.cc:479
+msgid ""
+"At the end of the game (if one player cannot move anymore), the player who "
+"has the most stones wins."
+msgstr "Na konci hry (jestliže se jeden hráč už nemůže pohybovat) vyhrává hráč, který má nejvíce kamenů."
+
+#: level_i18n.cc:481
+msgid "A yellow stone stands for 10 blue stones (then for 2 brown stones)."
+msgstr "Žlutý kámen představuje 10 modrých kamenů (nebo 2 hnědé kameny)."
+
+#: level_i18n.cc:483
+msgid "A brown stone stands for 5 blue stones."
+msgstr "Hnědý kámen představuje 5 modrých kamenů."
+
+#: level_i18n.cc:485
+msgid ""
+"This katro game comes from Madagascar; in Easy mode there is an african "
+"Awale."
+msgstr "Tato katro hra pochází z Madagaskaru; snadný režim je africký Awale."
+
+#: level_i18n.cc:487
+msgid "Only reset or Shift-F3 can make things evolve ..."
+msgstr "Pouze nový začátek nebo Shift+F3 ti může pomoci ..."
+
+#: level_i18n.cc:512
+msgid "Same room, new mirrors ..."
+msgstr "Stejná místnost, nové zrcadla ..."
+
+#: level_i18n.cc:564
+msgid "Umbrellas protect!"
+msgstr "Deštníky tě ochrání!"
+
+#: level_i18n.cc:577
+msgid "It's easier with a shovel!"
+msgstr "Jednodušší to je lopatou!"
+
+#: level_i18n.cc:584
+msgid "Watch out!!"
+msgstr "Dej si pozor!!"
+
+#: level_i18n.cc:675
+msgid "Please remember:    42"
+msgstr "Prosím, zapamatuj si:    42"
+
+#: level_i18n.cc:688
+msgid "If you think this is too easy, then play -Bavarian Madness-"
+msgstr "Pokud si myslíš, že je to příliš lehké, tak pak hraj -Bavarian Madness-"
+
+#: level_i18n.cc:716
+msgid "Sorry for inconvenience, the Bank-O-Mat is empty."
+msgstr "Omlouváme se za nepříjemnosti, bankomat je prázdný."
+
+#: level_i18n.cc:756
+msgid "Take the key to the left first!"
+msgstr "Vezmi první klíč vlevo!"
+
+#: level_i18n.cc:772
+msgid "Sunday, bloody Sunday!"
+msgstr "Neděle, krvavá neděle!"
+
+#: level_i18n.cc:776
+msgid "Can you see the hidden oxyd stones?"
+msgstr "Vidíš skryté oxyd kameny?"
+
+#: level_i18n.cc:801
+msgid "If you haven't won, you've lost!"
+msgstr "Pokud jsi nevyhrál, tak jsi ztracen!"
+
+#: level_i18n.cc:808
+msgid "Easy?"
+msgstr "Lehké?"
+
+#: level_i18n.cc:815
+msgid "Watch out, slippery!"
+msgstr "Dávej pozor, klouže to!"
+
+#: level_i18n.cc:927
+msgid "Open the Doors, Open the Oxyds"
+msgstr "Otevři dveře, otevři oxyd kámen."
+
+#: level_i18n.cc:941
+msgid "Riverside"
+msgstr "U řeky"
+
+#: level_i18n.cc:943
+msgid "Wrong side!                   F3"
+msgstr "Špatná strana!                   F3"
+
+#: level_i18n.cc:954
+msgid "The moving boulder can fall down holes but cannot fall into water."
+msgstr "Pohybující se balvan může spadnout do děr, ale nemůže spadnout do vody."
+
+#: level_i18n.cc:967
+msgid ""
+"Oh, ridiculous riddle rule my marble's meaningless mind, continue creating "
+"confusion being blackball's brain's blind."
+msgstr "Ach, vtipná hádanka upoutala pozornost mého drahého přítele a nadále mate myšlení."
+
+#: level_i18n.cc:975
+msgid "Feed me!"
+msgstr "Nakrm mě!"
+
+#: level_i18n.cc:977
+msgid "Beware of Sadistic Dentist!"
+msgstr "Dej si pozor na sadistického zubaře!"
+
+#: level_i18n.cc:979
+msgid "The innocent victim."
+msgstr "Nevinná oběť."
+
+#: level_i18n.cc:981
+msgid "Office of your boss."
+msgstr "Kancelář tvého šéfa."
+
+#: level_i18n.cc:983
+msgid "Aaaaaarrrrggghhhhhh!!!!!"
+msgstr "Aaaaaarrrrggghhhhhh!!!!!"
+
+#: level_i18n.cc:985
+msgid "Everyone has gone, but the plant's still hungry!"
+msgstr "Všichni jsou pryč, ale továrna je stále hladová!"
+
+#: level_i18n.cc:987
+msgid "No! No! Aaaarrrrgggghhhh!"
+msgstr "Ne! Ne! Aaaarrrrgggghhhh!"
+
+#: level_i18n.cc:994
+msgid "You shouldn't have done that."
+msgstr "Neměl bys to dělat."
+
+#: level_i18n.cc:995
+msgid "Careful."
+msgstr "Opatrně."
+
+#: level_i18n.cc:1000
+msgid "Balance Beam"
+msgstr "Kladina"
+
+#: level_i18n.cc:1005
+msgid "Remote Meditation"
+msgstr "Vzdálené rozjímání"
+
+#: level_i18n.cc:1010
+msgid "The Wild Hunt"
+msgstr "Divoký lov"
+
+#: level_i18n.cc:1030
+msgid "Freeze by the Power of Light"
+msgstr "Zmrazení mocí světla"
+
+#: level_i18n.cc:1034
+msgid "Rainbow Adjacencies"
+msgstr "Duha a přilehlé"
+
+#: level_i18n.cc:1038
+msgid "Recover the Stone"
+msgstr "Odebrání kamene"
+
+#: level_i18n.cc:1043 level_i18n.cc:1291 level_i18n.cc:3942
+msgid "Open the Doors"
+msgstr "Otevři dveře"
+
+#: level_i18n.cc:1050
+msgid ""
+"This is a color maze. You have to work out what order you need to traverse "
+"the colored floors in order to reach the oxyds."
+msgstr "Toto je barevné bludiště. Musíš určit pořadí, jak projít po barevném povrhu, abys dostal oxyd kameny."
+
+#: level_i18n.cc:1067
+msgid "Restless Meditation"
+msgstr "Přemýšlení bez přerušení"
+
+#: level_i18n.cc:1069
+msgid "Caution - Quick Sand!"
+msgstr "Pozor - Pohyblivý písek!"
+
+#: level_i18n.cc:1073
+msgid "Left or Right Drive?"
+msgstr "Doleva nebo doprava?"
+
+#: level_i18n.cc:1080
+msgid "Can you relax amid all this chaos?"
+msgstr "Můžeš odpočívat upostřed toho zmatku?"
+
+#: level_i18n.cc:1085
+msgid "Carry that oxygen around."
+msgstr "Nachytej vzduch kolem."
+
+#: level_i18n.cc:1090
+msgid "Audience in Venice"
+msgstr "Publikum v Benátkách"
+
+#: level_i18n.cc:1092
+msgid "Press the Triggers"
+msgstr "Stiskni podlahový spínač"
+
+#: level_i18n.cc:1094
+msgid "Welcome to Venice"
+msgstr "Vítej v Benátkách"
+
+#: level_i18n.cc:1096
+msgid "Welcome to the Audience"
+msgstr "Vítej v publiku"
+
+#: level_i18n.cc:1098
+msgid "rialto"
+msgstr "rialto"
+
+#: level_i18n.cc:1100
+msgid "... under construction"
+msgstr "... staveniště"
+
+#: level_i18n.cc:1102
+msgid "try the boulders as gondola"
+msgstr "použij balvany jako gondolu"
+
+#: level_i18n.cc:1104
+msgid "piazza san marco"
+msgstr "Náměstí svatého Marka"
+
+#: level_i18n.cc:1106
+msgid "danger"
+msgstr "nebezpečí"
+
+#: level_i18n.cc:1108
+msgid "san giorgio"
+msgstr "Svatý Jiří"
+
+#: level_i18n.cc:1110
+msgid "guardian ducale"
+msgstr "strážci vévody"
+
+#: level_i18n.cc:1112
+msgid "gondoliere on strike"
+msgstr "gondoliér stávkuje"
+
+#: level_i18n.cc:1114
+msgid "palace ducale"
+msgstr "vévodský palác"
+
+#: level_i18n.cc:1116
+msgid "look at san michele"
+msgstr "podívej se na San Michele"
+
+#: level_i18n.cc:1118
+msgid "use the gondola below"
+msgstr "použij gondolu pod"
+
+#: level_i18n.cc:1120
+msgid "hurry to san giorgio"
+msgstr "Pospěš do San Giorgia"
+
+#: level_i18n.cc:1125
+msgid "The Green Hell"
+msgstr "Zelené peklo"
+
+#: level_i18n.cc:1127
+msgid "Exploration Trip to Green Waters"
+msgstr "Průzkumná výprava do Zelené vody"
+
+#: level_i18n.cc:1131
+msgid "4D Confusion ..."
+msgstr "Čtyřrozměrný zmatek"
+
+#: level_i18n.cc:1132
+msgid ""
+"Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four "
+"dimensions ... Some hints: size of the labyrinth is 4x4x4x4; your current "
+"position is (2|3|3|2); in all of the 16 corners of the hypercube is a blue "
+"oxyd ..."
+msgstr "Viděl jsi už někdy čtyřrozměrný labyrint? Dobře, je na čase naučit se přemýšlet ve čtyřech dimenzích ... Několik rad: Velikost labyritnu je 4x4x4x4; tvoje aktuální poloha je (2|3|3|2); ve všech 16 rozích hyperkrychle je modrý oxyd ..."
+
+#: level_i18n.cc:1133
+msgid ""
+"Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four "
+"dimensions ... Some hints: size of the labyrinth is 3x3x3x3; your current "
+"position is (2|2|2|2); in all of the 16 corners of the hypercube is a blue "
+"oxyd ..."
+msgstr "Viděl jsi už někdy čtyřrozměrný labyrint? Dobře, je na čase naučit se přemýšlet ve čtyřech dimenzích ... Několik rad: Velikost labyritnu je 4x4x4x4; tvoje aktuální poloha je (2|2|2|2); ve všech 16 rozích hyperkrychle je modrý oxyd ..."
+
+#: level_i18n.cc:1150
+msgid "Funeral on Deep Sea"
+msgstr "Pohřeb na hlubokém moři"
+
+#: level_i18n.cc:1152
+msgid ""
+"Warning: Do not play this level for more than 10 minutes - you may suffer "
+"sea sickness yourself!"
+msgstr "Varování: Nehraj tuto úroveň déle než 10 minut - můžeš trpět mořskou nemocí!"
+
+#: level_i18n.cc:1162
+msgid ""
+"Watch out for mines!        White = 0, Blue = 1, Black = 2, Red = 3, Yellow "
+"= 4, Deep Blue = 5, Deep Red = 6 ..."
+msgstr "Dej si pozor na miny!        Bílá = 0, modrá = 1, černá = 2, červená = 3, žlutá = 4, tmavě modrá = 5, tmavě červená = 6 ..."
+
+#: level_i18n.cc:1163
+msgid ""
+"Hint: Mines are never located along the edges.  If you still get stuck, look"
+" behind the wall!"
+msgstr "Nápověda: Důl není nikdy umístěn podél okrajů. Jesliže se ti nedaři vyřešit úroveň, podívej se za zdi!"
+
+#: level_i18n.cc:1164
+msgid ""
+"Hit the switch to uncover one tile, but you will have to wait 10 seconds."
+msgstr "Použij tento přepínač a odkryj jednu dlaždici, ale budeš muset počkat 10 sekund."
+
+#: level_i18n.cc:1184
+msgid "Change guaranteed"
+msgstr "Změna je zaručena"
+
+#: level_i18n.cc:1188
+msgid "Clue: The starting point is where all dead marbles go"
+msgstr "Rada: Začni tam, kam odcházejí všechny zemřelé kuličky"
+
+#: level_i18n.cc:1213
+msgid "Perfect Trajectory"
+msgstr "Přesná dráha"
+
+#: level_i18n.cc:1226
+msgid "Bridge those synapses!"
+msgstr "Připoj tyto nervové spoje!"
+
+#: level_i18n.cc:1234
+msgid "Hey, where am i now?"
+msgstr "Hej, kde to jsem?"
+
+#: level_i18n.cc:1236
+msgid ""
+"Moments ago i've been at home and wanted to take care about my two oxyd "
+"stones."
+msgstr "Před chvíli jsem byl doma a chtěl jsem se postarat o své dva oxyd kameny."
+
+#: level_i18n.cc:1238
+msgid "And now i'm stranded in this weird forest. How can i escape from here?"
+msgstr "A teď jsem uvízl v tomhle divném lese. Jak se odtud mohu dostat?"
+
+#: level_i18n.cc:1240
+msgid ""
+"If i should have a look-around? Perhaps i can find some things that could "
+"help me to find an exit."
+msgstr "Mám se podívat kolem? Možná bych našel nějaké věci, které by mi pomohly najít východ."
+
+#: level_i18n.cc:1242
+msgid "WARNING: Highest caution is necessary."
+msgstr "VAROVÁNÍ: Buď velmi opatrný!"
+
+#: level_i18n.cc:1244
+msgid "Wild buffaloes are crossing the way."
+msgstr "Divocí buvoli jdou přes cestu."
+
+#: level_i18n.cc:1246
+msgid "Help me, the forest is on fire!"
+msgstr "Pomoz mi, les hoří!"
+
+#: level_i18n.cc:1248
+msgid "A herd of wild horses blocks the way."
+msgstr "Stádo divokých koní blokuje cestu."
+
+#: level_i18n.cc:1250
+msgid "A small hamlet with a fence, a few huts, a pond, some bales of straw."
+msgstr "Malá vesnička s plotem, pár chat, rybník, několik stohů slámy."
+
+#: level_i18n.cc:1252
+msgid "If there is finally an exit?"
+msgstr "Takže tam je konečně východ?"
+
+#: level_i18n.cc:1254
+msgid "I'm afraid, i need some assistance!"
+msgstr "Obávám se, že potřebuji pomoc!"
+
+#: level_i18n.cc:1256
+msgid "Filling station for empty extinguishers."
+msgstr "Plnění prázdných hasicích přístrojů."
+
+#: level_i18n.cc:1258
+msgid "Watch out: Angry mosquitoes!"
+msgstr "Dej si pozor: Rozhněvaní komáři!"
+
+#: level_i18n.cc:1260
+msgid "Useful things may also be hidden!"
+msgstr "Užitečné věci mohou být skryty!"
+
+#: level_i18n.cc:1264
+msgid "Spaceship Control"
+msgstr "Řízení vesmírné lodi"
+
+#: level_i18n.cc:1265
+msgid "Bound to the blue nowhere"
+msgstr "Vpřed, do neznáma"
+
+#: level_i18n.cc:1308
+msgid "The journey is the reward"
+msgstr "Cesta je sama o sobě odměnou"
+
+#: level_i18n.cc:1312
+msgid "Lady in Red"
+msgstr "Žena v červeném"
+
+#: level_i18n.cc:1319
+msgid "Watchmaker"
+msgstr "Hodinář"
+
+#: level_i18n.cc:1323
+msgid "Mend the clockwork"
+msgstr "Opravit hodinový stroj"
+
+#: level_i18n.cc:1324
+msgid ""
+"Don't close the pools before the clockwork is done, unless you are Fred "
+"Astaire"
+msgstr "Pokud nevíš, jak tančit jako Fred Astaire, tak nezavírej nádrže, před opravou hodinového stroje."
+
+#: level_i18n.cc:1329
+msgid "Every marble is the architect of its own fortune"
+msgstr "Každá kulička je strůjce svého štěstí"
+
+#: level_i18n.cc:1340
+msgid ""
+"Your faithful friend Tonto, your horse Silver, and Tonto's horse Scout have "
+"been captured."
+msgstr "Tvůj věrný přítel Tonda, tvůj kůň Stříbrňák a Tontův kůň Zvěd byli zajati."
+
+#: level_i18n.cc:1342
+msgid "Don't forget your disguise!"
+msgstr "Nezapomeň na převlek!"
+
+#: level_i18n.cc:1344
+msgid "Here lies the grave of John Reid."
+msgstr "Zde je pohřben Jan Reid."
+
+#: level_i18n.cc:1346
+msgid "Hi-yo Silver, away!"
+msgstr "Hijé, Stříbrňáku, utíkej!"
+
+#: level_i18n.cc:1348
+msgid "Who was that masked man?"
+msgstr "Kdo byl ten maskovaný muž?"
+
+#: level_i18n.cc:1350
+msgid "Hey! This tomb is empty!"
+msgstr "Hej! Tento hrob je prázdný!"
+
+#: level_i18n.cc:1354
+msgid "Take the first exit"
+msgstr "Použij první východ"
+
+#: level_i18n.cc:1367
+msgid "Who broke the pearl necklace?"
+msgstr "Kdo rozbil perlový náhrdelník?"
+
+#: level_i18n.cc:1368
+msgid ""
+"Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls "
+"rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "
+"knows that succeeding pearls connect, when each is placed on a neighboring "
+"dot and a coin is inserted into the slot."
+msgstr "Nádherný náhrdelník paní Scarlettové se roztrhl a všechny pestrobarevné perly se skutálely na podlahu. Paní Scarlettová si nepamatuje pořadí, ale ví, že se následující perly spojí, když je každá umístěna na sousedící bod a do otvoru je vložen ponízek."
+
+#: level_i18n.cc:1369
+msgid ""
+"You did invert the sequence of this pair of pearls. You need to correct this"
+" fault to finish the necklace."
+msgstr "Tento pár perel je spojen ve špatném pořadí. Oprav chybu, abys mohl dodělat náhrdelník."
+
+#: level_i18n.cc:1374
+msgid "Jack-Of-All-Trades"
+msgstr "Všeuměl"
+
+#: level_i18n.cc:1376
+msgid "Find The Paradise"
+msgstr "Najdi ráj"
+
+#: level_i18n.cc:1388
+msgid "Welcome to Enigma VII"
+msgstr "Vítej v Enigmě VII"
+
+#: level_i18n.cc:1392
+msgid ""
+"Move all small marbles into the holes. Only one marble per hole is allowed."
+msgstr "Přesuň všechny malé kuličky do otvorů. Je dovolena jenom jedna kulička na otvor."
+
+#: level_i18n.cc:1396
+msgid "Careful - you can not swim in the water."
+msgstr "Opatrně - neumíš plavat ve vodě."
+
+#: level_i18n.cc:1400
+msgid ""
+"Use the right mouse-button to rotate your inventory,  it's the bar at the "
+"bottom of the screen.   And guess what these three items down there can be "
+"used to."
+msgstr "Použij pravé tlačítko myši pro otočení inventáře, je to čára v dolní části obrazovky.   A hádej, na co můžou být použity tyto tři pložky."
+
+#: level_i18n.cc:1401
+msgid ""
+"There are lots of different items to use in Enigma, as well as special "
+"floors and stones.   Let's explore some more of the actual Enigma levels!   "
+"And if you have problems with a level - take a look at the manual:   For "
+"some levels, there are hints."
+msgstr "Existuje má mnoho různých zařízení, stejně tak jako zvláštní povrchy a kameny.   Prozkoumej několik dalších úrovní hry! A jestliže budeš mít problémy s úrovní - podívej se do výukového materiálu: Pro pár úrovní zde najdeš nápovědu."
+
+#: level_i18n.cc:1405
+msgid "Prepare for even more mouse gymnastics in the next levels."
+msgstr "Připrav se ještě na větší myší gymnastiku v dalších úrovních."
+
+#: level_i18n.cc:1409
+msgid "Don't drown in the swamp."
+msgstr "Neutop se v bažině."
+
+#: level_i18n.cc:1416
+msgid ""
+"This oscillating stone is a timer-stone. You cannot interact with it, but "
+"nevertheless be aware when you see one: After some time-period anything "
+"might happen ..."
+msgstr "Tento kmitající kámen je časovač. Nemůžeš s ním pracovat, ale měj se na pozoru: Za chvíli se může něco stát ..."
+
+#: level_i18n.cc:1417
+msgid ""
+"The stones with arrows are one-way-stones. As you might have guessed, you "
+"can only pass them in one direction.                Mazes are cherished "
+"elements of Enigma - you will see lots of them."
+msgstr "Kameny se šipkami jsou jednosměrné kameny. Jak jsi mohl uhodnout, můžeš jít přes ně pouze naznačeným směrem.               Směrové labyrinty jsou úchvatné prvky Enigmy - uvidíš spoustu z nich."
+
+#: level_i18n.cc:1418
+msgid ""
+"Well done!     When you have finished this level, let's play some example "
+"levels from the actual Enigma packs!"
+msgstr "Výborně.     Když jsi dokončil tuto úroveň, můžeš si zahrát například úrovně z aktuálního balíku Enigmy!"
+
+#: level_i18n.cc:1422
+msgid ""
+"The blue stones are Oxyd stones. Open them by touching them with your black "
+"marble."
+msgstr "Modré kameny jsou oxyd kameny. Mohou se otevřít zasáhem tvé černé kuličky."
+
+#: level_i18n.cc:1426
+msgid ""
+"But before this, take a look at the final tutorial level Jacob devised for "
+"you.   See it as an exam, if you want to.   It's quite difficult, so don't "
+"despair if you don't get through it at the first time.   Bye!"
+msgstr "Ale nejdřív se podívej na závěrečný výukový materiál úrovně, který Jacob vytvořil pro tebe.   Můžeš to považovat za zkoušku.   Tato úroveň je poměrně těžká, takže nezoufej, pokud ji neuděláš na první pokus.   Ahoj!"
+
+#: level_i18n.cc:1427
+msgid ""
+"Well, I hope you enjoyed this tutorial-pack.   You will see most of these "
+"levels a second time in the Enigma packs, together with many new and much "
+"more difficult ones.   Just don't give up on them!"
+msgstr "Dobře, já doufám, že se ti toto cvičení líbilo.   Uvidíš většinu z těchto úrovní podruhé v balíku Enigmy, společně s mnoha novými a mnohem náročnějšími.   Jenom to nevzdávej!"
+
+#: level_i18n.cc:1431
+msgid "Levels can be larger than one screen."
+msgstr "Úrovně můžou trvat více než jednu obrazovku."
+
+#: level_i18n.cc:1435
+msgid "Remember the colors."
+msgstr "Zapamatuj si barvy."
+
+#: level_i18n.cc:1439
+msgid "Friction and acceleration depend on the floor type."
+msgstr "Tření a zrychlení závisí na typu povrchu."
+
+#: level_i18n.cc:1443
+msgid "Some stones look exactly like the Oxyd stones!"
+msgstr "Některé kameny vypadají přesně jako oxyd kameny."
+
+#: level_i18n.cc:1447
+msgid ""
+"This wooden block is movable and heavy enough to hold down the trigger on "
+"the right.   Try to push it there!"
+msgstr "Tato dřevěná bedna je pohyblivá a dost těžká na to udržet podlahový spínač vpravo.   Zkus ji dotlačit na podlahový spínač!"
+
+#: level_i18n.cc:1448
+msgid ""
+"Remember?  There are different kinds of floors.  And these are steep ..."
+msgstr "Pamatuješ? Existuje mnoho druhů povrchů. A tento je strmý ..."
+
+#: level_i18n.cc:1449
+msgid ""
+"Is there more one can do with wooden blocks?   Yes!  Just explore the next "
+"levels."
+msgstr "Existuje více možností, co dělat s dřevěnou bednou? Ano! Stačí prozkoumat další úrovně."
+
+#: level_i18n.cc:1453
+msgid "Take your time ..."
+msgstr "Dej si na čas ..."
+
+#: level_i18n.cc:1457
+msgid ""
+"The bright light beam is a laser beam.   Don't get too close to it!   But it"
+" has its uses ...    You can use the mirrors to direct the laser to its "
+"targets.   From these, only the light-gray ones are movable, just try it!"
+msgstr "Ostré světlo je laserový paprsek.   Nepřibližuj se blízko k němu! Ale laserový paprsek se dá i využít ... Můžeš použít zrcadla k přesměrování paprsku k jeho cílům. Z nich jsou pouze světle šedá pohyblivá, zkus to!"
+
+#: level_i18n.cc:1461
+msgid "Learn to move your black ball properly."
+msgstr "Nauč se pohybovat přesně s černou kuličkou."
+
+#: level_i18n.cc:1465
+msgid "Don't touch everything!"
+msgstr "Nedotýkej se všeho!"
+
+#: level_i18n.cc:1470
+msgid ""
+"Welcome!    Enigma features hundreds of different objects and ideas. Do not "
+"mind them for now---we will show you some in this tutorial, but most of the "
+"time the fun actually is in discovering these objects for yourself. The "
+"stones with colored spots and shapes you matched in the room above are "
+"called Oxyd stones. Most of the time, your goal is to find and open them. "
+"Since this level is not solved yet, there might be more Oxyd stones ahead? "
+"When you want to pause or quit, just press the ESC key."
+msgstr "Vítejte! Enigma obsahuje stovky různých předmětů a nápadů. Prozatím se jimi nezaobírej --- některé ukážeme v tomto návodu, ale zábava je po většinu času ve skutečnosti objevit tyto předměty pro sebe. Kameny s barevnými skvrnami a tvary, které jsi dával dohromady v místnosti výše, se nazývají Oxyd kameny. Cílem je většinou je najít a otevřít. Protože tato úroveň ještě není vyřešena, může být před tebou více Oxydových kamenů? Chceš-li hru pozastavit nebo ukončit, jednoduše stiskni klávesu Esc."
+
+#: level_i18n.cc:1474
+msgid ""
+"The stone with the horse's head is called ''chess stone''. Watch how the "
+"other marble hits one of them to move it. The angle is important."
+msgstr "Kámen s koňskou hlavou je jmenuje \"šachový kámen\". Podívej se, jak jak jiná kulička tento kámen přesune. Úhel je důležitý."
+
+#: level_i18n.cc:1475
+msgid ""
+"Now try to move these chess stones onto the triggers. They always move two "
+"steps plus one step."
+msgstr "Teď zkus přesunout tyto šachové kameny na podlahové spínače. Vždy se pohybují dva kroky plus jeden krok."
+
+#: level_i18n.cc:1479
+msgid ""
+"Those doors on the right block your way to the oxyds ... on the left you see"
+" some triggers. Maybe they are somehow connected?"
+msgstr "Tyto dveře jsou zavřené, kvůli správné cestě k oxyd kamenům ... na levé straně můžeš vidět nějaké podlahové spínače. Možná, že jsou nějakým způsobem spojeny?"
+
+#: level_i18n.cc:1774
+msgid "Nothing can stop us!"
+msgstr "Nic nás nemůže zastavit!"
+
+#: level_i18n.cc:1820
+msgid "Rest on the bright spot for a minute."
+msgstr "Zůstaň chvíli na světlém místě ..."
+
+#: level_i18n.cc:1821
+msgid "You'll do anything you're told!"
+msgstr "Udělej, co ti říkám!"
+
+#: level_i18n.cc:1826
+msgid "... did it!"
+msgstr "... je to hotovo!"
+
+#: level_i18n.cc:1830
+msgid "Dig in ..."
+msgstr "Kopej ..."
+
+#: level_i18n.cc:1865
+msgid "Did you bring your flag?"
+msgstr "Přinesl jsi svou vlajku?"
+
+#: level_i18n.cc:1873
+msgid "Watch out for water holes!"
+msgstr "Dej si pozor, aby ses neutopil!"
+
+#: level_i18n.cc:1905
+msgid "Some stones and stone rows can be moved!"
+msgstr "Některé kameny a některé kamenné řady mohou být přemístěny!"
+
+#: level_i18n.cc:1954
+msgid ""
+"Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
+"how to play."
+msgstr "Vítejte v Enigmě! Tímto výukovým materiálem tě naučím (Jacob Scott), jak hrát tuto hru."
+
+#: level_i18n.cc:1955
+msgid ""
+"You control the black ball.  To pick up an object, just roll over it.  You "
+"can bounce off most walls (try it), but avoid the blue floor near the bottom"
+" of the room (actually, try falling into it and then restarting the level "
+"with the 'Esc' key).  While these messages are being displayed, don't click "
+"any buttons or push any keys or the message will stop."
+msgstr "Ovládáš černou kuličku. Pokud chceš zvednout nějaký předmět, pouze přes něj přejeď kuličkou. Můžeš se odrážet od většiny stěn (zkus to), ale vyhni se modrému povrchu v dolní části obrazovky (vlastně, zkus do něj spadnout, a pak začni úroveň znovu pomocí klávesy \"Esc\"). Zatímco se tyto zprávy zobrazují, tak neklepej na žádné tlačítko ani nestiskni žádnou klávesu, jinak zpráva zmizí."
+
+#: level_i18n.cc:1956
+msgid "This is pretty self-explanatory."
+msgstr "To je docela samozřejmé."
+
+#: level_i18n.cc:1957
+msgid ""
+"Enigma is full of puzzles of various types.  In the next room, you will "
+"encounter your first one."
+msgstr "Enigma je hra plná různých hádanek. V další místnosti se setkáte s první z nich."
+
+#: level_i18n.cc:1958
+msgid ""
+"You can't walk on water!  Try pushing the blocks into the water to get to "
+"the other side."
+msgstr "Nemůžeš chodit po vodě! Zkus dotlačit bedny do vody, aby ses dostal na druhou stranu."
+
+#: level_i18n.cc:1959
+msgid ""
+"Notice that you can't push a row of two or more blocks.  Also, blocks can't "
+"be on the same squares as grates but you can."
+msgstr "Všimni si, že nemůžeš tlačit dvě nebo více beden. Bedny také nemůžeš zasunout pod mříž, ale můžeš přes ně."
+
+#: level_i18n.cc:1960
+msgid ""
+"There are different types of blocks here.  Those black blocks sink when they"
+" fall into water.  The tan blocks don't sink but don't form bridges either."
+msgstr "Jsou zde různé druhy beden. Tyto černé bedny se potopí, pokud spadnou do vody. Červenohnědé bedny se nemůžou potopit, ani nemůžeš postavit mosty mezi nimi."
+
+#: level_i18n.cc:1961
+msgid ""
+"That thing is a top -- it will destroy your ball if they touch.  Also, as "
+"long as you are close enough to it, the top will chase you.  If you die, you"
+" will restart at the beginning of the level (if you have any balls left).  "
+"Try to find a way to get past and into the next room (you can use the blocks"
+" in the center of the room as barricades)."
+msgstr "Tato věc je hrot -- zničí tvojí kuličku, jestliže se hrotu dotkneš. Pokud se k hrotu přiblížíš velmi blízko, začne tě hrot pronásledovat. Pokud zemřeš začni úroveń znovu (pokud máš ještě nějaké kuličky). Zkus najít způsob, jak se dostat do další místnosti (můžeš použít bedny ve středu místnosti jako barikády)."
+
+#: level_i18n.cc:1962
+msgid ""
+"Good job!  Notice that the top can't go beneath that block with a black "
+"outline -- you're safe."
+msgstr "Dobrá práce! Všimni si, že hrot nemůže jít pod bednu s černým obrysem -- jsi v bezpečí."
+
+#: level_i18n.cc:1963
+msgid "Those are different types of floors.  Try going over them."
+msgstr "Toto jsou rozdílné typy povrchů. Zkus jít přes ně."
+
+#: level_i18n.cc:1964
+msgid ""
+"The grayish floors are slopes.  The white floor is inverse-floor (you will "
+"see)."
+msgstr "Šedavé povrchy jsou svahy. Bílý povrch je inverzní povrch (uvidíš)."
+
+#: level_i18n.cc:1965
+msgid ""
+"Watch what happens when you go over those triggers.  See if you can get the "
+"extra ball."
+msgstr "Dívej se, co se stane, když přejdeš tyto podlahové spínače. Uvidíme, jestli můžeš dostat kuličku navíc."
+
+#: level_i18n.cc:1966
+msgid ""
+"That's dynamite.  Try dropping some next to that yellowish wall (and moving "
+"out of the way)."
+msgstr "Toto je dynamit. Zkus ho hodit ke žlutavé zdi (a okamžitě uteč)."
+
+#: level_i18n.cc:1967
+msgid "Try using the spade on the holes caused by the dynamite."
+msgstr "Zkus použít rýč na otvory způsobené dynamitem."
+
+#: level_i18n.cc:1968
+msgid ""
+"Those things are boulders -- try moving one of the tan blocks.  Don't fall "
+"into the water or abyss (the black floor)."
+msgstr "Toto jsou balvany -- zkus přesunout jeden z hnědých bloků. Vyhni se pádu do vody nebo do propasti (černý povrch)."
+
+#: level_i18n.cc:1969
+msgid ""
+"Take the magic wand and hit a boulder.  Try to let the row of three boulders"
+" pass the large column."
+msgstr "Vezmi kouzelnou hůlku a udeř do balvanu. Zkus ze tří balvanů složit vysoký sloupec."
+
+#: level_i18n.cc:1970
+msgid "Hit it hard enough!"
+msgstr "Udeř více!"
+
+#: level_i18n.cc:1971
+msgid ""
+"It appears to be a simple room, but you're getting an extra ball anyway.  "
+"Maybe there is a reason ..."
+msgstr "Zdá se, že je to jednoduchá místnost, ale dostal jsi další kuličku. Možná je pro to důvod ..."
+
+#: level_i18n.cc:1972
+msgid ""
+"Try to get the laser beam to hit that black stone, but don't get hit by it!"
+"  Use the mirrors to direct the beam."
+msgstr "Zkus dosáhnout toho, aby laserový paprsek zasáhl černý kámen, ale nezasáhni vedle něj! Pomocí zrcadla nasměruj paprsek."
+
+#: level_i18n.cc:1973
+msgid ""
+"Many objects change when hit with a laser beam.  Try hitting some of the "
+"coins with the laser beam.  Also, try hitting a block over a coin.  Those "
+"stones to your right are knights -- you need to fight (hit) them with a "
+"sword (in the front of your inventory) to get past."
+msgstr "Mnoho předmětů se mění, když jsou zasaženy laserovým paprskem. Zkus zasáhnout nějakou minci laserovým paprskem. Také zkus zasáhnout bednu přes minci. Tyto kameny vpravo jsou rytíři -- musíš s nimi bojovat (zasáhnout je) mečem (který je ve tvém inventáři)."
+
+#: level_i18n.cc:1974
+msgid ""
+"Do you have any umbrellas?  Each one will give you approximately ten seconds"
+" of protection from danger (such as falling)."
+msgstr "Máš nějaké deštníky? Každý z nich ti dá přibližně deset sekund ochranu před nebezpečím (nebo pády)."
+
+#: level_i18n.cc:1975
+msgid ""
+"Those black stones are quake stones -- they reset all progress made with the"
+" oxyd stones.  The other stones are the oxyd stones.  Match them up to win!"
+msgstr "Tyto černé kameny jsou zemětřesné kameny -- nastavují znovu veškerou činnost oxyd kamenů. Ostatní kameny jsou oxyd kameny. Najdi všechny shodné dvojice oxyd kamenů a vyhraj!"
+
+#: level_i18n.cc:1976
+msgid ""
+"This area at the bottom of the screen is your inventory -- when you pick "
+"things up, they go here (there is a maximum of twelve).  To scroll through "
+"the inventory, use the right mouse button or the 'tab' key.  To drop or use "
+"an object, click the left mouse button.  Some objects, such as documents "
+"(like this one), can't be dropped but are instead used.  Those two balls in "
+"your inventory are your extra lives -- if you die in this level, you will "
+"restart at the beginning of the level if you have any balls left (and you "
+"will lose one of the balls)."
+msgstr "Tato oblast v dolní části obrazovky je tvůj inventář -- můžeš si vybrat jednu z položek (nejvíce je zde dvanáct položek). Chceš-li procházet inventář, použij pravé tlačíko myši nebo klávesu Tab. Chceš-li odstanit nebo použít objekt, klepni levým tlačítkem myši. Některé položky, jako dokumenty (jako tento), nemůžou být odstraněny, protože jsou používány. Tyto dvě kuličky ve tvém inventáři jsou dodatečné životy -- jestliže zemřeš v této úrovni, tak se úroveň začne znovu, pokud máš ještě nějaké kuličky (a jedna kulička zmizí)."
+
+#: level_i18n.cc:1977
+msgid ""
+"Naturally, you're supposed to go through those closed gates at the top of "
+"the screen.                         Try going down that slope near the "
+"bottom of the room to see what's to the left."
+"                                                         Don't bother with "
+"that trigger below the abyss yet.                                 If you "
+"could hit that small white ball through the one-way blocks (with the "
+"arrows), it might roll down and stop on that trigger.                  You "
+"will need to go in with it but you can't go through the white one-way block."
+"                            Take the spoon and use it once the white ball is"
+" through (hit it hard)."
+msgstr "Samozřejmě, máš projít zavřenými vraty v horní části obrazovky.                         Zkus jít dolů po svahu v dolní části místnosti, abys viděl, co je vlevo.                                                         Nemůžeš dělat s podlahovým spínačem na protější straně propasti.                                Pokud můžeš, zasáhni malý bílý míček jednosměrnou bednou (se šipkami), mohl by se valit na podlahový spínač a zastavit se na něm.                 Musíš jít s tím, ale nemůžeš jít přes bílé jednosměrné bedny.                             Vezmi lžíci a použij ji, když je bílá kulička na podlahovém spínači (je těžké zasáhnout)."
+
+#: level_i18n.cc:1978
+msgid ""
+"The stone in the top-right of the room is a switch.  Hit it -- it is "
+"probably useful.  In this case the switch opens and closes a door (Do you "
+"remember a door that you weren't able to open?).  The bluish line is a "
+"window -- bridge the water before you do anything with it."
+msgstr "Kámen v horní pravé části místnosti je vypínač. Zasáhni ho -- je to užitečné. V tomto případě vypínač otevře a zavře dveře (Nezapomněl jsi dveře, které jsi nebyl schopen otevřít?). Modravá čára je okno -- přejdi přes vodu, před tím nic nedělej."
+
+#: level_i18n.cc:1979
+msgid ""
+"That was a rotor (similar to a top).  Some levels have many rotors and tops "
+"to make them difficult.                            However, maybe this rotor"
+" has a purpose; maybe you could get it on that trigger near where the spoon "
+"was.                      It might be convenient to close the gate."
+msgstr "Toto byl rotor (podobně jako hrot). Některé úrovně mají hodně rotorů a vrcholů, aby byly těžší.                            Nicméně, možná má tento rotor svůj účel; možná bys ho mohl nalákat na podlahový spínač, v blízkosti místa, kde jsi našel lžíci.                       Možná by bylo vhodné zavřít bránu."
+
+#: level_i18n.cc:1992
+msgid "If I only had a bag."
+msgstr "Kéž bych měl pytel."
+
+#: level_i18n.cc:1993
+msgid "shh ... listen!"
+msgstr "pšt ... poslouchej!"
+
+#: level_i18n.cc:2004
+msgid "Could you need something?"
+msgstr "Možná, že něco potřebuješ?"
+
+#: level_i18n.cc:2022
+msgid ""
+"The most dangerous animals of the bayou are the alligators, the mosquitoes "
+"... and the zombies! (But the zombies at least, don't move ...)"
+msgstr "Nejnebezpečnější zvířata zátoky jsou aligátoři, komáři, ... a zombie! (Ale zombie se, alespoň nemůže hýbat ...)"
+
+#: level_i18n.cc:2029
+msgid "Look carefully at everything!"
+msgstr "Pozorně si všechno prohlédni!"
+
+#: level_i18n.cc:2030
+msgid "Do you need a helping hand?"
+msgstr "Potřebuješ pomocnou ruku?"
+
+#: level_i18n.cc:2035
+msgid "Send me the keys !"
+msgstr "Pošli mi klíče !"
+
+#: level_i18n.cc:2037
+msgid "ALL the keys!!!"
+msgstr "VŠECHNY klíče!!!"
+
+#: level_i18n.cc:2046
+msgid "April 1st"
+msgstr "1. dubna"
+
+#: level_i18n.cc:2048
+msgid "Do you REALLY want to do this???"
+msgstr "OPRAVDU to chceš udělat???"
+
+#: level_i18n.cc:2050
+msgid ""
+"Didn't your mother tell you that you should not spend your money in such a "
+"careless manner?"
+msgstr "Neřekne tvoje matka, že bys neměl tak nedbale utrácet peníze?"
+
+#: level_i18n.cc:2052
+msgid "What is the current month?"
+msgstr "Jaký je měsíc?"
+
+#: level_i18n.cc:2054
+msgid "What is this level's name?"
+msgstr "Jaké je jméno této úrovně?"
+
+#: level_i18n.cc:2071
+msgid "Catwalk Meditation"
+msgstr "Přemítání na molu"
+
+#: level_i18n.cc:2106
+msgid ""
+"When you change the color of one square, the colors of the 2 nearest squares"
+" change as well; you must get as many green squares as possible."
+msgstr "Když změníš barvu jednoho čtverce, barva dvou nejbližších čverců se změní také; musíš získat co nejvíce zelených čtverců."
+
+#: level_i18n.cc:2108
+msgid ""
+"You are only allowed to change a color when it is surrounded by the other "
+"color."
+msgstr "Můžeš měnit barvu čtverce, pouze pokud se nachází mezi čtverci s jinou barvou."
+
+#: level_i18n.cc:2112
+msgid ""
+"Beware, stranger! The ancient gods of Enigma have set many traps to protect "
+"their holy Oxyds! You will have to get through the Four Tests to prove your "
+"worth!"
+msgstr "Dej si pozor, cizinče! Staří bohové Enigmy vytvořili mnoho pastí k ochránění Svatých oxyd kamenů! Budeš se muset dostat přes čtyři zkoušky, abys dokázal, že jsi jich hoden!"
+
+#: level_i18n.cc:2113
+msgid "Prove your speed in the Test of Fire!"
+msgstr "Dokaž svou rychlost ve zkoušce ohněm!"
+
+#: level_i18n.cc:2114
+msgid "You have proven your worth! The ancients grant you a FLAG!"
+msgstr "Prokázal jsi svou odvahu! Bohové tě odměnili VLAJKOU!"
+
+#: level_i18n.cc:2115
+msgid "Prove your intelligence in the Test of Earth!"
+msgstr "Dokaž svou inteligenci ve zkoušce Země!"
+
+#: level_i18n.cc:2116
+msgid "You have proven your worth! The ancients grant you a SPRING!"
+msgstr "Prokázal jsi svou odvahu! Bohové tě odměnili JAREM!"
+
+#: level_i18n.cc:2117
+msgid "Prove your dexterity in the Test of Air!"
+msgstr "Dokaž svou obratnost ve zkoušce vzduchu!"
+
+#: level_i18n.cc:2118
+msgid "You have proven your worth! The ancients grant you a NAIL!"
+msgstr "Prokázal jsi svou odvahu! Bohové tě odměnili HŘEBÍKEM!"
+
+#: level_i18n.cc:2119
+msgid "Prove your patience in the Test of Water!"
+msgstr "Dokaž svou trpělivost ve zkoušce vody!"
+
+#: level_i18n.cc:2120
+msgid ""
+"This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more!"
+" Bwahahahaha!"
+msgstr "To není možné! Žádný smrtelník nemůže dostat naše Svaté oxyd kameny! Dokaž, že jsi jich hoden znovu! Muhahaha!"
+
+#: level_i18n.cc:2126
+msgid ""
+"Mightie art the Knightes of The Olde Ages who keepe the Elfic Oxyde Stones, "
+"and numerous art the Ghostes who lye in the waye to them; many art the "
+"adventurers who tryed to steale Aylendil the Sworde but none has ever come "
+"back. Hazy is the swampe where the Magick of the Ancients is buryed; the "
+"lair of WhiteHorse the dragon thu shalt avoyd in feare of awaken him ..."
+msgstr "Silní bojovníci skal střeží elfské-oxyd kameny. Mnoho duchů je na cestě k nim. Mnoho dobrodruhů se chlubilo, že ukradnou Aylendilský meč, ale žádný z nich se nikdy nevrátil. V bažině jsou ukryta starověká kouzla. Vyhni se raději doupěti draka Bílého Koně."
+
+#: level_i18n.cc:2136
+msgid ""
+"You again! We won't let you pass this time! See these Oxyds? You can't reach"
+" them unless you rob our Four Holy Items! But they are well guarded! "
+"Bwahahahaha!"
+msgstr "Zase ty! Tentokrát tě nenecháme odejít! Vidíš ty oxyd kameny? Nemůžeš k nim, dokud neukradneš naše čtyři svaté relikvie! Relikvie jsou dobře střeženy! Muhahahahaha!"
+
+#: level_i18n.cc:2137
+msgid ""
+"Fire burns and destroys ... Want to remove blocking stones? Then dig your "
+"way to the Holy Hammer!"
+msgstr "Oheň spaluje a ničí vše, co mu stojí v cestě ... Chceš odstranit kameny, které ti brání v cestě? Pak vykopej cestu ke Svatému kladivu!"
+
+#: level_i18n.cc:2138
+msgid "Try again! Bwahahahaha!"
+msgstr "Zkus to znovu! Muhahahaha!"
+
+#: level_i18n.cc:2139
+msgid ""
+"Earth fills and lasts ... Want to replace missing floors? Then build your "
+"way to the Holy Seed!"
+msgstr "Země vyplňuje prázdnotu ... Chceš vyplnit chybějící povrch? Pak postav cestu ke Svatému semínku!"
+
+#: level_i18n.cc:2140
+msgid ""
+"Air blows and goes by ... Want to jump across the void? Then make your way "
+"to the Holy Spring!"
+msgstr "Vzduch odvane vše, co stojí v cestě ... Chceš přeskočit prázdnotu? Pak si udělej cestu ke Svatému jaru!"
+
+#: level_i18n.cc:2141
+msgid ""
+"Water waves and shifts ... Want to trade minds with your partner? Then find "
+"your way to the Holy Yin-Yang!"
+msgstr "Voda teče a šplouchá ... Chceš požádat o pomoc kolegu? Pak najdi cestu ke Svatému Jing-Jang!"
+
+#: level_i18n.cc:2152
+msgid "Did you really think this one was so easy!?"
+msgstr "Opravdu si myslíš, že to bylo tak snadné!?"
+
+#: level_i18n.cc:2154
+msgid "Did you forget something?"
+msgstr "Nezapomněl jsi něco?"
+
+#: level_i18n.cc:2156
+msgid "Go on! There's no way back now!"
+msgstr "Pokračuj! Není již cesty zpět!"
+
+#: level_i18n.cc:2158
+msgid "STOP! Not this way! There's a short-cut ..."
+msgstr "STÁT! Takhle ne! Tam je zkratka ..."
+
+#: level_i18n.cc:2160
+msgid ""
+"There's a trigger one step to the left. If you could keep it depressed, it "
+"would help you a lot if you go back!"
+msgstr "Jeden krok vlevo je spouštěč. Jestliže ho stiskneš, tak ti hodně pomůže, když se vrátíš!"
+
+#: level_i18n.cc:2173
+msgid "Make an umbrella."
+msgstr "Vyrob si deštník."
+
+#: level_i18n.cc:2177
+msgid "Keypad Corners"
+msgstr "Rohy klávesnice"
+
+#: level_i18n.cc:2181
+msgid "Don't get too attracted!"
+msgstr "Nenech se přitáhnout!"
+
+#: level_i18n.cc:2191
+msgid "It is not quite that easy."
+msgstr "To není tak úplně jednoduché."
+
+#: level_i18n.cc:2195
+msgid "Don't get attracted!"
+msgstr "Nenech se přitáhnout!"
+
+#: level_i18n.cc:2202
+msgid ""
+"Here lies Black Ball the pirate, marooned in the year 1802 after travelling "
+"in the wrong direction."
+msgstr "Zde leží pirát Černá Koule, opuštěn v roce 1802, poté co cestoval v opačném směru."
+
+#: level_i18n.cc:2203
+msgid ""
+"To cure sea sickness hold a large bank note between your teeth and lean over"
+" the side."
+msgstr "K vyléčení mořské nemoci drž velkou bankovku mezi zuby a nakloň se na stranu."
+
+#: level_i18n.cc:2212
+msgid ""
+"Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa "
+"guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!"
+msgstr "Caramba!! El Dictator má mnoho pesos v křišťálovém trezoru, ale má taky muchos costa guardia; Chudák Bola Negra má jenom frutos a lasero!!!"
+
+#: level_i18n.cc:2222
+msgid "This is a meditation landscape: put a small marble into every hole ..."
+msgstr "V této úrovni: Umísti malou kuličku do každé díry ..."
+
+#: level_i18n.cc:2253
+msgid "No way out?"
+msgstr "Žádná cesta ven?"
+
+#: level_i18n.cc:2254
+msgid "Do you miss something?"
+msgstr "Chybí ti něco?"
+
+#: level_i18n.cc:2276
+msgid ""
+"If you have never heard about Brainf***, visit e.g. "
+"http://en.wikipedia.org/wiki/Brainfuck before you try to solve this level."
+msgstr "Pokud jsi nikdy neslyšel o Brainf***, navštiv např. http://cs.wikipedia.org/wiki/Brainfuck, předtím než se pokusíš vyřešit tuto úroveň."
+
+#: level_i18n.cc:2283
+msgid ""
+"Remember Seed Puzzle 2? There was a similar problem. Or was it Portable "
+"Laser ...?"
+msgstr "Pamatuješ Seed Puzzle 2? Tam byl podobný problém. Nebo to byl přenosný laser ...?"
+
+#: level_i18n.cc:2289
+msgid "Pirates Island"
+msgstr "Pirátský ostrov"
+
+#: level_i18n.cc:2291
+msgid "The pirates have lost several hidden things on this island ..."
+msgstr "Na tomto ostrově ztratili piráti pár věcí ..."
+
+#: level_i18n.cc:2304
+msgid "Try the easy mode first ..."
+msgstr "Zkus nejdřív lehkou obtížnost ..."
+
+#: level_i18n.cc:2322
+msgid "Welcome to Enigma V"
+msgstr "Vítej v Enigmě V"
+
+#: level_i18n.cc:2337
+msgid "Fire or be fired"
+msgstr "Oheň nebo vypálení"
+
+#: level_i18n.cc:2350
+msgid "This level is symmetric ..."
+msgstr "Tato úroveň je souměrná ..."
+
+#: level_i18n.cc:2355
+msgid ""
+"This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
+msgstr "Toto je první úroveň, kterou jsem věnoval svému otci. Doufám, že se vám bude líbit!"
+
+#: level_i18n.cc:2359
+msgid "Warning ... ... thieves!"
+msgstr "Varování ... ... zloději!"
+
+#: level_i18n.cc:2369
+msgid ""
+"Why has there always to be an active volcano and a village of marble-eating "
+"inhabitants on a tropical island?"
+msgstr "Proč jsou vždycky činná sopka a vesnice plné pojídačů kuliček na tropickém ostrově?"
+
+#: level_i18n.cc:2389
+msgid "Translate or let it be translated"
+msgstr "Přelož to, a nebo to nech přeložit"
+
+#: level_i18n.cc:2403
+msgid "Welcome to Liberty Island, New York City"
+msgstr "Vítej na Ostrově svobody v New Yorku"
+
+#: level_i18n.cc:2405
+msgid ""
+"To get a fuller picture of New York City, you should view it through every "
+"pair of glasses you can find."
+msgstr "Chceš-li získat úplnější obraz o New Yorku, podívej se na něj přes každé brýle, které najdeš."
+
+#: level_i18n.cc:2407
+msgid ""
+"There's always a terrible traffic jam on Broadway at Times Square.  It's a "
+"pity you don't have time to see a show!"
+msgstr "Na Broadway je vždy hrozná zácpa. Je škoda, že nemáš čas na to, aby ses šel podívat na nějaké představení!"
+
+#: level_i18n.cc:2409
+msgid ""
+"Charles Ives was the composer of \"Central Park in the Dark\". Enjoy his "
+"music, and use the shogun to open some gates!"
+msgstr "Charles Ives byl skladatel \"Central Park in the Dark\". Užij si jeho hudbu a pomocí šóguna otevři nějaké brány!"
+
+#: level_i18n.cc:2411
+msgid ""
+"These mechanized traffic signals are strange.  An outbound traffic sensor at"
+" Central park seems to be responsible for this street.  Use your glasses!"
+msgstr "Tyto semafory jsou zvláštní. Zdá se, že čidlo v Ústředním parku zodpovídá za tuto ulici. Použij brýle!"
+
+#: level_i18n.cc:2413
+msgid ""
+"It's funny that a fountain in Central Park should control the traffic flow."
+msgstr "Je legrační, že fontána v Ústředním parku řídí dopravní provoz."
+
+#: level_i18n.cc:2415
+msgid "Welcome to Chinatown"
+msgstr "Vítej v čínské čtvrti"
+
+#: level_i18n.cc:2420
+msgid "A Baroque Game"
+msgstr "Barokní hra"
+
+#: level_i18n.cc:2425 level_i18n.cc:2724
+msgid "Keep distance!"
+msgstr "Udržuj odstup!"
+
+#: level_i18n.cc:2427 level_i18n.cc:2726
+msgid "Help! I can't see the forest for the trees!"
+msgstr "Pomoc! Nevidím les kvůli stromům!"
+
+#: level_i18n.cc:2438
+msgid "This is a SuperSecret!! Well done on finding it!!"
+msgstr "To zde je supertajné! Přesto jsi to našel. Skvělá práce!"
+
+#: level_i18n.cc:2442
+msgid "FizzBuzz"
+msgstr "FizzBuzz"
+
+#: level_i18n.cc:2443
+msgid ""
+"Counting the first pearl as 1, you must save every pearl that's a multiple "
+"of 3 or of 5 (or both)."
+msgstr "Počítej první perlu jako 1, je nutné uložit každou perlu, která je násobkem 3 nebo 5 (nebo obojí)."
+
+#: level_i18n.cc:2448
+msgid "My First Level"
+msgstr "Má první úroveň"
+
+#: level_i18n.cc:2450
+msgid "Secrets? Use the items, ... use the glasses ..."
+msgstr "Tajemství? Použij předměty, ... použij brýle ..."
+
+#: level_i18n.cc:2457
+msgid "It's not symmetric!"
+msgstr "To není souměrné!"
+
+#: level_i18n.cc:2465
+msgid "Deep ..."
+msgstr "Hloubka ..."
+
+#: level_i18n.cc:2476
+msgid "Tutoxyd's Pyramid"
+msgstr "Tutoxydova pyramida"
+
+#: level_i18n.cc:2478
+msgid ""
+"Welcome Mr. Jones! Back from your \"Alternatives\" and \"The Walls\" "
+"training camp?  Got everything you ordered:  some money  --  40 marbleons --"
+" and a horse outside this shopping center.    Many adventurers lost their "
+"life in this pyramid.    Beware of the dangerous sand vipers and "
+"Enighomathep's curses."
+msgstr "Vítejte pane Jonesi! Zpět z vašeho výcvikového tábora \"Alternatives\" a \"The Walls\"? Mám vše, co jste si objednal: nějaké peníze  --  40 marbleonů -- a koně, který na vás čeká kousek od tohoto nákupního střediska.    Mnoho dobrodruhů zemřelo v této pyramidě.    Dejte si pozor na nebezpečné písečné zmije a Enighomathepovo prokletí."
+
+#: level_i18n.cc:2480
+msgid ""
+"Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
+"were the most useful items in this desert. But nobody was willing to spend 2"
+" marbleons.  ---  Now a blacksmith offers his service."
+msgstr "Pan Rainmaker kdysi vlastnil tento obchod. Vždy trval na tom, že jeho deštníky jsou nejužitečnější věcí v této poušti. Ale nikdo nebyl ochoten utratit 2 marbleony.  ---  Nyní tu své služby nabízí kovář."
+
+#: level_i18n.cc:2482
+msgid ""
+"Safety Precaution: in case one of these dangerous animals escapes, the gates"
+" of the shopping center will be closed immediately!"
+msgstr "Bezpečnostní upozornění: V případě, že jedno z těchto nebezpečných zvířat uteče, okamžitě se zavřou všechny brány obchodního střediska!"
+
+#: level_i18n.cc:2484
+msgid ""
+"Not much is known of the pyramid's architect Enighomathep. But it is said "
+"that he loved cherries. He ate so many of them that he sometimes became "
+"invisible."
+msgstr "Není toho moc známo o architektu Enighomathepovy pyramidy. Ale říká se, že miloval třešně. Snědl jich prý tolik, že se někdy stal neviditelným."
+
+#: level_i18n.cc:2486
+msgid ""
+"Have a look at my collection!    A white scorpion   --   a rotodile   --  "
+"and a sand viper.  They cannot be sold.        But I can offer you a scarab "
+"that will be a better choice for you."
+msgstr "Podívej se na mou sbírku!    Bílý škorpion   --   rotodil   --  a písečné zmije.  Nejsou na prodej.        Ale mohu ti nabídnout skarabea, který pro tebe bude nejlepší volbou."
+
+#: level_i18n.cc:2488
+msgid ""
+"Ali Barber's shop for quick hair cuts. Want to know what is going on?  A "
+"thief is hanging around and nobody knows where the 4 pale kids that are "
+"playing with your horse came from."
+msgstr "Holičství Aliho Kadeřníka je nejlepší místo pro rychlý účes. Chceš vědět, co se děje? Zloděj se potlouká kolem a nikdo neví, kde jsou čtyři bledé děti, které si hrály s tvým koněm."
+
+#: level_i18n.cc:2490
+msgid ""
+"Home of the last adventurer who never returned.   Said he would drill for "
+"oil -- but no one believed him."
+msgstr "Domov posledního dobrodruha, který se nevrátil.   Řekl, že jde vyrábět olej -- ale nikdo mu nevěřil."
+
+#: level_i18n.cc:2492
+msgid ""
+"Be cursed for trying to explore Tutoxyd's last secret -- may your homework "
+"remain undone until you prove worthy!"
+msgstr "Budeš proklet, protože ses snažil prozkoumat Tutoxydovo poslední tajemství -- tvůj domácí úkol nebude hotov, dokud neprokážeš, že jsi hoden!"
+
+#: level_i18n.cc:2494
+msgid ""
+"It's a pity that some explorers damaged this historic monument and did "
+"litter the environment.   But the pyramid magically repairs itself every "
+"time an adventurer gives up."
+msgstr "Je škoda, že někteří průzkumníci poškodili tuto historickou památku a zanechali zde tolik odpadků.   Ale pyramida se, vždy kouzelně opraví, když to dobrodruh vzdá."
+
+#: level_i18n.cc:2496
+msgid ""
+"Be cursed for disturbing Tutoxyd's peace -- may the earth part under your "
+"feet!"
+msgstr "Budeš proklet, protože rušíš Tutoxydův klid -- ať se země otevře pod tvýma nohama!"
+
+#: level_i18n.cc:2498
+msgid ""
+"Be cursed for disturbing Tutoxyd's peace -- may your legs no longer be under"
+" your control!"
+msgstr "Budeš proklet, protože rušíš Tutoxydův klid -- nebudeš mít kontrolu nad svými nohami!"
+
+#: level_i18n.cc:2500
+msgid ""
+"Trapped?   Either wait for a stupid tourist willing to exchange positions "
+"with you by using a magic ring - or press Shift-F3"
+msgstr "Uvězněn?   Můžeš čekat, dokud si s tebou hloupý turista nevymění místo pomocí kouzelného prstenu - nebo zvol Shift+F3"
+
+#: level_i18n.cc:2502
+msgid ""
+"Private Property! This claim belongs to Mr. Whiteoil. In case of absence "
+"please send a letter."
+msgstr "Soukromý majetek! Tento objekt patří panu Whiteoilovi. V případě nepřítomnosti pošlete dopis."
+
+#: level_i18n.cc:2504
+msgid "Invoice -- 40 marbleons for 20 barrels of oil."
+msgstr "Faktura -- 40 marbleonů za 20 sudů oleje."
+
+#: level_i18n.cc:2506
+msgid ""
+"Welcome stranger -- have a look at our holy stone. It is said that it shows "
+"everyone his personal fortune color. As all visitors tried to touch it, we "
+"had to set up some protection."
+msgstr "Vítej cizinče -- podívej se na náš svatý kámen. Říká se, že ti ukáže tvoji šťastnou barvu. Všichni návštevníci se ho snažili doknout, tak jsme ho museli nějak ochránit."
+
+#: level_i18n.cc:2508
+msgid ""
+"May I ask for a donation. Just a few bugs - throw the donation into the holy"
+" fire. Tutoxyd will be grateful."
+msgstr "Mohu tě požádat o příspěvek? Jen neházej přípěvek do svatého ohně. Tutoxyd ti bude vděčný."
+
+#: level_i18n.cc:2510
+msgid ""
+"Mr. Whiteoil, we finished our library research. Enighomathep reports that 4 "
+"keys are required. One key got lost immediately after sealing the pyramid. "
+"One is hidden at the border of the pyramid. For the others you have to "
+"demonstrate boldness and cleverness."
+msgstr "Pane Bílýoleji, dokončili jsme průzkum v knihovně. Enighomathep říká, že jsou potřebné čtyři klíče. Jeden klíč se ztratil ihned po zapečetění pyramidy. Další klíč je skytý v blízkosti pyramidy. Pro získání ostatních budete muset prokázat odvahu a vynalézavost."
+
+#: level_i18n.cc:2512
+msgid "Facing Death you can walk without fear."
+msgstr "Tváří v tvář smrti můžeš jít bez obav."
+
+#: level_i18n.cc:2514
+msgid "Sorry, the useful item that was hidden here has been stolen."
+msgstr "Promiň, užitečný předmět, který zde byl skryt, byl ukraden."
+
+#: level_i18n.cc:2516
+msgid ""
+"Tomb raiders are cursed to be frozen in stone or floor for all eternity."
+"     Have a look at all these little funny sticks that they used to fight "
+"the curses."
+msgstr "Vykradači hrobek byli prokleti a stal se z nich kámen nebo podlaha navždy.     Podívej se na tyto legrační hole, které se používají v boji proti kletbě."
+
+#: level_i18n.cc:2518
+msgid "Remove all parts of the memorial plate before conjuring up Tutoxyd."
+msgstr "Odstraň všechny části pamětní desky předtím než vyvoláš Tutoxyda."
+
+#: level_i18n.cc:2520
+msgid ""
+"Who dares to disturb my peace? Stranger - you have proven to be honorable. "
+"Bring back my children for a joint meditation. But beware that upon seeing "
+"me they may want to join me instead of meditate. I make you responsible for "
+"the security of my children."
+msgstr "Kdo se odvažuje rušit můj klid? Cizinče - ukázal ses být čestným. Přiveď zpět mé děti ke společnému rozjímání. Ale pozor, při pohledu na mě se ke mně nebudou chtít přidat. Jsi zodpovědný za bezpečí mých dětí."
+
+#: level_i18n.cc:2522
+msgid ""
+"You are bringing back my children. As soon as they come to rest, I will "
+"deliver you from Enighomathep's curses so you may seek your next adventure."
+msgstr "Přivedl jsi zpět mé děti. Jakmile se usadí, osvobodím tě od Enighomathepovy kletby, a pak můžeš vyhledat další dobrodružství."
+
+#: level_i18n.cc:2533
+msgid "Just a Dance ?"
+msgstr "Jen jeden tanec?"
+
+#: level_i18n.cc:2559 level_i18n.cc:2579
+msgid "Use the Lightpassenger"
+msgstr "Použij poutníka světla"
+
+#: level_i18n.cc:2568
+msgid "The Hand Mirror Cabinet"
+msgstr "Zrcadlová skříňka"
+
+#: level_i18n.cc:2570
+msgid "Ever tried to look at the back of your head in the mirror?"
+msgstr "Zkoušel ses někdy podívat  v zrcadle na zadní stranu hlavy?"
+
+#: level_i18n.cc:2574
+msgid "Danger Flag"
+msgstr "Vlajka, která varuje před nebezpečím"
+
+#: level_i18n.cc:2586
+msgid "Number Crunching"
+msgstr "Čísla bez písmen"
+
+#: level_i18n.cc:2591
+msgid "Survival Training in wasted Landscapes ..."
+msgstr "Výcvik přežití v pustině ..."
+
+#: level_i18n.cc:2599
+msgid "Crabwise IV"
+msgstr "Ustoupit IV"
+
+#: level_i18n.cc:2607
+msgid "Plutos Confusion"
+msgstr "Zmatek na Plutu"
+
+#: level_i18n.cc:2609
+msgid "Dont eat cherries"
+msgstr "Nejez třešně"
+
+#: level_i18n.cc:2650
+msgid "Crabwise II"
+msgstr "Ustoupit II"
+
+#: level_i18n.cc:2655
+msgid "Inkblot 1"
+msgstr "Inkoustová skvrna 1"
+
+#: level_i18n.cc:2661
+msgid "Welcome to Enigma VIII"
+msgstr "Vítej v Enigmě VIII"
+
+#: level_i18n.cc:2672
+msgid "Alternation I"
+msgstr "Střídání I"
+
+#: level_i18n.cc:2674
+msgid "Alternation in a Blue Area"
+msgstr "Střídání v modré oblasti"
+
+#: level_i18n.cc:2679
+msgid "Alternation II"
+msgstr "Střídání II"
+
+#: level_i18n.cc:2681
+msgid "Alternation in a Dark Area"
+msgstr "Střídání v temné oblasti"
+
+#: level_i18n.cc:2694
+msgid "Listen for the best place for an explosion"
+msgstr "Najdi nejlepší místo k poslechu výbuchu"
+
+#: level_i18n.cc:2701
+msgid "Every pencil must go"
+msgstr "Odstraň všechny tužky"
+
+#: level_i18n.cc:2705
+msgid "Floating ..."
+msgstr "Vznášející se ..."
+
+#: level_i18n.cc:2706
+msgid "Don't be afraid -- It's only a ten mile drop!"
+msgstr "Neboj se -- Je to jen 10 mil hluboko!"
+
+#: level_i18n.cc:2719
+msgid ""
+"... illmind's mad-ill-tation ... a tribute to esprit meditation levels from "
+"the past. thank you ..."
+msgstr "... choromyslného potrhlá-chorá-tace ... na počest meditačním úrovním z minulosti. Děkuji ti. ..."
+
+#: level_i18n.cc:2731
+msgid "Crabwise III"
+msgstr "Ustoupit III"
+
+#: level_i18n.cc:2745
+msgid "Meditation! Silence? ... Have a Look ..."
+msgstr "Meditace! Ticho? ... Podívej se ..."
+
+#: level_i18n.cc:2747
+msgid "These stormy days ..."
+msgstr "Tyto bouřlivé dny ..."
+
+#: level_i18n.cc:2752
+msgid "Crabwise I"
+msgstr "Ustoupit I"
+
+#: level_i18n.cc:2780
+msgid "There's more help than you first think!"
+msgstr "Pomoc je blíž, než sis prve myslel!"
+
+#: level_i18n.cc:2793
+msgid "Missing Oxyds?"
+msgstr "Chybí oxyd kameny?"
+
+#: level_i18n.cc:2797
+msgid "Not everything is as it seems ..."
+msgstr "Ne všechno je, jak se zdá ..."
+
+#: level_i18n.cc:2801
+msgid "Make sure you find all of them"
+msgstr "Ujisti se, že najdeš všechny z nich"
+
+#: level_i18n.cc:2806
+msgid "Only A Labyrinth"
+msgstr "Pouze bludiště"
+
+#: level_i18n.cc:2829
+msgid "Ball Alley"
+msgstr "Míčová ulička"
+
+#: level_i18n.cc:2848
+msgid "Double Pendulum"
+msgstr "Dvojité kyvadlo"
+
+#: level_i18n.cc:2978
+msgid "Too many wooden blocks!  Try the other way ..."
+msgstr "Přiliš mnoho dřevených beden! Zkus jinou cestu ..."
+
+#: level_i18n.cc:2979
+msgid ""
+"Greetings, adventurer!    The road ahead is long and dangerous, so be "
+"careful!"
+msgstr "Zdravím, dobrodruhu!    Cesta před tebou je dlouhá a nebezpečná, buď opatrný! "
+
+#: level_i18n.cc:2980
+msgid "Well done, adventurer!    Good luck!"
+msgstr "Výborně, dobrodruhu!    Hodně štěstí!"
+
+#: level_i18n.cc:2981
+msgid "Congratulations, adventurer!  You did it!"
+msgstr "Blahopřeji, dobrodruhu!  Zvládls to!"
+
+#: level_i18n.cc:3015
+msgid "What a pity, and there's so much paint left ..."
+msgstr "Jaká škoda, a zbylo ještě tolik barvy ..."
+
+#: level_i18n.cc:3020
+msgid ".moor txen eht ot teg ot syaw owt era erehT"
+msgstr ".itsontsím íšlad od tatsod es kaj ,ybosůpz avd eJ."
+
+#: level_i18n.cc:3063
+msgid "Danger ... laser beams!"
+msgstr "Nebezpečí ... laserové paprsky!"
+
+#: level_i18n.cc:3080
+msgid "The Life Game"
+msgstr "Hra života"
+
+#: level_i18n.cc:3108
+msgid "! -  DANGER  -  NO TRESPASSING  -  DANGER  - !"
+msgstr "! -  NEBEZPEČÍ  -  ZÁKAZ VSTUPU  -  NEBEZPEČÍ  - !"
+
+#: level_i18n.cc:3115
+msgid ""
+"As long as there is motion around the oxyd-stones, you won't reach them.   "
+"So: Don't lose control of the level! It's possible."
+msgstr "Dokud je kolem oxyd kamenů pohyb, tak se k nim nemusíš dostat.   Takže, neztrácej kontrolu nad tím, co se děje! Je to možné!"
+
+#: level_i18n.cc:3119
+msgid "Calm down!"
+msgstr "Uklidni se!"
+
+#: level_i18n.cc:3126
+msgid "Fight appearing lava."
+msgstr "Pozor! Láva!"
+
+#: level_i18n.cc:3127
+msgid "A hammer destroys some black stones."
+msgstr "Kladivo ničí některé černé kameny."
+
+#: level_i18n.cc:3137
+msgid "Alfred Nobel says: This is definitely a meditation landscape!"
+msgstr "Alfred Nobel řekl: To je určitě krajina pro rozjímání!"
+
+#: level_i18n.cc:3156
+msgid "Oops ... you're stuck ...     Try again ..."
+msgstr "Jejda ... uvízl si ...     Zkus to znovu ..."
+
+#: level_i18n.cc:3157
+msgid ""
+"Congratulations, you reached this side ...     but can you get to the oxyds?"
+msgstr "Gratuluji, dostal ses na tuto stranu,  ...      ale jak získáš oxyd kameny?"
+
+#: level_i18n.cc:3158
+msgid "Well done!"
+msgstr "Výborně!"
+
+#: level_i18n.cc:3162
+msgid "Don't wake it up!"
+msgstr "Nebuď to!"
+
+#: level_i18n.cc:3172
+msgid ""
+"That wasn't fast enough; try F3."
+"                                                                              "
+"(Or search for non-solid stones, if you want.)"
+"                                                                                                        "
+"(But you won't find any.)"
+"                                                                                                                  "
+"(Really!)"
+msgstr "To nebylo dost rychlé; zkus F3.                                                                              (Nebo hledej nepevný kámen, jestli chceš)                                                                                                        (Ale žádný nenajdeš.)                                                                                                                  (Opravdu!)"
+
+#: level_i18n.cc:3173
+msgid ""
+"You can believe me: All stones you see in this level are solid!"
+"                                                                                      "
+"You can really believe me!"
+"                                                                               "
+"Really!"
+msgstr "Můžeš mi věřit: Všechny kameny, které vidíš v této úrovni, jsou pevné.                                                                                      Vážně mi věř!                                                                               Opravdu!"
+
+#: level_i18n.cc:3184
+msgid "Wood robbing"
+msgstr "Krádež dřeva"
+
+#: level_i18n.cc:3189
+msgid "The Flagstone Reaper"
+msgstr "Smrtka dlažebních kamenů"
+
+#: level_i18n.cc:3192
+msgid ""
+"No hint today ...    Those flagstones pass away ...    The docu stands alone"
+" ...    Why is it so alone?    --    This hint today ...    Why is it on "
+"this side ...    The reaper passing by ...    Could know the reason why!"
+"     (orig. by Herman's Hermits)   "
+msgstr "Dneska žádná nápověda ...    A kameny zmizí ...    Pod nátlakem smrtky ...    Proč je tak sám?    --    Toto je nápověda ...    Proč na této straně ...    Obchází smrtka ...    Kdo ví!    (původ Hermanovi poustevníci)   "
+
+#: level_i18n.cc:3205
+msgid "Paint Ahead!"
+msgstr "Maluj!"
+
+#: level_i18n.cc:3247
+msgid "Welcome to Enigma IV"
+msgstr "Vítej v Enigmě IV"
+
+#: level_i18n.cc:3251
+msgid "It's a race!"
+msgstr "To je závod!"
+
+#: level_i18n.cc:3275
+msgid ""
+"Your uncle Sir Blackball has been murdered last night in his manor, in one "
+"of his 6 rooms, by one of the weapons which are in the cellar; the suspects "
+"are the shy Mrs Peacock, the secret Colonel Mustard, the absent-minded "
+"Professor Plum, the mysterious Rev. Green, the nurse Mrs Whiteball, who "
+"discovered the corpse, and Miss Scarlett whose beauty might be fatal ... you"
+" must find who killed your uncle, where and how."
+msgstr "Tvůj strýc Sir Černákulička byl minulou noc zavražděn ve svém sídle. Byl zavražděn v jedné ze šesti místností a byl zabit jednou zbraní, která byla ve sklepě. Podezřelí jsou: plachá paní Pávová, mlčenlivý plukovník Hořčice, roztržitý profesor Švestka, záhadný reverend Zelený, zdravotní sestra paní Bílákulička (která objevila mrtvolu) a slečna Scarlett, jejíž krása může být vražedná ... musíš zjistit, kdo zabil tvého strýce, jak byl zabit a kde byl zabit."
+
+#: level_i18n.cc:3277
+msgid "This room is not the crime scene."
+msgstr "Tato místnost není místo činu."
+
+#: level_i18n.cc:3279
+msgid "The murderer is not Mrs Peacock."
+msgstr "Vrah není paní Pávová."
+
+#: level_i18n.cc:3281
+msgid "The murderer is not Colonel Mustard."
+msgstr "Vrah není plukovník Hořčice."
+
+#: level_i18n.cc:3283
+msgid "The murderer is not Professor Plum."
+msgstr "Vrah není profesor Švestka."
+
+#: level_i18n.cc:3285
+msgid "The murderer is not Reverend Green."
+msgstr "Vrah není reverend Zelený."
+
+#: level_i18n.cc:3287
+msgid "The murderer is not Mrs Whiteball."
+msgstr "Vrah není paní Bílákulička."
+
+#: level_i18n.cc:3289
+msgid "The murderer is not Miss Scarlett."
+msgstr "Vrah není slečna Scarlett."
+
+#: level_i18n.cc:3291
+msgid "Sir Blackball has not been killed with the bomb."
+msgstr "Sir Černákulička nebyl zabit bombou."
+
+#: level_i18n.cc:3293
+msgid "Sir Blackball has not been killed with the dagger."
+msgstr "Sir Černákulička nebyl zabit dýkou."
+
+#: level_i18n.cc:3295
+msgid "Sir Blackball has not been killed with poison."
+msgstr "Sir Černákulička nebyl zabit jedem."
+
+#: level_i18n.cc:3297
+msgid "Sir Blackball has not been killed with the wrench."
+msgstr "Sir Černákulička nebyl zabit klíčem."
+
+#: level_i18n.cc:3299
+msgid "Sir Blackball has not been killed with the candlestick."
+msgstr "Sir Černákulička nebyl zabit svícnem."
+
+#: level_i18n.cc:3301
+msgid "Sir Blackball has not been killed with the hammer."
+msgstr "Sir Černákulička nebyl zabit kladivem."
+
+#: level_i18n.cc:3314
+msgid "White helps black, black helps white."
+msgstr "Bílá pomáhá černé, černá pomáhá bílé."
+
+#: level_i18n.cc:3321
+msgid "Don't forget to open the door ..."
+msgstr "Nezapomeň otevřít dveře ..."
+
+#: level_i18n.cc:3322
+msgid "Good Luck!"
+msgstr "Hodně štěstí!"
+
+#: level_i18n.cc:3323
+msgid "Hurry!"
+msgstr "Pospěš si!"
+
+#: level_i18n.cc:3324
+msgid "Congratulations! (or try again)"
+msgstr "Gratuluji! (nebo to zkus znovu)"
+
+#: level_i18n.cc:3325
+msgid "Almost finished ..."
+msgstr "Téměř hotovo ..."
+
+#: level_i18n.cc:3330
+msgid "Restart with F3 ..."
+msgstr "Začni znovu stisknutím klávesy F3 ..."
+
+#: level_i18n.cc:3334
+msgid ""
+"Welcome to the control room. Use the triggers and switches to plan the "
+"movement of the turtle. The switches are, clockwise: Add, Run and Restart."
+msgstr "Vítej ve velínu. Použij spouštěče a vypínače pro nastavení pohybu želvy. Vypínače jsou ve směru hodinových ručiček: přidat, spustit a začít znovu."
+
+#: level_i18n.cc:3359
+msgid "The danger is not visible!!!"
+msgstr "Nebezpečí není vidět!"
+
+#: level_i18n.cc:3396
+msgid ""
+"One more and you won't get this hammer until you don't need it anymore!"
+msgstr "Ještě jednou a kladivo nedostaneš, dokud ho nebudeš potřebovat!"
+
+#: level_i18n.cc:3402
+msgid "Welcome to Enigma III"
+msgstr "Vítej v Enigmě III"
+
+#: level_i18n.cc:3407
+msgid "Risk your life ..."
+msgstr "Riskuj svůj život ..."
+
+#: level_i18n.cc:3468
+msgid ""
+"Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
+"room  ..."
+msgstr "Nezapomeň, že máš přesunout dost kamenů, stačí se jen podívat do vedlejší místnosti ..."
+
+#: level_i18n.cc:3487
+msgid ""
+"I don't believe that you are the Marble. I won't let you pass until you "
+"prove me wrong: you have to be faster than my champion!"
+msgstr "Nevěřím, že jsi kulička. Nenechám tě projít, dokud mi nedokážeš, že jsi rychlejší než můj šampion! "
+
+#: level_i18n.cc:3488
+msgid "Congratulations! You may pass!"
+msgstr "Gratuluji! Můžeš projít!"
+
+#: level_i18n.cc:3495
+msgid "Watch your step!"
+msgstr "Dávej pozor!"
+
+#: level_i18n.cc:3508
+msgid "Look ... they're over there!"
+msgstr "Podívej se ... jsou tam!"
+
+#: level_i18n.cc:3527
+msgid "The left-most room is important!"
+msgstr "Pokoj zcela vlevo je důležitý!"
+
+#: level_i18n.cc:3528
+msgid "This is the control panel."
+msgstr "Toto je ovládací panel."
+
+#: level_i18n.cc:3541
+msgid "A castle lies before you ... beware of guardians!"
+msgstr "Hrad je před tebou ... dej pozor na stráže!"
+
+#: level_i18n.cc:3551
+msgid "The block near the top-left can move."
+msgstr "Bedna, která je blízko levého horní rohu, se může pohybovat."
+
+#: level_i18n.cc:3555
+msgid "Flood Control Dam #3 seems rather unstable. Be quick or be dead."
+msgstr "Přehrada #3 se zdá být nestabilní. Rychle uteč nebo budeš mrtvý."
+
+#: level_i18n.cc:3578
+msgid "when you've been particular places"
+msgstr "když jsi někdy byl na zvláštních místech"
+
+#: level_i18n.cc:3580
+msgid "that you know you've never seen before"
+msgstr "o nichž víš, že jsi je nikdy předtím neviděl"
+
+#: level_i18n.cc:3582
+msgid "can you be sure?"
+msgstr "můžeš si tím být jistý?"
+
+#: level_i18n.cc:3584
+msgid "feel like I've been here before"
+msgstr "pocit, že jsem tu již byl"
+
+#: level_i18n.cc:3586
+msgid "quote: Iron Maiden - Deja-Vu"
+msgstr "citace:  Iron Maiden - Déjà vu"
+
+#: level_i18n.cc:3588
+msgid "for illmind's deja vu try the top left corner ..."
+msgstr "Pro získání pocitu déjà vu, jdi do levého horního rohu ..."
+
+#: level_i18n.cc:3601
+msgid "This level is much bigger! Press F3!"
+msgstr "Tato úroveň je větší, než sis myslel! Zvol klávesu F3!"
+
+#: level_i18n.cc:3605
+msgid "It's a long way ..."
+msgstr "Je to dlouhá cesta ..."
+
+#: level_i18n.cc:3639
+msgid "Look closely!"
+msgstr "Podívej se pozorně!"
+
+#: level_i18n.cc:3669
+msgid "Welcome to Enigma X"
+msgstr "Vítejte v Enigmě X"
+
+#: level_i18n.cc:3692
+msgid "Interlude III"
+msgstr "Mezihra III"
+
+#: level_i18n.cc:3712
+msgid "Christmas Star"
+msgstr "Vánoční hvězda"
+
+#: level_i18n.cc:3728
+msgid "Enigmas wildcat"
+msgstr "Enigmina divoká kočka"
+
+#: level_i18n.cc:3750
+msgid "Steering The Flood"
+msgstr "Obrátit příliv"
+
+#: level_i18n.cc:3782
+msgid "Interlude II"
+msgstr "Mezihra II"
+
+#: level_i18n.cc:3787
+msgid "No clear view? How about visiting an optician?"
+msgstr "Nevidíš to jasně? Co takhle návštěva u optika?"
+
+#: level_i18n.cc:3800
+msgid "Meandering Impulses"
+msgstr "Klikatící se impulsy"
+
+#: level_i18n.cc:3816
+msgid "An Ancient Game"
+msgstr "Prastará hra"
+
+#: level_i18n.cc:3839
+msgid "Attention! One way ticket to the island."
+msgstr "Pozor! Jednosměrný lístek na ostrov."
+
+#: level_i18n.cc:3849
+msgid "Sokoban 1D"
+msgstr "Sokoban 1D"
+
+#: level_i18n.cc:3862
+msgid "Color Memory"
+msgstr "Barevná paměť"
+
+#: level_i18n.cc:3946
+msgid "Dichotomy II"
+msgstr "Dvoudílnost II"
+
+#: level_i18n.cc:3974
+msgid "Dichotomy I"
+msgstr "Dvoudílnost I"
+
+#: level_i18n.cc:3978
+msgid "Braking Distance"
+msgstr "Brzdná vzdálenost"
+
+#: level_i18n.cc:3979
+msgid "Make the white marble wait on the cross for 3 seconds."
+msgstr "Nech bílou kuličku čekat na křížku po tři sekundy."
+
+#: level_i18n.cc:3983
+msgid "Volatile Storage"
+msgstr "Energeticky závislá paměť"
+
+#: level_i18n.cc:3984
+msgid "Handle with care!"
+msgstr "Zacházet opatrně!"
+
+#: level_i18n.cc:4111
+msgid "Drop the hammer on side of a pentomino and use the switch!"
+msgstr "Dej kladivo vedle pentomina a použij přepínač!"
+
+#: level_i18n.cc:4112
+msgid "Drop the hammer on side of a pentomino, not beneath it!"
+msgstr "Dej kladivo na stranu vedle pentomina, ne pod něj!"
+
+#: level_i18n.cc:4135
+msgid ""
+"If the mountain won't come to Muhammad, Muhammad must go to the mountain..."
+msgstr "Pokud hora nejde k Mohamedovi, musí Mohamed přijít k hoře ..."
+
+#: level_i18n.cc:4146
+msgid "Use the wooden boxes for bridge building!"
+msgstr "Použijte dřevěné bedny pro stavbu mostů!"
+
+#: level_i18n.cc:4148
+msgid "You will need two dynamite sticks in this room."
+msgstr "V této místnosti budete potřebovat dvě dynamitové tyče."
+
+#: level_i18n.cc:4150
+msgid "Red floors will ignite."
+msgstr "Červené podlahy se zapálí."
+
+#: level_i18n.cc:4152
+msgid "Avoid crack spreading!"
+msgstr "Vyvarujte se šíření trhlin!"
+
+#: level_i18n.cc:4158
+msgid ""
+"Up there in Orthanc I see Sarumarble the White, the mightiest magician of "
+"this Country. He made the Ring. He masters metamorphosis. He could help me. "
+"If only I could enter the Castle!"
+msgstr "Tam nahoře v Ortanku vidím Sarua Bílou kuličku, nejmocnějšího kouzelníka v této zemi. Udělal Prsten. Ovládá umění proměny. Mohl by mi pomoci. Kdybych jen mohl vstoupit do hradu!"
+
+#: level_i18n.cc:4166
+msgid "Opening instructions: The clue lies within. On your marks!"
+msgstr "Pokyny k otevření: Vodítko je uvnitř. Na značky!"
+
+#: level_i18n.cc:4170
+msgid "The Hammer"
+msgstr "Kladivo"
+
+#: level_i18n.cc:4171
+msgid "The Sword"
+msgstr "Meč"
+
+#: level_i18n.cc:4172
+msgid "The Key"
+msgstr "Klíč"
+
+#: level_i18n.cc:4173
+msgid "The Wrench"
+msgstr "Francouzský klíč"
+
+#: level_i18n.cc:4174
+msgid "The Floppy"
+msgstr "Disketa"
+
+#: level_i18n.cc:4175
+msgid "The Coin"
+msgstr "Mince"
+
+#: level_i18n.cc:4176
+msgid "The Spade"
+msgstr "Rýč"
+
+#: level_i18n.cc:4177
+msgid "The Glasses"
+msgstr "Brýle"
+
+#: level_i18n.cc:4182
+msgid "Tiles marked with a cross are safe."
+msgstr "Dlaždice označené křížkem jsou bezpečné."
+
+#: level_i18n.cc:4193
+msgid "Exact change only."
+msgstr "Pouze přesná výměna."
+
+#: level_i18n.cc:4270
+msgid "Tandem Chess"
+msgstr "Tandemové šachy"
+
+#: level_i18n.cc:4272
+msgid "Work together!"
+msgstr "Spolupracujte!"
+
+#: level_i18n.cc:4280
+msgid "Sorry, this switch is currently out of order."
+msgstr "Promiň, tento přepínač je v současné době mimo provoz."
+
+#: level_i18n.cc:4282
+msgid "As I already told you, this switch is out of order!"
+msgstr "Jak jsem ti už řekl, tento přepínač je mimo provoz!"
+
+#: level_i18n.cc:4284
+msgid "How often are you going to try this?"
+msgstr "Jak dlouho to budeš zkoušet?"
+
+#: level_i18n.cc:4286
+msgid "Did anything happen? I'm not sure ..."
+msgstr "Stalo se něco? Nejsem si jistý ..."
+
+#: level_i18n.cc:4288
+msgid "Congrats, now it works again!"
+msgstr "Gratuluji, teď už to zase funguje!"
+
+#: level_i18n.cc:4290
+msgid "No hints available at the moment."
+msgstr "Žádná nápověda není v současné době k dispozici!"
+
+#: level_i18n.cc:4292
+msgid "There is a passage right beneath this stone!"
+msgstr "Přimo pod kamenem je průchod!"
+
+#: level_i18n.cc:4302
+msgid "illmind's be quick or be dead"
+msgstr "Choromyslný je rychlý nebo mrtvý"
+
+#: level_i18n.cc:4307
+msgid "Correspondence Chess"
+msgstr "Korespondenční šachy"
+
+#: level_i18n.cc:4309
+msgid "Send smartly!"
+msgstr "Přemýšlej, než potáhneš"
+
+#: level_i18n.cc:4329
+msgid "Magic Trinity"
+msgstr "Kouzelná trojice"
+
+#: level_i18n.cc:4334
+msgid "The art of steering a quadriga"
+msgstr "Umění řízení dvoukolového vozu se čtyřspřežím"
+
+#: level_i18n.cc:4337
+msgid "Dropping the spoon redeems from being quartered!"
+msgstr "Lžíce ti pomůže vyhnout se rozčtvrcení!"
+
+#: level_i18n.cc:4342
+msgid "One-Way Woods"
+msgstr "Není cesty zpět"
+
+#: level_i18n.cc:4343
+msgid "Recycling by Swapping"
+msgstr "Co lze udělat s výměnou kamenů"
+
+#: level_i18n.cc:4362
+msgid "No Memory"
+msgstr "Nevzpomínám si"
+
+#: level_i18n.cc:4367
+msgid "Polar Bears' Paradise"
+msgstr "Ráj pro lední medvědy"
+
+#: level_i18n.cc:4369
+msgid "Witch Hunt on Ice"
+msgstr "Hon na čarodějnice na ledě"
+
+#: level_i18n.cc:4407
+msgid "Pass the ball in time"
+msgstr "Přihraj míč včas"
+
+#: level_i18n.cc:4415
+msgid "The real value of coffee"
+msgstr "Skutečná hodnota kávy"
+
+#: level_i18n.cc:4419
+msgid "Dialers"
+msgstr "Voliči"
+
+#: level_i18n.cc:4436
+msgid "Toreador"
+msgstr "Toreador"
+
+#: level_i18n.cc:4440
+msgid "It isn't as easy as it looks."
+msgstr "Není to tak jednoduché, jak to vypadá."
+
+#: level_i18n.cc:4453
+msgid "Al Capone's training camp."
+msgstr "Al Caponův výcvikový tábor."
+
+#: level_i18n.cc:4454
+msgid "There are at least two patterns to break through the wall."
+msgstr "Jsou nejméně dva způsoby, jak prorazit zeď."
+
+#: level_i18n.cc:4455
+msgid "It is a well known secret that a few prisoners did escape."
+msgstr "Je dobře známým tajemstvím, že několik vězňů uprchlo."
+
+#: level_i18n.cc:4456
+msgid "A window in the wall would be really nice."
+msgstr "Okno ve zdi bylo opravdu pěkné."
+
+#: level_i18n.cc:4466
+msgid "Mark stones burnable"
+msgstr "Označ hořlavé kameny"
+
+#: level_i18n.cc:4474
+msgid "Pleasure Garden"
+msgstr "Zahrada slastí"
+
+#: level_i18n.cc:4475
+msgid ""
+"Quickly ..."
+"                                                                             "
+"or trickily!"
+msgstr "Rychle ...                                                                            nebo s rozmyslem!"
+
+#: level_i18n.cc:4483
+msgid "A really annoying Level"
+msgstr "Opravdu otravná úroveň"
+
+#: level_i18n.cc:4506
+msgid "Procrustes"
+msgstr "Prokrústés"
+
+#: level_i18n.cc:4514
+msgid "Blitz Chess"
+msgstr "Bleskové šachy"
+
+#: level_i18n.cc:4516
+msgid "Move fast!"
+msgstr "Pospěš si!"
+
+#: level_i18n.cc:4530
+msgid "Hanging around in the Jungle"
+msgstr "Potloukat se v džungli"
+
+#: level_i18n.cc:4538
+msgid "Meditation Disturbance"
+msgstr "Rušení při rozjímání"
+
+#: level_i18n.cc:4541
+msgid "Hit by a bolting horse"
+msgstr "Srážka se splašeným koněm"
+
+#: level_i18n.cc:4547
+msgid "Escape by Chaining Thieves"
+msgstr "Abyste unikli, spoutejte zloděje řetězy"
+
+#: level_i18n.cc:4550
+msgid "Remember Atreyu's horse Artax!"
+msgstr "Nezapomeň na Atreyova koně Artaxe!"
+
+#: level_i18n.cc:4552
+msgid "I am innocent! I've never stolen anything!"
+msgstr "Jsem nevinný! Nikdy jsem nic neukradl!"
+
+#: level_i18n.cc:4554
+msgid "It is said that pirates have taken the treasure."
+msgstr "Říká se, že poklad ukradli piráti!"
+
+#: level_i18n.cc:4556
+msgid "Pirates usually hide their treasure!"
+msgstr "Piráti obvykle schovávají své poklady!"
+
+#: level_i18n.cc:4558
+msgid "A closed door gives a better overview!"
+msgstr "Zavřené dveře ti poskytnou lepší výhled!"
+
+#: level_i18n.cc:4562
+msgid "Edwards Mountain"
+msgstr "Edwardovy hory"
+
+#: level_i18n.cc:4580
+msgid "Welcome to Enigma VI"
+msgstr "Vítej v Enigmě VI"
+
+#: level_i18n.cc:4587
+msgid ""
+"Welcome to Mexico! Eight hours ago, your plane arrived at the Airport of "
+"\"Coatlicue\", which is a small village surrounded by unexplored jungle "
+"terrain. Now you find yourself in front of an impressive temple, which seems"
+" to be a relic of the ancient Aztec empire. But the temple is in "
+"surprisingly good condition ..."
+msgstr "Vítej v Mexiku! Před osmi hodinami, přistálo tvoje letadlo na letišti  \"Coatlicue\", což je malá vesnička obklopená neprozkoumanou džunglí. Nyní jsi před působivým chrámem, který je asi pozůstatkem starověké Aztécké říše. Chrám je v překvapivě dobrém stavu ..."
+
+#: level_i18n.cc:4588
+msgid ""
+"Next to the giant doors of the temple you see a chrome sign: \"Restoration "
+"by: G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of "
+"G. G. Goshers. Trespassing prohibited!\". Now you notice the dog kennels "
+"built up along the front side of the temple. \"Goshers made this ancient "
+"relic a fortress\", you think, \"this cannot be legal, for Goshers received "
+"funding from the UK Government. I'll try to call him to account!\""
+msgstr "Vedle obrovských dveří je pochromovaný nápis: \"Restaurován: G. G. Goshers, 1998 n. l.\". Na menším nápisu pod ním stojí: \"Majetek G. G. Goshers. Vstup zakázán!\". Všimneš si psí boudy u přední zdi chrámu. \"Gosher udělal z tohoto starodávného chrámu pevnost\", pomyslíš si, \"to musí být nezákonné, Gosher obdržel finanční prostředky od vlády Spojeného království. Zkusím mu zavolat!\""
+
+#: level_i18n.cc:4589
+msgid "This guard doesn’t notice me."
+msgstr "Zdá se, že si mě strážný nevšiml."
+
+#: level_i18n.cc:4590
+msgid ""
+"This lake was obviously made by Goshers. I think the correct way is south."
+msgstr "Toto jezero musel vybudovat Gosher. Myslím, že musím jít na jih."
+
+#: level_i18n.cc:4591
+msgid ""
+"There's an inscription on the old wall, saying in spanish: \"Careful! What "
+"you touch could be the last thing you touch!\""
+msgstr "Na polorozpadlé zdi je nápis ve španělštině:  \"Opatrně! Pokud na něco šáhneš, tak to může být to poslední, co uděláš!\""
+
+#: level_i18n.cc:4592
+msgid "Chrome sign: \"Control of the beast’s cage.\""
+msgstr "Pochromovaný nápis: \"Kontrola šelminy klece.\""
+
+#: level_i18n.cc:4593
+msgid "Oooh, this slope is steep! Try not to touch the skull!"
+msgstr "Ach, to je strmý svah! Snaž se nedoknout lebky!"
+
+#: level_i18n.cc:4594
+msgid ""
+"This building down there looks like a prison. Let's see if I can determine "
+"its purpose ... Ah, there's another chrome sign. Goshers seems to favour "
+"chrome signs. It says: \"Natives’ prison\"."
+msgstr "Ta budova dole vypadá jako vězení. Jdi se tam podívat, ať zjistíš její účel ... Aha, je tu další pochromovaný nápis. Gosher má asi rád pochromované nápisy. Říká: \"Vězení pro domorodce\"."
+
+#: level_i18n.cc:4595
+msgid ""
+"Getting beyond the prison building was a really good idea. But now you have "
+"to cross this lake. Be thrifty with those boxes!"
+msgstr "Proplížit se k vězení byl dobrý nápad, ale teď se musíš dostat přes jezero. Použij ty krabice opatrně!"
+
+#: level_i18n.cc:4596
+msgid ""
+"Now, peering through the grilled prison windows, you see a native woman "
+"imprisoned there. Obviously Goshers locked up all the natives, who disturbed"
+" his \"work\"; trying to enter the temple and to get rich from the treasures"
+" of the Aztecs. It might be helpful to be accompanied by someone, who knows "
+"the secrets of the jungle and this temple ..."
+msgstr "V okně vězení je domorodá žena. Gosher zřejmě uvěznil všechny domorodce, aby mu nebránili v jeho \"práci\"; Snaž se dostat do chrámu a zbohatni poklady Aztéků. Bylo by užitečné vzít s sebou někoho, kdo zná okolní džungli i chrám ..."
+
+#: level_i18n.cc:4597
+msgid ""
+"Since the white man there freed me from the prison, he certainly cannot be "
+"as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers "
+"and free my people. And even if this is not the case, it's better to be free"
+" than imprisoned. I think I should thank him."
+msgstr "Jakmile mě bílý muž osvobodil z vězení, pochopil jsem, že to nemůže být Gosher. Možná, že chce ukončit nadvládu Goshera a osvobodit svůj lid. A jestliže to tak není, pořád je lepší nebýt ve věžení. Myslím, že bych mu měl poděkovat."
+
+#: level_i18n.cc:4598
+msgid ""
+"You meet the English adventurer in the front of the prison. \"Hello, I'm "
+"Xila!\", you tell him in broken English. After he introduced himself as "
+"well, both of you begin to work out a plan against the evil G. G. Goshers."
+msgstr "U vchodu do vězení jsi potkal anglického dobrodruha. \"Zdravím, jsem Xila!\", řekl ti lámanou angličtinou. Poté, co ses také představil, začali jste plánovat, jak se zbavit ďábelského G. G. Goshera."
+
+#: level_i18n.cc:4599
+msgid ""
+"This is a really hard puzzle. The English man will have to help me, if this "
+"enigma is to be solved."
+msgstr "Toto je opravdu těžká hádanka. Angličan ti bude muset pomoc, jestliže chceš tuto záhadu vyřešit."
+
+#: level_i18n.cc:4600
+msgid "You wonder what this switch could trigger."
+msgstr "Zajímá tě, co tento vypínač může udělat."
+
+#: level_i18n.cc:4601
+msgid "Xila knows how to drain the lake!"
+msgstr "Xila ví, jak vypustit jezero!"
+
+#: level_i18n.cc:4602
+msgid "You were lucky to find this hole. It prevents you from drowning."
+msgstr "Měl jsi štěstí, že jsi našel tu díru. Ochrání tě to před utopením."
+
+#: level_i18n.cc:4603
+msgid "This glass stone must fulfill a purpose ..."
+msgstr "Skleněný kámen musí splnit svůj účel ..."
+
+#: level_i18n.cc:4604
+msgid "It's funny that such a temple should have a side entrance."
+msgstr "Je zvláštní, že tento chrám má boční vchod."
+
+#: level_i18n.cc:4605
+msgid "Be careful! There are sensors in the walls."
+msgstr "Buď opatrný! Ve stěnách jsou čidla."
+
+#: level_i18n.cc:4606
+msgid ""
+"After the huge doors of the old temple have opened, you see, that the "
+"entrance is protected by 11 knights, armed with spears. These guards are "
+"very dangerous. Without a sword you'll never be able to enter. Be careful. "
+"There are not only knights, but also thieves."
+msgstr "Poté, co se otevřely obrovské dveře chrámu, jsi uviděl, že vstup je chráněn jedenácti rytíři, kteří jsou vyzbrojeni oštěpy. Stráže jsou velmi nebezpečné. Bez meče se nikdy nedostaneš dovnitř. Buď opatrný. Nejsou zde jenom rytíři, ale i zloději."
+
+#: level_i18n.cc:4607
+msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
+msgstr "\"Gratuluji. Podařilo se ti vstoupit do aztéckého chrámu.\""
+
+#: level_i18n.cc:4608
+msgid ""
+"\"You've been smarter than I expected. But you'll never enter the treasure "
+"room nor escape from here!\""
+msgstr "\"Byl jsi chytřejší, než jsem čekal. Ale nikdy se ti nepodaří dostat se do pokladnice a nepodaří se ti ani utéct!\""
+
+#: level_i18n.cc:4609
+msgid ""
+"\"I, Goshers, will certainly be able to rid myself of one of my archenemies "
+"by just killing you!\""
+msgstr "\"Jsem Gosher, není pochyb, že když tě zabiju, zbavím se jednoho ze svých nepřátel!\""
+
+#: level_i18n.cc:4610
+msgid "\"Run for your life!\""
+msgstr "\"Uteč, je-li pro tebe tvůj život drahý!\""
+
+#: level_i18n.cc:4611
+msgid ""
+"Xila and you just entered the Diamond Room of the old Aztec Temple. By "
+"taking him back to Great Britain and rendering him to the police, you have "
+"ended the evil career of Gerald Gregory Goshers. Congratulations on the "
+"success of your expedition!"
+msgstr "Xila a ty jste vstoupili do diamantové místnosti v aztéckém chrámu. Tím, že jsi ho vzal do Velké Británie a vzal ho na policii, jsi ukončil vládu Geralda Gregora Goshera. Gratuluji k úspěchu tvé výpravy!"
+
+#: level_i18n.cc:4616
+msgid "Hot Hurdle Race"
+msgstr "Překážkový běh"
+
+#: level_i18n.cc:4618
+msgid "Run for your life!"
+msgstr "Uteč pokud je ti život drahý!"
+
+#: level_i18n.cc:4631
+msgid "Useful unsuccessful drillings"
+msgstr "Neúspěšné, ale užitečné"
+
+#: level_i18n.cc:4642
+msgid "In the line of thieves"
+msgstr "Zloději jsou všude"
+
+#: level_i18n.cc:4668
+msgid "Rotor Guards"
+msgstr "Stráže rotorů"
+
+#: level_i18n.cc:4670
+msgid "Hoisting guards with their own petard"
+msgstr "Pokus se porazit stráže v jejich vlastní pasti"
+
+#: level_i18n.cc:4675
+msgid "Charging live ammunition"
+msgstr "Budeš střílet ostrou municí"
+
+#: level_i18n.cc:4680
+msgid "Are chess knights resistent to laser beams?"
+msgstr "Jsou šachoví koně odolní proti laserovým paprskům?"
+
+#: level_i18n.cc:4684
+msgid "illmind's jumping ball flash ..."
+msgstr "bláznův skákající míč bliká ..."
+
+#: level_i18n.cc:4685
+msgid "... of heaven comes the beast from the ..."
+msgstr "... z nebe přichází šelma z ..."
+
+#: level_i18n.cc:4686
+msgid "... t r a p p e d ..."
+msgstr "... c h y c e n ..."
+
+#: level_i18n.cc:4701
+msgid "Welcome to Enigma II"
+msgstr "Vítej v Enigmě II"
+
+#: level_i18n.cc:4717
+msgid "Five form twelve!"
+msgstr "Pět z dvanácti!"
+
+#: level_i18n.cc:4721
+msgid "Do not use too much magic!"
+msgstr "Nepoužívej příliš kouzel!"
+
+#: level_i18n.cc:4746
+msgid "Some stones are movable."
+msgstr "Některé kameny jsou pohyblivé."
+
+#: level_i18n.cc:4747
+msgid "You lost!"
+msgstr "Prohrál jsi!"
+
+#: level_i18n.cc:4762
+msgid "Road to Eden"
+msgstr "Cesta do ráje"
+
+#: level_i18n.cc:4777
+msgid "The other document lies and the left wormhole is the right one."
+msgstr "Nachází se zde jiný dokument a levá červí díra je ta správná."
+
+#: level_i18n.cc:4780
+msgid ""
+"The other document tells the truth and the other wormhole has been left on "
+"the right side."
+msgstr "Jiný dokument je pravdivý a druhá červí díra je vpravo."
+
+#: level_i18n.cc:4796
+msgid "Give it another try ..."
+msgstr "Zkus to znovu ..."
+
+#: level_i18n.cc:4800
+msgid "Press F3 or finish."
+msgstr "Stiskni klávesu F3 nebo konec"
+
+#: level_i18n.cc:4807
+msgid "You'd need a portable box!"
+msgstr "Potřebuješ přenosný box!"
+
+#: level_i18n.cc:4808
+msgid ""
+"Congratulations! You found a seed! Try to use it behind the grate (and move "
+"away quickly)"
+msgstr "Gratuluji! Našel jsi semínko! Dej ho pod mříž (a rychle odtud zmiz)"
+
+#: level_i18n.cc:4809
+msgid ""
+"Remember that you can't fill a closed bridge with a box ..."
+"                                           but maybe you can use the 3rd "
+"seed differently!"
+msgstr "Pamatuj, že nemůžeš zaplnit snížený most boxy ...                                           ale možná můžeš použít třetí semínko jinak!"
+
+#: level_i18n.cc:4810
+msgid "There are different kinds of seeds ... Try to use them!"
+msgstr "Jsou zde různé druhy semínek ... Zkus je použít!"
+
+#: level_i18n.cc:4812
+msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
+msgstr "Rěms ýnčapo sukz! Tiněmz oh kaj, ybosůpz avd uosj! Oldacrz, oldacrz  ..."
+
+#: level_i18n.cc:4832
+msgid ""
+"A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   "
+"Between Might Lay   --   A Secret Way!   --   (If this you see, press "
+"Shift-F3.)"
+msgstr "Kámen, strom a tři stromy,   --   Najdeš místo,   --   kde se skryješ před nepřáteli   --   Tajná cesta!   --   (Shift-F3 to je tvůj osud.)"
+
+#: level_i18n.cc:4857
+msgid "is  black  always  beautiful?"
+msgstr "je černá vždy krásná?"
+
+#: level_i18n.cc:4867
+msgid "Dead end!"
+msgstr "Slepá ulička!"
+
+#: level_i18n.cc:4868
+msgid "There are two HIDDEN items!"
+msgstr "Jsou zde dvě SKRYTÉ položky!"
+
+#: level_i18n.cc:4869
+msgid "Third stone from the rock is the hole!"
+msgstr "Třetí kámen na skále je dutý (je tam díra)!"
+
+#: level_i18n.cc:4879
+msgid "Beware! Black holes!"
+msgstr "Dej si pozor! Černé díry!"
+
+#: level_i18n.cc:4883
+msgid "Make a Sword, & Umbrella."
+msgstr "Vytvoř meč a deštník"
+
+#: level_i18n.cc:4898
+msgid "Doomed ... Shift-F3!!!"
+msgstr "Chudák kulička ... Shift + F3!!!"
+
+#: level_i18n.cc:4923
+msgid "Take some money and build yourself the tools you need."
+msgstr "Vezmi si nějaké peníze a postav si nástroje, které potřebuješ."
+
+#: level_i18n.cc:4971
+msgid ""
+"Our full attention this is worth:           Air and Fire, Water, Earth."
+msgstr "Naše pozornost se obrátila na:           Vzduch a oheň, voda, země."
+
+#: level_i18n.cc:4974
+msgid ""
+"And if your answer can’t be found           then shame on you, eyes to the "
+"ground!"
+msgstr "Pokud nemůžeš nalézt odpověď           tak, pak se styď a sklop zrak!"
+
+#: level_i18n.cc:4981
+msgid "Dedicated to my friend Frank."
+msgstr "Věnováno mému příteli Frankovi."
+
+#: level_i18n.cc:4982
+msgid "This level is quite straightforward, isn't it? Just continue ... ;-)"
+msgstr "Tato úroveň je docela jednoduchá, ne? Jen pokračuj ... ;-)"
+
+#: level_i18n.cc:4998
+msgid "...  now  go  back  and  get  the  hammer!"
+msgstr "... nyní se vrať a získej kladivo!"
+
+#: level_i18n.cc:5015
+msgid ""
+"Each color appears once. Each correct color produces whites in the wrong "
+"place, blacks in the right one."
+msgstr "Každá barva může být použita jednou. Pokud je špatně umístěna, je bílá, každá, pokud je správně umístěna, je černá."
+
+#: level_i18n.cc:5017
+msgid "This switch is to validate your guess."
+msgstr "Tento vypínač ověří tvůj odhad."
+
+#: level_i18n.cc:5021
+msgid ""
+"One of the puzzle stones needs to be placed onto the trigger field."
+"                       Guess which ... :)"
+msgstr "Jeden logický kámen musí být umístěn na spouštěcím poli.                       Hádej, který ... :)"
+
+#: level_i18n.cc:5022
+msgid "The level preview might help ..."
+msgstr "Možná ti pomůže náhled úrovně ..."
+
+#: level_i18n.cc:5044
+msgid "So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!"
+msgstr "Tak, kde jsou rytíři? - Budeš litovat, že se ptáš!"
+
+#: level_i18n.cc:5048
+msgid "Just a hint: Try the easy-mode first ..."
+msgstr "Jen nápověda: Zkus nejdřív lehký režim ..."
+
+#: level_i18n.cc:5049
+msgid "Don't think too long ... it's easy!"
+msgstr "Nepřemýšlej příliš dlouho ... je to snadné!"
+
+#: level_i18n.cc:5059
+msgid "Place 9 different items in each row, column, and 3x3 box."
+msgstr "Umístěte 9 položek do každého řádku, sloupce a box 3x3."
+
+#: level_i18n.cc:5060
+msgid ""
+"Place 9 different items in each row, column, and 3x3 box. Hit the switch to "
+"see if any of your items are misplaced, or which locations you can deduce "
+"items for next; you can only get 1 hint per minute this way, though."
+msgstr "Umístěte 9 položek do každého řádku, sloupce a box 3x3. Použij vypínač, aby si viděl, zda nějaké položky nejsou chybně umístněny nebo si můžeš vypínačem zobrazit pozici, kam můžeš dát další položku. Vypínač můžeš použít vždy až po 1 minutě."
+
+#: level_i18n.cc:5076
+msgid "and do not destroy the puzzles"
+msgstr "a neznič hádanku"
+
+#: level_i18n.cc:5086
+msgid "Origami"
+msgstr "Origami"
+
+#: level_i18n.cc:5106
+msgid "Trickshot?"
+msgstr "Umělý náraz?"
+
+#: level_i18n.cc:5110
+msgid "Seasonal Timings"
+msgstr "Sezonní načasování"
+
+#: level_i18n.cc:5111
+msgid "5, 8, or 10 seconds?"
+msgstr "5, 8 nebo 10 sekund?"
+
+#: level_i18n.cc:5132
+msgid "Welcome to Enigma IX"
+msgstr "Vítejte v Enigmě IX"
+
+#: level_i18n.cc:5154
+msgid "Marching Formation"
+msgstr "Pochodový útvar"
+
+#: level_i18n.cc:5155
+msgid "No sharing!"
+msgstr "Žádné sdílení"
+
+#: level_i18n.cc:5166
+msgid ""
+"There are 56 fully connected puzzle piece arrangements, but just 34 of them "
+"are reachable from this first distribution."
+msgstr "Je padesátšest možností, jak vyřešit tuto hádanku, ale v tomto prvním rozložení je možné vyřešit hádanku pouze čtyřiatřiceti možnostmi."
+
+#: level_i18n.cc:5168
+msgid ""
+"This second distribution can just be converted to any of the other 28 "
+"arrangements."
+msgstr "V tomto rozložení je možné použít dalších dvacetosm možností řešení."
+
+#: level_i18n.cc:5190
+msgid "Build me a Sokoban"
+msgstr "Sestav mi Sokoban"
+
+#: level_i18n.cc:5191
+msgid ""
+"Build me a solvable Sokoban puzzle that will take me 30 pushes or more to "
+"solve. The seeds grow into boxes; the dice grow into walls."
+msgstr "Postav mi řešitelnou Sokoban hádanku, která bude vyřešitelná alespoň na 30 posuvů. Semínka umísti do boxů; kostky umísti do zdí."
+
+#: level_i18n.cc:5192
+msgid ""
+"Build me a solvable Sokoban puzzle that will take me 25 pushes or more to "
+"solve. The seeds grow into boxes; the dice grow into walls."
+msgstr "Postav mi řešitelnou Sokoban hádanku, která bude vyřešitelná alespoň na 25 posuvů. Semínka umísti do boxů; kostky umísti do zdí."
+
+#: level_i18n.cc:5193
+msgid ""
+"I can't solve that puzzle; there aren't enough boxes! Use the spoon, and "
+"next time make sure the boxes finish growing before hitting the switch."
+msgstr "Nemůžu vyřešit tuto hádanku; Není zde dost krabic! Použij lžíci a příště se ujistí, že boxy jsou dobře umístěny, předtím než použiješ vypínač."
+
+#: level_i18n.cc:5194
+msgid ""
+"I don't think that puzzle can be solved. If you think you can prove me "
+"wrong, go get the oxyd!"
+msgstr "Nemyslím si, že tato hádanka může být vyřešena. Pokud si myslíš, že se mýlím, jdi na oxyd!"
+
+#: level_i18n.cc:5195
+msgid ""
+"That puzzle was too easy! Use the spoon, and give me a harder one next time!"
+msgstr "Tahle hádanko byla příliš lehká! Použij lžíci a příště zkus přijít s něčem těžším!"
+
+#: level_i18n.cc:5196
+msgid "Thanks for that excellent puzzle, I really enjoyed solving it!"
+msgstr "Děkuji ti za skvělou hádanku, její řešení jsem si opravdu užil!"
+
+#: level_i18n.cc:5204
+msgid "Beware of shady mates!"
+msgstr "Pozor na nedůvěryhodné kamarády!"
+
+#: level_i18n.cc:5215
+msgid ""
+"I your dear friend am in myself undone, by reason of a Burden that lieth "
+"hard upon me."
+msgstr "Já, tvůj drahý přítel, jsem se sehnul kvůli břemenu, které mě tíží."
+
+#: level_i18n.cc:5217
+msgid "Do you see yonder Wicket Gate?"
+msgstr "Vidíš támhle naproti tu nebezpečnou branku?"
+
+#: level_i18n.cc:5219
+msgid ""
+"They drew nigh to a very miry Slough. The name of the Slough was Despond."
+msgstr "Přiblížili se nebezpečně blízko k bažině. Jméno bažiny bylo Despond."
+
+#: level_i18n.cc:5221
+msgid "Knock, and it shall be opened unto you."
+msgstr "Zaklepej a otevřou ti."
+
+#: level_i18n.cc:5223
+msgid ""
+"His Burden loosed from off his shoulders, and fell from his back, and began "
+"to tumble, and so continued to do, till it came to the mouth of the "
+"Sepulchre, where it fell in, and I saw it no more."
+msgstr "Jeho břemeno bylo sejmuto z jeho ramen a on začal padat. Padal, dokud nedošel k okraji hrobu a břemeno do něj nehodil."
+
+#: level_i18n.cc:5225
+msgid "They came to the foot of the hill Difficulty."
+msgstr "Přišli na upátí obtížné hory."
+
+#: level_i18n.cc:5227
+msgid ""
+"There was a very stately palace before him, the name of which was Beautiful."
+msgstr "Před ním byl velmi majestátní palác , jeho jméno bylo Krásný."
+
+#: level_i18n.cc:5229
+msgid ""
+"He had gone but a little way, before he espied a foul Fiend coming over the "
+"field to meet him."
+msgstr "Byl ještě docela blízko, když si všimnul děsivého démona, který k němu šel přes pole."
+
+#: level_i18n.cc:5231
+msgid ""
+"At the end of this Valley was another, called, The Valley of the Shadow Of "
+"Death."
+msgstr "Na konci tohoto údolí bylo další údolí, které se jmenovalo Údolí stínů smrti."
+
+#: level_i18n.cc:5233
+msgid "He saw Faithful before him on his Journey."
+msgstr "Spatřil Věrného na cestě před sebou."
+
+#: level_i18n.cc:5235
+msgid ""
+"As they went on, Faithful, as he chanced to look to one side, saw a man "
+"whose name was Talkative."
+msgstr "Jak šli dál, Věrný náhodou spatřil muže, jehož jméno bylo Upovídaný."
+
+#: level_i18n.cc:5237
+msgid ""
+"They presently saw a Town before them, and the name of that Town is Vanity."
+msgstr "Spatřili před sebou město, jehož jméno bylo Marnost."
+
+#: level_i18n.cc:5239
+msgid ""
+"Christian went not forth alone; for there was one whose name was Hopeful who"
+" joined himself unto him."
+msgstr "Křesťan nešel sám; protože tam byl muž, jenž se jmenoval Naděje a připojil se k němu."
+
+#: level_i18n.cc:5241
+msgid ""
+"There was on the Left Hand of the road a Meadow, and a Stile to go over into"
+" it, and that meadow is called By-Path-Meadow."
+msgstr "Na levé straně silnice byla louka a cesta, která vedla k té louce, louka se jmenovala  Louka na cestě."
+
+#: level_i18n.cc:5243
+msgid ""
+"Now there was, not far from the place where they lay, a castle, called "
+"Doubting-Castle, the owner of which was Giant Despair."
+msgstr "Nedaleko od místa, kde byli, se tyčil hrad. Hrad se jmenoval Pochybnost a patřil obrovi, který se jmenoval Beznaděj."
+
+#: level_i18n.cc:5245
+msgid "They went then till they came to the Delectable Mountains."
+msgstr "Pokračovali v cestě, dokud nedorazili do Krásných hor."
+
+#: level_i18n.cc:5247
+msgid "Beware of the Flatterer."
+msgstr "Dej si pozor na lichotníky."
+
+#: level_i18n.cc:5249
+msgid ""
+"Follow me, said the Flatterer, it is to the Coelestial City that I am going."
+msgstr "Následuj mě, řekl lichotník, já také jdu do Nebeského města."
+
+#: level_i18n.cc:5251
+msgid ""
+"They came into a certain Country, whose air naturally tended to make one "
+"drowzy."
+msgstr "Přišli do země, kde byl vzduch plný ospalosti."
+
+#: level_i18n.cc:5253
+msgid ""
+"The Pilgrims were got over the Enchanted ground, and entering into the "
+"Country of Beulah."
+msgstr "Poutníci se dostali přes Kouzelnou zem a vstoupili do země Beulaha."
+
+#: level_i18n.cc:5255
+msgid ""
+"There was then in that place one Vain-Hope, a ferryman, that with his boat "
+"helped him over."
+msgstr "Byl tam převozník, který mu pomohl dostat se na druhý břeh."
+
+#: level_i18n.cc:5257
+msgid ""
+"At the sight therefore of this River, the Pilgrims were much astounded, but "
+"the men that went with them, said, You must go through, or you cannot come "
+"at the Gate."
+msgstr "Při pohledu na řeku byli poutníci zděšeni, ale muži, kteří s nimi šli, řekli, že se musejí dostat přes řeku, pokud chtějí projít bránou."
+
+#: level_i18n.cc:5259
+msgid "I looked in after them; and behold the City shone like the Sun."
+msgstr "Podíval jsem se tam, kam mi ukázali, a já spatřil město, které zářilo jako slunce."
+
+#: level_i18n.cc:5261
+msgid ""
+"They also thought they heard there a rumbling noise, as of fire, and a Cry "
+"of some tormented, and that they smelt the scent of Brimstone."
+msgstr "Také si mysleli, že slyšeli nějaký zvuk. Jakoby slyšeli zvuk ohně a cítili pach síry."
+
+#: level_i18n.cc:5268
+msgid "Search it."
+msgstr "Hledat."
+
+#: level_i18n.cc:5288
+msgid "Poe's Nightmare"
+msgstr "Poeova noční můra"
+
+#: level_i18n.cc:5290
+msgid ""
+"You find yourself in a dark, damp chamber. There's a light switch to the "
+"northeast and a passage to the west."
+msgstr "Jsi v temné komnatě. Světlo můžeš rozsvítit vypínačem, který je na severovýchod. Cesta ven je na západ."
+
+#: level_i18n.cc:5292
+msgid ""
+"The corridor leads northwards and opens into a dim lit room packed with "
+"crates. You have an uneasy feeling about what lies ahead of you."
+msgstr "Chodbou, která vede na sever, se dostaneš do potemnělé místnosti naplněné bednami. Máš nepříjemný pocit z toho, co je před tebou."
+
+#: level_i18n.cc:5294
+msgid ""
+"Huh, that was close. The way behind you is blocked. Maybe you should look "
+"for a place to leave a flag?!"
+msgstr "Fuj, to bylo o chlup. Cesta za tebou je zablokovaná. Možná bys měl najít místo, kam umístit vlajku?!"
+
+#: level_i18n.cc:5296
+msgid ""
+"To the east the passage is blocked by laser beams. To the west a tunnel "
+"leads to a large pendulum. At the wall you see a hole where your flag fits "
+"in. What now?"
+msgstr "Východní průchod je blokován laserovými paprsky. Západní tunel vede k velkému kyvadlu. Ve stěně je díra, kam pasuje tvoje vlajka. Co teď?"
+
+#: level_i18n.cc:5298
+msgid ""
+"Shrinking rooms, a pendulum with razor sharp blades, laser beams ... what "
+"may lurk behind the next corner?"
+msgstr "Zmenšující se pokoj, kyvadlo s ostrou čepelí, laserové paprsky ... co může číhat za nejbližším rohem?"
+
+#: level_i18n.cc:5300
+msgid ""
+"The room to the east does not look very stable, but does the passage to the "
+"south lead anywhere?"
+msgstr "Pokoj na východě nevypadá moc spolehlivě, není někde průchod na jih?"
+
+#: level_i18n.cc:5302
+msgid "Hmmm, these keys might prove useful."
+msgstr "Hmmm, tyhle klíče můžou být užitečné."
+
+#: level_i18n.cc:5304
+msgid ""
+"Passing by the entrance you get a glimpse of the room to the south ... and "
+"suddenly feel very uneasy."
+msgstr "Projdi vchodem a dostaneš se do pokoje na jihu .... a najednou máš špatný pocit."
+
+#: level_i18n.cc:5306
+msgid "Uh-oh, the steps leading down are small and extremely slippery."
+msgstr "Ach ne, schody dolů jsou malé a velmi kluzké."
+
+#: level_i18n.cc:5308
+msgid ""
+"The passage opens into a room with a huge iron door to the east. The air "
+"seems to smell much fresher here."
+msgstr "Průchod ústí do místnosti s velkými železnými dveřmi na východě. Vzduch se zdá být čerstvější."
+
+#: level_i18n.cc:5310
+msgid "Congratulations! You've survived Poe's Nightmare."
+msgstr "Blahopřeji! Přežil jsi Poeovu noční můru"
+
+#: level_i18n.cc:5320
+msgid "Use ~all~ Stones"
+msgstr "Použít ~všechny~ kameny"
+
+#: level_i18n.cc:5339
+msgid ""
+"This is Babylon. Be careful, stranger! It's dangerous to go inside.     "
+"There are some gates, unfortunately closed, like the famous Gate of Ishtar, "
+"and have a look to the lions, the tigers. Semiramis is waiting for you, "
+"stranger, ha ha."
+msgstr "Toto je Babylón. Cizinče, buď opatrný! Je nebezpečné jít dovnitř.           Je zde několik bran, ale některé brány jsou zavřené, jako slavná Ištařina brána.           Podívej se na ty lvy a tygry. Semiramis na tebe čeká, cizinče, ha ha."
+
+#: level_i18n.cc:5340
+msgid "Try to find the mechanism to open the gate, stranger"
+msgstr "Zkus najít mechanismus k otevření brány, cizinče"
+
+#: level_i18n.cc:5341
+msgid "Be afraid about the ~water~ , it is so deep, *hihi*, isn't it, Yeah???"
+msgstr "Dej si pozor na ~vodu~ , je velmi hluboká, *hihi*, mám pravdu???"
+
+#: level_i18n.cc:5346
+msgid "With respects to Dante Alighieri"
+msgstr "Věnováno Dantu Alighieriovi"
+
+#: level_i18n.cc:5348
+msgid ""
+"Switch on, if you like to play the regular difficulty with many jokers, or "
+"leave it switched off, if you like to face easier challenges with less "
+"jokers."
+msgstr "Zapni vypínač, jesliže chceš hrát na normální obížnosti s více vtipálky, nebo vypínač vypni a pak budeš hrát lehčí úroveň s méně vtipálky."
+
+#: level_i18n.cc:5351
+msgid ""
+"BEFORE ME NOTHING WAS BUT THINGS ETERNAL, / AND I ENDURE ETERNALLY. / "
+"ABANDON ALL HOPE, YOU WHO ENTER HERE."
+msgstr "PŘEDE MNOU NIC NEBYLO, ALE VĚCI JSOU VĚČNÉ / A JÁ VYTRVAL NAVŽDY. / VZDEJ SE VEŠKERÉ NADĚJE, TY KTERÝ PŘICHÁZÍŠ."
+
+#: level_i18n.cc:5354
+msgid ""
+"... stilled the shaggy jowls / of the pilot of the livid marsh, / about "
+"whose eyes burned wheels of flame."
+msgstr "...uklidnil chlupaté tlamy, / kdo bloudí v močálu, / s očima, ve kterých hořely plameny."
+
+#: level_i18n.cc:5356
+msgid ""
+"I am Charon, ferryman of the underworld.  I will transport you through the "
+"perilous swamps of Acheron, but the price is not cheap.              Wait!  "
+"You still seem alive ...                                                   "
+"It cannot be -- only the dead may enter this place.  Quickly -- sacrifice a "
+"symbol of life on that altar to keep the guards at bay, and then perhaps I "
+"will consider taking you across."
+msgstr "Jsem Charón, převozník v podsvětí. Převezu tě, přes nebezpečnou bažinu, ale nebude to levné.             Počkej! Ty jsi živý....                                                   Nemůžeš být živý -- pouze mrtví mohou vstoupit na toto místo.  Rychle -- obětuj symbol života na tomto oltáři, aby na tebe nezaútočili strážci, a pak budu uvažovat o tom, zda tě převezu."
+
+#: level_i18n.cc:5358
+msgid ""
+"Very well.  The demons and spirits that guard this place may now believe "
+"that you are truly dead, but I would still be cautious if I were you ..."
+"                                             But you still need a coin.  "
+"Hmm, well normally I wouldn't do this, but that fellow over there has me "
+"kind of worried -- I think he's plotting something.  If he has a coin, maybe"
+" you could get it from him somehow."
+msgstr "Velmi dobře. Démoni a duchové, kteří střeží toto místo, věří, že jsi skutečně mrtvý, ale já bych byl ještě opatrný, pokud bych byl tebou...                                             Ale budeš ještě potřebovat minci. Hmm, dobře za normálních okolností bych to udělal, ale ten chlapík támhle vypadá podezřele -- Jsem si jistý, že má něco za lubem. Pokud má minci, možná bys ji mohl od něj nějak dostat."
+
+#: level_i18n.cc:5360
+msgid ""
+"No!  I will not ferry you across unless you make a proper sacrifice, ridding"
+" yourself of anything that could be interpreted as a sign of life.  Now "
+"begone!"
+msgstr "Ne! Nepřevezu tě dokud neuděláš oběť správně, najdi něco, co by mohlo představovat znamení života. Teď jdi pryč!"
+
+#: level_i18n.cc:5363
+msgid ""
+"... for then I knew that beings of great worth / were here suspended in this"
+" Limbo."
+msgstr "...neboť potom jsem věděl, že život je velké bohatství, / byl přerušen zde v tomto Limbu."
+
+#: level_i18n.cc:5365
+msgid ""
+"You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go "
+"back now, or forever face the consequences!"
+msgstr "Nemůžeš zde být! Já, Mínós, soudce mrtvých, to nedovolím. Jdi zpět nebo budeš navždy čelit následkům!"
+
+#: level_i18n.cc:5367
+msgid "In that case, then begone!"
+msgstr "V tomto případě, jdi pryč!"
+
+#: level_i18n.cc:5370
+msgid ""
+"There stands Minos, snarling, terrible. / He examines each offender at the "
+"entrance, / judges and dispatches as he encoils himself."
+msgstr "Slyšel jsem hrozivý křik Mínósův. / Každý hříšník před ním stane, / a čeká na svůj osud."
+
+#: level_i18n.cc:5373
+msgid ""
+"The hellish squall, which never rests, / sweeps spirits in its headlong rush"
+" ..."
+msgstr "A vítr roztančí duši v pekelném tanci, / žádný odpočinek není pro ně..."
+
+#: level_i18n.cc:5376
+msgid ""
+"I am in the third circle, of eternal, / hateful rain, cold and leaden, / "
+"changeless in its monotony."
+msgstr "Jsem ve třetím kruhu, kde je / déšť nenávisti a chlad, / zdá se, že déšť nikdy neskončí."
+
+#: level_i18n.cc:5379
+msgid ""
+"... they, with great shouts, from opposite sides / were shoving burdens "
+"forward with their chests. / They crashed into each other, turned / and beat"
+" retreat, shoving their loads and shouting ..."
+msgstr "... A s hlasitými výkřiky / tlačili svou zátěž. / Narazili do sebe / a dál tlačili svou zátěž s křikem."
+
+#: level_i18n.cc:5382
+msgid ""
+"This dreary stream, once it has reached /  these malignant, ashen slopes, / "
+"drains out into the swamp called Styx. / And I, my gaze transfixed, could "
+"see / people with angry faces in that bog, / naked, their bodies smeared "
+"with mud."
+msgstr "Tato říčka, byla součást / tmavého svahu. / Říčka stéká do bažiny zvané Styx. / A já ohromeně spatřil / v této bažině tváře hříšníků, / kteří byli nazí a jejich těla byla potřísněna bahnem."
+
+#: level_i18n.cc:5385
+msgid ""
+"... we approach the city known as Dis, / with its vast army and its burdened"
+" citizens."
+msgstr "...blížíme se k městu známému jako Dis, / s obrovskou armádou a trpícími obyvateli."
+
+#: level_i18n.cc:5388
+msgid ""
+"At the threshold I saw more than a thousand angels / fallen from Heaven ... "
+"they reined in their great disdain / enough to say: 'You come -- alone.  Let"
+" him be gone, / who has so boldly made his way into this kingdom. / Let him "
+"retrace his reckless path alone' ..."
+msgstr "Na prahu jsem spatřil více než tisíc andělů / spadlých z nebe....Opovrhovali mnou, / řekli: \"Přišel jsi -- sám. Nechme ho být, / když sem tak drze vstoupil. / Ať si najde cestu sám\"..."
+
+#: level_i18n.cc:5391
+msgid ""
+"Now my master takes a hidden / path between the city's ramparts and the "
+"torments, / and I come close behind him ..."
+msgstr "Můj pán zná tajnou / cestu mezi městskými hradbami, které jsou plné utrpení, / a já přišel za ním..."
+
+#: level_i18n.cc:5394
+msgid ""
+"... his hands, ready, encouraging, / thrust me towards him among the tombs."
+msgstr "...jeho ruce mě blaženě / tlačily mezi hroby."
+
+#: level_i18n.cc:5397
+msgid ""
+"Like the bull that breaks its tether / just as it receives the mortal blow /"
+" and cannot run, but lunges here and there, // so raged the Minotaur.  My "
+"artful guide / called out: 'Run to the passage: / hurry down while he is in "
+"his fury.'"
+msgstr "Jako býk utržený ze řetězu / zasažený smrtelnou ránou, / který nemůže uniknout, ale kope kolem sebe, // tak zuřil Minotaur. Můj chytrý průvodce / zvolal: \"Utíkej do chodby: Pospěš si, dokud zuří.\""
+
+#: level_i18n.cc:5400
+msgid ""
+"... we went on, / skirting the edge of the vermilion boil / from which the "
+"boiled cried out with piercing shrieks."
+msgstr "...šli jsme kolem / jámy plné krve, která vřela / a slyšet byl strašlivý křik."
+
+#: level_i18n.cc:5403
+msgid ""
+"Here the filthy Harpies nest, / who drove the Trojans from the Strophades / "
+"with doleful prophecies of woe to come."
+msgstr "Zde je hnízdo odporných Harpyjí, /kdo je vyžene, / kterak předpovědělo proroctví."
+
+#: level_i18n.cc:5406
+msgid ""
+"... Here, at the very edge, we stayed our steps / at an expanse of deep and "
+"arid sand ..."
+msgstr "A my jsme pokračovali v naší cestě k okraji pouště, / která byla obrovská..."
+
+#: level_i18n.cc:5409
+msgid ""
+"A path that circles like a belt around / the base of that high rock runs "
+"round the pit, / its sides descending in ten ditches."
+msgstr "Cesta, která v kruzích jako pás vede kolem / vysoké skály a kolem jámy, / ve které bylo vidět deset příkopů."
+
+#: level_i18n.cc:5412
+msgid ""
+"Under my feet I saw a lake / so frozen that it seemed more glass than water."
+" / Never in winter did the Austrian Danube / nor the far-off Don, under its "
+"frigid sky, / cover their currents with so thick a veil / as I saw there."
+msgstr "U mých nohou se rozprostíralo jezero, / které bylo tak zamrzlé, že jeho hladina vypadala spíše než jako voda jako sklo. / Nikdy v zimě jsem neviděl tak zamrzlý / rakouský Dunaj nebo nedaleký Don, plynoucí klidně pod studenou oblohou."
+
+#: level_i18n.cc:5415
+msgid ""
+"... we made our way toward the center, / where all things that have weight "
+"converge, / and I was shivering in the eternal chill ..."
+msgstr "...našli jsme cestu do středu, / kde všechny nás těžkosti sblížily, / ale i tak jsem se třásl v nekonečné zimě..."
+
+#: level_i18n.cc:5418
+msgid ""
+"It is no enterprise undertaken lightly -- / to describe the very bottom of "
+"the universe ..."
+msgstr "Není nikdo, kdo by byl schopný popsat -- / ten svět dole, který jsem viděl...."
+
+#: level_i18n.cc:5421
+msgid ""
+"The emperor of the woeful kingdom / rose from the ice below his breast, / "
+"and I in size am closer to a giant / than giants are when measured to his "
+"arms."
+msgstr "Císař království smutku, plného slz, / jež pod ledem se skrývá, / vyrůstal z ledu pod svojí hrudí. / A jako já dosahuji velikosti obra, / dosahuje obr rozměrů jeho paží."
+
+#: level_i18n.cc:5423
+msgid ""
+"You refused many times to leave my kingdom -- now you shall pay the "
+"consequences for your foolishness!"
+msgstr "Odmítl jsi mnohokrát opustit mé království -- nyní zaplatíš za svou pošetilost!"
+
+#: level_i18n.cc:5425
+msgid "Faithlessness"
+msgstr "Nevěra"
+
+#: level_i18n.cc:5427
+msgid "Lust"
+msgstr "Vášeň"
+
+#: level_i18n.cc:5429
+msgid "Gluttony"
+msgstr "Obžerství"
+
+#: level_i18n.cc:5431
+msgid "Avarice"
+msgstr "Lakomost"
+
+#: level_i18n.cc:5433
+msgid "Sloth"
+msgstr "Lenost"
+
+#: level_i18n.cc:5435
+msgid "Heresy"
+msgstr "Kacířství"
+
+#: level_i18n.cc:5437
+msgid "Violence"
+msgstr "Násilí"
+
+#: level_i18n.cc:5439
+msgid "Fraud"
+msgstr "Podvod"
+
+#: level_i18n.cc:5441
+msgid "Treachery"
+msgstr "Zrada"
+
+#: level_i18n.cc:5444
+msgid "... passed the point / to which all weights are drawn from every side."
+msgstr "...Bylo to místo, / které bylo strašlivé po všech stránkách"
+
+#: level_i18n.cc:5447
+msgid ""
+"... climbed up ... far enough to see, through a round opening, / a few of "
+"those fair things the heavens bear. / Then we came forth, to see again the "
+"stars."
+msgstr "...vyšplhal jsem... dostatečně vysoko, / abych spatřil krásu nebes. / A šli jsme znovu, spatřit krásu hvězd."
+
+#: level_i18n.cc:5454
+msgid ""
+"Choose your hemisphere: left switch for northern, right switch for southern."
+msgstr "Vyber si polokouli; levý vypínač pro severní a pravý vypínač pro jižní."
+
+#: level_i18n.cc:5462
+msgid "Interlude I"
+msgstr "Mezihra I"
+
+#: level_i18n.cc:5488
+msgid "Danger!"
+msgstr "Nebezpečí!"
+
+#: level_i18n.cc:5525
+msgid "What I Don't Have"
+msgstr "Co nemám"
+
+#: level_i18n.cc:5530
+msgid ""
+"Dorothy left the house to play with her little dog Toto, when suddenly the "
+"sky turned dark and a giant tornado rushed across Kansas."
+msgstr "Dorotka opustila dům, aby si hrála se svým malým psem Totem, když tu náhle obloha potemněla a přes Kansas se přehnalo obrovské tornádo."
+
+#: level_i18n.cc:5532
+msgid ""
+"The Good Witch of the North speaks: 'Your house has killed the ruler of this"
+" land, the Wicked Witch of the East. Take her Silver Shoes and follow the "
+"Yellow Brick Road to Emerald City, where the Wizard of Oz should be more "
+"than pleased to help you return home. Go with my blessings!'"
+msgstr "Dobrá čarodějnice severu říká: \"Tvůj dům zabil vladaře této země, zlá čarodějnice východu. Vezmi si stříbrné boty a sleduj žlutou silnici z kostek do Smaragdového města, kde čaroděj Oz by měl být více než potěšen, když ti bude moci pomoci v návratu domů. Jdi s mým požehnáním!\""
+
+#: level_i18n.cc:5534
+msgid ""
+"A Scarecrow dangles helplessly from a pole. After talking to Dorothy, it "
+"agrees to join her for an audience with the Wizard of Oz to ask him for a "
+"brain. 'If only you could release me from this pole, that is ...'"
+msgstr "Strašák plandá bezmocně na tyči. Po rozhovoru s Dorotkou souhlasí, že se k ní připojí, aby navštívil čaroděje Oze a požádal jej o mozek. \"Kdybys mě tak mohla osvobodit z této tyče...\""
+
+#: level_i18n.cc:5536
+msgid ""
+"The rusty Tin Woodman can't move anymore by himself. 'Though I wish to join "
+"you on your journey, Dorothy, for I need to ask the Wizard why I did not "
+"receive a heart, I fear I'm stuck here. It would be nice if you could help "
+"me out a bit ...'"
+msgstr "Zrezivělý plecháč se už nedokáže sám pohybovat. \"I když bych si přál se k tobě připojit na tvé cestě, Dorotko, protože se čaroděje potřebuji zeptat na to, proč jsem nedostal srdce, mám strach, že jsem zde uvízl. Bylo by hezké, kdybys mi mohla trošku pomoci...\""
+
+#: level_i18n.cc:5538
+msgid ""
+"Among the shallow waters of a merry creek, the Cowardly Lion sits shivering "
+"of fear. Dorothy shouts: 'Lion, it's not wide! You can jump over the creek! "
+"Let's see the Wizard of Oz, maybe he can do something to give you courage!'"
+msgstr "Uprostřed mělkých vod veselého potoka sedí zbabělý lev a třese se strachem. Dorotka vykřikne: \"Lve, není to široké! Potok můžeš přeskočit! Podívej na čaroděje Oze. Možná on může udělat něco, čím ti dodá odvahy!\""
+
+#: level_i18n.cc:5540
+msgid ""
+"The gate guardian says: 'Welcome to Emerald City! Please always wear these "
+"spectacles, or the splendid brilliance of the Wizard's city may blind you. "
+"The Wizard resides to the north.'"
+msgstr "Strážce brány říká: \"Vítejte ve Smaragdovém městě! Vždy, prosím, noste tyto brýle, nebo vás velkolepá oslnivost čarodějova města oslepí. Čaroděj se zdržuje na severu.\""
+
+#: level_i18n.cc:5542
+msgid ""
+"A booming voice echoes through the corridor: 'I, the Wonderful Wizard of Oz,"
+" will help Thee find what Thou are looking for. However before Thou may pass"
+" here and see me, travel on to Winkie Country and defeat my arch rival, the "
+"Wicked Witch of the West.'"
+msgstr "Chodbou se rozléhá dunící hlas: \"Já, znamenitý čaroděj Oz vám pomohu nalézt to, co hledáte. Nicméně předtím než ke mně budete moci přijít a uvidět mne, musíte cestovat do země Winkijů a porazit mou starou protivnici, zlou čarodějnici ze západu.\""
+
+#: level_i18n.cc:5544
+msgid ""
+"This is the domain of the Wicked Witch of the West. She sends her minions "
+"against Dorothy and her friends. To destroy the witch, they need to steal "
+"her magic wand, kept deep inside her ice fortress."
+msgstr "Toto je území zlé čarodějnice ze západu. Posílá své přisluhovače proti Dorotce a jejím přátelům. Aby čarodějnici zničili, musí jí ukrást kouzelnou hůlku, kterou schovává v hloubi své ledové pevnosti."
+
+#: level_i18n.cc:5546
+msgid ""
+"Now that Dorothy finally made it to the Wonderful Wizard's dwelling, she "
+"realizes that he is nothing more but a humbug. Watching him flee with his "
+"hot-air balloon, Dorothy loses all hope of ever returning home. All that's "
+"left of the Wizard is now his shrinkable cupboard."
+msgstr "Nyní, když se Dorotka konečně dostala do čarodějova příbytku, uvědomí se, že není ničím jiným než klamem. Dívá se na něj, jak prchá ve svém horkovzdušném balónu, Dorotka ztrácí všechnu naději na to, že se kdy vrátí domů. Všechno, co po čaroději zůstalo, je teď jeho scvrkávající se skříňka."
+
+#: level_i18n.cc:5550
+msgid "Choices, choices ..."
+msgstr "Možnosti, možnosti ..."
+
+#: level_i18n.cc:5551
+msgid ""
+"Before trying this level in hard mode, it's a good idea to switch to easy "
+"mode to practice on the individual puzzles."
+msgstr "Předtím, než zkusíš těžší režim, by sis měl zkusit lehčí režim na procvičení jednodušších hádanek."
+
+#: level_i18n.cc:5552
+msgid "These dispensers are all empty ..."
+msgstr "Všechny zásobníky jsou prázdné ..."
+
+#: level_i18n.cc:5553
+msgid "The glass next to this document can be pushed to let you back out."
+msgstr "Sklo a tento dokument můžeš posunout tak, aby jsi mohl projít."
+
+#: level_i18n.cc:5557
+msgid "Once, No More No Less"
+msgstr "Kdysi, nic víc, nic míň"
+
+#: level_i18n.cc:5562
+msgid ""
+"Each of the 6 women has a profession; and each of them carries or wears only"
+" one of the items."
+msgstr "Každá ze šesti dam má jedno povolání; a každá z nich nosí nebo obléká jen jednu z položek (jeden módní doplněk)."
+
+#: level_i18n.cc:5564
+msgid "Miss Black's best friends are the poet and the locksmith."
+msgstr "Nejlepšími přítelkyněmi paní Černé jsou básnířka a zámečnice."
+
+#: level_i18n.cc:5566
+msgid ""
+"Miss Black, Miss White and Miss Pearl are impressed by the magician's "
+"talent."
+msgstr "Paní Černá, paní Bílá a paní Perla jsou zaujaty nadáním kouzelnice."
+
+#: level_i18n.cc:5568
+msgid "Miss Pearl tells jokes to the poet, the hacker and the locksmith."
+msgstr "Paní Perla vypráví básnířce, počítačnici a zámečnici vtipy."
+
+#: level_i18n.cc:5570
+msgid ""
+"The hacker, the locksmith and the firewoman enjoy looking at their "
+"reflection in the glasses."
+msgstr "Počítačnice, zámečnice a požárnice se rády zrcadlí ve slunečních brýlích."
+
+#: level_i18n.cc:5572
+msgid "The magician carries the umbrella."
+msgstr "Kouzelnice nosí při sobě deštník."
+
+#: level_i18n.cc:5574
+msgid "Neither the magician nor the firewoman are permitted to wear the ring."
+msgstr "Ani kouzelnice ani požárnice nesmějí nosit prsten."
+
+#: level_i18n.cc:5576
+msgid ""
+"Miss Black, Miss White and Miss Rotor like to tease the girl with the ring."
+msgstr "Paní Černá, paní Bílá a paní Rotorová si rády dobírají děvče s prstenem."
+
+#: level_i18n.cc:5578
+msgid ""
+"Miss Top prefers to be unencumbered: She doesn't carry an umbrella, nor a "
+"bag and certainly not a weight."
+msgstr "Paní Káča ráda cestuje bez zavazadel: Nenosí ani deštník, ani sáček, a jistě žádné břemeno."
+
+#: level_i18n.cc:5580
+msgid ""
+"Sometimes, Miss White and Miss Pearl help their friend to carry her weight."
+msgstr "Někdy pomáhají paní Bílá a paní Perla své přítelkyni nést její břemeno."
+
+#: level_i18n.cc:5585
+msgid ""
+"There are 19 fully connected puzzle piece arrangements, but just 9 of them "
+"are reachable from this first distribution."
+msgstr "Je devatenáct možností, jak vyřešit tuto hádanku, ale v tomto prvním rozložení je možné vyřešit hádanku pouze devíti možnostmi."
+
+#: level_i18n.cc:5587
+msgid ""
+"This second distribution can just be converted to any of the other 10 "
+"arrangements."
+msgstr "V tomto rozložení je možné použít dalších deset možností řešení."
+
+#: level_i18n.cc:5589
+msgid ""
+"There are just two symmetric puzzle piece arrangements that both are "
+"reachable."
+msgstr "Jsou pouze dvě řešení této souměrné hádanky, obě možnosti řešení máš k dispozici."
+
+#: level_i18n.cc:5595
+msgid "Marblics and Pearlics I"
+msgstr "Marblix a Pearlix I"
+
+#: level_i18n.cc:5598
+msgid ""
+"Doping 'en Tour' not allowed for taking shortcuts, doping just allowed for "
+"self defence!"
+msgstr "Doping 'en Tour' nemůžeš použít pro zkrácení ceny, ale můžeš ho použít v sebeobraně!"
+
+#: level_i18n.cc:5601
+msgid "Rotomagus - Rouen"
+msgstr "Rotomagus - Rouen"
+
+#: level_i18n.cc:5604
+msgid "Lutetia - Paris"
+msgstr "Lutetia - Paříž"
+
+#: level_i18n.cc:5607
+msgid "Camaracum - Cambrai"
+msgstr "Camaracum - Cambrai"
+
+#: level_i18n.cc:5610
+msgid "Durocortorum - Rheims"
+msgstr "Durocortorum - Rheims"
+
+#: level_i18n.cc:5613
+msgid "Lugdunum - Lyons"
+msgstr "Lugdunum - Lyon"
+
+#: level_i18n.cc:5616
+msgid "Nicae - Nice"
+msgstr "Nicae - Nice"
+
+#: level_i18n.cc:5619
+msgid "Massilia - Marseilles"
+msgstr "Massilia - Marseilles"
+
+#: level_i18n.cc:5622
+msgid "Aginum - Agen"
+msgstr "Aginum - Agen"
+
+#: level_i18n.cc:5625
+msgid "Detour de Tour - Detour of the Tour"
+msgstr "Detour de Tour - Objížďka na cestě"
+
+#: level_i18n.cc:5628
+msgid "Burdigala - Bordeaux"
+msgstr "Burdigala - Bordeaux"
+
+#: level_i18n.cc:5631
+msgid "Gallia omnis divisa est ... - The whole of Gaul is divided ..."
+msgstr "Gallia omnis divisa est... - Celá Galie je rozdělena..."
+
+#: level_i18n.cc:5634
+msgid "Veni, vidi, vici - I came, I saw, I conquered"
+msgstr "Veni, vidi, vici - Přišel jsem, viděl jsem, zvítězil jsem"
+
+#: level_i18n.cc:5636
+msgid "Welcome in L’Alpe d’Huez. Sorry, it is not yet stage of the Tour"
+msgstr "Vítej v L’Alpe d’Huez. Promiň, ale to není na programu cesty."
+
+#: level_i18n.cc:5643
+msgid "Distribution Meditation"
+msgstr "Přemýšlení nad dělbou práce"
+
+#: level_i18n.cc:5658
+msgid "more is not less"
+msgstr "více není méně"
+
+#: level_i18n.cc:5661
+msgid "Sorry, but in difficult mode you need more ... Restart."
+msgstr "Promiň, ale v těžkém režimu toho musíš udělat víc ... Začni znovu."

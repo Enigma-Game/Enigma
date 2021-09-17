@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Drunk Transmeditation" el:subtitle="A drop of booze will do strange things" el:id="Hairball_053"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Hairball" el:email="hairball@ramblemuse.com"/>
+      <el:copyright>Copyright c 2013 Hairball</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:22"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_samba"}
+ti["#"] = {"st_greenbrown"}
+ti["."] = {"it_meditation_hollow"}
+ti["A"] = {"fl_abyss",friction=6,adhesion=2}
+ti[">"] = {"fl_slope_pe",friction=6,adhesion=2}
+ti["b"] = {"it_bottle",interval=3}
+ti["d"] = {"it_drop"}
+ti["_"] = {"fl_bridge",friction=6,adhesion=2,name="bridge#"}
+ti["s"] = {"st_switch",action="toggle",target="bridge#*"}
+
+wo(ti, " ", {
+    "####################",
+    "#         AAA>>    #",
+    "#         AAA>>    #",
+    "#         AAA>> .. #",
+    "#         AAA>>    #",
+    "#         AAA>> .. #",
+    "# b     d ___>>    s",
+    "#         AAA>> .. #",
+    "#         AAA>>    #",
+    "#         AAA>> .. #",
+    "#         AAA>>    #",
+    "#         AAA>>    #",
+    "####################"})
+
+wo[{5,6}]={"#ac_marble_white",controllers=CTRL_YIN,owner=YIN,adhesion=1.1}
+wo[{4,5}]={"#ac_pearl_white"}
+wo[{4,6}]={"#ac_pearl_white"}
+wo[{4,7}]={"#ac_pearl_white"}
+wo[{5,5}]={"#ac_pearl_white"}
+wo[{5,7}]={"#ac_pearl_white"}
+wo[{6,5}]={"#ac_pearl_white"}
+wo[{6,6}]={"#ac_pearl_white"}
+wo[{6,7}]={"#ac_pearl_white"}
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

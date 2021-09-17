@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Nightblind" el:subtitle="'Keep track of the visions in your eyes!'"
+el:id="gorg023_4"/> <el:version el:score="2" el:release="3" el:revision="10"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2017 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="17:10"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+
+ti[" "] = {"fl_fake_abyss"}
+ti["_"] = {"fl_water"} .. ti{"it_umbrella"}
+ti["#"] = {"st_darkglass"}
+ti["M"] = {"st_darkglass_movable"}
+ti["H"] = {"st_darkglass_hollow"}
+ti["@"] = {"fl_fake_abyss", "left"}..ti{"#ac_pearl_white", owner=YIN, controllers=CTRL_YIN}
+ti["&"] = {"fl_fake_abyss", "right"}
+ti["O"] = {"st_oxyd_e"}
+ti["V"] = {"st_mirror_triangle", orientation=SOUTH, movable=true}
+ti[">"] = {"st_mirror_triangle", orientation=EAST, movable=true}
+ti["<"] = {"st_mirror_triangle", orientation=WEST, movable=true}
+ti["^"] = {"st_mirror_triangle", orientation=NORTH, movable=true}
+ti["P"] = {"st_lightpassenger_off"}
+ti["E"] = {"st_laser", "laser#", state=ON, orientation=EAST}
+ti["W"] = {"st_laser", "laser#", state=ON, orientation=WEST}
+ti["N"] = {"st_laser", "laser#", state=ON, orientation=NORTH}
+ti["S"] = {"st_laser", "laser#", state=ON, orientation=SOUTH}
+ti["t"] = {"fl_bright"} .. ti{"it_trigger", invisible=true, target="@laser#*"}
+ti["?"] = {"it_surprise", selection = {"it_brush"}}
+ti["R"] = ti["H"]..{"it_wormhole", destination="right", strength=0}
+ti["L"] = ti["H"]..{"it_wormhole", destination="left", strength=0}
+ti["e"] = {"it_extralife"}
+
+wo(ti, " ", {
+    "##########_#########",
+    "O                  O",
+    "#####S###H H#S###S##",
+    "E     H  _M_    H t#",
+    "#     t ## ## t?P  #",
+    "#t P ^   # #   V  H#",
+    "#  MH    _M_     H W",
+    "#H####HM## ##MHM## #",
+    "# M  H<  # #   > H #",
+    "E  M     _M_ H   P #",
+    "#M ####H##M#H V  <t#",
+    "#t@M  ^eHHPHHeHt M&#",
+    "#HHHH###R#N#L####HH#"
+})
+
+]]></el:luamain>   
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

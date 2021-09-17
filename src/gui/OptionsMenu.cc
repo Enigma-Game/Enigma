@@ -611,15 +611,7 @@ private:
 
     int LanguageButton::get_value() const
     {
-        string localename; //  = ecl::DefaultMessageLocale ();
-        options::GetOption ("Language", localename);
-
-        int lang = 0;                  // unknown language
-        for (size_t i=0; i<NUMENTRIES(nls::languages); ++i) {
-            if (localename == nls::languages[i].localename)
-                lang = int(i);
-        }
-        return lang;
+        return nls::GetCurrentLocaleNr();
     }
 
     void LanguageButton::set_value(int value)
@@ -742,37 +734,37 @@ private:
         int vv = (vminfo->height - vminfo->area.h)/2;
         static struct SpacingConfig {
             int rows;
-            int button_height, optionb_width, commandb_width, pageb_width;
+            int button_height, optionl_width, optionb_width, commandb_width, pageb_width;
             int vmargin, vrow_row;
             int hmargin, hpage_option, hoption_option;
         } param[] = {
             {  // VTS_16 (320x240)
                 9,
-                17, 100, 70, 50,
+                17, 120, 90, 70, 70,
                 7, 5,
                 10, 10, 10
             },
             {  // VTS_32 (640x480)
                 9,
-                30, 200, 140, 100,
+                30, 240, 180, 140, 140,
                 15, 13,
                 20, 20, 20
             },
             {  // VTS_40 (800x600)
                 10,
-                35, 200, 140, 100,
+                35, 240, 180, 140, 140,
                 20, 15,
                 15, 46, 15
             },
             {  // VTS_48 (960x720)  VM_1024x768
                 11,
-                35, 200, 140, 100,
+                35, 240, 180, 140, 140,
                 30, 18,
                 70, 76, 20
             },
             {  // VTS_64 (1280x960)
                 11,
-                35, 200, 140, 100,
+                35, 240, 180, 140, 140,
                 40, 20,
                 60, 58, 20
             }
@@ -829,12 +821,11 @@ private:
                                          param[vtt].button_height));
         }
 
+        int label_button_total_width = param[vtt].optionl_width + param[vtt].optionb_width + param[vtt].hoption_option;
         optionsVList = new VList;
         optionsVList->set_spacing(param[vtt].vrow_row);
         optionsVList->set_alignment(HALIGN_LEFT, VALIGN_TOP);
-        optionsVList->set_default_size(2*param[vtt].optionb_width
-                                           + param[vtt].hoption_option,
-                                       param[vtt].button_height);
+        optionsVList->set_default_size(label_button_total_width, param[vtt].button_height);
 
         /*! All options on our pages consist of a label and a button,
           a very long (text-)button, or just a label, suited to the
@@ -844,28 +835,29 @@ private:
           Macros for initialisation. */
 
         HList *lb;  // a list of labels and/or buttons
+        Label *current_label;
 
 #define OPTIONS_NEW_L(label) lb = new HList;\
         lb->set_spacing(param[vtt].hoption_option); \
         lb->set_alignment(HALIGN_LEFT, VALIGN_TOP); \
-        lb->set_default_size(2*param[vtt].optionb_width + param[vtt].hoption_option, \
-                             param[vtt].button_height); \
+        lb->set_default_size(label_button_total_width, param[vtt].button_height); \
         lb->add_back(new Label(label, HALIGN_LEFT, VALIGN_BOTTOM)); \
         optionsVList->add_back(lb); \
 // end define
 #define OPTIONS_NEW_LB(label,button) lb = new HList;\
         lb->set_spacing(param[vtt].hoption_option); \
         lb->set_alignment(HALIGN_CENTER, VALIGN_TOP); \
+        lb->set_size(label_button_total_width, param[vtt].button_height); \
         lb->set_default_size(param[vtt].optionb_width, param[vtt].button_height); \
-        lb->add_back(new Label(label, HALIGN_RIGHT, VALIGN_CENTER)); \
+        current_label = new Label(label, HALIGN_RIGHT, VALIGN_CENTER); \
+        lb->add_back(current_label, List::EXPAND); \
         lb->add_back(button); \
         optionsVList->add_back(lb); \
 // end define
 #define OPTIONS_NEW_T(textbutton) lb = new HList;\
         lb->set_spacing(param[vtt].hoption_option); \
         lb->set_alignment(HALIGN_LEFT, VALIGN_TOP); \
-        lb->set_default_size(2*param[vtt].optionb_width + param[vtt].hoption_option, \
-                             param[vtt].button_height); \
+        lb->set_default_size(label_button_total_width, param[vtt].button_height); \
         lb->add_back(textbutton); \
         optionsVList->add_back(lb); \
 // end define
@@ -940,13 +932,13 @@ private:
             case OPTIONS_VIDEOCHECK:
                 videocheck_button_yes = new StaticTextButton(N_("Yes"), this);
                 videocheck_button_no = new StaticTextButton(N_("No"), this);
-                OPTIONS_NEW_LB(N_("Use these video settings?"), videocheck_button_yes);
-                OPTIONS_NEW_LB(   "",                           videocheck_button_no);
+                OPTIONS_NEW_L(N_("Use these video settings?"));
+                OPTIONS_NEW_LB("", videocheck_button_yes);
+                OPTIONS_NEW_LB("", videocheck_button_no);
                 lb = new HList;
                 lb->set_spacing(param[vtt].hoption_option);
                 lb->set_alignment(HALIGN_LEFT, VALIGN_TOP);
-                lb->set_default_size(2*param[vtt].optionb_width + param[vtt].hoption_option,
-                                     param[vtt].button_height);
+                lb->set_default_size(label_button_total_width, param[vtt].button_height);
                 lb->add_back(videocheck_tick_down = new VideoCheckTickDown(this));
                 optionsVList->add_back(lb);
                 break;
@@ -958,10 +950,9 @@ private:
 
         // Now add all options to the page.
         this->add(optionsVList,
-           Rect(param[vtt].hmargin + vh + param[vtt].pageb_width
-                    + param[vtt].hpage_option,
+           Rect(param[vtt].hmargin + vh + param[vtt].pageb_width + param[vtt].hpage_option,
                 param[vtt].vmargin + vv,
-                2*param[vtt].optionb_width + param[vtt].hoption_option,
+                label_button_total_width,
                 param[vtt].rows * param[vtt].button_height +
                     (param[vtt].rows - 1) * param[vtt].vrow_row));
         invalidate_all();

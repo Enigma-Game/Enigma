@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Golden Brown" el:subtitle=""
+el:id="gorg008_3"/> <el:version el:score="1" el:release="3" el:revision="8"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2016, 2021 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:comments> <el:credits el:showinfo="true" el:showstart="false">Thanks to Daniel Hadas and Ale for detailed feedback</el:credits>
+</el:comments> <el:score el:easy="-" el:difficult="04:27"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["ProvideExtralifes"] = false
+wo["CrackSpreading"] = 0.0
+
+ti[" "] = {"fl_wood"}
+ti["_"] = {"fl_abyss"} 
+ti["#"] = {"st_panel", cluster="1"}
+ti["@"] = {"#ac_marble_black"}
+ti["b"] = {"st_box"}
+ti["K"] = {"st_chess"}
+ti["s"] = {"it_seed"}
+ti["C"] = {"it_crack_s"}
+ti["*"] = {"it_crack_m"}
+ti["+"] = {"it_crack_l"}
+ti["?"] = {"it_crack_i"}
+ti["i"] = ti["C"] .. {"st_stoneimpulse_movable"}
+ti["X"] = ti["*"] .. {"st_box"}
+ti["B"] = {"fl_bridge_bw", "bridge#"}
+ti["t"] = {"fl_scales_bridgewood", target="bridge#*"}
+ti["O"]={"st_oxyd", oxydcolor=OXYD_BROWN}
+
+wo(ti, " ", {
+    "#O################O#",
+    "#BB _t   _#______  #",
+    "#_C ___  _______ __#",
+    "# K  b ##___ _*? __#",
+    "# ___ __+ ?#___*___#",
+    "#?  __ _b C#s_#____#",
+    "#__ _# b_b# ____#__#",
+    "#_  i +_b__#  _____#",
+    "#___b# @_  b___ C C#",
+    "#______  _b___b_b_ #",
+    "#__?C#_ Xb b b  ?bC#",
+    "# C ___ _*   _   _ #",
+    "#O################O#"
+})
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

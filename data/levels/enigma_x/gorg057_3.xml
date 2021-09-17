@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="Troublemakers" el:subtitle=""
+el:id="gorg057_3"/> <el:version el:score="2" el:release="3" el:revision="4"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="01:03"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_ice"}
+ti["#"] = {"st_yellow"}
+ti["T"] = {"fl_thief"}
+ti["t"] = {"st_thief"}
+ti["K"] = {"st_chess"}
+ti["b"] = {"st_passage_black"} .. ti{"it_pin"}
+ti["c"] = {"st_passage_black"} .. ti{"it_bottle"}
+ti["O"] = {"st_oxyd_e", name="ox_#", oxydcolor=OXYD_YELLOW}
+ti["B"] = {"fl_bridge", "bridge#", state=CLOSED}
+ti["D"] = {"st_door_d", "door#", faces="ew", state=CLOSED}
+ti["X"] = {"st_monoflop", target={"bridge#*", "door#*"}, action={"toggle", "open"}}
+ti["."] = {"fl_space", "space_#"}
+ti["@"] = {"#ac_pearl_black", owner=YIN, controllers=CTRL_YIN}
+ti["$"] = ti["."] .. {"#ac_pearl_white", owner=YANG, controllers=CTRL_NONE}
+ti["%"] = ti["."] .. {"#ac_pearl_white", owner=YANG, controllers=CTRL_NONE}
+
+wo(ti, " ", {
+    "#XXXXXXX####XXXXXXX#",
+    "X$......X  X%......X",
+    "X.XXXXX.XK@X.......X",
+    "X.X...X.X  X.......X",
+    "X.X...X.X  X.......X",
+    "X.XXXXX.X  X.......X",
+    "X.......X  X.......X",
+    "#XXXbXXXX  XXXXcXXX#",
+    "#                  #",
+    "#                  #",
+    "#########  #########",
+    "#OBBBBBBDTTDBBBBBBO#",
+    "#######t####t#######"
+})
+
+local space = no["space_#*"] 
+function move(value, sender) 
+   space["force_x"] = sender["_force_x"] 
+      space["force_y"] = sender["_force_y"] 
+end 
+wo:add({"ot_timer", interval=0.5, target="move", _force_x=0, _force_y=8})
+wo:add({"ot_timer", interval=1.0, target="move", _force_x=8, _force_y=0})
+wo:add({"ot_timer", interval=1.5, target="move", _force_x=0, _force_y=-8})
+wo:add({"ot_timer", interval=2.0, target="move", _force_x=-8, _force_y=0})
+wo:add(YIN, {"it_extralife"}..ti{"it_extralife"})
+no["ox_#*"]:peepall()
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>

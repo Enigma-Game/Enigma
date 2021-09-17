@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Half-Burned Prints" el:subtitle="" el:id="andreas78"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2020 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:34" el:difficult="0:48"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_darkgray"}
+ti["."] = {"fl_bast"}
+ti[","] = {"fl_abyss"}
+ti["#"] = {"st_metal"}
+ti["O"] = {"st_oxyd", oxydcolor = OXYD_WHITE}
+ti["@"] = {"#ac_marble_black"}
+ti["N"] = {"st_laser", "laser#", orientation = NORTH, state = OFF}
+ti["S"] = {"st_laser", "laser#", orientation = SOUTH, state = OFF}
+ti["E"] = {"st_laser", "laser#", orientation = EAST,  state = OFF}
+ti["W"] = {"st_laser", "laser#", orientation = WEST,  state = OFF}
+ti["P"] = {"st_lightpassenger", friction = 1.0} .. ti["."]
+ti["T"] = {"it_trigger", target = {"triggerdoor"}}
+ti["Q"] = {"st_door_a", "triggerdoor"}
+ti["I"] = {"st_floppy", target = "floppy_inserted"}
+ti["-"] = {"it_pipe_ew"} .. ti["."]
+ti["|"] = {"it_pipe_ns"} .. ti["."]
+ti["7"] = {"it_pipe_es"} .. ti["."]
+ti["9"] = {"it_pipe_sw"} .. ti["."]
+ti["1"] = {"it_pipe_ne"} .. ti["."]
+ti["3"] = {"it_pipe_nw"} .. ti["."]
+ti["n"] = {"st_mail", orientation = NORTH}
+ti["s"] = {"st_mail", orientation = SOUTH}
+ti["e"] = {"st_mail", orientation = EAST}
+ti["w"] = {"st_mail", orientation = WEST}
+ti["H"] = {"it_hammer"}
+ti["h"] = {"it_document", text = "text1"}
+ti["D"] = {"it_sword"}
+ti["d"] = {"it_document", text = "text2"}
+ti["K"] = {"it_key"}
+ti["k"] = {"it_document", text = "text3"}
+ti["R"] = {"it_wrench"}
+ti["r"] = {"it_document", text = "text4"}
+ti["F"] = {"it_floppy"}
+ti["f"] = {"it_document", text = "text5"}
+ti["C"] = {"it_coin_m"}
+ti["c"] = {"it_document", text = "text6"}
+ti["A"] = {"it_spade"}
+ti["a"] = {"it_document", text = "text7"}
+ti["G"] = {"it_glasses"}
+ti["g"] = {"it_document", text = "text8"}
+if wo["IsDifficult"] then
+    ti["*"] = {"#ac_marble_white"} .. ti{"st_window_nesw", secure = true}
+    ti[">"] = ti["*"] .. ti{"fl_slope_pe", "window-e#"}
+    ti["<"] = ti["*"] .. ti{"fl_slope_pw", "window-w#"}
+    ti["v"] = ti["*"] .. ti{"fl_slope_ps", "window-s#"}
+    ti["^"] = ti["*"] .. ti{"fl_slope_pn", "window-n#"}
+else
+    ti["*"] = ti["#"]
+    ti[">"] = ti["#"]
+    ti["<"] = ti["#"]
+    ti["v"] = ti["#"]
+    ti["^"] = ti["#"]
+end
+
+-- "dist" stands for "disturber"
+distitem = {"it_banana", "it_banana", "it_banana", "it_bottle",
+            "it_bottle", "it_umbrella", "it_umbrella", "it_brush"}
+distperb = lib.math.permutation(8)
+distnr = 0
+
+function myresolver(key, x, y)
+    if (key == ">") or (key == "<") or (key == "^") or (key == "v") then
+        distnr = distnr + 1
+        return ti[key] .. ti{distitem[distperb[distnr]]}
+    else
+        return ti[key]
+    end
+end
+
+w, h = wo(myresolver, " ", {
+ -- 0123456789012345678901234567
+   ",,,,,,,,,,##########,,,,,,,,,,,,",
+   ",,########          ######,,,,,,",
+   ",#                        #,,,,,",
+   "#   ##    #s<#S####        #,,,,",
+   "#  #..#S##.1--.....###      #,,,",
+   "#  #..................W     #,,,",
+   "#  E........7---.......##   #,,,",
+   "#   #v|...S#|E...........#   #,,",
+   "#    e3....#1w<........7-w   #,,",
+   "#    E......#  #...N..73.^   #,,",
+   ",#   e-.....#  I..7---3..#   #,,",
+   ",#   ^#.....W  #........W   #,,,",
+   "#     #.....#  #.7--....#   #,,,",
+   "#    #.....7w  #.|......#    #,,",
+   "#   E......|#   Nn<E.....#    #,",
+   "#   #.7-3..|#     #..7....#   #,",
+   ",#   >n#...3.#    #..|....#   #,",
+   ",#     ###T####   #.P|N..#   #,,",
+   ",,#      Q   O#    #Nn<##    #,,",
+   ",#      ### O##               #,",
+   "#        #####               #,,",
+   "#   @           C  H  A  G  #,,,",
+   ",#      ###     c  h  a  g  #,,,",
+   ",,######,,,##                #,,",
+   ",,,,,,,,,,,,,#  D  F  K  R  #,,,",
+   ",,,,,,,,,,,,,#  d  f  k  r  #,,,",
+   ",,,,,,,,,,,,,,#            #,,,,",
+   ",,,,,,,,,,,,,,,############,,,,,"
+})
+
+wo:shuffleOxyd()
+
+alreadydid = false
+function floppy_inserted(value, sender)
+    if not alreadydid then
+        alreadydid = true
+        wo:add({"ot_timer", interval = 0.5, loop = false, target = "laser#*"})
+        wo[no["window-w#*"]] = ti{"st_window_nes", secure = true}
+        wo[no["window-e#*"]] = ti{"st_window_nsw", secure = true}
+        wo[no["window-s#*"]] = ti{"st_window_new", secure = true}
+        wo[no["window-n#*"]] = ti{"st_window_esw", secure = true}
+    end
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">The Hammer</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">The Sword</el:english>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="true">The Key</el:english>
+      </el:string>
+      <el:string el:key="text4">
+        <el:english el:translate="true">The Wrench</el:english>
+      </el:string>
+      <el:string el:key="text5">
+        <el:english el:translate="true">The Floppy</el:english>
+      </el:string>
+      <el:string el:key="text6">
+        <el:english el:translate="true">The Coin</el:english>
+      </el:string>
+      <el:string el:key="text7">
+        <el:english el:translate="true">The Spade</el:english>
+      </el:string>
+      <el:string el:key="text8">
+        <el:english el:translate="true">The Glasses</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

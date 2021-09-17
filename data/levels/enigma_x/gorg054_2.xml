@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="A Walk" el:subtitle=""
+el:id="gorg054_2"/> <el:version el:score="2" el:release="2" el:revision="2"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="09:45"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["AutoRespawn"] = true
+wo["SlopeStrength"] = 50.0
+
+ti["  "]={"fl_water"}
+ti["# "]={"st_redmarble"}
+ti[". "]={"fl_lawn"}
+ti["O "]={"st_oxyd"}
+ti[" x"]={"st_box_hay"}
+ti[" P"]={"st_passage_white", flavor="frame"}
+ti[" p"]={"st_passage_black", "barr#", flavor="frame"}
+ti[" q"]={"st_passage_white", "barr#", flavor="frame"}
+ti["/ "]={"st_mirror_triangle", orientation=RANDOMDIR}
+ti[" @"]={"#ac_marble_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti[" $"]={"#ac_marble_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+ti[" h"]={"st_break_oxydc"}
+ti["B "]={"st_break_boulder"}
+ti[" w"]={"st_break_white"}
+ti[" b"]={"st_break_black"}
+ti[" l"]={"st_break_laser"}
+ti[" !"]={"st_swap"}
+ti["< "]={"st_boulder_w"}
+ti[" r"]={"st_pull"}
+ti[" >"]={"st_oneway_e"}
+ti["o "]={"st_laserflop", target="barr#*", interval=0.5}
+ti["r "]={"st_rotator_ccw"}
+ti["L "]={"st_laser_s", "laser"}
+ti["C "]={"st_laserflop", target="laser", interval=0.5}
+ti["c "]={"fl_slope_ps", name="slope#"}
+ti[" t"]={"it_trigger", target="slopeswitch"}
+ti[" y"]=ti[" x"]..{"it_yinyang"}
+ti[" m"]={"st_mirror", orientation=RANDOMDIR, movable=true}
+ti[" n"]=ti[" m"] .. {"it_hammer"}
+
+wo(res.composer(ti), "  ",{
+    "# # # # # # # # # # # # # # # L # # # # ",
+    "# O #             C         . /   o O # ",
+    "r B <     . . . . ch. . . . .     # .w# ",
+    "#        x.       .       .     .P.p.p# ",
+    "#     .   .   .t. . . . .n. . .>.P    # ",
+    "#     .   .   . .@.     .q  . #       # ",
+    "# # # .x h.h  . . # # . .p  .  h.h# # # ",
+    "#     . .m.h  .     . .$.   . .h.m    # ",
+    "#     . # .   .p. . . . .      x.     # ",
+    "#     .   . . .m  .     .       .     # ",
+    "# #  l.!. . . .y.q. . . .r      . .l.b# ",
+    "# O  b. .         #               # O # ",
+    "# # # # # # # # # # # # # # # # # # # # "})
+
+function slopeswitch (value, sender)
+  if value == true then
+    wo[no["slope#*"]] = {"fl_slope_pn", "slope#"}
+   else
+    wo[no["slope#*"]] = {"fl_slope_ps", "slope#"}
+  end
+end
+wo:shuffleOxyd ()
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <el:level
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+xmlns:el="http://enigma-game.org/schema/level/1"> <el:protected> <el:info
+el:type="level"> <el:identity el:title="EZ-Pass" el:subtitle=""
+el:id="gorg050_2"/> <el:version el:score="1" el:release="2" el:revision="3"
+el:status="released"/> <el:author el:name="gorg" el:email=""/>
+<el:copyright>Copyright © 2018 Georg Honold</el:copyright> <el:license
+el:type="GPL v2.0 or above" el:open="true"/> <el:compatibility
+el:enigma="1.20"/> <el:modes el:easy="false" el:single="true"
+el:network="false"/> <el:score el:easy="-" el:difficult="03:48"/> </el:info>
+<el:luamain><![CDATA[
+
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_FLIP
+wo["FollowThreshold"] = po(3.5, 1.5)
+
+ti[" "]={"fl_sahara"}
+ti["#"]={"st_redrock"}
+ti["O"]={"st_oxyd_c", "ox#"}
+ti["@"]={"#ac_marble_black"}
+ti[">"]={"st_oneway_e", "ways#"}
+ti["<"]={"st_oneway_w", "ways#"}
+ti["^"]={"st_oneway_n", "ways#"}
+ti["v"]={"st_oneway_s", "ways#"}
+ti["C"]={"st_floppy", target="ways#*", action="flip"}
+ti["c"]={"it_floppy"}
+
+wo(ti, " ",{
+    "#######################################",
+    "#    C > # > #C# # # #O#     C        #",
+    "# O# # # # #   O   > # ###v### #O####^#",
+    "# ## # # > ######### #  #    # ##   # #",
+    "#  #  c# #@#C        ##v#^## # <  ### #",
+    "##v###v### ## ####v# <     # ###  #C  #",
+    "#      <O# >  #    ####### <  O##^<< ##",
+    "#^##v# ###v####^##  >  # ####   # ##v##",
+    "# #C # #     c  ### ## # <  ### # ## C#",
+    "# #O # > ######   #  # # ## >   < c#  #",
+    "# ######v# < O###^##v# O ## ##C### ## #",
+    "#      C   #         C   ##    >   #O #",
+    "#######################################"
+})
+
+wo:shuffleOxyd() 
+
+]]></el:luamain>
+<el:i18n>
+<el:string el:key="title">
+<el:english el:translate="false"/>
+</el:string>
+</el:i18n>
+</el:protected>
+</el:level>
+
+
+
+

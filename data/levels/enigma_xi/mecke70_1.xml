@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="...it is boiling over ...!" el:subtitle="...hurry!" el:id="mecke70"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:1 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2020 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+	  <el:compatibility el:enigma="1.3">
+	  </el:compatibility>	     
+      <el:modes el:easy="false" el:single="false" el:network="false" el:control="force"
+        el:scoreunit="duration" el:scoretarget="time"/>
+	  <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false"></el:credits>
+      </el:comments>
+	  <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["AutoRespawn"] = true
+
+
+
+
+ti[" "] = {"fl_metal"}
+ti["1"] = {"fl_aquamarine", name="floorb#"}
+ti["2"] = {"fl_ice", name="floorb#"}
+ti["3"] = {"fl_blueslab", name="floorb#"}
+ti["4"] = {"fl_thief", name="floorb#"}
+ti["5"] = {"fl_ice", name="floor#"}
+ti["6"] = {"fl_abyss", name="floor#"}
+ti["7"] = {"st_grate"}
+ti["+"] = {"it_spring_drop"}
+ti["l"] = {"it_bottle_broken"}
+ti["&"] = {"it_magicwand"}
+ti["%"] = {"it_seed", name="holes#"}
+ti["."] = {"it_seed_volcano", state=1}
+ti["y"] = {"it_glasses",state=SPOT_TRAP }
+ti["/"] = {"it_trap"}
+ti["a"] = {"it_crack"}
+ti["#"] = {"fl_abyss"}
+ti["$"] = {"it_weight"}
+ti["U"] = {"st_boulder_e"}
+ti["Y"] = {"st_yellow"}
+ti["S"] = {"st_scissors"}
+ti["B"] = {"st_document"}
+ti["C"] = {"st_pebble"}
+ti["O"] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti["Z"] = {"st_inkwell_empty"}
+ti["z"] = {"st_inkwell_white"}
+ti["h"] = {"it_hammer"}
+ti["9"] = ti["#"] .. {"it_hammer"}
+
+
+ti["8"] = ti["7"] .. {"#ac_top", range=10, strength=1}
+
+ti["@"] = {"#ac_marble_glass",  owner=YIN, controllers=CTRL_YIN, essential = 1 }
+
+
+
+
+local resolver = res.random(ti, "-",{{"1", 3/10}, {"2", 3/10}, {"3", 2/10}, {"4", 2/10}})
+wo(resolver, " ", {
+         "    /aaaaaaaaaSh+lll",
+         "-7 Y/$$$$$$$$$C&U7#-",
+         "-8Y /$$$$$$$$$C&U8#-",
+         "-7 Y/$$$$$$$$$B&U7#-",
+         "-8########9####&U8#-",
+         "-7#######9Z9###&U7#-",
+         "-7 O .  y   @%#&U7O#",
+         "-7#######9z9###&U7#-",
+         "-8########9####&U8#-",
+         "-7 Y/$$$$$$$$$S&U7#-",
+         "-8Y /$$$$$$$$$B&U8#-",
+         "-7 Y/$$$$$$$$$B&U7#-",
+         "    /aaaaaaaaaCh/lll"})
+
+wo:add({"ot_timer", target="colorthefloorb"})	
+
+
+
+function colorthefloorb()
+    objs = no["floorb#*"]:shuffle():sub(20)
+    for obj in objs do
+        wo:drawRect(obj, obj, "-", resolver)
+    end
+end
+
+
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+      <el:i18n>
+        <el:string el:key="title">
+          <el:english el:translate="false"/>
+        </el:string>
+        <el:string el:key="subtitle">
+          <el:english el:translate="false"/>
+		</el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

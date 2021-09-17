@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Blues Meditation" el:subtitle="...be confused?" el:id="mecke69"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:1 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2020 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+	  <el:compatibility el:enigma="1.3">
+	  </el:compatibility>	     
+      <el:modes el:easy="true" el:single="false" el:network="false" el:control="force"
+        el:scoreunit="duration" el:scoretarget="time"/>
+	  <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false"></el:credits>
+      </el:comments>
+	  <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["AutoRespawn"] = true
+
+if wo ["IsDifficult"] then
+    ti[" "] = {"fl_inverse"}
+    ti["+"] = {"it_bottle_broken"}
+	ti["!"] = {"it_spoon"}
+else
+    ti[" "] = {"fl_bluegray"}
+    ti["+"] = {"it_weight"}
+	ti["!"] = {"it_bottle"}
+end
+
+
+--ti[" "] = {"fl_bluegray"}
+ti["1"] = {"fl_aquamarine", name="floorb#"}
+ti["2"] = {"fl_ice", name="floorb#"}
+ti["3"] = {"fl_blueslab", name="floorb#"}
+ti["4"] = {"fl_thief", name="floorb#"}
+ti["5"] = {"fl_ice", name="floor#"}
+ti["6"] = {"fl_abyss", name="floor#"}
+ti["7"] = {"fl_aquamarine", name="pearls#"}
+--ti["+"] = {"it_weight"}
+--ti["!"] = {"it_bottle"}
+ti["m"] = {"it_magicwand"}
+ti["8"] = {"fl_bluegray", name="holes#"}
+ti["."] = {"fl_water"}
+ti["r"] = {"fl_red"}
+ti["/"] = {"st_oneway_n"}
+ti["A"] = {"st_death_movable"}
+ti["#"] = {"st_lightpassenger_off"}
+ti["D"] = {"st_death_invisible"}
+ti["U"] = {"st_inkwell_black"}
+ti["V"] = {"st_inkwell_white"}
+ti["*"] = ti["D"] .. {"it_wormhole" , range=1, strength=1}
+ti["S"] = {"st_scissors"}
+ti["B"] = {"st_document"}
+ti["C"] = {"st_pebble"}
+ti["W"] = {"st_box_wood"}
+ti["O"] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti["P"] = {"st_oxyd_a", oxydcolor = OXYD_YELLOW}
+ti["Q"] = {"st_oxyd_a", oxydcolor = OXYD_RED}
+ti["R"] = {"st_oxyd_a", oxydcolor = OXYD_WHITE}
+
+ti["l"] = ti["."] .. {"it_cherry"}
+ti["c"] = ti["r"] .. {"it_puller_n"}
+ti["p"] = ti["A"] .. {"it_yinyang"}
+ti["@"] = {"#ac_marble_glass",  owner=YIN, controllers=CTRL_YIN, essential = 1 }
+--ti["q"] = {"#ac_pearl_white",  owner=YANG, controllers=CTRL_YANG, name="pearls#"}
+
+
+ti["o"] = {"#it_meditation_hollow"}
+
+local resolver = res.random(ti, "-",{{"1", 3/10}, {"2", 3/10}, {"3", 2/10}, {"4", 2/10}})
+wo(resolver, " ", {
+    "O######################################",
+    "#------------------#OC..............AP#",
+    "#-o--------------o-#B#.......c......#A#",
+    "#--!777778888888!--#...ll........ll...#",
+    "#--8#++++++++++#7--#...ll........llW..#",
+    "#--8+---#--#---+7--#......SSBB##..W.W.#",
+    "#--8+--#P..R#--+7--#/.c...CCppCC.W@../#",
+    "#--7+---#--#---+7--#!.....DDSSBBW....!#",
+    "#--7#++++++++++#7--#...ll......W.ll...#",
+    "#--!888888777777!--#...ll.....W..ll...#",
+    "#-o--------------o-#.#.......c......#.#",
+    "#------------------#QA..... // .....mR#",
+    "Q##########################U**V########"})
+	
+
+wo:add({"ot_timer", target="colorthefloorb"})	
+
+
+wo[no["pearls#*"]:sub(4):shuffle()] = {"#ac_pearl_white",  owner=YANG, controllers=CTRL_YANG, name="pearls#"}
+
+function colorthefloorb()
+    objs = no["floorb#*"]:shuffle():sub(20)
+    for obj in objs do
+        wo:drawRect(obj, obj, "-", resolver)
+    end
+end
+
+
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+      <el:i18n>
+        <el:string el:key="title">
+          <el:english el:translate="false"/>
+        </el:string>
+        <el:string el:key="subtitle">
+          <el:english el:translate="false"/>
+		</el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

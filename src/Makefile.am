@@ -11,7 +11,6 @@ EXTRA_DIST = \
 CXXFLAGS = @CXXFLAGS@\
 	-DSYSTEM_DATA_DIR=\"$(datadir)/enigma\" \
 	-DDOCDIR=\"$(docdir)\" \
-	-DLOCALEDIR=\"$(localedir_enigma)\" \
 	-I$(top_srcdir)/lib-src/zipios++  \
 	-I$(top_builddir)/lib-src/zipios++ \
 	-I$(top_srcdir)/lib-src/lua \
@@ -25,7 +24,7 @@ CXXFLAGS += -I$(top_srcdir)/lib-src/enet/include
 endif
 
 if MINGW32
-CXXFLAGS += -static-libgcc -static-libstdc++
+CXXFLAGS += -static-libgcc -static-libstdc++ -DWIN32
 endif
 
 CXXFLAGS += -I$(top_srcdir)/lib-src \
@@ -447,17 +446,25 @@ datadir = @datadir@
 
 if MINGW32
 
-  localedir_enigma := data/locale
   # mingw_ldadd := enigma_ico.o -lws2_32
-  mingw_ldadd := enigma_ico.o -lws2_32 -lSDL2_image -ltiff -llzma -ljpeg -lpng16 -lSDL2_mixer -lmikmod -lsmpeg -lvorbisfile -lvorbis -logg -lSDL2_ttf -lcurl -lidn -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lgcrypt -lgpg-error -lws2_32 -lfreetype -lintl
+  mingw_ldadd := enigma_ico.o -lws2_32 -lSDL2_image -ltiff -llzma -ljpeg -lpng16 -lSDL2_mixer -lmikmod -lsmpeg2 -lvorbisfile -lvorbis -logg -lSDL2_ttf -lcurl -lidn -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lgcrypt -lgpg-error -lws2_32 -lfreetype -lintl -liconv
   enigma_LDFLAGS := -mwindows -pthread
   enigma_ico.o: enigma.rc enigma.ico
 	$(WINDRES) $(srcdir)/enigma.rc --include-dir=$(srcdir) -O coff -o enigma_ico.o
 
 else # not MINGW32
 
-  localedir_enigma := @localedir@
   mingw_ldadd =
+
+endif
+
+if MACOSX
+
+  macosx_ldadd := -liconv
+
+else # not MACOSX
+
+  macosx_ldadd =
 
 endif
 
@@ -477,6 +484,7 @@ enigma_LDADD += $(top_builddir)/lib-src/oxydlib/liboxyd.a \
 	$(top_builddir)/lib-src/tinygettext/libtinygettext.a \
 	-lz \
 	$(mingw_ldadd) \
+	$(macosx_ldadd) \
 	@SDL_LIBS@
 
 
@@ -494,101 +502,3 @@ tolua:
 		echo "$<:0: Warning: Can't update lua interface - tolua not installed "; \
 	fi
 
-
-#------------------ Packaging rules for Mac OSX ------------------------
-
-bundle_root := $(top_builddir)/etc/macfiles
-bundle_name := $(bundle_root)/Enigma.app
-# Special target to copy all needed game files to Enigma.app/Contents/Resources.
-# For Mac OS X bundle.
-.PHONY: bundle
-bundle:
-	-rm -rf $(bundle_root)
-	mkdir -p $(bundle_name)/Contents/MacOS
-	mkdir -p $(bundle_name)/Contents/Resources/data/
-	echo "APPL????" > $(bundle_name)/Contents/PkgInfo
-	cp $(top_builddir)/etc/Info.plist $(bundle_name)/Contents/
-	cp $(top_builddir)/etc/enigma.icns $(bundle_name)/Contents/Resources/
-	tar --exclude .svn --exclude Makefile --exclude Makefile.in --exclude Makefile.am -c -f - -C $(top_builddir)/data levels | tar xpf - -C $(bundle_name)/Contents/Resources/data
-	cp $(top_builddir)/data/*.lua $(bundle_name)/Contents/Resources/data/
-	cp $(top_builddir)/data/*.xml $(bundle_name)/Contents/Resources/data/
-	mkdir -p $(bundle_name)/Contents/Resources/data/gfx
-	cp $(top_builddir)/data/gfx/*.png $(bundle_name)/Contents/Resources/data/gfx
-	mkdir -p $(bundle_name)/Contents/Resources/data/gfx/flags25x15
-	cp $(top_builddir)/data/gfx/flags25x15/*.png $(bundle_name)/Contents/Resources/data/gfx/flags25x15
-	mkdir -p $(bundle_name)/Contents/Resources/data/gfx32
-	cp $(top_builddir)/data/gfx32/*.png $(bundle_name)/Contents/Resources/data/gfx32
-	cp $(top_builddir)/data/gfx32/*.jpg $(bundle_name)/Contents/Resources/data/gfx32
-	mkdir -p $(bundle_name)/Contents/Resources/data/gfx40
-	cp $(top_builddir)/data/gfx40/*.png $(bundle_name)/Contents/Resources/data/gfx40
-	cp $(top_builddir)/data/gfx40/*.jpg $(bundle_name)/Contents/Resources/data/gfx40
-	mkdir -p $(bundle_name)/Contents/Resources/data/gfx48
-	cp $(top_builddir)/data/gfx48/*.png $(bundle_name)/Contents/Resources/data/gfx48
-	cp $(top_builddir)/data/gfx48/*.jpg $(bundle_name)/Contents/Resources/data/gfx48
-	mkdir -p $(bundle_name)/Contents/Resources/data/schemas
-	cp $(top_builddir)/data/schemas/*.xml $(bundle_name)/Contents/Resources/data/schemas
-	cp $(top_builddir)/data/schemas/*.xsd $(bundle_name)/Contents/Resources/data/schemas
-	mkdir -p $(bundle_name)/Contents/Resources/data/music
-	mkdir -p $(bundle_name)/Contents/Resources/data/music/menu
-	cp $(top_builddir)/data/music/menu/*.s3m $(bundle_name)/Contents/Resources/data/music/menu
-	cp $(top_builddir)/data/music/menu/*.ogg $(bundle_name)/Contents/Resources/data/music/menu
-	mkdir -p $(bundle_name)/Contents/Resources/data/soundsets
-	mkdir -p $(bundle_name)/Contents/Resources/data/soundsets/enigma
-	cp $(top_builddir)/data/soundsets/enigma/*.wav $(bundle_name)/Contents/Resources/data/soundsets/enigma
-	mkdir -p $(bundle_name)/Contents/Resources/data/fonts
-	cp $(top_builddir)/data/fonts/*.png $(bundle_name)/Contents/Resources/data/fonts
-	cp $(top_builddir)/data/fonts/*.bmf $(bundle_name)/Contents/Resources/data/fonts
-	cp $(top_builddir)/data/fonts/*.ttf $(bundle_name)/Contents/Resources/data/fonts
-	for cat in $(ALL_LINGUAS); do \
-	  dir=$(bundle_name)/Contents/Resources/locale/$$cat/LC_MESSAGES; \
-	  mkdir -p $$dir; \
-	  echo "installing $$cat as $$dir/enigma.mo"; \
-	  cp $(top_builddir)/po/$$cat.gmo $$dir/enigma.mo; \
-	done
-
-# Special target to copy the binary to Enigma.app/Contents/MacOS.
-.PHONY: bundle-fw
-bundle-fw:
-	cp enigma $(bundle_name)/Contents/MacOS/enigma
-	strip $(bundle_name)/Contents/MacOS/enigma
-
-# Special target to create the preview images into the app bundle
-.PHONY: bundle-preview
-bundle-preview:
-	$(bundle_name)/Contents/MacOS/enigma --makepreview
-
-# Special target to copy the doc files to the MacOS dmg staging area
-bundle_doc := $(bundle_name)/Contents/Resources/doc
-.PHONY: bundle-doc
-bundle-doc:
-	-rm -rf $(bundle_doc)
-	mkdir -p $(bundle_doc)/images/flags25x15
-	mkdir -p $(bundle_doc)/reference/images
-	mkdir -p $(bundle_doc)/manual/images
-	cp $(top_builddir)/README $(bundle_doc)/
-	cp $(top_builddir)/COPYING $(bundle_doc)/
-	cp $(top_builddir)/CHANGES $(bundle_doc)/
-	cp $(top_builddir)/ACKNOWLEDGEMENTS $(bundle_doc)/
-	cp $(top_builddir)/etc/README-SDL.txt $(bundle_doc)/
-	cp $(top_builddir)/doc/index.html $(bundle_doc)/
-	mkalias -r $(bundle_doc)/index.html $(bundle_root)/EnigmaDocs.html
-	cp $(top_builddir)/doc/gpl.txt $(bundle_doc)/
-	cp $(top_builddir)/doc/lgpl.txt $(bundle_doc)/
-	cp $(top_builddir)/doc/README.mingw32 $(bundle_doc)/
-	cp $(top_builddir)/doc/README.macosx $(bundle_doc)/
-	cp $(top_builddir)/doc/images/enigma.css $(bundle_doc)/images/
-	cp $(top_builddir)/doc/images/nav_enigma.gif $(bundle_doc)/images/
-	cp $(top_builddir)/doc/images/nav_cornerul.gif $(bundle_doc)/images/
-	cp $(top_builddir)/doc/images/nav_cornerur.gif $(bundle_doc)/images/
-	cp $(top_builddir)/doc/images/favicon.png $(bundle_doc)/images/
-	cp $(top_builddir)/doc/images/menu_bg.jpg $(bundle_doc)/images/
-	cp $(top_builddir)/doc/images/flags25x15/*.png $(bundle_doc)/images/flags25x15/
-	cp $(top_builddir)/doc/reference/ant_lua.txt $(bundle_doc)/reference/
-	cp $(top_builddir)/doc/reference/sounds.txt $(bundle_doc)/reference/
-	cp $(top_builddir)/doc/reference/soundset.lua $(bundle_doc)/reference/
-	cp $(top_builddir)/doc/reference/lua2xml $(bundle_doc)/reference/
-	cp $(top_builddir)/doc/reference/xml2lua $(bundle_doc)/reference/
-	cp $(top_builddir)/doc/manual/images/*.png $(bundle_doc)/manual/images/
-	cp $(top_builddir)/doc/manual/*.html $(bundle_doc)/manual/
-	cp $(top_builddir)/doc/reference/images/*.png $(bundle_doc)/reference/images/
-	cp $(top_builddir)/doc/reference/*.html $(bundle_doc)/reference/

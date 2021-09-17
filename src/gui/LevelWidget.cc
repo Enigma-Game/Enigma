@@ -51,7 +51,7 @@ namespace enigma { namespace gui {
 
         buttonw = vminfo.thumb.width +
                   (vshrink ? 13 : 27);  // min should be +30 for all modes but 640x480
-        buttonh = vminfo.thumb.height + (vshrink ? 14 : 28);
+        buttonh = vminfo.thumb.height + (vshrink ? 22 : ((vminfo.height==960)?35:44));
         curIndex = lev::Index::getCurrentIndex();
         iselected = curIndex->getCurrentPosition();
         ifirst = curIndex->getScreenFirstPosition();
@@ -353,15 +353,23 @@ namespace enigma { namespace gui {
                         pending_redraws[(i-ifirst)] = true;
                         isInvalidateUptodate = false;
                     }
+                    // Draw level name
+                    Font *smallfnt = enigma::GetFont("levelmenu");
+                    Font *altsmallfnt = enigma::GetFont("smallalternative");;
+                    int maxwidth = buttonw + hgap;
+                    std::string caption = levelProxy->getTitle();
+                    std::vector<std::string> lines = ecl::breakToLines(smallfnt, caption, " ", maxwidth);
+                    if ((lines.size() > 0) && !lines[0].empty())
+                        smallfnt->render (gc,
+                              xpos + buttonw/2 - ecl::Min(smallfnt->get_width(lines[0].c_str(), altsmallfnt)/2, maxwidth/2),
+                              imgy + imgh + ((lines.size() == 1) ? 2 : 0),
+                              lines[0], altsmallfnt, maxwidth);
+                    if ((vminfo.height != 960) && (lines.size() > 1) && !lines[1].empty())
+                        smallfnt->render (gc,
+                              xpos + buttonw/2 - ecl::Min(smallfnt->get_width(lines[1].c_str(), altsmallfnt)/2, maxwidth/2),
+                              imgy + imgh + smallfnt->get_height() - 3,
+                              lines[1], altsmallfnt, maxwidth);
                 }
-                // Draw level name
-                Font    *smallfnt = enigma::GetFont("levelmenu");
-                Font    *altsmallfnt = enigma::GetFont("smallalternative");;
-                std::string caption = levelProxy->getTitle(); // TODO: may be null! Otherise line 330 redundant
-                smallfnt->render (gc,
-                          xpos + buttonw/2 - ecl::Min(smallfnt->get_width(caption.c_str(), altsmallfnt)/2, (buttonw+hgap)/2),
-                          imgy + imgh + 2,
-                          caption, altsmallfnt, buttonw + hgap);
             }
         }
         done_painting:

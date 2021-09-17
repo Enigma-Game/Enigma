@@ -1,4 +1,4 @@
-EXTRA_DIST = README.md README.enigma 
+EXTRA_DIST = README.md README.enigma LICENSE.md tinygettext_Export.h tinygettext.pc.in
 AUTOMAKE_OPTIONS = subdir-objects
 CXXFLAGS = @CXXFLAGS@\
         -fpermissive \
@@ -28,5 +28,4 @@ libtinygettext_a_SOURCES = \
 	include/tinygettext/tinygettext.hpp		\
 	src/unix_file_system.cpp		\
 	include/tinygettext/unix_file_system.hpp
-
 
