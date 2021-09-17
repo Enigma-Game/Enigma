@@ -35,6 +35,8 @@ add_executable(enigma
     gui/HelpMenu.hh
     gui/InfoMenu.cc
     gui/InfoMenu.hh
+    gui/LanguageMenu.cc
+    gui/LanguageMenu.hh
     gui/LevelInspector.cc
     gui/LevelInspector.hh
     gui/LevelMenu.cc
@@ -447,6 +449,7 @@ target_link_libraries(enigma
     ZLIB::ZLIB
     XercesC::XercesC
     CURL::libcurl
+    tinygettext
     enet
     enigma-core
     lua
