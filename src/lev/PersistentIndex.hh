@@ -23,6 +23,7 @@
 
 #include <string>
 #include <istream>
+#include <memory>
 #include <xercesc/dom/DOMDocument.hpp>
 
 
@@ -52,6 +53,7 @@ namespace enigma { namespace lev {
         static void registerPersistentIndices(bool onlySystemIndices);
         static PersistentIndex * historyIndex;
         static void addCurrentToHistory();
+        static void shutdown();
         
         /**
          * Convention: method names *Level() can take int pos or Proxy as arg.
@@ -121,7 +123,7 @@ namespace enigma { namespace lev {
         bool isAuto;
         std::string indexUrl;
     private:
-        static std::vector<PersistentIndex *> indexCandidates;
+        static std::vector<std::shared_ptr<PersistentIndex> > indexCandidates;
         std::string absIndexPath;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;

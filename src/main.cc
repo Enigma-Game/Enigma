@@ -976,6 +976,7 @@ void Application::shutdown()
     enet_deinitialize();
     enigma::ShutdownCurl();
     lua::ShutdownGlobal();
+    lev::PersistentIndex::shutdown();
     XMLPlatformUtils::Terminate();
 #ifdef SDL_IMG_INIT
     IMG_Quit();
