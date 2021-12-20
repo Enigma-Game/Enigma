@@ -977,6 +977,7 @@ void Application::shutdown()
     enigma::ShutdownCurl();
     lua::ShutdownGlobal();
     lev::PersistentIndex::shutdown();
+    lev::Proxy::shutdown();
     ObjectValidator::instance()->shutdown();
     XMLPlatformUtils::Terminate();
 #ifdef SDL_IMG_INIT

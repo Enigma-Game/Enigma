@@ -60,6 +60,7 @@ namespace enigma { namespace lev {
         enum pathType { pt_url, pt_resource, pt_absolute, pt_oxyd};
         static const XMLCh levelNS[]; // the XML namespace
         static void releaseCache();
+        static void shutdown();
         
         /**
          * The registration of a level.
