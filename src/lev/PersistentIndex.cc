@@ -211,8 +211,8 @@ namespace enigma { namespace lev {
                             INDEX_DEFAULT_PACK_LOCATION, "", dirEntry.name);
                 }
             }
+            delete dirIter;
         }
-        delete dirIter;
 
         if (onlySystemIndices)
             return;
