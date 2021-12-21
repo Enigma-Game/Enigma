@@ -979,6 +979,7 @@ void Application::shutdown()
     lev::PersistentIndex::shutdown();
     lev::Proxy::shutdown();
     ObjectValidator::instance()->shutdown();
+    domParser->release();
     XMLPlatformUtils::Terminate();
 #ifdef SDL_IMG_INIT
     IMG_Quit();
