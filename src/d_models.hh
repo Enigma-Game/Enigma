@@ -38,6 +38,9 @@ struct Image {
     // Constructors.
     Image(ecl::Surface *sfc);
     Image(ecl::Surface *sfc, ecl::Rect r);
+    Image(const Image& i) = delete;
+    Image& operator= (const Image& i) = delete;
+    ~Image();
 };
 
 void incref(Image *i);

@@ -334,7 +334,11 @@ void Model::get_extension(ecl::Rect &r) {
 Image::Image(ecl::Surface *sfc) : surface(sfc), rect(surface->size()), refcount(1) {
 }
 
-Image::Image(ecl::Surface *sfc, ecl::Rect r) : surface(sfc), rect(std::move(r)), refcount(1) {
+Image::Image(ecl::Surface *sfc, ecl::Rect r) : surface(Duplicate(sfc)), rect(std::move(r)), refcount(1) {
+}
+Image::~Image() {
+    delete surface;
+    surface = nullptr;
 }
 
 void display::incref(Image *i) {
