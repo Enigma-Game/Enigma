@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Advanced Tutorial" el:subtitle="" el:id="m_tutor/adv_tutorial"/>
-      <el:version el:score="1" el:release="2" el:revision="8" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="9" el:status="released"/>
       <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -223,7 +223,7 @@ end
         <el:english el:translate="true">There are different types of blocks here.  Those black blocks sink when they fall into water.  The tan blocks don't sink but don't form bridges either.</el:english>
       </el:string>
       <el:string el:key="text%H">
-        <el:english el:translate="true">That thing is a top -- it will destroy your ball if they touch.  Also, as long as you are close enough to it, the top will chase you.  If you die, you will restart at the beginning of the level (if you have any balls left).  Try to find a way to get past and into the next room (you can use the blocks in the center of the room as barricades).</el:english>
+        <el:english el:translate="true">That thing is a top -- it will destroy your ball if they touch.  Also, as long as you are close enough to it, the top will chase you.  If you die, you will restart at the beginning of the level (if you have any batteries left).  Try to find a way to get past and into the next room (you can use the blocks in the center of the room as barricades).</el:english>
       </el:string>
       <el:string el:key="text%I">
         <el:english el:translate="true">Good job!  Notice that the top can't go beneath that block with a black outline -- you're safe.</el:english>
@@ -235,7 +235,7 @@ end
         <el:english el:translate="true">The grayish floors are slopes.  The white floor is inverse-floor (you will see).</el:english>
       </el:string>
       <el:string el:key="text%L">
-        <el:english el:translate="true">Watch what happens when you go over those triggers.  See if you can get the extra ball.</el:english>
+        <el:english el:translate="true">Watch what happens when you go over those triggers.  See if you can get the extra battery.</el:english>
       </el:string>
       <el:string el:key="text%M">
         <el:english el:translate="true">That's dynamite.  Try dropping some next to that yellowish wall (and moving out of the way).</el:english>
@@ -253,7 +253,7 @@ end
         <el:english el:translate="true">Hit it hard enough!</el:english>
       </el:string>
       <el:string el:key="text%R">
-        <el:english el:translate="true">It appears to be a simple room, but you're getting an extra ball anyway.  Maybe there is a reason ...</el:english>
+        <el:english el:translate="true">It appears to be a simple room, but you're getting an extra battery anyway.  Maybe there is a reason ...</el:english>
       </el:string>
       <el:string el:key="text%S">
         <el:english el:translate="true">Try to get the laser beam to hit that black stone, but don't get hit by it!  Use the mirrors to direct the beam.</el:english>
@@ -268,7 +268,7 @@ end
         <el:english el:translate="true">Those black stones are quake stones -- they reset all progress made with the oxyd stones.  The other stones are the oxyd stones.  Match them up to win!</el:english>
       </el:string>
       <el:string el:key="text%W">
-        <el:english el:translate="true">This area at the bottom of the screen is your inventory -- when you pick things up, they go here (there is a maximum of twelve).  To scroll through the inventory, use the right mouse button or the 'tab' key.  To drop or use an object, click the left mouse button.  Some objects, such as documents (like this one), can't be dropped but are instead used.  Those two balls in your inventory are your extra lives -- if you die in this level, you will restart at the beginning of the level if you have any balls left (and you will lose one of the balls).</el:english>
+        <el:english el:translate="true">This area at the bottom of the screen is your inventory -- when you pick things up, they go here (there is a maximum of twelve).  To scroll through the inventory, use the right mouse button or the 'tab' key.  To drop or use an object, click the left mouse button.  Some objects, such as documents (like this one), can't be dropped but are instead used.  Those two batteries in your inventory are your extra lives -- if you die in this level, you will restart at the beginning of the level if you have any batteries left (and you will lose one of the batteries).</el:english>
       </el:string>
       <el:string el:key="text%X">
         <el:english el:translate="true">Naturally, you're supposed to go through those closed gates at the top of the screen.                         Try going down that slope near the bottom of the room to see what's to the left.                                                         Don't bother with that trigger below the abyss yet.                                 If you could hit that small white ball through the one-way blocks (with the arrows), it might roll down and stop on that trigger.                  You will need to go in with it but you can't go through the white one-way block.                            Take the spoon and use it once the white ball is through (hit it hard).</el:english>
