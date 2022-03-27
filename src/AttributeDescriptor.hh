@@ -19,6 +19,7 @@
 #ifndef ATTRIBUTEDESCRIPTOR_HH_INCLUDED
 #define ATTRIBUTEDESCRIPTOR_HH_INCLUDED
 
+#include "main.hh"
 #include "Value.hh"
 #include "Object.hh"
 #include <string>
