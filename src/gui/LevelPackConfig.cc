@@ -574,7 +574,7 @@ namespace enigma { namespace gui {
     void LevelPackConfig::draw_background(ecl::GC &gc) {
         const VMInfo *vminfo = video_engine->GetInfo();
 
-        set_caption(("Enigma - Level Pack Configuration"));
+        set_caption(_("Enigma - Level Pack Configuration"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
     }
     

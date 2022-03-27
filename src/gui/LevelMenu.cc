@@ -436,7 +436,7 @@ namespace enigma { namespace gui {
     {
         const VMInfo *vminfo = video_engine->GetInfo();
 
-        set_caption(("Enigma - Level Menu"));
+        set_caption(_("Enigma - Level Menu"));
         sound::StartMenuMusic();
     
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
