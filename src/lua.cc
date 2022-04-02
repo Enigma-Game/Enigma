@@ -3894,14 +3894,14 @@ void CheckedDoFile (lua_State *L, GameFS * fs, std::string const& fname)
     if (!fs->findFile(fname, completefn))
     {
         fprintf(stderr, _("Cannot find '%s'.\n"), fname.c_str());
-        fprintf(stderr, _("Your installation may be incomplete or invalid.\n"));
+        fprintf(stderr, "%s", _("Your installation may be incomplete or invalid.\n"));
         exit (1);
     }
 
     lua::Error status = lua::DoAbsoluteFile(L, completefn);
     if (status != lua::NO_LUAERROR) {
         fprintf(stderr, _("There was an error loading '%s'.\n"), completefn.c_str());
-        fprintf(stderr, _("Your installation may be incomplete or invalid.\n"));
+        fprintf(stderr, "%s", _("Your installation may be incomplete or invalid.\n"));
         fprintf(stderr, _("Error: '%s'\n"), lua::LastError(L).c_str());
         exit (1);
     }
