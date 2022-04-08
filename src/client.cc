@@ -211,7 +211,7 @@ void Client::handle_events() {
         case SDL_MOUSEBUTTONUP: on_mousebutton(e); break;
         case SDL_MOUSEWHEEL:
             if (e.wheel.y < 0) // mousewheel down: rotate inventory
-                rotate_inventory(+1);
+                rotate_inventory(-1);
             if (e.wheel.y > 0) // mousewheel up: inverse rotate inventory
                 rotate_inventory(+1);
             break;
