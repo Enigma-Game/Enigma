@@ -352,7 +352,7 @@ void Application::init(int argc, char **argv)
 
     // initialize preferences -- needs LUA, XML
     if (!options::Load()) {
-        fprintf(stderr, _("Error in configuration file.\n"));
+        fprintf(stderr, "%s", _("Error in configuration file.\n"));
       	fprintf(stderr, "%s\n", lua::LastError (lua::GlobalState()).c_str());
     }
     prefs = PreferenceManager::instance();
@@ -593,7 +593,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         if (!ecl::FolderExists(prefPath))
             // may happen on Windows
             if(!ecl::FolderCreate(prefPath)) {
-                fprintf(stderr, _("Error: Home directory does not exist.\n"));
+                fprintf(stderr, "%s", _("Error: Home directory does not exist.\n"));
                 exit(1);
             }
 #ifdef MACOSX
@@ -608,7 +608,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         if (!ecl::FolderExists(winAppDataPath))
             // may happen on Windows
             if(!ecl::FolderCreate(winAppDataPath)) {
-                fprintf(stderr, _("Error: Application Data directory does not exist.\n"));
+                fprintf(stderr, "%s", _("Error: Application Data directory does not exist.\n"));
                 exit(1);
             }
 //        Log << "winAppDataPath " << winAppDataPath << "\n";
@@ -616,7 +616,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         prefPath = winAppDataPath + ecl::PathSeparator + "." + prefFilename;
 #endif
     } else {
-        fprintf(stderr, _("Error: Home directory does not exist.\n"));
+        fprintf(stderr, "%s", _("Error: Home directory does not exist.\n"));
         exit(1);
     }
 }
@@ -635,7 +635,7 @@ void Application::initXerces() {
                 makeNewTranscoderFor(XMLRecognizer::UTF_8, initResult,
                 4096); // the block size is irrelevant for utf-8
         if (initResult != XMLTransService::Ok) {
-            fprintf(stderr, _("Error in XML initialization.\n"));
+            fprintf(stderr, "%s", _("Error in XML initialization.\n"));
             exit(1);
         }
 
@@ -684,7 +684,7 @@ void Application::initXerces() {
 #endif
     }
     catch (...) {
-        fprintf(stderr, _("Error in XML initialization.\n"));
+        fprintf(stderr, "%s", _("Error in XML initialization.\n"));
         exit(1);
     }
 }
