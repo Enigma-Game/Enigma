@@ -15,7 +15,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
- 
+
 #include "gui/LevelPackConfig.hh"
 
 #include "errors.hh"
@@ -30,43 +30,43 @@ using namespace ecl;
 using namespace std;
 
 namespace enigma { namespace gui {
-    GroupButton::GroupButton(std::vector<std::string> groups, int pos) : 
-            ValueButton(0, groups.size() - 1), 
+    GroupButton::GroupButton(std::vector<std::string> groups, int pos) :
+            ValueButton(0, groups.size() - 1),
             groupNames (groups), position (pos) {
         init();
     }
-    
+
     int GroupButton::get_value() const  {
-        return position; 
+        return position;
     }
-    
+
     void GroupButton::set_value(int value) {
         position = value;
     }
-    
+
     std::string GroupButton::get_text(int value) const {
         return groupNames[value];
     }
-    
+
     /* ------------------- LevelmodeButton -------------------- */
-    
-    LevelmodeButton::LevelmodeButton(bool initialMode) : 
+
+    LevelmodeButton::LevelmodeButton(bool initialMode) :
             ImageButton("ic-link_copy","ic-link_copy",this), mode (initialMode) {
         update();
     }
-    
+
     bool LevelmodeButton::isLinkOnly() {
         return mode;
     }
-    
+
     void LevelmodeButton::update() {
         if (mode)
             ImageButton::set_images("ic-link","ic-link_copy");
         else
             ImageButton::set_images("ic-link_copy","ic-link");
     }
-    
-    void LevelmodeButton::on_action(Widget *) 
+
+    void LevelmodeButton::on_action(Widget *)
     {
         mode = !mode;
         update();
@@ -77,7 +77,7 @@ namespace enigma { namespace gui {
         update();
         ImageButton::draw(gc, r);
     }
-    
+
     /* -------------------- Sokoball Button -------------------- */
 
     SokoballButton::SokoballButton(bool initialMode) : TextButton(this) {
@@ -88,27 +88,27 @@ namespace enigma { namespace gui {
         mode = !mode;
         invalidate();
     }
-    
+
     std::string SokoballButton::get_text() const {
         return mode ? N_("Yes") : N_("No");
     }
-    
+
     bool SokoballButton::isSokoball() {
         return mode;
     }
-    
+
     /* -------------------- LevelPackConfig -------------------- */
-    
+
     LevelPackConfig::LevelPackConfig(std::string indexName, std::string groupName,
-            bool forceGroupReasign) : titleTF (NULL), isReasignOnly (forceGroupReasign), 
+            bool forceGroupReasign) : titleTF (NULL), isReasignOnly (forceGroupReasign),
             didEditMetaData (false), undo_quit (false) {
         const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
-        
+
         if (indexName.empty())
             // new levelpack
             packIndex = new lev::PersistentIndex(" ", false, true, false,
-                    INDEX_DEFAULT_PACK_LOCATION,  "", 
+                    INDEX_DEFAULT_PACK_LOCATION,  "",
                     INDEX_STD_FILENAME, lev::Index::getCurrentGroup()); // mark as incomplete
         else
             packIndex = lev::Index::findIndex(indexName);
@@ -116,7 +116,7 @@ namespace enigma { namespace gui {
         persIndex = dynamic_cast<lev::PersistentIndex *>(packIndex);
         isPersistent = (persIndex != NULL);
         isEditable = isPersistent ? persIndex->isUserEditable() : false;
-        
+
         // build a list of allowed group
         std::vector<std::string> groups = lev::Index::getGroupNames();
         // eliminate pseudo group "All Packs"
@@ -157,10 +157,10 @@ namespace enigma { namespace gui {
             if (locationList[i] == indexName) {
                 position = i;
                 break;
-            } 
+            }
         }
         oldPosition = position;
-        if (position < 0) { 
+        if (position < 0) {
             // append new levelpack as last
             locationList.push_back(indexName);
             position = locationList.size() - 1;
@@ -180,14 +180,14 @@ namespace enigma { namespace gui {
            titleLeftVList->add_back(ownerLabel);
         }
         titleLeftVList->add_back(groupLabel);
-        if (!isReasignOnly) {        
+        if (!isReasignOnly) {
             titleLeftVList->add_back(new Label());
             titleLeftVList->add_back(loactionLabel1);
             titleLeftVList->add_back(loactionLabel2);
             titleLeftVList->add_back(new Label());
             titleLeftVList->add_back(new Label());
         }
-        
+
         valueLeftVList = new VList;
         valueLeftVList->set_spacing(vshrink?5:11);
         valueLeftVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
@@ -195,7 +195,7 @@ namespace enigma { namespace gui {
 
         titleValueLabel = new UntranslatedLabel(indexName, HALIGN_CENTER);
         ownerValueLabel = new UntranslatedLabel(isPersistent ? persIndex->getOwner() : "System");
-        
+
         pre2Index = new UntranslatedLabel();
         pre1Index = new UntranslatedLabel();
         thisIndex = new UntranslatedLabel();
@@ -203,11 +203,11 @@ namespace enigma { namespace gui {
         post2Index = new UntranslatedLabel();
 
         valueLeftVList->add_back(titleValueLabel);
-        if (!isReasignOnly) {        
+        if (!isReasignOnly) {
             valueLeftVList->add_back(ownerValueLabel);
         }
         valueLeftVList->add_back(groupButton);
-        if (!isReasignOnly) {        
+        if (!isReasignOnly) {
             valueLeftVList->add_back(pre2Index);
             valueLeftVList->add_back(pre1Index);
             valueLeftVList->add_back(thisIndex);
@@ -229,7 +229,7 @@ namespace enigma { namespace gui {
         metaVList->set_spacing(vshrink?6:12);
         metaVList->set_alignment(HALIGN_LEFT, VALIGN_CENTER);
         metaVList->set_default_size(vshrink?70:140, vshrink?17:35);
-        
+
         if (isEditable)
             but_metadata = new StaticTextButton(N_("Edit Metadata"), this);
         else
@@ -240,7 +240,7 @@ namespace enigma { namespace gui {
         Label * compatibilityLabel = new Label(N_("Compatibility:"), HALIGN_RIGHT);
         Label * defLocationLabel = new Label(N_("Default Location:"), HALIGN_RIGHT);
         Label * crossmodeLabel = new Label(N_("Level types:"), HALIGN_RIGHT);
-        
+
         if (!isReasignOnly) {
             metaVList->add_back(but_metadata);
             metaVList->add_back(sokoballLabel);
@@ -281,7 +281,7 @@ namespace enigma { namespace gui {
         releaseValueLabel = new Label(isPersistent ? ecl::strf("%d", persIndex->getRelease()) : "-");
         revisionValueLabel = new Label(isPersistent ? ecl::strf("%d", persIndex->getRevision()) : "-");
         compatibilityValueLabel = new Label(isPersistent ? ecl::strf("%.2f", persIndex->getCompatibility()) : "-");
-        
+
         if (!isReasignOnly) {
             valueMetaVList->add_back(new Label());
             valueMetaVList->add_back(sokoballValueWidget);
@@ -301,10 +301,10 @@ namespace enigma { namespace gui {
             valueMetaVList->add_back(defLocationValueLabel);
             valueMetaVList->add_back(new Label());
         }
-        
+
 
         if (vshrink) {
-            if (isReasignOnly) {        
+            if (isReasignOnly) {
                 this->add(titleLeftVList, Rect(vminfo.width/2 - 135, 7, 70, vminfo.height-48));
                 this->add(valueLeftVList, Rect(vminfo.width/2 - 40, 7, 80, vminfo.height-48));
             } else {
@@ -315,7 +315,7 @@ namespace enigma { namespace gui {
                 this->add(valueMetaVList, Rect(vminfo.width/2 + 117, 7, 37, vminfo.height-48));
             }
         } else {
-            if (isReasignOnly) {        
+            if (isReasignOnly) {
                 this->add(titleLeftVList, Rect(vminfo.width/2 - 270, 15, 140, vminfo.height-97));
                 this->add(valueLeftVList, Rect(vminfo.width/2 - 80, 15, 160, vminfo.height-97));
             } else {
@@ -326,13 +326,13 @@ namespace enigma { namespace gui {
                 this->add(valueMetaVList, Rect(vminfo.width/2 + 235, 15, 75, vminfo.height-97));
             }
         }
-    
+
         errorLabel = new Label("", HALIGN_CENTER);
         this->add(errorLabel, Rect(vshrink?5:10, vminfo.height-(vshrink?48:97), vminfo.width-(vshrink?10:20), vshrink?17:35));
-        
-        if (isReasignOnly) 
+
+        if (isReasignOnly)
             errorLabel->set_text(N_("Please reassign levelpack to another group for group deletion"));
-       
+
         // Create buttons - positioning identical to Levelmenu
         but_edit = new StaticTextButton(N_("Compose Pack"), this);
         if (isPersistent && persIndex->isUpdatable() && persIndex->isCross()) {
@@ -342,7 +342,7 @@ namespace enigma { namespace gui {
         }
         but_ignore = new StaticTextButton(N_("Undo"), this);
         but_back = new StaticTextButton(N_("Ok"), this);
-        
+
         HList * commandHList = new HList;
         commandHList->set_spacing(vshrink?5:10);
         commandHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
@@ -357,59 +357,59 @@ namespace enigma { namespace gui {
         commandHList->add_back(but_ignore);
         commandHList->add_back(but_back);
         this->add(commandHList, Rect(vshrink?5:10, vminfo.height-(vshrink?25:50), vminfo.width-(vshrink?10:20), vshrink?17:35));
-        
+
         updateLocationList();
         if (indexName.empty())
             // new levelpack
             switchToMetadataEdit();
     }
-    
+
     void LevelPackConfig::updateLocationList() {
         pre2Index->set_text((position > 1) ? locationList[position - 2] : "");
         pre1Index->set_text((position > 0) ? locationList[position - 1] : "");
         thisIndex->set_text(didEditMetaData ? titleTF->getText() : packIndex->getName());
         post1Index->set_text((position < (int)locationList.size()-1) ? locationList[position + 1] : "");
-        post2Index->set_text((position < (int)locationList.size()-2) ? locationList[position + 2] : "");        
+        post2Index->set_text((position < (int)locationList.size()-2) ? locationList[position + 2] : "");
     }
-    
+
     void LevelPackConfig::switchToMetadataEdit() {
         if (!didEditMetaData) {
             didEditMetaData = true;
-            titleTF = new TextField(titleValueLabel->getText(), this); 
+            titleTF = new TextField(titleValueLabel->getText(), this);
             valueLeftVList->exchange_child(titleValueLabel, titleTF);
             delete titleValueLabel;
-            ownerTF = new TextField(ownerValueLabel->getText()); 
+            ownerTF = new TextField(ownerValueLabel->getText());
             valueLeftVList->exchange_child(ownerValueLabel, ownerTF);
             delete ownerValueLabel;
-            defLocationTF = new TextField(defLocationValueLabel->getText()); 
+            defLocationTF = new TextField(defLocationValueLabel->getText());
             valueMetaVList->exchange_child(defLocationValueLabel, defLocationTF);
             delete defLocationValueLabel;
             if (WizardMode) {
-                releaseTF = new TextField(releaseValueLabel->getText()); 
+                releaseTF = new TextField(releaseValueLabel->getText());
                 valueMetaVList->exchange_child(releaseValueLabel, releaseTF);
                 delete releaseValueLabel;
-                revisionTF = new TextField(revisionValueLabel->getText()); 
+                revisionTF = new TextField(revisionValueLabel->getText());
                 valueMetaVList->exchange_child(revisionValueLabel, revisionTF);
                 delete revisionValueLabel;
-                compatibilityTF = new TextField(compatibilityValueLabel->getText()); 
+                compatibilityTF = new TextField(compatibilityValueLabel->getText());
                 valueMetaVList->exchange_child(compatibilityValueLabel, compatibilityTF);
                 delete compatibilityValueLabel;
             }
         }
     }
-    
+
     bool LevelPackConfig::isUndoQuit() {
         return undo_quit;
     }
-    
+
     bool LevelPackConfig::doChanges() {
         // change metadata
         if (didEditMetaData) {
             // the Index is persistent, user editabel and the user did switch to edit mode
             bool needSave = false;
             bool isNewIndex = persIndex->getName().empty();
-            
-            // check for valid input 
+
+            // check for valid input
             // title
             std::string newtitle = titleTF->getText();
             std::string::size_type lastChar = newtitle.find_last_not_of(" ");
@@ -417,7 +417,7 @@ namespace enigma { namespace gui {
                 // the title is effectively an empty string
                 errorLabel->set_text(N_("Error: empty title not allowed - press \"Undo\" to exit without modifications"));
                 return false;
-            }   
+            }
             // strip off trailing and leading spaces
             newtitle = newtitle.substr(0 , lastChar + 1);
             newtitle = newtitle.substr(newtitle.find_first_not_of(" "));
@@ -429,20 +429,20 @@ namespace enigma { namespace gui {
                     if (newtitle.find_first_not_of(validChars, 0) != std::string::npos ||
                             (newtitle.length() >= 1 && newtitle[0] == '.')) {
                         errorLabel->set_text(N_("Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"));
-                        return false;               
+                        return false;
                     }
-                    
+
                     // set packPath to cross if link only
                     if (levelmode->isLinkOnly())
                         persIndex->markNewAsCross();
-                    
+
                     isSokoball = sokoballValueButton->isSokoball();
                 }
                 if (!persIndex->setName(newtitle, isSokoball)) {
                     errorLabel->set_text(N_("Error: title already in use - choose another title"));
                     return false;
                 }
-                needSave = true;                
+                needSave = true;
             }
 
             // check rest for need of save
@@ -452,18 +452,18 @@ namespace enigma { namespace gui {
             }
             if (defLocationTF->getText() != ecl::strf("%g", packIndex->getDefaultLocation())) {
                 double d = 0;
-                // check value - keep old value on error 
+                // check value - keep old value on error
                 if ((sscanf(defLocationTF->getText().c_str(),"%lg", &d) == 1) &&
                         d > 0) {
                     packIndex->setDefaultLocation(d);
                     needSave = true;
                 }
             }
-            
+
             if (WizardMode) {
                 if (releaseTF->getText() != ecl::strf("%d", persIndex->getRelease())) {
                     int i = 0;
-                    // check value - keep old value on error 
+                    // check value - keep old value on error
                     if ((sscanf(releaseTF->getText().c_str(),"%d", &i) == 1) &&
                             i > 0) {
                         persIndex->setRelease(i);
@@ -472,7 +472,7 @@ namespace enigma { namespace gui {
                 }
                 if (revisionTF->getText() != ecl::strf("%d", persIndex->getRevision())) {
                     int i = 0;
-                    // check value - keep old value on error 
+                    // check value - keep old value on error
                     if ((sscanf(revisionTF->getText().c_str(),"%d", &i) == 1) &&
                             i > 0) {
                         persIndex->setRevision(i);
@@ -481,7 +481,7 @@ namespace enigma { namespace gui {
                 }
                 if (compatibilityTF->getText() != ecl::strf("%.2f", persIndex->getCompatibility())) {
                     double d = 0;
-                    // check value - keep old value on error 
+                    // check value - keep old value on error
                     if ((sscanf(compatibilityTF->getText().c_str(),"%lg", &d) == 1) &&
                             d >= 1) {
                         persIndex->setCompatibility(d);
@@ -489,7 +489,7 @@ namespace enigma { namespace gui {
                     }
                 }
             }
-            
+
             // save
             if (needSave)
                 persIndex->save();
@@ -502,7 +502,7 @@ namespace enigma { namespace gui {
         if (groupButton->get_value() != intialGroupPosition) {
             std::string newGroupName = groupButton->get_text(groupButton->get_value());
             // strip off square brackets used to mark default and pseudo groups
-            if (newGroupName.size() > 2 && newGroupName[0] == '[' && 
+            if (newGroupName.size() > 2 && newGroupName[0] == '[' &&
                     newGroupName[newGroupName.size() -1] == ']') {
                 newGroupName = newGroupName.substr(1, newGroupName.size() - 2);
             }
@@ -514,10 +514,10 @@ namespace enigma { namespace gui {
         // relocate
         if (position != oldPosition)
             packIndex->locateBehind(position > 0 ? locationList[position - 1] : "");
-        
+
         return true;
     }
-    
+
     void LevelPackConfig::on_action(Widget *w) {
         if (w == but_back) {
             if (doChanges())
@@ -570,13 +570,13 @@ namespace enigma { namespace gui {
             thisIndex->set_text(titleTF->getText());
         }
     }
-    
+
     void LevelPackConfig::draw_background(ecl::GC &gc) {
         const VMInfo *vminfo = video_engine->GetInfo();
 
-        set_caption(("Enigma - Level Pack Configuration"));
+        set_caption(_("Enigma - Level Pack Configuration"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
     }
-    
+
 
 }} // namespace enigma::gui
