@@ -1071,7 +1071,7 @@
     </object>
     <object name="it_floppy"/>
     <object name="it_glasses">
-      <attr name="state" max="31"/>
+      <attr name="state" max="63"/>
     </object>
     <object name="it_glasses_broken">
       <attr name="state" value="0"/>
