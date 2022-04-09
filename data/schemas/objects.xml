@@ -88,7 +88,7 @@
     <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
     <attr name="static" type="bool" default="false" rw="rw"/>
     <attr name="steady" type="bool" default="false" rw="rw"/>
-    <attr name="stock" type="int" default="1000" rw="rw"/>
+    <attr name="stock" type="int" default="1000" min="0" max="9999" rw="rw"/>
     <attr name="strength" type="double" default="1" rw="rw"/>
     <attr name="target" type="tokens" default="nil" rw="rw"/>
     <attr name="text" type="string" default="nil" rw="rw"/>
@@ -1693,7 +1693,7 @@
     </object>
     <object name="st_dispenser">
       <attr name="flavor" default="bombblack" rw="r"/>
-      <attr name="stock" default="1000"/>
+      <attr name="stock"/>
       <msg name="_explosion"/>
       <msg name="_dispenser"/>
     </object>
