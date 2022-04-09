@@ -2006,6 +2006,7 @@
     <object name="st_oneway" states="4">
       <attr name="color"/>
       <attr name="orientation"/>
+      <attr name="state" default="3" min="0" max="3"/>
       <msg name="flip"/>
       <msg name="orientate"/>
       <msg name="signal"/>
