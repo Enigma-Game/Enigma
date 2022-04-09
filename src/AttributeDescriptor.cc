@@ -70,26 +70,26 @@ namespace enigma {
                     if (str[0] == '%')
                         isNumber = true;
                 }
-                if (isNumber) {
-                    // int, min, max check
-                    double d = val;
-                    int i = val;
-                    if((double) i != d)
-                    {
-                        Log << "Double-Int-Mismatch: " << d << " is not " << i << ".\n";
-                        return VALID_TYPE_MISMATCH;
-                    }
-                    if(min && (d < (double)min))
-                    {
-                        Log << "Min-Mismatch: " << d << " should be " << (double)min << " at least.\n";
-                        return VALID_TYPE_MISMATCH;
-                    }
-                    if(max && (d > (double)max))
-                    {
-                        Log << "Max-Mismatch: " << d << " should be " << (double)max << " at most.\n";
-                        return VALID_TYPE_MISMATCH;
-                    }
-                }
+                // if (isNumber) {
+                //     // int, min, max check
+                //     double d = val;
+                //     int i = val;
+                //     if((double) i != d)
+                //     {
+                //         Log << "Double-Int-Mismatch: " << d << " is not " << i << ".\n";
+                //         return VALID_TYPE_MISMATCH;
+                //     }
+                //     if(min && (d < (double)min))
+                //     {
+                //         Log << "Min-Mismatch: " << d << " should be " << (double)min << " at least.\n";
+                //         return VALID_TYPE_MISMATCH;
+                //     }
+                //     if(max && (d > (double)max))
+                //     {
+                //         Log << "Max-Mismatch: " << d << " should be " << (double)max << " at most.\n";
+                //         return VALID_TYPE_MISMATCH;
+                //     }
+                // }
                 return isNumber ? VALID_OK : VALID_TYPE_MISMATCH;
             }
             case VAL_DOUBLE :
