@@ -1345,6 +1345,7 @@
     </object>
     <object name="it_yinyang"/>
     <object name="ot_counter">
+      <attr name="state" default="0" min="0" max="9999"/>
       <msg name="signal"/>
     </object>
     <object name="ot_rubberband">
