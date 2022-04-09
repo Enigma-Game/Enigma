@@ -161,7 +161,7 @@
     <msg name="_levelfinish" type="bool"/>
     <msg name="_model_reanimated" type="nil"/>
     <msg name="_paper" type="nil"/>
-    <msg name="_passed" type="nil"/>            <!-- check type-->
+    <msg name="_passed" type="nil"/>            <!-- check type -->
     <msg name="_pebble" type="nil"/>
     <msg name="_performaction" type="nil"/>
     <msg name="_recheck" type="nil"/>
@@ -1982,7 +1982,8 @@
       <attr name="counterclock"/>
       <attr name="flavor" default="slab"/>
       <attr name="movable" rw="rw"/>
-      <attr name="orientation"/>
+      <attr name="orientation" min="-2" max="3"/>            <!-- value -1 should be rejected -->
+      <attr name="state" default="3" min="0" max="3"/>
       <attr name="transparent"/>
       <msg name="orientate"/>
       <msg name="signal"/>
