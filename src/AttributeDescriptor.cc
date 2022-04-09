@@ -64,46 +64,48 @@ namespace enigma {
             case VAL_INT : {
                 bool isNumber = (vt == Value::DOUBLE);
                 if (!isNumber && vt == Value::STRING) {
-                    if (name == "code" || name == "cluster")    // these attributes accept all strings
+                    // These attributes accept all strings
+                    if (name == "code" || name == "cluster")
                         return VALID_OK;
+                    // String might be autonumbered
                     std::string str = val.to_string();
                     if (str[0] == '%')
                         isNumber = true;
                 }
-                // if (isNumber) {
-                //     // int, min, max check
-                //     double d = val;
-                //     int i = val;
-                //     if((double) i != d)
-                //     {
-                //         Log << "Double-Int-Mismatch: " << d << " is not " << i << ".\n";
-                //         return VALID_TYPE_MISMATCH;
-                //     }
-                //     if(min && (d < (double)min))
-                //     {
-                //         Log << "Min-Mismatch: " << d << " should be " << (double)min << " at least.\n";
-                //         return VALID_TYPE_MISMATCH;
-                //     }
-                //     if(max && (d > (double)max))
-                //     {
-                //         Log << "Max-Mismatch: " << d << " should be " << (double)max << " at most.\n";
-                //         return VALID_TYPE_MISMATCH;
-                //     }
-                // }
+                if (isNumber) {
+                    double d = val;
+                    int i = val;
+                    // We want an integer and not a double
+                    if ((double)i != d) {
+                        Log << "Double-Int-Mismatch: attribute '" << name << "' with given value " << d << " is not integral of value " << i << ".\n";
+                        return VALID_TYPE_MISMATCH;
+                    }
+                    // Not smaller than a minimal value
+                    if (min && (d < (double)min)) {
+                        Log << "Min-Mismatch: attribute '" << name << "' with given value " << d << " should be " << (double)min << " at least.\n";
+                        return VALID_ILLEGAL_VALUE;
+                    }
+                    // Not larger than a maximal value
+                    if (max && (d > (double)max)) {
+                        Log << "Max-Mismatch: attribute '" << name << "' with given value " << d << " should be " << (double)max << " at most.\n";
+                        return VALID_ILLEGAL_VALUE;
+                    }
+                }
                 return isNumber ? VALID_OK : VALID_TYPE_MISMATCH;
+                break;
             }
             case VAL_DOUBLE :
-                return vt == Value::DOUBLE  ? VALID_OK : VALID_TYPE_MISMATCH;
+                return vt == Value::DOUBLE ? VALID_OK : VALID_TYPE_MISMATCH;
                 break;
             case VAL_STRING :
-                return vt == Value::STRING  ? VALID_OK : VALID_TYPE_MISMATCH;
+                return vt == Value::STRING ? VALID_OK : VALID_TYPE_MISMATCH;
                 break;
             case VAL_TOKENS : {
                 bool result = (vt == Value::STRING || vt == Value::TOKENS || vt == Value::OBJECT || vt == Value::GROUP);
                 if (name == "destination")
-                    return (result || vt == Value::POSITION)  ? VALID_OK : VALID_TYPE_MISMATCH;
+                    return (result || vt == Value::POSITION) ? VALID_OK : VALID_TYPE_MISMATCH;
                 else
-                    return result  ? VALID_OK : VALID_TYPE_MISMATCH;
+                    return result ? VALID_OK : VALID_TYPE_MISMATCH;
                 break;
             }
             default :
