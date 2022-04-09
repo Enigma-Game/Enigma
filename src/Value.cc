@@ -253,7 +253,12 @@ namespace enigma {
             case BOOL: 
                 return (val.dval[0] != 0) ? 1 : 0;
             case STRING:
-                return atof(val.str);  // TODO use strtod and eval remaining part of string
+                // Note: It is currently not possible to get doubles from autonumbering.
+                //       Never the less it seems appropriate to catch this here anyway.
+                if (val.str[0] == '%')
+                    return std::strtod(&(val.str[1]), NULL);
+                else
+                    return std::strtod(val.str, NULL);
             default:
                 return 0.0;
         }

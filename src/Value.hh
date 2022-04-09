@@ -86,7 +86,7 @@ namespace enigma {
                       ///< an invalid value
             BOOL,     ///< Value that represents bool values "true" and "false".
             DOUBLE,   ///< Value is numerical and can take a "double". It is used
-                      ///< for other numericals values like "int", too.
+                      ///< for other numerical values like "int", too.
             STRING,   ///< Value is a string. Such a string may encode another
                       ///< type that has no native representation in Value
             OBJECT,   ///< Value is an object id. The id is a persistent object
