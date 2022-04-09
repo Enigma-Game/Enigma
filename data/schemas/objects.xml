@@ -2158,7 +2158,7 @@
       <attr name="algorithm"/>
       <attr name="connections"/>
       <attr name="cluster"/>
-      <attr name="color" min="2" max="3"/>
+      <attr name="color" min="3" max="4"/>
       <attr name="hollow"/>
       <attr name="intensity" default="3"/>
       <attr name="state" rw="r"/>
@@ -2170,10 +2170,10 @@
       <msg name="_scramble"/>
     </object>
     <object name="st_puzzle_blue">
-      <attr name="color" value="2"/>
+      <attr name="color" value="3"/>
     </object>
     <object name="st_puzzle_yellow">
-      <attr name="color" value="3"/>
+      <attr name="color" value="4"/>
     </object>
     <object name="st_quake" states="3">
       <msg name="ignite"/>
