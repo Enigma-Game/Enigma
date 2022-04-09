@@ -443,7 +443,11 @@ namespace enigma {
                 return true;
         }
     }
-    
+
+    bool Value::maybe_autonumbered() const {
+        return (type == STRING) && (val.str[0] == '%');
+    }
+
     ecl::V2 Value::centeredPos() const {
         Object *obj = NULL;
         switch (type) {

@@ -234,7 +234,14 @@ namespace enigma {
          * for any other value.
          */
         bool to_bool() const;
-        
+
+        /**
+         * Returns <code>true</code> if and only if the value is a string and
+         * starts with a <code>%</code> character. In that case, the string
+         * might origin from autonumbering.
+         */
+        bool maybe_autonumbered() const;
+
         /**
          * Returns the value converted to a vector position with a centering of all
          * grid position type values. GRIDPOS type values as well as all positions of
