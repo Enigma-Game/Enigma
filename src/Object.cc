@@ -215,6 +215,8 @@ void Object::setAttrChecked(const std::string &key, const Value &val) {
                 reason = "no write access allowed";
             else if (result == VALID_TYPE_MISMATCH)
                 reason = "value typ mismatch";
+            else if (result == VALID_ILLEGAL_VALUE)
+                reason = "value range violation";
             ASSERT(false, XLevelRuntime,
                    ecl::strf("Object: attribute '%s' write failed for kind '%s', %s", key.c_str(),
                              getKind().c_str(), reason.c_str()).c_str());
