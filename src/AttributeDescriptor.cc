@@ -68,8 +68,7 @@ namespace enigma {
                     if (name == "code" || name == "cluster")
                         return VALID_OK;
                     // String might be autonumbered
-                    std::string str = val.to_string();
-                    if (str[0] == '%')
+                    if (val.maybe_autonumbered())
                         isNumber = true;
                 }
                 if (isNumber) {
