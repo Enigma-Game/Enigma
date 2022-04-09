@@ -1803,6 +1803,7 @@
     </object>
     <object name="st_fourswitch" states="4">
       <attr name="counterclock"/>
+      <attr name="state" min="0" max="3"/>
       <action type="dir" statetype="bool"/>
       <msg name="signal"/>
       <msg name="_trigger"/>
