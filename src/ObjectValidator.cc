@@ -355,7 +355,7 @@ namespace enigma {
                 }
                 if (minString != "") {
                     Value minValue = parseTypedValue(minAttribute, minString, valType);
-                    cloneAttr->setDefaultValue(minValue);
+                    cloneAttr->setMinValue(minValue);
                 }
                 if (maxString != "") {
                     Value maxValue = parseTypedValue(maxAttribute, maxString, valType);
