@@ -93,9 +93,26 @@ namespace enigma {
                 return isNumber ? VALID_OK : VALID_TYPE_MISMATCH;
                 break;
             }
-            case VAL_DOUBLE :
-                return vt == Value::DOUBLE ? VALID_OK : VALID_TYPE_MISMATCH;
+            case VAL_DOUBLE : {
+                bool isNumber = (vt == Value::DOUBLE);
+                if (isNumber) {
+                    double d = val;
+                    // Not smaller than a minimal value
+                    if (min && (d < (double)min)) {
+                        Log << "Min-Mismatch: attribute '" << name << "' with given value " << d << " should be " << (double)min << " at least.\n";
+                        return VALID_ILLEGAL_VALUE;
+                    }
+                    // Not larger than a maximal value
+                    if (max && (d > (double)max)) {
+                        Log << "Max-Mismatch: attribute '" << name << "' with given value " << d << " should be " << (double)max << " at most.\n";
+                        return VALID_ILLEGAL_VALUE;
+                    }
+                    return VALID_OK;
+                } else {
+                    return VALID_TYPE_MISMATCH;
+                }
                 break;
+            }
             case VAL_STRING :
                 return vt == Value::STRING ? VALID_OK : VALID_TYPE_MISMATCH;
                 break;
