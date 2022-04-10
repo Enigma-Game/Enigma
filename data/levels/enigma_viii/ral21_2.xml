@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 189 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 190 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -113,7 +113,7 @@ ti["%w"] = ti["%%"] .. {"it_magicwand"}
 ti[";g"] = ti[";;"] .. {"it_glasses_broken"}
 ti["fw"] = ti["  "] .. {"it_flag_white"}
 ti[" y"] = ti["  "] .. {"it_yinyang"}
-ti["k0"] = ti["  "] .. {"it_key", code=0}
+ti["k0"] = ti["  "] .. {"it_key", code=5}
 ti["k1"] = ti["  "] .. {"it_key", code=1}
 ti["k3"] = ti["~~"] .. {"it_key", code=3}
 ti["k4"] = ti["%%"] .. {"it_key", code=4}
@@ -242,7 +242,7 @@ ti["S#"] = ti[",,"] .. {"st_scissors"}
 ti["SS"] = {"st_scissors"}
 ti["B#"] = ti[".."] .. {"st_plop_slate"}
 ti["B,"] = ti[",,"] .. {"st_door_d", "ali_barber", faces="ew"}
-ti["K0"] = ti["  "] .. {"st_key", code=0, target="predecessor"}
+ti["K0"] = ti["  "] .. {"st_key", code=5, target="predecessor"}
 ti["B0"] = ti[",,"] .. {"st_door_d", "predecessor", faces="ew"}
 ti["O,"] = ti[",,"] .. {"st_door_d", "oil_shop", faces="ns"}
 ti["Cm"] = ti[" m"] .. {"st_chameleon"}
