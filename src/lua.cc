@@ -34,6 +34,7 @@
 #include "lev/Proxy.hh"
 #include "stones/OxydStone.hh"
 #include <list>
+#include <cmath>
 
 #ifndef CXXLUA
 extern "C" {
@@ -1272,6 +1273,22 @@ static int existsPosition(lua_State *L) {
     int x = round_down<int>(lua_tonumber(L, -2));
     int y = round_down<int>(lua_tonumber(L, -1));
     lua_pushboolean(L, IsInsideLevel(GridPos(x, y)));
+    return 1;
+}
+
+static int normPosition(lua_State *L) {
+    // position guaranteed
+    if (lua_gettop(L) < 1 || !is_position(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;
+    }
+    lua_getmetatable(L, -1);
+    lua_rawgeti(L, -1, 1);
+    lua_rawgeti(L, -2, 2);
+    double x = lua_tonumber(L, -2);
+    double y = lua_tonumber(L, -1);
+    double norm = std::sqrt(x*x + y*y);
+    lua_pushnumber(L, norm);
     return 1;
 }
 
@@ -3578,6 +3595,7 @@ static CFunction positionMethods[] = {
     {xyPosition,                    "xy"},
     {gridAlignPosition,             "grid"},
     {existsPosition,                "exists"},
+    {normPosition,                  "norm"},
     {0,0}
 };
 
