@@ -9507,7 +9507,7 @@ just as explained in @ref{Display Follow Strategy}.
 
 @table @asis
 @item @b{Type:} @ @ number or position
-@item @b{Values:} @ @ @code{0}, @code{FOLLOW_FULLSCREEN}, @code{HALFSCREEN}
+@item @b{Values:} @ @ @code{0}, @code{FOLLOW_FULLSCREEN}, @code{FOLLOW_HALFSCREEN}
 The distance of display readjustment. Positions are used to supply different
 values for x and y. The value @samp{@{19, 12@}} is a standard full screen move.
 The value @samp{@{9.5, 6@}} is a standard half screen move. A value @samp{0}
