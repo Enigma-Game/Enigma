@@ -1,4 +1,4 @@
-Building Enigma under MacOS X
+Building Enigma under macOS X
 =============================
 
 If you only want to run Enigma, you can download a DMG file from the Enigma
@@ -8,9 +8,9 @@ This README documents the process of building Enigma on macOS from source
 and creating the app and dmg.
 
 The development and build processes of Enigma are dependent on libraries
-packaged by the Homebrew project. As Homebrew only supports versions of MacOS
+packaged by the Homebrew project. As Homebrew only supports versions of macOS
 that are supported by Apple, Enigma may not run on any particular version of
-MacOS that has passed Apple's end of support date. A list of versions and dates
+macOS that has passed Apple's end of support date. A list of versions and dates
 can be found in the Wikipedia entry for "macOS version history".
 
 The build process has been simplified compared to earlier versions of
@@ -84,7 +84,7 @@ Building the latest development snapshot or from a forked repo
 
 To build the latest development snapshot from GitHub repo source, use
 
-  brew install -v -s --HEAD enigma
+  brew install -v --HEAD enigma
 
 To build Enigma again, for example to build it with a different set of options,
 first run the command
@@ -99,3 +99,33 @@ developer, edit your local copy of the Homebrew formula by running the command
 and change the URL in the head section to link to the repo you want to use.
 See https://docs.brew.sh/Formula-Cookbook#unstable-versions-head
 for more details.
+
+Building on macOS using command line tools, e.g., for development
+=================================================================
+
+This is a sparse decscription intendeed for soneone who is already familiar
+with development tools and processes.
+
+To ensure that all Homebrew packages that are needed to build from the command line
+are installed
+
+  brew install -v --only-dependencies --HEAD enigma
+
+To build enigma into, for example /usr/local, from the git repo
+
+  git clone https://github.com/Enigma-Game/Enigma.git
+  cd Enigma
+  ./autogen.sh
+  PKG_CONFIG_PATH="/usr/local/opt/enet/lib/pkgconfig:$PKG_CONFIG_PATH" ./configure --disable-dependency-tracking --with-system-enet --prefix=/usr/local
+  make
+  make install
+
+Notes:
+
+./autogen.sh does not overwrite some files it creates. Some of the files it
+creates are in .gitignore, so do not show up with a git status command. Before
+re-running ./autogen.sh you can delete all untracked files with "git clean -f -X".
+
+Most changes to source files do not require ./autogen.sh to be re-run, as long as
+the files created by it are not deleted.
+
