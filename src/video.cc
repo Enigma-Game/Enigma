@@ -521,6 +521,8 @@ private:
     std::string window_caption;
     VideoTileset *video_tileset;
     VideoTilesetId video_tileset_id;
+
+    bool nominal_inputgrab_status;
 };
 
 VideoEngineImpl::VideoEngineImpl() :
@@ -528,7 +530,8 @@ VideoEngineImpl::VideoEngineImpl() :
     window(NULL),
     renderer(NULL),
     video_tileset(nullptr),
-    video_tileset_id(VTS_NONE)
+    video_tileset_id(VTS_NONE),
+    nominal_inputgrab_status(false)
 {}
 
 VideoEngineImpl::~VideoEngineImpl() {
@@ -1013,9 +1016,14 @@ bool VideoEngineImpl::SetInputGrab(bool enabled) {
     // uses only one window, we use both SDL_Set... commands in parallel,
     // but only SDL_GetWindowGrab to retrieve the current state. When
     // Enigma starts using several windows, this needs to be adapted.
-    bool old_state = GetInputGrab();
+    bool old_state = nominal_inputgrab_status;
     SDL_SetWindowGrab(window, enabled ? SDL_TRUE : SDL_FALSE);
     SDL_SetRelativeMouseMode(enabled ? SDL_TRUE : SDL_FALSE);
+    nominal_inputgrab_status = enabled;
+    // We are not returning the actual state (this would be GetInputGrab()),
+    // but what we expected should have been set: A loss of window focus
+    // would change GetInputGrab to false instead of true, but we might
+    // want to reset to the state before losing window focus.
     return old_state;
 }
 

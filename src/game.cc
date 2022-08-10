@@ -66,7 +66,7 @@ void game::StartGame() {
     lev::Index *ind = lev::Index::getCurrentIndex();
 
     video_engine->HideMouse();
-    ScopedInputGrab grab(enigma::Nograb ? SDL_FALSE : SDL_TRUE);    
+    ScopedInputGrab grab(not enigma::Nograb);
 
     //    Uint32 start_tick_time = SDL_GetTicks();
 
