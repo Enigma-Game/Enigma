@@ -1658,6 +1658,7 @@ void World::stone_change(GridPos p) {
 /* -------------------- Functions -------------------- */
 
 void Resize(int w, int h) {
+    // The following is not quite clean; see GitHub Issue #78.
     level.reset(new World(w, h));
     display::NewWorld(w, h);
     server::WorldSized = true;
@@ -2375,7 +2376,8 @@ void InitWorld() {
 }
 
 void ShutdownWorld() {
-    level.reset();
+    // The following is not quite clean; see GitHub Issue #78.
+    level.reset(new World(1,1));
     player::PlayerShutdown();
     Repos_Shutdown();
     WorldProxy::shutdown();
