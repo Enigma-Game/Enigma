@@ -341,6 +341,10 @@ void TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 // image containing the scaled image.
 Surface *Resample(Surface *s, Rect rect, int neww, int newh);
 
+// A function for scaled blitting from a portion of src to dst.
+bool BlitScaled(SDL_Surface* src, SDL_Surface* dst, SDL_Rect* dstrect);
+
+
 }  // namespace ecl
 
 #endif /* !ECL_VIDEO_HH_INCLUDED */

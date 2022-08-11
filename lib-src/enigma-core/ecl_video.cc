@@ -384,7 +384,7 @@ void ecl::Screen::update_rect(const Rect &r) {
 
 void ecl::Screen::flush_updates() {
     if (update_all_p) {
-        SDL_BlitScaled(m_sdlsurface, NULL, SDL_GetWindowSurface(m_window), NULL);
+        BlitScaled(m_sdlsurface, SDL_GetWindowSurface(m_window), NULL);
         SDL_UpdateWindowSurface(m_window);
         update_all_p = false;
     } else if (!m_dirtyrects.empty()) {
@@ -394,15 +394,13 @@ void ecl::Screen::flush_updates() {
         RectList::iterator j = m_dirtyrects.begin();
         for (unsigned i = 0; i < rects.size(); ++i, ++j)
         {
-            SDL_Rect sdlrect;
-            sdl::copy_rect(sdlrect, *j);
             int nx = (int)((double) (j->x * window_size().w) / size().w + 0.5);
             int ny = (int)((double) (j->y * window_size().h) / size().h + 0.5);
             int nw = (int)((double) (j->w * window_size().w) / size().w + 0.5);
             int nh = (int)((double) (j->h * window_size().h) / size().h + 0.5);
             ecl::Rect scaledRect = Rect(nx, ny, nw, nh);
             sdl::copy_rect(rects[i], scaledRect);
-            SDL_BlitScaled(m_sdlsurface, &sdlrect, SDL_GetWindowSurface(m_window), &rects[i]);
+            BlitScaled(m_sdlsurface, SDL_GetWindowSurface(m_window), &rects[i]);
         }
         SDL_UpdateWindowSurfaceRects(m_window, &rects[0], rects.size());
     }
@@ -531,4 +529,173 @@ Surface *ecl::Resample(Surface *s, Rect rect, int neww, int newh) {
 
     SDL_FreeSurface(sdls);
     return Surface::make_surface(s_new);
+}
+
+// Code originally by Andreas Schiffler (SDL2_rotozoom), heavily adapted to our use case.
+bool ecl::BlitScaled(SDL_Surface* src, SDL_Surface* dst, SDL_Rect* dstrect) {
+    int x, y, sx, sy, ssx, ssy, *sax, *say, *csax, *csay, *salast, csx, csy, ex, ey, cx, cy, sstep, sstepx, sstepy;
+    tColorRGBA *c00, *c01, *c10, *c11, *sp, *csp, *dp;
+    int spixelgap, spixelw, spixelh, dgap, t1, t2;
+    int dstx, dsty, dstw, dsth;
+
+    if (dstrect) {
+        dstx = dstrect->x;
+        dsty = dstrect->y;
+        dstw = dstrect->w;
+        dsth = dstrect->h;
+    } else {
+        dstx = 0;
+        dsty = 0;
+        dstw = dst->w;
+        dsth = dst->h;
+    }
+
+    // Allocate memory for row/column increments
+    if ((sax = (int *) malloc((dst->w + 1) * sizeof(Uint32))) == NULL) {
+        fprintf(stderr, "ecl_video::BlitScaled: Could not allocate memory for row/column increments.\n");
+        return false;
+    }
+    if ((say = (int *) malloc((dst->h + 1) * sizeof(Uint32))) == NULL) {
+        free(sax);
+        fprintf(stderr, "ecl_video::BlitScaled: Could not allocate memory for row/column increments.\n");
+        return false;
+    }
+
+    // Precalculate row increments
+    spixelw = (src->w - 1);
+    spixelh = (src->h - 1);
+    sx = (int) (65536.0 * (float) spixelw / (float) (dst->w - 1));
+    sy = (int) (65536.0 * (float) spixelh / (float) (dst->h - 1));
+
+    // Maximum scaled source size
+    ssx = (src->w << 16) - 1;
+    ssy = (src->h << 16) - 1;
+
+    // Precalculate horizontal row increments
+    csx = 0;
+    csax = sax;
+    for (x = 0; x <= dst->w; x++) {
+        *csax = csx;
+        csax++;
+        csx += sx;
+        // Guard from overflows
+        if (csx > ssx)
+            csx = ssx;
+    }
+
+    // Precalculate vertical row increments
+    csy = 0;
+    csay = say;
+    for (y = 0; y <= dst->h; y++) {
+        *csay = csy;
+        csay++;
+        csy += sy;
+        // Guard from overflows
+        if (csy > ssy)
+            csy = ssy;
+    }
+
+    sp = (tColorRGBA *) src->pixels;
+    dp = (tColorRGBA *) dst->pixels;
+    dgap = dst->pitch - dst->w * 4;
+    spixelgap = src->pitch/4;
+
+    csay = say;
+    for (y = 0; y < dsty; y++) {
+        csp = sp;
+        csax = sax;
+        for (x = 0; x < dst->w; x++) {
+            // Advance source pointer x
+            salast = csax;
+            csax++;
+            sstep = (*csax >> 16) - (*salast >> 16);
+            sp += sstep;
+        }
+        // Advance source pointer y
+        salast = csay;
+        csay++;
+        sstep = (*csay >> 16) - (*salast >> 16);
+        sstep *= spixelgap;
+        sp = csp + sstep;
+    }
+    // Advance destination pointer to the beginning of the first row to copy
+    dp = (tColorRGBA *) ((Uint8 *) (dp + dst->w * dsty) + dgap * dsty);
+
+    for (y = dsty; y < dsty + dsth; y++) {
+        csp = sp;
+        csax = sax;
+        for (x = 0; x < dstx; x++) {
+            // Advance source pointer x
+            salast = csax;
+            csax++;
+            sstep = (*csax >> 16) - (*salast >> 16);
+            sp += sstep;
+        }
+        // Advance destination pointer to first position-to-copy in this row
+        dp += dstx;
+        for (x = dstx; x < dstx + dstw; x++) {
+            // Setup color source pointers
+            ex = (*csax & 0xffff);
+            ey = (*csay & 0xffff);
+            cx = (*csax >> 16);
+            cy = (*csay >> 16);
+            sstepx = cx < spixelw;
+            sstepy = cy < spixelh;
+            c00 = sp;
+            c01 = sp;
+            c10 = sp;
+            if (sstepy)
+                c10 += spixelgap;
+            c11 = c10;
+            if (sstepx) {
+                c01++;
+                c11++;
+            }
+
+            // Draw and interpolate colors
+            t1 = ((((c01->r - c00->r) * ex) >> 16) + c00->r) & 0xff;
+            t2 = ((((c11->r - c10->r) * ex) >> 16) + c10->r) & 0xff;
+            dp->r = (((t2 - t1) * ey) >> 16) + t1;
+            t1 = ((((c01->g - c00->g) * ex) >> 16) + c00->g) & 0xff;
+            t2 = ((((c11->g - c10->g) * ex) >> 16) + c10->g) & 0xff;
+            dp->g = (((t2 - t1) * ey) >> 16) + t1;
+            t1 = ((((c01->b - c00->b) * ex) >> 16) + c00->b) & 0xff;
+            t2 = ((((c11->b - c10->b) * ex) >> 16) + c10->b) & 0xff;
+            dp->b = (((t2 - t1) * ey) >> 16) + t1;
+            t1 = ((((c01->a - c00->a) * ex) >> 16) + c00->a) & 0xff;
+            t2 = ((((c11->a - c10->a) * ex) >> 16) + c10->a) & 0xff;
+            dp->a = (((t2 - t1) * ey) >> 16) + t1;
+
+            // Advance source pointer x
+            salast = csax;
+            csax++;
+            sstep = (*csax >> 16) - (*salast >> 16);
+            sp += sstep;
+
+            // Advance destination pointer x
+            dp++;
+        }
+        for (x = dstx + dstw; x < dst->w; x++) {
+            // Advance source pointer x
+            salast = csax;
+            csax++;
+            sstep = (*csax >> 16) - (*salast >> 16);
+            sp += sstep;
+        }
+        // Advance source pointer y
+        salast = csay;
+        csay++;
+        sstep = (*csay >> 16) - (*salast >> 16);
+        sstep *= spixelgap;
+        sp = csp + sstep;
+
+        // Advance destination pointer to beginning of next row
+        dp = (tColorRGBA *) ((Uint8 *) (dp + dst->w - (dstx+dstw)) + dgap);
+    }
+
+    // Remove temp arrays
+    free(sax);
+    free(say);
+
+    return true;
 }
