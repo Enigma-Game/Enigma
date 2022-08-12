@@ -19,6 +19,7 @@
 #include "ecl_video.hh"
 #include "ecl_error.hh"
 #include "ecl_sdl.hh"
+#include "ecl_util.hh"
 
 #include "SDL_image.h"
 #include "SDL_syswm.h"
@@ -539,10 +540,10 @@ bool ecl::BlitScaled(SDL_Surface* src, SDL_Surface* dst, SDL_Rect* dstrect) {
     int dstx, dsty, dstw, dsth;
 
     if (dstrect) {
-        dstx = dstrect->x;
-        dsty = dstrect->y;
-        dstw = dstrect->w;
-        dsth = dstrect->h;
+        dstx = Clamp(dstrect->x, 0, dst->w);
+        dsty = Clamp(dstrect->y, 0, dst->h);
+        dstw = Clamp(dstrect->w, 0, dst->w - dstx);
+        dsth = Clamp(dstrect->h, 0, dst->h - dsty);
     } else {
         dstx = 0;
         dsty = 0;
