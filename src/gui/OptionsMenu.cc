@@ -732,43 +732,35 @@ private:
     void OptionsMenu::open_page(OptionsPage new_page) {
         const VMInfo *vminfo = video_engine->GetInfo();
         VideoTileType vtt = vminfo->tt;
-        int vh = vminfo->area.x;
-        int vv = (vminfo->height - vminfo->area.h)/2;
         static struct SpacingConfig {
             int rows;
-            int button_height, optionl_width, optionb_width, commandb_width, pageb_width;
-            int vmargin, vrow_row;
-            int hmargin, hpage_option, hoption_option;
+            int button_height, optionl_width, optionb_width, pageb_width;
+            int vrow_row, hpage_option, hoption_option;
         } param[] = {
             {  // VTS_16 (320x240)
-                9,
-                17, 120, 90, 70, 70,
-                7, 5,
-                10, 10, 10
+                10,
+                17, 90, 110, 70,
+                5, 10, 10
             },
             {  // VTS_32 (640x480)
-                9,
-                30, 240, 180, 140, 140,
-                15, 13,
-                20, 20, 20
+                10,
+                30, 180, 180, 140,
+                13, 40, 20
             },
             {  // VTS_40 (800x600)
-                10,
-                35, 240, 180, 140, 140,
-                20, 15,
+                11,
+                35, 220, 320, 140,
                 15, 46, 15
             },
             {  // VTS_48 (960x720)  VM_1024x768
                 11,
-                35, 240, 180, 140, 140,
-                30, 18,
-                70, 76, 20
+                35, 260, 360, 140,
+                18, 76, 20
             },
             {  // VTS_64 (1280x960)
                 11,
-                35, 240, 180, 140, 140,
-                40, 20,
-                60, 58, 20
+                35, 260, 360, 140,
+                20, 76, 20
             }
         };
 
@@ -795,32 +787,19 @@ private:
             but_config_options->setHighlight(new_page == OPTIONS_CONFIG);
             but_paths_options = new StaticTextButton(N_("Paths"), this);
             but_paths_options->setHighlight(new_page == OPTIONS_PATHS);
+            back = new StaticTextButton(N_("Ok"), this);
             pagesVList->add_back(but_main_options);
             pagesVList->add_back(new Label(""));
             pagesVList->add_back(but_video_options);
             pagesVList->add_back(but_audio_options);
             pagesVList->add_back(but_config_options);
             pagesVList->add_back(but_paths_options);
-            this->add(pagesVList, Rect(param[vtt].hmargin + vh,
-                                       param[vtt].vmargin + vv,
-                                       param[vtt].pageb_width,
+            for (int j = 7; j < param[vtt].rows; j++)
+                pagesVList->add_back(new Label(""));
+            pagesVList->add_back(back);
+            this->add(pagesVList, Rect(0, 0, param[vtt].pageb_width,
                                        param[vtt].rows * param[vtt].button_height +
                                            (param[vtt].rows - 1) * param[vtt].vrow_row));
-
-            // At the bottom: Currently only "Back"
-            commandHList = new HList;
-            commandHList->set_spacing(param[vtt].hoption_option);
-            commandHList->set_alignment(HALIGN_LEFT, VALIGN_TOP);
-            commandHList->set_default_size(param[vtt].commandb_width, param[vtt].button_height);
-            commandHList->add_back(back = new StaticTextButton(N_("Ok"), this));
-            this->add(commandHList, Rect(vminfo->width + vh - param[vtt].hmargin
-                                             - 1*param[vtt].commandb_width  // number of buttons
-                                             - 0*param[vtt].hoption_option, // number - 1
-                                         param[vtt].vmargin + param[vtt].rows*
-                                             (param[vtt].vrow_row + param[vtt].button_height)
-                                             + param[vtt].vrow_row + vv,
-                                         vminfo->width-2*param[vtt].hmargin,
-                                         param[vtt].button_height));
         }
 
         int label_button_total_width = param[vtt].optionl_width + param[vtt].optionb_width + param[vtt].hoption_option;
@@ -850,10 +829,10 @@ private:
         lb->set_spacing(param[vtt].hoption_option); \
         lb->set_alignment(HALIGN_CENTER, VALIGN_TOP); \
         lb->set_size(label_button_total_width, param[vtt].button_height); \
-        lb->set_default_size(param[vtt].optionb_width, param[vtt].button_height); \
+        lb->set_default_size(param[vtt].optionl_width, param[vtt].button_height); \
         current_label = new Label(label, HALIGN_RIGHT, VALIGN_CENTER); \
-        lb->add_back(current_label, List::EXPAND); \
-        lb->add_back(button); \
+        lb->add_back(current_label); \
+        lb->add_back(button, List::EXPAND); \
         optionsVList->add_back(lb); \
 // end define
 #define OPTIONS_NEW_T(textbutton) lb = new HList;\
@@ -911,9 +890,10 @@ private:
             case OPTIONS_CONFIG:
                 OPTIONS_NEW_LB(N_("Language: "), language = new LanguageButton(this))
                 OPTIONS_NEW_LB(N_("Mouse speed: "), new MouseSpeedButton())
-                OPTIONS_NEW_LB(N_("Middle mouse button: "), new MiddleMouseButtonButton())
                 OPTIONS_NEW_LB(N_("Text speed: "), new TextSpeedButton())
                 OPTIONS_NEW_LB(N_("Ratings update: "), new RatingsUpdateButton())
+                OPTIONS_NEW_L(N_("Middle mouse button: "));
+                OPTIONS_NEW_T(new MiddleMouseButtonButton());
                 userNameTF = new TextField(app.state->getString("UserName"));
                 userNameTF->setMaxChars(20);
                 userNameTF->setInvalidChars("+");
@@ -952,11 +932,11 @@ private:
 
         // Now add all options to the page.
         this->add(optionsVList,
-           Rect(param[vtt].hmargin + vh + param[vtt].pageb_width + param[vtt].hpage_option,
-                param[vtt].vmargin + vv,
+           Rect(param[vtt].pageb_width + param[vtt].hpage_option, 0,
                 label_button_total_width,
                 param[vtt].rows * param[vtt].button_height +
                     (param[vtt].rows - 1) * param[vtt].vrow_row));
+        center();
         invalidate_all();
         currentPage = new_page;
     }
