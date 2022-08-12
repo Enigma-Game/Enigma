@@ -106,6 +106,7 @@ const char HSEP = '^';  // history separator (use character that user cannot use
 
 Client::Client()
 : m_state(cls_idle), m_levelname(), m_hunt_against_time(0), m_cheater(false), m_user_input() {
+    m_ignore_mouse_movement = false;
     m_network_host = 0;
 }
 
@@ -201,6 +202,8 @@ void Client::handle_events() {
         //       we need to add SDL_TEXTINPUT and SDL_TEXTEDITING here.
         case SDL_KEYDOWN: on_keydown(e); break;
         case SDL_MOUSEMOTION:
+            if (m_ignore_mouse_movement)
+                break;
             if (abs(e.motion.xrel) > 300 || abs(e.motion.yrel) > 300) {
                 fprintf(stderr, "mouse event with %i, %i\n", e.motion.xrel, e.motion.yrel);
             } else
@@ -263,12 +266,23 @@ void Client::on_mousebutton(SDL_Event &e) {
                 server::Msg_Command("restart");
                 break;
             }
+            case options::MIDDLEMOUSEBUTTON_IgnoreMovement: {
+                m_ignore_mouse_movement = true;
+                break;
+            }
             default: {
                 // Unknown option from the future.
                 // Interpret as default (shouldn't hurt).
                 show_menu(true);
                 break;
             }}
+        }
+    }
+    if (e.type == SDL_MOUSEBUTTONUP) {
+        if (e.button.button == SDL_BUTTON_MIDDLE) {
+            if (options::GetInt("MiddleMouseButtonMode") == options::MIDDLEMOUSEBUTTON_IgnoreMovement) {
+                m_ignore_mouse_movement = false;
+            }
         }
     }
     update_mouse_button_state();

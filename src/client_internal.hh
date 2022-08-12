@@ -157,6 +157,7 @@ private:
 
     // Variables
     ClientState m_state;
+    bool m_ignore_mouse_movement;
     std::string m_levelname;
     double m_timeaccu;
 

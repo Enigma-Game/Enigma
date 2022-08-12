@@ -58,7 +58,8 @@ namespace options {
     const int MIDDLEMOUSEBUTTON_NoOp = -1;
     const int MIDDLEMOUSEBUTTON_Pause = 0;
     const int MIDDLEMOUSEBUTTON_Restart = 1;
-    const int MIDDLEMOUSEBUTTON_MAX = 1;
+    const int MIDDLEMOUSEBUTTON_IgnoreMovement = 2;
+    const int MIDDLEMOUSEBUTTON_MAX = 2;
 
 /* -------------------- Variables -------------------- */
 

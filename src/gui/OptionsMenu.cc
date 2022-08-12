@@ -665,6 +665,8 @@ private:
             return _("Pause (ESC)");
         case options::MIDDLEMOUSEBUTTON_Restart:
             return _("Restart Level (Shift-F3)");
+        case options::MIDDLEMOUSEBUTTON_IgnoreMovement:
+            return _("Hold to ignore mouse movement");
         }
         assert(0);
         return string();
