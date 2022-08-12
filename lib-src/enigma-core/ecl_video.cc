@@ -396,8 +396,8 @@ void ecl::Screen::flush_updates() {
         {
             int nx = (int)((double) (j->x * window_size().w) / size().w + 0.5);
             int ny = (int)((double) (j->y * window_size().h) / size().h + 0.5);
-            int nw = (int)((double) (j->w * window_size().w) / size().w + 0.5);
-            int nh = (int)((double) (j->h * window_size().h) / size().h + 0.5);
+            int nw = (int)((double) (j->w * window_size().w) / size().w + 1.0);
+            int nh = (int)((double) (j->h * window_size().h) / size().h + 1.0);
             ecl::Rect scaledRect = Rect(nx, ny, nw, nh);
             sdl::copy_rect(rects[i], scaledRect);
             BlitScaled(m_sdlsurface, SDL_GetWindowSurface(m_window), &rects[i]);
