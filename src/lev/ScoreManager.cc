@@ -624,7 +624,7 @@ namespace enigma { namespace lev {
             rel2 = result->getValue();
             delete result;
         }
-        return (rel1 >= TRUSTED_RELEASE) ? score2 : SCORE_UNSOLVED;
+        return (rel2 >= TRUSTED_RELEASE) ? score2 : SCORE_UNSOLVED;
     }
 
     void ScoreManager::updateUserScore(lev::Proxy *levelProxy, int difficulty, 
