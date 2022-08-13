@@ -733,33 +733,33 @@ private:
         const VMInfo *vminfo = video_engine->GetInfo();
         VideoTileType vtt = vminfo->tt;
         static struct SpacingConfig {
-            int rows;
-            int button_height, optionl_width, optionb_width, pageb_width;
+            int rows, button_height, small_label_height;
+            int optionl_width, optionb_width, pageb_width;
             int vrow_row, hpage_option, hoption_option;
         } param[] = {
             {  // VTS_16 (320x240)
-                10,
-                17, 90, 110, 70,
+                10, 17, 11,
+                90, 110, 70,
                 5, 10, 10
             },
             {  // VTS_32 (640x480)
-                10,
-                30, 180, 180, 140,
+                10, 30, 22,
+                180, 180, 140,
                 13, 40, 20
             },
             {  // VTS_40 (800x600)
-                11,
-                35, 220, 320, 140,
+                11, 35, 22,
+                220, 320, 140,
                 15, 46, 15
             },
             {  // VTS_48 (960x720)  VM_1024x768
-                11,
-                35, 260, 360, 140,
+                11, 35, 22,
+                260, 360, 140,
                 18, 76, 20
             },
             {  // VTS_64 (1280x960)
-                11,
-                35, 260, 360, 140,
+                11, 35, 22,
+                260, 360, 140,
                 20, 76, 20
             }
         };
@@ -825,6 +825,13 @@ private:
         lb->add_back(new Label(label, HALIGN_LEFT, VALIGN_BOTTOM)); \
         optionsVList->add_back(lb); \
 // end define
+#define OPTIONS_NEW_USL(label) lb = new HList;\
+        lb->set_spacing(param[vtt].hoption_option); \
+        lb->set_alignment(HALIGN_LEFT, VALIGN_TOP); \
+        lb->set_default_size(label_button_total_width, param[vtt].small_label_height); \
+        lb->add_back(new UntranslatedLabel(label, HALIGN_LEFT, VALIGN_BOTTOM)); \
+        optionsVList->add_back(lb); \
+// end define
 #define OPTIONS_NEW_LB(label,button) lb = new HList;\
         lb->set_spacing(param[vtt].hoption_option); \
         lb->set_alignment(HALIGN_CENTER, VALIGN_TOP); \
@@ -865,7 +872,14 @@ private:
                 break;
             case OPTIONS_VIDEO:
                 if (gameIsOngoing) {
-                    OPTIONS_NEW_L(N_("Sorry, no video changes during an ongoing game."))
+                    optionsVList->set_default_size(label_button_total_width, param[vtt].small_label_height);
+                    optionsVList->set_spacing(0);
+                    ecl::Font* f = enigma::GetFont("menufont");
+                    const std::string text = _("Sorry, no video changes during an ongoing game.");
+                    std::vector<std::string> lines = ecl::breakToLines(f, text, " ", label_button_total_width);
+                    for (auto it = lines.begin(); it != lines.end(); it++) {
+                        OPTIONS_NEW_USL(std::string(*it));
+                    }
                 } else {
                     OPTIONS_NEW_LB(N_("Screen brightness: "), new BrightnessButton())
                     OPTIONS_NEW_LB(N_("Fullscreen: "), fullscreen = new FullscreenButton())
