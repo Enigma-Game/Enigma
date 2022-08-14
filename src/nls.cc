@@ -105,3 +105,19 @@ void nls::tinygettext_error_callback(const std::string& str) {
     fputs("tinygettext: ", stderr);
     fputs(str.c_str(), stderr);
 }
+
+// The use of unicode character U+2019 as apostrophe AND right single quotation
+// mark is heavily disputed. As right single quotation mark, Chinese typography
+// demands an additional empty space behind it; using it in other languages
+// as apostrophe makes this look very ugly. We therefore have to replace each
+// occurence of U+2019 by a similar character; we choose the straight (ASCII)
+// apostrophe.
+std::string nls::replaceApostrophe(std::string text) {
+    std::string s = text;
+    if (not nls::languages[GetCurrentLocaleNr()].replaceApostrophe)
+        return s;
+    while(s.find("’") != string::npos) {
+        s.replace(s.find("’"), 3, "'");
+    }
+    return s;
+}
