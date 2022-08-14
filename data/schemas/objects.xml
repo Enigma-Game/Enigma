@@ -965,6 +965,12 @@
     </object>
     <object name="it_cherry"/>
     <object name="it_coffee"/>
+    <object name="it_coffee_drop">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="it_coffee_teatime">
+      <attr name="state" value="1"/>
+    </object>
     <object name="it_coin">
       <attr name="coin_value" default="3"/>
       <attr name="state" rw="r"/>

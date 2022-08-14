@@ -76,7 +76,29 @@ namespace enigma {
     /**
      * Coffee
      */
-    DEF_ITEM(Coffee, "it_coffee", it_coffee);
+    class Coffee : public Item {
+        CLONEOBJ(Coffee);
+        DECL_ITEMTRAITS_ARRAY(2, traitsIdx());
+    private:
+        enum iState {
+            DEFAULT =  0,    ///<
+            TEATIME =  1     ///<
+        };
+    public:
+        Coffee(int type);
+
+        // Object interface
+        virtual std::string getClass() const;
+
+        // StateObject interface
+        virtual void setState(int extState);
+
+        // Item interface
+        virtual ItemAction activate(Actor* a, GridPos p);
+
+    private:
+        int traitsIdx() const;
+    };
 
     /**
      * DeathItem

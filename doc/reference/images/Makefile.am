@@ -57,6 +57,7 @@ SIMPLEPNG = \
 	it_burnable_oil.png \
 	it_cherry.png \
 	it_coffee.png \
+	it_coffee_teatime.png \
 	it_coin_s.png \
 	it_coin_m.png \
 	it_coin_l.png \

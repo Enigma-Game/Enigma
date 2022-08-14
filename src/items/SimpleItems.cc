@@ -24,6 +24,7 @@
 #include "player.hh"
 #include "SoundEffectManager.hh"
 #include "world.hh"
+#include "client.hh"
 
 namespace enigma {
 
@@ -79,6 +80,36 @@ namespace enigma {
     }
 
     DEF_ITEMTRAITS(Cherry, "it_cherry", it_cherry);
+
+/* -------------------- Coffee -------------------- */
+    Coffee::Coffee(int type) {
+        state = type;
+    }
+
+    std::string Coffee::getClass() const {
+        return "it_coffee";
+    }
+    void Coffee::setState(int extState) {
+        // block all write attempts
+    }
+
+    ItemAction Coffee::activate(Actor *a, GridPos p) {
+        if (state == TEATIME || server::GameCompatibility != GAMET_ENIGMA) {
+            server::Msg_Teatime(true);
+            client::Msg_Teatime(true);
+            return ITEM_KILL;
+        } else
+            return ITEM_DROP;
+    }
+
+    int Coffee::traitsIdx() const {
+        return ecl::Clamp<int>(state, 0, 1);
+    }
+
+    ItemTraits Coffee::traits[2] = {
+        {"it_coffee_drop",    it_coffee_drop,    itf_animation | itf_portable | itf_freezable, 0.0},
+        {"it_coffee_teatime", it_coffee_teatime, itf_animation | itf_portable | itf_freezable, 0.0},
+    };
 
 /* -------------------- Death Item  -------------------- */
 
@@ -528,7 +559,9 @@ namespace enigma {
         BootRegister(new Banana(), "it_banana");
         BootRegister(new Brush(), "it_brush");
         BootRegister(new Cherry(), "it_cherry");
-        BootRegister(new Coffee(), "it_coffee");
+        BootRegister(new Coffee(0), "it_coffee");
+        BootRegister(new Coffee(0), "it_coffee_drop");
+        BootRegister(new Coffee(1), "it_coffee_teatime");
         BootRegister(new DeathItem(), "it_death");
         BootRegister(new Debris(0), "it_debris");
         BootRegister(new Debris(1), "it_debris_water");

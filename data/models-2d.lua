@@ -789,7 +789,10 @@ end
 do
     local images = DefSubimages("it_coffee", {h=4})
     local frames = BuildFrames(images,150)
-    DefAnim("it_coffee", frames, true)
+    DefAnim("it_coffee_drop", frames, true)
+    local images = DefSubimages("it_coffee_teatime", {h=4})
+    local frames = BuildFrames(images,150)
+    DefAnim("it_coffee_teatime", frames, true)
 end
 
 -- Cracks --

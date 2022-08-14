@@ -53,6 +53,8 @@ void Msg_ShowText(const std::string &text, bool scrolling, double duration = -1)
 void Msg_ShowDocument(const std::string &text, bool scrolling, double duration = -1);
 void Msg_FinishedText();
 
+void Msg_Teatime(bool onoff);
+
 //! Play sound emanating from an absolute position in the world
 void Msg_PlaySound(const std::string &soundname, const ecl::V2 &pos, double relative_volume);
 

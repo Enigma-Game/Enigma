@@ -97,6 +97,7 @@ enum ClientState {
     cls_finished,  // level finished, waiting for next one
     cls_gamehelp,
     cls_gamemenu,
+    cls_teatime,
     cls_abort,
     cls_error
 };
@@ -128,6 +129,7 @@ public:
     void easy_going() { m_hunt_against_time = false; }
     void registerDocument(std::string text);
     void finishedText();
+    void teatime(bool onoff);
 
 private:
     std::string init_hunted_time();
@@ -142,6 +144,7 @@ private:
 
     // Event handling
     void handle_events();
+    void handle_events_teatime();
     void on_keydown(SDL_Event &e);
     void on_mousebutton(SDL_Event &e);
     void update_mouse_button_state();
@@ -157,6 +160,7 @@ private:
 
     // Variables
     ClientState m_state;
+    ClientState m_state_before_teatime;
     bool m_ignore_mouse_movement;
     std::string m_levelname;
     double m_timeaccu;

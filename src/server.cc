@@ -54,6 +54,7 @@ enum ServerState {
     sv_waiting_for_clients,
     sv_running,
     sv_paused,
+    sv_teatime,
     sv_restart_level,
     sv_restart_game,
     sv_finishing,
@@ -133,6 +134,7 @@ double WormholeRange;
 namespace {
 
 ServerState state = sv_idle;
+ServerState state_before_teatime = sv_idle;
 double time_accu = 0;
 double current_state_dtime = 0;
 int move_counter;                 // counts movements of stones
@@ -344,6 +346,7 @@ void Tick(double dtime) {
     switch (state) {
     case sv_idle: break;
     case sv_paused: break;
+    case sv_teatime: break;
     case sv_waiting_for_clients: break;
     case sv_running: gametick(dtime); break;
     case sv_restart_level:
@@ -578,8 +581,18 @@ void Msg_Command(const string &cmd) {
 void Msg_Pause(bool onoff) {
     if (onoff && state == sv_running)
         state = sv_paused;
+    else if (onoff && state == sv_teatime)
+        state = sv_paused;
     else if (!onoff && state == sv_paused)
         state = sv_running;
+}
+
+void Msg_Teatime(bool onoff) {
+    if (onoff) {
+        state_before_teatime = state;
+        state = sv_teatime;
+    } else
+        state = state_before_teatime;
 }
 
 void Msg_Panic(bool onoff) {

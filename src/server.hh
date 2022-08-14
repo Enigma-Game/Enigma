@@ -202,6 +202,8 @@ void Msg_Command(const std::string &command);
 
 void Msg_Pause(bool onoff);
 
+void Msg_Teatime(bool onoff);
+
 void Msg_Panic(bool onoff);
 
 void Msg_MouseForce(const ecl::V2 &f);

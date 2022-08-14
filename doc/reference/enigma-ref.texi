@@ -1,5 +1,5 @@
 \input texinfo                              @c -*- texinfo -*-
-@set VERSION 1.30
+@set VERSION 1.31
 @setfilename enigma-ref.info
 @settitle Enigma Reference Manual
 @documentencoding US-ASCII
@@ -11929,7 +11929,8 @@ switched off by the attribute @samp{invisible}.
 @tab @image{images/it_burnable_fireproof, 12mm} @tab @yref{it_burnable}_fireproof
 @item @image{images/it_burnable_oil, 12mm} @tab @yref{it_burnable}_oil
 @tab @image{images/it_cherry, 12mm} @tab @yref{it_cherry}
-@tab @image{images/it_coffee, 12mm} @tab @yref{it_coffee}
+@tab @image{images/it_coffee, 12mm} @tab @yref{it_coffee}_drop
+@item @image{images/it_coffee_teatime, 12mm} @tab @yref{it_coffee}_teatime
 @item @image{images/it_coin_s, 12mm} @tab @yref{it_coin}_s
 @tab @image{images/it_coin_m, 12mm} @tab @yref{it_coin}_m
 @tab @image{images/it_coin_l, 12mm} @tab @yref{it_coin}_l
@@ -12402,9 +12403,15 @@ When a stone is pushed over a cherry an @ref{it_squashed} remains as remnants.
 @subsection it_coffee
 @obindex it_coffee
 
-A totally passive cup of coffee. It can be picked up and be dropped many times.
-It blocks laser light, prohibits @ref{it_crack} spreading but it burns on fire
+A cup of coffee or tea. It can be picked up, it blocks laser light,
+prohibits @ref{it_crack} spreading but it burns on fire
 and is blown away on @ref{it_bomb} explosions.
+
+@code{it_coffee_drop} (the default @code{it_coffee}) can be dropped many times and is totally passive.
+@code{it_coffee_teatime} pauses the game on activation until any key or mouse key is pressed, and is
+consumed by this action.
+In other than Enigma game modes, @code{it_coffee_drop} acts like @code{it_coffee_teatime} instead, but
+still retains the image of a cup of coffee.
 
 @table @asis
 @item @b{Attributes:}
@@ -12417,6 +12424,8 @@ and is blown away on @ref{it_bomb} explosions.
 @item @b{Variants:}
 @table @asis
 @item @image{images/it_coffee, 12mm} @b{it_coffee}
+@item @image{images/it_coffee, 12mm} @b{it_coffee_drop}
+@item @image{images/it_coffee_teatime, 12mm} @b{it_coffee_teatime}
 @end table
 @end table
 
