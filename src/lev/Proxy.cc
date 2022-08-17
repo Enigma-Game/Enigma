@@ -95,6 +95,13 @@ namespace enigma { namespace lev {
             cachedLevel->release();
     }
 
+    void Proxy::shutdown() {
+        for (auto i: cache) {
+            delete i.second;
+        }
+        cache.clear();
+    }
+
     Proxy * Proxy::registerLevel(std::string levelPath, std::string indexPath,
             std::string levelId, std::string levelTitle, std::string levelAuthor,
             int levelScoreVersion, int levelRelease, bool levelHasEasymode,
@@ -177,7 +184,7 @@ namespace enigma { namespace lev {
             Proxy * fileProxy;
             std::string multiCacheKey = theNormLevelPath + fileId + ecl::strf("%d", levelRelease);
             std::map<std::string, Proxy *>::iterator mi = cache.find(multiCacheKey);
-            if (i != cache.end()) {
+            if (mi != cache.end()) {
                 fileProxy = mi->second;
             } else {
                 // create new multilevel file proxy

@@ -236,6 +236,7 @@ Surface::Surface(SDL_Surface *surface, bool _has_alpha) {
     }
     assert(surface);
     m_surface = SDL_ConvertSurface(surface, pixel_format, 0);
+    SDL_FreeSurface(surface);
     assert(m_surface);
 }
 

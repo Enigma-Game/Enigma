@@ -63,7 +63,7 @@ namespace enigma { namespace lev {
     }
 
     PersistentIndex * PersistentIndex::historyIndex = NULL;
-    std::vector<PersistentIndex *> PersistentIndex::indexCandidates;
+    std::vector<std::shared_ptr<PersistentIndex> > PersistentIndex::indexCandidates;
 
     void PersistentIndex::checkCandidate(std::string thePackPath, bool systemOnly, bool userOwned,
             bool isAuto, bool isSystemCross, bool isUserCross, double defaultLocation,
@@ -114,22 +114,21 @@ namespace enigma { namespace lev {
                 }
             }
         }
-        PersistentIndex * candidate = new PersistentIndex(thePackPath, systemOnly, userOwned, isAuto,
+        std::shared_ptr<PersistentIndex> candidate = std::make_shared<PersistentIndex>(thePackPath, systemOnly, userOwned, isAuto,
                 defaultLocation, anIndexName, theIndexFilename, aGroupName);
         if (candidate->getName().empty() || candidate->getCompatibility() > ENIGMACOMPATIBITLITY) {
-            delete candidate;
+            candidate.reset();
 //    Log << "candidate check : " << thePackPath << " -- " << theIndexFilename << " -- deleted\n";
         } else {
             // check if new Index is an update of another
             if (systemPackIndex >= 0) {
                 if (indexCandidates[systemPackIndex]->getRevision() >= candidate->getRevision()) {
 //    Log << "candidate check : " << thePackPath << " -- " << theIndexFilename << " -- old revision\n";
-                    delete candidate;
+                    candidate.reset();
                     return;
                 } else {
                     // it is an update
 //    Log << "candidate check : " << thePackPath << " -- " << theIndexFilename << " -- an update\n";
-                    delete indexCandidates[systemPackIndex];
                     indexCandidates[systemPackIndex] = candidate;
                     return;
                 }
@@ -139,7 +138,7 @@ namespace enigma { namespace lev {
                     if (indexCandidates[i]->getName() == candidate->getName()) {
                         // always prefer the first one, the one with more official background
 //    Log << "candidate check : " << thePackPath << " -- " << theIndexFilename << " -- name duplicate\n";
-                        delete candidate;
+                        candidate.reset();
                         return;
                     }
                 }
@@ -212,8 +211,8 @@ namespace enigma { namespace lev {
                             INDEX_DEFAULT_PACK_LOCATION, "", dirEntry.name);
                 }
             }
+            delete dirIter;
         }
-        delete dirIter;
 
         if (onlySystemIndices)
             return;
@@ -304,7 +303,7 @@ namespace enigma { namespace lev {
         delete dirIter;
 
         for (unsigned i = 0; i < indexCandidates.size(); i++) {
-            Index::registerIndex(indexCandidates[i]);
+            Index::registerIndex(indexCandidates[i].get());
         }
 
         // check if history is available - else generate a new index
@@ -588,6 +587,11 @@ namespace enigma { namespace lev {
     PersistentIndex::~PersistentIndex() {
        if (doc != NULL)
            doc->release();
+    }
+
+    // Must be called before XMLPlatformUtils::terminate
+    void PersistentIndex::shutdown() {
+        indexCandidates.clear();
     }
 
     std::string PersistentIndex::getPackPath() {

@@ -117,9 +117,7 @@ Surface *SurfaceCache::acquire(const std::string &name) {
 
     FindImageReturnCode found = app.resourceFS->findImageFile(name + ".png", filename);
     if (found != IMAGE_NOT_FOUND) {
-        // TODO(sdl2): is there a reason this is different from SurfaceCache_Alpha?
-        if (SDL_Surface *s = IMG_Load(filename.c_str()))
-            es.reset(ecl::LoadImage(filename.c_str()));
+        es.reset(ecl::LoadImage(filename.c_str()));
     }
     if (found == IMAGE_NEEDS_SCALING_32_TO_16)
         return es->zoom(es->width() / 2, es->height() / 2);
@@ -336,7 +334,11 @@ void Model::get_extension(ecl::Rect &r) {
 Image::Image(ecl::Surface *sfc) : surface(sfc), rect(surface->size()), refcount(1) {
 }
 
-Image::Image(ecl::Surface *sfc, ecl::Rect r) : surface(sfc), rect(std::move(r)), refcount(1) {
+Image::Image(ecl::Surface *sfc, ecl::Rect r) : surface(Duplicate(sfc)), rect(std::move(r)), refcount(1) {
+}
+Image::~Image() {
+    delete surface;
+    surface = nullptr;
 }
 
 void display::incref(Image *i) {

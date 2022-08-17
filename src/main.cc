@@ -660,6 +660,11 @@ void Application::initXerces() {
         config->setParameter(XMLUni::fgDOMDatatypeNormalization, true);
         config->setParameter(XMLUni::fgDOMErrorHandler, domParserErrorHandler);
         config->setParameter(XMLUni::fgDOMResourceResolver, domParserSchemaResolver);
+        //The following line fixes a crash where Xerces and Enigma both release
+        //the same document and it is deleted twice. Adopting documents
+        //prevents Xerces from releasing them, as they will be released by
+        //Enigma in the destructors anyway.
+        config->setParameter(XMLUni::fgXercesUserAdoptsDOMDocument, true);
 
         domSer = domImplementationLS->createLSSerializer();
         config = domSer->getDomConfig();
@@ -675,6 +680,8 @@ void Application::initXerces() {
         domParser->setFeature(XMLUni::fgXercesSchemaFullChecking, true);
         domParser->setFeature(XMLUni::fgDOMValidation, true);
         domParser->setFeature(XMLUni::fgDOMDatatypeNormalization, true);
+        // See above comment for why we adopt the document.
+        domParser->setFeature(XMLUni::fgXercesUserAdoptsDOMDocument, true);
         domParser->setErrorHandler(domParserErrorHandler);
         domParser->setEntityResolver(domParserSchemaResolver);
 
@@ -976,6 +983,10 @@ void Application::shutdown()
     enet_deinitialize();
     enigma::ShutdownCurl();
     lua::ShutdownGlobal();
+    lev::PersistentIndex::shutdown();
+    lev::Proxy::shutdown();
+    ObjectValidator::instance()->shutdown();
+    domParser->release();
     XMLPlatformUtils::Terminate();
 #ifdef SDL_IMG_INIT
     IMG_Quit();
