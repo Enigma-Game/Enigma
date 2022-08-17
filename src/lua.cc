@@ -3231,7 +3231,7 @@ static int subGroup(lua_State *L) {
     if (lua_gettop(L) == 2 && lua_isnumber(L, 2)) {
         end = lua_tointeger(L, 2);
         if (end < 0) {
-            start = length - end;
+            start = length - (-end);
             end = length;
         }
     }
