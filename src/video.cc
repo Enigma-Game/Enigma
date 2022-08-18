@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2002,2004 Daniel Heck
  * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2020-2022 Andreas Lochmann
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -823,6 +824,7 @@ void VideoEngineImpl::SaveWindowSizePreferences() {
 void VideoEngineImpl::Resize(Sint32 width, Sint32 height) {
     SDL_SetWindowSize(window, width, height);
     SDL_RenderSetLogicalSize(renderer, width, height);
+    screen->reinitScaler();
 }
 
 const VMInfo *VideoEngineImpl::GetInfo() {

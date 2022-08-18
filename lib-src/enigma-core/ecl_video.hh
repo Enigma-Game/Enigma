@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003 Daniel Heck
+ * Copyright (C) 2022 Andreas Lochmann
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -46,6 +47,35 @@ struct RGBA {
 };
 
 typedef Uint32 PackedColor;
+
+/* -------------------- Scaler -------------------- */
+
+/* Scaler is a class implementing a fast scaling algorithm
+   for blitting portions of the screen. When initialized,
+   it precalculates the necessary factors; hence it needs
+   to be reset to scale to a different factor. Use method
+   "precalculate" for this.
+*/
+
+enum ScalerMode {
+    SC_SDL = 0,
+    SC_bytewise = 1
+};
+
+class Scaler {
+public:
+    Scaler(SDL_Surface* src, SDL_Surface* dst);
+    ~Scaler();
+
+    void precalculate(SDL_Surface* src, SDL_Surface* dst);
+    void blit_scaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect);
+
+private:
+    ScalerMode mode;
+    int x, y, sx, sy, ssx, ssy, *sax, *say, *csax, *csay, *salast;
+    int csx, csy, ex, ey, cx, cy, sstep, sstepx, sstepy;
+    int spixelgap, spixelw, spixelh, dgap, t1, t2;
+};
 
 /* -------------------- Graphics State (GS) -------------------- */
 
@@ -186,8 +216,8 @@ private:
    actual window on the screen, and its corresponding SDL_Surface.
    It shows a scaled version of the SDL_Surface "m_surface".
    "get_surface", "size", "width", "height" etc. refer to the
-   non-scaled m_surface. The scaling will be performed by
-   "flush_updates".
+   non-scaled m_surface. The class comes with its own scaler,
+   m_scaler, which is called by "flush_updates".
 */
 
 class Screen {
@@ -198,6 +228,7 @@ public:
     void update_all();
     void update_rect(const Rect &r);
     void flush_updates();
+    void reinitScaler();
 
     /* ---------- Accessors ---------- */
 
@@ -228,6 +259,8 @@ private:
 
     Screen(const Screen &);
     Screen &operator=(const Screen &);
+
+    Scaler *m_scaler;
 };
 
 /* -------------------- Graphics primitives -------------------- */
@@ -342,7 +375,7 @@ void TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 Surface *Resample(Surface *s, Rect rect, int neww, int newh);
 
 // A function for scaled blitting from a portion of src to dst.
-bool BlitScaled(SDL_Surface* src, SDL_Surface* dst, SDL_Rect* dstrect);
+void BlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect);
 
 
 }  // namespace ecl
