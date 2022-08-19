@@ -235,10 +235,12 @@ SIMPLEPNG = \
 	st_passage_black_frame.png \
 	st_passage_black_slash.png \
 	st_passage_black_square.png \
+	st_passage_black_backslash.png \
 	st_passage_white_cross.png \
 	st_passage_white_frame.png \
 	st_passage_white_slash.png \
 	st_passage_white_square.png \
+	st_passage_white_backslash.png \
 	st_pebble.png \
 	st_pinkbumps.png \
 	st_plaster.png \

@@ -40,7 +40,8 @@ namespace enigma {
             else if (fs == "slash") fi = 1;
             else if (fs == "cross") fi = 2;
             else if (fs == "frame") fi = 3;
-            if (fi != -1 && fi !=fo) {
+            else if (fs == "backslash") fi = 4;
+            if (fi != -1 && fi != fo) {
                 objFlags = (objFlags & ~OBJBIT_FLAVOR) | (fi << 24);
                 if (isDisplayable())
                     init_model();
@@ -99,6 +100,7 @@ namespace enigma {
             case 1 : return "slash";
             case 2 : return "cross";
             case 3 : return "frame";
+            case 4 : return "backslash";
         }
         throw XLevelRuntime("PassageStone unknown flavor");
     }
@@ -107,15 +109,17 @@ namespace enigma {
         return ((objFlags & OBJBIT_FLAVOR) >> 24) + 4 * state;
     }
 
-    StoneTraits PassageStone::traits[8] = {
-        {"st_passage_black_square", st_passage_black_square, stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_passage_black_slash",  st_passage_black_slash,  stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_passage_black_cross",  st_passage_black_cross,  stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_passage_black_frame",  st_passage_black_frame,  stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_passage_white_square", st_passage_white_square, stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_passage_white_slash",  st_passage_white_slash,  stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_passage_white_cross",  st_passage_white_cross,  stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_passage_white_frame",  st_passage_white_frame,  stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
+    StoneTraits PassageStone::traits[10] = {
+        {"st_passage_black_square",    st_passage_black_square,    stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_passage_black_slash",     st_passage_black_slash,     stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_passage_black_cross",     st_passage_black_cross,     stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_passage_black_frame",     st_passage_black_frame,     stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_passage_black_backslash", st_passage_black_backslash, stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_passage_white_square",    st_passage_white_square,    stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_passage_white_slash",     st_passage_white_slash,     stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_passage_white_cross",     st_passage_white_cross,     stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_passage_white_frame",     st_passage_white_frame,     stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_passage_white_backslash", st_passage_white_backslash, stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
     };
 
     BOOT_REGISTER_START
@@ -125,11 +129,13 @@ namespace enigma {
         BootRegister(new PassageStone(BLACK, 1), "st_passage_black_slash");
         BootRegister(new PassageStone(BLACK, 2), "st_passage_black_cross");
         BootRegister(new PassageStone(BLACK, 3), "st_passage_black_frame");
+        BootRegister(new PassageStone(BLACK, 4), "st_passage_black_backslash");
         BootRegister(new PassageStone(WHITE, 0), "st_passage_white");
         BootRegister(new PassageStone(WHITE, 0), "st_passage_white_square");
         BootRegister(new PassageStone(WHITE, 1), "st_passage_white_slash");
         BootRegister(new PassageStone(WHITE, 2), "st_passage_white_cross");
         BootRegister(new PassageStone(WHITE, 3), "st_passage_white_frame");
+        BootRegister(new PassageStone(WHITE, 4), "st_passage_white_backslash");
     BOOT_REGISTER_END
 
 } // namespace enigma

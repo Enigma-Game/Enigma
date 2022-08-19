@@ -30,14 +30,14 @@ namespace enigma {
      */
     class PassageStone : public Stone {
          CLONEOBJ(PassageStone);
-         DECL_TRAITS_ARRAY(8, traitsIdx());
+         DECL_TRAITS_ARRAY(10, traitsIdx());
     private:
         enum iState {
             BLACK,
             WHITE
         };
         enum ObjectPrivatFlagsBits {
-            OBJBIT_FLAVOR   =   3<<24,    ///< 
+            OBJBIT_FLAVOR = 7 << 24,    ///< Bits (currently 3) masking the flavour bit data
         };
 
     public:
