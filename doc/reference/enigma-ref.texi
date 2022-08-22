@@ -11915,78 +11915,79 @@ switched off by the attribute @samp{invisible}.
 @section Item Overview
 
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
-@item @image{images/it_bag, 12mm} @tab @yref{it_bag}
+@item @image{images/it_axe, 12mm} @tab @yref{it_axe}
+@tab @image{images/it_bag, 12mm} @tab @yref{it_bag}
 @tab @image{images/it_banana, 12mm} @tab @yref{it_banana}
-@tab @image{images/st_blocker_4, 12mm} @tab @yref{it_blocker}
-@item @image{images/it_bomb, 12mm} @tab @yref{it_bomb}_black
+@item @image{images/st_blocker_4, 12mm} @tab @yref{it_blocker}
+@tab @image{images/it_bomb, 12mm} @tab @yref{it_bomb}_black
 @tab @image{images/it_bomb_b, 12mm} @tab @yref{it_bomb}_white
-@tab @image{images/it_bottle_idle, 12mm} @tab @yref{it_bottle}
-@item @image{images/it_bottle_broken, 12mm} @tab @yref{it_bottle}_broken
+@item @image{images/it_bottle_idle, 12mm} @tab @yref{it_bottle}
+@tab @image{images/it_bottle_broken, 12mm} @tab @yref{it_bottle}_broken
 @tab @image{images/st_brake, 12mm} @tab @yref{it_brake}
-@tab @image{images/it_brush, 12mm} @tab @yref{it_brush}
-@item @image{images/it_burnable_ash, 12mm} @tab @yref{it_burnable}_ash
+@item @image{images/it_brush, 12mm} @tab @yref{it_brush}
+@tab @image{images/it_burnable_ash, 12mm} @tab @yref{it_burnable}_ash
 @tab @image{images/it_burnable_burning, 12mm} @tab @yref{it_burnable}_burning
-@tab @image{images/it_burnable_fireproof, 12mm} @tab @yref{it_burnable}_fireproof
-@item @image{images/it_burnable_oil, 12mm} @tab @yref{it_burnable}_oil
+@item @image{images/it_burnable_fireproof, 12mm} @tab @yref{it_burnable}_fireproof
+@tab @image{images/it_burnable_oil, 12mm} @tab @yref{it_burnable}_oil
 @tab @image{images/it_cherry, 12mm} @tab @yref{it_cherry}
-@tab @image{images/it_coffee, 12mm} @tab @yref{it_coffee}_drop
-@item @image{images/it_coffee_teatime, 12mm} @tab @yref{it_coffee}_teatime
-@item @image{images/it_coin_s, 12mm} @tab @yref{it_coin}_s
-@tab @image{images/it_coin_m, 12mm} @tab @yref{it_coin}_m
+@item @image{images/it_coffee, 12mm} @tab @yref{it_coffee}_drop
+@tab @image{images/it_coffee_teatime, 12mm} @tab @yref{it_coffee}_teatime
+@tab @image{images/it_coin_s, 12mm} @tab @yref{it_coin}_s
+@item @image{images/it_coin_m, 12mm} @tab @yref{it_coin}_m
 @tab @image{images/it_coin_l, 12mm} @tab @yref{it_coin}_l
-@item @image{images/it_crack_abyss, 12mm} @tab @yref{it_crack}_abyss
-@tab @image{images/it_crack_water, 12mm} @tab @yref{it_crack}_water
+@tab @image{images/it_crack_abyss, 12mm} @tab @yref{it_crack}_abyss
+@item @image{images/it_crack_water, 12mm} @tab @yref{it_crack}_water
 @tab @image{images/it_cross, 12mm} @tab @yref{it_cross}
-@item @image{images/it_death, 12mm} @tab @yref{it_death}
-@tab @image{images/it_document, 12mm} @tab @yref{it_document}
+@tab @image{images/it_death, 12mm} @tab @yref{it_death}
+@item @image{images/it_document, 12mm} @tab @yref{it_document}
 @tab @image{images/it_drop, 12mm} @tab @yref{it_drop}
-@item @image{images/it_dynamite, 12mm} @tab @yref{it_dynamite}
-@tab @image{images/it_explosion, 12mm} @tab @yref{it_explosion}
+@tab @image{images/it_dynamite, 12mm} @tab @yref{it_dynamite}
+@item @image{images/it_explosion, 12mm} @tab @yref{it_explosion}
 @tab @image{images/it_extinguisher, 12mm} @tab @yref{it_extinguisher}
-@item @image{images/it_extralife, 12mm} @tab @yref{it_extralife}
-@tab @image{images/it_flag_black, 12mm} @tab @yref{it_flag}_black
+@tab @image{images/it_extralife, 12mm} @tab @yref{it_extralife}
+@item @image{images/it_flag_black, 12mm} @tab @yref{it_flag}_black
 @tab @image{images/it_flag_white, 12mm} @tab @yref{it_flag}_white
-@item @image{images/it_floppy, 12mm} @tab @yref{it_floppy}
-@tab @image{images/it_glasses, 12mm} @tab @yref{it_glasses}
+@tab @image{images/it_floppy, 12mm} @tab @yref{it_floppy}
+@item @image{images/it_glasses, 12mm} @tab @yref{it_glasses}
 @tab @image{images/it_glasses_broken, 12mm} @tab @yref{it_glasses}_broken
-@item @image{images/it_hammer, 12mm} @tab @yref{it_hammer}
-@tab @image{images/it_key, 12mm} @tab @yref{it_key}
+@tab @image{images/it_hammer, 12mm} @tab @yref{it_hammer}
+@item @image{images/it_key, 12mm} @tab @yref{it_key}
 @tab @image{images/it_landmine, 12mm} @tab @yref{it_landmine}
-@item @image{images/it_laser, 12mm} @tab @yref{it_laserbeam}
-@tab @image{images/it_magicwand, 12mm} @tab @yref{it_magicwand}
+@tab @image{images/it_laser, 12mm} @tab @yref{it_laserbeam}
+@item @image{images/it_magicwand, 12mm} @tab @yref{it_magicwand}
 @tab @image{images/it_magnet_off, 12mm} @tab @yref{it_magnet}
-@item @image{images/it_meditation_bump, 12mm} @tab @yref{it_meditation}_bump
-@tab @image{images/it_meditation_caldera, 12mm} @tab @yref{it_meditation}_caldera
+@tab @image{images/it_meditation_bump, 12mm} @tab @yref{it_meditation}_bump
+@item @image{images/it_meditation_caldera, 12mm} @tab @yref{it_meditation}_caldera
 @tab @image{images/it_meditation_dent, 12mm} @tab @yref{it_meditation}_dent
-@item @image{images/it_meditation_hill, 12mm} @tab @yref{it_meditation}_hill
-@tab @image{images/it_meditation_hollow, 12mm} @tab @yref{it_meditation}_hollow
+@tab @image{images/it_meditation_hill, 12mm} @tab @yref{it_meditation}_hill
+@item @image{images/it_meditation_hollow, 12mm} @tab @yref{it_meditation}_hollow
 @tab @image{images/it_meditation_volcano, 12mm} @tab @yref{it_meditation}_volcano
-@item @image{images/it_pencil, 12mm} @tab @yref{it_pencil}
-@tab @image{images/it_pin, 12mm} @tab @yref{it_pin}
+@tab @image{images/it_pencil, 12mm} @tab @yref{it_pencil}
+@item @image{images/it_pin, 12mm} @tab @yref{it_pin}
 @tab @image{images/it_pipe_e, 12mm} @tab @yref{it_pipe}
-@item @image{images/it_puller, 12mm} @tab @yref{it_puller}
-@tab @image{images/it_ring, 12mm} @tab @yref{it_ring}
+@tab @image{images/it_puller, 12mm} @tab @yref{it_puller}
+@item @image{images/it_ring, 12mm} @tab @yref{it_ring}
 @tab @image{images/it_rubberband, 12mm} @tab @yref{it_rubberband}
-@item @image{images/it_seed, 12mm} @tab @yref{it_seed}
-@tab @image{images/it_sensor, 12mm} @tab @yref{it_sensor}
+@tab @image{images/it_seed, 12mm} @tab @yref{it_seed}
+@item @image{images/it_sensor, 12mm} @tab @yref{it_sensor}
 @tab @image{images/it_sensor_exit, 12mm} @tab @yref{it_sensor}_exit
-@item @image{images/it_shogun_m, 12mm} @tab @yref{it_shogun}
-@tab @image{images/it_spade, 12mm} @tab @yref{it_spade}
+@tab @image{images/it_shogun_m, 12mm} @tab @yref{it_shogun}
+@item @image{images/it_spade, 12mm} @tab @yref{it_spade}
 @tab @image{images/it_spoon, 12mm} @tab @yref{it_spoon}
-@item @image{images/it_springboard, 12mm} @tab @yref{it_springboard}
-@tab @image{images/it_spring_2, 12mm} @tab @yref{it_spring}_drop
+@tab @image{images/it_springboard, 12mm} @tab @yref{it_springboard}
+@item @image{images/it_spring_2, 12mm} @tab @yref{it_spring}_drop
 @tab @image{images/it_spring, 12mm} @tab @yref{it_spring}_keep
-@item @image{images/it_squashed, 12mm} @tab @yref{it_squashed}
-@tab @image{images/it_strip_b2, 12mm} @tab @yref{it_strip}_ew
+@tab @image{images/it_squashed, 12mm} @tab @yref{it_squashed}
+@item @image{images/it_strip_b2, 12mm} @tab @yref{it_strip}_ew
 @tab @image{images/it_surprise, 12mm} @tab @yref{it_surprise}
-@item @image{images/it_sword, 12mm} @tab @yref{it_sword}
-@tab @image{images/it_trap, 12mm} @tab @yref{it_trap}
+@tab @image{images/it_sword, 12mm} @tab @yref{it_sword}
+@item @image{images/it_trap, 12mm} @tab @yref{it_trap}
 @tab @image{images/it_trigger, 12mm} @tab @yref{it_trigger}
-@item @image{images/it_umbrella, 12mm} @tab @yref{it_umbrella}
-@tab @image{images/it_vortex, 12mm} @tab @yref{it_vortex}
+@tab @image{images/it_umbrella, 12mm} @tab @yref{it_umbrella}
+@item @image{images/it_vortex, 12mm} @tab @yref{it_vortex}
 @tab @image{images/it_weight, 12mm} @tab @yref{it_weight}
-@item @image{images/it_wormhole, 12mm} @tab @yref{it_wormhole}
-@tab @image{images/it_wrench, 12mm} @tab @yref{it_wrench}
+@tab @image{images/it_wormhole, 12mm} @tab @yref{it_wormhole}
+@item @image{images/it_wrench, 12mm} @tab @yref{it_wrench}
 @tab @image{images/it_yinyang, 12mm} @tab @yref{it_yinyang}
 @end multitable
 
@@ -12069,6 +12070,7 @@ by an actor hitting a variant of @ref{st_dispenser}.
 @section Liftable Items
 
 @menu
+* it_axe::             Axe to destroy Wooden Boxes
 * it_bag::             Portable Item Container
 * it_banana::          Transformable Banana
 * it_bottle::          Bottle of Booze
@@ -12105,6 +12107,30 @@ by an actor hitting a variant of @ref{st_dispenser}.
 * it_wrench::          Tool for mechanical Stones
 * it_yinyang::         Player toggling Switch
 @end menu
+
+@c ----------------- Axe Item --------------------
+@node it_axe
+@subsection it_axe
+@obindex it_axe
+
+An axe can be used to destroy wooden @ref{st_box}. It is consumed by this action;
+however, you can use the @code{selection}-attribute of @code{st_box_wood} to
+create a new @code{it_axe}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @image{images/it_axe, 12mm} @b{it_axe} An axe item.
+@end table
+
+@end table
 
 @c ----------------- Bag Item --------------------
 @node it_bag
@@ -15915,6 +15941,35 @@ when being pushed over it, a @code{"hay"} flavored box does not ignite bombs.
 According to their flavor @code{"wood"} and @code{"hay"} will burn on fire.
 But @code{"rock"} flavored boxes are fire resistant and fire blocking.
 
+The @code{"wood"} flavor can be destroyed by using an @ref{it_axe} on it. It
+will then fall apart and (similar to @ref{st_ice}) cover its and the
+neighboring four floor tiles with framed @ref{fl_wood}.
+The following items will be destroyed if they are on one of these five
+tiles: @ref{it_meditation} flavors @code{"hollow"}, @code{"dent"},
+@code{"caldera"}; @ref{it_crack}; and @ref{it_burnable} flavor @code{"ash"}.
+@ref{fl_abyss} will not be covered.
+
+When @code{st_box_wood} is opened with an axe, its content is revealed.
+The item inside the box is a random one out of a given selection. You can set
+the @samp{selection} attribute with tokens of strings, similar to
+@ref{st_surprise} and @ref{st_oxyd}. Every string needs either
+to be an item kind or a tile key prefixed by an equal sign @samp{=}.
+
+@example
+ti["i"] = @{"st_ice"@}
+ti["k"] = @{"it_key", code=4@}
+ti["b"] = @{"st_box_wood", selection=@{"it_banana", "=i", "=k", "=k"@}@}
+@end example
+
+The content is randomly chosen out of the given selection the moment
+@ref{it_axe} is used. By listing
+an entry several times you can take influence on the likelihood.
+
+The tile declarations referenced by a key may even contain objects besides
+items. However, to keep the behavior consistent, please refrain from creating
+floors or unmovable stones this way. In contrast to @ref{st_surprise}, the identity
+of the box is not transferred to any of its content, even when it is a stone as well.
+
 @table @asis
 @item @b{Attributes:}
 
@@ -15923,6 +15978,7 @@ But @code{"rock"} flavored boxes are fire resistant and fire blocking.
 @item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 This attribute is inherited to a floor build by a falling box and guarantees
 then secure fire burning.
+@item @b{selection}, @ @ @i{values}: tokens of stone kinds and tile keys; @ @ @i{default}: @code{@{"st_grate_cross", "st_death", "st_surprise", "st_lightglass_hollow", "st_knight", "st_thief", "st_flat_breakable", "st_flat_breaking"@}}
 @end table
 
 @item @b{Messages:} none
@@ -17037,7 +17093,11 @@ pass it (@pxref{Transparent Stones}).
 Ice blocks shatter on nearby @ref{it_bomb} and @ref{it_dynamite} explosions and
 on @ref{ot_cannonball} hits. The ice will spread to the four direct neighboring
 grid positions and will cover these and the originating position with
-@ref{fl_ice}. Just @ref{fl_abyss} will not be covered by this ice floor and
+@ref{fl_ice}.
+The following items will be destroyed if they are on one of these five
+tiles: @ref{it_meditation} flavors @code{"hollow"}, @code{"dent"},
+@code{"caldera"}; @ref{it_crack}; and @ref{it_burnable} flavor @code{"ash"}.
+Just @ref{fl_abyss} will not be covered by this ice floor and
 remains unchanged. Thus an exploding bomb leaves an @ref{fl_abyss} at its
 position, even when an ice blocks shatters nearby.
 

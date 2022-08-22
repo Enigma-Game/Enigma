@@ -45,6 +45,7 @@ SIMPLEPNG = \
 	fl_wood_framed.png fl_wood_framed_2.png \
 	fl_yinyang_yang.png \
 	fl_yinyang_yin.png \
+	it_axe.png \
 	it_bag.png \
 	it_banana.png \
 	it_bomb.png it_bomb_b.png \
