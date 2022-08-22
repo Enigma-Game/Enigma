@@ -28,6 +28,7 @@ enum ItemID {
     it_none = 0,
     it_1pkillstone,
     it_2pkillstone,
+    it_axe,
     it_bag,
     it_banana,
     it_bomb,

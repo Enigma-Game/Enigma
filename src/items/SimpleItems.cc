@@ -28,6 +28,14 @@
 
 namespace enigma {
 
+/* -------------------- Axe -------------------- */
+
+    Axe::Axe() {
+    }
+
+    DEF_ITEMTRAITSF(Axe, "it_axe", it_axe, itf_portable | itf_freezable);
+
+
 /* -------------------- Banana -------------------- */
 
     Banana::Banana() {
@@ -556,6 +564,7 @@ namespace enigma {
 
 
     BOOT_REGISTER_START
+        BootRegister(new Axe(), "it_axe");
         BootRegister(new Banana(), "it_banana");
         BootRegister(new Brush(), "it_brush");
         BootRegister(new Cherry(), "it_cherry");

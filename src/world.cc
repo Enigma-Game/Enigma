@@ -2126,6 +2126,17 @@ void SetFloor(GridPos p, Floor *fl) {
             st->on_floor_change();
 }
 
+void CoverFloor(const GridPos &p, std::string kind) {
+    Floor *fl = GetFloor(p);
+    Item *it = GetItem(p);
+    if (fl == NULL || !fl->isKind("fl_abyss"))
+        SetFloor(p, MakeFloor(kind.c_str()));
+    if (it != NULL && (it->isKind("it_meditation_hollow") || it->isKind("it_meditation_dent")
+            || it->isKind("it_meditation_caldera") || it->isKind("it_crack")
+            || it->isKind("it_burnable_ash")))
+        KillItem(p);
+}
+
 /* -------------------- Stone manipulation -------------------- */
 
 Stone *GetStone(GridPos p) {

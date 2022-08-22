@@ -294,6 +294,7 @@ void KillItem(GridPos p);
 void SetFloor(GridPos p, Floor *st);
 Floor *GetFloor(GridPos p);
 void KillFloor(GridPos p);
+void CoverFloor(const GridPos &p, std::string kind);
 
 /* -------------------- Explosions -------------------- */
 

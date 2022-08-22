@@ -34,16 +34,17 @@ namespace enigma {
     private:
         enum iState {
             IDLE,       ///< standard movable stone
+            BREAKING,   ///< breaking by it_axe
             GROWING,    ///< a stone growing from a seed
             FALLING,    ///< a stone moved into water or abyss and marked to fall on floor change notification
             FALLEN      ///< a stone that is fallen on floor change notification and is vanishing
         };
-        
+
         enum ObjectPrivatFlagsBits {
             OBJBIT_BLOCKFIRE =   1<<24,   ///< stone blocks fire on moves and floor changes beneath
             OBJBIT_SUBTYP    =   7<<25,   ///< the BoxStoneTyp
         };
-        
+
         enum BoxStoneTyp {
             WOOD = 0,
             WOOD1,
@@ -53,31 +54,32 @@ namespace enigma {
         };
     public:
         BoxStone(int subtyp, int initState = IDLE);
-        
+
         // Object interface
         virtual BoxStone* clone();
         virtual void dispose();
         virtual std::string getClass() const;
         virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
-        
+
         // StateObject interface
         virtual void setState(int extState);
-        
+
         // GridObject interface
         virtual void init_model();
-        
+
         // ModelCallback interface
         virtual void animcb();
-        
+
         // Stone interface
         virtual bool allowsSpreading(Direction dir, bool isFlood = false) const;
         virtual void actor_hit(const StoneContact &sc);
         virtual void actor_inside(Actor *a);
         virtual void actor_contact(Actor *a);
+        virtual void doBreak();
         virtual bool on_move(const GridPos &origin);
         virtual void on_floor_change();
-    
+
     private:
         // Private methods.
         void maybe_fall_or_stopfire(bool onMove = false, bool onFloorChange = false);

@@ -896,6 +896,7 @@
       <attr name="freezable"/>
       <msg name="_freeze"/>
     </object>
+    <object name="it_axe"/>
     <object name="it_bag">
       <attr name="mass" default="0.0" rw="r"/>
     </object>
@@ -1500,6 +1501,7 @@
     <object name="st_box">
       <attr name="flavor" default="wood" rw="r"/>
       <attr name="secure"/>
+      <attr name="selection"/>
       <msg name="heat"/>
       <msg name="_fall"/>
       <msg name="_fire"/>

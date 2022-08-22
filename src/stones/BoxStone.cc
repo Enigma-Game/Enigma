@@ -19,7 +19,10 @@
 
 #include "stones/BoxStone.hh"
 #include "errors.hh"
-//#include "main.hh"
+#include "Inventory.hh"
+#include "player.hh"
+#include "main.hh"
+#include "lua.hh"
 
 namespace enigma {
     BoxStone::BoxStone(int subtyp, int initState) : Stone() {
@@ -92,12 +95,16 @@ namespace enigma {
             case WOOD1:
                 if (state == GROWING)
                     set_anim("st_box_wood_growing");
+                else if (state == BREAKING)
+                    set_anim("st_box_wood1_breaking");
                 else
                     set_model("st_box_wood1");
                 break;
             case WOOD2:
                 if (state == GROWING)
                     set_anim("st_box_wood_growing");
+                else if (state == BREAKING)
+                    set_anim("st_box_wood2_breaking");
                 else
                     set_model("st_box_wood2");
                 break;
@@ -113,9 +120,38 @@ namespace enigma {
     }
     
     void BoxStone::animcb() {
-        state = IDLE;
-        init_model();
-        maybe_fall_or_stopfire(); // instantly builds a bridge on fl_swamp etc
+        if (state == BREAKING) {
+            enigma::GridPos pos = get_pos();
+            CoverFloor(pos, "fl_wood_framed");
+            CoverFloor(move(pos, NORTH), "fl_wood_framed");
+            CoverFloor(move(pos, EAST), "fl_wood_framed");
+            CoverFloor(move(pos, SOUTH), "fl_wood_framed");
+            CoverFloor(move(pos, WEST), "fl_wood_framed");
+            TokenList tl = getAttr("selection");
+            if (tl.size() > 0) {
+                // First decide which tile to set.
+                int idx = enigma::IntegerRand(1, tl.size()) - 1;
+                TokenList::iterator itr = tl.begin();
+                for (int i = 0; i < idx; i++, ++itr);
+                std::string name = (*itr).to_string();
+                // Now kill the box.
+                KillStone(get_pos());
+                // Set the new tile or item. An earlier item might be overwritten.
+                if (name.find('=') == 0) {
+                    if (lua::CallFunc(lua::LevelState(), "enigma.settile", name.substr(1), GetFloor(pos))) {
+                        throw XLevelRuntime(std::string("box set tile failed:\n")+lua::LastError(lua::LevelState()));
+                    }
+                } else {
+                    SetItem(pos, MakeItem(name.c_str()));
+                }
+            } else {
+                KillStone(get_pos());
+            }
+        } else {
+            state = IDLE;
+            init_model();
+            maybe_fall_or_stopfire(); // instantly builds a bridge on fl_swamp etc
+        }
     }
 
     bool BoxStone::allowsSpreading(Direction dir, bool isFlood) const {
@@ -125,8 +161,19 @@ namespace enigma {
     void BoxStone::actor_hit(const StoneContact &sc) {
         if (state == GROWING)
             SendMessage(sc.actor, "_shatter");
-        else
-            Stone::actor_hit(sc);
+        else if (state == IDLE) {
+            BoxStoneTyp typ = (BoxStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 25);
+            if (   ((typ == WOOD) || (typ == WOOD1) || (typ == WOOD2))
+                && player::WieldedItemIs(sc.actor, "it_axe")) {
+                enigma::Inventory *inv = player::GetInventory(sc.actor);
+                if (inv && inv->size() > 0) {
+                    delete inv->yield_item(0);
+                    player::RedrawInventory(inv);
+                    doBreak();
+                }
+            } else
+                Stone::actor_hit(sc);
+        }
     }
     
     void BoxStone::actor_inside(Actor *a) {
@@ -139,6 +186,14 @@ namespace enigma {
             SendMessage(a, "_shatter");
     }
     
+    void BoxStone::doBreak() {
+        if (state == IDLE) {
+            state = BREAKING;
+            sound_event("stonedestroy");
+            init_model();
+        }
+    }
+
     bool BoxStone::on_move(const GridPos &origin) {
         // in oxyd1 only fall when moving
         Stone::on_move(origin);

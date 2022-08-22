@@ -25,6 +25,17 @@
 
 namespace enigma {
     /**
+     * Axe
+     */
+    class Axe : public Item {
+        CLONEOBJ(Axe);
+        DECL_ITEMTRAITS;
+
+    public:
+        Axe();
+    };
+
+    /**
      * Banana
      */
     class Banana : public Item {

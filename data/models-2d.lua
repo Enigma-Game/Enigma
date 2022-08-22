@@ -611,11 +611,12 @@ end
 --------------------------------------------------------------------------------
 Progress(25, "Loading item models")
 ------------------------------------------------------
--- Single-Image-Items, non animated, e.g. it-banana --
+-- Single-Image-Items, non animated, e.g. it_banana --
 ------------------------------------------------------
 
 do
     itemlist = {
+        "it_axe",
         "it_bag",
         "it_banana",
         "it_bottle_idle",
@@ -1517,6 +1518,12 @@ do
         DefAnim("st_box_wood_growing_fg", BuildFrames(images, 130))
         DefAnim("st_box_wood_growing_bg", BuildFrames(shadows, 130))
         DefShModel("st_box_wood_growing", "st_box_wood_growing_fg", "st_box_wood_growing_bg")
+
+        local n=DefSubimages("st_box_breaking", {h=4, w=2})
+        DefAnim("st_box_wood1_breaking-fg", BuildFrames({n[1],n[2],n[3],n[4]},100))
+        DefRoundStone("st_box_wood1_breaking", "st_box_wood1_breaking-fg")
+        DefAnim("st_box_wood2_breaking-fg", BuildFrames({n[5],n[6],n[7],n[8]},100))
+        DefRoundStone("st_box_wood2_breaking", "st_box_wood2_breaking-fg")
     end
 
     -- Greenbrown stone --
