@@ -2,17 +2,19 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="All Items as of Enigma 1.20" el:subtitle="" el:id="items"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="experimental"/>
-      <el:author el:name="Raoul Bourquin" el:email=""/>
-      <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
+      <el:identity el:title="All Items as of Enigma 1.31" el:subtitle="" el:id="items"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="experimental"/>
+      <el:author el:name="Raoul Bourquin, Andreas Lochmann" el:email=""/>
+      <el:copyright>Copyright © 2009 Raoul Bourquin, 2022 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10"/>
+      <el:compatibility el:enigma="1.31"/>
       <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
 local items = {
+
+{"it_axe", _text="it_axe"},
 
 {"it_bag", _text="it_bag"},
 
@@ -43,7 +45,9 @@ local items = {
 
 {"it_cherry", _text="it_cherry"},
 
-{"it_coffee", _text="it_coffee"},
+{"it_coffee", _text="it_coffee, default"},
+{"it_coffee_drop", _text="it_coffee_drop"},
+{"it_coffee_teatime", _text="it_coffee_teatime"},
 
 {"it_coin", _text="it_coin, default"},
 {"it_coin_s", _text="it_coin_s"},
@@ -223,12 +227,17 @@ ti["#"] = {"st_rawglass"}
 ti["S"] = {"st_switch", target="set_item"}
 ti["x"] = {"st_brake", name="here"}
 ti["@"] = {"#ac_marble_black"}
+ti["I"] = {"st_ice"}
+ti["B"] = {"st_box", selection = {"=I"}}
 
 wo(ti, " ", 12+#items, 13)
 wo:drawBorder(po(0, 0), wo["Width"], wo["Height"], ti["#"])
 wo[{1,1}] = {"#ac_marble_black"}
 wo[{1,2}] = {"#ac_marble_white"}
 wo[{1,3}] = ti["x"]
+wo[{3,9}] = ti["B"]
+wo[{4,9}] = ti["B"]
+wo[{5,9}] = ti["B"]
 
 for i=1, #items do
     wo[po(5+i, 1)] = ti["S"]
