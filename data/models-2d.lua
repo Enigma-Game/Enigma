@@ -673,6 +673,7 @@ end
 
 -- necessary for barrier stone
 DefAlias("it_bottle", "it_bottle_idle")
+DefAlias("it_coffee", "it_coffee_drop")
 
 --------------------------------------------------------------
 -- Multiple-Image-Items, non animated, e.g. it-burnable-oil --
@@ -2096,9 +2097,10 @@ end
 
 -- Barrier stone --
 do
-    local items = {"it_bag", "it_banana", "it_bottle", "it_brake",
-                   "it_brush", "it_cherry", "it_coffee", "it_coin", "it_coin_s", "it_coin_m",
-                   "it_coin_l", "it_document", "it_drop", "it_dynamite", "it_extinguisher",
+    local items = {"it_axe", "it_bag", "it_banana", "it_bottle", "it_brake",
+                   "it_brush", "it_cherry", "it_coffee", "it_coffee_drop", "it_coffee_teatime",
+                   "it_coin", "it_coin_s", "it_coin_m", "it_coin_l",
+                   "it_document", "it_drop", "it_dynamite", "it_extinguisher",
                    "it_extinguisher_empty", "it_extinguisher_full", "it_extinguisher_medium",
                    "it_extralife", "it_flag", "it_flag_black", "it_flag_white",
                    "it_floppy", "it_glasses", "it_glasses_broken", "it_hammer", "it_key",
