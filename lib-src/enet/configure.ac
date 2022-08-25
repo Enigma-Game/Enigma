@@ -1,4 +1,4 @@
-AC_INIT([libenet], [1.0])
+AC_INIT([libenet],[1.0])
 AC_CONFIG_SRCDIR([callbacks.c])
 AM_INIT_AUTOMAKE
 
@@ -22,4 +22,5 @@ AC_CHECK_TYPE(socklen_t, [AC_DEFINE(HAS_SOCKLEN_T)], ,
 AC_EGREP_HEADER(MSG_MAXIOVLEN, /usr/include/sys/socket.h, AC_DEFINE(ENET_BUFFER_MAXIMUM, [MSG_MAXIOVLEN]))
 AC_EGREP_HEADER(MSG_MAXIOVLEN, socket.h, AC_DEFINE(ENET_BUFFER_MAXIMUM, [MSG_MAXIOVLEN]))
 
-AC_OUTPUT([Makefile include/Makefile include/enet/Makefile])
+AC_CONFIG_FILES([Makefile include/Makefile include/enet/Makefile])
+AC_OUTPUT

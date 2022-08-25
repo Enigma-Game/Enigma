@@ -1,6 +1,6 @@
 # Process this file with autoconf to produce a configure script.
-AC_INIT([enigma], [1.30], [enigma-devel@nongnu.org])
-AC_PREREQ(2.59)
+AC_INIT([enigma],[1.30],[enigma-devel@nongnu.org])
+AC_PREREQ([2.71])
 AC_CANONICAL_BUILD
 AC_CANONICAL_TARGET
 AC_CONFIG_SRCDIR([src/enigma.cc])
@@ -8,7 +8,7 @@ AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS([src/config.h])
-AC_GNU_SOURCE
+AC_USE_SYSTEM_EXTENSIONS
 
 ALL_LINGUAS="be bs cs da de el es fi fr gd hr hu it ja nl no pl pt ru sk sl sv uk zh"
 AC_SUBST(ALL_LINGUAS)
