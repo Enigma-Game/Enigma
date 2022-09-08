@@ -34,10 +34,10 @@ namespace enigma {
     private:
         enum iState {
             IDLE,       ///< standard movable stone
-            BREAKING,   ///< breaking by it_axe
             GROWING,    ///< a stone growing from a seed
             FALLING,    ///< a stone moved into water or abyss and marked to fall on floor change notification
-            FALLEN      ///< a stone that is fallen on floor change notification and is vanishing
+            FALLEN,     ///< a stone that is fallen on floor change notification and is vanishing
+            BREAKING    ///< breaking by it_axe
         };
 
         enum ObjectPrivatFlagsBits {
