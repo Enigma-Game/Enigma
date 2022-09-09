@@ -132,7 +132,7 @@ ecl::Surface *LevelPreviewCache::newPreview(lev::Proxy *levelProxy,
         SDL_Rect r;
         sdl::copy_rect(r, vminfo.gamearea);
         surface = MakeSurface(thumbinfo.width, thumbinfo.height);
-        BlitScaled(video_engine->BackBuffer()->get_surface(), &r, surface->get_surface(), NULL, SC_SDL);
+        BlitScaled(video_engine->BackBuffer()->get_surface(), &r, surface->get_surface(), NULL);
     }
     return surface;
 }

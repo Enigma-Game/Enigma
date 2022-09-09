@@ -326,7 +326,7 @@ void Surface::set_brightness(int a) {
 
 Surface *Surface::zoom(int w, int h) {
     Surface *s_new = MakeSurface(w, h);
-    BlitScaled(get_surface(), NULL, s_new->get_surface(), NULL, SC_bytewise);
+    BlitScaled(get_surface(), NULL, s_new->get_surface(), NULL);
     return s_new;
 }
 
@@ -365,7 +365,7 @@ ecl::Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
     assert(m_surface);
     assert(m_instance == 0);
     m_instance = this;
-    m_scaler = new ecl::Scaler(m_surface->get_surface(), SDL_GetWindowSurface(m_window), SC_bytewise);
+    m_scaler = new ecl::Scaler(m_surface->get_surface(), NULL, SDL_GetWindowSurface(m_window));
 }
 
 ecl::Screen::~Screen() {
@@ -415,7 +415,7 @@ void ecl::Screen::flush_updates() {
 }
 
 void ecl::Screen::reinitScaler() {
-    m_scaler->precalculate(m_surface->get_surface(), SDL_GetWindowSurface(m_window));
+    m_scaler->precalculate(m_surface->get_surface(), NULL, SDL_GetWindowSurface(m_window));
 }
 
 Rect ecl::Screen::size() const {
@@ -446,13 +446,13 @@ int ecl::Screen::window_height() const {
 
 // Code originally by Andreas Schiffler (SDL2_rotozoom), heavily adapted to our use case.
 
-Scaler::Scaler(SDL_Surface* _src, SDL_Surface* _dst, ScalerMode _mode) {
+Scaler::Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, ScalerMode _mode) {
     assert(_src);
     assert(_dst);
     mode = _mode;
     sax = NULL;
     say = NULL;
-    precalculate(_src, _dst);
+    precalculate(_src, _srccrop, _dst);
 }
 
 Scaler::~Scaler() {
@@ -460,14 +460,18 @@ Scaler::~Scaler() {
     free(say);
 }
 
-void Scaler::precalculate(SDL_Surface* src, SDL_Surface* dst) {
+void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst) {
     // Free prior allocations.
     free(sax);
     free(say);
     sax = NULL;
     say = NULL;
 
-    // TODO: Change mode if src/dst are not 32bit depth.
+    // Change mode if src/dst are not 32bit depth.
+    if ((src->format->BytesPerPixel != 4) || (dst->format->BytesPerPixel != 4)) {
+        mode = SC_SDL;
+        return;
+    }
 
     // Allocate memory for row/column increments
     if ((sax = (int *) malloc((dst->w + 1) * sizeof(Uint32))) == NULL) {
@@ -483,18 +487,36 @@ void Scaler::precalculate(SDL_Surface* src, SDL_Surface* dst) {
         return;
     }
 
+    int x, y, sx, sy, ssx, ssy, csx, csy;
+    int cropx, cropy, cropw, croph;
+    int *csax, *csay;
+
+    if (srccrop) {
+        cropx = Clamp(srccrop->x, 0, src->w);
+        cropy = Clamp(srccrop->y, 0, src->h);
+        cropw = Clamp(srccrop->w, 0, src->w - cropx);
+        croph = Clamp(srccrop->h, 0, src->h - cropy);
+    } else {
+        cropx = 0;
+        cropy = 0;
+        cropw = src->w;
+        croph = src->h;
+    }
+
     // Precalculate row increments
-    spixelw = (src->w - 1);
-    spixelh = (src->h - 1);
+    spixelw = (cropw - 1);
+    spixelh = (croph - 1);
+    spixelgap = src->pitch/4;
+    dgap = dst->pitch - dst->w * 4;
     sx = (int) (65536.0 * (float) spixelw / (float) (dst->w - 1));
     sy = (int) (65536.0 * (float) spixelh / (float) (dst->h - 1));
 
     // Maximum scaled source size
-    ssx = (src->w << 16) - 1;
-    ssy = (src->h << 16) - 1;
+    ssx = (cropw << 16) - 1;
+    ssy = (croph << 16) - 1;
 
     // Precalculate horizontal row increments
-    csx = 0;
+    csx = cropx;
     csax = sax;
     for (x = 0; x <= dst->w; x++) {
         *csax = csx;
@@ -506,7 +528,7 @@ void Scaler::precalculate(SDL_Surface* src, SDL_Surface* dst) {
     }
 
     // Precalculate vertical row increments
-    csy = 0;
+    csy = cropy * spixelgap;
     csay = say;
     for (y = 0; y <= dst->h; y++) {
         *csay = csy;
@@ -516,9 +538,6 @@ void Scaler::precalculate(SDL_Surface* src, SDL_Surface* dst) {
         if (csy > ssy)
             csy = ssy;
     }
-
-    dgap = dst->pitch - dst->w * 4;
-    spixelgap = src->pitch/4;
 }
 
 void Scaler::blit_scaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect) {
@@ -527,7 +546,7 @@ void Scaler::blit_scaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, 
         return;
     }
 
-    // TODO: Care for srcrect!
+    // Note: srcrect is ignored in SC_bytewise mode.
 
     typedef struct tColorRGBA {
         Uint8 r;
@@ -536,7 +555,9 @@ void Scaler::blit_scaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, 
         Uint8 a;
     } tColorRGBA;
 
-    int dstrx, dstry, dstrw, dstrh;
+    int dstrx, dstry, dstrw, dstrh, x, y, ex, ey, cx, cy, t1, t2;
+    int *csax, *csay, *salast;
+    int sstep, sstepx, sstepy;
     tColorRGBA *c00, *c01, *c10, *c11, *sp, *csp, *dp;
 
     if ((sax == NULL) || (say == NULL)) {
@@ -718,6 +739,6 @@ Surface *ecl::MakeSurface(void *data, int w, int h, int bipp, int pitch, const R
 }
 
 void ecl::BlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect, ScalerMode mode) {
-    Scaler* scaler = new Scaler(src, dst, mode);
+    Scaler* scaler = new Scaler(src, srcrect, dst, mode);
     scaler->blit_scaled(src, srcrect, dst, dstrect);
 }

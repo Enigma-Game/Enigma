@@ -60,6 +60,15 @@ typedef Uint32 PackedColor;
    video blits. blit_scaled ignores the srcrect argument
    in this mode, and it is restricted to 32 bit depth.
    Use SC_SDL for all other use cases.
+
+   Mode SC_bytewise:
+   Imagine how the area srccrop within the surface src is
+   mapped to the whole of dst. When blit_scaled is called,
+   a rectangle in dst is filled with the scaled version of
+   the corresponding rectangle in src. In contrast to
+   SC_SDL, this is done n a coherent way; i.e. if you use
+   it on two overlapping rectangles, the resulting area
+   in dst will be seamless.
 */
 
 enum ScalerMode {
@@ -69,17 +78,18 @@ enum ScalerMode {
 
 class Scaler {
 public:
-    Scaler(SDL_Surface* _src, SDL_Surface* _dst, ScalerMode _mode);
+    Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, ScalerMode _mode = SC_bytewise);
     ~Scaler();
 
-    void precalculate(SDL_Surface* src, SDL_Surface* dst);
+    void precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst);
     void blit_scaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect);
 
 private:
     ScalerMode mode;
-    int x, y, sx, sy, ssx, ssy, *sax, *say, *csax, *csay, *salast;
-    int csx, csy, ex, ey, cx, cy, sstep, sstepx, sstepy;
-    int spixelgap, spixelw, spixelh, dgap, t1, t2;
+    // Pointers to allocated memory for precalculated increments.
+    int *sax, *say;
+    // Some constants describing aspects of src and dst.
+    int spixelgap, spixelw, spixelh, dgap;
 };
 
 /* -------------------- Graphics State (GS) -------------------- */
@@ -376,7 +386,7 @@ Surface *LoadImage(SDL_RWops *src, int freesrc);
 void TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 // A function for scaled blitting from a portion of src to dst.
-void BlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect, ScalerMode mode);
+void BlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect, ScalerMode mode = SC_bytewise);
 
 
 }  // namespace ecl
