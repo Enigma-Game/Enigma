@@ -14767,110 +14767,111 @@ Switches the wormhole off.
 @tab @image{images/st_document, 12mm} @tab @yref{st_document}
 @item @image{images/st_door_d_ew_g, 12mm} @tab @yref{st_door}_d (ew)
 @tab @image{images/st_door_d_ns_7, 12mm} @tab @yref{st_door}_d (ns)
-@tab @image{images/st_dispenser_bombblack, 12mm} @tab @yref{st_dispenser}_bombblack
-@item @image{images/st_dispenser_bombwhite, 12mm} @tab @yref{st_dispenser}_bombwhite
+@tab @image{images/st_dispenser_axe, 12mm} @tab @yref{st_dispenser}_axe
+@item @image{images/st_dispenser_bombblack, 12mm} @tab @yref{st_dispenser}_bombblack
+@tab @image{images/st_dispenser_bombwhite, 12mm} @tab @yref{st_dispenser}_bombwhite
 @tab @image{images/st_dispenser_dynamite, 12mm} @tab @yref{st_dispenser}_dynamite
-@tab @image{images/st_dispenser_extralife, 12mm} @tab @yref{st_dispenser}_extralife
-@item @image{images/st_oxydc_open, 12mm} @tab @yref{st_fake}_oxydc (open)
+@item @image{images/st_dispenser_extralife, 12mm} @tab @yref{st_dispenser}_extralife
+@tab @image{images/st_oxydc_open, 12mm} @tab @yref{st_fake}_oxydc (open)
 @tab @image{images/st_flash, 12mm} @tab @yref{st_flash}
-@tab @image{images/st_flat, 12mm} @tab @yref{st_flat}
-@item @image{images/st_floppy_off, 12mm} @tab @yref{st_floppy}_off
+@item @image{images/st_flat, 12mm} @tab @yref{st_flat}
+@tab @image{images/st_floppy_off, 12mm} @tab @yref{st_floppy}_off
 @tab @image{images/st_floppy_on, 12mm} @tab @yref{st_floppy}_on
-@tab @image{images/st_fourswitch, 12mm} @tab @yref{st_fourswitch}
-@item @image{images/st_granite, 12mm} @tab @yref{st_granite}
+@item @image{images/st_fourswitch, 12mm} @tab @yref{st_fourswitch}
+@tab @image{images/st_granite, 12mm} @tab @yref{st_granite}
 @tab @image{images/st_grate_cross, 12mm} @tab @yref{st_grate}_cross
-@tab @image{images/st_grate_framed, 12mm} @tab @yref{st_grate}_framed
-@item @image{images/st_greenbrown, 12mm} @tab @yref{st_greenbrown}
+@item @image{images/st_grate_framed, 12mm} @tab @yref{st_grate}_framed
+@tab @image{images/st_greenbrown, 12mm} @tab @yref{st_greenbrown}
 @tab @image{images/st_greengray, 12mm} @tab @yref{st_greengray}
-@tab @image{images/st_ice, 12mm} @tab @yref{st_ice}
-@item                            @tab @yref{st_invisible} or @yref{st_ghost}
+@item @image{images/st_ice, 12mm} @tab @yref{st_ice}
+@tab                            @tab @yref{st_invisible} or @yref{st_ghost}
 @tab @image{images/st_inkwell, 12mm} @tab @yref{st_inkwell}_black
-@tab @image{images/st_inkwell_5, 12mm} @tab @yref{st_inkwell}_empty
-@item @image{images/st_inkwell_9, 12mm} @tab @yref{st_inkwell}_white
+@item @image{images/st_inkwell_5, 12mm} @tab @yref{st_inkwell}_empty
+@tab @image{images/st_inkwell_9, 12mm} @tab @yref{st_inkwell}_white
 @tab @image{images/st_jamb_black, 12mm} @tab @yref{st_jamb}_black
-@tab @image{images/st_jamb_white, 12mm} @tab @yref{st_jamb}_white
-@item @image{images/st_key_off, 12mm} @tab @yref{st_key}_off
+@item @image{images/st_jamb_white, 12mm} @tab @yref{st_jamb}_white
+@tab @image{images/st_key_off, 12mm} @tab @yref{st_key}_off
 @tab @image{images/st_key_on, 12mm} @tab @yref{st_key}_on
-@tab @image{images/st_knight, 12mm} @tab @yref{st_knight}
-@item @image{images/st_laser_d, 12mm} @tab @yref{st_laser}
+@item @image{images/st_knight, 12mm} @tab @yref{st_knight}
+@tab @image{images/st_laser_d, 12mm} @tab @yref{st_laser}
 @tab @image{images/st_lightglass, 12mm} @tab @yref{st_lightglass}
-@tab @image{images/st_lightpassenger, 12mm} @tab @yref{st_lightpassenger}
-@item @image{images/st_mail, 12mm} @tab @yref{st_mail}
+@item @image{images/st_lightpassenger, 12mm} @tab @yref{st_lightpassenger}
+@tab @image{images/st_mail, 12mm} @tab @yref{st_mail}
 @tab @image{images/st_metal, 12mm} @tab @yref{st_metal}
-@tab @image{images/st_mirror_static_2, 12mm} @tab @yref{st_mirror}_triangle
-@item @image{images/st_mirror_static_b2, 12mm} @tab @yref{st_mirror}_triangle
+@item @image{images/st_mirror_static_2, 12mm} @tab @yref{st_mirror}_triangle
+@tab @image{images/st_mirror_static_b2, 12mm} @tab @yref{st_mirror}_triangle
 @tab @image{images/st_mirror_static_c2, 12mm} @tab @yref{st_mirror}_slab
-@tab @image{images/st_mirror_static_d2, 12mm} @tab @yref{st_mirror}_slab
-@item @image{images/st_mirror_static_e2, 12mm} @tab @yref{st_mirror}_sheets
+@item @image{images/st_mirror_static_d2, 12mm} @tab @yref{st_mirror}_slab
+@tab @image{images/st_mirror_static_e2, 12mm} @tab @yref{st_mirror}_sheets
 @tab @image{images/st_monoflop, 12mm} @tab @yref{st_monoflop}
-@tab @image{images/st_monoflop_2, 12mm} @tab @yref{st_monoflop}
-@item @image{images/st_oneway, 12mm} @tab @yref{st_oneway}
+@item @image{images/st_monoflop_2, 12mm} @tab @yref{st_monoflop}
+@tab @image{images/st_oneway, 12mm} @tab @yref{st_oneway}
 @tab @image{images/st_oneway_b, 12mm} @tab @yref{st_oneway}_black
-@tab @image{images/st_oneway_c, 12mm} @tab @yref{st_oneway}_white
-@item @image{images/st_oxyda, 12mm} @tab @yref{st_oxyd}_a
+@item @image{images/st_oneway_c, 12mm} @tab @yref{st_oneway}_white
+@tab @image{images/st_oxyda, 12mm} @tab @yref{st_oxyd}_a
 @tab @image{images/st_oxydb, 12mm} @tab @yref{st_oxyd}_b or @yref{st_quake} @* or @yref{st_laserswitch}
-@tab @image{images/st_oxydc, 12mm} @tab @yref{st_oxyd}_c
-@item @image{images/st_oxydd, 12mm} @tab @yref{st_oxyd}_d
+@item @image{images/st_oxydc, 12mm} @tab @yref{st_oxyd}_c
+@tab @image{images/st_oxydd, 12mm} @tab @yref{st_oxyd}_d
 @tab @image{images/st_oxyde, 12mm} @tab @yref{st_oxyd}_e
-@tab @image{images/st_panel, 12mm} @tab @yref{st_panel}
-@item @image{images/st_passage_black_square, 12mm} @tab @yref{st_passage}_black
+@item @image{images/st_panel, 12mm} @tab @yref{st_panel}
+@tab @image{images/st_passage_black_square, 12mm} @tab @yref{st_passage}_black
 @tab @image{images/st_passage_black_slash, 12mm} @tab @yref{st_passage}_black
-@tab @image{images/st_passage_black_cross, 12mm} @tab @yref{st_passage}_black
-@item @image{images/st_passage_black_frame, 12mm} @tab @yref{st_passage}_black
+@item @image{images/st_passage_black_cross, 12mm} @tab @yref{st_passage}_black
+@tab @image{images/st_passage_black_frame, 12mm} @tab @yref{st_passage}_black
 @tab @image{images/st_passage_black_backslash, 12mm} @tab @yref{st_passage}_black
-@tab @image{images/st_passage_white_square, 12mm} @tab @yref{st_passage}_white
-@item @image{images/st_passage_white_slash, 12mm} @tab @yref{st_passage}_white
+@item @image{images/st_passage_white_square, 12mm} @tab @yref{st_passage}_white
+@tab @image{images/st_passage_white_slash, 12mm} @tab @yref{st_passage}_white
 @tab @image{images/st_passage_white_cross, 12mm} @tab @yref{st_passage}_white
-@tab @image{images/st_passage_white_frame, 12mm} @tab @yref{st_passage}_white
-@item @image{images/st_passage_white_backslash, 12mm} @tab @yref{st_passage}_white
+@item @image{images/st_passage_white_frame, 12mm} @tab @yref{st_passage}_white
+@tab @image{images/st_passage_white_backslash, 12mm} @tab @yref{st_passage}_white
 @tab @image{images/st_pebble, 12mm} @tab @yref{st_pebble}
-@tab @image{images/st_pinkbumps, 12mm} @tab @yref{st_pinkbumps}
-@item @image{images/st_plaster, 12mm} @tab @yref{st_plaster}
+@item @image{images/st_pinkbumps, 12mm} @tab @yref{st_pinkbumps}
+@tab @image{images/st_plaster, 12mm} @tab @yref{st_plaster}
 @tab @image{images/st_plop_slate, 12mm} @tab @yref{st_plop}_slate
-@tab @image{images/st_portal_horse, 12mm} @tab @yref{st_portal}
-@item @image{images/st_pull, 12mm} @tab @yref{st_pull}
+@item @image{images/st_portal_horse, 12mm} @tab @yref{st_portal}
+@tab @image{images/st_pull, 12mm} @tab @yref{st_pull}
 @tab @image{images/st_purplegray, 12mm} @tab @yref{st_purplegray}
-@tab @image{images/st_purplemarble, 12mm} @tab @yref{st_purplemarble}
-@item @image{images/st_puzzle_blue_3, 12mm} @tab @yref{st_puzzle}_blue or @yref{st_turnstilearm}_n
+@item @image{images/st_purplemarble, 12mm} @tab @yref{st_purplemarble}
+@tab @image{images/st_puzzle_blue_3, 12mm} @tab @yref{st_puzzle}_blue or @yref{st_turnstilearm}_n
 @tab @image{images/st_puzzle_blue_d3, 12mm} @tab @yref{st_puzzle}_blue
-@tab @image{images/st_puzzle_blue_hollow_d3, 12mm} @tab @yref{st_puzzle}_blue
-@item @image{images/st_puzzle_yellow_d3, 12mm} @tab @yref{st_puzzle}_yellow
+@item @image{images/st_puzzle_blue_hollow_d3, 12mm} @tab @yref{st_puzzle}_blue
+@tab @image{images/st_puzzle_yellow_d3, 12mm} @tab @yref{st_puzzle}_yellow
 @tab @image{images/st_puzzle_yellow_hollow_d3, 12mm} @tab @yref{st_puzzle}_yellow
-@tab @image{images/st_rawglass, 12mm} @tab @yref{st_rawglass}
-@item @image{images/st_rawglass_quad, 12mm} @tab @yref{st_rawglass}_quad
+@item @image{images/st_rawglass, 12mm} @tab @yref{st_rawglass}
+@tab @image{images/st_rawglass_quad, 12mm} @tab @yref{st_rawglass}_quad
 @tab @image{images/st_redbrown, 12mm} @tab @yref{st_redbrown}
-@tab @image{images/st_redfiber, 12mm} @tab @yref{st_redfiber}
-@item @image{images/st_redmarble, 12mm} @tab @yref{st_redmarble}
+@item @image{images/st_redfiber, 12mm} @tab @yref{st_redfiber}
+@tab @image{images/st_redmarble, 12mm} @tab @yref{st_redmarble}
 @tab @image{images/st_redrock, 12mm} @tab @yref{st_redrock}
-@tab @image{images/st_rotator_ccw, 12mm} @tab @yref{st_rotator}_ccw
-@item @image{images/st_rotator_cw, 12mm} @tab @yref{st_rotator}_cw
+@item @image{images/st_rotator_ccw, 12mm} @tab @yref{st_rotator}_ccw
+@tab @image{images/st_rotator_cw, 12mm} @tab @yref{st_rotator}_cw
 @tab @image{images/st_rubberband, 12mm} @tab @yref{st_rubberband}
-@tab @image{images/st_scissors, 12mm} @tab @yref{st_scissors}
-@item @image{images/st_shogun, 12mm} @tab @yref{st_shogun}_s
+@item @image{images/st_scissors, 12mm} @tab @yref{st_scissors}
+@tab @image{images/st_shogun, 12mm} @tab @yref{st_shogun}_s
 @tab @image{images/st_shogun_2, 12mm} @tab @yref{st_shogun}_m
-@tab @image{images/st_shogun_4, 12mm} @tab @yref{st_shogun}_l
-@item @image{images/st_spitter_idle, 12mm} @tab @yref{st_spitter}
+@item @image{images/st_shogun_4, 12mm} @tab @yref{st_shogun}_l
+@tab @image{images/st_spitter_idle, 12mm} @tab @yref{st_spitter}
 @tab @image{images/st_stoneimpulse, 12mm} @tab @yref{st_stoneimpulse}
-@tab @image{images/st_stoneimpulse_hollow, 12mm} @tab @yref{st_stoneimpulse}_hollow
-@item @image{images/st_surprise, 12mm} @tab @yref{st_surprise}
+@item @image{images/st_stoneimpulse_hollow, 12mm} @tab @yref{st_stoneimpulse}_hollow
+@tab @image{images/st_surprise, 12mm} @tab @yref{st_surprise}
 @tab @image{images/st_swap, 12mm} @tab @yref{st_swap}
-@tab @image{images/st_switch, 12mm} @tab @yref{st_switch}
-@item @image{images/st_switch_black, 12mm} @tab @yref{st_switch}_black
+@item @image{images/st_switch, 12mm} @tab @yref{st_switch}
+@tab @image{images/st_switch_black, 12mm} @tab @yref{st_switch}_black
 @tab @image{images/st_switch_white, 12mm} @tab @yref{st_switch}_white
-@tab @image{images/st_thief, 12mm} @tab @yref{st_thief}
-@item @image{images/st_thief_capture, 12mm} @tab @yref{st_thief}
+@item @image{images/st_thief, 12mm} @tab @yref{st_thief}
+@tab @image{images/st_thief_capture, 12mm} @tab @yref{st_thief}
 @tab @image{images/st_thief_drunken, 12mm} @tab @yref{st_thief}
-@tab @image{images/st_tigris, 12mm} @tab @yref{st_tigris}
-@item @image{images/st_timer_3, 12mm} @tab @yref{st_timer}
+@item @image{images/st_tigris, 12mm} @tab @yref{st_tigris}
+@tab @image{images/st_timer_3, 12mm} @tab @yref{st_timer}
 @tab @image{images/st_timer, 12mm} @tab @yref{st_timer}
-@tab @image{images/st_turnstile, 12mm} @tab @yref{st_turnstile}
-@item @image{images/st_turnstile_green, 12mm} @tab @yref{st_turnstile}_green
+@item @image{images/st_turnstile, 12mm} @tab @yref{st_turnstile}
+@tab @image{images/st_turnstile_green, 12mm} @tab @yref{st_turnstile}_green
 @tab @image{images/st_window_blue_3, 12mm} @tab @yref{st_window}
-@tab @image{images/st_window_green_3, 12mm} @tab @yref{st_window}
-@item @image{images/st_woven, 12mm} @tab @yref{st_woven}
+@item @image{images/st_window_green_3, 12mm} @tab @yref{st_window}
+@tab @image{images/st_woven, 12mm} @tab @yref{st_woven}
 @tab @image{images/st_yellow, 12mm} @tab @yref{st_yellow}
-@tab @image{images/st_yinyang, 12mm} @tab @yref{st_yinyang}
-@item @image{images/st_yinyang_inactive, 12mm} @tab @yref{st_yinyang}_inactive
+@item @image{images/st_yinyang, 12mm} @tab @yref{st_yinyang}
+@tab @image{images/st_yinyang_inactive, 12mm} @tab @yref{st_yinyang}_inactive
 @end multitable
 
 
@@ -16478,8 +16479,9 @@ Darken by degree or switch from @samp{DARK} to @samp{LIGHT}
 An item dispenser in some item flavors.
 
 On every actor hit the dispenser adds a new item given by the attribute
-@samp{flavor}, namely @ref{it_bomb} in color black or white, @ref{it_dynamite}
-or @ref{it_extralife} to the inventory of the actor's owner. Of course an item
+@samp{flavor}, namely @ref{it_axe}, @ref{it_bomb} in color black or white,
+@ref{it_dynamite}, or @ref{it_extralife}
+to the inventory of the actor's owner. Of course an item
 will just be added if the inventory is capable of adding a further item.
 Additionally the dispenser's @samp{stock} must supply a further item. The
 default stock of 1000 items should be enough for usual demands. But you can
@@ -16497,7 +16499,7 @@ beams.
 @item @b{Attributes:}
 
 @table @asis
-@item @b{flavor} @ @ @i{values}: @code{"bombblack"}, @code{"bombwhite"}, @code{"dynamite"}, @code{"extralife"}; @ @ @i{default}: @code{"bombblack"};
+@item @b{flavor} @ @ @i{values}: @code{"axe"}, @code{"bombblack"}, @code{"bombwhite"}, @code{"dynamite"}, @code{"extralife"}; @ @ @i{default}: @code{"bombblack"};
 @item @b{stock}, @ @ @i{values}: integer numbers; @ @ @i{default}: @code{1000}: @ @ @xref{state}
 @end table
 
@@ -16509,6 +16511,7 @@ beams.
 
 @table @asis
 @item @image{images/st_dispenser_bombblack, 12mm} @b{st_dispenser}: flavor=@code{"bombblack"}
+@item @image{images/st_dispenser_axe, 12mm} @b{st_dispenser_axe}: flavor=@code{"axe"}
 @item @image{images/st_dispenser_bombblack, 12mm} @b{st_dispenser_bombblack}: flavor=@code{"bombblack"}
 @item @image{images/st_dispenser_bombwhite, 12mm} @b{st_dispenser_bombwhite}: flavor=@code{"bombwhite"}
 @item @image{images/st_dispenser_dynamite, 12mm} @b{st_dispenser_dynamite}: flavor=@code{"dynamite"}

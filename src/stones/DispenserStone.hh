@@ -30,7 +30,7 @@ namespace enigma {
      */
     class DispenserStone : public Stone {
         CLONEOBJ(DispenserStone);
-        DECL_TRAITS_ARRAY(4, traitsIdx());
+        DECL_TRAITS_ARRAY(5, traitsIdx());
 
     private:
         enum iState {
@@ -39,14 +39,15 @@ namespace enigma {
         };
 
         enum ObjectPrivatFlagsBits {
-            OBJBIT_SUBTYP    =   3<<24,   ///< the item typ
+            OBJBIT_SUBTYP    =   7<<24,   ///< the item typ
         };
 
         enum DispenserStoneTyp {
             BOMBBLACK,
             BOMBWHITE,
             DYNAMITE,
-            EXTRALIFE
+            EXTRALIFE,
+            AXE
         };
     public:
         DispenserStone(int subtyp);

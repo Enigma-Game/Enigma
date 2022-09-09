@@ -165,6 +165,7 @@ SIMPLEPNG = \
 	st_death.png \
 	st_death_light.png \
 	st_disco.png st_disco_2.png st_disco_3.png \
+	st_dispenser_axe.png \
 	st_dispenser_bombblack.png \
 	st_dispenser_bombwhite.png \
 	st_dispenser_dynamite.png \

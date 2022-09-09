@@ -1152,6 +1152,7 @@ do
         DefAnim(name.."_breaking", BuildFrames(images,50))
     end
 
+    make_dispenser("st_dispenser_axe")
     make_dispenser("st_dispenser_bombblack")
     make_dispenser("st_dispenser_dynamite")
     make_dispenser("st_dispenser_bombwhite")

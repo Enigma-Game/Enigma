@@ -1706,6 +1706,9 @@
     <object name="st_dispenser_extralife">
       <attr name="flavor" value="extralife"/>
     </object>
+    <object name="st_dispenser_axe">
+      <attr name="flavor" value="axe"/>
+    </object>
     <object name="st_document">
       <attr name="text"/>
       <msg name="_paper"/>

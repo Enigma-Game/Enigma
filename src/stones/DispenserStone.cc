@@ -45,6 +45,8 @@ namespace enigma {
                     return "dynamite";
                 case EXTRALIFE:
                     return "extralife";
+                case AXE:
+                    return "axe";
             }
         }
         return Stone::getAttr(key);
@@ -97,6 +99,8 @@ namespace enigma {
                             itemkind = "it_dynamite"; break;
                         case EXTRALIFE:
                             itemkind = "it_extralife"; break;
+                        case AXE:
+                            itemkind = "it_axe"; break;
                         default:
                             ASSERT(false, XLevelRuntime, "Dispenser - unexpected subtyp");
                     }
@@ -120,11 +124,12 @@ namespace enigma {
         return (objFlags & OBJBIT_SUBTYP) >> 24;
     }
 
-    StoneTraits DispenserStone::traits[4] = {
+    StoneTraits DispenserStone::traits[5] = {
         {"st_dispenser_bombblack", st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
         {"st_dispenser_bombwhite", st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
-        {"st_dispenser_dynamite", st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
+        {"st_dispenser_dynamite",  st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
         {"st_dispenser_extralife", st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
+        {"st_dispenser_axe",       st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
     };
 
     BOOT_REGISTER_START
@@ -133,6 +138,7 @@ namespace enigma {
         BootRegister(new DispenserStone(1), "st_dispenser_bombwhite");
         BootRegister(new DispenserStone(2), "st_dispenser_dynamite");
         BootRegister(new DispenserStone(3), "st_dispenser_extralife");
+        BootRegister(new DispenserStone(4), "st_dispenser_axe");
     BOOT_REGISTER_END
 
 } // namespace enigma
