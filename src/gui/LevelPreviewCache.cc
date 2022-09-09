@@ -18,6 +18,7 @@
 
 #include "gui/LevelPreviewCache.hh"
 #include "ecl_system.hh"
+#include "ecl_sdl.hh"
 #include "file.hh"
 #include "game.hh"
 #include "main.hh"
@@ -128,8 +129,10 @@ ecl::Surface *LevelPreviewCache::newPreview(lev::Proxy *levelProxy,
     Surface *surface = 0;
     ecl::GC gc(video_engine->BackBuffer());
     if (game::DrawLevelPreview(gc, levelProxy)) {
-        surface = Resample(video_engine->BackBuffer(), vminfo.gamearea, thumbinfo.width,
-                           thumbinfo.height);
+        SDL_Rect r;
+        sdl::copy_rect(r, vminfo.gamearea);
+        surface = MakeSurface(thumbinfo.width, thumbinfo.height);
+        BlitScaled(video_engine->BackBuffer()->get_surface(), &r, surface->get_surface(), NULL, SC_SDL);
     }
     return surface;
 }

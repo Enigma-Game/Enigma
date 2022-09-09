@@ -55,6 +55,11 @@ typedef Uint32 PackedColor;
    it precalculates the necessary factors; hence it needs
    to be reset to scale to a different factor. Use method
    "precalculate" for this.
+   Scaler knows two modes:
+   SC_bytewise is a special mode used for heavy-duty game
+   video blits. blit_scaled ignores the srcrect argument
+   in this mode, and it is restricted to 32 bit depth.
+   Use SC_SDL for all other use cases.
 */
 
 enum ScalerMode {
@@ -64,7 +69,7 @@ enum ScalerMode {
 
 class Scaler {
 public:
-    Scaler(SDL_Surface* src, SDL_Surface* dst);
+    Scaler(SDL_Surface* _src, SDL_Surface* _dst, ScalerMode _mode);
     ~Scaler();
 
     void precalculate(SDL_Surface* src, SDL_Surface* dst);
@@ -370,12 +375,8 @@ Surface *LoadImage(SDL_RWops *src, int freesrc);
 // Overlay a rectangle `rect' in `s' with a transparent colored box.
 void TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
-// Resample a region inside a surface to a new size. Returns a new 32 bit RGBA
-// image containing the scaled image.
-Surface *Resample(Surface *s, Rect rect, int neww, int newh);
-
 // A function for scaled blitting from a portion of src to dst.
-void BlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect);
+void BlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect, ScalerMode mode);
 
 
 }  // namespace ecl

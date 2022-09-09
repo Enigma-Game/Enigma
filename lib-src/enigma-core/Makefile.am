@@ -6,8 +6,6 @@ libecl_a_SOURCES = \
 	SDL_gfxPrimitives.c		\
 	SDL_gfxPrimitives.h		\
 	SDL_gfxPrimitives_font.h	\
-	SDL_rotozoom.c			\
-	SDL_rotozoom.h			\
 	ecl_alist.hh			\
 	ecl_argp.cc 			\
 	ecl_argp.hh			\
