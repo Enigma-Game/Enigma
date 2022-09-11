@@ -767,7 +767,7 @@ void ModelLayer::tick(double dtime) {
     ModelList &am = m_active_models;
 
     am.remove(nullptr);
-    am.remove_if(mem_fun(&Model::is_garbage));
+    am.remove_if(std::mem_fn(&Model::is_garbage));
 
     // Append new active models to list
     am.splice(am.end(), m_active_models_new);

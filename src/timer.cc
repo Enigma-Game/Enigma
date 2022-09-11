@@ -131,7 +131,7 @@ void Timer::tick(double dtime) {
         i->tick(dtime);
         i = next;
     }
-    self->alarms.remove_if(std::mem_fun_ref(&Alarm::expired));
+    self->alarms.remove_if(std::mem_fn(&Alarm::expired));
 }
 
 void Timer::clear() {

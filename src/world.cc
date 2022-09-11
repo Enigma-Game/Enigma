@@ -237,7 +237,7 @@ World::~World() {
     }
     // reset the fields
     fields = FieldArray(0, 0);
-    for_each(actorlist.begin(), actorlist.end(), mem_fun(&Actor::dispose));
+    for_each(actorlist.begin(), actorlist.end(), std::mem_fn(&Actor::dispose));
 }
 
 bool World::is_border(const GridPos &p) {
@@ -520,7 +520,7 @@ void World::scramble_puzzles() {
             }
         }
 
-        scrambles.remove_if(mem_fun_ref(&Scramble::expired));
+        scrambles.remove_if(std::mem_fn(&Scramble::expired));
     }
 }
 
