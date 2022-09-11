@@ -160,6 +160,7 @@ SLASH      = 2
 VERTICAL   = 3
 
 -- direction offsets
+NODIR = po(0, 0)
 N = po(0, -1)
 E = po(1, 0)
 S = po(0, 1)
