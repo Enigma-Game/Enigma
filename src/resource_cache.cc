@@ -56,9 +56,13 @@ public:
         Font *f = nullptr;
         if (m_fonts.has_key(name)) {
             const FontDescr &fd = m_fonts[name];
-            f = load_ttf(fd.ttf_name, fd.ttf_size, fd.r, fd.g, fd.b);
-            if (f == nullptr) {
-                std::cerr << "Could not load .ttf file " << fd.ttf_name << "\n";
+            if (!fd.ttf_name.empty()) {
+                f = load_ttf(fd.ttf_name, fd.ttf_size, fd.r, fd.g, fd.b);
+                if (f == nullptr) {
+                    std::cerr << "Could not load .ttf file " << fd.ttf_name << "\n";
+                    f = load_bmf(fd.bitmap_name);
+                }
+            } else {
                 f = load_bmf(fd.bitmap_name);
             }
         } else {
