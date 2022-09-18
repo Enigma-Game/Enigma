@@ -4572,6 +4572,17 @@ Position can be easily compared to equality.
 @end example
 @samp{true} if a position is a valid position of the world. All positions
 outside of the world return @samp{false}.
+
+@item @b{Position norm}
+@example
+@var{pos}:@b{norm}()
+@end example
+The Euclidean norm of a position.
+@example
+@var{dp} = @var{p2} - @var{p1}          -- difference of two positions
+@var{dist} = @var{dp}:@b{norm}()      -- distance inbetween
+@var{dist} = math.sqrt(@var{dp}.x*@var{dp}.x + @var{dp}.y*@var{dp}.y)    -- equivalent
+@end example
 @end table
 
 @c ----------------- Attribute Tasks --------------------
@@ -5899,6 +5910,24 @@ position as the bag.
 @end example
 @end table
 
+@c ----------------- Position Norm --------------------
+
+@node Position Norm
+@subsection Position Norm
+
+@table @asis
+@item @b{Syntax:}
+result = @i{pos}:norm()
+
+@item @b{Details:}
+Computes the Euclidean norm @math{\sqrt{x^2 + y^2}} of a position @samp{po(x, y)}.
+This is probably most useful when applied to the difference of two positions.
+
+@item @b{Syntax Samples:}
+@example
+@var{number} = @i{po}(@var{3.2}, @var{4.7}):@b{norm}()
+@end example
+@end table
 
 @c ----------------- Object --------------------
 
