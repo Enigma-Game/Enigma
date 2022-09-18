@@ -4499,7 +4499,7 @@ For reference details @pxref{Position}.
 @item @b{Creating Positions:}
 @example
 @var{pos} = @i{po}(@var{7}, @var{3})         -- using function "po()" to generate a position object
-@var{pos} = @i{po}(@{@var{7}, @var{3}@})        -- using a table position constant as argument
+@var{pos} = @i{po}(@{@var{7}, @var{3}@})       -- using a table position constant as argument
 @var{pos} = @var{obj}              -- every object is a valid position
 @var{pos} = @i{po}(@var{12.3}, @var{3.7})    -- a position within a grid (for an actor)
 @end example
@@ -4568,10 +4568,21 @@ Position can be easily compared to equality.
 
 @item @b{Position existence}
 @example
-@var{pos}:exists()
+@var{pos}:@b{exists}()
 @end example
 @samp{true} if a position is a valid position of the world. All positions
 outside of the world return @samp{false}.
+
+@item @b{Position norm}
+@example
+@var{pos}:@b{norm}()
+@end example
+The Euclidean norm of a position.
+@example
+@var{dp} = @var{p2} - @var{p1}          -- difference of two positions
+@var{dist} = @var{dp}:@b{norm}()      -- distance inbetween
+@var{dist} = math.sqrt(@var{dp}.x*@var{dp}.x + @var{dp}.y*@var{dp}.y)    -- equivalent
+@end example
 @end table
 
 @c ----------------- Attribute Tasks --------------------
@@ -5899,6 +5910,24 @@ position as the bag.
 @end example
 @end table
 
+@c ----------------- Position Norm --------------------
+
+@node Position Norm
+@subsection Position Norm
+
+@table @asis
+@item @b{Syntax:}
+result = @i{pos}:norm()
+
+@item @b{Details:}
+Computes the Euclidean norm @math{\sqrt{x^2 + y^2}} of a position @samp{po(x, y)}.
+This is probably most useful when applied to the difference of two positions.
+
+@item @b{Syntax Samples:}
+@example
+@var{number} = @i{po}(@var{3.2}, @var{4.7}):@b{norm}()
+@end example
+@end table
 
 @c ----------------- Object --------------------
 
@@ -11329,7 +11358,7 @@ True if flavor is @code{"trigger"}, false otherwise.
 
 The forward floor pushes stones on it in the direction it shows. In this
 respect, it is similar to @ref{st_rotator}. Actors and items on it are
-not pushed. 
+not pushed.
 
 Forward floors come in several flavors, which define the base floor,
 adhesion, friction and burnability. They all share a flashing violet
@@ -11338,7 +11367,7 @@ double chevron, showing in the direction stones are pushed.
 If the stone on top of the forward floor is blocked by another stone,
 it will not move. This might create race conditions. Please be very
 careful when using forward floors and @ref{st_boulder} or @ref{st_stoneimpulse},
-because race conditions might be resolved in a different way in 
+because race conditions might be resolved in a different way in
 future versions of Enigma.
 
 @table @asis
@@ -26287,4 +26316,3 @@ them (see @code{oxyd1}-compatibility).
 @item @b{st-3mirror} @expansion{} @code{st_mirror_triangle_s}, @pxref{st_mirror}
 @end table
 @bye
-

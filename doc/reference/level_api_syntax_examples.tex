@@ -167,7 +167,20 @@ result = pos:exists()
 \noindent
 \begin{minipage}[t]{0.5\textwidth}
 \begin{verbatim}
-boolean = po(3.2, 4.7):exists()
+boolean = po(3.2, 4.7):exists()   -- = true
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Position Norm}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = pos:norm()
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+number = po(3.2, 4.7):norm()   -- = 5.6859
 \end{verbatim}
 \end{minipage}
 
