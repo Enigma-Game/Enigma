@@ -4499,7 +4499,7 @@ For reference details @pxref{Position}.
 @item @b{Creating Positions:}
 @example
 @var{pos} = @i{po}(@var{7}, @var{3})         -- using function "po()" to generate a position object
-@var{pos} = @i{po}(@{@var{7}, @var{3}@})        -- using a table position constant as argument
+@var{pos} = @i{po}(@{@var{7}, @var{3}@})       -- using a table position constant as argument
 @var{pos} = @var{obj}              -- every object is a valid position
 @var{pos} = @i{po}(@var{12.3}, @var{3.7})    -- a position within a grid (for an actor)
 @end example
@@ -4568,7 +4568,7 @@ Position can be easily compared to equality.
 
 @item @b{Position existence}
 @example
-@var{pos}:exists()
+@var{pos}:@b{exists}()
 @end example
 @samp{true} if a position is a valid position of the world. All positions
 outside of the world return @samp{false}.
