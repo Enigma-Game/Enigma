@@ -9,7 +9,6 @@ noinst_LIBRARIES = libzipios.a
 libzipios_a_SOURCES = \
 	src/backbuffer.cpp	\
 	src/backbuffer.hpp	\
-	src/CMakeLists.txt	\
 	src/collectioncollection.cpp	\
 	src/deflateoutputstreambuf.cpp	\
 	src/deflateoutputstreambuf.hpp	\
@@ -29,6 +28,7 @@ libzipios_a_SOURCES = \
 	src/gzipoutputstream.hpp	\
 	src/inflateinputstreambuf.cpp	\
 	src/inflateinputstreambuf.hpp	\
+	src/streamentry.cpp	\
 	src/virtualseeker.cpp	\
 	src/zipcentraldirectoryentry.cpp	\
 	src/zipcentraldirectoryentry.hpp	\
@@ -54,7 +54,9 @@ libzipios_a_SOURCES = \
 	zipios/filecollection.hpp	\
 	zipios/fileentry.hpp	\
 	zipios/filepath.hpp	\
+	zipios/streamentry.hpp	\
 	zipios/virtualseeker.hpp	\
 	zipios/zipfile.hpp	\
+	zipios/zipios-config.hpp \
 	zipios/zipiosexceptions.hpp
 

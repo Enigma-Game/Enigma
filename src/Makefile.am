@@ -480,7 +480,7 @@ enigma_LDADD += $(top_builddir)/lib-src/enet/libenet.a
 endif
 
 enigma_LDADD += $(top_builddir)/lib-src/oxydlib/liboxyd.a \
-	$(top_builddir)/lib-src/zipios/src/libzipios.a \
+	$(top_builddir)/lib-src/zipios/libzipios.a \
 	$(top_builddir)/lib-src/tinygettext/libtinygettext.a \
 	-lz \
 	$(mingw_ldadd) \
