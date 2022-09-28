@@ -366,7 +366,7 @@ AC_CONFIG_SUBDIRS([lib-src/enet])
 dnl ----------------------------------------------------------
 dnl Configure libraries
 dnl ----------------------------------------------------------
-AC_CONFIG_SUBDIRS(lib-src/zipios++)
+AC_CONFIG_SUBDIRS(lib-src/zipios)
 
 AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/Makefile

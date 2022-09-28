@@ -11,8 +11,8 @@ EXTRA_DIST = \
 CXXFLAGS = @CXXFLAGS@\
 	-DSYSTEM_DATA_DIR=\"$(datadir)/enigma\" \
 	-DDOCDIR=\"$(docdir)\" \
-	-I$(top_srcdir)/lib-src/zipios++  \
-	-I$(top_builddir)/lib-src/zipios++ \
+	-I$(top_srcdir)/lib-src/zipios  \
+	-I$(top_builddir)/lib-src/zipios \
 	-I$(top_srcdir)/lib-src/lua \
 	-I$(top_srcdir)/lib-src/tinygettext \
 	-I$(top_srcdir)/lib-src/enigma-core
@@ -480,7 +480,7 @@ enigma_LDADD += $(top_builddir)/lib-src/enet/libenet.a
 endif
 
 enigma_LDADD += $(top_builddir)/lib-src/oxydlib/liboxyd.a \
-	$(top_builddir)/lib-src/zipios++/src/libzipios.a \
+	$(top_builddir)/lib-src/zipios/src/libzipios.a \
 	$(top_builddir)/lib-src/tinygettext/libtinygettext.a \
 	-lz \
 	$(mingw_ldadd) \

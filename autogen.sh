@@ -12,7 +12,7 @@ bstrap ()
 }
 
 echo ""
-bstrap "./lib-src/zipios++"
+bstrap "./lib-src/zipios"
 bstrap "./lib-src/enet"
 
 echo -n "Bootstrapping ./    "

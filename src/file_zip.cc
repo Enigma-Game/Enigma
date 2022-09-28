@@ -22,10 +22,10 @@
 // The static var "zip" should be a private ivar of GameFS
 
 #include "file.hh"
-#include "zipios++/zipfile.h"
-#include "zipios++/zipoutputstream.h"
-#include "zipios++/zipoutputstreambuf.h"
-#include "zipios++/zipinputstreambuf.h"
+#include "zipios/zipfile.h"
+#include "zipios/zipoutputstream.h"
+#include "zipios/zipoutputstreambuf.h"
+#include "zipios/zipinputstreambuf.h"
 #include <istream>
 #include <ostream>
 #include <ctime>
