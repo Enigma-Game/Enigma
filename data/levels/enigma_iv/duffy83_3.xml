@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Fire Safety" el:subtitle="" el:id="duffy83"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -58,25 +58,25 @@ trap3=0
 trap4=0
 function trigfire1()
     if trap1==0 and trap2==1 and trap3==1 and trap4==1 then
-              no["fire1"]:ignite()
-    end
+              wo[no["fire1"]] = {"fl_abyss"}..ti{"it_burnable_burning"}
+              end
          trap1=1
 end
 function trigfire2()
     if trap1==1 and trap2==0 and trap3==1 and trap4==1 then
-             no["fire2"]:ignite()
+             wo[no["fire2"]] = {"fl_abyss"}..ti{"it_burnable_burning"}
     end
          trap2=1
 end
 function trigfire3()
     if trap1==1 and trap2==1 and trap3==0 and trap4==1 then
-            no["fire3"]:ignite()
+            wo[no["fire3"]] = {"fl_abyss"}..ti{"it_burnable_burning"}
     end
         trap3=1
 end
 function trigfire4()
     if trap1==1 and trap2==1 and trap3==1 and trap4==0 then
-            no["fire4"]:ignite()
+            wo[no["fire3"]] = {"fl_abyss"}..ti{"it_burnable_burning"}
     end
         trap4=1
 end
