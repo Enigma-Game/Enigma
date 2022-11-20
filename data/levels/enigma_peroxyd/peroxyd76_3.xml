@@ -3,11 +3,11 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Per.Oxyd 76" el:subtitle="Per.Oxyd 76" el:id="20080109ulf028"/>
-      <el:version el:score="1" el:release="2" el:revision="105" el:status="released"/>
+      <el:version el:score="1" el:release="3" el:revision="106" el:status="released"/>
       <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2008 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.20">
+      <el:compatibility el:engine="per.oxyd" el:enigma="1.30">
         <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>

@@ -3,11 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Underground" el:subtitle="Oxyd Extra 24" el:id="oxe24"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author el:name="Raoul Bourquin" el:email=""/>
       <el:copyright>Copyright © 2013 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10"/>
+      <el:compatibility el:engine="oxyd.extra" el:enigma="1.30"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>

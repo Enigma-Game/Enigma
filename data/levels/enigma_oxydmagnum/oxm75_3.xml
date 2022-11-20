@@ -2,53 +2,43 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
-      <el:identity el:title="Oxyd Magnum 65" el:subtitle="Oxyd Magnum 65" el:id="20080110ulf031"/>
-      <el:version el:score="1" el:release="2" el:revision="106" el:status="released"/>
+      <el:identity el:title="Oxyd Magnum 75" el:subtitle="Oxyd Magnum 75" el:id="20080110ulf032"/>
+      <el:version el:score="1" el:release="3" el:revision="$Revision: 106 $" el:status="released"/>
       <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2008 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.20"/>
+      <el:compatibility el:engine="oxyd.magnum" el:enigma="1.30"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>New API converted by /dev/null, February 2014</el:code>
       </el:comments>
-      <el:score el:easy="-" el:difficult="1:39"/>
+      <el:score el:easy="-" el:difficult="0:47"/>
     </el:info>
     <el:luamain><![CDATA[
-ti[" "] = {"fl_brick"}
-ti["~"] = {"fl_abyss"}
-ti["#"] = {"st_magic_oxydc"}
-ti["="] = {"st_granite"}
-ti["+"] = {"st_box_wood"}
-ti["M"] = {"st_mail_e"}
+ti[" "] = {"fl_yinyang_yin", invisible=true}
+ti["."] = {"fl_abyss"}
+ti["#"] = {"st_redfiber"}
+ti["="] = {"st_stoneimpulse"}
+ti["-"] = {"st_stoneimpulse_hollow"}
 ti["T"] = {"st_turnstile_red"}
 ti["^"] = {"st_turnstilearm_n"}
 ti[">"] = {"st_turnstilearm_e"}
 ti["v"] = {"st_turnstilearm_s"}
 ti["<"] = {"st_turnstilearm_w"}
-ti["."] = {"it_seed"}
-ti["2"] = {"it_pipe_ew"}
-ti["4"] = {"it_pipe_ns"}
-ti["9"] = {"it_pipe_nw"}
-ti["3"] = {"it_pipe_sw"}
-ti["n"] = {"it_puller_n"}
-ti["e"] = {"it_puller_e"}
-ti["w"] = {"it_puller_w"}
-ti["-"] = ti["2"] .. {"st_lightglass"}
-ti["O"] = {"st_oxyd_c"}
-ti["@"] = {"ac_marble"}
+ti["O"] = {"st_oxyd_d"}
+ti["@"] = {"#ac_marble"}
 
 wo(ti, " ", {
-    "########O#########O#",
-    "O we   =~~~~~~~~~~~#",
-    "#e  .e =~~~~~~~~~~~#",
-    "# .. . ======= ====#",
-    "#e..n  M22292-~= 3 O",
-    "#..  @ =     =+=   #",
-    "#. .n  =     =+=  2#",
-    "#n..   =^        4 #",
-    "#n   <T>T>      4  #",
-    "#     v v          #",
+    "#######O####O#######",
+    "#   #          #   #",
+    "#   #       ---=   #",
+    "# O =====-===.^- O #",
+    "#   =    ^.   T    #",
+    "#   =<T> T = =v    #",
+    "#   --  -v - --=   #",
+    "####========-===####",
+    "#         @        #",
+    "#                  #",
     "####################"})
 
 wo:shuffleOxyd()
