@@ -16,7 +16,7 @@ AC_DEFUN([gt_PRINTF_POSIX],
   AC_CACHE_CHECK([whether printf() supports POSIX/XSI format strings],
     gt_cv_func_printf_posix,
     [
-      AC_TRY_RUN([
+      AC_RUN_IFELSE([AC_LANG_SOURCE([[
 #include <stdio.h>
 #include <string.h>
 /* The string "%2$d %1$d", with dollar characters protected from the shell's
@@ -27,8 +27,7 @@ int main ()
 {
   sprintf (buf, format, 33, 55);
   return (strcmp (buf, "55 33") != 0);
-}], gt_cv_func_printf_posix=yes, gt_cv_func_printf_posix=no,
-      [
+}]])],[gt_cv_func_printf_posix=yes],[gt_cv_func_printf_posix=no],[
         AC_EGREP_CPP(notposix, [
 #if defined __NetBSD__ || defined _MSC_VER || defined __MINGW32__ || defined __CYGWIN__
   notposix

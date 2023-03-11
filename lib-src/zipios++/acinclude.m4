@@ -10,14 +10,13 @@ AC_DEFUN([AC_CXX_HAVE_STL],
 ac_cv_cxx_have_stl,
 [AC_REQUIRE([AC_CXX_NAMESPACES])
  AC_LANG_SAVE
- AC_LANG_CPLUSPLUS
- AC_TRY_COMPILE([#include <list>
+ AC_LANG([C++])
+ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <list>
 #include <deque>
 #ifdef HAVE_NAMESPACES
 using namespace std;
-#endif],[list<int> x; x.push_back(5);
-list<int>::iterator iter = x.begin(); if (iter != x.end()) ++iter; return 0;],
- ac_cv_cxx_have_stl=yes, ac_cv_cxx_have_stl=no)
+#endif]], [[list<int> x; x.push_back(5);
+list<int>::iterator iter = x.begin(); if (iter != x.end()) ++iter; return 0;]])],[ac_cv_cxx_have_stl=yes],[ac_cv_cxx_have_stl=no])
  AC_LANG_RESTORE
 ])
 if test "$ac_cv_cxx_have_stl" = yes; then
@@ -37,15 +36,14 @@ AC_DEFUN([AC_CXX_HAVE_STD],
 ac_cv_cxx_have_std,
 [AC_REQUIRE([AC_CXX_NAMESPACES])
  AC_LANG_SAVE
- AC_LANG_CPLUSPLUS
- AC_TRY_COMPILE([#include <iostream>
+ AC_LANG([C++])
+ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <iostream>
 #include <map>
 #include <iomanip>
 #include <cmath>
 #ifdef HAVE_NAMESPACES
 using namespace std;
-#endif],[return 0;],
- ac_cv_cxx_have_std=yes, ac_cv_cxx_have_std=no)
+#endif]], [[return 0;]])],[ac_cv_cxx_have_std=yes],[ac_cv_cxx_have_std=no])
  AC_LANG_RESTORE
 ])
 if test "$ac_cv_cxx_have_std" = yes; then
@@ -64,10 +62,8 @@ AC_DEFUN([AC_CXX_NAMESPACES],
 [AC_CACHE_CHECK(whether the compiler implements namespaces,
 ac_cv_cxx_namespaces,
 [AC_LANG_SAVE
- AC_LANG_CPLUSPLUS
- AC_TRY_COMPILE([namespace Outer { namespace Inner { int i = 0; }}],
-                [using namespace Outer::Inner; return i;],
- ac_cv_cxx_namespaces=yes, ac_cv_cxx_namespaces=no)
+ AC_LANG([C++])
+ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[namespace Outer { namespace Inner { int i = 0; }}]], [[using namespace Outer::Inner; return i;]])],[ac_cv_cxx_namespaces=yes],[ac_cv_cxx_namespaces=no])
  AC_LANG_RESTORE
 ])
 if test "$ac_cv_cxx_namespaces" = yes; then
@@ -87,12 +83,11 @@ AC_DEFUN([AC_CXX_HAVE_SSTREAM],
 ac_cv_cxx_have_sstream,
 [AC_REQUIRE([AC_CXX_NAMESPACES])
  AC_LANG_SAVE
- AC_LANG_CPLUSPLUS
- AC_TRY_COMPILE([#include <sstream>
+ AC_LANG([C++])
+ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <sstream>
 #ifdef HAVE_NAMESPACES
 using namespace std;
-#endif],[return 0;],
- ac_cv_cxx_have_sstream=yes, ac_cv_cxx_have_sstream=no)
+#endif]], [[return 0;]])],[ac_cv_cxx_have_sstream=yes],[ac_cv_cxx_have_sstream=no])
  AC_LANG_RESTORE
 ])
 if test "$ac_cv_cxx_have_sstream" = yes; then
@@ -112,16 +107,15 @@ AC_DEFUN([AC_CXX_HAVE_STD_IOSTREAM],
 ac_cv_cxx_have_std_iostream,
 [AC_REQUIRE([AC_CXX_NAMESPACES])
  AC_LANG_SAVE
- AC_LANG_CPLUSPLUS
- AC_TRY_COMPILE([
+ AC_LANG([C++])
+ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #include <sstream>
 #include <streambuf>
 #include <ios>
 #ifdef HAVE_NAMESPACES
 using namespace std;
 #endif
-],[return 0;],
- ac_cv_cxx_have_std_iostream=yes, ac_cv_cxx_have_std_iostream=no)
+]], [[return 0;]])],[ac_cv_cxx_have_std_iostream=yes],[ac_cv_cxx_have_std_iostream=no])
  AC_LANG_RESTORE
 ])
 if test "$ac_cv_cxx_have_std_iostream" = yes; then

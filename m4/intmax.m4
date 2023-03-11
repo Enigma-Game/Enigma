@@ -15,7 +15,7 @@ AC_DEFUN([gt_TYPE_INTMAX_T],
   AC_REQUIRE([jm_AC_HEADER_INTTYPES_H])
   AC_REQUIRE([jm_AC_HEADER_STDINT_H])
   AC_CACHE_CHECK(for intmax_t, gt_cv_c_intmax_t,
-    [AC_TRY_COMPILE([
+    [AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #include <stddef.h> 
 #include <stdlib.h>
 #if HAVE_STDINT_H_WITH_UINTMAX
@@ -24,7 +24,7 @@ AC_DEFUN([gt_TYPE_INTMAX_T],
 #if HAVE_INTTYPES_H_WITH_UINTMAX
 #include <inttypes.h>
 #endif
-], [intmax_t x = -1;], gt_cv_c_intmax_t=yes, gt_cv_c_intmax_t=no)])
+]], [[intmax_t x = -1;]])],[gt_cv_c_intmax_t=yes],[gt_cv_c_intmax_t=no])])
   if test $gt_cv_c_intmax_t = yes; then
     AC_DEFINE(HAVE_INTMAX_T, 1,
       [Define if you have the 'intmax_t' type in <stdint.h> or <inttypes.h>.])

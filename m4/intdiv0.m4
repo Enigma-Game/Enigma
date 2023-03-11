@@ -16,7 +16,7 @@ AC_DEFUN([gt_INTDIV0],
   AC_CACHE_CHECK([whether integer division by zero raises SIGFPE],
     gt_cv_int_divbyzero_sigfpe,
     [
-      AC_TRY_RUN([
+      AC_RUN_IFELSE([AC_LANG_SOURCE([[
 #include <stdlib.h>
 #include <signal.h>
 
@@ -52,8 +52,7 @@ int main ()
   nan = y / y;
   exit (1);
 }
-], gt_cv_int_divbyzero_sigfpe=yes, gt_cv_int_divbyzero_sigfpe=no,
-        [
+]])],[gt_cv_int_divbyzero_sigfpe=yes],[gt_cv_int_divbyzero_sigfpe=no],[
           # Guess based on the CPU.
           case "$host_cpu" in
             alpha* | i[34567]86 | m68k | s390*)

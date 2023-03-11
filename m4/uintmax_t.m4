@@ -8,7 +8,7 @@ dnl the same distribution terms as the rest of that program.
 
 dnl From Paul Eggert.
 
-AC_PREREQ(2.13)
+AC_PREREQ([2.71])
 
 # Define uintmax_t to 'unsigned long' or 'unsigned long long'
 # if it is not already defined in <stdint.h> or <inttypes.h>.

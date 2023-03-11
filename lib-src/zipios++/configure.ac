@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([zipios++], [0.1.5])
+AC_INIT([zipios++],[0.1.5])
 AC_CONFIG_SRCDIR([src/backbuffer.h])
 AM_INIT_AUTOMAKE
 
@@ -49,7 +49,9 @@ dnl for symbols defined "manually" with AC_DEFINE
 AC_CHECK_LIB(z, zError, AC_DEFINE(HAVE_ZERROR, 1, [Define if zlib has zError]) )
 
 dnl Checks for header files.
-AC_HEADER_STDC
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_CHECK_HEADERS(unistd.h)
 AC_CXX_HAVE_STL
 AC_CXX_HAVE_STD

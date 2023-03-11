@@ -26,21 +26,18 @@ Found it
   if test -z "$result"; then
     dnl Define it ourselves. Here we assume that the type 'size_t' is not wider
     dnl than the type 'unsigned long'.
-    dnl The _AC_COMPUTE_INT macro works up to LONG_MAX, since it uses 'expr',
+    dnl The AC_COMPUTE_INT([],[],[],[]) macro works up to LONG_MAX, since it uses 'expr',
     dnl which is guaranteed to work from LONG_MIN to LONG_MAX.
-    _AC_COMPUTE_INT([~(size_t)0 / 10], res_hi,
-      [#include <stddef.h>], result=?)
-    _AC_COMPUTE_INT([~(size_t)0 % 10], res_lo,
-      [#include <stddef.h>], result=?)
-    _AC_COMPUTE_INT([sizeof (size_t) <= sizeof (unsigned int)], fits_in_uint,
-      [#include <stddef.h>], result=?)
+    AC_COMPUTE_INT([res_hi],[~(size_t)0 / 10],[#include <stddef.h>],[result=?])
+    AC_COMPUTE_INT([res_lo],[~(size_t)0 % 10],[#include <stddef.h>],[result=?])
+    AC_COMPUTE_INT([fits_in_uint],[sizeof (size_t) <= sizeof (unsigned int)],[#include <stddef.h>],[result=?])
     if test "$fits_in_uint" = 1; then
       dnl Even though SIZE_MAX fits in an unsigned int, it must be of type
       dnl 'unsigned long' if the type 'size_t' is the same as 'unsigned long'.
-      AC_TRY_COMPILE([#include <stddef.h>
+      AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[#include <stddef.h>
         extern size_t foo;
         extern unsigned long foo;
-        ], [], fits_in_uint=0)
+        ]], [[]])],[fits_in_uint=0],[])
     fi
     if test -z "$result"; then
       if test "$fits_in_uint" = 1; then
