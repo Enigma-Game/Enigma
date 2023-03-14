@@ -90,6 +90,8 @@ enigma_SOURCES = 		\
 	main.hh			\
 	MessageDescriptor.cc	\
 	MessageDescriptor.hh	\
+	MouseCursor.cc		\
+	MouseCursor.hh		\
 	netgame.cc 		\
 	netgame.hh 		\
 	network.cc		\
