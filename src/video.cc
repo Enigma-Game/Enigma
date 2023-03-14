@@ -243,10 +243,10 @@ VMInfo video_modes[] = {
      "-9-0-"                        // fallback modes fullscreen
     },
     {
-     VM_1920x1080, 6, 1920, 1080,     // id, preffilenr, w, h
+     VM_1920x1080, 11, 1920, 1080,  // id, preffilenr, w, h
      64, VTS_64,                    // tilesize, tiletype
-     "1920x1080", "FHD", "16:9", // name, fsname, fs only
-     Rect(0, 0, 1920, 1080),         // display area
+     "1920x1080", "FHD", "16:9",    // name, fsname, fs only
+     Rect(0, 0, 1920, 1080),        // display area
      -400, -90,                     // menu background image offsets
      {160, 104, 5, "-160x104"},     // thumbnail size/extension
      Rect(0, 0, 1920, 832),         // game area
@@ -258,13 +258,13 @@ VMInfo video_modes[] = {
      Rect(360, 884, 888, 53),       // text area //TODO
      1,                             // statusbar coffsety
      true,                          // available fullscreen
-     "-6-4-2-0-"                    // fallback modes fullscreen
+     "-11-6-4-2-0-"                 // fallback modes fullscreen
     },
     {
-     VM_2560x1440, 6, 2560, 1440,     // id, preffilenr, w, h
+     VM_2560x1440, 12, 2560, 1440,  // id, preffilenr, w, h
      64, VTS_64,                    // tilesize, tiletype
-     "2560x1440", "WQHD", "16:9", // name, fsname, fs only
-     Rect(0, 0, 2560, 1440),         // display area
+     "2560x1440", "WQHD", "16:9",   // name, fsname, fs only
+     Rect(0, 0, 2560, 1440),        // display area
      -400, -90,                     // menu background image offsets
      {160, 104, 5, "-160x104"},     // thumbnail size/extension
      Rect(0, 0, 2560, 832),         // game area
@@ -276,13 +276,13 @@ VMInfo video_modes[] = {
      Rect(360, 884, 888, 53),       // text area //TODO
      1,                             // statusbar coffsety
      true,                          // available fullscreen
-     "-6-4-2-0-"                    // fallback modes fullscreen
+     "-12-6-4-2-0-"                 // fallback modes fullscreen
     },
     {
-     VM_3840x2160, 6, 3840, 2160,     // id, preffilenr, w, h
+     VM_3840x2160, 13, 3840, 2160,  // id, preffilenr, w, h
      64, VTS_64,                    // tilesize, tiletype
-     "3840x2160", "UHD", "16:9", // name, fsname, fs only
-     Rect(0, 0, 3840, 2160),         // display area
+     "3840x2160", "UHD", "16:9",    // name, fsname, fs only
+     Rect(0, 0, 3840, 2160),        // display area
      -400, -90,                     // menu background image offsets
      {160, 104, 5, "-160x104"},     // thumbnail size/extension
      Rect(0, 0, 3840, 832),         // game area
@@ -294,7 +294,7 @@ VMInfo video_modes[] = {
      Rect(360, 884, 888, 53),       // text area //TODO
      1,                             // statusbar coffsety
      true,                          // available fullscreen
-     "-6-4-2-0-"                    // fallback modes fullscreen
+     "-13-6-4-2-0-"                 // fallback modes fullscreen
     }
 };
 
