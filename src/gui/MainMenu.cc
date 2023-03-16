@@ -204,6 +204,7 @@ namespace enigma { namespace gui {
         "  Hypocrite  (Finnish translation)",
         "  Icewing  (Level design)",
         "  ItTheIt  (Level design)",
+        "  jokker87  (Fixed original oxyd shuffle)",
         "  Máté Lehel Juhász  (Hungarian translation)",
         "  Stian Jørgensrud  (Norwegian translation)",
         "  Samuele Kaplun  (Italian translation)",

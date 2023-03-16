@@ -466,10 +466,12 @@ void OxydLoader::load_stones()
         }
     }
 
-	// only shuffle if no scramble is defined in level data (eg. oxyd1->lvl11, oxyd1->lvl69)
-	if (level.getNumScrambleItems() == 0) {
-		SendMessage(GetObjectTemplate("st_oxyd"), "shuffle");
-	}
+    // Only shuffle if no scramble is defined in level data (eg. oxyd1->lvl11, oxyd1->lvl69).
+    // Note that scramble items have two purposes: Scrambling the puzzle items and indicating
+    // that oxyd stones shall be shuffled.
+    if (level.getNumScrambleItems() == 0) {
+        SendMessage(GetObjectTemplate("st_oxyd"), "shuffle");
+    }
 }
 
 void OxydLoader::scramble_puzzles ()
