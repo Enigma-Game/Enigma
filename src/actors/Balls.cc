@@ -70,9 +70,6 @@ namespace enigma {
                     change_state(DISAPPEARING);
                     handled = true;
                 } else if (m.message == "_setcolor") {
-                    if (   ((get_id (this) == ac_pearl_black) && (m.value == GLASS))
-                        || ((get_id (this) == ac_pearl_white) && (m.value == GLASS))) 
-                        throw XLevelRuntime("ac_pearl_glass not yet defined (will come soon).");
                     setAttr("color", m.value);
                     update_model();
                     return true;
@@ -618,9 +615,10 @@ namespace enigma {
         return getAttr("color");
     }
 
-    ActorTraits Pearl::traits[2] = {
+    ActorTraits Pearl::traits[3] = {
         {"ac_pearl_black", ac_pearl_black, 1<<ac_pearl_black, 13.0/64, 0.7},
         {"ac_pearl_white", ac_pearl_white, 1<<ac_pearl_white, 13.0/64, 0.7},
+        {"ac_pearl_glass", ac_pearl_glass, 1<<ac_pearl_glass, 13.0/64, 0.7},
     };
 
     BOOT_REGISTER_START
@@ -631,6 +629,7 @@ namespace enigma {
         BootRegister(new Pearl(WHITE), "ac_pearl");
         BootRegister(new Pearl(WHITE), "ac_pearl_white");
         BootRegister(new Pearl(BLACK), "ac_pearl_black");
+        BootRegister(new Pearl(GLASS), "ac_pearl_glass");
     BOOT_REGISTER_END
 
 } // namespace enigma

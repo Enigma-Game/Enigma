@@ -137,7 +137,7 @@ namespace enigma {
 /* -------------------- Pearl  -------------------- */
     class Pearl : public BasicBall {
         CLONEACTOR(Pearl);
-        DECL_ACTORTRAITS_ARRAY(2, traitsIdx());
+        DECL_ACTORTRAITS_ARRAY(3, traitsIdx());
         
     public:
         Pearl(int color);

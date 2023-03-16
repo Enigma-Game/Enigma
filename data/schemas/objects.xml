@@ -280,6 +280,9 @@
     <object name="ac_pearl_white">
       <attr name="color" value="1"/>
     </object>
+    <object name="ac_pearl_glass">
+      <attr name="color" value="2"/>
+    </object>
     <object name="ac_rotor">
       <attr name="range" default="5.0"/>
       <attr name="strength" default="10.0"/>

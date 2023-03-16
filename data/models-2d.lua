@@ -188,6 +188,12 @@ do
     DefShModel("ac_pearl_white", "ac_pearl_white", "sh_pearl")
     DefAlias("ac_pearl_white-shine", "ac_pearl_white")
 
+    -- Normal glass pearl
+    -- Use shadow from black pearl
+    SpriteImage("ac_pearl_glass", 0.5, 0.43)
+    DefShModel("ac_pearl_glass", "ac_pearl_glass", "sh_pearl")
+    DefAlias("ac_pearl_glass-shine", "ac_pearl_glass")
+
     -- Falling black pearl
     images = SpriteImages("ac_pearl_black_fall", 5, 0.5, 0.43)
     shadows = SpriteImages("sh_pearl_fall", 5, 0.4, 0.43)
@@ -223,6 +229,23 @@ do
     DefAnim("ac_pearl_white-appear", ReverseFrames(BuildFrames(frames, 25)))
     DefAnim("ac_pearl_white-disappear", BuildFrames(frames, 25))
 
+    -- Falling glass pearl
+    -- Use shadows from falling black pearl
+    images = SpriteImages("ac_pearl_glass_fall", 5, 0.5, 0.43)
+    table.insert(images, "invisible")
+    frames = {}
+    for i=1,table.getn(images) do
+        DefShModel("ac_pearl_glass-fall"..(i-1), images[i], shadows[i])
+        frames[i] = "ac_pearl_glass-fall"..(i-1)
+    end
+    DefAnim("ac_pearl_glass-fall", ComposeFrames(frames,{70,65,60,55,50,30}))
+    DefAlias("ac_pearl_glass-fallen", "invisible")
+
+    -- Appearing / disappearing glass pearl
+    -- use the images from falling glass pearl
+    DefAnim("ac_pearl_glass-appear", ReverseFrames(BuildFrames(frames, 25)))
+    DefAnim("ac_pearl_glass-disappear", BuildFrames(frames, 25))
+
     -- Jumping black pearl
     images  = SpriteImages("ac_pearl_black_jump", 4)
     shadows = SpriteImages("sh_pearl_jump", 4, 0.4)
@@ -242,6 +265,16 @@ do
         table.insert(frames, "sb-jump"..i)
     end
     DefAnim("ac_pearl_white-jump", PingPong(BuildFrames(frames, 70)))
+
+    -- Jumping glass pearl
+    -- Use shadow from black pearl
+    images = SpriteImages("ac_pearl_glass_jump", 4)
+    frames = {}
+    for i=1,4 do
+        DefShModel("sb-jump"..i, images[i], shadows[i])
+        table.insert(frames, "sb-jump"..i)
+    end
+    DefAnim("ac_pearl_glass-jump", PingPong(BuildFrames(frames, 70)))
 
     -- Sinking black pearl
     -- TODO: extra sink animation for pearls?
@@ -264,6 +297,16 @@ do
     DefAlias("ac_pearl_white-sink6", "ac_pearl_white_fall5")
     DefAlias("ac_pearl_white-sunk", "invisible")
 
+    -- Sinking glass pearl
+    DefAlias("ac_pearl_glass-sink0", "ac_pearl_glass_fall1")
+    DefAlias("ac_pearl_glass-sink1", "ac_pearl_glass_fall2")
+    DefAlias("ac_pearl_glass-sink2", "ac_pearl_glass_fall3")
+    DefAlias("ac_pearl_glass-sink3", "ac_pearl_glass_fall3")
+    DefAlias("ac_pearl_glass-sink4", "ac_pearl_glass_fall4")
+    DefAlias("ac_pearl_glass-sink5", "ac_pearl_glass_fall4")
+    DefAlias("ac_pearl_glass-sink6", "ac_pearl_glass_fall5")
+    DefAlias("ac_pearl_glass-sunk", "invisible")
+
     -- Shattering black pearl
     Sprite({name="ac_pearl_black_shatter", nimages=5, framelen=60})
     DefAlias("ac_pearl_black-shatter", "ac_pearl_black_shatter")
@@ -273,6 +316,11 @@ do
     Sprite({name="ac_pearl_white_shatter", nimages=5, framelen=60})
     DefAlias("ac_pearl_white-shatter", "ac_pearl_white_shatter")
     DefAlias("ac_pearl_white-shattered", "ac_pearl_white_shatter5")
+
+    -- Shattering glass pearl
+    Sprite({name="ac_pearl_glass_shatter", nimages=5, framelen=60})
+    DefAlias("ac_pearl_glass-shatter", "ac_pearl_glass_shatter")
+    DefAlias("ac_pearl_glass-shattered", "ac_pearl_glass_shatter5")
 end
 
 -- ac-killerball --
