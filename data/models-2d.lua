@@ -49,8 +49,7 @@ do
     DefShModel("ac_marble_white", "ac_marble_white1", "sh_marble")
     DefShModel("ac_marble_white-shine", "ac_marble_white2", "sh_marble")
 
-    -- Normal glass marble
-    shadows = SpriteImage("sh_marble_glass", 0.4, 0.29)
+    -- Normal glass marble (using the same shadows as black and white marbles)
     images = SpriteImages("ac_marble_glass", 2, 0.5, 0.31)
     DefShModel("ac_marble_glass", "ac_marble_glass1", "sh_marble")
     DefShModel("ac_marble_glass-shine", "ac_marble_glass2", "sh_marble")
