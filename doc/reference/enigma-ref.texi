@@ -20289,7 +20289,7 @@ The color of the marble.
 @obindex ac_pearl
 
 The main actor for meditation levels in the shape of a small ball, available
-in black and white; glass pearls are planned for 1.30.
+in black, white, and glass.
 Pearls are like marbles versatile actors that
 can jump, pass @ref{it_vortex}, but on the other hand they can sink, fall and
 shatter, too.
@@ -20322,6 +20322,7 @@ The color of the pearl.
 @item @image{images/ac_pearl_white, 14mm} @b{ac_pearl}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
 @item @image{images/ac_pearl_black, 14mm} @b{ac_pearl_black}: color = @code{BLACK}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
 @item @image{images/ac_pearl_white, 14mm} @b{ac_pearl_white}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
+@item @image{images/ac_pearl_glass, 14mm} @b{ac_pearl_glass}: color = @code{GLASS}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
 @end table
 
 @end table

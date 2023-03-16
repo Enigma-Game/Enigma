@@ -16,6 +16,7 @@ SIMPLEPNG = \
 	ac_marble_glass.png \
 	ac_pearl_black.png \
 	ac_pearl_white.png \
+	ac_pearl_glass.png \
 	ac_rotor.png \
 	ac_top.png \
 	fl_abyss.png \
