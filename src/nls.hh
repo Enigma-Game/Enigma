@@ -3,7 +3,6 @@
 #include "config.h"
 
 #if defined(ENABLE_NLS)
-#  include <libintl.h>
 #  define _(String) nls::translate(String).c_str()
 //#  define _(String) gettext(String)
 #  define gettext_noop(String) (String)

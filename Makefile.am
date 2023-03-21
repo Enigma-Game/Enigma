@@ -3,7 +3,7 @@
 #   tools -> lib-src/lua
 #   src   -> tools, lib-src
 #
-SUBDIRS = m4 lib-src tools intl src data doc etc
+SUBDIRS = m4 lib-src tools src data doc etc
 EXTRA_DIST = enigma CHANGES ACKNOWLEDGEMENTS
 
 docdir = @datadir@/doc/enigma

@@ -27,8 +27,7 @@ if MINGW32
 CXXFLAGS += -static-libgcc -static-libstdc++ -DWIN32
 endif
 
-CXXFLAGS += -I$(top_srcdir)/lib-src \
-	-I$(top_builddir)/intl @SDL_CFLAGS@
+CXXFLAGS += -I$(top_srcdir)/lib-src @SDL_CFLAGS@
 
 
 enigma_SOURCES = 		\
@@ -471,7 +470,6 @@ else # not MACOSX
 endif
 
 enigma_LDADD = \
-	@LIBINTL@ \
 	$(top_builddir)/lib-src/enigma-core/libecl.a \
 	$(top_builddir)/lib-src/lua/liblua.a
 

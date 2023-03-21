@@ -98,12 +98,6 @@ dnl Check for libraries
 dnl ======================================================================
 AC_SEARCH_LIBS([dlopen], [dl])
 
-dnl When using the included gettext package from the /intl subdir
-dnl /intl needs to be added to the list of include folders
-if test "$BUILD_INCLUDED_LIBINTL" = yes; then
-   CXXFLAGS="$CXXFLAGS -I\$(top_srcdir)/intl"
-fi
-
 dnl This is to check for winmm which must be included to satisfy enet
 dnl when compiling under mingw32
 if test "$MINGW32" = yes; then
@@ -368,7 +362,7 @@ dnl Configure libraries
 dnl ----------------------------------------------------------
 AC_CONFIG_SUBDIRS(lib-src/zipios++)
 
-AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
+AC_CONFIG_FILES([Makefile m4/Makefile
            data/Makefile
            data/gfx/Makefile
            data/gfx/flags25x15/Makefile

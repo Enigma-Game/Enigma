@@ -992,7 +992,6 @@ private:
             std::string tfLocalization = XMLtoLocal(Utf8ToXML(localizationPathTF->getText().c_str()).x_str()).c_str();
             if (app.l10nPath != tfLocalization) {
                 app.l10nPath = tfLocalization;
-                bindtextdomain (PACKAGE_NAME, app.l10nPath.c_str());
                 app.prefs->setProperty("LocalizationPath", app.l10nPath);
             }
         }

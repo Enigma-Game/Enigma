@@ -52,7 +52,6 @@
 
 #include "tinygettext/include/tinygettext/log.hpp"
 
-#include <locale.h>
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
@@ -894,13 +893,6 @@ void Application::init_i18n()
 
     nls::SetMessageLocale (app.language);
 
-    // TODO: Make sure that bindtextdomain accepts UTF-8, then replace
-    // by XMLtoUtf8(LocalToXML(app.l10nPath.c_str()).x_str()).c_str().
-    bindtextdomain (PACKAGE_NAME, app.l10nPath.c_str());
-
-    // SDL_ttf does not handle arbitrary encodings, so use UTF-8
-    bind_textdomain_codeset (PACKAGE_NAME, "utf-8");
-    textdomain (PACKAGE_NAME);
 #endif
 
 }
