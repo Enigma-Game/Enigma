@@ -13,8 +13,6 @@ AC_USE_SYSTEM_EXTENSIONS
 ALL_LINGUAS="be bs cs da de el es fi fr gd hr hu it ja nl no pl pt ru sk sl sv uk zh"
 AC_SUBST(ALL_LINGUAS)
 
-AM_GNU_GETTEXT
-
 case $host_os in
   *mingw32* ) MINGW32=yes;;
           * ) MINGW32=no;;

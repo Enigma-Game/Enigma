@@ -2,15 +2,10 @@
 #define NLS_HH_INCLUDED
 #include "config.h"
 
-#if defined(ENABLE_NLS)
-#  define _(String) nls::translate(String).c_str()
-//#  define _(String) gettext(String)
-#  define gettext_noop(String) (String)
-#  define N_(String) gettext_noop(String)
-#else // !defined(ENABLE_NLS) 
-#  define _(String) (String)
-#  define N_(String) (String)
-#endif
+/* Use N_(...) for strings that should be included in pot, but are not
+   translated at that particular point in the source (but maybe later). */
+#define _(String) nls::translate(String).c_str()
+#define N_(String) (String)
 
 #include <string>
 #include "tinygettext/include/tinygettext/tinygettext.hpp"
@@ -63,21 +58,17 @@ namespace nls
     std::string replaceApostrophe(std::string text);
 
     static inline std::string translate(const std::string& msg) {
-    #if defined(ENABLE_NLS)
         if (theDictionaryManager)
             return replaceApostrophe(theDictionaryManager->get_dictionary().translate(msg));
-    #endif
         return msg;
     }
 
     static inline std::string ntranslate(const std::string& msg, const std::string& msg_plural, int num) {
-    #if defined(ENABLE_NLS)
         if (theDictionaryManager) {
             std::string msgt = theDictionaryManager->get_dictionary().translate(msg);
             std::string msgt_plural = theDictionaryManager->get_dictionary().translate(msg_plural);
             return replaceApostrophe(theDictionaryManager->get_dictionary().translate_plural(msgt, msgt_plural, num));
         }
-    #endif
         if (num == 1)
             return msg;
         else

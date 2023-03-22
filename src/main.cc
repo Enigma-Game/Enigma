@@ -880,8 +880,6 @@ void Application::init_i18n()
         }
     }
 
-#if defined(ENABLE_NLS)
-
     l10nFS = new GameFS();
     l10nFS->append_dir(l10nPath);
     nls::theDictionaryManager.reset(new tinygettext::DictionaryManager(std::make_unique<nls::TinyGetTextFileSystem>(), "UTF-8"));
@@ -892,9 +890,6 @@ void Application::init_i18n()
     tinygettext::Log::set_log_error_callback(&nls::tinygettext_error_callback);
 
     nls::SetMessageLocale (app.language);
-
-#endif
-
 }
 
 void Application::setLanguage(std::string newLanguage)
