@@ -20,7 +20,7 @@ ti["."] = {"it_seed"}
 ti["S"] = {"st_switch_black", target="get_money"}
 ti["G"] = {"st_lightglass"}
 ti["|"] = {"st_door", name="doors#", flavor="c"}
-ti["C"] = {"st_coinslot", interval_m=COIN_IGNORE, target="counter", action="signal"}
+ti["C"] = {"st_coinslot", interval_m=12, target="counter", action="signal"}
 ti["@"] = {"#ac_marble_black"}
 
 wo(ti, " ", {
@@ -42,12 +42,14 @@ wo:add({"ot_counter", "counter", state=0, target="doors#*", action_8="open"})
 
 local reserve = 8
 function get_money()
-    if reserve > 0 then
-        reserve = reserve -1
-        wo[po(16,1)] = {"it_coin_m"}
-    else
-        wo[po(16,1)] = {"it_document", text="text1"}
-    end
+	if not it(po(16,1)):exists() then
+		if reserve > 0 then
+			reserve = reserve -1
+			wo[po(16,1)] = {"it_coin_m"}
+		else
+			wo[po(16,1)] = {"it_document", text="text1"}
+		end
+	end
 end
  ]]></el:luamain>
     <el:i18n>
