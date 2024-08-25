@@ -160,7 +160,7 @@ SLASH      = 2
 VERTICAL   = 3
 
 -- direction offsets
-NODIR = po(0, 0)
+ORIGIN = po(0, 0)
 N = po(0, -1)
 E = po(1, 0)
 S = po(0, 1)
@@ -185,7 +185,7 @@ NEIGHBORS_8     = NEIGHBORS_4 .. NW .. SW ..SE .. NE
 NEIGHBORS_CHESS = NNE .. ENE .. ESE .. SSE .. SSW .. WSW .. WNW .. NNW
 
 -- convertion orientation numbers to direction vectors
-ORI2DIR = {[WEST]=W, [SOUTH]=S, [EAST]=E, [NORTH]=N, [NODIR]=po(0,0),
+ORI2DIR = {[WEST]=W, [SOUTH]=S, [EAST]=E, [NORTH]=N, [NODIR]=ORIGIN,
            [NORTHWEST]=NW, [SOUTHWEST]=SW, [SOUTHEAST]=SE, [NORTHEAST]=NE}
 
 -- essential

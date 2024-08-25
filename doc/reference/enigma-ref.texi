@@ -9112,7 +9112,7 @@ that is appropriate for a calculation and do avoid using the trivial positions
 instead.
 
 @itemize @bullet
-@item @samp{NODIR} = @code{po(0, 0)}
+@item @samp{ORIGIN} = @code{po(0, 0)}
 @item @samp{N} = @code{po(0, -1)}
 @item @samp{E} = @code{po(1, 0)}
 @item @samp{S} = @code{po(0, 1)}
