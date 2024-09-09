@@ -56,7 +56,7 @@ namespace enigma { namespace gui {
         Widget *help;
         Widget *quit;
         Widget *lpack;
-        std::vector<BorderlessImageButton*> flags;
+        BorderlessImageButton *languagemenu;
     };
 
 /* -------------------- MainHelpMenu -------------------- */

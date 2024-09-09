@@ -85,8 +85,6 @@ copy_data ()
 	mkdir $DDIR/data/$folder; 
 	cp -p $SDIR/data/$folder/*.{png,jpg} $DDIR/data/$folder
     done
-    mkdir $DDIR/data/gfx/flags25x15
-    cp -p $SDIR/data/gfx/flags25x15/*.png $DDIR/data/gfx/flags25x15
     mkdir $DDIR/data/schemas
     cplffiles data/schemas data/schemas xsd
     cplffiles data/schemas data/schemas xml
@@ -118,7 +116,7 @@ copy_data ()
 copy_doc ()
 {
     echo "... copying documentation"
-    mkdir $DDIR/images $DDIR/images/flags25x15
+    mkdir $DDIR/images
     cptext README                       README
     cptext COPYING                      COPYING
     cptext CHANGES                      CHANGES
@@ -132,7 +130,6 @@ copy_doc ()
     cpfile doc/images/nav_cornerur.gif	images/
     cpfile doc/images/favicon.png	images/
     cpfile doc/images/menu_bg.jpg	images/
-    cpfile doc/images/flags25x15/*.png	images/flags25x15
     cptext etc/README-SDL.txt 	        README-SDL.txt
     cptext doc/reference/ant_lua.txt 	reference/ant_lua.txt
     cptext doc/reference/ConceptLuaAPI2.txt 	reference/ConceptLuaAPI2.txt

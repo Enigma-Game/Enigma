@@ -1,5 +1,3 @@
-SUBDIRS = flags25x15
-
 pkgdatadir = $(datadir)/@PACKAGE@/gfx
 pkgdata_DATA = $(wildcard $(srcdir)/*.png)
 

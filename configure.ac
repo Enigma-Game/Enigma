@@ -363,7 +363,6 @@ AC_CONFIG_SUBDIRS(lib-src/zipios++)
 AC_CONFIG_FILES([Makefile m4/Makefile
            data/Makefile
            data/gfx/Makefile
-           data/gfx/flags25x15/Makefile
            data/gfx16/Makefile
            data/gfx32/Makefile
            data/gfx40/Makefile

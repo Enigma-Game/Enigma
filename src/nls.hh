@@ -22,37 +22,36 @@ namespace nls
     struct Language {
         const char *name;
         const char *localename;
-        const char *flagimage;
         bool        replaceApostrophe;
     };
     
     const Language languages[] = {
-        { "default",     "",      "par",           true },
-        { "беларуская",  "be_BY", "flags25x15/by", true },
-        { "Bosanski",    "bs_BA", "",              true },
-        { "Česky",       "cs_CZ", "flags25x15/cz", true },
-        { "Dansk",       "da_DK", "flags25x15/dk", true },
-        { "Deutsch",     "de_DE", "flags25x15/de", true },
-        { "Ελληνικά",    "el_GR", "flags25x15/gr", true },
-        { "English",     "en_GB", "flags25x15/gb", true },
-        { "Español",     "es_ES", "flags25x15/es", true },
-        { "Français",    "fr_FR", "flags25x15/fr", true },
-        { "Gàidhlig",    "gd_GB", "flags25x15/gb-sct", true },
-        { "Hrvatski",    "hr_HR", "flags25x15/hr", true },
-        { "Italiano",    "it_IT", "flags25x15/it", true },
-        { "Magyar",      "hu_HU", "flags25x15/hu", true },
-        { "Nederlands",  "nl_NL", "flags25x15/nl", true },
-        { "Norsk",       "no_NO", "",              true },
-        { "Polski",      "pl_PL", "flags25x15/pl", true },
-        { "Português",   "pt_BR", "flags25x15/pt", true },
-        { "Русский",     "ru_RU", "flags25x15/ru", true },
-        { "Slovenčina",  "sk_SK", "flags25x15/sk", true },
-        { "Slovenščina", "sl_SI", "",              true },
-        { "Suomi",       "fi_FI", "flags25x15/fi", true },
-        { "Svenska",     "sv_SE", "flags25x15/se", true },
-        { "українська",  "uk_UA", "flags25x15/ua", true },
-        { "中文",         "zh_CN", "flags25x15/zh-cn", false },
-        { "日本語",       "ja_JP", "",                 false },
+        { "default",     "",      true },
+        { "беларуская",  "be_BY", true },
+        { "Bosanski",    "bs_BA", true },
+        { "Česky",       "cs_CZ", true },
+        { "Dansk",       "da_DK", true },
+        { "Deutsch",     "de_DE", true },
+        { "Ελληνικά",    "el_GR", true },
+        { "English",     "en_GB", true },
+        { "Español",     "es_ES", true },
+        { "Français",    "fr_FR", true },
+        { "Gàidhlig",    "gd_GB", true },
+        { "Hrvatski",    "hr_HR", true },
+        { "Italiano",    "it_IT", true },
+        { "Magyar",      "hu_HU", true },
+        { "Nederlands",  "nl_NL", true },
+        { "Norsk",       "no_NO", true },
+        { "Polski",      "pl_PL", true },
+        { "Português",   "pt_BR", true },
+        { "Русский",     "ru_RU", true },
+        { "Slovenčina",  "sk_SK", true },
+        { "Slovenščina", "sl_SI", true },
+        { "Suomi",       "fi_FI", true },
+        { "Svenska",     "sv_SE", true },
+        { "українська",  "uk_UA", true },
+        { "中文",         "zh_CN", false },
+        { "日本語",       "ja_JP", false },
      };
 
     std::string replaceApostrophe(std::string text);
