@@ -138,3 +138,14 @@ bool ecl::string_match(const char* str, const char* templ) {
 bool ecl::string_match(std::string str, std::string templ) {
     return string_match(str.c_str(), templ.c_str());
 }
+
+std::string ecl::u_long_to_std_string(uint32_t x) {
+    std::string result("");
+    result += (unsigned char)((x)       & 0x000000FF);
+    result += (unsigned char)((x >>  8) & 0x000000FF);
+    result += (unsigned char)((x >> 16) & 0x000000FF);
+    result += (unsigned char)((x >> 24) & 0x000000FF);
+    return result;
+}
+
+

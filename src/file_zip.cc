@@ -59,17 +59,6 @@ bool enigma::findInZip(std::string zipPath, std::string zippedFilename1,
     return false;
 }
 
-bool enigma::writeToZip(std::ostream &zipStream, std::string filename, unsigned size, std::istream &contents) {
-    ZipOutputStreambuf zos(zipStream.rdbuf());
-    ZipCDirEntry ze(filename);
-    ze.setSize(size);
-    ze.setTime(time(NULL));  // seems not to be implemented in zipios !
-    zos.putNextEntry(ze);
-    std::ostream ozs( &zos );
-    ozs << contents.rdbuf();
-    return true;
-}
-
 bool enigma::readFromZipStream(std::istream &zipFile, std::ostream &contents) {
     ZipInputStreambuf zis(zipFile.rdbuf());
     std::istream is( &zis );

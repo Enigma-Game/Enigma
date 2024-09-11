@@ -199,6 +199,13 @@ bool string_match(const char *str, const char *templ);
  */
 bool string_match(std::string str, std::string templ);
 
+/**
+ * Take an unsigned long (32 bit) integer x and
+ * convert it into a string of 4 unsigned chars.
+ * Used in saving the score file.
+ */
+std::string u_long_to_std_string(uint32_t x);
+
 }  // namespace ecl
 
 #endif

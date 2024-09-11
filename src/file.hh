@@ -176,7 +176,6 @@ namespace enigma
             std::string zippedFilename2, std::string &dest, 
         std::unique_ptr<std::istream> &isresult);
     
-    bool writeToZip(std::ostream &zipStream, std::string filename, unsigned size, std::istream &contents);
     bool readFromZipStream(std::istream &zipFile, std::ostream &contents);
 
 } // namespace enigma
