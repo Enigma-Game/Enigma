@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014 Ryan Lerch <rlerch@redhat.com>, Andreas Lochmann <and.lochmann@googlemail.com> -->
-<application>
-  <id type="desktop">enigma.desktop</id>
+<component type="desktop-application">
+  <id>org.nongnu.enigma</id>
+  <launchable type="desktop-id">org.nongnu.enigma.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Enigma</name>
@@ -44,22 +44,47 @@
         <ul>
           <li>Rescaling the application window introduces graphical artifacts: Better use fixed window sizes for now.</li>
           <li>Not all fullscreen modes are available yet, in particular no vertical screen modes. If you use a vertical screen, please use Enigma in windowed mode.</li>
-          <li>On Windows 7, after playing or finishing a level, the mouse cursor is trapped inside Enigma's window (but not frozen). Enigma can still be operated and exited via the main menu or the game menu, though.</li>
+          <li>On Windows 7, after playing or finishing a level, the mouse cursor is trapped inside Enigma&apos;s window (but not frozen). Enigma can still be operated and exited via the main menu or the game menu, though.</li>
         </ul>
       </description>
     </release>
   </releases>
-  <url type="homepage">http://www.nongnu.org/enigma/</url>
+  <url type="homepage">https://www.nongnu.org/enigma/</url>
   <screenshots>
-    <screenshot type="default">http://www.nongnu.org/enigma/images/screenshots/ral15_1.png</screenshot>
-    <screenshot>http://www.nongnu.org/enigma/images/screenshots/mecke22_2.png</screenshot>
-    <screenshot>http://www.nongnu.org/enigma/images/screenshots/luc36_1.png</screenshot>
+    <screenshot type="default">
+      <image>https://www.nongnu.org/enigma/images/screenshots/ral15_1.png</image>
+      <caption>"The Gordian Knot" by Ronald Lamprecht</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://www.nongnu.org/enigma/images/screenshots/mecke22_2.png</image>
+      <caption>Example Level</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://www.nongnu.org/enigma/images/screenshots/luc36_1.png</image>
+      <caption>Example Level</caption>
+    </screenshot>
   </screenshots>
   <keywords>
     <keyword>enigma</keyword>
     <keyword>puzzle</keyword>
     <keyword>marble</keyword>
   </keywords>
-  <content_rating type="oars-1.1" />
-  <updatecontact>enigma-devel@nongnu.org</updatecontact>
-</application>
+  <developer id="enigma.nongnu.org">
+    <name>Thomas Bernhardt</name>
+    <name>Raoul Bourquin</name>
+    <name>Siegfried Fennig</name>
+    <name>Martin Hawlisch</name>
+    <name>Daniel Heck</name>
+    <name>Georg Honold</name>
+    <name>Ronald Lamprecht</name>
+    <name>Andreas Lochmann</name>
+    <name>Petr Machata</name>
+    <name>Nobby</name>
+    <name>Nat Pryce</name>
+    <name>Jacob Scott</name>
+    <name>Sven Siggelkow</name>
+    <name>Ralf Westram</name>
+  </developer>
+  <content_rating type="oars-1.1"/>
+  <update_contact>enigma-devel@nongnu.org</update_contact>
+</component>
