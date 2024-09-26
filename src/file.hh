@@ -27,6 +27,7 @@
 #include <vector>
 #include <list>
 #include <memory>
+#include <string>
 
 namespace enigma
 {

@@ -25,6 +25,7 @@
 #include "ecl_math.hh"
 #include <utility>
 #include <stdint.h>
+#include <string>
 
 #define NUMENTRIES(array) (sizeof(array) / sizeof(*array))
 

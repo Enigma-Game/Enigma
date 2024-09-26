@@ -264,12 +264,12 @@ private:
     static bool boot_registered = do_boot_register(); \
     }
 
-#define CLONEOBJ(TYPE)                        \
+#define CLONEOBJ(TYPE)                                 \
     TYPE *clone() override { return new TYPE(*this); } \
     void dispose() override { delete this; }
 
 #define CLONEACTOR(TYPE)           \
-    TYPE *clone() override {                \
+    TYPE *clone() override {       \
         TYPE *o = new TYPE(*this); \
         o->init();                 \
         return o;                  \
@@ -279,12 +279,12 @@ private:
 #define INSTANCELISTOBJ(TYPE)                                            \
     typedef std::vector<TYPE *> InstanceList;                            \
     static InstanceList instances;                                       \
-    TYPE *clone() override {                                                      \
+    TYPE *clone() override {                                             \
         TYPE *o = new TYPE(*this);                                       \
         instances.push_back(o);                                          \
         return o;                                                        \
     }                                                                    \
-    void dispose() override {                                                     \
+    void dispose() override {                                            \
         instances.erase(find(instances.begin(), instances.end(), this)); \
         delete this;                                                     \
     }
