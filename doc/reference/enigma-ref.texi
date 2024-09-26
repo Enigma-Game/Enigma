@@ -5693,6 +5693,7 @@ Let us look at the supported operators:
 * Position Coordinate Access::            Index Operators
 * Position Grid Rounding::                Method @samp{grid()}
 * Position Existence::                    Method @samp{exists()}
+* Position Norm::                         Method @samp{norm()}
 @end menu
 
 @c ----------------- Position Addition and Subtraction --------------------
