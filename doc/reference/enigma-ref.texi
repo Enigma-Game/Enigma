@@ -7914,6 +7914,7 @@ implemented as simple functions.
 * assert_bool::     Throws an error if a condition doesn't hold.
 * assert_type::     Throws an error if a variable is not of a given type.
 * cond::            A ternary operator, wrapper for if-then-else.
+* enigma.LoadLib::  Library Loading.
 * etype::           An advanced function to return normal and user data types.
 * fl::              Floor retrieval
 * grp::             Create a group out of the argument objects
@@ -8153,6 +8154,33 @@ will occur.
 
 @end table
 
+@c ----------------- LoadLib --------------------
+@node enigma.LoadLib
+@subsection enigma.LoadLib
+@findex enigma.LoadLib
+
+The function @samp{enigma.LoadLib()} loads a Lua library dependency.
+
+@table @asis
+@item @b{Syntax:}
+@b{enigma.LoadLib}(@i{filename})
+
+@table @asis
+@item @i{filename}
+Filename of the library to load.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+@i{enigma.LoadLib}(@i{"lib/natmaze"})
+@end example
+
+@item @b{Details:}
+Libraries are usually preloaded as described in @ref{Library Preloading} and there is no need to call this function.
+For more information about libraries, see @ref{Library Files}.
+
+@end table
+
 @c ----------------- etype --------------------
 @node etype
 @subsection etype
@@ -8328,6 +8356,7 @@ the related orientations.
 @end example
 
 @end table
+
 @c ----------------- random --------------------
 @node random
 @subsection random
@@ -8361,6 +8390,7 @@ randomseed can not be modified by the level itself.
 @end example
 
 @end table
+
 @c ----------------- st --------------------
 @node st
 @subsection st
