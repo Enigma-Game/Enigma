@@ -11451,10 +11451,10 @@ variation, too.
 
 The framed variant is the successor of a fallen @ref{st_box}_hay. It may be
 flooded by a @ref{fl_water} stream without the attribute @samp{floodable} being
-set to @samp{true} as the flood passes below this floor. The framed wood
+set to @samp{true} as the flood passes below this floor. The framed hay
 acts like a bridge over a flood stream and the water will continue to spread to
-neighboring grids, while the framed wood is still passable for actors. In fact
-a framed wood can even operate as a flood source, but we do not recommend this
+neighboring grids, while the framed hay is still passable for actors. In fact
+a framed hay can even operate as a flood source, but we do not recommend this
 usage. @pxref{Flood Spreading}.
 
 @table @asis
@@ -11536,10 +11536,10 @@ variation, too.
 
 The framed variant is the successor of a fallen @ref{st_box}_rock. It may be
 flooded by a @ref{fl_water} stream without the attribute @samp{floodable} being
-set to @samp{true} as the flood passes below this floor. The framed wood
+set to @samp{true} as the flood passes below this floor. The framed rock
 acts like a bridge over a flood stream and the water will continue to spread to
-neighboring grids, while the framed wood is still passable for actors. In fact
-a framed wood can even operate as a flood source, but we do not recommend this
+neighboring grids, while the framed rock is still passable for actors. In fact
+a framed rock can even operate as a flood source, but we do not recommend this
 usage. @pxref{Flood Spreading}.
 
 @table @asis
