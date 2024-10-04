@@ -43,7 +43,7 @@ SIMPLEPNG = \
 	fl_swamp.png \
 	fl_water.png \
 	fl_wood.png fl_wood_3.png \
-	fl_wood_framed.png fl_wood_framed_2.png \
+	fl_wood_framed_1.png fl_wood_framed_2.png \
 	fl_yinyang_yang.png \
 	fl_yinyang_yin.png \
 	it_axe.png \
@@ -428,6 +428,9 @@ fl_forward_d_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_forward.png
 
 ac_%.png: $(GFXDIR)/ac_%.png
 	$(CONVERT) $(CONVERTOPT) -crop 60x60+0+0 $< $@
+
+%_1.png: $(GFXDIR)/%.png
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 $< $@
 
 %_2.png: $(GFXDIR)/%.png
 	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+48 $< $@

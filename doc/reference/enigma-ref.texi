@@ -11890,8 +11890,8 @@ Number of seconds .
 @item @image{images/fl_wood, 12mm} @b{fl_wood}: texture = random
 @item @image{images/fl_wood_3, 12mm} @b{fl_wood_h}: texture = @code{"h"}
 @item @image{images/fl_wood, 12mm} @b{fl_wood_v}: texture = @code{"v"}
-@item @image{images/fl_wood_framed, 12mm} @b{fl_wood_framed}: texture = random, faces = @code{"nesw"}
-@item @image{images/fl_wood_framed, 12mm} @b{fl_wood_framed_h}: texture = @code{"h"}, faces = @code{"nesw"}
+@item @image{images/fl_wood_framed_2, 12mm} @b{fl_wood_framed}: texture = random, faces = @code{"nesw"}
+@item @image{images/fl_wood_framed_1, 12mm} @b{fl_wood_framed_h}: texture = @code{"h"}, faces = @code{"nesw"}
 @item @image{images/fl_wood_framed_2, 12mm} @b{fl_wood_framed_v}: texture = @code{"v"}, faces = @code{"nesw"}
 @end table
 @end table
