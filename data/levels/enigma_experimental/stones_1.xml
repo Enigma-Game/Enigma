@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="All Stones as of Enigma 1.20" el:subtitle="" el:id="stones"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="experimental"/>
+      <el:identity el:title="All Stones as of Enigma 1.31" el:subtitle="" el:id="stones"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="experimental"/>
       <el:author el:name="Raoul Bourquin" el:email=""/>
       <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -100,154 +100,163 @@ local stones = {
 {"st_panel", faces="nes", _text="st_panel, faces=\"nes\""},
 {"st_panel", faces="nesw", _text="st_panel, faces=\"nesw\""},
 
-{"st_actorimpulse", _text="st_actorimpulse, default"},
+{"st_actorimpulse",                 _text="st_actorimpulse, default"},
 {"st_actorimpulse", invisible=true, _text="st_actorimpulse, invisible=true"},
 
 {"st_barrier", _text="st_barrier, flavor=\"all\""},
 
 {"st_beads", _text="st_beads"},
 
-{"st_blocker", _text="st_blocker, default"},
+{"st_blocker",               _text="st_blocker, default"},
 {"st_blocker", state=CLOSED, _text="st_blocker, state=CLOSED"},
 
-{"st_blur", _text="st_blur, default"},
+{"st_blur",                    _text="st_blur, default"},
 {"st_blur", flavor="straight", _text="st_blur, flavor=\"straight\""},
-{"st_blur", flavor="cross", _text="st_blur, flavor=\"cross\""},
-{"st_blur", flavor="magic", _text="st_blur, flavor=\"magic\""},
+{"st_blur", flavor="cross",    _text="st_blur, flavor=\"cross\""},
+{"st_blur", flavor="magic",    _text="st_blur, flavor=\"magic\""},
 
-{"st_boulder", _text="st_boulder, default"},
+{"st_boulder",                    _text="st_boulder, default"},
 {"st_boulder", orientation=NORTH, _text="st_boulder, orientation=NORTH"},
-{"st_boulder", orientation=EAST, _text="st_boulder, orientation=EAST"},
+{"st_boulder", orientation=EAST,  _text="st_boulder, orientation=EAST"},
 {"st_boulder", orientation=SOUTH, _text="st_boulder, orientation=SOUTH"},
-{"st_boulder", orientation=WEST, _text="st_boulder, orientation=WEST"},
+{"st_boulder", orientation=WEST,  _text="st_boulder, orientation=WEST"},
 
-{"st_box", _text="st_box, default"}, -- flavor attributes!
-{"st_box_wood", _text="st_box_wood"}, -- flavor attributes!
-{"st_box_wood_h", _text="st_box_wood_h"}, -- flavor attributes!
-{"st_box_wood_v", _text="st_box_wood_v"}, -- flavor attributes!
+{"st_box",              _text="st_box, default"},     -- flavor attributes!
+{"st_box_wood",         _text="st_box_wood"},         -- flavor attributes!
+{"st_box_wood_h",       _text="st_box_wood_h"},       -- flavor attributes!
+{"st_box_wood_v",       _text="st_box_wood_v"},       -- flavor attributes!
 {"st_box_wood_growing", _text="st_box_wood_growing"}, -- flavor attributes!
-{"st_box_hay", _text="st_box_hay"}, -- flavor attributes!
-{"st_box_hay_growing", _text="st_box_hay_growing"}, -- flavor attributes!
-{"st_box_rock", _text="st_box_rock"}, -- flavor attributes!
---{"st_box_rock_growing", _text="st_box_rock_growing"}, -- flavor attributes!
+{"st_box_hay",          _text="st_box_hay"},          -- flavor attributes!
+{"st_box_hay_growing",  _text="st_box_hay_growing"},  -- flavor attributes!
+{"st_box_rock",         _text="st_box_rock"},         -- flavor attributes!
+-- {"st_box_rock_growing", _text="st_box_rock_growing"}, -- flavor attributes!
 
 {"st_brake", _text="st_brake"},
 
-{"st_break", _text="st_break, default"},
-{"st_break_plain", _text="st_break_plain"}, -- flavor attributes!
-{"st_break_black", _text="st_break_black"}, -- flavor attributes!
-{"st_break_white", _text="st_break_white"}, -- flavor attributes!
-{"st_break_oxydc", _text="st_break_oxydc"}, -- flavor attributes!
-{"st_break_boulder", _text="st_break_boulder"}, -- flavor attributes!
-{"st_break_bug", _text="st_break_bug"}, -- flavor attributes!
-{"st_break_laser", _text="st_break_laser"}, -- flavor attributes!
+{"st_break",         _text="st_break, default"}, -- flavor attributes!
+{"st_break_plain",   _text="st_break_plain"},    -- flavor attributes!
+{"st_break_black",   _text="st_break_black"},    -- flavor attributes!
+{"st_break_white",   _text="st_break_white"},    -- flavor attributes!
+{"st_break_oxydc",   _text="st_break_oxydc"},    -- flavor attributes!
+{"st_break_boulder", _text="st_break_boulder"},  -- flavor attributes!
+{"st_break_bug",     _text="st_break_bug"},      -- flavor attributes!
+{"st_break_laser",   _text="st_break_laser"},    -- flavor attributes!
 
 {"st_brownpyramid", _text="st_brownpyramid"},
 
 {"st_chameleon", _text="st_chameleon"},
 
-{"st_charge", _text="st_charge, default"}, -- flavor attributes?
-{"st_charge_zero", _text="st_charge_zero"}, -- flavor attributes?
-{"st_charge_plus", _text="st_charge_plus"}, -- flavor attributes?
-{"st_charge_minus", _text="st_charge_minus"}, -- flavor attributes?
+{"st_charge",       _text="st_charge, default"}, -- flavor attributes?
+{"st_charge_zero",  _text="st_charge_zero"},     -- flavor attributes?
+{"st_charge_plus",  _text="st_charge_plus"},     -- flavor attributes?
+{"st_charge_minus", _text="st_charge_minus"},    -- flavor attributes?
 
-{"st_chess", _text="st_chess, default"},
+{"st_chess",              _text="st_chess, default"},
 {"st_chess", color=BLACK, _text="st_chess, color=BLACK"},
 {"st_chess", color=WHITE, _text="st_chess, color=WHITE"},
 
-{"st_coinslot", _text="st_coinslot"},
+{"st_coinslot",         _text="st_coinslot"},         -- flavor attributes?
+{"st_coinslot_instant", _text="st_coinslot_instant"}, -- flavor attributes?
 
-{"st_darkglass", _text="st_darkglass"},
-{"st_darkglass_hollow", _text="st_darkglass_hollow"}, -- flavor attributes?
+{"st_darkglass",         _text="st_darkglass"},         -- flavor attributes?
+{"st_darkglass_hollow",  _text="st_darkglass_hollow"},  -- flavor attributes?
 {"st_darkglass_movable", _text="st_darkglass_movable"}, -- flavor attributes?
 
-{"st_death", _text="st_death, default"},
+{"st_death",                 _text="st_death, default"},
 {"st_death", invisible=true, _text="st_death, invisible=true"},
-{"st_death_movable", _text="st_death, movable=true"},
+{"st_death_movable",         _text="st_death, movable=true"},
 
-{"st_disco", _text="st_disco, default"},
-{"st_disco", state=LIGHT, _text="st_disco, state=LIGHT"},
+{"st_disco",               _text="st_disco, default"},
+{"st_disco", state=LIGHT,  _text="st_disco, state=LIGHT"},
 {"st_disco", state=MEDIUM, _text="st_disco, state=MEDIUM"},
-{"st_disco", state=DARK, _text="st_disco, state=DARK"},
+{"st_disco", state=DARK,   _text="st_disco, state=DARK"},
 
-{"st_dispenser", _text="st_dispenser, default"},
+{"st_dispenser",           _text="st_dispenser, default"},  -- flavor attributes?
+{"st_dispenser_axe",       _text="st_dispenser_axe"},       -- flavor attributes?
 {"st_dispenser_bombblack", _text="st_dispenser_bombblack"}, -- flavor attributes?
 {"st_dispenser_bombwhite", _text="st_dispenser_bombwhite"}, -- flavor attributes?
-{"st_dispenser_dynamite", _text="st_dispenser_dynamite"}, -- flavor attributes?
+{"st_dispenser_dynamite",  _text="st_dispenser_dynamite"},  -- flavor attributes?
 {"st_dispenser_extralife", _text="st_dispenser_extralife"}, -- flavor attributes?
 
-{"st_door", _text="st_door, default"},
-{"st_door", flavor="a", _text="st_door, flavor=\"a\""},
-{"st_door", flavor="a", state=OPEN, _text="st_door, flavor=\"a\", state=OPEN"},
-{"st_door", flavor="b", _text="st_door, flavor=\"b\""},
-{"st_door", flavor="b", state=OPEN, _text="st_door, flavor=\"b\", state=OPEN"},
-{"st_door", flavor="c", _text="st_door, flavor=\"c\""},
-{"st_door", flavor="c", state=OPEN, _text="st_door, flavor=\"c\", state=OPEN"},
-{"st_door", flavor="d", faces="ns", _text="st_door, flavor=\"d\", faces=\"ns\""},
+{"st_document", _text="st_document"},
+
+{"st_door",                                     _text="st_door, default"},
+{"st_door", flavor="a",                         _text="st_door, flavor=\"a\""},
+{"st_door", flavor="a", state=OPEN,             _text="st_door, flavor=\"a\", state=OPEN"},
+{"st_door", flavor="b",                         _text="st_door, flavor=\"b\""},
+{"st_door", flavor="b", state=OPEN,             _text="st_door, flavor=\"b\", state=OPEN"},
+{"st_door", flavor="c",                         _text="st_door, flavor=\"c\""},
+{"st_door", flavor="c", state=OPEN,             _text="st_door, flavor=\"c\", state=OPEN"},
+{"st_door", flavor="d", faces="ns",             _text="st_door, flavor=\"d\", faces=\"ns\""},
 {"st_door", flavor="d", faces="ns", state=OPEN, _text="st_door, flavor=\"d\", faces=\"ns\", state=OPEN"},
-{"st_door", flavor="d", faces="ew", _text="st_door, flavor=\"d\", faces=\"ew\""},
+{"st_door", flavor="d", faces="ew",             _text="st_door, flavor=\"d\", faces=\"ew\""},
 {"st_door", flavor="d", faces="ew", state=OPEN, _text="st_door, flavor=\"d\", faces=\"ew\", state=OPEN"},
 
---{"st_fake", _text="st_fake, default"}, --broken default?
-{"st_fake_quake", _text="st_fake_quake"}, -- flavor attributes?
+-- {"st_fake",                     _text="st_fake, default"}, --broken default?
+{"st_fake_quake",               _text="st_fake_quake"},               -- flavor attributes?
 {"st_fake_quake", state=ACTIVE, _text="st_fake_quake, state=ACTIVE"}, -- flavor attributes?
-{"st_fake_oxyda", _text="st_fake_oxyda"}, -- flavor attributes?
-{"st_fake_oxyda", state=OPEN, _text="st_fake_oxyda, state=OPEN"}, -- flavor attributes?
-{"st_fake_oxydb", _text="st_fake_oxydb"}, -- flavor attributes?
-{"st_fake_oxydb", state=OPEN, _text="st_fake_oxydb, state=OPEN"}, -- flavor attributes?
-{"st_fake_oxydc", _text="st_fake_oxydc"}, -- flavor attributes?
-{"st_fake_oxydc", state=OPEN, _text="st_fake_oxydc, state=OPEN"}, -- flavor attributes?
-{"st_fake_oxydd", _text="st_fake_oxydd"}, -- flavor attributes?
-{"st_fake_oxydd", state=OPEN, _text="st_fake_oxydd, state=OPEN"}, -- flavor attributes?
-{"st_fake_oxyde", _text="st_fake_oxyde"}, -- flavor attributes?
-{"st_fake_oxyde", state=OPEN, _text="st_fake_oxyde, state=OPEN"}, -- flavor attributes?
+{"st_fake_oxyda",               _text="st_fake_oxyda"},               -- flavor attributes?
+{"st_fake_oxyda", state=OPEN,   _text="st_fake_oxyda, state=OPEN"},   -- flavor attributes?
+{"st_fake_oxydb",               _text="st_fake_oxydb"},               -- flavor attributes?
+{"st_fake_oxydb", state=OPEN,   _text="st_fake_oxydb, state=OPEN"},   -- flavor attributes?
+{"st_fake_oxydc",               _text="st_fake_oxydc"},               -- flavor attributes?
+{"st_fake_oxydc", state=OPEN,   _text="st_fake_oxydc, state=OPEN"},   -- flavor attributes?
+{"st_fake_oxydd",               _text="st_fake_oxydd"},               -- flavor attributes?
+{"st_fake_oxydd", state=OPEN,   _text="st_fake_oxydd, state=OPEN"},   -- flavor attributes?
+{"st_fake_oxyde",               _text="st_fake_oxyde"},               -- flavor attributes?
+{"st_fake_oxyde", state=OPEN,   _text="st_fake_oxyde, state=OPEN"},   -- flavor attributes?
 
 {"st_flash", _text="st_flash"},
 
-{"st_flat", _text="st_flat, default"}, -- flavor attributes!
-{"st_flat_hollow", _text="st_flat_hollow"}, -- flavor attributes?
-{"st_flat_movable", _text="st_flat_movable"}, -- flavor attributes?
-{"st_flat_breakable", _text="st_flat_breakable"}, -- flavor attributes?
-{"st_flat_cracked", _text="st_flat_cracked"}, -- flavor attributes?
-{"st_flat_burnable", _text="st_flat_burnable"}, -- flavor attributes?
+{"st_flat",              _text="st_flat, default"},     -- flavor attributes!
+{"st_flat_hollow",       _text="st_flat_hollow"},       -- flavor attributes?
+{"st_flat_movable",      _text="st_flat_movable"},      -- flavor attributes?
+{"st_flat_breakable",    _text="st_flat_breakable"},    -- flavor attributes?
+{"st_flat_cracked",      _text="st_flat_cracked"},      -- flavor attributes?
+{"st_flat_burnable",     _text="st_flat_burnable"},     -- flavor attributes?
 {"st_flat_moveburnable", _text="st_flat_moveburnable"}, -- flavor attributes?
---{"st_flat_breaking", _text="st_flat_breaking"}, -- flavor attributes?
+{"st_flat_breaking",     _text="st_flat_breaking"},     -- flavor attributes?
 
-{"st_floppy", _text="st_floppy, default"},
-{"st_floppy", state=ON, _text="st_floppy, state=ON"},
+{"st_floppy",            _text="st_floppy, default"},
+{"st_floppy", state=ON,  _text="st_floppy, state=ON"},
 {"st_floppy", state=OFF, _text="st_floppy, state=OFF"},
 
-{"st_fourswitch", _text="st_fourswitch, default"},
+{"st_fourswitch",                     _text="st_fourswitch, default"},
 {"st_fourswitch", counterclock=false, _text="st_fourswitch, counterclock=false"},
-{"st_fourswitch", counterclock=true, _text="st_fourswitch, counterclock=true"},
-{"st_fourswitch", state=NORTH, _text="st_fourswitch, state=NORTH"},
-{"st_fourswitch", state=EAST, _text="st_fourswitch, state=EAST"},
-{"st_fourswitch", state=SOUTH, _text="st_fourswitch, state=SOUTH"},
-{"st_fourswitch", state=WEST, _text="st_fourswitch, state=WEST"},
+{"st_fourswitch", counterclock=true,  _text="st_fourswitch, counterclock=true"},
+{"st_fourswitch", state=NORTH,        _text="st_fourswitch, state=NORTH"},
+{"st_fourswitch", state=EAST,         _text="st_fourswitch, state=EAST"},
+{"st_fourswitch", state=SOUTH,        _text="st_fourswitch, state=SOUTH"},
+{"st_fourswitch", state=WEST,         _text="st_fourswitch, state=WEST"},
 
-{"st_ghost", _text="st_ghost, default"},
+{"st_ghost",                        _text="st_ghost, default"},
 {"st_ghost", flavor="purplemarble", _text="st_ghost, flavor=\"purplemarble\""},
-{"st_ghost", flavor="greenbrown", _text="st_ghost, flavor=\"greenbrown\""},
-{"st_ghost", flavor="break", _text="st_ghost, flavor=\"break\""},
+{"st_ghost", flavor="greenbrown",   _text="st_ghost, flavor=\"greenbrown\""},
+{"st_ghost", flavor="break",        _text="st_ghost, flavor=\"break\""},
 
-{"st_grate", _text="st_grate, default"},
-{"st_grate", flavor="cross", _text="st_grate, flavor=\"cross\""},
+{"st_grate",                  _text="st_grate, default"},
+{"st_grate", flavor="cross",  _text="st_grate, flavor=\"cross\""},
 {"st_grate", flavor="framed", _text="st_grate, flavor=\"framed\""},
 
-{"st_greenbrown", _text="st_greenbrown"},
-{"st_greenbrown_hollow", _text="st_greenbrown_hollow"},
-{"st_greenbrown_movable", _text="st_greenbrown_movable"},
-{"st_greenbrown_growing", _text="st_greenbrown_growing"},
+{"st_greenbrown",         _text="st_greenbrown"},         -- flavor attributes?
+{"st_greenbrown_hollow",  _text="st_greenbrown_hollow"},  -- flavor attributes?
+{"st_greenbrown_movable", _text="st_greenbrown_movable"}, -- flavor attributes?
+{"st_greenbrown_growing", _text="st_greenbrown_growing"}, -- flavor attributes?
 
 {"st_ice", _text="st_ice"},
 
-{"st_jamb", _text="st_jamb, default"},
+{"st_inkwell",                      _text="st_inkwell"},
+{"st_inkwell", state=INKWELL_BLACK, _text="st_inkwell, state=INKWELL_BLACK"},
+{"st_inkwell", state=INKWELL_EMPTY, _text="st_inkwell, state=INKWELL_EMPTY"},
+{"st_inkwell", state=INKWELL_WHITE, _text="st_inkwell, state=INKWELL_WHITE"},
+
+{"st_jamb",              _text="st_jamb, default"},
 {"st_jamb", color=BLACK, _text="st_jamb, color=BLACK"},
 {"st_jamb", color=WHITE, _text="st_jamb, color=WHITE"},
 
-{"st_key", _text="st_key, default"},
-{"st_key", state=ON, _text="st_key, state=ON"},
-{"st_key", state=OFF, _text="st_key, state=OFF"},
+{"st_key",                                     _text="st_key, default"},
+{"st_key", state=ON,                           _text="st_key, state=ON"},
+{"st_key", state=OFF,                          _text="st_key, state=OFF"},
 {"st_key", state=OFF, invisible=false, code=1, _text="st_key, state=OFF, invisible=false, code=1"},
 {"st_key", state=OFF, invisible=false, code=2, _text="st_key, state=OFF, invisible=false, code=2"},
 {"st_key", state=OFF, invisible=false, code=3, _text="st_key, state=OFF, invisible=false, code=3"},
@@ -259,342 +268,350 @@ local stones = {
 
 {"st_knight", _text="st_knight"},
 
-{"st_laser", _text="st_laser, default"},
-{"st_laser", state=ON, _text="st_laser, state=ON"},
-{"st_laser", state=OFF, _text="st_laser, state=OFF"},
+{"st_laser",                    _text="st_laser, default"},
+{"st_laser", state=ON,          _text="st_laser, state=ON"},
+{"st_laser", state=OFF,         _text="st_laser, state=OFF"},
 {"st_laser", orientation=NORTH, _text="st_laser, orientation=NORTH"},
-{"st_laser", orientation=EAST, _text="st_laser, orientation=EAST"},
+{"st_laser", orientation=EAST,  _text="st_laser, orientation=EAST"},
 {"st_laser", orientation=SOUTH, _text="st_laser, orientation=SOUTH"},
-{"st_laser", orientation=WEST, _text="st_laser, orientation=WEST"},
+{"st_laser", orientation=WEST,  _text="st_laser, orientation=WEST"},
 
-{"st_laserflop", _text="st_laserflop, default"},
-{"st_laserflop", state=ON, _text="st_laserflop, state=ON"},
+{"st_laserflop",            _text="st_laserflop, default"},
+{"st_laserflop", state=ON,  _text="st_laserflop, state=ON"},
 {"st_laserflop", state=OFF, _text="st_laserflop, state=OFF"},
 
-{"st_laserswitch", _text="st_laserswitch"},
+{"st_laserswitch",            _text="st_laserswitch"},
+-- {"st_laserswitch", state=ON,  _text="st_laserswitch, state=ON"},
+-- {"st_laserswitch", state=OFF, _text="st_laserswitch, state=OFF"},
 
-{"st_lightglass", _text="st_lightglass"},
-{"st_lightglass_hollow", _text="st_lightglass_hollow"}, -- flavor attributes?
+{"st_lightglass",         _text="st_lightglass"},         -- flavor attributes?
+{"st_lightglass_hollow",  _text="st_lightglass_hollow"},  -- flavor attributes?
 {"st_lightglass_movable", _text="st_lightglass_movable"}, -- flavor attributes?
 
-{"st_lightpassenger", _text="st_lightpassenger, default"},
-{"st_lightpassenger", state=ON, _text="st_lightpassenger, state=ON"},
+{"st_lightpassenger",            _text="st_lightpassenger, default"},
+{"st_lightpassenger", state=ON,  _text="st_lightpassenger, state=ON"},
 {"st_lightpassenger", state=OFF, _text="st_lightpassenger, state=OFF"},
 
-{"st_magic", _text="st_magic, default"},
-{"st_magic_brick", _text="st_magic_brick"}, -- flavor attributes?
-{"st_magic_oxyda", _text="st_magic_oxyda"}, -- flavor attributes?
-{"st_magic_oxydc", _text="st_magic_oxydc"}, -- flavor attributes?
+{"st_magic",       _text="st_magic, default"}, -- flavor attributes?
+{"st_magic_brick", _text="st_magic_brick"},    -- flavor attributes?
+{"st_magic_oxyda", _text="st_magic_oxyda"},    -- flavor attributes?
+{"st_magic_oxydc", _text="st_magic_oxydc"},    -- flavor attributes?
 
-{"st_mail", _text="st_mail, default"},
+{"st_mail",                    _text="st_mail, default"},
 {"st_mail", orientation=NORTH, _text="st_mail, orientation=NORTH"},
-{"st_mail", orientation=EAST, _text="st_mail, orientation=EAST"},
+{"st_mail", orientation=EAST,  _text="st_mail, orientation=EAST"},
 {"st_mail", orientation=SOUTH, _text="st_mail, orientation=SOUTH"},
-{"st_mail", orientation=WEST, _text="st_mail, orientation=WEST"},
+{"st_mail", orientation=WEST,  _text="st_mail, orientation=WEST"},
 
-{"st_mirror", _text="st_mirror, default"},
-{"st_mirror", movable=true, _text="st_mirror, movable=true"},
-{"st_mirror", transparent=true, _text="st_mirror, transparent=true"},
-{"st_mirror", movable=true, transparent=true, _text="st_mirror, movable=true, transparent=true"},
-{"st_mirror", counterclock=true, _text="st_mirror, counterclock=true"},
-{"st_mirror", orientation=NORTH, _text="st_mirror, orientation=NORTH"},
-{"st_mirror", orientation=EAST, _text="st_mirror, orientation=EAST"},
-{"st_mirror", orientation=SOUTH, _text="st_mirror, orientation=SOUTH"},
-{"st_mirror", orientation=WEST, _text="st_mirror, orientation=WEST"},
-{"st_mirror", flavor="sheets", orientation=NORTH, _text="st_mirror, flavor=\"sheets\", orientation=NORTH"},
-{"st_mirror", flavor="sheets", orientation=EAST, _text="st_mirror, flavor=\"sheets\", orientation=EAST"},
-{"st_mirror", flavor="sheets", orientation=SOUTH, _text="st_mirror, flavor=\"sheets\", orientation=SOUTH"},
-{"st_mirror", flavor="sheets", orientation=WEST, _text="st_mirror, flavor=\"sheets\", orientation=WEST"},
-{"st_mirror", flavor="triangle", orientation=NORTH, _text="st_mirror, flavor=\"triangle\", orientation=NORTH"},
-{"st_mirror", flavor="triangle", orientation=EAST, _text="st_mirror, flavor=\"triangle\", orientation=EAST"},
-{"st_mirror", flavor="triangle", orientation=SOUTH, _text="st_mirror, flavor=\"triangle\", orientation=SOUTH"},
-{"st_mirror", flavor="triangle", orientation=WEST, _text="st_mirror, flavor=\"triangle\", orientation=WEST"},
-{"st_mirror", movable=true, orientation=NORTH, _text="st_mirror, movable=true, orientation=NORTH"},
-{"st_mirror", movable=true, orientation=EAST, _text="st_mirror, movable=true, orientation=EAST"},
-{"st_mirror", movable=true, orientation=SOUTH, _text="st_mirror, movable=true, orientation=SOUTH"},
-{"st_mirror", movable=true, orientation=WEST, _text="st_mirror, movable=true, orientation=WEST"},
-{"st_mirror", movable=true, flavor="sheets", orientation=NORTH, _text="st_mirror, movable=true, flavor=\"sheets\", orientation=NORTH"},
-{"st_mirror", movable=true, flavor="sheets", orientation=EAST, _text="st_mirror, movable=true, flavor=\"sheets\", orientation=EAST"},
-{"st_mirror", movable=true, flavor="sheets", orientation=SOUTH, _text="st_mirror, movable=true, flavor=\"sheets\", orientation=SOUTH"},
-{"st_mirror", movable=true, flavor="sheets", orientation=WEST, _text="st_mirror, movable=true, flavor=\"sheets\", orientation=WEST"},
-{"st_mirror", movable=true, flavor="triangle", orientation=NORTH, _text="st_mirror, movable=true, flavor=\"triangle\", orientation=NORTH"},
-{"st_mirror", movable=true, flavor="triangle", orientation=EAST, _text="st_mirror, movable=true, flavor=\"triangle\", orientation=EAST"},
-{"st_mirror", movable=true, flavor="triangle", orientation=SOUTH, _text="st_mirror, movable=true, flavor=\"triangle\", orientation=SOUTH"},
-{"st_mirror", movable=true, flavor="triangle", orientation=WEST, _text="st_mirror, movable=true, flavor=\"triangle\", orientation=WEST"},
-{"st_mirror", transparent=true, orientation=NORTH, _text="st_mirror, transparent=true, orientation=NORTH"},
-{"st_mirror", transparent=true, orientation=EAST, _text="st_mirror, transparent=true, orientation=EAST"},
-{"st_mirror", transparent=true, orientation=SOUTH, _text="st_mirror, transparent=true, orientation=SOUTH"},
-{"st_mirror", transparent=true, orientation=WEST, _text="st_mirror, transparent=true, orientation=WEST"},
-{"st_mirror", transparent=true, flavor="triangle", orientation=NORTH, _text="st_mirror, transparent=true, flavor=\"triangle\", orientation=NORTH"},
-{"st_mirror", transparent=true, flavor="triangle", orientation=EAST, _text="st_mirror, transparent=true, flavor=\"triangle\", orientation=EAST"},
-{"st_mirror", transparent=true, flavor="triangle", orientation=SOUTH, _text="st_mirror, transparent=true, flavor=\"triangle\", orientation=SOUTH"},
-{"st_mirror", transparent=true, flavor="triangle", orientation=WEST, _text="st_mirror, transparent=true, flavor=\"triangle\", orientation=WEST"},
-{"st_mirror", movable=true, transparent=true, orientation=NORTH, _text="st_mirror, movable=true, transparent=true, orientation=NORTH"},
-{"st_mirror", movable=true, transparent=true, orientation=EAST, _text="st_mirror, movable=true, transparent=true, orientation=EAST"},
-{"st_mirror", movable=true, transparent=true, orientation=SOUTH, _text="st_mirror, movable=true, transparent=true, orientation=SOUTH"},
-{"st_mirror", movable=true, transparent=true, orientation=WEST, _text="st_mirror, movable=true, transparent=true, orientation=WEST"},
+{"st_mirror",                                                                       _text="st_mirror, default"},
+{"st_mirror", movable=true,                                                         _text="st_mirror, movable=true"},
+{"st_mirror", transparent=true,                                                     _text="st_mirror, transparent=true"},
+{"st_mirror", movable=true, transparent=true,                                       _text="st_mirror, movable=true, transparent=true"},
+{"st_mirror", counterclock=true,                                                    _text="st_mirror, counterclock=true"},
+{"st_mirror", orientation=NORTH,                                                    _text="st_mirror, orientation=NORTH"},
+{"st_mirror", orientation=EAST,                                                     _text="st_mirror, orientation=EAST"},
+{"st_mirror", orientation=SOUTH,                                                    _text="st_mirror, orientation=SOUTH"},
+{"st_mirror", orientation=WEST,                                                     _text="st_mirror, orientation=WEST"},
+{"st_mirror", flavor="sheets", orientation=NORTH,                                   _text="st_mirror, flavor=\"sheets\", orientation=NORTH"},
+{"st_mirror", flavor="sheets", orientation=EAST,                                    _text="st_mirror, flavor=\"sheets\", orientation=EAST"},
+{"st_mirror", flavor="sheets", orientation=SOUTH,                                   _text="st_mirror, flavor=\"sheets\", orientation=SOUTH"},
+{"st_mirror", flavor="sheets", orientation=WEST,                                    _text="st_mirror, flavor=\"sheets\", orientation=WEST"},
+{"st_mirror", flavor="triangle", orientation=NORTH,                                 _text="st_mirror, flavor=\"triangle\", orientation=NORTH"},
+{"st_mirror", flavor="triangle", orientation=EAST,                                  _text="st_mirror, flavor=\"triangle\", orientation=EAST"},
+{"st_mirror", flavor="triangle", orientation=SOUTH,                                 _text="st_mirror, flavor=\"triangle\", orientation=SOUTH"},
+{"st_mirror", flavor="triangle", orientation=WEST,                                  _text="st_mirror, flavor=\"triangle\", orientation=WEST"},
+{"st_mirror", movable=true, orientation=NORTH,                                      _text="st_mirror, movable=true, orientation=NORTH"},
+{"st_mirror", movable=true, orientation=EAST,                                       _text="st_mirror, movable=true, orientation=EAST"},
+{"st_mirror", movable=true, orientation=SOUTH,                                      _text="st_mirror, movable=true, orientation=SOUTH"},
+{"st_mirror", movable=true, orientation=WEST,                                       _text="st_mirror, movable=true, orientation=WEST"},
+{"st_mirror", movable=true, flavor="sheets", orientation=NORTH,                     _text="st_mirror, movable=true, flavor=\"sheets\", orientation=NORTH"},
+{"st_mirror", movable=true, flavor="sheets", orientation=EAST,                      _text="st_mirror, movable=true, flavor=\"sheets\", orientation=EAST"},
+{"st_mirror", movable=true, flavor="sheets", orientation=SOUTH,                     _text="st_mirror, movable=true, flavor=\"sheets\", orientation=SOUTH"},
+{"st_mirror", movable=true, flavor="sheets", orientation=WEST,                      _text="st_mirror, movable=true, flavor=\"sheets\", orientation=WEST"},
+{"st_mirror", movable=true, flavor="triangle", orientation=NORTH,                   _text="st_mirror, movable=true, flavor=\"triangle\", orientation=NORTH"},
+{"st_mirror", movable=true, flavor="triangle", orientation=EAST,                    _text="st_mirror, movable=true, flavor=\"triangle\", orientation=EAST"},
+{"st_mirror", movable=true, flavor="triangle", orientation=SOUTH,                   _text="st_mirror, movable=true, flavor=\"triangle\", orientation=SOUTH"},
+{"st_mirror", movable=true, flavor="triangle", orientation=WEST,                    _text="st_mirror, movable=true, flavor=\"triangle\", orientation=WEST"},
+{"st_mirror", transparent=true, orientation=NORTH,                                  _text="st_mirror, transparent=true, orientation=NORTH"},
+{"st_mirror", transparent=true, orientation=EAST,                                   _text="st_mirror, transparent=true, orientation=EAST"},
+{"st_mirror", transparent=true, orientation=SOUTH,                                  _text="st_mirror, transparent=true, orientation=SOUTH"},
+{"st_mirror", transparent=true, orientation=WEST,                                   _text="st_mirror, transparent=true, orientation=WEST"},
+{"st_mirror", transparent=true, flavor="triangle", orientation=NORTH,               _text="st_mirror, transparent=true, flavor=\"triangle\", orientation=NORTH"},
+{"st_mirror", transparent=true, flavor="triangle", orientation=EAST,                _text="st_mirror, transparent=true, flavor=\"triangle\", orientation=EAST"},
+{"st_mirror", transparent=true, flavor="triangle", orientation=SOUTH,               _text="st_mirror, transparent=true, flavor=\"triangle\", orientation=SOUTH"},
+{"st_mirror", transparent=true, flavor="triangle", orientation=WEST,                _text="st_mirror, transparent=true, flavor=\"triangle\", orientation=WEST"},
+{"st_mirror", movable=true, transparent=true, orientation=NORTH,                    _text="st_mirror, movable=true, transparent=true, orientation=NORTH"},
+{"st_mirror", movable=true, transparent=true, orientation=EAST,                     _text="st_mirror, movable=true, transparent=true, orientation=EAST"},
+{"st_mirror", movable=true, transparent=true, orientation=SOUTH,                    _text="st_mirror, movable=true, transparent=true, orientation=SOUTH"},
+{"st_mirror", movable=true, transparent=true, orientation=WEST,                     _text="st_mirror, movable=true, transparent=true, orientation=WEST"},
 {"st_mirror", movable=true, transparent=true, flavor="triangle", orientation=NORTH, _text="st_mirror, movable=true, transparent=true, flavor=\"triangle\", orientation=NORTH"},
-{"st_mirror", movable=true, transparent=true, flavor="triangle", orientation=EAST, _text="st_mirror, movable=true, transparent=true, flavor=\"triangle\", orientation=EAST"},
+{"st_mirror", movable=true, transparent=true, flavor="triangle", orientation=EAST,  _text="st_mirror, movable=true, transparent=true, flavor=\"triangle\", orientation=EAST"},
 {"st_mirror", movable=true, transparent=true, flavor="triangle", orientation=SOUTH, _text="st_mirror, movable=true, transparent=true, flavor=\"triangle\", orientation=SOUTH"},
-{"st_mirror", movable=true, transparent=true, flavor="triangle", orientation=WEST, _text="st_mirror, movable=true, transparent=true, flavor=\"triangle\", orientation=WEST"},
+{"st_mirror", movable=true, transparent=true, flavor="triangle", orientation=WEST,  _text="st_mirror, movable=true, transparent=true, flavor=\"triangle\", orientation=WEST"},
 
-{"st_monoflop", _text="st_monoflop, default"},
-{"st_monoflop", state=ON, _text="st_monoflop, state=ON"},
+{"st_monoflop",            _text="st_monoflop, default"},
+{"st_monoflop", state=ON,  _text="st_monoflop, state=ON"},
 {"st_monoflop", state=OFF, _text="st_monoflop, state=OFF"},
 
-{"st_oneway", _text="st_oneway, default"},
-{"st_oneway", orientation=NORTH, _text="st_oneway, orientation=NORTH"},
-{"st_oneway", orientation=EAST, _text="st_oneway, orientation=EAST"},
-{"st_oneway", orientation=SOUTH, _text="st_oneway, orientation=SOUTH"},
-{"st_oneway", orientation=WEST, _text="st_oneway, orientation=WEST"},
+{"st_oneway",                                 _text="st_oneway, default"},
+{"st_oneway", orientation=NORTH,              _text="st_oneway, orientation=NORTH"},
+{"st_oneway", orientation=EAST,               _text="st_oneway, orientation=EAST"},
+{"st_oneway", orientation=SOUTH,              _text="st_oneway, orientation=SOUTH"},
+{"st_oneway", orientation=WEST,               _text="st_oneway, orientation=WEST"},
 {"st_oneway", color=BLACK, orientation=NORTH, _text="st_oneway, color=BLACK, orientation=NORTH"},
-{"st_oneway", color=BLACK, orientation=EAST, _text="st_oneway, color=BLACK, orientation=EAST"},
+{"st_oneway", color=BLACK, orientation=EAST,  _text="st_oneway, color=BLACK, orientation=EAST"},
 {"st_oneway", color=BLACK, orientation=SOUTH, _text="st_oneway, color=BLACK, orientation=SOUTH"},
-{"st_oneway", color=BLACK, orientation=WEST, _text="st_oneway, color=BLACK, orientation=WEST"},
+{"st_oneway", color=BLACK, orientation=WEST,  _text="st_oneway, color=BLACK, orientation=WEST"},
 {"st_oneway", color=WHITE, orientation=NORTH, _text="st_oneway, color=WHITE, orientation=NORTH"},
-{"st_oneway", color=WHITE, orientation=EAST, _text="st_oneway, color=WHITE, orientation=EAST"},
+{"st_oneway", color=WHITE, orientation=EAST,  _text="st_oneway, color=WHITE, orientation=EAST"},
 {"st_oneway", color=WHITE, orientation=SOUTH, _text="st_oneway, color=WHITE, orientation=SOUTH"},
-{"st_oneway", color=WHITE, orientation=WEST, _text="st_oneway, color=WHITE, orientation=WEST"},
+{"st_oneway", color=WHITE, orientation=WEST,  _text="st_oneway, color=WHITE, orientation=WEST"},
 
-{"st_oxyd", _text="st_oxyd, default"},
-{"st_oxyd", flavor="a", _text="st_oxyd, flavor=\"a\""},
-{"st_oxyd", flavor="b", _text="st_oxyd, flavor=\"b\""},
-{"st_oxyd", flavor="c", _text="st_oxyd, flavor=\"c\""},
-{"st_oxyd", flavor="d", _text="st_oxyd, flavor=\"d\""},
-{"st_oxyd", flavor="e", _text="st_oxyd, flavor=\"e\""},
-{"st_oxyd", oxydcolor=OXYD_BLUE, _text="st_oxyd, oxydcolor=OXYD_BLUE"},
-{"st_oxyd", oxydcolor=OXYD_RED, _text="st_oxyd, oxydcolor=OXYD_RED"},
-{"st_oxyd", oxydcolor=OXYD_GREEN, _text="st_oxyd, oxydcolor=OXYD_GREEN"},
+{"st_oxyd",                        _text="st_oxyd, default"},
+{"st_oxyd", flavor="a",            _text="st_oxyd, flavor=\"a\""},
+{"st_oxyd", flavor="b",            _text="st_oxyd, flavor=\"b\""},
+{"st_oxyd", flavor="c",            _text="st_oxyd, flavor=\"c\""},
+{"st_oxyd", flavor="d",            _text="st_oxyd, flavor=\"d\""},
+{"st_oxyd", flavor="e",            _text="st_oxyd, flavor=\"e\""},
+{"st_oxyd", oxydcolor=OXYD_BLUE,   _text="st_oxyd, oxydcolor=OXYD_BLUE"},
+{"st_oxyd", oxydcolor=OXYD_RED,    _text="st_oxyd, oxydcolor=OXYD_RED"},
+{"st_oxyd", oxydcolor=OXYD_GREEN,  _text="st_oxyd, oxydcolor=OXYD_GREEN"},
 {"st_oxyd", oxydcolor=OXYD_YELLOW, _text="st_oxyd, oxydcolor=OXYD_YELLOW"},
-{"st_oxyd", oxydcolor=OXYD_CYAN, _text="st_oxyd, oxydcolor=OXYD_CYAN"},
+{"st_oxyd", oxydcolor=OXYD_CYAN,   _text="st_oxyd, oxydcolor=OXYD_CYAN"},
 {"st_oxyd", oxydcolor=OXYD_PURPLE, _text="st_oxyd, oxydcolor=OXYD_PURPLE"},
-{"st_oxyd", oxydcolor=OXYD_WHITE, _text="st_oxyd, oxydcolor=OXYD_WHITE"},
-{"st_oxyd", oxydcolor=OXYD_BLACK, _text="st_oxyd, oxydcolor=OXYD_BLACK"},
-{"st_oxyd", oxydcolor=OXYD_GRAY, _text="st_oxyd, oxydcolor=OXYD_GRAY"},
+{"st_oxyd", oxydcolor=OXYD_WHITE,  _text="st_oxyd, oxydcolor=OXYD_WHITE"},
+{"st_oxyd", oxydcolor=OXYD_BLACK,  _text="st_oxyd, oxydcolor=OXYD_BLACK"},
+{"st_oxyd", oxydcolor=OXYD_GRAY,   _text="st_oxyd, oxydcolor=OXYD_GRAY"},
 {"st_oxyd", oxydcolor=OXYD_ORANGE, _text="st_oxyd, oxydcolor=OXYD_ORANGE"},
-{"st_oxyd", oxydcolor=OXYD_PINE, _text="st_oxyd, oxydcolor=OXYD_PINE"},
-{"st_oxyd", oxydcolor=OXYD_BROWN, _text="st_oxyd, oxydcolor=OXYD_BROWN"},
-{"st_oxyd", oxydcolor=OXYD_FAKE, _text="st_oxyd, oxydcolor=OXYD_FAKE"},
-{"st_oxyd", oxydcolor=OXYD_QUAKE, _text="st_oxyd, oxydcolor=OXYD_QUAKE"},
-{"st_oxyd", oxydcolor=OXYD_BOLD, _text="st_oxyd, oxydcolor=OXYD_BOLD"},
+{"st_oxyd", oxydcolor=OXYD_PINE,   _text="st_oxyd, oxydcolor=OXYD_PINE"},
+{"st_oxyd", oxydcolor=OXYD_BROWN,  _text="st_oxyd, oxydcolor=OXYD_BROWN"},
+{"st_oxyd", oxydcolor=OXYD_FAKE,   _text="st_oxyd, oxydcolor=OXYD_FAKE"},
+{"st_oxyd", oxydcolor=OXYD_QUAKE,  _text="st_oxyd, oxydcolor=OXYD_QUAKE"},
+{"st_oxyd", oxydcolor=OXYD_BOLD,   _text="st_oxyd, oxydcolor=OXYD_BOLD"},
 
-{"st_passage", _text="st_passage, default"},
-{"st_passage", flavor="square", _text="st_passage, flavor=\"square\""},
-{"st_passage", flavor="slash", _text="st_passage, flavor=\"slash\""},
-{"st_passage", flavor="cross", _text="st_passage, flavor=\"cross\""},
-{"st_passage", flavor="frame", _text="st_passage, flavor=\"frame\""},
-{"st_passage", color=BLACK, flavor="square", _text="st_passage, color=BLACK, flavor=\"square\""},
-{"st_passage", color=BLACK, flavor="slash", _text="st_passage, color=BLACK, flavor=\"slash\""},
-{"st_passage", color=BLACK, flavor="cross", _text="st_passage, color=BLACK, flavor=\"cross\""},
-{"st_passage", color=BLACK, flavor="frame", _text="st_passage, color=BLACK, flavor=\"frame\""},
-{"st_passage", color=WHITE, flavor="square", _text="st_passage, color=WHITE, flavor=\"square\""},
-{"st_passage", color=WHITE, flavor="slash", _text="st_passage, color=WHITE, flavor=\"slash\""},
-{"st_passage", color=WHITE, flavor="cross", _text="st_passage, color=WHITE, flavor=\"cross\""},
-{"st_passage", color=WHITE, flavor="frame", _text="st_passage, color=WHITE, flavor=\"frame\""},
+{"st_passage",                                  _text="st_passage, default"},
+{"st_passage", flavor="square",                 _text="st_passage, flavor=\"square\""},
+{"st_passage", flavor="slash",                  _text="st_passage, flavor=\"slash\""},
+{"st_passage", flavor="cross",                  _text="st_passage, flavor=\"cross\""},
+{"st_passage", flavor="frame",                  _text="st_passage, flavor=\"frame\""},
+{"st_passage", flavor="backslash",              _text="st_passage, flavor=\"backslash\""},
+{"st_passage", color=BLACK, flavor="square",    _text="st_passage, color=BLACK, flavor=\"square\""},
+{"st_passage", color=BLACK, flavor="slash",     _text="st_passage, color=BLACK, flavor=\"slash\""},
+{"st_passage", color=BLACK, flavor="cross",     _text="st_passage, color=BLACK, flavor=\"cross\""},
+{"st_passage", color=BLACK, flavor="frame",     _text="st_passage, color=BLACK, flavor=\"frame\""},
+{"st_passage", color=BLACK, flavor="backslash", _text="st_passage, color=BLACK, flavor=\"backslash\""},
+{"st_passage", color=WHITE, flavor="square",    _text="st_passage, color=WHITE, flavor=\"square\""},
+{"st_passage", color=WHITE, flavor="slash",     _text="st_passage, color=WHITE, flavor=\"slash\""},
+{"st_passage", color=WHITE, flavor="cross",     _text="st_passage, color=WHITE, flavor=\"cross\""},
+{"st_passage", color=WHITE, flavor="frame",     _text="st_passage, color=WHITE, flavor=\"frame\""},
+{"st_passage", color=BLACK, flavor="backslash", _text="st_passage, color=WHITE, flavor=\"backslash\""},
 
-{"st_plaster", _text="st_plaster, default"}, -- flavor attributes?
-{"st_plaster_hollow", _text="st_plaster_hollow"}, -- flavor attributes?
-{"st_plaster_movable", _text="st_plaster_movable"}, -- flavor attributes?
-{"st_plaster_breakable", _text="st_plaster_breakable"}, -- flavor attributes?
+{"st_pebble", _text="st_pebble"},
+
+{"st_plaster",               _text="st_plaster, default"},      -- flavor attributes?
+{"st_plaster_hollow",        _text="st_plaster_hollow"},        -- flavor attributes?
+{"st_plaster_movable",       _text="st_plaster_movable"},       -- flavor attributes?
+{"st_plaster_breakable",     _text="st_plaster_breakable"},     -- flavor attributes?
 {"st_plaster_movebreakable", _text="st_plaster_movebreakable"}, -- flavor attributes?
 
-{"st_plop", _text="st_plop, default"},
-{"st_plop_slate", _text="st_plop_slate"}, -- flavor attributes?
+{"st_plop",       _text="st_plop, default"}, -- flavor attributes?
+{"st_plop_slate", _text="st_plop_slate"},    -- flavor attributes?
 
-{"st_polarswitch", _text="st_polarswitch, default"},
-{"st_polarswitch", state=ON, _text="st_polarswitch, state=ON"},
+{"st_polarswitch",            _text="st_polarswitch, default"},
+{"st_polarswitch", state=ON,  _text="st_polarswitch, state=ON"},
 {"st_polarswitch", state=OFF, _text="st_polarswitch, state=OFF"},
 
-{"st_portal", _text="st_portal, default"},
-{"st_portal_horse", _text="st_portal_horse"}, -- flavor attributes?
-{"st_portal_pearl", _text="st_portal_pearl"}, -- flavor attributes?
+{"st_portal",       _text="st_portal, default"}, -- flavor attributes?
+{"st_portal_horse", _text="st_portal_horse"},    -- flavor attributes?
+{"st_portal_pearl", _text="st_portal_pearl"},    -- flavor attributes?
+{"st_portal_glass", _text="st_portal_glass"},    -- flavor attributes?
 
 {"st_pull", _text="st_pull"},
 
-{"st_puzzle", _text="st_puzzle, default"},
-{"st_puzzle", connections="", _text="st_puzzle, connections=\"\""},
-{"st_puzzle", connections="w", _text="st_puzzle, connections=\"w\""},
-{"st_puzzle", connections="s", _text="st_puzzle, connections=\"s\""},
-{"st_puzzle", connections="sw", _text="st_puzzle, connections=\"sw\""},
-{"st_puzzle", connections="e", _text="st_puzzle, connections=\"e\""},
-{"st_puzzle", connections="ew", _text="st_puzzle, connections=\"ew\""},
-{"st_puzzle", connections="es", _text="st_puzzle, connections=\"es\""},
-{"st_puzzle", connections="esw", _text="st_puzzle, connections=\"esw\""},
-{"st_puzzle", connections="n", _text="st_puzzle, connections=\"n\""},
-{"st_puzzle", connections="nw", _text="st_puzzle, connections=\"nw\""},
-{"st_puzzle", connections="ns", _text="st_puzzle, connections=\"ns\""},
-{"st_puzzle", connections="nsw", _text="st_puzzle, connections=\"nsw\""},
-{"st_puzzle", connections="ne", _text="st_puzzle, connections=\"ne\""},
-{"st_puzzle", connections="new", _text="st_puzzle, connections=\"new\""},
-{"st_puzzle", connections="nes", _text="st_puzzle, connections=\"nes\""},
-{"st_puzzle", connections="nesw", _text="st_puzzle, connections=\"nesw\""},
-{"st_puzzle", hollow=true, connections="", _text="st_puzzle, hollow=true, connections=\"\""},
-{"st_puzzle", hollow=true, connections="w", _text="st_puzzle, hollow=true, connections=\"w\""},
-{"st_puzzle", hollow=true, connections="s", _text="st_puzzle, hollow=true, connections=\"s\""},
-{"st_puzzle", hollow=true, connections="sw", _text="st_puzzle, hollow=true, connections=\"sw\""},
-{"st_puzzle", hollow=true, connections="e", _text="st_puzzle, hollow=true, connections=\"e\""},
-{"st_puzzle", hollow=true, connections="ew", _text="st_puzzle, hollow=true, connections=\"ew\""},
-{"st_puzzle", hollow=true, connections="es", _text="st_puzzle, hollow=true, connections=\"es\""},
-{"st_puzzle", hollow=true, connections="esw", _text="st_puzzle, hollow=true, connections=\"esw\""},
-{"st_puzzle", hollow=true, connections="n", _text="st_puzzle, hollow=true, connections=\"n\""},
-{"st_puzzle", hollow=true, connections="nw", _text="st_puzzle, hollow=true, connections=\"nw\""},
-{"st_puzzle", hollow=true, connections="ns", _text="st_puzzle, hollow=true, connections=\"ns\""},
-{"st_puzzle", hollow=true, connections="nsw", _text="st_puzzle, hollow=true, connections=\"nsw\""},
-{"st_puzzle", hollow=true, connections="ne", _text="st_puzzle, hollow=true, connections=\"ne\""},
-{"st_puzzle", hollow=true, connections="new", _text="st_puzzle, hollow=true, connections=\"new\""},
-{"st_puzzle", hollow=true, connections="nes", _text="st_puzzle, hollow=true, connections=\"nes\""},
-{"st_puzzle", hollow=true, connections="nesw", _text="st_puzzle, hollow=true, connections=\"nesw\""},
-{"st_puzzle", color=YELLOW, connections="", _text="st_puzzle, color=YELLOW, connections=\"\""},
-{"st_puzzle", color=YELLOW, connections="w", _text="st_puzzle, color=YELLOW, connections=\"w\""},
-{"st_puzzle", color=YELLOW, connections="s", _text="st_puzzle, color=YELLOW, connections=\"s\""},
-{"st_puzzle", color=YELLOW, connections="sw", _text="st_puzzle, color=YELLOW, connections=\"sw\""},
-{"st_puzzle", color=YELLOW, connections="e", _text="st_puzzle, color=YELLOW, connections=\"e\""},
-{"st_puzzle", color=YELLOW, connections="ew", _text="st_puzzle, color=YELLOW, connections=\"ew\""},
-{"st_puzzle", color=YELLOW, connections="es", _text="st_puzzle, color=YELLOW, connections=\"es\""},
-{"st_puzzle", color=YELLOW, connections="esw", _text="st_puzzle, color=YELLOW, connections=\"esw\""},
-{"st_puzzle", color=YELLOW, connections="n", _text="st_puzzle, color=YELLOW, connections=\"n\""},
-{"st_puzzle", color=YELLOW, connections="nw", _text="st_puzzle, color=YELLOW, connections=\"nw\""},
-{"st_puzzle", color=YELLOW, connections="ns", _text="st_puzzle, color=YELLOW, connections=\"ns\""},
-{"st_puzzle", color=YELLOW, connections="nsw", _text="st_puzzle, color=YELLOW, connections=\"nsw\""},
-{"st_puzzle", color=YELLOW, connections="ne", _text="st_puzzle, color=YELLOW, connections=\"ne\""},
-{"st_puzzle", color=YELLOW, connections="new", _text="st_puzzle, color=YELLOW, connections=\"new\""},
-{"st_puzzle", color=YELLOW, connections="nes", _text="st_puzzle, color=YELLOW, connections=\"nes\""},
-{"st_puzzle", color=YELLOW, connections="nesw", _text="st_puzzle, color=YELLOW, connections=\"nesw\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="w", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"w\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="s", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"s\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="sw", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"sw\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="e", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"e\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="ew", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"ew\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="es", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"es\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="esw", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"esw\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="n", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"n\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="nw", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"nw\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="ns", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"ns\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="nsw", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"nsw\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="ne", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"ne\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="new", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"new\""},
-{"st_puzzle", color=YELLOW, hollow=true, connections="nes", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"nes\""},
+{"st_puzzle",                                                _text="st_puzzle, default"},
+{"st_puzzle", connections="",                                _text="st_puzzle, connections=\"\""},
+{"st_puzzle", connections="w",                               _text="st_puzzle, connections=\"w\""},
+{"st_puzzle", connections="s",                               _text="st_puzzle, connections=\"s\""},
+{"st_puzzle", connections="sw",                              _text="st_puzzle, connections=\"sw\""},
+{"st_puzzle", connections="e",                               _text="st_puzzle, connections=\"e\""},
+{"st_puzzle", connections="ew",                              _text="st_puzzle, connections=\"ew\""},
+{"st_puzzle", connections="es",                              _text="st_puzzle, connections=\"es\""},
+{"st_puzzle", connections="esw",                             _text="st_puzzle, connections=\"esw\""},
+{"st_puzzle", connections="n",                               _text="st_puzzle, connections=\"n\""},
+{"st_puzzle", connections="nw",                              _text="st_puzzle, connections=\"nw\""},
+{"st_puzzle", connections="ns",                              _text="st_puzzle, connections=\"ns\""},
+{"st_puzzle", connections="nsw",                             _text="st_puzzle, connections=\"nsw\""},
+{"st_puzzle", connections="ne",                              _text="st_puzzle, connections=\"ne\""},
+{"st_puzzle", connections="new",                             _text="st_puzzle, connections=\"new\""},
+{"st_puzzle", connections="nes",                             _text="st_puzzle, connections=\"nes\""},
+{"st_puzzle", connections="nesw",                            _text="st_puzzle, connections=\"nesw\""},
+{"st_puzzle", hollow=true, connections="",                   _text="st_puzzle, hollow=true, connections=\"\""},
+{"st_puzzle", hollow=true, connections="w",                  _text="st_puzzle, hollow=true, connections=\"w\""},
+{"st_puzzle", hollow=true, connections="s",                  _text="st_puzzle, hollow=true, connections=\"s\""},
+{"st_puzzle", hollow=true, connections="sw",                 _text="st_puzzle, hollow=true, connections=\"sw\""},
+{"st_puzzle", hollow=true, connections="e",                  _text="st_puzzle, hollow=true, connections=\"e\""},
+{"st_puzzle", hollow=true, connections="ew",                 _text="st_puzzle, hollow=true, connections=\"ew\""},
+{"st_puzzle", hollow=true, connections="es",                 _text="st_puzzle, hollow=true, connections=\"es\""},
+{"st_puzzle", hollow=true, connections="esw",                _text="st_puzzle, hollow=true, connections=\"esw\""},
+{"st_puzzle", hollow=true, connections="n",                  _text="st_puzzle, hollow=true, connections=\"n\""},
+{"st_puzzle", hollow=true, connections="nw",                 _text="st_puzzle, hollow=true, connections=\"nw\""},
+{"st_puzzle", hollow=true, connections="ns",                 _text="st_puzzle, hollow=true, connections=\"ns\""},
+{"st_puzzle", hollow=true, connections="nsw",                _text="st_puzzle, hollow=true, connections=\"nsw\""},
+{"st_puzzle", hollow=true, connections="ne",                 _text="st_puzzle, hollow=true, connections=\"ne\""},
+{"st_puzzle", hollow=true, connections="new",                _text="st_puzzle, hollow=true, connections=\"new\""},
+{"st_puzzle", hollow=true, connections="nes",                _text="st_puzzle, hollow=true, connections=\"nes\""},
+{"st_puzzle", hollow=true, connections="nesw",               _text="st_puzzle, hollow=true, connections=\"nesw\""},
+{"st_puzzle", color=YELLOW, connections="",                  _text="st_puzzle, color=YELLOW, connections=\"\""},
+{"st_puzzle", color=YELLOW, connections="w",                 _text="st_puzzle, color=YELLOW, connections=\"w\""},
+{"st_puzzle", color=YELLOW, connections="s",                 _text="st_puzzle, color=YELLOW, connections=\"s\""},
+{"st_puzzle", color=YELLOW, connections="sw",                _text="st_puzzle, color=YELLOW, connections=\"sw\""},
+{"st_puzzle", color=YELLOW, connections="e",                 _text="st_puzzle, color=YELLOW, connections=\"e\""},
+{"st_puzzle", color=YELLOW, connections="ew",                _text="st_puzzle, color=YELLOW, connections=\"ew\""},
+{"st_puzzle", color=YELLOW, connections="es",                _text="st_puzzle, color=YELLOW, connections=\"es\""},
+{"st_puzzle", color=YELLOW, connections="esw",               _text="st_puzzle, color=YELLOW, connections=\"esw\""},
+{"st_puzzle", color=YELLOW, connections="n",                 _text="st_puzzle, color=YELLOW, connections=\"n\""},
+{"st_puzzle", color=YELLOW, connections="nw",                _text="st_puzzle, color=YELLOW, connections=\"nw\""},
+{"st_puzzle", color=YELLOW, connections="ns",                _text="st_puzzle, color=YELLOW, connections=\"ns\""},
+{"st_puzzle", color=YELLOW, connections="nsw",               _text="st_puzzle, color=YELLOW, connections=\"nsw\""},
+{"st_puzzle", color=YELLOW, connections="ne",                _text="st_puzzle, color=YELLOW, connections=\"ne\""},
+{"st_puzzle", color=YELLOW, connections="new",               _text="st_puzzle, color=YELLOW, connections=\"new\""},
+{"st_puzzle", color=YELLOW, connections="nes",               _text="st_puzzle, color=YELLOW, connections=\"nes\""},
+{"st_puzzle", color=YELLOW, connections="nesw",              _text="st_puzzle, color=YELLOW, connections=\"nesw\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="",     _text="st_puzzle, color=YELLOW, hollow=true, connections=\"\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="w",    _text="st_puzzle, color=YELLOW, hollow=true, connections=\"w\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="s",    _text="st_puzzle, color=YELLOW, hollow=true, connections=\"s\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="sw",   _text="st_puzzle, color=YELLOW, hollow=true, connections=\"sw\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="e",    _text="st_puzzle, color=YELLOW, hollow=true, connections=\"e\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="ew",   _text="st_puzzle, color=YELLOW, hollow=true, connections=\"ew\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="es",   _text="st_puzzle, color=YELLOW, hollow=true, connections=\"es\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="esw",  _text="st_puzzle, color=YELLOW, hollow=true, connections=\"esw\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="n",    _text="st_puzzle, color=YELLOW, hollow=true, connections=\"n\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="nw",   _text="st_puzzle, color=YELLOW, hollow=true, connections=\"nw\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="ns",   _text="st_puzzle, color=YELLOW, hollow=true, connections=\"ns\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="nsw",  _text="st_puzzle, color=YELLOW, hollow=true, connections=\"nsw\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="ne",   _text="st_puzzle, color=YELLOW, hollow=true, connections=\"ne\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="new",  _text="st_puzzle, color=YELLOW, hollow=true, connections=\"new\""},
+{"st_puzzle", color=YELLOW, hollow=true, connections="nes",  _text="st_puzzle, color=YELLOW, hollow=true, connections=\"nes\""},
 {"st_puzzle", color=YELLOW, hollow=true, connections="nesw", _text="st_puzzle, color=YELLOW, hollow=true, connections=\"nesw\""},
 
-{"st_quake", _text="st_quake, default"},
-{"st_quake", state=IDLE, _text="st_quake, state=IDLE"},
-{"st_quake", state=ACTIVE, _text="st_quake, state=ACTIVE"},
---{"st_quake", state=BREAKING, _text="st_quake, state=BREAKING"},
+{"st_quake",                 _text="st_quake, default"},
+{"st_quake", state=IDLE,     _text="st_quake, state=IDLE"},
+{"st_quake", state=ACTIVE,   _text="st_quake, state=ACTIVE"},
+{"st_quake", state=BREAKING, _text="st_quake, state=BREAKING"},
 
-{"st_rawglass", _text="st_rawglass"},
-{"st_rawglass_quad", _text="st_rawglass_quad"},
+{"st_rawglass",         _text="st_rawglass"},               -- flavor attributes?
+{"st_rawglass_quad",    _text="st_rawglass_quad"},          -- flavor attributes?
 {"st_rawglass_movable", _text="st_rawglass, movable=true"}, -- flavor attributes?
 
 {"st_redfiber", _text="st_redfiber"},
 
-{"st_rotator", _text="st_rotator, default"},
-{"st_rotator", counterclock=false, _text="st_rotator, counterclock=false"},
-{"st_rotator", counterclock=true, _text="st_rotator, counterclock=true"},
+{"st_rotator",                                   _text="st_rotator, default"},
+{"st_rotator", counterclock=false,               _text="st_rotator, counterclock=false"},
+{"st_rotator", counterclock=true,                _text="st_rotator, counterclock=true"},
 {"st_rotator", movable=true, counterclock=false, _text="st_rotator, movable=true, counterclock=false"},
-{"st_rotator", movable=true, counterclock=true, _text="st_rotator, movable=true, counterclock=true"},
+{"st_rotator", movable=true, counterclock=true,  _text="st_rotator, movable=true, counterclock=true"},
 
 {"st_rubberband", _text="st_rubberband"},
 
 {"st_scissors", _text="st_scissors"},
 
-{"st_shogun", _text="st_shogun, default"},
-{"st_shogun", flavor="s", _text="st_shogun, flavor=\"s\""},
-{"st_shogun", flavor="m", _text="st_shogun, flavor=\"m\""},
-{"st_shogun", flavor="sm", _text="st_shogun, flavor=\"sm\""},
-{"st_shogun", flavor="l", _text="st_shogun, flavor=\"l\""},
-{"st_shogun", flavor="sl", _text="st_shogun, flavor=\"sl\""},
-{"st_shogun", flavor="ml", _text="st_shogun, flavor=\"ml\""},
+{"st_shogun",               _text="st_shogun, default"},
+{"st_shogun", flavor="s",   _text="st_shogun, flavor=\"s\""},
+{"st_shogun", flavor="m",   _text="st_shogun, flavor=\"m\""},
+{"st_shogun", flavor="sm",  _text="st_shogun, flavor=\"sm\""},
+{"st_shogun", flavor="l",   _text="st_shogun, flavor=\"l\""},
+{"st_shogun", flavor="sl",  _text="st_shogun, flavor=\"sl\""},
+{"st_shogun", flavor="ml",  _text="st_shogun, flavor=\"ml\""},
 {"st_shogun", flavor="sml", _text="st_shogun, flavor=\"sml\""},
 
-{"st_spitter", _text="st_spitter, default"},
-{"st_spitter", state=IDLE, _text="st_spitter, state=IDLE"},
+{"st_spitter",               _text="st_spitter, default"},
+{"st_spitter", state=IDLE,   _text="st_spitter, state=IDLE"},
 {"st_spitter", state=ACTIVE, _text="st_spitter, state=ACTIVE"},
-{"st_spitter", secure=true, _text="st_spitter, secure=true"},
+{"st_spitter", secure=true,  _text="st_spitter, secure=true"},
 
-{"st_stoneimpulse", _text="st_stoneimpulse, default"},
-{"st_stoneimpulse_movable", _text="st_stoneimpulse_movable"},
-{"st_stoneimpulse_hollow", _text="st_stoneimpulse_hollow"},
-{"st_stoneimpulse_steady", _text="st_stoneimpulse_steady"},
-{"st_stoneimpulse_new", _text="st_stoneimpulse_new"},
-{"st_stoneimpulse_new", hollow=true, _text="st_stoneimpulse_new, hollow=true"},
+{"st_stoneimpulse",                  _text="st_stoneimpulse, default"},         -- flavor attributes?
+{"st_stoneimpulse_movable",          _text="st_stoneimpulse_movable"},          -- flavor attributes?
+{"st_stoneimpulse_hollow",           _text="st_stoneimpulse_hollow"},           -- flavor attributes?
+{"st_stoneimpulse_steady",           _text="st_stoneimpulse_steady"},           -- flavor attributes?
+{"st_stoneimpulse_new",              _text="st_stoneimpulse_new"},              -- flavor attributes?
+{"st_stoneimpulse_new", hollow=true, _text="st_stoneimpulse_new, hollow=true"}, -- flavor attributes?
 
 {"st_surprise", _text="st_surprise"},
 
 {"st_swap", _text="st_swap"},
 
-{"st_switch", _text="st_switch, default"},
-{"st_switch", state=ON, _text="st_switch, state=ON"},
-{"st_switch", state=OFF, _text="st_switch, state=OFF"},
-{"st_switch", color=BLACK, state=ON, _text="st_switch, color=BLACK, state=ON"},
+{"st_switch",                         _text="st_switch, default"},
+{"st_switch", state=ON,               _text="st_switch, state=ON"},
+{"st_switch", state=OFF,              _text="st_switch, state=OFF"},
+{"st_switch", color=BLACK, state=ON,  _text="st_switch, color=BLACK, state=ON"},
 {"st_switch", color=BLACK, state=OFF, _text="st_switch, color=BLACK, state=OFF"},
-{"st_switch", color=WHITE, state=ON, _text="st_switch, color=WHITE, state=ON"},
+{"st_switch", color=WHITE, state=ON,  _text="st_switch, color=WHITE, state=ON"},
 {"st_switch", color=WHITE, state=OFF, _text="st_switch, color=WHITE, state=OFF"},
 
 {"st_thief", _text="st_thief"},
 
-{"st_timer", _text="st_timer, default"},
-{"st_timer", state=ON, _text="st_timer, state=ON"},
-{"st_timer", state=OFF, _text="st_timer, state=OFF"},
+{"st_timer",                 _text="st_timer, default"},
+{"st_timer", state=ON,       _text="st_timer, state=ON"},
+{"st_timer", state=OFF,      _text="st_timer, state=OFF"},
 {"st_timer", invisible=true, _text="st_timer, invisible=true"},
 
-{"st_turnstile", _text="st_turnstile, default"},
-{"st_turnstile", flavor="red", _text="st_turnstile, flavor=\"red\""},
+{"st_turnstile",                 _text="st_turnstile, default"},
+{"st_turnstile", flavor="red",   _text="st_turnstile, flavor=\"red\""},
 {"st_turnstile", flavor="green", _text="st_turnstile, flavor=\"green\""},
 
-{"st_turnstilearm", _text="st_turnstilearm, default"},
+{"st_turnstilearm",                    _text="st_turnstilearm, default"},
 {"st_turnstilearm", orientation=NORTH, _text="st_turnstilearm, orientation=NORTH"},
-{"st_turnstilearm", orientation=EAST, _text="st_turnstilearm, orientation=EAST"},
+{"st_turnstilearm", orientation=EAST,  _text="st_turnstilearm, orientation=EAST"},
 {"st_turnstilearm", orientation=SOUTH, _text="st_turnstilearm, orientation=SOUTH"},
-{"st_turnstilearm", orientation=WEST, _text="st_turnstilearm, orientation=WEST"},
+{"st_turnstilearm", orientation=WEST,  _text="st_turnstilearm, orientation=WEST"},
 
-{"st_volcano", _text="st_volcano, default"},
-{"st_volcano", state=IDLE, _text="st_volcano, state=IDLE"},
+{"st_volcano",               _text="st_volcano, default"},
+{"st_volcano", state=IDLE,   _text="st_volcano, state=IDLE"},
 {"st_volcano", state=ACTIVE, _text="st_volcano, state=ACTIVE"},
-{"st_volcano_new", _text="st_volcano_new"},
-{"st_volcano_growing", _text="st_volcano_growing"},
+{"st_volcano_new",           _text="st_volcano_new"},
+{"st_volcano_growing",       _text="st_volcano_growing"},
 
-{"st_window", _text="st_window, default"},
+{"st_window",                                 _text="st_window, default"},
 {"st_window", faces="nesw", scratches="nesw", _text="st_window, faces=\"nesw\", scratches=\"nesw\""},
-{"st_window", faces="s", _text="st_window, faces=\"s\""},
-{"st_window", faces="w", _text="st_window, faces=\"w\""},
-{"st_window", faces="s", _text="st_window, faces=\"s\""},
-{"st_window", faces="sw", _text="st_window, faces=\"sw\""},
-{"st_window", faces="e", _text="st_window, faces=\"e\""},
-{"st_window", faces="ew", _text="st_window, faces=\"ew\""},
-{"st_window", faces="es", _text="st_window, faces=\"es\""},
-{"st_window", faces="esw", _text="st_window, faces=\"esw\""},
-{"st_window", faces="n", _text="st_window, faces=\"n\""},
-{"st_window", faces="nw", _text="st_window, faces=\"nw\""},
-{"st_window", faces="ns", _text="st_window, faces=\"ns\""},
-{"st_window", faces="nsw", _text="st_window, faces=\"nsw\""},
-{"st_window", faces="ne", _text="st_window, faces=\"ne\""},
-{"st_window", faces="new", _text="st_window, faces=\"new\""},
-{"st_window", faces="nes", _text="st_window, faces=\"nes\""},
-{"st_window", faces="nesw", _text="st_window, faces=\"nesw\""},
-{"st_window", secure=true, faces="s", _text="st_window, secure=true, faces=\"s\""},
-{"st_window", secure=true, faces="w", _text="st_window, secure=true, faces=\"w\""},
-{"st_window", secure=true, faces="s", _text="st_window, secure=true, faces=\"s\""},
-{"st_window", secure=true, faces="sw", _text="st_window, secure=true, faces=\"sw\""},
-{"st_window", secure=true, faces="e", _text="st_window, secure=true, faces=\"e\""},
-{"st_window", secure=true, faces="ew", _text="st_window, secure=true, faces=\"ew\""},
-{"st_window", secure=true, faces="es", _text="st_window, secure=true, faces=\"es\""},
-{"st_window", secure=true, faces="esw", _text="st_window, secure=true, faces=\"esw\""},
-{"st_window", secure=true, faces="n", _text="st_window, secure=true, faces=\"n\""},
-{"st_window", secure=true, faces="nw", _text="st_window, secure=true, faces=\"nw\""},
-{"st_window", secure=true, faces="ns", _text="st_window, secure=true, faces=\"ns\""},
-{"st_window", secure=true, faces="nsw", _text="st_window, secure=true, faces=\"nsw\""},
-{"st_window", secure=true, faces="ne", _text="st_window, secure=true, faces=\"ne\""},
-{"st_window", secure=true, faces="new", _text="st_window, secure=true, faces=\"new\""},
-{"st_window", secure=true, faces="nes", _text="st_window, secure=true, faces=\"nes\""},
-{"st_window", secure=true, faces="nesw", _text="st_window, secure=true, faces=\"nesw\""},
+{"st_window", faces="s",                      _text="st_window, faces=\"s\""},
+{"st_window", faces="w",                      _text="st_window, faces=\"w\""},
+{"st_window", faces="s",                      _text="st_window, faces=\"s\""},
+{"st_window", faces="sw",                     _text="st_window, faces=\"sw\""},
+{"st_window", faces="e",                      _text="st_window, faces=\"e\""},
+{"st_window", faces="ew",                     _text="st_window, faces=\"ew\""},
+{"st_window", faces="es",                     _text="st_window, faces=\"es\""},
+{"st_window", faces="esw",                    _text="st_window, faces=\"esw\""},
+{"st_window", faces="n",                      _text="st_window, faces=\"n\""},
+{"st_window", faces="nw",                     _text="st_window, faces=\"nw\""},
+{"st_window", faces="ns",                     _text="st_window, faces=\"ns\""},
+{"st_window", faces="nsw",                    _text="st_window, faces=\"nsw\""},
+{"st_window", faces="ne",                     _text="st_window, faces=\"ne\""},
+{"st_window", faces="new",                    _text="st_window, faces=\"new\""},
+{"st_window", faces="nes",                    _text="st_window, faces=\"nes\""},
+{"st_window", faces="nesw",                   _text="st_window, faces=\"nesw\""},
+{"st_window", secure=true, faces="s",         _text="st_window, secure=true, faces=\"s\""},
+{"st_window", secure=true, faces="w",         _text="st_window, secure=true, faces=\"w\""},
+{"st_window", secure=true, faces="s",         _text="st_window, secure=true, faces=\"s\""},
+{"st_window", secure=true, faces="sw",        _text="st_window, secure=true, faces=\"sw\""},
+{"st_window", secure=true, faces="e",         _text="st_window, secure=true, faces=\"e\""},
+{"st_window", secure=true, faces="ew",        _text="st_window, secure=true, faces=\"ew\""},
+{"st_window", secure=true, faces="es",        _text="st_window, secure=true, faces=\"es\""},
+{"st_window", secure=true, faces="esw",       _text="st_window, secure=true, faces=\"esw\""},
+{"st_window", secure=true, faces="n",         _text="st_window, secure=true, faces=\"n\""},
+{"st_window", secure=true, faces="nw",        _text="st_window, secure=true, faces=\"nw\""},
+{"st_window", secure=true, faces="ns",        _text="st_window, secure=true, faces=\"ns\""},
+{"st_window", secure=true, faces="nsw",       _text="st_window, secure=true, faces=\"nsw\""},
+{"st_window", secure=true, faces="ne",        _text="st_window, secure=true, faces=\"ne\""},
+{"st_window", secure=true, faces="new",       _text="st_window, secure=true, faces=\"new\""},
+{"st_window", secure=true, faces="nes",       _text="st_window, secure=true, faces=\"nes\""},
+{"st_window", secure=true, faces="nesw",      _text="st_window, secure=true, faces=\"nesw\""},
 
-{"st_yinyang", _text="st_yinyang, default"},
-{"st_yinyang", state=IDLE, _text="st_yinyang, state=IDLE"},
-{"st_yinyang", state=ACTIVE, _text="st_yinyang, state=ACTIVE"},
-{"st_yinyang", state=INACTIVE, _text="st_yinyang, state=INACTIVE"},
-{"st_yinyang", loop=false, state=IDLE, _text="st_yinyang, loop=false, state=IDLE"},
-{"st_yinyang", loop=false, state=ACTIVE, _text="st_yinyang, loop=false, state=ACTIVE"},
+{"st_yinyang",                             _text="st_yinyang, default"},
+{"st_yinyang", state=IDLE,                 _text="st_yinyang, state=IDLE"},
+{"st_yinyang", state=ACTIVE,               _text="st_yinyang, state=ACTIVE"},
+{"st_yinyang", state=INACTIVE,             _text="st_yinyang, state=INACTIVE"},
+{"st_yinyang", loop=false, state=IDLE,     _text="st_yinyang, loop=false, state=IDLE"},
+{"st_yinyang", loop=false, state=ACTIVE,   _text="st_yinyang, loop=false, state=ACTIVE"},
 {"st_yinyang", loop=false, state=INACTIVE, _text="st_yinyang, loop=false, state=INACTIVE"}
 
 }
