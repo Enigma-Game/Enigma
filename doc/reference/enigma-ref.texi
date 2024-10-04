@@ -10828,17 +10828,17 @@ or vertical aligned joists and various rivets.
 @item @image{images/fl_metal, 12mm} @tab @b{fl_metal_1}: texture = @code{1}
 @tab @image{images/fl_metal_framed, 12mm} @tab @b{fl_metal_1_framed}: texture = @code{1}
 @item @image{images/fl_metal_2, 12mm} @tab @b{fl_metal_2}: texture = @code{2}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_2_framed}: texture = @code{2}
+@tab @image{images/fl_metal_2_framed, 12mm} @tab @b{fl_metal_2_framed}: texture = @code{2}
 @item @image{images/fl_metal_3, 12mm} @tab @b{fl_metal_3}: texture = @code{3}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_3_framed}: texture = @code{3}
+@tab @image{images/fl_metal_3_framed, 12mm} @tab @b{fl_metal_3_framed}: texture = @code{3}
 @item @image{images/fl_metal_4, 12mm} @tab @b{fl_metal_4}: texture = @code{4}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_4_framed}: texture = @code{4}
+@tab @image{images/fl_metal_4_framed, 12mm} @tab @b{fl_metal_4_framed}: texture = @code{4}
 @item @image{images/fl_metal_5, 12mm} @tab @b{fl_metal_5}: texture = @code{5}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_5_framed}: texture = @code{5}
+@tab @image{images/fl_metal_5_framed, 12mm} @tab @b{fl_metal_5_framed}: texture = @code{5}
 @item @image{images/fl_metal_6, 12mm} @tab @b{fl_metal_6}: texture = @code{6}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_6_framed}: texture = @code{6}
+@tab @image{images/fl_metal_6_framed, 12mm} @tab @b{fl_metal_6_framed}: texture = @code{6}
 @item @image{images/fl_metal_7, 12mm} @tab @b{fl_metal_7}: texture = @code{7}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_7_framed}: texture = @code{7}
+@tab @image{images/fl_metal_7_framed, 12mm} @tab @b{fl_metal_7_framed}: texture = @code{7}
 @end multitable
 @end table
 
@@ -11047,7 +11047,7 @@ When burnt, @code{fl_samba} becomes @ref{fl_abyss}.
 @item @image{images/fl_samba_2, 12mm} @b{fl_samba_v}: texture = @code{"v"}
 @item @image{images/fl_samba_framed, 12mm} @b{fl_samba_framed}: texture = @samp{random}
 @item @image{images/fl_samba_framed, 12mm} @b{fl_samba_h_framed}: texture = @code{"h"}
-@item @image{images/construction, 12mm} @b{fl_samba_v_framed}: texture = @code{"v"}
+@item @image{images/fl_samba_2_framed, 12mm} @b{fl_samba_v_framed}: texture = @code{"v"}
 @end table
 @end table
 

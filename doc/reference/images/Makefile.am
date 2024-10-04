@@ -327,7 +327,7 @@ FRAMABLEFLOORS = \
 	fl_himalaya.png \
 	fl_ivory.png \
 	fl_marble.png \
-	fl_metal.png \
+	fl_metal.png fl_metal_2.png fl_metal_3.png fl_metal_4.png fl_metal_5.png fl_metal_6.png fl_metal_7.png \
 	fl_mortar.png \
 	fl_pinkbumps.png \
 	fl_plank.png \
@@ -337,7 +337,7 @@ FRAMABLEFLOORS = \
 	fl_rock.png \
 	fl_rough.png \
 	fl_sahara.png \
-	fl_samba.png \
+	fl_samba.png fl_samba_2.png \
 	fl_sand.png \
 	fl_stone.png \
 	fl_tigris.png \
@@ -379,7 +379,25 @@ png_DATA = $(PNG) $(PNGLIST)
 all: $(PNGLIST)
 
 %_framed.png: $(GFXDIR)/%.png $(GFXDIR)/floor_frame.png
-	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 -composite $< $(GFXDIR)/floor_frame.png $@
+	$(CONVERT) $(CONVERTOPT) $< -crop 48x48+0+0 $(GFXDIR)/floor_frame.png -composite $@
+
+%_2_framed.png: $(GFXDIR)/%.png $(GFXDIR)/floor_frame.png
+	$(CONVERT) $(CONVERTOPT) $< -crop 48x48+0+48 $(GFXDIR)/floor_frame.png -composite $@
+
+%_3_framed.png: $(GFXDIR)/%.png $(GFXDIR)/floor_frame.png
+	$(CONVERT) $(CONVERTOPT) $< -crop 48x48+0+96 $(GFXDIR)/floor_frame.png -composite $@
+
+%_4_framed.png: $(GFXDIR)/%.png $(GFXDIR)/floor_frame.png
+	$(CONVERT) $(CONVERTOPT) $< -crop 48x48+0+144 $(GFXDIR)/floor_frame.png -composite $@
+
+%_5_framed.png: $(GFXDIR)/%.png $(GFXDIR)/floor_frame.png
+	$(CONVERT) $(CONVERTOPT) $< -crop 48x48+0+192 $(GFXDIR)/floor_frame.png -composite $@
+
+%_6_framed.png: $(GFXDIR)/%.png $(GFXDIR)/floor_frame.png
+	$(CONVERT) $(CONVERTOPT) $< -crop 48x48+0+240 $(GFXDIR)/floor_frame.png -composite $@
+
+%_7_framed.png: $(GFXDIR)/%.png $(GFXDIR)/floor_frame.png
+	$(CONVERT) $(CONVERTOPT) $< -crop 48x48+0+288 $(GFXDIR)/floor_frame.png -composite $@
 
 fl_scales_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_scales.png
 	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 -composite $< $(GFXDIR)/fl_scales.png  $@
