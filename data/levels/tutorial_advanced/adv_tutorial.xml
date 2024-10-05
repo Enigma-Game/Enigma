@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Advanced Tutorial" el:subtitle="" el:id="m_tutor/adv_tutorial"/>
-      <el:version el:score="1" el:release="2" el:revision="9" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="10" el:status="released"/>
       <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -46,6 +46,7 @@ ti["# "] = {"st_granite"}         -- and the main walls are described by "#".
 ti[".#"] = ti["# "] .. ti[". "]   -- Tile declarations can be combined into a new tile.
 ti["~#"] = ti["# "] .. ti["~ "]
 ti["-#"] = ti["# "] .. ti["- "]
+ti["#M"] = ti["# "] .. {"it_meditation", essential = 1}  -- prevent shortcut
 ti["| "] = {"st_mirror", movable = true, orientation = NORTH}  -- A mirror needs additional information.
 ti["+ "] = {"st_box"}
 ti["A "] = {"st_plaster_breakable"}  -- Stones typically use capital letters.
@@ -135,7 +136,7 @@ wo(res.autotile(ti, {"d", "d*"}, {"e", "e*"}), "  ",
     "~ .#. .#~ .#.#.#.#.#.#.#.#.#.#2 .#~ ~ I . 4 . . . eX. . . . . . . . . . . . . . . . .l. . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #           O             O           # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
     "~ .#. .#~ .#3 4 4 4 4 4 4 4 4 7 .#.#.#.#.#.#x . . . . . . . . . . . . . . . . . . . .R. . eR. . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #     dV        O     O               # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
     "~ .#. .#~ .#2 I .#.#.#.#.#.#.#.#.#. . 4 . 4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! # Q                                 Q # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
-    "~ .#. .#~ .#2 .#~ ~ ~ ~ ~ ~ ~ .#. . . # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
+    "~ .#. .#~ .#2 .#~ ~ ~ ~ ~ ~ ~ .#. . . #M# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
     "~ .#. .#~ .#2 .#~ ~ ~ ~ ~ ~ ~ .#. .#.##                                     #                   X                 #             ~ ~ ~ ~         dGS ~ ~                               # ! ! ! #                     r r r r r r r r # ",
     "~ .#I .#~ .#2 .#~ ~ ~ ~ ~ ~ ~ .#. .#.##                                     #                                     #             ~ ~ ~ ~           S ~ ~                               # ! ! ! #                     r r r r r r r r # ",
     "~ ~ ~ ~ ~ .#2 I .#.#.#.#.#.#~ .#. .F. D3                                    #                                     #   +         ~ ~ ~ ~     B G   S ~ ~                               # ! ! ! # m m m m m m m m m # r r r r r r r r # ",
