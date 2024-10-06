@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="All Items as of Enigma 1.31" el:subtitle="" el:id="items"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="experimental"/>
       <el:author el:name="Raoul Bourquin, Andreas Lochmann" el:email=""/>
       <el:copyright>Copyright © 2009 Raoul Bourquin, 2022 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,49 +20,49 @@ local items = {
 
 {"it_banana", _text="it_banana"},
 
-{"it_blocker", _text="it_blocker, default"},
-{"it_blocker", state=OPEN, _text="it_blocker, state=OPEN"},
-{"it_blocker", autoclose=true, _text="it_blocker, autoclose=true"},
+{"it_blocker",                             _text="it_blocker, default"},
+{"it_blocker", state=OPEN,                 _text="it_blocker, state=OPEN"},
+{"it_blocker", state=OPEN, autoclose=true, _text="it_blocker, state=OPEN, autoclose=true"},
 
-{"it_bomb", _text="it_bomb, default"},
-{"it_bomb_black", _text="it_bomb_black"},
-{"it_bomb_white", _text="it_bomb_white"},
+{"it_bomb",              _text="it_bomb, default"},
+{"it_bomb", color=BLACK, _text="it_bomb, color=BLACK"},
+{"it_bomb", color=WHITE, _text="it_bomb, color=WHITE"},
 
-{"it_bottle", _text="it_bottle"},
-{"it_bottle_broken", _text="it_bottle_broken"},
+{"it_bottle",               _text="it_bottle, default"},
+{"it_bottle", state=BROKEN, _text="it_bottle, state=\"broken\""},
 
 {"it_brake", _text="it_brake"},
 
 {"it_brush", _text="it_brush"},
 
-{"it_burnable", _text="it_burnable, default"},
+{"it_burnable",           _text="it_burnable, default"},
 {"it_burnable_invisible", _text="it_burnable_invisible"},
-{"it_burnable_oil", _text="it_burnable_oil"},
-{"it_burnable_ignited", _text="it_burnable_ignited"},
-{"it_burnable_burning", _text="it_burnable_burning"},
-{"it_burnable_ash", _text="it_burnable_ash"},
+{"it_burnable_oil",       _text="it_burnable_oil"},
+{"it_burnable_ignited",   _text="it_burnable_ignited"},
+{"it_burnable_burning",   _text="it_burnable_burning"},
+{"it_burnable_ash",       _text="it_burnable_ash"},
 {"it_burnable_fireproof", _text="it_burnable_fireproof"},
 
 {"it_cherry", _text="it_cherry"},
 
-{"it_coffee", _text="it_coffee, default"},
-{"it_coffee_drop", _text="it_coffee_drop"},
+{"it_coffee",         _text="it_coffee, default"},
+{"it_coffee_drop",    _text="it_coffee_drop"},
 {"it_coffee_teatime", _text="it_coffee_teatime"},
 
-{"it_coin", _text="it_coin, default"},
+{"it_coin",   _text="it_coin, default"},
 {"it_coin_s", _text="it_coin_s"},
 {"it_coin_m", _text="it_coin_m"},
 {"it_coin_l", _text="it_coin_l"},
 
-{"it_crack", _text="it_crack, default"},
-{"it_crack_i", _text="it_crack_i"},
-{"it_crack_s", _text="it_crack_s"},
-{"it_crack_m", _text="it_crack_m"},
-{"it_crack_l", _text="it_crack_l"},
-{"it_crack_i", flavor="water", _text="it_crack_i, flavor=\"water\""},
-{"it_crack_s", flavor="water", _text="it_crack_s, flavor=\"water\""},
-{"it_crack_m", flavor="water", _text="it_crack_m, flavor=\"water\""},
-{"it_crack_l", flavor="water", _text="it_crack_l, flavor=\"water\""},
+{"it_crack",                                  _text="it_crack, default"},
+{"it_crack", state=INVISIBLE,                 _text="it_crack, state=INVISIBLE"},
+{"it_crack", state=SMALL,                     _text="it_crack, state=SMALL"},
+{"it_crack", state=MEDIUM,                    _text="it_crack, state=MEDIUM"},
+{"it_crack", state=LARGE,                     _text="it_crack, state=LARGE"},
+{"it_crack", state=INVISIBLE, flavor="water", _text="it_crack, state=INVISIBLE, flavor=\"water\""},
+{"it_crack", state=SMALL, flavor="water",     _text="it_crack, state=SMALL, flavor=\"water\""},
+{"it_crack", state=MEDIUM, flavor="water",    _text="it_crack, state=MEDIUM, flavor=\"water\""},
+{"it_crack", state=LARGE, flavor="water",     _text="it_crack, state=LARGE, flavor=\"water\""},
 
 {"it_cross", _text="it_cross"},
 
@@ -72,88 +72,97 @@ local items = {
 
 {"it_drop", _text="it_drop"},
 
-{"it_dynamite", _text="it_dynamite"},
+{"it_dynamite",         _text="it_dynamite"},
+{"it_dynamite_burning", _text="it_dynamite_burning"},
 
-{"it_explosion", _text="it_explosion, default"},
-{"it_explosion_nil", _text="it_explosion_nil"},
+{"it_explosion",        _text="it_explosion, default"},
+{"it_explosion_nil",    _text="it_explosion_nil"},
 {"it_explosion_hollow", _text="it_explosion_hollow"},
-{"it_explosion_crack", _text="it_explosion_crack"},
+{"it_explosion_crack",  _text="it_explosion_crack"},
 {"it_explosion_debris", _text="it_explosion_debris"},
 
-{"it_extinguisher", _text="it_extinguisher, default"},
-{"it_extinguisher", state=EMPTY, _text="it_extinguisher, state=EMPTY"},
+{"it_extinguisher",               _text="it_extinguisher, default"},
+{"it_extinguisher", state=EMPTY,  _text="it_extinguisher, state=EMPTY"},
 {"it_extinguisher", state=MEDIUM, _text="it_extinguisher, state=MEDIUM"},
-{"it_extinguisher", state=FULL, _text="it_extinguisher, state=FULL"},
+{"it_extinguisher", state=FULL,   _text="it_extinguisher, state=FULL"},
 
 {"it_extralife", _text="it_extralife"},
 
-{"it_flag", _text="it_flag"},
-{"it_flag_black", _text="it_flag_black"},
-{"it_flag_white", _text="it_flag_white"},
+{"it_flag",              _text="it_flag"},
+{"it_flag", color=BLACK, _text="it_flag, color=BLACK"},
+{"it_flag", color=WHITE, _text="it_flag, color=WHITE"},
 
 {"it_floppy", _text="it_floppy"},
 
-{"it_glasses", _text="it_glasses, default"},
+{"it_glasses",        _text="it_glasses, default"},
 {"it_glasses_broken", _text="it_glasses_broken"},
 
 {"it_hammer", _text="it_hammer"},
 
-{"it_key", _text="it_key, default"},
+{"it_key",                          _text="it_key, default"},
+{"it_key", code=1, invisible=false, _text="it_key, code=1, invisible=false"},
+{"it_key", code=2, invisible=false, _text="it_key, code=2, invisible=false"},
+{"it_key", code=3, invisible=false, _text="it_key, code=3, invisible=false"},
+{"it_key", code=4, invisible=false, _text="it_key, code=4, invisible=false"},
+{"it_key", code=5, invisible=false, _text="it_key, code=5, invisible=false"},
+{"it_key", code=6, invisible=false, _text="it_key, code=6, invisible=false"},
+{"it_key", code=7, invisible=false, _text="it_key, code=7, invisible=false"},
+{"it_key", code=8, invisible=false, _text="it_key, code=8, invisible=false"},
 
 {"it_landmine", _text="it_landmine"},
 
 {"it_magicwand", _text="it_magicwand"},
 
-{"it_magnet", _text="it_magnet, default"},
-{"it_magnet", state=ON, _text="it_magnet, state=ON"},
+{"it_magnet",            _text="it_magnet, default"},
+{"it_magnet", state=ON,  _text="it_magnet, state=ON"},
 {"it_magnet", state=OFF, _text="it_magnet, state=OFF"},
 
-{"it_meditation", _text="it_meditation, default"},
+{"it_meditation",                           _text="it_meditation, default"},
 {"it_meditation", state=MEDITATION_CALDERA, _text="it_meditation, state=MEDITATION_CALDERA"},
-{"it_meditation", state=MEDITATION_HOLLOW, _text="it_meditation, state=MEDITATION_HOLLOW"},
-{"it_meditation", state=MEDITATION_DENT, _text="it_meditation, state=MEDITATION_DENT"},
-{"it_meditation", state=MEDITATION_BUMP, _text="it_meditation, state=MEDITATION_BUMP"},
-{"it_meditation", state=MEDITATION_HILL, _text="it_meditation, state=MEDITATION_HILL"},
+{"it_meditation", state=MEDITATION_HOLLOW,  _text="it_meditation, state=MEDITATION_HOLLOW"},
+{"it_meditation", state=MEDITATION_DENT,    _text="it_meditation, state=MEDITATION_DENT"},
+{"it_meditation", state=MEDITATION_BUMP,    _text="it_meditation, state=MEDITATION_BUMP"},
+{"it_meditation", state=MEDITATION_HILL,    _text="it_meditation, state=MEDITATION_HILL"},
 {"it_meditation", state=MEDITATION_VOLCANO, _text="it_meditation, state=MEDITATION_VOLCANO"},
 
 {"it_pencil", _text="it_pencil"},
 
 {"it_pin", _text="it_pin"},
 
-{"it_pipe", _text="it_pipe, default"},
-{"it_pipe", connections="w", _text="it_pipe, connections=\"w\""},
-{"it_pipe", connections="s", _text="it_pipe, connections=\"s\""},
+{"it_pipe",                   _text="it_pipe, default"},
+{"it_pipe", connections="w",  _text="it_pipe, connections=\"w\""},
+{"it_pipe", connections="s",  _text="it_pipe, connections=\"s\""},
 {"it_pipe", connections="sw", _text="it_pipe, connections=\"sw\""},
-{"it_pipe", connections="e", _text="it_pipe, connections=\"e\""},
+{"it_pipe", connections="e",  _text="it_pipe, connections=\"e\""},
 {"it_pipe", connections="ew", _text="it_pipe, connections=\"ew\""},
 {"it_pipe", connections="es", _text="it_pipe, connections=\"es\""},
-{"it_pipe", connections="n", _text="it_pipe, connections=\"n\""},
+{"it_pipe", connections="n",  _text="it_pipe, connections=\"n\""},
 {"it_pipe", connections="nw", _text="it_pipe, connections=\"nw\""},
 {"it_pipe", connections="ns", _text="it_pipe, connections=\"ns\""},
 {"it_pipe", connections="ne", _text="it_pipe, connections=\"ne\""},
 
-{"it_puller", _text="it_puller, default"},
-{"it_puller_w", _text="it_puller_w"},
-{"it_puller_s", _text="it_puller_s"},
-{"it_puller_e", _text="it_puller_e"},
-{"it_puller_n", _text="it_puller_n"},
+{"it_puller",                    _text="it_puller, default"},
+{"it_puller", orientation=WEST,  _text="it_puller_w, orientation=WEST"},
+{"it_puller", orientation=SOUTH, _text="it_puller_s, orientation=SOUTH"},
+{"it_puller", orientation=EAST,  _text="it_puller_e, orientation=EAST"},
+{"it_puller", orientation=NORTH, _text="it_puller_n, orientation=NORTH"},
 
 {"it_ring", _text="it_ring"},
 
 {"it_rubberband", _text="it_rubberband"},
 
-{"it_seed", _text="it_seed, default"},
-{"it_seed", flavor="wood", _text="it_seed, flavor=\"wood\""},
-{"it_seed", flavor="hay", _text="it_seed, flavor=\"hay\""},
+{"it_seed",                      _text="it_seed, default"},
+{"it_seed", flavor="wood",       _text="it_seed, flavor=\"wood\""},
+{"it_seed", flavor="hay",        _text="it_seed, flavor=\"hay\""},
 {"it_seed", flavor="greenbrown", _text="it_seed, flavor=\"greenbrown\""},
-{"it_seed", flavor="volcano", _text="it_seed, flavor=\"volcano\""},
+{"it_seed", flavor="volcano",    _text="it_seed, flavor=\"volcano\""},
 
-{"it_sensor", _text="it_sensor, default"},
-{"it_sensor", invisible=true, _text="it_sensor, invisible=true"},
-{"it_sensor", exit=true, _text="it_sensor, exit=true"},
+{"it_sensor",                            _text="it_sensor, default"},
+{"it_sensor", invisible=true,            _text="it_sensor, invisible=true"},
+{"it_sensor", exit=true,                 _text="it_sensor, exit=true"},
 {"it_sensor", exit=true, invisible=true, _text="it_sensor, exit=true, invisible=true"},
 
-{"it_shogun", _text="it_shogun, default"},
+{"it_shogun",             _text="it_shogun, default"},
 {"it_shogun", flavor="s", _text="it_shogun, flavor=\"s\""},
 {"it_shogun", flavor="m", _text="it_shogun, flavor=\"m\""},
 {"it_shogun", flavor="l", _text="it_shogun, flavor=\"l\""},
@@ -162,7 +171,7 @@ local items = {
 
 {"it_spoon", _text="it_spoon"},
 
-{"it_spring", _text="it_spring"},
+{"it_spring",      _text="it_spring, default"},
 {"it_spring_keep", _text="it_spring_keep"},
 {"it_spring_drop", _text="it_spring_drop"},
 
@@ -170,47 +179,47 @@ local items = {
 
 {"it_squashed", _text="it_squashed"},
 
-{"it_strip", _text="it_strip, default"},
-{"it_strip", connections="w", _text="it_strip, connections=\"w\""},
-{"it_strip", connections="s", _text="it_strip, connections=\"s\""},
-{"it_strip", connections="sw", _text="it_strip, connections=\"sw\""},
-{"it_strip", connections="e", _text="it_strip, connections=\"e\""},
-{"it_strip", connections="ew", _text="it_strip, connections=\"ew\""},
-{"it_strip", connections="es", _text="it_strip, connections=\"es\""},
-{"it_strip", connections="esw", _text="it_strip, connections=\"esw\""},
-{"it_strip", connections="n", _text="it_strip, connections=\"n\""},
-{"it_strip", connections="nw", _text="it_strip, connections=\"nw\""},
-{"it_strip", connections="ns", _text="it_strip, connections=\"ns\""},
-{"it_strip", connections="nsw", _text="it_strip, connections=\"nsw\""},
-{"it_strip", connections="ne", _text="it_strip, connections=\"ne\""},
-{"it_strip", connections="new", _text="it_strip, connections=\"new\""},
-{"it_strip", connections="nes", _text="it_strip, connections=\"nes\""},
+{"it_strip",                     _text="it_strip, default"},
+{"it_strip", connections="w",    _text="it_strip, connections=\"w\""},
+{"it_strip", connections="s",    _text="it_strip, connections=\"s\""},
+{"it_strip", connections="sw",   _text="it_strip, connections=\"sw\""},
+{"it_strip", connections="e",    _text="it_strip, connections=\"e\""},
+{"it_strip", connections="ew",   _text="it_strip, connections=\"ew\""},
+{"it_strip", connections="es",   _text="it_strip, connections=\"es\""},
+{"it_strip", connections="esw",  _text="it_strip, connections=\"esw\""},
+{"it_strip", connections="n",    _text="it_strip, connections=\"n\""},
+{"it_strip", connections="nw",   _text="it_strip, connections=\"nw\""},
+{"it_strip", connections="ns",   _text="it_strip, connections=\"ns\""},
+{"it_strip", connections="nsw",  _text="it_strip, connections=\"nsw\""},
+{"it_strip", connections="ne",   _text="it_strip, connections=\"ne\""},
+{"it_strip", connections="new",  _text="it_strip, connections=\"new\""},
+{"it_strip", connections="nes",  _text="it_strip, connections=\"nes\""},
 {"it_strip", connections="nesw", _text="it_strip, connections=\"nesw\""},
 
 {"it_surprise", _text="it_surprise"},
 
 {"it_sword", _text="it_sword"},
 
-{"it_trap", _text="it_trap, default"},
-{"it_trap", state=OPEN, _text="it_trap, state=OPEN"},
+{"it_trap",               _text="it_trap, default"},
+{"it_trap", state=OPEN,   _text="it_trap, state=OPEN"},
 {"it_trap", state=CLOSED, _text="it_trap, state=CLOSED"},
 
-{"it_trigger", _text="it_trigger, default"},
+{"it_trigger",                 _text="it_trigger, default"},
 {"it_trigger", invisible=true, _text="it_trigger, invisible=true"},
 
 {"it_umbrella", _text="it_umbrella"},
 
-{"it_vortex", _text="it_vortex, default"},
-{"it_vortex", state=OPEN, _text="it_vortex, state=OPEN"},
-{"it_vortex", state=CLOSED, _text="it_vortex, state=CLOSED"},
-{"it_vortex", autoclose=true, _text="it_vortex, autoclose=true"},
-{"it_vortex", state=CLOSED, autoopen=true, _text="it_vortex, state=CLOSED, autoopen=true"},
+{"it_vortex",                                _text="it_vortex, default"},
+{"it_vortex", state=OPEN,                    _text="it_vortex, state=OPEN"},
+{"it_vortex", state=CLOSED,                  _text="it_vortex, state=CLOSED"},
+{"it_vortex", state=OPEN, autoclose=true,    _text="it_vortex, state=OPEN, autoclose=true"},
+{"it_vortex", state=CLOSED, autoopen=true,   _text="it_vortex, state=CLOSED, autoopen=true"},
 {"it_vortex", autoclose=true, autoopen=true, _text="it_vortex, autoclose=true, autoopen=true"},
 
 {"it_weight", _text="it_weight"},
 
-{"it_wormhole", _text="it_wormhole, default"},
-{"it_wormhole", state=ON, _text="it_wormhole, state=ON"},
+{"it_wormhole",            _text="it_wormhole, default"},
+{"it_wormhole", state=ON,  _text="it_wormhole, state=ON"},
 {"it_wormhole", state=OFF, _text="it_wormhole, state=OFF"},
 
 {"it_wrench", _text="it_wrench"},
