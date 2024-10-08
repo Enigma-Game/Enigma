@@ -48,10 +48,6 @@ dnl acconfig.h file added (with #undef for HAVE_ZERROR), which is required
 dnl for symbols defined "manually" with AC_DEFINE
 AC_CHECK_LIB(z, zError, AC_DEFINE(HAVE_ZERROR, 1, [Define if zlib has zError]) )
 
-dnl Checks for header files.
-AC_CHECK_INCLUDES_DEFAULT
-AC_PROG_EGREP
-
 AC_CHECK_HEADERS(unistd.h)
 AC_CXX_HAVE_STL
 AC_CXX_HAVE_STD
