@@ -17215,9 +17215,7 @@ full @code{st_inkwell}; and a glass marble will not transform if it
 touches an empty @code{st_inkwell}. If you want to transform a black
 marble into a white one or vice versa, you will need two @code{st_inkwell}s.
 
-Please note that inkwell stones will recolor @ref{ac_pearl} as well, as soon
-as they are introduced to Enigma. As of now, an error will be shown when
-@ref{ac_pearl} touches an inkwell stone.
+Please note that inkwell stones will recolor @ref{ac_pearl} as well.
 
 @table @asis
 @item @b{Attributes:}
