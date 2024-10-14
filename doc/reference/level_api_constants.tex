@@ -64,10 +64,10 @@
 \verb!YIN! & by \texttt{fl\_yinyang} \\
 \verb!YANG! & by \texttt{fl\_yinyang} \\
 \verb!EMPTY! & by \texttt{it\_extinguisher} \\
-\verb!FULL! &  by \texttt{it\_extinguisher} \\
-\verb!BROKEN! &  by \texttt{it\_bottle} \\
-\verb!BREAKING! &  by \texttt{st\_quake} \\
-\verb!CW! &  clockwise, by \texttt{st\_rotator} \\
+\verb!FULL! & by \texttt{it\_extinguisher} \\
+\verb!BROKEN! & by \texttt{it\_bottle} \\
+\verb!BREAKING! & by \texttt{st\_quake} \\
+\verb!CW! & clockwise, by \texttt{st\_rotator} \\
 \verb!CCW! & counterclockwise, by \texttt{st\_rotator}
 \end{tabular}
 
@@ -81,32 +81,39 @@
                 & white variants, too, like \texttt{st\_switch}
 \end{tabular}
 
+\subsection*{inkwell states}
+\begin{tabular}{ll}
+\verb!INKWELL_BLACK! & by \texttt{st\_inkwell} \\
+\verb!INKWELL_WHITE! & by \texttt{st\_inkwell} \\
+\verb!INKWELL_EMPTY! & by \texttt{st\_inkwell}
+\end{tabular}
+
 \subsection*{actor controllers}
 \begin{tabular}{ll}
-\verb!CTRL_NONE! &  by all actors \\
-\verb!CTRL_YIN! &  by all actors \\
-\verb!CTRL_YANG! &  by all actors \\
-\verb!CTRL_YINYANG! &  by all actors
+\verb!CTRL_NONE! & by all actors \\
+\verb!CTRL_YIN! & by all actors \\
+\verb!CTRL_YANG! & by all actors \\
+\verb!CTRL_YINYANG! & by all actors
 \end{tabular}
 
 \subsection*{oxyd colors}
 \begin{tabular}{ll}
-\verb!OXYD_BLUE! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_RED! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_GREEN! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_YELLOW! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_CYAN! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_PURPLE! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_WHITE! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_BLACK! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_GRAY! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_ORANGE! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_PINE! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_BROWN! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_AUTO! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_FAKE! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_QUAKE! &  by \texttt{st\_oxyd} \\
-\verb!OXYD_BOLD! &  by \texttt{st\_oxyd}
+\verb!OXYD_BLUE! & by \texttt{st\_oxyd} \\
+\verb!OXYD_RED! & by \texttt{st\_oxyd} \\
+\verb!OXYD_GREEN! & by \texttt{st\_oxyd} \\
+\verb!OXYD_YELLOW! & by \texttt{st\_oxyd} \\
+\verb!OXYD_CYAN! & by \texttt{st\_oxyd} \\
+\verb!OXYD_PURPLE! & by \texttt{st\_oxyd} \\
+\verb!OXYD_WHITE! & by \texttt{st\_oxyd} \\
+\verb!OXYD_BLACK! & by \texttt{st\_oxyd} \\
+\verb!OXYD_GRAY! & by \texttt{st\_oxyd} \\
+\verb!OXYD_ORANGE! & by \texttt{st\_oxyd} \\
+\verb!OXYD_PINE! & by \texttt{st\_oxyd} \\
+\verb!OXYD_BROWN! & by \texttt{st\_oxyd} \\
+\verb!OXYD_AUTO! & by \texttt{st\_oxyd} \\
+\verb!OXYD_FAKE! & by \texttt{st\_oxyd} \\
+\verb!OXYD_QUAKE! & by \texttt{st\_oxyd} \\
+\verb!OXYD_BOLD! & by \texttt{st\_oxyd}
 \end{tabular}
 
 \subsection*{orientations}
@@ -124,20 +131,20 @@
 \verb!BACKSLASH! & by \texttt{st\_mirror} \\
 \verb!HORIZONTAL! & by \texttt{st\_mirror} \\
 \verb!SLASH! & by \texttt{st\_mirror} \\
-\verb!VERTICAL! & by \texttt{st\_mirror} \\
+\verb!VERTICAL! & by \texttt{st\_mirror}
 \end{tabular}
 
 \subsection*{direction offsets}
 \begin{tabular}{ll}
-\verb!ORIGIN = po(0, 0)! &  \\
-\verb!N = po(0, -1)! &  \\
-\verb!E = po(1, 0)! &  \\
-\verb!S = po(0, 1)! &  \\
-\verb!W = po(-1, 0)! &  \\
-\verb!NE = N + E! &  \\
-\verb!NW = N + W! &  \\
-\verb!SE = S + E! &  \\
-\verb!SW = S + W! &  \\
+\verb!ORIGIN = po(0, 0)! & \\
+\verb!N = po(0, -1)! & \\
+\verb!E = po(1, 0)! & \\
+\verb!S = po(0, 1)! & \\
+\verb!W = po(-1, 0)! & \\
+\verb!NE = N + E! & \\
+\verb!NW = N + W! & \\
+\verb!SE = S + E! & \\
+\verb!SW = S + W! & \\
 \verb!NNE = N + NE! & by \texttt{st\_chess} \\
 \verb!ENE = E + NE! & by \texttt{st\_chess} \\
 \verb!ESE = E + SE! & by \texttt{st\_chess} \\
@@ -192,7 +199,7 @@
 
 \subsection*{rubberband length}
 \begin{tabular}{ll}
-\verb!AUTOLENGTH! & by \texttt{it\_rubberband} \texttt{ot\_rubberband} \texttt{st\_rubberband} \\
+\verb!AUTOLENGTH! & by \texttt{it\_rubberband} \texttt{ot\_rubberband} \texttt{st\_rubberband}
 \end{tabular}
 
 \subsection*{subsoil kind}
@@ -225,7 +232,7 @@
 
 \begin{center}
 \rule{0.6\linewidth}{0.25pt} \\
-Compiled from Enigma 1.21 reference manual by Raoul
+Compiled from Enigma 1.31 reference manual
 \end{center}
 
 \end{multicols}
