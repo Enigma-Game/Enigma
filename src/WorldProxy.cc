@@ -78,6 +78,8 @@ namespace enigma {
             return server::LevelTime;    // read only
         } else if (key == "ProvideExtralifes") {
             return server::ProvideExtralifes;
+        } else if (key == "ProvideYinYang") {
+            return server::ProvideYinYang;
         } else if (key == "InfiniteReincarnation") {
             return server::InfiniteReincarnation;
         } else if (key == "ShowMoves") {
@@ -199,6 +201,9 @@ namespace enigma {
             ASSERT(server::ProvideExtralifes || !newFlag, XLevelRuntime, 
                 "Attribute 'ProvideExtralifes': toggling from false to true not allowed");
             server::ProvideExtralifes = newFlag;
+        } else if (key == "ProvideYinYang") {
+            bool newFlag = val.to_bool();
+            server::ProvideYinYang = newFlag;
         } else if (key == "InfiniteReincarnation") {
             server::InfiniteReincarnation = val.to_bool();            
         } else if (key == "ShowMoves") {
