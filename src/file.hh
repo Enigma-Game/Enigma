@@ -178,5 +178,7 @@ namespace enigma
     
     bool readFromZipStream(std::istream &zipFile, std::ostream &contents);
 
+    std::string extractFromZipString(std::string zipString, std::string fileName);
+
 } // namespace enigma
 #endif

@@ -166,11 +166,8 @@ namespace enigma { namespace lev {
                 char c;
                 while (ifs.get(c))
                     zipFile += (char)(c ^ 0xE5);
-                std::istringstream zipStream(zipFile);
-                std::ostringstream content;
-                readFromZipStream(zipStream, content);
-                std::string score = content.str();
- #if _XERCES_VERSION >= 30000
+                std::string score = extractFromZipString(zipFile, "score.xml");
+#if _XERCES_VERSION >= 30000
                 std::unique_ptr<DOMLSInput> domInputScoreSource(new Wrapper4InputSource(
                     new MemBufInputSource(reinterpret_cast<const XMLByte *>(score.c_str()),
                                           score.size(), "", false)));
@@ -301,6 +298,7 @@ namespace enigma { namespace lev {
         catch (...) {
             if (errMessage.empty())
                 errMessage = "Unexpected XML Exception on load of score\n";
+            throw;
         }
         if (!errMessage.empty()) {
             throw XFrontend("Cannot load application score file: " + scorePath +
@@ -346,6 +344,8 @@ namespace enigma { namespace lev {
     bool ScoreManager::save() {
         bool result = true;
         std::string errMessage("");
+        Bytef *ptrCompressed = NULL;
+        Bytef *ptrUncompressed = NULL;
         
         if (doc == NULL || !isModified)
             return true;
@@ -460,10 +460,10 @@ namespace enigma { namespace lev {
 
                 // We need to allocate enough memory to save the
                 // deflated (compressed) xml-file.
-                Bytef *ptrUncompressed = (Bytef*)(contents.data());
+                ptrUncompressed = (Bytef*)(contents.data());
                 uint32_t uncompressedLength = contents.size();
                 uint32_t maxCompressedLength = compressBound(uncompressedLength);
-                Bytef *ptrCompressed = (Bytef*)(calloc(maxCompressedLength, 1));
+                ptrCompressed = (Bytef*)(calloc(maxCompressedLength, 1));
                 if (ptrCompressed == nullptr) {
                     errMessage = "Could not allocate memory for score deflation.";
                     throw XFrontend("");
@@ -523,30 +523,30 @@ namespace enigma { namespace lev {
                 // APPNOTE.TXT.
                 std::string zipScore("");
                 zipScore.append(std::string("\x50\x4B\x03\x04\x14\x00\x08\x00\x08\x00", 10));
-                zipScore.append(ecl::u_long_to_std_string(now));
+                zipScore.append(ecl::uint32_to_string(now));
                 zipScore.append(std::string("\x00\x00\x00\x00\x00\x00\x00\x00", 8));
                 zipScore.append(std::string("\x00\x00\x00\x00\x09\x00\x00\x00", 8));
                 zipScore.append(std::string("\x73\x63\x6F\x72\x65\x2E\x78\x6D\x6C", 9));
                 zipScore.append(deflatedContents);
                 zipScore.append(std::string("\x50\x4B\x07\x08", 4));
-                zipScore.append(ecl::u_long_to_std_string(crc));
-                zipScore.append(ecl::u_long_to_std_string(compressedLength));
-                zipScore.append(ecl::u_long_to_std_string(uncompressedLength));
+                zipScore.append(ecl::uint32_to_string(crc));
+                zipScore.append(ecl::uint32_to_string(compressedLength));
+                zipScore.append(ecl::uint32_to_string(uncompressedLength));
                 // Central directory starts here. We need to save the offset for later.
                 uint32_t cdOffset = zipScore.size();
                 zipScore.append(std::string("\x50\x4B\x01\x02\x14\x03\x14\x00", 8));
                 zipScore.append(std::string("\x08\x00\x08\x00", 4));
-                zipScore.append(ecl::u_long_to_std_string(now));
-                zipScore.append(ecl::u_long_to_std_string(crc));
-                zipScore.append(ecl::u_long_to_std_string(compressedLength));
-                zipScore.append(ecl::u_long_to_std_string(uncompressedLength));
+                zipScore.append(ecl::uint32_to_string(now));
+                zipScore.append(ecl::uint32_to_string(crc));
+                zipScore.append(ecl::uint32_to_string(compressedLength));
+                zipScore.append(ecl::uint32_to_string(uncompressedLength));
                 zipScore.append(std::string("\x09\x00\x00\x00\x00\x00\x00\x00", 8));
                 zipScore.append(std::string("\x00\x00\x00\x00\x00\x00\x00\x00", 8));
                 zipScore.append(std::string("\x00\x00\x73\x63\x6F\x72\x65\x2E", 8));
                 zipScore.append(std::string("\x78\x6D\x6C\x50\x4B\x05\x06\x00", 8));
                 zipScore.append(std::string("\x00\x00\x00\x01\x00\x01\x00\x37", 8));
                 zipScore.append(std::string("\x00\x00\x00", 3));
-                zipScore.append(ecl::u_long_to_std_string(cdOffset));
+                zipScore.append(ecl::uint32_to_string(cdOffset));
                 zipScore.append(std::string("\x00\x00", 2));
 
                 std::ofstream of( j==0 ? zipPath.c_str() : zipPathNoDat.c_str(),
@@ -560,14 +560,20 @@ namespace enigma { namespace lev {
             errMessage = std::string("Exception on save of score: \n") + 
                     XMLtoUtf8(toCatch.getMessage()).c_str() + "\n";
             result = false;
+            if(ptrCompressed)
+                free(ptrCompressed);
         } catch (const DOMException& toCatch) {
             errMessage = std::string("Exception on save of score: \n") + 
                     XMLtoUtf8(toCatch.getMessage()).c_str() + "\n";
             result = false;
+            if(ptrCompressed)
+                free(ptrCompressed);
         } catch (...) {
             if (errMessage.length() == 0)
                 errMessage = "Unexpected exception on save of score\n" ;
             result = false;
+            if(ptrCompressed)
+                free(ptrCompressed);
         }
 
         if (!result) {

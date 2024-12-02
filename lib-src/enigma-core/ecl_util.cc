@@ -139,12 +139,34 @@ bool ecl::string_match(std::string str, std::string templ) {
     return string_match(str.c_str(), templ.c_str());
 }
 
-std::string ecl::u_long_to_std_string(uint32_t x) {
+std::string ecl::uint32_to_string(uint32_t x) {
     std::string result("");
     result += (unsigned char)((x)       & 0x000000FF);
     result += (unsigned char)((x >>  8) & 0x000000FF);
     result += (unsigned char)((x >> 16) & 0x000000FF);
     result += (unsigned char)((x >> 24) & 0x000000FF);
+    return result;
+}
+
+uint32_t ecl::string_to_uint32(std::string s) {
+    uint32_t result = 0;
+    if(s.length() == 0) return result;
+    result += (uint32_t)(uint8_t)(s[0]);
+    if(s.length() == 1) return result;
+    result += (uint32_t)(uint8_t)(s[1]) * 0x00000100;
+    if(s.length() == 2) return result;
+    result += (uint32_t)(uint8_t)(s[2]) * 0x00010000;
+    if(s.length() == 3) return result;
+    result += (uint32_t)(uint8_t)(s[3]) * 0x01000000;
+    return result;
+}
+
+uint32_t ecl::chars_to_uint32(unsigned char c0, unsigned char c1, unsigned char c2, unsigned char c3) {
+    uint32_t result = 0;
+    result += (uint32_t)(c0);
+    result += (uint32_t)(c1) * 0x00000100;
+    result += (uint32_t)(c2) * 0x00010000;
+    result += (uint32_t)(c3) * 0x01000000;
     return result;
 }
 
