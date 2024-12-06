@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006, 2024 Ronald Lamprecht, Andreas Lochmann
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,50 +16,23 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-// Whoever knows how to integrate this code into file.cc should do it!
-// The problem to solve is the clashing macro definitions in "zipios-config.h"
-// and "config.h"
-// The static var "zip" should be a private ivar of GameFS
+// TODO: Integrate into file.cc.
+// The original problem (clashing macro definitions in "zipios-config.h") should be fixed now.
 
 #include "file.hh"
 #include "errors.hh"
-#include "zipios++/zipfile.h"
-#include "zipios++/zipoutputstream.h"
-#include "zipios++/zipoutputstreambuf.h"
-#include "zipios++/zipinputstreambuf.h"
 #include <istream>
 #include <ostream>
+#include <fstream>
 #include <ctime>
+#include <zlib.h>
 
 using namespace enigma;
 using namespace std;
-using namespace zipios;
 
-static std::unique_ptr<zipios::ZipFile> zip;
+// TODO: The static vars "lastZipPath" and "cachedZipString" should be private ivars of GameFS
 static std::string lastZipPath;
 static std::string cachedZipString;
-
-/*bool enigma::findInZip(std::string zipPath, std::string zippedFilename1,
-                       std::string zippedFilename2, std::string &dest,
-                       std::unique_ptr<std::istream> &isresult) {
-
-    // reuse last opened zip if possible
-    if (lastZipPath != zipPath) {
-         zip.reset (new zipios::ZipFile (zipPath));
-         lastZipPath = zipPath;
-    }
-    if (auto isptr = zip->getInputStream(zippedFilename2)) {
-        isresult.reset(isptr);
-        dest = zippedFilename2;
-        return true;
-    }
-    if (auto isptr = zip->getInputStream(zippedFilename1)) {
-        isresult.reset(isptr);
-        dest = zippedFilename1;
-        return true;
-    }
-    return false;
-}*/
 
 bool enigma::findInZip(std::string zipPath, std::string zippedFilename1,
                        std::string zippedFilename2, std::string &dest,
