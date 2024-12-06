@@ -37,8 +37,9 @@ using namespace zipios;
 
 static std::unique_ptr<zipios::ZipFile> zip;
 static std::string lastZipPath;
+static std::string cachedZipString;
 
-bool enigma::findInZip(std::string zipPath, std::string zippedFilename1,
+/*bool enigma::findInZip(std::string zipPath, std::string zippedFilename1,
                        std::string zippedFilename2, std::string &dest,
                        std::unique_ptr<std::istream> &isresult) {
 
@@ -58,12 +59,33 @@ bool enigma::findInZip(std::string zipPath, std::string zippedFilename1,
         return true;
     }
     return false;
-}
+}*/
 
-bool enigma::readFromZipStream(std::istream &zipFile, std::ostream &contents) {
-    ZipInputStreambuf zis(zipFile.rdbuf());
-    std::istream is( &zis );
-    contents << is.rdbuf();
+bool enigma::findInZip(std::string zipPath, std::string zippedFilename1,
+                       std::string zippedFilename2, std::string &dest,
+                       std::string &inflatedString) {
+    // reuse last opened zip if possible
+    if (lastZipPath != zipPath) {
+        std::basic_ifstream<char> ifs(zipPath.c_str(), ios::binary | ios::in);
+        if(not ifs) // error opening zip file
+            return false;
+        ByteVec intermediary;
+        Readfile(ifs, intermediary);
+        cachedZipString = std::string(intermediary.begin(), intermediary.end());
+        lastZipPath = zipPath;
+    }
+    try {
+        inflatedString = extractFromZipString(cachedZipString, zippedFilename2);
+        dest = zippedFilename2;
+    } catch(...) {
+        try {
+            inflatedString = extractFromZipString(cachedZipString, zippedFilename1);
+            dest = zippedFilename1;
+        } catch(...) {
+            // Not found in zip, or not valid, or read error.
+            return false;
+        }
+    }
     return true;
 }
 
@@ -131,6 +153,7 @@ std::string enigma::extractFromZipString(std::string zipString, std::string file
         ASSERT(err == Z_OK || err == Z_STREAM_END, XFrontend, "Error during zip inflation cleanup.");
         ASSERT(uncompressedSize == (int)(inflateStream.next_out - ptrUncompressed), XFrontend, "Uncompressed size incorrect. Maybe a broken zip file?");
         inflatedContents = std::string((char*)ptrUncompressed, uncompressedSize);
+        // TODO: Error messages are not thrown correctly, but get ignored somewhere.
     }
     catch (...) {
         if(ptrUncompressed)

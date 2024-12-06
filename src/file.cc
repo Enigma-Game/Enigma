@@ -37,6 +37,7 @@
 #include <ios>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <curl/curl.h>
 
 using namespace enigma;
@@ -243,7 +244,7 @@ bool GameFS::findFile (const string &filename, string &dest) const
 }
 
 bool GameFS::findFile(const string &filename, string &dest,
-                      std::unique_ptr<std::istream> &isresult) const {
+                      std::stringstream &inflatedContent) const {
     std::string::size_type slpos = filename.rfind('/');
     std::string zipName;
     std::string zippedFilename1, zippedFilename2;
@@ -270,9 +271,11 @@ bool GameFS::findFile(const string &filename, string &dest,
                     return true;
                 } else if (searchZip){
                     complete_name = e.location + ecl::PathSeparator + zipName;
+                    std::string inflatedString;
                     if (ecl::FileExists(complete_name) &&
                             findInZip(complete_name, zippedFilename1, 
-                            zippedFilename2,  dest, isresult)) {
+                            zippedFilename2, dest, inflatedString)) {
+                        inflatedContent = std::stringstream(inflatedString);
                         return true;
                     }
                 }

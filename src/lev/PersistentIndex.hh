@@ -72,7 +72,7 @@ namespace enigma { namespace lev {
          * When the index has been stored as XML this constructor will not be
          * called again.
          */
-        PersistentIndex(std::istream *legacyIndex, std::string thePackPath,  bool isZip = false,
+        PersistentIndex(std::stringstream &legacyIndex, std::string thePackPath,  bool isZip = false,
                 std::string anIndexName = "", std::string theIndexFilename = INDEX_STD_FILENAME);
         ~PersistentIndex();
         
