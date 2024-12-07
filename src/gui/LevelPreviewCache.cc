@@ -28,6 +28,7 @@
 
 #include "SDL.h"
 #include <fstream>
+#include <sstream>
 
 using namespace ecl;
 using namespace std;
@@ -80,16 +81,14 @@ Surface *LevelPreviewCache::getPreview(lev::Proxy *levelProxy, const ThumbnailIn
 
     // load preview from file bundled with the level itself
     std::string absLevelPath;
-    std::unique_ptr<std::istream> isptr;
+    std::stringstream imageDataStream;
     ByteVec imageData;
     if (levelProxy->getNormPathType() == lev::Proxy::pt_resource &&
-        app.resourceFS->findFile("levels/" + levelProxy->getNormLevelPath() + thumbinfo.suffix +
-                                     ".png",
-                                 absLevelPath, isptr)) {
-        // load plain image file or zipped image
-        if (isptr.get() != NULL) {
+        app.resourceFS->findFile("levels/" + levelProxy->getNormLevelPath() + thumbinfo.suffix + ".png",
+                                 absLevelPath, imageDataStream)) {
+        if (imageDataStream.rdbuf()->in_avail()) {
             // zipped file
-            Readfile(*isptr, imageData);
+            Readfile(imageDataStream, imageData);
         } else {
             // plain file
             basic_ifstream<char> ifs(absLevelPath.c_str(), ios::binary | ios::in);

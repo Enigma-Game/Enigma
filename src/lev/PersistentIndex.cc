@@ -392,17 +392,16 @@ namespace enigma { namespace lev {
             return;
         }
 
-        std::unique_ptr<std::istream> isptr;
         ByteVec indexCode;
+        std::stringstream indexCodeStream;
         std::string errMessage;
         absIndexPath = "";
         std::string relIndexPath = "levels/" + packPath + "/" + indexFilename;
-        if ((!loadSystemFS && app.resourceFS->findFile(relIndexPath, absIndexPath, isptr)) ||
-                (loadSystemFS && app.systemFS->findFile(relIndexPath, absIndexPath, isptr))) {
-            // preload index file or zipped index
-            if (isptr.get() != NULL) {
+        if ((!loadSystemFS && app.resourceFS->findFile(relIndexPath, absIndexPath, indexCodeStream)) ||
+                (loadSystemFS && app.systemFS->findFile(relIndexPath, absIndexPath, indexCodeStream))) {
+            if (indexCodeStream.rdbuf()->in_avail()) {
                 // zipped file
-                Readfile (*isptr, indexCode);
+                Readfile(indexCodeStream, indexCode);
             } else {
                 // plain file
                 std::basic_ifstream<char> ifs(absIndexPath.c_str(), ios::binary | ios::in);
@@ -618,12 +617,12 @@ namespace enigma { namespace lev {
                 return false;
             }
             // check if the name would conflict with existing files
-            std::unique_ptr<std::istream> isptr;
+            std::stringstream otherFileContent;
             absIndexPath = "";
             std::string relIndexPath1 = "levels/" + fileName + "/" + INDEX_STD_FILENAME;
             std::string relIndexPath2 = "levels/cross/" + fileName + ".xml";
-            if (app.resourceFS->findFile(relIndexPath1, absIndexPath, isptr) ||
-                    app.resourceFS->findFile(relIndexPath2, absIndexPath, isptr)) {
+            if (app.resourceFS->findFile(relIndexPath1, absIndexPath, otherFileContent) ||
+                    app.resourceFS->findFile(relIndexPath2, absIndexPath, otherFileContent)) {
                 return false;
             }
             if (packPath == " ") {
@@ -985,7 +984,7 @@ namespace enigma { namespace lev {
     }
 
 
-    PersistentIndex::PersistentIndex(std::istream *legacyIndexStream,
+    PersistentIndex::PersistentIndex(std::stringstream &legacyIndexStream,
             std::string thePackPath, bool isZip, std::string anIndexName,
             std::string theIndexFilename) :
             Index(anIndexName, INDEX_DEFAULT_GROUP, Index::getNextUserLocation()),
@@ -1006,7 +1005,7 @@ namespace enigma { namespace lev {
         int linenumber = 0;
         try {
             std::string line;
-            while (std::getline(*legacyIndexStream, line)) {
+            while (std::getline(legacyIndexStream, line)) {
                 using namespace std;
                 using namespace ecl;
 
@@ -1198,7 +1197,10 @@ namespace enigma { namespace lev {
 
                     if (!is)
                         throw XLevelPackInit ("Cannot open index file");
-                    Index::registerIndex(new PersistentIndex(&is, dir, false, indexName));
+                    std::string indexString;
+                    is >> indexString;
+                    std::stringstream indexStream(indexString);
+                    Index::registerIndex(new PersistentIndex(indexStream, dir, false, indexName));
                 } catch (const XLevelPackInit &e) {
                     Log << e.get_string() << "\n";
                 }
@@ -1218,16 +1220,14 @@ namespace enigma { namespace lev {
             std::string dir = zf.substr(0, zf.rfind('.'));
             std::string indexfile = dir + "/index.txt";
             try {
-                std::unique_ptr<istream> isptr;
+                std::stringstream inflatedContent;
                 std::string dummy;
-                if (!app.resourceFS->findFile(indexfile, dummy, isptr))
+                if (!app.resourceFS->findFile(indexfile, dummy, inflatedContent))
                     throw XLevelPackInit ("No index in level pack: ");
-
-                std::istream &is = *isptr;
 
                 std::string line;
                 std::string indexName;
-                if (getline(is, line)) {
+                if (getline(inflatedContent, line)) {
                     // we read the index in binary mode and have to strip of the \n for
                     // windows
                     if (line[line.size()-1] == '\n') {
@@ -1236,7 +1236,7 @@ namespace enigma { namespace lev {
                     indexName = line;
 
                     // check if already loaded
-                    Index::registerIndex(new PersistentIndex(isptr.get(), dir, true, indexName));
+                    Index::registerIndex(new PersistentIndex(inflatedContent, dir, true, indexName));
                 } else {
                     throw XLevelPackInit ("Invalid level pack: " + indexName);
                 }

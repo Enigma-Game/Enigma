@@ -356,9 +356,8 @@ dnl Even if using system enet, still need to config the local version for runnin
 AC_CONFIG_SUBDIRS([lib-src/enet])
 
 dnl ----------------------------------------------------------
-dnl Configure libraries
+dnl Configure Makefiles
 dnl ----------------------------------------------------------
-AC_CONFIG_SUBDIRS([lib-src/zipios++])
 
 AC_CONFIG_FILES([Makefile
            m4/Makefile

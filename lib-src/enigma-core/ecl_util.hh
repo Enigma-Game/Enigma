@@ -199,6 +199,19 @@ bool string_match(const char *str, const char *templ);
  */
 bool string_match(std::string str, std::string templ);
 
+/**
+ * Take an unsigned long (32 bit) integer x and convert it into a string of 4 unsigned chars.
+ */
+std::string uint32_to_string(uint32_t x);
+
+/**
+ * Take a std::string of length 4 or more. Interpret the first four chars as bytes and convert
+ * them into an unsigned long (32 bit) integer. If there are less than four chars, the higher
+ * value bytes will be interpreted as null.
+ */
+uint32_t string_to_uint32(std::string s);
+uint32_t chars_to_uint32(unsigned char c0, unsigned char c1, unsigned char c2, unsigned char c3);
+
 }  // namespace ecl
 
 #endif

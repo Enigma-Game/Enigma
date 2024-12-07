@@ -27,6 +27,7 @@
 #include "utilXML.hh"
 #include "XMLtoLocal.hh"
 #include "XMLtoUtf8.hh"
+#include "ecl_util.hh"
 #include "ecl_system.hh"
 #include "gui/ErrorMenu.hh"
 #include "nls.hh"
@@ -52,6 +53,7 @@
 #include <xercesc/framework/LocalFileFormatTarget.hpp>
 #include <xercesc/framework/MemBufFormatTarget.hpp>
 #endif
+#include <zlib.h>
 
 
 using namespace std;
@@ -164,11 +166,8 @@ namespace enigma { namespace lev {
                 char c;
                 while (ifs.get(c))
                     zipFile += (char)(c ^ 0xE5);
-                std::istringstream zipStream(zipFile);
-                std::ostringstream content;
-                readFromZipStream(zipStream, content);
-                std::string score = content.str();
- #if _XERCES_VERSION >= 30000
+                std::string score = extractFromZipString(zipFile, "score.xml");
+#if _XERCES_VERSION >= 30000
                 std::unique_ptr<DOMLSInput> domInputScoreSource(new Wrapper4InputSource(
                     new MemBufInputSource(reinterpret_cast<const XMLByte *>(score.c_str()),
                                           score.size(), "", false)));
@@ -299,6 +298,7 @@ namespace enigma { namespace lev {
         catch (...) {
             if (errMessage.empty())
                 errMessage = "Unexpected XML Exception on load of score\n";
+            throw;
         }
         if (!errMessage.empty()) {
             throw XFrontend("Cannot load application score file: " + scorePath +
@@ -343,7 +343,9 @@ namespace enigma { namespace lev {
 
     bool ScoreManager::save() {
         bool result = true;
-        std::string errMessage;
+        std::string errMessage("");
+        Bytef *ptrCompressed = NULL;
+        Bytef *ptrUncompressed = NULL;
         
         if (doc == NULL || !isModified)
             return true;
@@ -455,50 +457,123 @@ namespace enigma { namespace lev {
                         memFormTarget->getLen());
                 delete memFormTarget;
 #endif
-                std::istringstream contentStream(contents);
-                std::ostringstream zippedStream;
-                writeToZip(zippedStream, "score.xml", contents.size(), contentStream);
+
+                // We need to allocate enough memory to save the
+                // deflated (compressed) xml-file.
+                ptrUncompressed = (Bytef*)(contents.data());
+                uint32_t uncompressedLength = contents.size();
+                uint32_t maxCompressedLength = compressBound(uncompressedLength);
+                ptrCompressed = (Bytef*)(calloc(maxCompressedLength, 1));
+                if (ptrCompressed == nullptr) {
+                    errMessage = "Could not allocate memory for score deflation.";
+                    throw XFrontend("");
+                }
+
+                // Prepare a zlib-stream for deflation.
+                z_stream deflateStream;
+                deflateStream.zalloc = Z_NULL;
+                deflateStream.zfree = Z_NULL;
+                deflateStream.opaque = Z_NULL;
+                deflateStream.avail_in = uncompressedLength;
+                deflateStream.next_in = ptrUncompressed;
+                deflateStream.avail_out = maxCompressedLength;
+                deflateStream.next_out = ptrCompressed;
+
+                // Deflate using zlib.
+                int err = deflateInit2(&deflateStream, Z_DEFAULT_COMPRESSION,
+                                                       Z_DEFLATED, -15, 8,
+                                                       Z_DEFAULT_STRATEGY);
+                if (err != Z_OK) {
+                    errMessage = "Could not initialise score file deflation.";
+                    throw XFrontend("");
+                }
+                err = deflate(&deflateStream, Z_FINISH);
+                if ((err != Z_OK) && (err != Z_STREAM_END)) {
+                    errMessage = "Could not deflate score file.";
+                    throw XFrontend("");
+                }
+                err = deflateEnd(&deflateStream);
+                if (err != Z_OK) {
+                    errMessage = "Could not finish score file deflation.";
+                    throw XFrontend("");
+                }
+
+                // Calculate length of result and convert to std-string.
+                uint32_t compressedLength =
+                    (unsigned char*)deflateStream.next_out - ptrCompressed;
+                std::string deflatedContents((char*)ptrCompressed, compressedLength);
+                
+                // Zip-files contain date and time of last modification of
+                // each entry, encoded in MS-DOS date/time format, which is
+                // a bit-packed combination of year, month, day, hour,
+                // minute and second (up to 2 seconds exact).
+                // However, the way old zipios calculated those fields was
+                // completely screwed up. One can recover the correct
+                // date and time though, and that's why we try to keep it
+                // backwards compatible here.
+                time_t now = std::time(NULL);
+
+                // Next, calculate CRC-32.
+                uint32_t crc = crc32(0L, Z_NULL, 0);
+                crc = crc32(crc, (const unsigned char*)ptrUncompressed, uncompressedLength);
+
+                // Finally, we just write down the binary structure of a zip-file
+                // containing a single file named "score.xml", but with trailing
+                // data descriptors. For more information on this, consult PKWare's
+                // APPNOTE.TXT.
+                std::string zipScore("");
+                zipScore.append(std::string("\x50\x4B\x03\x04\x14\x00\x08\x00\x08\x00", 10));
+                zipScore.append(ecl::uint32_to_string(now));
+                zipScore.append(std::string("\x00\x00\x00\x00\x00\x00\x00\x00", 8));
+                zipScore.append(std::string("\x00\x00\x00\x00\x09\x00\x00\x00", 8));
+                zipScore.append(std::string("\x73\x63\x6F\x72\x65\x2E\x78\x6D\x6C", 9));
+                zipScore.append(deflatedContents);
+                zipScore.append(std::string("\x50\x4B\x07\x08", 4));
+                zipScore.append(ecl::uint32_to_string(crc));
+                zipScore.append(ecl::uint32_to_string(compressedLength));
+                zipScore.append(ecl::uint32_to_string(uncompressedLength));
+                // Central directory starts here. We need to save the offset for later.
+                uint32_t cdOffset = zipScore.size();
+                zipScore.append(std::string("\x50\x4B\x01\x02\x14\x03\x14\x00", 8));
+                zipScore.append(std::string("\x08\x00\x08\x00", 4));
+                zipScore.append(ecl::uint32_to_string(now));
+                zipScore.append(ecl::uint32_to_string(crc));
+                zipScore.append(ecl::uint32_to_string(compressedLength));
+                zipScore.append(ecl::uint32_to_string(uncompressedLength));
+                zipScore.append(std::string("\x09\x00\x00\x00\x00\x00\x00\x00", 8));
+                zipScore.append(std::string("\x00\x00\x00\x00\x00\x00\x00\x00", 8));
+                zipScore.append(std::string("\x00\x00\x73\x63\x6F\x72\x65\x2E", 8));
+                zipScore.append(std::string("\x78\x6D\x6C\x50\x4B\x05\x06\x00", 8));
+                zipScore.append(std::string("\x00\x00\x00\x01\x00\x01\x00\x37", 8));
+                zipScore.append(std::string("\x00\x00\x00", 3));
+                zipScore.append(ecl::uint32_to_string(cdOffset));
+                zipScore.append(std::string("\x00\x00", 2));
+
                 std::ofstream of( j==0 ? zipPath.c_str() : zipPathNoDat.c_str(),
                         ios::out | ios::binary );
-                std::string zipScore = zippedStream.str();
-                
-                // patch zipios++ malformed output
-                // assumptions: just one file named "score.xml" (9 chars)
-                if ((zipScore[0x06] & 0x08) == 0) {
-                    Log << "Fixing Zipios++ output\n";
-                    unsigned cdirOffset = zipScore.size() - 22 - 46 - 9;
-                    unsigned compressedSize = cdirOffset - 30 - 9;
-                    zipScore.replace(cdirOffset + 20, 1, 1, (char)(compressedSize & 0xFF));
-                    zipScore.replace(cdirOffset + 21, 1, 1, (char)((compressedSize & 0xFF00) >> 8));
-                    zipScore.replace(cdirOffset + 22, 1, 1, (char)((compressedSize & 0xFF0000) >> 16));
-                    zipScore.replace(cdirOffset + 23, 1, 1, (char)((compressedSize & 0xFF000000) >> 24));
-                    std::string dataDescr = "\x50\x4B\x07\x08" + zipScore.substr(cdirOffset + 16, 12);
-                    zipScore.replace(6, 1 , 1, '\x08'); // general purpose bit flag
-                    zipScore.replace(14, 12, 12, '\x00');
-                    zipScore.replace(cdirOffset + 8, 1 , 1, '\x08'); // general purpose bit flag
-                    zipScore.replace(cdirOffset + 38, 8, 8, '\x00'); // external file attr, offset local header
-                    zipScore.insert(cdirOffset, dataDescr);
-                    cdirOffset += 16;
-                    zipScore.replace(zipScore.size() - 6, 1, 1, (char)(cdirOffset & 0xFF));
-                    zipScore.replace(zipScore.size() - 5, 1, 1, (char)((cdirOffset & 0xFF00) >> 8));
-                    zipScore.replace(zipScore.size() - 4, 1, 1, (char)((cdirOffset & 0xFF0000) >> 16));
-                    zipScore.replace(zipScore.size() - 3, 1, 1, (char)((cdirOffset & 0xFF000000) >> 24));
-                }
-                
                 for (int i=0; i<zipScore.size(); i++)
                     of << (char)(zipScore[i] ^ 0xE5);
+
+                free(ptrCompressed);
             }
         } catch (const XMLException& toCatch) {
             errMessage = std::string("Exception on save of score: \n") + 
                     XMLtoUtf8(toCatch.getMessage()).c_str() + "\n";
             result = false;
+            if(ptrCompressed)
+                free(ptrCompressed);
         } catch (const DOMException& toCatch) {
             errMessage = std::string("Exception on save of score: \n") + 
                     XMLtoUtf8(toCatch.getMessage()).c_str() + "\n";
             result = false;
+            if(ptrCompressed)
+                free(ptrCompressed);
         } catch (...) {
-            errMessage = "Unexpected exception on save of score\n" ;
+            if (errMessage.length() == 0)
+                errMessage = "Unexpected exception on save of score\n" ;
             result = false;
+            if(ptrCompressed)
+                free(ptrCompressed);
         }
 
         if (!result) {
