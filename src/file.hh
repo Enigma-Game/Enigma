@@ -175,7 +175,7 @@ namespace enigma
     bool findInZip(std::string zipPath, std::string zippedFilename1,
             std::string zippedFilename2, std::string &dest, std::string &inflatedContent);
     
-    std::string extractFromZipString(std::string zipString, std::string fileName);
+    bool extractFromZipString(std::string zipString, std::string fileName, std::string &inflatedContent);
 
 } // namespace enigma
 #endif

@@ -47,28 +47,23 @@ bool enigma::findInZip(std::string zipPath, std::string zippedFilename1,
         cachedZipString = std::string(intermediary.begin(), intermediary.end());
         lastZipPath = zipPath;
     }
-    try {
-        inflatedString = extractFromZipString(cachedZipString, zippedFilename2);
+    if(extractFromZipString(cachedZipString, zippedFilename2, inflatedString)) {
         dest = zippedFilename2;
-    } catch(...) {
-        try {
-            inflatedString = extractFromZipString(cachedZipString, zippedFilename1);
-            dest = zippedFilename1;
-        } catch(...) {
-            // Not found in zip, or not valid, or read error.
-            return false;
-        }
+        return true;
     }
-    return true;
+    if(extractFromZipString(cachedZipString, zippedFilename1, inflatedString)) {
+        dest = zippedFilename1;
+        return true;
+    }
+    return false;
 }
 
-std::string enigma::extractFromZipString(std::string zipString, std::string fileName) {
+bool enigma::extractFromZipString(std::string zipString, std::string fileName, std::string &inflatedString) {
     size_t compressedSize = 0;
     size_t uncompressedSize = 0;
     size_t posLocalHeader = 0;
     Bytef *ptrCompressed = NULL;
     Bytef *ptrUncompressed = NULL;
-    std::string inflatedContents = "";
     try {
         // Search for the first occurence of fileName, from back to front.
         size_t pos = zipString.rfind(fileName);
@@ -85,7 +80,8 @@ std::string enigma::extractFromZipString(std::string zipString, std::string file
                 break;
             pos = zipString.rfind(fileName, pos - 1);
         }
-        ASSERT(pos != std::string::npos, XFrontend, "No file of this name found in zip file.");
+        if (pos == std::string::npos)
+            return false;
         uint32_t fileNameLength = ecl::string_to_uint32(zipString.substr(posLocalHeader + 26, 2));
         ASSERT(fileNameLength == fileName.length(), XFrontend, "Error in zip file.");
         uint32_t extraFieldLength = ecl::string_to_uint32(zipString.substr(posLocalHeader + 28, 2));
@@ -112,8 +108,8 @@ std::string enigma::extractFromZipString(std::string zipString, std::string file
         ASSERT(err != Z_MEM_ERROR, XFrontend, "Not enough memory allocated for inflation.");
         ASSERT(err == Z_OK, XFrontend, "Error during zip inflation init.");
         err = inflate(&inflateStream, Z_FINISH);
-        inflatedContents = std::string((char*)ptrUncompressed, uncompressedSize);
-        //Log << inflatedContents << "\n";
+        inflatedString = std::string((char*)ptrUncompressed, uncompressedSize);
+        //Log << inflatedString << "\n";
         ASSERT(err != Z_NEED_DICT, XFrontend, "Z_NEED_DICT");
         ASSERT(err != Z_DATA_ERROR, XFrontend, "Z_DATA_ERROR");
         ASSERT(err != Z_STREAM_ERROR, XFrontend, "Z_STREAM_ERROR");
@@ -125,8 +121,9 @@ std::string enigma::extractFromZipString(std::string zipString, std::string file
         ASSERT(err != Z_OK, XFrontend, "Z_OK during inflateEnd");
         ASSERT(err == Z_OK || err == Z_STREAM_END, XFrontend, "Error during zip inflation cleanup.");
         ASSERT(uncompressedSize == (int)(inflateStream.next_out - ptrUncompressed), XFrontend, "Uncompressed size incorrect. Maybe a broken zip file?");
-        inflatedContents = std::string((char*)ptrUncompressed, uncompressedSize);
+        inflatedString = std::string((char*)ptrUncompressed, uncompressedSize);
         // TODO: Error messages are not thrown correctly, but get ignored somewhere.
+        //       On Windows, they even lead to a sudden program stop.
     }
     catch (...) {
         if(ptrUncompressed)
@@ -135,5 +132,5 @@ std::string enigma::extractFromZipString(std::string zipString, std::string file
     }
     if(ptrUncompressed)
         free(ptrUncompressed);
-    return inflatedContents;
+    return true;
 }

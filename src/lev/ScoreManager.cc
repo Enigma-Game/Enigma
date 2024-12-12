@@ -166,7 +166,11 @@ namespace enigma { namespace lev {
                 char c;
                 while (ifs.get(c))
                     zipFile += (char)(c ^ 0xE5);
-                std::string score = extractFromZipString(zipFile, "score.xml");
+                std::string score;
+                if (!extractFromZipString(zipFile, "score.xml", score)) {
+                    errMessage = "Score file incomplete or corrupted.\n";
+                    throw XFrontend("");
+                }
 #if _XERCES_VERSION >= 30000
                 std::unique_ptr<DOMLSInput> domInputScoreSource(new Wrapper4InputSource(
                     new MemBufInputSource(reinterpret_cast<const XMLByte *>(score.c_str()),
