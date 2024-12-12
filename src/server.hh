@@ -63,6 +63,7 @@ extern bool IsLevelRestart;
 extern bool ProvideExtralifes;
 extern bool InfiniteReincarnation;  // do not remove extralife on respawn
 extern bool SurviveFinish;
+extern int AddSecondsToScore;
 extern bool TwoPlayerGame;
 
 extern bool SingleComputerGame;

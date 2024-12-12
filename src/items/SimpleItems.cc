@@ -334,6 +334,7 @@ namespace enigma {
     DEF_ITEMTRAITS(Pencil, "it_pencil", it_pencil);
 
 /* -------------------- Pin -------------------- */
+
     Pin::Pin() {
     }
 
@@ -347,7 +348,28 @@ namespace enigma {
             BroadcastMessage("_update_pin", player, GRID_NONE_BIT, true);
         }
     }
+
     DEF_ITEMTRAITS(Pin, "it_pin", it_pin);
+
+/* -------------------- Remote Control -------------------- */
+
+    RemoteControl::RemoteControl() {
+    }
+
+    ItemAction RemoteControl::activate(Actor *a, GridPos p) {
+        sound::EmitSoundEvent("triggerdown", p.center());
+        performAction(true);
+        if (Value v = getAttr("text")) {
+            std::string txt(v);
+            // translate text
+            txt = server::LoadedProxy->getLocalizedString(txt);
+            client::Msg_ShowDocument(txt, true);
+        }
+        return ITEM_KEEP;
+    }
+
+    DEF_ITEMTRAITS(RemoteControl, "it_remote", it_remote);
+
 /* -------------------- Ring -------------------- */
 
     Ring::Ring() {
@@ -587,6 +609,7 @@ namespace enigma {
         BootRegister(new Key(), "it_key");
         BootRegister(new Pencil(), "it_pencil");
         BootRegister(new Pin(), "it_pin");
+        BootRegister(new RemoteControl(), "it_remote");
         BootRegister(new Ring(), "it_ring");
         BootRegister(new Spade(), "it_spade");
         BootRegister(new Spoon(), "it_spoon");

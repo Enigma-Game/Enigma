@@ -256,6 +256,20 @@ namespace enigma {
     };
 
     /**
+     * Remote Control
+     */
+    class RemoteControl : public Item {
+        CLONEOBJ(RemoteControl);
+        DECL_ITEMTRAITS;
+
+    public:
+        RemoteControl();
+
+        // Item interface
+        virtual ItemAction activate(Actor* a, GridPos p);
+    };
+
+    /**
      * Ring
      */
     class Ring : public Item {

@@ -114,6 +114,7 @@ enum ItemID {
     it_puller_e,
     it_puller_s,
     it_puller_w,
+    it_remote,
     it_ring,
     it_rubberband,
     it_seed_wood,

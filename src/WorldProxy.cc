@@ -47,7 +47,9 @@ namespace enigma {
     }
     
     Value WorldProxy::getAttr(const std::string &key) const {
-        if (key == "AllowSingleOxyds") {
+        if (key == "AddSecondsToScore") {
+            return server::AddSecondsToScore;
+        } else if (key == "AllowSingleOxyds") {
             return server::AllowSingleOxyds;
         } else if (key == "AllowSuicide") {
             return server::AllowSuicide;
@@ -143,7 +145,14 @@ namespace enigma {
     }  
 
     void WorldProxy::setAttr(const std::string &key, const Value &val) {
-        if (key == "AllowSingleOxyds") {
+        if (key == "AddSecondsToScore") {
+            if ((int)(val) > 32000)
+                server::AddSecondsToScore = 32000;
+            else if ((int)(val) < -32000)
+                server::AddSecondsToScore = -32000;
+            else
+                server::AddSecondsToScore = (int)(val);
+        } else if (key == "AllowSingleOxyds") {
             server::AllowSingleOxyds = val.to_bool();
         } else if (key == "AllowSuicide") {
             server::AllowSuicide = val.to_bool();

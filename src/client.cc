@@ -784,7 +784,9 @@ void Client::level_finished() {
     int best_user_time = scm->getBestUserScore(curProxy, difficulty);
     int par_time = ratingMgr->getParScore(curProxy, difficulty);
 
-    int level_time = ecl::round_nearest<int>(m_total_game_time);
+    // Work around int overflow
+    double level_time_dbl = (double)(m_total_game_time) + (double)(server::AddSecondsToScore);
+    int level_time = ecl::round_nearest<int>(level_time_dbl);
 
     std::string text;
     bool timehunt_restart = false;
