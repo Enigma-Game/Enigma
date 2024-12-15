@@ -21,6 +21,7 @@
 
 #include <string>
 #include <algorithm>
+#include <cstdint>
 
 /* hide GNU extensions for non-gnu compilers: */
 #ifndef __GNU__
