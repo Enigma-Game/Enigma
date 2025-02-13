@@ -20,7 +20,7 @@ ti["."] = {"it_seed"}
 ti["S"] = {"st_switch_black", target="get_money"}
 ti["G"] = {"st_lightglass"}
 ti["|"] = {"st_door", name="doors#", flavor="c"}
-ti["C"] = {"st_coinslot", interval_m=12, target="counter", action="signal"}
+ti["C"] = {"st_coinslot", interval_m=cond(wo["IsDifficult"], 6, 12), target="counter", action="signal"}
 ti["@"] = {"#ac_marble_black"}
 
 wo(ti, " ", {
@@ -38,10 +38,15 @@ wo(ti, " ", {
     "#                  #                  #",
     "#######################################"})
 
-wo:add({"ot_counter", "counter", state=0, target="doors#*", action_8="open"})
+-- trigger: open door when all 8 coinslots have a coin
+wo:add({"ot_counter", "counter", state=0, target={"doors#*", "door_timer"}, action_8={"open", "signal"}})
+-- trigger: close door 6s after opening
+wo:add({"ot_timer", "door_timer", target="doors#*", interval=cond(wo["IsDifficult"], 4, 6), loop=false, state=OFF, action="close"})
 
+-- get up to 8 coins from the automaton in the corner.
 local reserve = 8
 function get_money()
+        -- make sure you don't lose a coin by accidentally hitting the switch twice
 	if not it(po(16,1)):exists() then
 		if reserve > 0 then
 			reserve = reserve -1
