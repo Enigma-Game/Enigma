@@ -119,9 +119,8 @@ void AreaManager::refresh() {
     if (!dirtyrects.empty()) {
         video_engine->HideMouse();
         GC gc(SCREEN->get_surface());
-        for (RectList::iterator i = dirtyrects.begin(); i!=dirtyrects.end(); ++i) {
-            top_container->draw(gc, *i);
-            SCREEN->update_rect(*i);
+        for (auto &dirtyrect : dirtyrects) {
+            top_container->draw(gc, dirtyrect);
         }
         video_engine->ShowMouse();
         dirtyrects.clear();

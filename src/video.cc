@@ -768,13 +768,15 @@ bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
     if (!window)
         return false;
 
-    assert(GetTileset());
-    int tilesize = GetTileset()->tilesize;
-    screen = new Screen(window, tilesize * 20, tilesize * 15);
-
-    renderer = SDL_CreateSoftwareRenderer(SDL_GetWindowSurface(window));
+    renderer = SDL_CreateRenderer(
+        window, -1, SDL_RENDERER_SOFTWARE | SDL_RENDERER_PRESENTVSYNC);
     if (!renderer)
         return false;
+
+    assert(GetTileset());
+    int tilesize = GetTileset()->tilesize;
+    screen = new Screen(window, renderer, tilesize * 20, tilesize * 15);
+
 
     FullscreenMode video_mode = FindClosestFullscreenMode({width, height});
     const VMInfo *vminfo = GetInfo(video_mode);
@@ -915,7 +917,6 @@ void ShowLoadingScreen(const char *text, int /* progress */) {
     ecl::Font *font = GetFont("menufontsel");
     font->render(gc, (screen->width() - font->get_width(text)) / 2, y, std::string(text));
 
-    screen->update_all();
     screen->flush_updates();
 }
 

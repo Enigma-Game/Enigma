@@ -237,11 +237,10 @@ private:
 
 class Screen {
 public:
-    Screen(SDL_Window *window, int surface_w, int surface_h);
+    Screen(SDL_Window *window, SDL_Renderer *renderer, int surface_w, int surface_h);
     ~Screen();
 
-    void update_all();
-    void update_rect(const Rect &r);
+
     void flush_updates();
     void reinitScaler();
 
@@ -266,15 +265,13 @@ private:
     // Variables.
     static Screen *m_instance;
 
+    SDL_Renderer *m_renderer;
     SDL_Window *m_window;
     Surface *m_surface;
     SDL_Surface *m_sdlsurface;
-    RectList m_dirtyrects;
-    bool update_all_p;
 
-    Screen(const Screen &);
-    Screen &operator=(const Screen &);
-
+    Screen(const Screen &) = delete;
+    Screen &operator=(const Screen &) = delete;
     Scaler *m_scaler;
 };
 

@@ -80,9 +80,7 @@ module ecl
 
     class Screen {
         Surface *get_surface();
-	void update_all();
-	void update_rect(const Rect& r);
-	void flush_updates();
+	    void flush_updates();
     };
 
     class Font {
@@ -92,7 +90,7 @@ module ecl
 
         int get_width(std::string text);
 
-	Surface *render(std::string text);
+	    Surface *render(std::string text);
         void render(Surface *s, int x, int y, std::string text);
     };
 }

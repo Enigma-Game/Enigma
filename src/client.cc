@@ -466,7 +466,6 @@ void Client::on_keydown(SDL_Event &e) {
             if (enigma::WizardMode) {
                 ecl::Screen *scr = video_engine->GetScreen();
                 ecl::TintRect(scr->get_surface(), display::GetGameArea(), 100, 100, 100, 0);
-                scr->update_all();
             }
             break;
         case SDLK_s:
@@ -647,7 +646,6 @@ void Client::draw_screen() {
                 y += yskip;
             }
         }
-        scr->update_all();
         scr->flush_updates();
         break;
     }

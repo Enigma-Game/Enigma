@@ -809,7 +809,6 @@ void Application::createPreviews() {
     hline(gc, 170, 300, kProgressWidth);
     vline(gc, 170, 280, 20);
     vline(gc, 470, 280, 20);
-    scr->update_all();
     scr->flush_updates();
 
     int i = 0;
@@ -821,7 +820,6 @@ void Application::createPreviews() {
             Log << "Make preview " << level->getId() << "\n";
             gui::LevelPreviewCache::makeSystemPreview(level, thumbinfo, systemAppDataPath);
             vline(gc, 170 + kProgressWidth * (float(i) / num_thumbnails), 280, 20);
-            scr->update_all();
             scr->flush_updates();
             i++;
         }

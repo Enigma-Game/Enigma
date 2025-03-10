@@ -43,7 +43,6 @@ void FX_Fade(FadeMode mode) {
         box(gc, d->size());
         buffer->set_alpha(int(a));
         blit(gc, 0, 0, buffer);
-        screen->update_all();
         screen->flush_updates();
 
         double dt = (SDL_GetTicks() - otime) / 1000.0;
@@ -57,7 +56,6 @@ void FX_Fade(FadeMode mode) {
     } else {
         box(gc, d->size());
     }
-    screen->update_all();
     screen->flush_updates();
     delete buffer;
 }
@@ -80,7 +78,6 @@ void FX_Fly(ecl::Surface *newscr, int originx, int originy) {
         ecl::Rect r(static_cast<int>(origx), static_cast<int>(origy), scr->width(), scr->height());
         blit(scrgc, r.x, r.y, newscr);
 
-        scr->update_rect(r);
         scr->flush_updates();
 
         double dt = (SDL_GetTicks() - otime) / 1000.0;
@@ -145,11 +142,9 @@ void Effect_Push::tick(double dtime) {
 
         blit(scrgc, (int)x, (int)y, newscr);
 
-        scr->update_all();
         scr->flush_updates();
     } else {
         blit(scrgc, 0, 0, newscr);
-        scr->update_all();
         scr->flush_updates();
     }
 }

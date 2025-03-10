@@ -719,16 +719,6 @@ void DisplayEngine::update_screen() {
     for (auto &layer : m_layers) {
         update_layer(layer, wa);
     }
-    int x2 = wa.x + wa.w;
-    int y2 = wa.y + wa.h;
-    for (int x = wa.x; x < x2; x++) {
-        for (int y = wa.y; y < y2; y++) {
-            if (m_redrawp(x, y) >= 1) {
-                if ((m_redrawp(x, y) -= 1) == 0)
-                    screen->update_rect(world_to_screen(WorldArea(x, y, 1, 1)));
-            }
-        }
-    }
 }
 
 /* -------------------- ModelLayer -------------------- */
@@ -1814,7 +1804,6 @@ void GameDisplay::set_scroll_boundary(double boundary) {
 void GameDisplay::redraw_all(Screen *scr) {
     get_engine()->mark_redraw_screen();
     redraw_everything = true;
-    scr->update_all();
     redraw(scr);
 }
 
@@ -1833,14 +1822,11 @@ void GameDisplay::redraw(ecl::Screen *screen) {
             set_color(gc, 0, 0, 0);
             box(gc, area);
             f->render(gc, 0, 0, std::string(fps));
-
-            screen->update_rect(area);
         }
         last_frame_time = SDL_GetTicks();
     }
     if (status_bar->has_changed() || redraw_everything) {
         status_bar->redraw(gc, inventoryarea);
-        screen->update_rect(inventoryarea);
     }
     if (redraw_everything)
         draw_borders(gc);

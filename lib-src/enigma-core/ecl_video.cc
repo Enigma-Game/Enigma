@@ -359,70 +359,37 @@ Surface *Surface::make_surface(SDL_Surface *sdls, bool _has_alpha) {
 /* `Xlib.h' also defines a type named `Screen' so we have to specify
    the namespace explicitly and cannot simply use a using-declaration. */
 
-ecl::Screen *ecl::Screen::m_instance = 0;
+ecl::Screen *ecl::Screen::m_instance = nullptr;
 
 ecl::Screen *ecl::Screen::get_instance() {
     return m_instance;
 }
 
-ecl::Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
-: m_window(window),
+ecl::Screen::Screen(SDL_Window *window, SDL_Renderer *renderer, int surface_w, int surface_h)
+: m_renderer(renderer), m_window(window),
   m_surface(Surface::make_surface(
       SDL_CreateRGBSurface(0, surface_w, surface_h, 32, 0xff0000, 0xff00, 0xff, 0xff000000),
       NO_ALPHA)),
-  m_sdlsurface(m_surface->get_surface()),
-  update_all_p(false) {
+  m_sdlsurface(m_surface->get_surface()) {
     assert(m_window);
     assert(m_surface);
-    assert(m_instance == 0);
+    assert(m_instance == nullptr);
     m_instance = this;
     m_scaler = new ecl::Scaler(m_surface->get_surface(), NULL, SDL_GetWindowSurface(m_window));
 }
 
 ecl::Screen::~Screen() {
-    m_instance = 0;
-}
-
-void ecl::Screen::update_all() {
-    update_all_p = true;
-}
-
-void ecl::Screen::update_rect(const Rect &r) {
-    if (m_dirtyrects.size() < 200)
-        m_dirtyrects.push_back(r);
-    else
-        update_all();
+    m_instance = nullptr;
 }
 
 void ecl::Screen::flush_updates() {
-    if (update_all_p) {
-        m_scaler->blit_scaled(m_sdlsurface, NULL, SDL_GetWindowSurface(m_window), NULL);
-        SDL_UpdateWindowSurface(m_window);
-        update_all_p = false;
-    } else if (!m_dirtyrects.empty()) {
-        m_dirtyrects.intersect(size());
-        std::vector<SDL_Rect> rects(m_dirtyrects.size());
-        RectList::iterator j = m_dirtyrects.begin();
-        SDL_Surface* window = SDL_GetWindowSurface(m_window);
-        for (unsigned i = 0; i < rects.size(); ++i, ++j)
-        {
-            SDL_Rect srcrect;
-            sdl::copy_rect(srcrect, *j);
-            int nx = (int)((double) (j->x * window_size().w) / size().w - 0.5);
-            int ny = (int)((double) (j->y * window_size().h) / size().h - 0.5);
-            int nw = (int)((double) (j->w * window_size().w) / size().w + 3.0);
-            int nh = (int)((double) (j->h * window_size().h) / size().h + 3.0);
-            nx = Clamp(nx, 0, window->w);
-            ny = Clamp(ny, 0, window->h);
-            nw = Clamp(nw, 0, window->w - nx);
-            nh = Clamp(nh, 0, window->h - ny);
-            ecl::Rect scaledRect = Rect(nx, ny, nw, nh);
-            sdl::copy_rect(rects[i], scaledRect);
-            m_scaler->blit_scaled(m_sdlsurface, &srcrect, window, &rects[i]);
-        }
-        SDL_UpdateWindowSurfaceRects(m_window, &rects[0], rects.size());
-    }
-    m_dirtyrects.clear();
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(m_renderer, m_sdlsurface);
+    SDL_Rect srcRect{0, 0, m_sdlsurface->w, m_sdlsurface->h};
+    SDL_Rect dstRect;
+    SDL_RenderGetViewport(m_renderer, &dstRect);
+    SDL_RenderCopy(m_renderer, texture, &srcRect, &dstRect);
+    SDL_RenderPresent(m_renderer);
+    SDL_DestroyTexture(texture);
 }
 
 void ecl::Screen::reinitScaler() {
@@ -446,11 +413,15 @@ Rect ecl::Screen::window_size() const {
 }
 
 int ecl::Screen::window_width() const {
-    return SDL_GetWindowSurface(m_window)->w;
+    SDL_Rect rect;
+    SDL_RenderGetViewport(m_renderer, &rect);
+    return rect.w;
 }
 
 int ecl::Screen::window_height() const {
-    return SDL_GetWindowSurface(m_window)->h;
+    SDL_Rect rect;
+    SDL_RenderGetViewport(m_renderer, &rect);
+    return rect.h;
 }
 
 /* -------------------- Scaler -------------------- */

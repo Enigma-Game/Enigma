@@ -40,7 +40,6 @@ void MouseCursor::draw() {
 
         GC gc(screen->get_surface());
         blit(gc, x - hotx, y - hoty, cursor.get());
-        screen->update_rect(get_rect());
 
         changed = false;
     }
@@ -105,7 +104,6 @@ void MouseCursor::restore_bg() {
     if (background) {
         GC gc(screen->get_surface());
         blit(gc, oldx - hotx, oldy - hoty, background.get());
-        screen->update_rect(get_oldrect());
     }
 }
 
