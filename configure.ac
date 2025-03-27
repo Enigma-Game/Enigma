@@ -7,7 +7,9 @@ AC_CONFIG_SRCDIR([src/enigma.cc])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build-aux])
 
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([-Wall -Wno-portability])
+#AM_INIT_AUTOMAKE([-Wall -Wno-portability -Werror])
+
 AC_CONFIG_HEADERS([src/config.h])
 AC_USE_SYSTEM_EXTENSIONS
 
