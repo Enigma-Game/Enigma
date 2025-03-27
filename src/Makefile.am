@@ -8,7 +8,7 @@ EXTRA_DIST = \
 	enigma.ico \
 	enigma.rc
 
-CXXFLAGS = @CXXFLAGS@\
+enigma_CXXFLAGS = @CXXFLAGS@\
 	-DSYSTEM_DATA_DIR=\"$(datadir)/enigma\" \
 	-DDOCDIR=\"$(docdir)\" \
 	-I$(top_srcdir)/lib-src/lua \
@@ -16,16 +16,16 @@ CXXFLAGS = @CXXFLAGS@\
 	-I$(top_srcdir)/lib-src/enigma-core
 
 if SYSTEM_ENET
-CXXFLAGS += $(LIBENET_CFLAGS)
+enigma_CXXFLAGS += $(LIBENET_CFLAGS)
 else
-CXXFLAGS += -I$(top_srcdir)/lib-src/enet/include
+enigma_CXXFLAGS += -I$(top_srcdir)/lib-src/enet/include
 endif
 
 if MINGW32
-CXXFLAGS += -static-libgcc -static-libstdc++ -DWIN32
+enigma_CXXFLAGS += -static-libgcc -static-libstdc++ -DWIN32
 endif
 
-CXXFLAGS += -I$(top_srcdir)/lib-src @SDL_CFLAGS@
+enigma_CXXFLAGS += -I$(top_srcdir)/lib-src @SDL_CFLAGS@
 
 
 enigma_SOURCES = 		\
@@ -486,7 +486,7 @@ enigma_LDADD += $(top_builddir)/lib-src/oxydlib/liboxyd.a \
 
 
 # Rule for creating Lua interfaces from package descriptions using 'tolua'
-TOLUA=@TOLUA@
+TOLUA = @TOLUA@
 .PHONY: tolua
 tolua:
 	@if [ "x${TOLUA}" != "x" ]; then \
@@ -498,4 +498,3 @@ tolua:
 	else \
 		echo "$<:0: Warning: Can't update lua interface - tolua not installed "; \
 	fi
-

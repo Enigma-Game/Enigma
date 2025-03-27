@@ -22,8 +22,13 @@ CLEANFILES = enigma{,_de,_fr,_ru}.html enigma{,_de,_fr}.pdf
 	  echo "Warning: texi2html not found"; \
 	fi
 
+.PHONY: pdf-local
+pdf-local:
+	$(MAKE) -C images
+	$(MAKE) pdf-files
+
 # No pdf file of russian manual because Texinfo does still NOT support cyrrillic characters in pdf output
-pdf: enigma.pdf enigma_de.pdf enigma_fr.pdf
+pdf-files: enigma.pdf enigma_de.pdf enigma_fr.pdf
 
 %.pdf: %.texi
 	texi2dvi --pdf $<
