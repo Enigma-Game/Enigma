@@ -106,7 +106,7 @@ namespace enigma { namespace gui {
         N_("Home Page: https://www.nongnu.org/enigma   Contact: enigma-devel@nongnu.org"),
         " ",
         N_("Enigma is free software and may be distributed under the terms of the GNU General Public License, version 2."),
-        N_("Copyright (C) 2002-2021 Daniel Heck and contributors."),
+        N_("Copyright (C) 2002-2025 Daniel Heck and contributors."),
         "\n",
         N_("Main developers of all releases:"),
         " ",
