@@ -87,7 +87,6 @@ AC_SUBST([TOLUA])
 TOLUA=["\$(top_builddir)/tools/tolua"]
 dnl AC_PATH_PROG(TOLUA, tolua, "", ["\$(top_builddir)/tools/tolua"])
 
-
 dnl ======================================================================
 dnl Check for system headers
 dnl ======================================================================
@@ -181,10 +180,10 @@ else
          [[#if XERCES_VERSION_MAJOR < 2
            #error too old
            #else
-	   #if XERCES_VERSION_MAJOR == 2 && XERCES_VERSION_MINOR < 4
-	   #error too old
-	   #endif
-	   #endif
+           #if XERCES_VERSION_MAJOR == 2 && XERCES_VERSION_MINOR < 4
+           #error too old
+           #endif
+           #endif
            ]])],
          [AC_MSG_RESULT([found])],
          [AC_MSG_ERROR([Xerces >= 2.4 not found.])])
@@ -247,7 +246,7 @@ if test "x$enable_experimental" = xyes; then
 fi
 
 dnl ----------------------------------------
-dnl Include asserts ?
+dnl Include asserts?
 dnl ----------------------------------------
 AC_MSG_CHECKING([whether to include assert statements])
 AC_ARG_ENABLE([assert],
@@ -427,24 +426,24 @@ AC_CONFIG_FILES([Makefile
            data/soundsets/enigma/Makefile
            data/schemas/Makefile
            data/locale/Makefile
-	   doc/Makefile
-	   doc/images/Makefile
-	   doc/images/flags25x15/Makefile
-	   doc/manual/Makefile
-	   doc/manual/images/Makefile
-	   doc/reference/Makefile
-	   doc/reference/images/Makefile
-	   etc/Makefile
-	   lib-src/Makefile
-	   lib-src/oxydlib/Makefile
-	   lib-src/tinygettext/Makefile
-	   lib-src/lua/Makefile
+           doc/Makefile
+           doc/images/Makefile
+           doc/images/flags25x15/Makefile
+           doc/manual/Makefile
+           doc/manual/images/Makefile
+           doc/reference/Makefile
+           doc/reference/images/Makefile
+           etc/Makefile
+           lib-src/Makefile
+           lib-src/oxydlib/Makefile
+           lib-src/tinygettext/Makefile
+           lib-src/lua/Makefile
            lib-src/enigma-core/Makefile
-	   src/Makefile
-	   tools/Makefile
-	   etc/enigma.spec
-	   etc/enigma.nsi
-	   etc/Info.plist
+           src/Makefile
+           tools/Makefile
+           etc/enigma.spec
+           etc/enigma.nsi
+           etc/Info.plist
 ])
 
 AC_CONFIG_FILES([etc/mingw32-dist.sh], [chmod +x etc/mingw32-dist.sh])
@@ -461,8 +460,8 @@ Enigma is now configured
    C++ compiler:        $CXX $CXXFLAGS
    Libraries:           $LIBS
    Linker options:      $LDFLAGS
-   Languages:		$ALL_LINGUAS
-   System enet:		$system_enet
+   Languages:           $ALL_LINGUAS
+   System enet:         $system_enet
 
 If these values seem to make sense, you can now run make.
 ])
