@@ -21,6 +21,9 @@ MSGINIT = msginit
 
 DISTFILES = remove-potcdate.sin POTFILES.in $(PACKAGE).pot stamp-po $(wildcard $(srcdir)/*.po) Makefile.am Makefile.in
 
+MOSTLYCLEANFILES = remove-potcdate.sed stamp-poT core core.* $(PACKAGE).po $(PACKAGE).1po $(PACKAGE).2po *.o *.po~
+DISTCLEANFILES = Makefile POTFILES level_i18n.cc
+
 # These two variables depend on the location of this directory.
 subdir = data/locale
 top_builddir = ../..
@@ -134,18 +137,6 @@ $(srcdir)/$(PACKAGE).pot:
 	  exit 1; \
 	fi
 
-mostlyclean:
-	rm -f remove-potcdate.sed
-	rm -f stamp-poT
-	rm -f core core.* $(PACKAGE).po $(PACKAGE).1po $(PACKAGE).2po
-	rm -fr *.o
-	rm -f *.po~
-
-clean: mostlyclean
-
-distclean: clean
-	rm -f Makefile POTFILES level_i18n.cc
-
 distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
 dist:
 	$(MAKE) update-po
@@ -163,12 +154,10 @@ dist2: $(DISTFILES)
 	done
 
 .PHONY: update-po
-
 update-po: Makefile
 	$(MAKE) $(PACKAGE).pot-update
 	$(MAKE) *.po
 
 .PHONY: pos
-
 pos: update-po
 
