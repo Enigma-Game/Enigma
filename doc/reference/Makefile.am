@@ -28,12 +28,12 @@ enigma-ref.html: $(srcdir)/enigma-ref.texi $(srcdir)/enigma-t2h.init
 splitman:
 	${TEXI2HTML} -split chapter -I . -Verbose -init_file $(srcdir)/enigma-t2h.init $(srcdir)/enigma-ref.texi
 
-.PHONY: pdf
-pdf:
+.PHONY: pdf-local
+pdf-local:
 	$(MAKE) -C images
-	$(MAKE) pdf_local
+	$(MAKE) pdf-files
 
-pdf_local: enigma-ref.pdf level_api_syntax.pdf level_api_constants.pdf level_api_syntax_examples.pdf level_api_tds.pdf
+pdf-files: enigma-ref.pdf level_api_syntax.pdf level_api_constants.pdf level_api_syntax_examples.pdf level_api_tds.pdf
 
 %.pdf: %.texi
 	$(TEXI2DVI) --pdf $<

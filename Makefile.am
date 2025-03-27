@@ -27,12 +27,10 @@ pos:
 gmo:
 	echo "make gmo is obsolete, ignored."
 
-.PHONY: pdf
-pdf:
-	cd doc/manual/images && $(MAKE) pdf
-	cd doc/manual && $(MAKE) pdf
-	cd doc/reference/images && $(MAKE) pdf
-	cd doc/reference && $(MAKE) pdf
+.PHONY: pdf-local
+pdf-local:
+	cd doc/manual && $(MAKE) pdf-local
+	cd doc/reference && $(MAKE) pdf-local
 
 .PHONY: splitman
 splitman:
