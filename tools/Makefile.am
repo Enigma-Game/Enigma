@@ -16,7 +16,6 @@ ttf2bmf_CXXFLAGS = @SDL_CFLAGS@ $(AM_CXXFLAGS)
 ttf2bmf_LDADD = -lSDL_ttf $(AM_LDADD)
 
 tolua_SOURCES = tolua.c toluabind.c toluabind.h dummy.cc 
-
 tolua_CFLAGS = -I$(top_srcdir)/lib-src/lua $(AM_CFLAGS)
 tolua_LDADD = $(top_builddir)/lib-src/lua/liblua.a $(AM_LDADD)
 
