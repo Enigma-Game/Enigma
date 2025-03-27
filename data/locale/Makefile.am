@@ -19,7 +19,7 @@ MSGMERGE = msgmerge
 MSGMERGE_UPDATE = $(MSGMERGE) --update
 MSGINIT = msginit
 
-DISTFILES = remove-potcdate.sin POTFILES.in $(PACKAGE).pot stamp-po $(wildcard $(srcdir)/*.po) Makefile.am Makefile.in
+DISTFILES.dist2 = remove-potcdate.sin POTFILES.in $(PACKAGE).pot stamp-po $(wildcard $(srcdir)/*.po) Makefile.am Makefile.in
 
 MOSTLYCLEANFILES = remove-potcdate.sed stamp-poT core core.* $(PACKAGE).po $(PACKAGE).1po $(PACKAGE).2po *.o *.po~
 DISTCLEANFILES = Makefile POTFILES level_i18n.cc
@@ -142,8 +142,8 @@ dist:
 	$(MAKE) update-po
 	@$(MAKE) dist2
 # This is a separate target because 'update-po' must be executed before.
-dist2: $(DISTFILES)
-	dists="$(DISTFILES)"; \
+dist2: $(DISTFILES.dist2)
+	dists="$(DISTFILES.dist2)"; \
 	if test -f $(srcdir)/LINGUAS; then dists="$$dists LINGUAS"; fi; \
 	for file in $$dists; do \
 	  if test -f $$file; then \
