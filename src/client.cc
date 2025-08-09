@@ -475,9 +475,10 @@ void Client::on_keydown(SDL_Event &e) {
             }
             break;
         case SDLK_RETURN: {
-            ScopedInputGrab(false);
-            video_engine->ToggleFullscreen();
-            sdl::FlushEvents();
+            // Deactivated due to crashes, at least on Windows.
+            //ScopedInputGrab(false);
+            //video_engine->ToggleFullscreen();
+            //sdl::FlushEvents();
         } break;
         default: break;
         };
