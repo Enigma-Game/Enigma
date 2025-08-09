@@ -120,15 +120,14 @@ bool enigma::extractFromZipString(std::string zipString, std::string fileName, s
         inflateEnd(&inflateStream);
         ASSERT(err != Z_OK, XFrontend, "Z_OK during inflateEnd");
         ASSERT(err == Z_OK || err == Z_STREAM_END, XFrontend, "Error during zip inflation cleanup.");
-        ASSERT(uncompressedSize == (int)(inflateStream.next_out - ptrUncompressed), XFrontend, "Uncompressed size incorrect. Maybe a broken zip file?");
+        ASSERT(uncompressedSize == (int)(inflateStream.next_out - ptrUncompressed), XFrontend,
+            "Uncompressed size incorrect. Maybe a broken zip file?");
         inflatedString = std::string((char*)ptrUncompressed, uncompressedSize);
-        // TODO: Error messages are not thrown correctly, but get ignored somewhere.
-        //       On Windows, they even lead to a sudden program stop.
     }
-    catch (...) {
+    catch (std::exception &e) {
         if(ptrUncompressed)
             free(ptrUncompressed);
-        throw;
+        throw XFrontend("Error unzipping " + fileName + ": " + e.what());
     }
     if(ptrUncompressed)
         free(ptrUncompressed);
