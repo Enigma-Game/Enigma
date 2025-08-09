@@ -1,6 +1,6 @@
 # Process this file with autoconf to produce a configure script.
 AC_INIT([enigma],[1.30],[enigma-devel@nongnu.org])
-AC_PREREQ([2.72])
+AC_PREREQ([2.71])
 AC_CANONICAL_BUILD
 AC_CANONICAL_TARGET
 AC_CONFIG_SRCDIR([src/enigma.cc])
