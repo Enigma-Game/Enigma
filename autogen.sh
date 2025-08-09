@@ -5,7 +5,7 @@ IFS=$'\n'
 bstrap ()
 {
     echo -n "Bootstrapping $1    "
-    if (cd "$1" && sh autogen.sh); then
+    if (cd "$1" && bash autogen.sh); then
         echo "OK"
     else
         echo "ERROR"
