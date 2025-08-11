@@ -174,16 +174,16 @@ namespace enigma { namespace gui {
          lev::Proxy *theLevel;        
      };
     
-LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
+LevelInspector::LevelInspector(lev::Proxy *aLevel, bool _allowThumbnailGeneration, bool showDeveloperInfo):
         back (new StaticTextButton(N_("Ok"), this)),
         screenshot (new StaticTextButton(N_("Screenshot"), this)),
         annotation (new TextField()), levelProxy(aLevel),        
-        isDeveloperMode(showDeveloperInfo)
+        allowThumbnailGeneration(_allowThumbnailGeneration), isDeveloperMode(showDeveloperInfo)
     {
         bool didGenerate;  // dummy
         const VMInfo *vminfo = video_engine->GetInfo();
         previewImage =
-            LevelPreviewCache::instance()->getPreview(aLevel, vminfo->thumb, true, didGenerate);
+            LevelPreviewCache::instance()->getPreview(aLevel, vminfo->thumb, allowThumbnailGeneration, didGenerate);
         const int vshrink = vminfo->width < 640 ? 1 : 0;
         vspacing = vminfo->height < 400 ? 1 :(vminfo->height < 500 ? 2 :(vminfo->height < 650 ? 3 : 4));
         vspacing2 = vminfo->height < 400 ? 8 :(vminfo->height < 500 ? 16 :(vminfo->height < 650 ? 14 : 16));
@@ -545,7 +545,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
                             !app.state->getAnnotation(levelProxy->getId()).empty()) {
                         app.state->setAnnotation(levelProxy->getId(), annotation->getText());
                     }
-                    LevelInspector m(levelProxy, true);
+                    LevelInspector m(levelProxy, allowThumbnailGeneration, true);
                     m.manage();
                     if (m.isEndDeveloperMode()) {
                         // reinit user input fields
@@ -590,6 +590,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         set_caption((std::string("Enigma - Level ") + (isDeveloperMode ? "Developer " : "") +
                      "Inspector").c_str());
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
+        // previewImage might be null, but Surface::blit will check that.
         blit(gc, vminfo->width - vminfo->thumb.width - 10 - hmargin, vmargin, previewImage);
         Surface *img_hard = enigma::GetImage("completed");
         if (withEasy) {

@@ -26,7 +26,7 @@
 namespace enigma { namespace gui {
     class LevelInspector : public gui::Menu {
     public:
-        LevelInspector (lev::Proxy *aLevel, bool showDeveloperInfo = false);
+        LevelInspector (lev::Proxy *aLevel, bool allowThumbnailGeneration, bool showDeveloperInfo = false);
         ~LevelInspector ();
         bool isEndDeveloperMode();
     private:
@@ -60,6 +60,7 @@ namespace enigma { namespace gui {
         bool withEasy;
         bool ratingInherited;
         bool isDeveloperMode;
+        bool allowThumbnailGeneration;
     };
 
 }} // namespace enigma::gui
