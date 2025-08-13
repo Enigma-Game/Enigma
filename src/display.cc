@@ -200,11 +200,11 @@ void StatusBarImpl::redraw(ecl::GC &gc, const ScreenArea &r) {
     delete s_modes;
 
     if (m_showtime_p || m_showcounter_p) {
-        double abstime = m_leveltime >= 0 ? m_leveltime : fabs(floor(m_leveltime));
+        int abstime = ecl::round_nearest<int>(fabs(m_leveltime));
         //            abstime += 63*60;  //for testing purposes
-        int hours = static_cast<int>(abstime / 3600);
-        int minutes = static_cast<int>((abstime - 3600 * hours) / 60);
-        int seconds = static_cast<int>(abstime) % 60;
+        int hours = abstime / 3600;
+        int minutes = (abstime - 3600 * hours) / 60;
+        int seconds = abstime % 60;
         bool showHours = false;
         bool showMinutes = true;
         bool showSeconds = true;

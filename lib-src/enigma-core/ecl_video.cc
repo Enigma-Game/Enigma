@@ -226,6 +226,7 @@ public:
 /* -------------------- Surface -------------------- */
 
 Surface::Surface(SDL_Surface *surface, bool _has_alpha) {
+    static std::string lastErrorMessage = "";
     // If you change the pixel format, remember to replace Surface32
     // for another SurfaceXY in Surface::make_surface.
     has_alpha = _has_alpha;
@@ -234,10 +235,20 @@ Surface::Surface(SDL_Surface *surface, bool _has_alpha) {
     } else {
         pixel_format = SDL_AllocFormat(SDL_PIXELFORMAT_RGB888);
     }
-    assert(surface);
+    if(!surface)
+        throw XGeneric("Error: Tried to convert null surface.");
     m_surface = SDL_ConvertSurface(surface, pixel_format, 0);
     SDL_FreeSurface(surface);
-    assert(m_surface);
+    if(!m_surface)
+        if(lastErrorMessage.empty()) {
+            // Try to throw an error via SDL, i.e. graphical output.
+            // However, it might come back! To prevent us from entering
+            // an infinite loop, throw an XSDLError only once.
+            lastErrorMessage = std::string("SDL_ConvertSurface failed: ") + SDL_GetError();
+            throw XSDLError(lastErrorMessage);
+        } else {
+            throw XGeneric(lastErrorMessage);
+        }
 }
 
 

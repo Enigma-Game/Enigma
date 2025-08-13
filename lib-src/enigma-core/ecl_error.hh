@@ -59,6 +59,11 @@ ECL_DEF_EXCEPTION(XEndOfFile, XInputOutput, "End of file");
 ECL_DEF_EXCEPTION(XFileFormat, XInputOutput, "File format");
 ECL_DEF_EXCEPTION(XVideo, XGeneric, "Video");
 
+class XSDLError : public ecl::XGeneric {
+public:
+    XSDLError(const std::string &msg) : XGeneric(msg) {}
+};
+
 template <class EXC>
 void Assert(bool expr, const std::string &msg) {
     if (!expr)

@@ -17,9 +17,10 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 #include <stdio.h>
-#include "OxydVersion.h"
-#include <string>
+#include <cstring>
 #include <cassert>
+
+#include "OxydVersion.h"
 #include "VecUtils.h"
 #include "FileUtils.h"
 #include "DatFile.h"

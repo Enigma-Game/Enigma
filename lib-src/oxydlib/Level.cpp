@@ -1382,7 +1382,7 @@ bool parseLevel(const ByteVec &in, Level *pLevel, string *pMsg)
       if (item[0] == 'B') {
         string temp1 = item.substr(1);
 
-        string::size_type f8Pos = temp1.find(0xf8);
+        string::size_type f8Pos = temp1.find((char)0xf8);
         string temp2;
         string temp3;
         if (f8Pos == string::npos) {

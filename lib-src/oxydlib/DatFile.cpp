@@ -18,7 +18,6 @@
 
 #include "DatFile.h"
 #include "VecUtils.h"
-#include <stdio.h>
 #include <algorithm>
 
 namespace OxydLib {

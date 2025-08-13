@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Tutorials" location="10130" network="false" owner="Enigma Team" release="1" revision="44" title="Tutorial"/>
+  <info enigma="1.10" group="Tutorials" location="10130" network="false" owner="Enigma Team" release="1" revision="46" title="Tutorial"/>
 
   <attributes/>
 
@@ -53,7 +53,7 @@
     <level _seq="45" _title="Mission Impossible" _xpath="enigma_i/martin14_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin14" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="46" _title="Brittle Planks" _xpath="enigma_i/martin92_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin92" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="47" _title="Lasers 101" _xpath="enigma_i/daniel08_2" author="Daniel Heck" ctrl="force" easy="false" id="lasers101" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="48" _title="Laser Spiral" _xpath="enigma_ii/duffy03_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy3" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="48" _title="Laser Spiral" _xpath="enigma_ii/duffy03_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy3" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="49" _title="Brittle Floor!" _xpath="enigma_iii/martin91_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin91" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Inverted Laser Spiral" _xpath="enigma_ii/duffy42_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy42" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="51" _title="- Meditation -" _xpath="enigma_i/siegfried35_1" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation14" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -72,7 +72,7 @@
     <level _seq="64" _title="Slalom Skiing" _xpath="enigma_ii/martin93_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin93" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Chess Stones" _xpath="tutorial_basic/a_tut07_1" author="Raoul Bourquin, ShadowPhrogg32642342, Andreas Lochmann" ctrl="force" easy="false" id="c_tut01" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Bye!" _xpath="tutorial_basic/a_tut06_2" author="Andreas Lochmann" ctrl="force" easy="false" id="a_tut06" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="67" _title="Advanced Tutorial" _xpath="tutorial_advanced/adv_tutorial" author="Jacob Scott" ctrl="force" easy="false" id="m_tutor/adv_tutorial" rel="2" rev="9" score="1" target="time" unit="duration"/>
+    <level _seq="67" _title="Advanced Tutorial" _xpath="tutorial_advanced/adv_tutorial" author="Jacob Scott" ctrl="force" easy="false" id="m_tutor/adv_tutorial" rel="3" rev="10" score="2" target="time" unit="duration"/>
   </levels>
 
 </index>

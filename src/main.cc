@@ -1001,6 +1001,14 @@ int main(int argc, char **argv)
             m.manage();
         }
     }
+    catch (XSDLError &e) {
+        cerr << "Error: " << e.what() << endl;
+        std::string message = _("Fatal error that caused the application to quit:\n\n");
+        if (app.errorInit) {
+            gui::ErrorMenu m(message + e.what(), N_("Quit"));
+            m.manage();
+        }
+    }
     catch (ecl::XGeneric &e) {
         cerr << "Error: " << e.what() << endl;
     }

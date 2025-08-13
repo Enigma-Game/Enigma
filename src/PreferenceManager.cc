@@ -123,20 +123,20 @@ namespace enigma {
         }
         catch (const XMLException& toCatch) {
             char* message = XMLString::transcode(toCatch.getMessage());
-            cerr << "Exception on load of preferences: "
+            cerr << "Exception while loading preferences: "
                  << message << "\n";
             XMLString::release(&message);
             exit (-1);
         }
         catch (const DOMException& toCatch) {
             char* message = XMLString::transcode(toCatch.msg);
-            cerr << "Exception on load of preferences: "
+            cerr << "Exception while loading preferences: "
                  << message << "\n";
             XMLString::release(&message);
             exit (-1);
         }
         catch (...) {
-            cerr << "Unexpected Exception on load of preferences\n" ;
+            cerr << "Unexpected exception while loading preferences\n" ;
             exit (-1);
         }        
     }

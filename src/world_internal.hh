@@ -16,6 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#pragma once
+
 #include "ecl_array2.hh"
 #include "ecl_dict.hh"
 #include "SoundEngine.hh"

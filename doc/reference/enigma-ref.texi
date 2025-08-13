@@ -5693,6 +5693,7 @@ Let us look at the supported operators:
 * Position Coordinate Access::            Index Operators
 * Position Grid Rounding::                Method @samp{grid()}
 * Position Existence::                    Method @samp{exists()}
+* Position Norm::                         Method @samp{norm()}
 @end menu
 
 @c ----------------- Position Addition and Subtraction --------------------
@@ -7913,6 +7914,7 @@ implemented as simple functions.
 * assert_bool::     Throws an error if a condition doesn't hold.
 * assert_type::     Throws an error if a variable is not of a given type.
 * cond::            A ternary operator, wrapper for if-then-else.
+* enigma.LoadLib::  Library Loading.
 * etype::           An advanced function to return normal and user data types.
 * fl::              Floor retrieval
 * grp::             Create a group out of the argument objects
@@ -8152,6 +8154,33 @@ will occur.
 
 @end table
 
+@c ----------------- LoadLib --------------------
+@node enigma.LoadLib
+@subsection enigma.LoadLib
+@findex enigma.LoadLib
+
+The function @samp{enigma.LoadLib()} loads a Lua library dependency.
+
+@table @asis
+@item @b{Syntax:}
+@b{enigma.LoadLib}(@i{filename})
+
+@table @asis
+@item @i{filename}
+Filename of the library to load.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+@i{enigma.LoadLib}(@i{"lib/natmaze"})
+@end example
+
+@item @b{Details:}
+Libraries are usually preloaded as described in @ref{Library Preloading} and there is no need to call this function.
+For more information about libraries, see @ref{Library Files}.
+
+@end table
+
 @c ----------------- etype --------------------
 @node etype
 @subsection etype
@@ -8327,6 +8356,7 @@ the related orientations.
 @end example
 
 @end table
+
 @c ----------------- random --------------------
 @node random
 @subsection random
@@ -8360,6 +8390,7 @@ randomseed can not be modified by the level itself.
 @end example
 
 @end table
+
 @c ----------------- st --------------------
 @node st
 @subsection st
@@ -10827,17 +10858,17 @@ or vertical aligned joists and various rivets.
 @item @image{images/fl_metal, 12mm} @tab @b{fl_metal_1}: texture = @code{1}
 @tab @image{images/fl_metal_framed, 12mm} @tab @b{fl_metal_1_framed}: texture = @code{1}
 @item @image{images/fl_metal_2, 12mm} @tab @b{fl_metal_2}: texture = @code{2}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_2_framed}: texture = @code{2}
+@tab @image{images/fl_metal_2_framed, 12mm} @tab @b{fl_metal_2_framed}: texture = @code{2}
 @item @image{images/fl_metal_3, 12mm} @tab @b{fl_metal_3}: texture = @code{3}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_3_framed}: texture = @code{3}
+@tab @image{images/fl_metal_3_framed, 12mm} @tab @b{fl_metal_3_framed}: texture = @code{3}
 @item @image{images/fl_metal_4, 12mm} @tab @b{fl_metal_4}: texture = @code{4}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_4_framed}: texture = @code{4}
+@tab @image{images/fl_metal_4_framed, 12mm} @tab @b{fl_metal_4_framed}: texture = @code{4}
 @item @image{images/fl_metal_5, 12mm} @tab @b{fl_metal_5}: texture = @code{5}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_5_framed}: texture = @code{5}
+@tab @image{images/fl_metal_5_framed, 12mm} @tab @b{fl_metal_5_framed}: texture = @code{5}
 @item @image{images/fl_metal_6, 12mm} @tab @b{fl_metal_6}: texture = @code{6}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_6_framed}: texture = @code{6}
+@tab @image{images/fl_metal_6_framed, 12mm} @tab @b{fl_metal_6_framed}: texture = @code{6}
 @item @image{images/fl_metal_7, 12mm} @tab @b{fl_metal_7}: texture = @code{7}
-@tab @image{images/construction, 12mm} @tab @b{fl_metal_7_framed}: texture = @code{7}
+@tab @image{images/fl_metal_7_framed, 12mm} @tab @b{fl_metal_7_framed}: texture = @code{7}
 @end multitable
 @end table
 
@@ -11046,7 +11077,7 @@ When burnt, @code{fl_samba} becomes @ref{fl_abyss}.
 @item @image{images/fl_samba_2, 12mm} @b{fl_samba_v}: texture = @code{"v"}
 @item @image{images/fl_samba_framed, 12mm} @b{fl_samba_framed}: texture = @samp{random}
 @item @image{images/fl_samba_framed, 12mm} @b{fl_samba_h_framed}: texture = @code{"h"}
-@item @image{images/construction, 12mm} @b{fl_samba_v_framed}: texture = @code{"v"}
+@item @image{images/fl_samba_2_framed, 12mm} @b{fl_samba_v_framed}: texture = @code{"v"}
 @end table
 @end table
 
@@ -11450,10 +11481,10 @@ variation, too.
 
 The framed variant is the successor of a fallen @ref{st_box}_hay. It may be
 flooded by a @ref{fl_water} stream without the attribute @samp{floodable} being
-set to @samp{true} as the flood passes below this floor. The framed wood
+set to @samp{true} as the flood passes below this floor. The framed hay
 acts like a bridge over a flood stream and the water will continue to spread to
-neighboring grids, while the framed wood is still passable for actors. In fact
-a framed wood can even operate as a flood source, but we do not recommend this
+neighboring grids, while the framed hay is still passable for actors. In fact
+a framed hay can even operate as a flood source, but we do not recommend this
 usage. @pxref{Flood Spreading}.
 
 @table @asis
@@ -11535,10 +11566,10 @@ variation, too.
 
 The framed variant is the successor of a fallen @ref{st_box}_rock. It may be
 flooded by a @ref{fl_water} stream without the attribute @samp{floodable} being
-set to @samp{true} as the flood passes below this floor. The framed wood
+set to @samp{true} as the flood passes below this floor. The framed rock
 acts like a bridge over a flood stream and the water will continue to spread to
-neighboring grids, while the framed wood is still passable for actors. In fact
-a framed wood can even operate as a flood source, but we do not recommend this
+neighboring grids, while the framed rock is still passable for actors. In fact
+a framed rock can even operate as a flood source, but we do not recommend this
 usage. @pxref{Flood Spreading}.
 
 @table @asis
@@ -11889,8 +11920,8 @@ Number of seconds .
 @item @image{images/fl_wood, 12mm} @b{fl_wood}: texture = random
 @item @image{images/fl_wood_3, 12mm} @b{fl_wood_h}: texture = @code{"h"}
 @item @image{images/fl_wood, 12mm} @b{fl_wood_v}: texture = @code{"v"}
-@item @image{images/fl_wood_framed, 12mm} @b{fl_wood_framed}: texture = random, faces = @code{"nesw"}
-@item @image{images/fl_wood_framed, 12mm} @b{fl_wood_framed_h}: texture = @code{"h"}, faces = @code{"nesw"}
+@item @image{images/fl_wood_framed_2, 12mm} @b{fl_wood_framed}: texture = random, faces = @code{"nesw"}
+@item @image{images/fl_wood_framed_1, 12mm} @b{fl_wood_framed_h}: texture = @code{"h"}, faces = @code{"nesw"}
 @item @image{images/fl_wood_framed_2, 12mm} @b{fl_wood_framed_v}: texture = @code{"v"}, faces = @code{"nesw"}
 @end table
 @end table
@@ -15132,8 +15163,8 @@ A military green camouflage stone that exists in all three variants.
 @item @b{Variants:}
 @table @asis
 @item @image{images/st_camouflage, 12mm} @b{st_camouflage}
-@item @b{st_camouflage_hollow}
-@item @b{st_camouflage_movable}
+@item @image{images/st_camouflage, 12mm} @b{st_camouflage_hollow}
+@item @image{images/st_camouflage, 12mm} @b{st_camouflage_movable}
 @end table
 @end table
 
@@ -15162,7 +15193,7 @@ A dark gray rock that exists in all two variants.
 @item @b{Variants:}
 @table @asis
 @item @image{images/st_darkgray, 12mm} @b{st_darkgray}
-@item @b{st_darkgray_hollow}
+@item @image{images/st_darkgray, 12mm} @b{st_darkgray_hollow}
 @end table
 @end table
 
@@ -15177,8 +15208,8 @@ A light gray rock like stone that exists in all three variants.
 @item @b{Variants:}
 @table @asis
 @item @image{images/st_granite, 12mm} @b{st_granite}
-@item @b{st_granite_hollow}
-@item @b{st_granite_movable}
+@item @image{images/st_granite, 12mm} @b{st_granite_hollow}
+@item @image{images/st_granite, 12mm} @b{st_granite_movable}
 @end table
 @end table
 
@@ -15229,7 +15260,7 @@ A metal stone that exists in two variants.
 @item @b{Variants:}
 @table @asis
 @item @image{images/st_metal, 12mm} @b{st_metal}
-@item @b{st_metal_hollow}
+@item @image{images/st_metal, 12mm} @b{st_metal_hollow}
 @end table
 @end table
 
@@ -15286,8 +15317,8 @@ A brown stone with light red touches that exists in all three variants.
 @item @b{Variants:}
 @table @asis
 @item @image{images/st_redbrown, 12mm} @b{st_redbrown}
-@item @b{st_redbrown_hollow}
-@item @b{st_redbrown_movable}
+@item @image{images/st_redbrown, 12mm} @b{st_redbrown_hollow}
+@item @image{images/st_redbrown, 12mm} @b{st_redbrown_movable}
 @end table
 @end table
 
@@ -17184,9 +17215,7 @@ full @code{st_inkwell}; and a glass marble will not transform if it
 touches an empty @code{st_inkwell}. If you want to transform a black
 marble into a white one or vice versa, you will need two @code{st_inkwell}s.
 
-Please note that inkwell stones will recolor @ref{ac_pearl} as well, as soon
-as they are introduced to Enigma. As of now, an error will be shown when
-@ref{ac_pearl} touches an inkwell stone.
+Please note that inkwell stones will recolor @ref{ac_pearl} as well.
 
 @table @asis
 @item @b{Attributes:}

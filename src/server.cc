@@ -90,6 +90,7 @@ bool IsLevelRestart;  // no Lua access
 bool ProvideExtralifes;
 bool InfiniteReincarnation;
 bool SurviveFinish;
+int AddSecondsToScore;
 
 Value FollowAction;
 bool FollowGrid;
@@ -254,6 +255,7 @@ void PrepareLevel() {
     ProvideExtralifes = true;
     InfiniteReincarnation = false;
     SurviveFinish = true;
+    AddSecondsToScore = 0;
     TwoPlayerGame = false;
     SingleComputerGame = true;
     AllowSingleOxyds = false;

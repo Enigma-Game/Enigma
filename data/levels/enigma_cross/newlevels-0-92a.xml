@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="58" title="Enigma 0.92 - 1"/>
+  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="59" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -110,7 +110,7 @@
     <level _seq="102" _title="Come To Me" _xpath="enigma_ii/ant20_2" author="Petr Machata" ctrl="force" easy="false" id="ant20" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="103" _title="Corridors" _xpath="enigma_ii/siegfried29_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9f" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="104" _title="Dustwalkers" _xpath="enigma_ii/ant06_1" author="Petr Machata" ctrl="force" easy="false" id="ant06" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="105" _title="Laser Spiral" _xpath="enigma_ii/duffy03_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy3" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="105" _title="Laser Spiral" _xpath="enigma_ii/duffy03_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy3" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="106" _title="Everhungry" _xpath="enigma_iii/ant32_1" author="Petr Machata" ctrl="force" easy="false" id="ant32" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="107" _title="The Turtle" _xpath="enigma_iii/ant05_1" author="Petr Machata" ctrl="force" easy="false" id="ant05" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="108" _title="Grow Your Own" _xpath="enigma_iii/nat36_2" author="Nat Pryce" ctrl="force" easy="false" id="natmaze5" rel="2" rev="1" score="1" target="time" unit="duration"/>

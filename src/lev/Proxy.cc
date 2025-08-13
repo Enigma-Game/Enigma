@@ -417,7 +417,7 @@ namespace enigma { namespace lev {
     Proxy * Proxy::copy(std::string newBasePath, std::string newPackPath, bool backup) {
         bool useFileLoader = false;
         bool isXML = true;
-        std::unique_ptr<std::istream> isptr;
+        std::stringstream levelStream;
         ByteVec levelCode;
         std::string absLevelPath = "";
         std::string filename;
@@ -431,9 +431,9 @@ namespace enigma { namespace lev {
             absLevelPath = normFilePath;
         } else if(normPathType == pt_resource) {
             if(!app.resourceFS->findFile("levels/" + normFilePath + ".xml",
-                        absLevelPath, isptr) &&
+                        absLevelPath, levelStream) &&
                     !app.resourceFS->findFile("levels/" + normFilePath + ".lua",
-                        absLevelPath, isptr)) {
+                        absLevelPath, levelStream)) {
                 return NULL;
             }
         } else
@@ -464,9 +464,9 @@ namespace enigma { namespace lev {
         // load
         if (normPathType != pt_url) {
             // preload plain Lua file or zipped level
-            if (isptr.get() != NULL) {
+            if (levelStream.rdbuf()->in_avail()) {
                 // zipped file
-                Readfile(*isptr, levelCode);
+                Readfile(levelStream, levelCode);
             } else {
                 // plain file
                 basic_ifstream<char> ifs(absLevelPath.c_str(), ios::binary | ios::in);
@@ -516,7 +516,7 @@ namespace enigma { namespace lev {
         Uint32 start_tick_time = SDL_GetTicks();   // meassure time for level loading
         bool useFileLoader = false;
         bool isXML = true;
-        std::unique_ptr<std::istream> isptr;
+        std::stringstream levelStream;
         ByteVec levelCode;
         std::string errMessage;
         absLevelPath = "";
@@ -557,9 +557,9 @@ namespace enigma { namespace lev {
             absLevelPath = normFilePath;
         } else if(normPathType == pt_resource) {
             if(!app.resourceFS->findFile ("levels/" + normFilePath + ".xml",
-                        absLevelPath, isptr) &&
+                        absLevelPath, levelStream) &&
                     !app.resourceFS->findFile ("levels/" + normFilePath + ".lua",
-                        absLevelPath, isptr)) {
+                        absLevelPath, levelStream)) {
                 std::string type = isLibraryFlag ? "library " : "level ";
                 throw XLevelLoading("Could not find " + type + normFilePath );
             }
@@ -588,9 +588,9 @@ namespace enigma { namespace lev {
         if (normPathType == pt_url) {
             // url address via curl
             Downloadfile(normFilePath, levelCode);
-        } else if (isptr.get() != NULL) {
+        } else if (levelStream.rdbuf()->in_avail()) {
             // zipped file
-            Readfile (*isptr, levelCode);
+            Readfile (levelStream, levelCode);
         } else {
             // plain file
             basic_ifstream<char> ifs(absLevelPath.c_str(), ios::binary | ios::in);
@@ -915,7 +915,7 @@ namespace enigma { namespace lev {
 //                Log << "EData: Path="<<extNormPath<< " Url=" << extUrl<<"\n";
                 // load every external data resource just once even if multiple urls are given
                 if (externalData.find(extNormPath) == externalData.end()) {
-                    std::unique_ptr<std::istream> isptr;
+                    std::stringstream externalStream;
                     ByteVec extCode;
 
                     std::string extFilename;
@@ -946,13 +946,13 @@ namespace enigma { namespace lev {
                     if (normPathType == pt_absolute) {
                         absExtPath = extPath;
                     } else {
-                        haveLocalCopy = app.resourceFS->findFile("levels/" + extPath, absExtPath, isptr);
+                        haveLocalCopy = app.resourceFS->findFile("levels/" + extPath, absExtPath, externalStream);
                     }
 
                     // preload plain file or zipped file
-                    if (haveLocalCopy && isptr.get() != NULL) {
+                    if (haveLocalCopy && externalStream.rdbuf()->in_avail()) {
                         // zipped file
-                        Readfile(*isptr, extCode);
+                        Readfile(externalStream, extCode);
                     } else if (haveLocalCopy) {
                         // plain file
                         basic_ifstream<char> ifs(absExtPath.c_str(), ios::binary | ios::in);

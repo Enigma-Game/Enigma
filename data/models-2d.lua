@@ -712,6 +712,8 @@ do
     DefImage("it_meditation_bump", {filename="it_meditation_bump"})
     DefImage("it_meditation_volcano", {filename="it_meditation_volcano"})
     DefImage("it_meditation_caldera", {filename="it_meditation_caldera"})
+
+    DefImage("it_remote", {filename="it_odometer"})
 end
 
 -------------------------

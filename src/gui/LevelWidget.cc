@@ -454,7 +454,7 @@ namespace enigma { namespace gui {
                         syncToIndexMgr();
                         if (SDL_GetModState() & KMOD_CTRL && !(SDL_GetModState() & KMOD_SHIFT)) {
                             // control key pressed - level inspector
-                            LevelInspector m(curIndex->getProxy(iselected));
+                            LevelInspector m(curIndex->getProxy(iselected), true);
                             m.manage();
                             get_parent()->draw_all();
                         } else {
@@ -471,7 +471,7 @@ namespace enigma { namespace gui {
                         sound::EmitSoundEvent ("menuok");
                         iselected = ifirst+i;
                         syncToIndexMgr();
-                        LevelInspector m(curIndex->getProxy(iselected));
+                        LevelInspector m(curIndex->getProxy(iselected), true);
                         m.manage();
                         get_parent()->draw_all();
                         return true;

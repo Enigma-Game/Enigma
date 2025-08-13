@@ -20,7 +20,7 @@ extractchunks_SOURCES = extractchunks.cpp
 extractchunks_LDADD = liboxyd.a
 
 printlevels_SOURCES = printlevels.cpp
-printlevels_LDADD =liboxyd.a
+printlevels_LDADD = liboxyd.a
 
 printstats_SOURCES = printstats.cpp
 printstats_LDADD = liboxyd.a

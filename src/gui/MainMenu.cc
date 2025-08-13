@@ -103,10 +103,10 @@ namespace enigma { namespace gui {
         " ",
         N_("Please refer to the manual or the next pages for full credits."),
         " ",
-        N_("Home Page: http://www.nongnu.org/enigma   Contact: enigma-devel@nongnu.org"),
+        N_("Home Page: https://www.nongnu.org/enigma   Contact: enigma-devel@nongnu.org"),
         " ",
         N_("Enigma is free software and may be distributed under the terms of the GNU General Public License, version 2."),
-        N_("Copyright (C) 2002-2021 Daniel Heck and contributors."),
+        N_("Copyright (C) 2002-2025 Daniel Heck and contributors."),
         "\n",
         N_("Main developers of all releases:"),
         " ",
@@ -327,7 +327,7 @@ namespace enigma { namespace gui {
     void MainHelpMenu::on_action(gui::Widget *w) {
         if (w == homepage) {
             video_engine->SetFullscreen(false);
-            ecl::BrowseUrl("http://www.enigma-game.org");
+            ecl::BrowseUrl("https://www.enigma-game.org");
         } else if (w == docs) {
             video_engine->SetFullscreen(false);
             ecl::BrowseUrl("file://" + app.docPath + "/index.html");

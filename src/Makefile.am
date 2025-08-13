@@ -11,8 +11,6 @@ EXTRA_DIST = \
 CXXFLAGS = @CXXFLAGS@\
 	-DSYSTEM_DATA_DIR=\"$(datadir)/enigma\" \
 	-DDOCDIR=\"$(docdir)\" \
-	-I$(top_srcdir)/lib-src/zipios++  \
-	-I$(top_builddir)/lib-src/zipios++ \
 	-I$(top_srcdir)/lib-src/lua \
 	-I$(top_srcdir)/lib-src/tinygettext \
 	-I$(top_srcdir)/lib-src/enigma-core
@@ -24,7 +22,7 @@ CXXFLAGS += -I$(top_srcdir)/lib-src/enet/include
 endif
 
 if MINGW32
-CXXFLAGS += -static-libgcc -static-libstdc++ -DWIN32
+CXXFLAGS += -I/opt/mxe/usr/i686-w64-mingw32.static/include -static -static-libgcc -static-libstdc++ -DWIN32
 endif
 
 CXXFLAGS += -I$(top_srcdir)/lib-src @SDL_CFLAGS@
@@ -447,8 +445,8 @@ datadir = @datadir@
 
 if MINGW32
 
-  # mingw_ldadd := enigma_ico.o -lws2_32
-  mingw_ldadd := enigma_ico.o -lws2_32 -lSDL2_image -ltiff -llzma -ljpeg -lpng16 -lSDL2_mixer -lmikmod -lsmpeg2 -lvorbisfile -lvorbis -logg -lSDL2_ttf -lcurl -lidn -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lgcrypt -lgpg-error -lws2_32 -lfreetype -lintl -liconv
+  mingw_ldadd := enigma_ico.o -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lharfbuzz -lopusfile -lopus -ltiff -llzma -ljpeg -lpng16 -lwebp -lmikmod -lmpg123 -lsmpeg2 -lvorbisfile -lvorbis -logg -lcurl -lws2_32 -lidn -lidn2 -lnghttp2 -ladvapi32 -lcrypt32 -lzstd -lpsl -lunistring -lpthread -lcharset -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lbcrypt -lgcrypt -lgpg-error -lws2_32 -lfreetype -lbz2 -lbrotlidec -lbrotlienc -lbrotlicommon -lintl -liconv -lpathcch -lshlwapi
+
   enigma_LDFLAGS := -mwindows -pthread
   enigma_ico.o: enigma.rc enigma.ico
 	$(WINDRES) $(srcdir)/enigma.rc --include-dir=$(srcdir) -O coff -o enigma_ico.o
@@ -480,7 +478,6 @@ enigma_LDADD += $(top_builddir)/lib-src/enet/libenet.a
 endif
 
 enigma_LDADD += $(top_builddir)/lib-src/oxydlib/liboxyd.a \
-	$(top_builddir)/lib-src/zipios++/src/libzipios.a \
 	$(top_builddir)/lib-src/tinygettext/libtinygettext.a \
 	-lz \
 	$(mingw_ldadd) \

@@ -4,6 +4,13 @@ CXXFLAGS = @CXXFLAGS@\
         -fpermissive \
         -I$(top_srcdir)/lib-src/tinygettext/include
 
+if MINGW32
+
+CXXFLAGS += -static
+CXXFLAGS += -I/opt/mxe/usr/i686-w64-mingw32.static/include
+
+endif
+
 noinst_LIBRARIES = libtinygettext.a
 
 libtinygettext_a_SOURCES = \

@@ -486,7 +486,7 @@ void VideoEngineImpl::Init() {
         app.selectedFullscreenMode = FindFullscreenMode(ActiveWindowSize());
         app.selectedFullscreenTilesetId = GetTilesetId();
     } else {
-        app.selectedWindowTilesetId == GetTilesetId();
+        app.selectedWindowTilesetId = GetTilesetId();
     }
     // Set window brightness according to options.
     UpdateBrightness();

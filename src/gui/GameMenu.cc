@@ -209,7 +209,7 @@ namespace enigma { namespace gui {
 //            Menu::quit();
         }
         else if (w == info) {
-            LevelInspector m(ind->getCurrent());
+            LevelInspector m(ind->getCurrent(), false);
             m.manage();
             invalidate_all();
 //            Menu::quit();
