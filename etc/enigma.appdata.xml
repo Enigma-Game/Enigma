@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>org.nongnu.enigma</id>
+  <id>org.enigma-game</id>
   <launchable type="desktop-id">org.nongnu.enigma.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
@@ -49,19 +49,19 @@
       </description>
     </release>
   </releases>
-  <url type="homepage">https://www.nongnu.org/enigma/</url>
+  <url type="homepage">https://enigma-game.org</url>
   <screenshots>
     <screenshot type="default">
       <image>https://www.nongnu.org/enigma/images/screenshots/ral15_1.png</image>
       <caption>"The Gordian Knot" by Ronald Lamprecht</caption>
     </screenshot>
     <screenshot>
-      <image>https://www.nongnu.org/enigma/images/screenshots/mecke22_2.png</image>
-      <caption>Example Level</caption>
+      <image>https://www.nongnu.org/enigma/images/screenshots/andreas72_1.png</image>
+      <caption>"Gestures 1" by Andreas Lochmann</caption>
     </screenshot>
     <screenshot>
-      <image>https://www.nongnu.org/enigma/images/screenshots/luc36_1.png</image>
-      <caption>Example Level</caption>
+      <image>https://www.nongnu.org/enigma/images/screenshots/andreas71_1.png</image>
+      <caption>"Careful, glas!" by Andreas Lochmann</caption>
     </screenshot>
   </screenshots>
   <keywords>
@@ -70,20 +70,7 @@
     <keyword>marble</keyword>
   </keywords>
   <developer id="enigma.nongnu.org">
-    <name>Thomas Bernhardt</name>
-    <name>Raoul Bourquin</name>
-    <name>Siegfried Fennig</name>
-    <name>Martin Hawlisch</name>
-    <name>Daniel Heck</name>
-    <name>Georg Honold</name>
-    <name>Ronald Lamprecht</name>
-    <name>Andreas Lochmann</name>
-    <name>Petr Machata</name>
-    <name>Nobby</name>
-    <name>Nat Pryce</name>
-    <name>Jacob Scott</name>
-    <name>Sven Siggelkow</name>
-    <name>Ralf Westram</name>
+    <name>Enigma Team</name>
   </developer>
   <content_rating type="oars-1.1"/>
   <update_contact>enigma-devel@nongnu.org</update_contact>
