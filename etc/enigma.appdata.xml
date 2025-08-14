@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014 Ryan Lerch <rlerch@redhat.com>, Andreas Lochmann <and.lochmann@googlemail.com> -->
-<application>
-  <id type="desktop">enigma.desktop</id>
+<component type="desktop-application">
+  <id>org.enigma-game</id>
+  <launchable type="desktop-id">org.nongnu.enigma.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Enigma</name>
@@ -44,22 +44,34 @@
         <ul>
           <li>Rescaling the application window introduces graphical artifacts: Better use fixed window sizes for now.</li>
           <li>Not all fullscreen modes are available yet, in particular no vertical screen modes. If you use a vertical screen, please use Enigma in windowed mode.</li>
-          <li>On Windows 7, after playing or finishing a level, the mouse cursor is trapped inside Enigma's window (but not frozen). Enigma can still be operated and exited via the main menu or the game menu, though.</li>
+          <li>On Windows 7, after playing or finishing a level, the mouse cursor is trapped inside Enigma&apos;s window (but not frozen). Enigma can still be operated and exited via the main menu or the game menu, though.</li>
         </ul>
       </description>
     </release>
   </releases>
-  <url type="homepage">http://www.nongnu.org/enigma/</url>
+  <url type="homepage">https://enigma-game.org</url>
   <screenshots>
-    <screenshot type="default">http://www.nongnu.org/enigma/images/screenshots/ral15_1.png</screenshot>
-    <screenshot>http://www.nongnu.org/enigma/images/screenshots/mecke22_2.png</screenshot>
-    <screenshot>http://www.nongnu.org/enigma/images/screenshots/luc36_1.png</screenshot>
+    <screenshot type="default">
+      <image>https://www.nongnu.org/enigma/images/screenshots/ral15_1.png</image>
+      <caption>"The Gordian Knot" by Ronald Lamprecht</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://www.nongnu.org/enigma/images/screenshots/andreas72_1.png</image>
+      <caption>"Gestures 1" by Andreas Lochmann</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://www.nongnu.org/enigma/images/screenshots/andreas71_1.png</image>
+      <caption>"Careful, glas!" by Andreas Lochmann</caption>
+    </screenshot>
   </screenshots>
   <keywords>
     <keyword>enigma</keyword>
     <keyword>puzzle</keyword>
     <keyword>marble</keyword>
   </keywords>
-  <content_rating type="oars-1.1" />
-  <updatecontact>enigma-devel@nongnu.org</updatecontact>
-</application>
+  <developer id="enigma.nongnu.org">
+    <name>Enigma Team</name>
+  </developer>
+  <content_rating type="oars-1.1"/>
+  <update_contact>enigma-devel@nongnu.org</update_contact>
+</component>
