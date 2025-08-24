@@ -88,6 +88,7 @@ bool ConserveLevel;
 bool IsDifficult;     // read only for Lua
 bool IsLevelRestart;  // no Lua access
 bool ProvideExtralifes;
+bool ProvideYinYang;
 bool InfiniteReincarnation;
 bool SurviveFinish;
 int AddSecondsToScore;
@@ -253,6 +254,7 @@ void PrepareLevel() {
     LevelTime = 0.0;
     ConserveLevel = true;
     ProvideExtralifes = true;
+    ProvideYinYang = false;
     InfiniteReincarnation = false;
     SurviveFinish = true;
     AddSecondsToScore = 0;
