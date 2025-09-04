@@ -9301,6 +9301,7 @@ attributes of objects. Instead, you have to use @samp{index} and
 
 @menu
 * ActorimpulseStrength::
+* AddSecondsToScore::
 * AllowSingleOxyds::
 * AllowSuicide::
 * AutoRespawn::
@@ -9351,6 +9352,22 @@ global value is only used if no object specific value is set.
 @item @b{Default:} @ @ @code{+200.0}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{st_actorimpulse}
+@end table
+
+@node AddSecondsToScore
+@subsection AddSecondsToScore
+
+Number of seconds to be added to the score. Do not use for regular Enigma
+levels, use sparingly, communicate well. May be negative, but will be
+clipped to be within @code{-32000} and @code{+32000}. If the score would
+total to a negative time or 0, it will be 1 instead.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{0.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ no object
 @end table
 
 @node AllowSingleOxyds
