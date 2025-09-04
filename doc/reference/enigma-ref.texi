@@ -23561,7 +23561,8 @@ You can load it by adding a @samp{dependency} element to the
 @ref{<compatibility>} XML Metadata element as follows:
 
 @example
-  <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/libsoko}" @i{el}:@b{id}="@var{lib/libsoko}" @i{el}:@b{release}="@var{1}" @i{el}:@b{preload}="@var{true}"/>
+  <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/libsoko}" @i{el}:@b{id}="@var{lib/libsoko}" @i{el}:@b{release}="@var{1}"
+   @i{el}:@b{preload}="@var{true}"/>
 @end example
 
 It preloads automatically the libraries @ref{libimport}, @ref{libmap},
@@ -23592,13 +23593,26 @@ A number or a design table, see below.
 
 @item @i{maxdesign}
 A number, see below.
+
+@item @i{mindesign}
+A number, see below, defaulting to 1.
+
+@item @i{chessoban}
+A boolean, defaulting to @code{false}. If an @ref{st_chess} is used in the level,
+this argument should be set to @code{true} to adapt any randomly chosen design.
+
+@item @i{actor}
+A string defining the actor to be used, default is @code{"ac_marble"}. You may
+set this to any actor that knows a @code{_white} variant. As of Enigma 1.31,
+the only such actors are @ref{ac_marble} and @ref{ac_pearl}.
 @end table
 @end table
 
 @item @b{Syntax Samples:}
 @example
 lib.soko.create_sokoball(many_levels, 13, @{design = 48@})
-lib.soko.create_sokoball(many_levels, 12, @{maxdesign = MAXDESIGN[1.1]@})
+lib.soko.create_sokoball(many_levels, 12,
+                         @{maxdesign = MAXDESIGN[1.1]@})
 @end example
 
 @item @b{Details:}
@@ -23612,8 +23626,8 @@ to the list of predefined designs in @code{libsoko_designlist.xml}, or a table
 with the corresponding design entries. A missing entry will be interpreted as
 the entry from lib.soko_designlist.default. If the @samp{design} variable is
 omitted, a check-number is created from the level which uniquely* determines
-a design from the design list, with @code{maxdesign} as highest possible
-design number.
+a design from the design list, with a design number between @code{maxdesign}
+and @code{mindesign}.
 
 *Uniquely means: The design might change when the design list is enlarged.
 
@@ -23626,12 +23640,12 @@ show an error message. However, it is better to use the MAXDESIGN-constants.
 These will always raise an error, when the requested designs are not available.
 The MAXDESIGN-constants are read-only.
 
-If both the design argument as well as the maxdesign-number are
-omitted, the original 150 designs will be used as fallback, no matter which
-version of Enigma is running.
+If all design arguments (@code{design}, @code{maxdesign}, @code{mindesign})
+are omitted, the original 150 designs will be used as fallback, no matter
+which version of Enigma is running.
 
 To define own designs, please consult
-@samp{data/levels/lib/libsoko_designlist.xml}
+@samp{lib/libsoko_designlist.xml}
 or use @ref{libimport} in the first place.
 
 Returns width and height of new Enigma level.
