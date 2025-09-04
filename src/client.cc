@@ -787,7 +787,7 @@ void Client::level_finished() {
 
     // Work around int overflow
     double level_time_dbl = (double)(m_total_game_time) + (double)(server::AddSecondsToScore);
-    int level_time = ecl::round_nearest<int>(level_time_dbl);
+    int level_time = std::max(ecl::round_nearest<int>(level_time_dbl), 1);
 
     std::string text;
     bool timehunt_restart = false;
