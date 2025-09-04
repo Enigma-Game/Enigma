@@ -91,6 +91,7 @@ SIMPLEPNG = \
 	it_meditation_hill.png \
 	it_meditation_hollow.png \
 	it_meditation_volcano.png \
+	it_odometer.png \
 	it_pencil.png \
 	it_pin.png \
 	it_pipe.png it_pipe_b.png it_pipe_c.png it_pipe_d.png it_pipe_e.png \

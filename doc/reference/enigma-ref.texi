@@ -12027,28 +12027,29 @@ switched off by the attribute @samp{invisible}.
 @item @image{images/it_pin, 12mm} @tab @yref{it_pin}
 @tab @image{images/it_pipe_e, 12mm} @tab @yref{it_pipe}
 @tab @image{images/it_puller, 12mm} @tab @yref{it_puller}
-@item @image{images/it_ring, 12mm} @tab @yref{it_ring}
+@item @image{images/it_odometer, 12mm} @tab @yref{it_remote}
+@tab @image{images/it_ring, 12mm} @tab @yref{it_ring}
 @tab @image{images/it_rubberband, 12mm} @tab @yref{it_rubberband}
-@tab @image{images/it_seed, 12mm} @tab @yref{it_seed}
-@item @image{images/it_sensor, 12mm} @tab @yref{it_sensor}
+@item @image{images/it_seed, 12mm} @tab @yref{it_seed}
+@tab @image{images/it_sensor, 12mm} @tab @yref{it_sensor}
 @tab @image{images/it_sensor_exit, 12mm} @tab @yref{it_sensor}_exit
-@tab @image{images/it_shogun_m, 12mm} @tab @yref{it_shogun}
-@item @image{images/it_spade, 12mm} @tab @yref{it_spade}
+@item @image{images/it_shogun_m, 12mm} @tab @yref{it_shogun}
+@tab @image{images/it_spade, 12mm} @tab @yref{it_spade}
 @tab @image{images/it_spoon, 12mm} @tab @yref{it_spoon}
-@tab @image{images/it_springboard, 12mm} @tab @yref{it_springboard}
-@item @image{images/it_spring_2, 12mm} @tab @yref{it_spring}_drop
+@item @image{images/it_springboard, 12mm} @tab @yref{it_springboard}
+@tab @image{images/it_spring_2, 12mm} @tab @yref{it_spring}_drop
 @tab @image{images/it_spring, 12mm} @tab @yref{it_spring}_keep
-@tab @image{images/it_squashed, 12mm} @tab @yref{it_squashed}
-@item @image{images/it_strip_b2, 12mm} @tab @yref{it_strip}_ew
+@item @image{images/it_squashed, 12mm} @tab @yref{it_squashed}
+@tab @image{images/it_strip_b2, 12mm} @tab @yref{it_strip}_ew
 @tab @image{images/it_surprise, 12mm} @tab @yref{it_surprise}
-@tab @image{images/it_sword, 12mm} @tab @yref{it_sword}
-@item @image{images/it_trap, 12mm} @tab @yref{it_trap}
+@item @image{images/it_sword, 12mm} @tab @yref{it_sword}
+@tab @image{images/it_trap, 12mm} @tab @yref{it_trap}
 @tab @image{images/it_trigger, 12mm} @tab @yref{it_trigger}
-@tab @image{images/it_umbrella, 12mm} @tab @yref{it_umbrella}
-@item @image{images/it_vortex, 12mm} @tab @yref{it_vortex}
+@item @image{images/it_umbrella, 12mm} @tab @yref{it_umbrella}
+@tab @image{images/it_vortex, 12mm} @tab @yref{it_vortex}
 @tab @image{images/it_weight, 12mm} @tab @yref{it_weight}
-@tab @image{images/it_wormhole, 12mm} @tab @yref{it_wormhole}
-@item @image{images/it_wrench, 12mm} @tab @yref{it_wrench}
+@item @image{images/it_wormhole, 12mm} @tab @yref{it_wormhole}
+@tab @image{images/it_wrench, 12mm} @tab @yref{it_wrench}
 @tab @image{images/it_yinyang, 12mm} @tab @yref{it_yinyang}
 @end multitable
 
@@ -12572,7 +12573,7 @@ displayed by activating the item. It is destroyed by explosions from
 The document is sensitive to laser light and dissolves with an
 @ref{it_explosion}_nil leaving no remnants when being hit by light.
 
-Other message carrying objects are @ref{st_document} and @ref{it_bottle}.
+Other message carrying objects are @ref{st_document}, @ref{it_bottle}, and @ref{it_remote}.
 
 @table @asis
 
@@ -13145,6 +13146,35 @@ the explosion the puller item ceases to exist.
 @item @image{images/it_puller_3, 12mm} @b{it_puller_s} orientation = @code{SOUTH}
 @item @image{images/it_puller_2, 12mm} @b{it_puller_e} orientation = @code{EAST}
 @item @image{images/it_puller, 12mm} @b{it_puller_n} orientation = @code{NORTH}
+@end table
+@end table
+
+@c ----------------- Remote Item --------------------
+@node it_remote
+@subsection it_remote
+@obindex it_remote
+
+This is a remote control. It acts on its @code{target} on activation,
+see @ref{target} and @ref{action}, and may subsequently show a text message.
+It is kept in the inventory on activation.
+
+Other message carrying objects are @ref{it_document}, @ref{st_document}, and @ref{it_bottle}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{text}, @ @ @i{values}: string;
+Either the text to be displayed or just a key word for identification on
+@ref{Internationalization (i18n)}.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
+@item @b{Messages:} none
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+@item @b{Variants:}
+@table @asis
+@item @image{images/it_odometer, 12mm} @b{it_remote}
 @end table
 @end table
 
@@ -16587,7 +16617,7 @@ beams.
 @obindex st_document
 
 This stone can display a text message when touched. Other message
-carrying items are @ref{it_document} and @ref{it_bottle}.
+carrying items are @ref{it_document}, @ref{it_bottle}, and @ref{it_remote}.
 
 In addition, this is the paper member of the rock-paper-scissors trio,
 the other two stones being @ref{st_scissors} and @ref{st_pebble}.
