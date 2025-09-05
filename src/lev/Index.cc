@@ -285,7 +285,16 @@ namespace enigma { namespace lev {
         
         setCurrentGroup(groupName);
     }
-    
+
+    void Index::deleteEmptyGroups() {
+        std::vector<std::string> emptyGroupNames;
+        for(auto const& pair : indexGroups)
+            if((pair.second)->size() == 0)
+                emptyGroupNames.push_back(pair.first);
+        for(auto &group : emptyGroupNames)
+            deleteGroup(group);
+    }
+
     std::string Index::getGroupSelectedIndex(std::string groupName) {
         return app.state->getGroupSelectedIndex(groupName);
     }

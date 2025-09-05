@@ -469,7 +469,7 @@ void Application::init(int argc, char **argv)
         lev::Index::registerIndex(new lev::VolatileIndex(INDEX_SEARCH_PACK_NAME,
                     INDEX_DEFAULT_GROUP, emptyList, INDEX_SEARCH_PACK_LOCATION));
     }
-
+    lev::Index::deleteEmptyGroups();
     lev::Proxy::countLevels();
 
     // ----- Initialize sound tables -- needs sound, oxyd, video (error messages!)

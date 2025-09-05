@@ -90,6 +90,7 @@ namespace enigma { namespace lev {
         static void moveGroup(std::string groupName, int newPos);
         static void renameGroup(std::string oldName, std::string newName);
         static void insertGroup(std::string groupName, int newPos);
+        static void deleteEmptyGroups();
         static double getNextUserLocation();
         
         /**
