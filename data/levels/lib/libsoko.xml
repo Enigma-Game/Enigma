@@ -188,7 +188,8 @@ setmetatable(lib.soko.area, lib.soko.area_metatable)
 -- See also: Landau function g(n) for determining the maximal
 --           order of an element in the symmetric group S(n).
 --
-function lib.soko.number_from_level(map, list_length)
+function lib.soko.number_from_level(map, mindesign, maxdesign)
+    local list_length = maxdesign - mindesign + 1
     local j = list_length + 1
     local l = 2
     local b
@@ -210,12 +211,13 @@ function lib.soko.number_from_level(map, list_length)
             end
         end
     until (b == 0) or (j == 1)
-    return j
+    return j + mindesign - 1
 end
 
-function lib.soko.design_from_description(map, design_description, maxdesignnumber)
+function lib.soko.design_from_description(map, design_description, mindesign, maxdesign)
     assert_type(design_description, "lib.soko.design_from_description second argument", 2, "nil", "positive integer", "table")
-    assert_type(maxdesignnumber, "lib.soko.design_from_description third argument", 2, "nil", "positive integer")
+    assert_type(mindesign, "lib.soko.design_from_description third argument", 2, "nil", "positive integer")
+    assert_type(maxdesign, "lib.soko.design_from_description fourth argument", 2, "nil", "positive integer")
     -- choose design
     local design = {}
     if type(design_description) == "number" then
@@ -225,7 +227,7 @@ function lib.soko.design_from_description(map, design_description, maxdesignnumb
     else
         assert_type(map, "lib.soko.design_from_description first argument", 2, "map")
         design = lib.lua.deep_copy(lib.soko_designlist.list[lib.soko.number_from_level(
-                     map, maxdesignnumber or MAXDESIGN[1.1])])
+                     map, mindesign or 1, maxdesign or MAXDESIGN[1.1])])
     end
     if (design == nil) then
         error("The requested design is not available -- maybe you tried to run "
@@ -969,7 +971,7 @@ end
 -- Syntax:
 --   create_sokoball(multilevel, sublevel_number, args)
 -- with
---   args = { design = DESIGNARG, maxdesign = MAXDESIGNARG,
+--   args = { design = DESIGNARG, maxdesign = MAXARG, mindesign = MINARG,
 --            chessoban = CHESSOBANARG, actor = ACTORARG }
 --
 -- create_sokoball creates a sokoball-level from the string MULTILEVEL.
@@ -980,9 +982,9 @@ end
 -- design entries. A missing entry will be interpreted as the entry
 -- from lib.soko_designlist.default. If the DESIGN variable is omitted,
 -- a check-number is created from the level which uniquely* determines
--- a design from the design list, with the number MAXDESIGNARG as highest
--- possible design number. *Uniquely means: The design might change
--- when the design list is enlarged.
+-- a design from the design list, a number between MINARG (default 1)
+-- and MAXARG (default depends on libsoko_designlist).
+-- *Uniquely means: The design might change when the design list is enlarged.
 -- If CHESSOBANARG is set to true (default is false), certain replacements
 -- will be applied to the given design to enable the use of st_chess
 -- instead of regular boxes. (The monolevel still needs to use "n" and/or
@@ -997,14 +999,18 @@ function lib.soko.create_sokoball(multilevel, sublevel_number, args)
     assert_type(sublevel_number, "lib.soko.create_sokoball second argument", 2, "nil", "positive integer")
     assert_type(args, "lib.soko.create_sokoball third argument", 2, "table", "nil")
     local designarg = nil
-    local maxdesignnumber = nil
+    local maxdesign = nil
+    local mindesign = nil
     for key, entry in pairs(args or {}) do
         if key == "design" then
             assert_type(entry, "lib.soko.create_sokoball argument \"design\"", 2, "nil", "positive integer", "table")
             designarg = entry
         elseif key == "maxdesign" then
             assert_type(entry, "lib.soko.create_sokoball argument \"maxdesign\"", 2, "nil", "positive integer")
-            maxdesignnumber = entry
+            maxdesign = entry
+        elseif key == "mindesign" then
+            assert_type(entry, "lib.soko.create_sokoball argument \"mindesign\"", 2, "nil", "positive integer")
+            mindesign = entry or 1
         elseif key == "chessoban" then
             assert_type(entry, "lib.soko.create_sokoball argument \"chessoban\"", 2, "nil", "boolean")
             if entry == true then   -- is_chessoban is false by default
@@ -1018,7 +1024,7 @@ function lib.soko.create_sokoball(multilevel, sublevel_number, args)
         end
     end
     local small_map = lib.import.map_sokoban(multilevel, sublevel_number)
-    local design = lib.soko.design_from_description(small_map, designarg, maxdesignnumber)
+    local design = lib.soko.design_from_description(small_map, designarg, mindesign, maxdesign)
     -- Extend map to 20x13 if possible, throw an error if level exceeds
     -- MAX_HEIGHT. We add three additional rows, which are used to surround
     -- the level with "virtual" positions in lib.soko.area; these are set
