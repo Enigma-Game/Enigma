@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="multilevel" el:quantity="12">
+      <el:identity el:title="Solvables #" el:subtitle="" el:id="opal_dance_solvables"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2024 by Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.31">
+        <el:dependency el:path="lib/libimport" el:id="lib/libimport" el:release="1" el:preload="true"/>
+        <el:externaldata el:path="./opal_dance_solvables" el:url=""/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+sublevel = wo["SublevelNumber"]
+
+if sublevel ==  1 then wo["SublevelTitle"] = "Solvables #1: Triangles" end
+if sublevel ==  2 then wo["SublevelTitle"] = "Solvables #2: Squares" end
+if sublevel ==  3 then wo["SublevelTitle"] = "Solvables #3: Parallelograms" end
+if sublevel ==  4 then wo["SublevelTitle"] = "Solvables #4: Grid" end
+if sublevel ==  5 then wo["SublevelTitle"] = "Solvables #5: Narrow Passages" end
+if sublevel ==  6 then wo["SublevelTitle"] = "Solvables #6: Wide Holes" end
+if sublevel ==  7 then wo["SublevelTitle"] = "Solvables #7: Concentric" end
+if sublevel ==  8 then wo["SublevelTitle"] = "Solvables #8: Semipermeable" end
+if sublevel ==  9 then wo["SublevelTitle"] = "Solvables #9: Bubbles" end
+if sublevel == 10 then wo["SublevelTitle"] = "Solvables #10: Boxed Diamonds" end
+if sublevel == 11 then wo["SublevelTitle"] = "Solvables #11: Tribute" end
+if sublevel == 12 then wo["SublevelTitle"] = "Solvables #12: Finale" end
+
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_abyss"}
+ti["."] = {"fl_concrete"}
+ti["%"] = ti["."]
+ti["#"] = {"st_brick", cluster=1}
+ti["d"] = {"st_concrete"}
+ti["f"] = {"st_nil"}
+ti["1"] = {"st_oxyd_e", "opals#", oxydcolor=1, selection={"=d", "=f"}}
+ti["2"] = {"st_oxyd_e", "opals#", oxydcolor=2, selection={"=d", "=f"}}
+ti["3"] = {"st_oxyd_e", "opals#", oxydcolor=3, selection={"=d", "=f"}}
+ti["4"] = {"st_oxyd_e", "opals#", oxydcolor=4, selection={"=d", "=f"}}
+ti["5"] = {"st_oxyd_e", "opals#", oxydcolor=5, selection={"=d", "=f"}}
+ti["6"] = {"st_oxyd_e", "opals#", oxydcolor=6, selection={"=d", "=f"}}
+ti["7"] = {"st_oxyd_e", "opals#", oxydcolor=7, selection={"=d", "=f"}}
+ti["8"] = {"st_oxyd_e", "opals#", oxydcolor=8, selection={"=d", "=f"}}
+ti["@"] = {"#ac_pearl_black"}
+
+lib.import.line_regexp["opaldance"] =
+      "[ \#%\.@\*12345678]*"  -- all allowed characters except line ending
+   .. "[\#%\.@\*12345678]+"   -- at least one non-space character
+   .. "[ \#%\.@\*12345678]*"  -- again all allowed characters except line ending
+   .. "[\r]?"             -- maybe a carriage return from line ending
+
+levelstring = lib.import.unpack_multilevel(wo:externalData("./opal_dance_solvables"), sublevel, "opaldance")
+levelmap = lib.import.level_to_map(levelstring, "\n", " ")
+wo(ti, ".", levelmap)
+no["opals#*"]:peepall()
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

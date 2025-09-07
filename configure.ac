@@ -397,6 +397,7 @@ AC_CONFIG_FILES([Makefile
            data/levels/enigma_experimental/Makefile
            data/levels/enigma_demolevels/Makefile
            data/levels/enigma_advent_10/Makefile
+           data/levels/opal_dance/Makefile
            data/levels/pentomino_i/Makefile
            data/levels/soko/Makefile
            data/levels/soko/skinner_microban01/Makefile
