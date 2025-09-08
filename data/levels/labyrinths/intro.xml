@@ -7,52 +7,47 @@
       <el:identity el:title="Intro" 
         el:subtitle="Introduction Level to the Labyrinth Level Pack"
         el:id="20060712lab001"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de"
         el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
-      </el:compatibility>
+      <el:compatibility el:enigma="1.20"/>
       <el:modes el:easy="false" el:single="true" el:network="false" el:control="force"
         el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:code>API 2 conversion by Andreas in September 2025</el:code>
+      </el:comments>
       <el:score el:easy="00:10" el:difficult="00:10"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw = 20
-levelh = 13
 
-create_world( levelw, levelh)
-draw_border("st-wood")
-fill_floor("fl-leavesb", 0,0,levelw,levelh)
+-- GENERAL --
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
 
-oxyd( 4,4)
-oxyd( 14,4)
+-- TILES --
+ti["X"] = ti{"it_meditation_hollow"} .. ti{"fl_blueslab"}
+ti["#"] = {"st_redbrown"} .. ti{"fl_blueslab"}
+ti["o"] = {"#ac_pearl_white"}
+ti[" "] = ti{"st_invisible"} .. ti{"fl_fake_abyss"}
+ti["x"] = {"fl_blueslab"}
+ti["-"] = {"fl_blueslab"}
 
-set_actor("ac-blackball", 4, 11)
-
--- CELLS --
-cells={}
-cells["X"]=cell{item={"it-hollow",{essential=1}},floor="fl-rough-blue"}
-cells["#"]=cell{stone="st-marble",floor="fl-rough-blue"}
-cells["o"]=cell{actor={"ac-whiteball-small",{player=0}}}
-cells[" "]=cell{stone="st-invisible",floor="fl-abyss_fake"}
-cells["x"]=cell{floor="fl-rough-blue"}
-cells["-"]=cell{floor="fl-rough-blue"}
-
-cells["1"]=cell{item={"it-document",{text="text1"}}}
-cells["2"]=cell{item={"it-document",{text="text2"}}}
-cells["3"]=cell{item={"it-document",{text="text3"}}}
-cells["4"]=cell{item={"it-document",{text="text4"}}}
-cells["5"]=cell{item={"it-document",{text="text5"}}}
-cells["6"]=cell{item={"it-document",{text="text6"}}}
-cells["7"]=cell{item={"it-document",{text="text7"}}}
-cells["8"]=cell{item={"it-document",{text="text8"}}}
-cells["9"]=cell{item={"it-document",{text="text9"}}}
+ti["1"] = {"it_document", text = "text1"}
+ti["2"] = {"it_document", text = "text2"}
+ti["3"] = {"it_document", text = "text3"}
+ti["4"] = {"it_document", text = "text4"}
+ti["5"] = {"it_document", text = "text5"}
+ti["6"] = {"it_document", text = "text6"}
+ti["7"] = {"it_document", text = "text7"}
+ti["8"] = {"it_document", text = "text8"}
+ti["9"] = {"it_document", text = "text9"}
 
 -- LANDSCAPE MAP --
-level = {
+w, h = wo(ti, "-", {
 "xx----------------x ",
 "x#-###############x ",
 "x#-#------8------#x ",
@@ -66,13 +61,8 @@ level = {
 "x#-#####-#-#####-#x ",
 "x#-------#-------#o ",
 "x#################x "
-}
+})
 
--- GENERAL --
-enigma.ConserveLevel=FALSE
-set_default_parent(cells["-"])
-create_world_by_map(level)
-display.SetFollowMode(display.FOLLOW_SMOOTH)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

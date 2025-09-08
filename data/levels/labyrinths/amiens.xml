@@ -7,42 +7,43 @@
       <el:identity el:title="Amiens" 
         el:subtitle="A Medieval Labyrinth (Chartes Type)"
         el:id="20060714lab004"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de"
         el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
-      </el:compatibility>
+      <el:compatibility el:enigma="1.20"/>
       <el:modes el:easy="true" el:single="true" el:network="false" el:control="force"
         el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:code>API 2 conversion by Andreas in September 2025</el:code>
+      </el:comments>
       <el:score el:easy="04:14" el:difficult="06:31"/>
     </el:info>
     <el:luamain><![CDATA[
 
--- CELLS --
-cells={}
-if (not difficult) then
-   cells["#"]=cell{floor="fl-white",stone="st-invisible"}
+-- GENERAL --
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+-- TILES --
+if not wo["IsDifficult"] then
+  ti["#"] = ti{"fl_bright"} .. ti{"st_invisible"}
 else
-  cells["#"]=cell{floor="fl-white",stone="st-death_invisible"}
+  ti["#"] = ti{"fl_bright"} .. ti{"st_death_invisible"}
 end
 
-cells[","]=cell{floor="fl-abyss_fake"}
-cells[";"]=cell{floor="fl-white"}
-cells["+"]=cell{{{checkerfloor,{cells[","], cells[";"]}}}}
-
-cells[" "]=cell{floor="fl-abyss_fake"}
-cells["x"]=cell{floor="fl-black"}
-cells["-"]=cell{floor="fl-abyss_fake"}
-cells["X"]=cell{item={"it-hollow",{essential=1}}}
-
-cells["o"]=cell{actor={"ac-whiteball-small",{player=0}},floor={"fl-black"}}
+ti["+"] = ti{"fl_fake_abyss", checkerboard=0} .. ti{"fl_bright", checkerboard = 1}
+ti[" "] = {"fl_fake_abyss"}
+ti["x"] = {"fl_dark"}
+ti["-"] = {"fl_fake_abyss"}
+ti["X"] = {"it_meditation_hollow"}
+ti["o"] = ti{"fl_dark"} .. ti{"#ac_pearl_white"}
 
 -- LANDSCAPE MAP --
-
-level = {
+w, h = wo(ti, "-", {
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
@@ -115,13 +116,7 @@ level = {
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-}
-
--- GENERAL --
-enigma.ConserveLevel=FALSE
-set_default_parent(cells["-"])
-create_world_by_map(level)
-display.SetFollowMode(display.FOLLOW_SMOOTH)
+})
 
     ]]></el:luamain>
     <el:i18n>

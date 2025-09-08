@@ -7,50 +7,47 @@
       <el:identity el:title="Roman" 
         el:subtitle="A Roman Labyrinth"
         el:id="20060713lab003"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de"
         el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
-      </el:compatibility>
+      <el:compatibility el:enigma="1.20"/>
       <el:modes el:easy="true" el:single="true" el:network="false" el:control="force"
         el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:code>API 2 conversion by Andreas in September 2025</el:code>
+      </el:comments>
       <el:score el:easy="02:06" el:difficult="03:09"/>
     </el:info>
     <el:luamain><![CDATA[
 
--- CELLS --
-cells={}
 
--- DIFFICULTY --
-if (not difficult) then
-  cells["#"]=cell{stone={"st-plain"}}  
+-- GENERAL --
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+-- TILES --
+if not wo["IsDifficult"] then
+  ti["#"] = {"st_flat"}
 else
-  cells["#"]=cell{stone="st-death"}
+  ti["#"] = {"st_death"}
 end
 
-cells[" "]=cell{floor="fl-concrete"}
-
-cells["!"]=cell{floor="fl-light"}
-cells["?"]=cell{floor="fl-lightgray"}
-cells["x"]=cell{{{checkerfloor,{cells["!"], cells["?"]}}}}
-
-cells[","]=cell{floor="fl-rough-red"}
-cells[";"]=cell{floor="fl-rough-blue"}
-cells["."]=cell{{{checkerfloor,{cells[","], cells[";"]}}}}
-
-cells["+"]=cell{floor="fl-rough-red"}
-cells["-"]=cell{floor="fl-rough-blue"}
-cells["*"]=cell{floor="fl-rough-blue"}
-cells["/"]=cell{floor="fl-rough-red"}
-
-cells["X"]=cell{item={"it-hollow",{essential=1}}}
-cells["o"]=cell{actor={"ac-whiteball-small",{player=0}},floor={"fl-concrete"}}
+ti[" "] = {"fl_concrete"}
+ti["x"] = ti{"fl_ivory", checkerboard = 0} .. ti{"fl_platinum", checkerboard = 1}
+ti["."] = ti{"fl_redslab", checkerboard = 0} .. ti{"fl_blueslab", checkerboard = 1}
+ti["+"] = {"fl_redslab"}
+ti["-"] = {"fl_blueslab"}
+ti["*"] = {"fl_blueslab"}
+ti["/"] = {"fl_redslab"}
+ti["X"] = {"it_meditation_hollow"}
+ti["o"] = ti{"#ac_pearl_white"} .. ti{"fl_concrete"}
 
 -- LANDSCAPE MAP --
-level = {
+w, h = wo(ti, "-", {
 "                                                                       ",
 "                                                                       ",
 "                                                                       ",
@@ -120,13 +117,7 @@ level = {
 "                                                                       ",
 "                                                                       ",
 "                                                                       "
-}
-
--- GENERAL --
-enigma.ConserveLevel=FALSE
-set_default_parent(cells["-"])
-create_world_by_map(level)
-display.SetFollowMode(display.FOLLOW_SMOOTH)
+})
 
     ]]></el:luamain>
     <el:i18n>

@@ -7,39 +7,43 @@
       <el:identity el:title="Crete" 
         el:subtitle="A Classical Labyrinth"
         el:id="20060712lab002"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de"
         el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
-      </el:compatibility>
+      <el:compatibility el:enigma="1.20"/>
       <el:modes el:easy="true" el:single="true" el:network="false" el:control="force"
         el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:code>API 2 conversion by Andreas in September 2025</el:code>
+      </el:comments>
       <el:score el:easy="00:45" el:difficult="01:10"/>
     </el:info>
     <el:luamain><![CDATA[
 
--- CELLS --
-cells={}
+-- GENERAL --
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
 
--- DIFFICULTY --
-if (not difficult) then
-  cells["#"]=cell{stone="st-yellow",floor="fl-black"}
+-- TILES --
+if not wo["IsDifficult"] then
+  ti["#"] = ti{"st_yellow"} .. ti {"fl_dark"}
 else
-  cells["#"]=cell{floor="fl-water"}
+  ti["#"] = {"fl_water"}
 end
 
-cells[" "]=cell{floor="fl-sahara"}
-cells["+"]=cell{floor="fl-black"}
-cells["x"]=cell{floor="fl-red"}
-cells["-"]=cell{floor="fl-black"}
-cells["X"]=cell{item={"it-hollow",{essential=1}},floor="fl-black"}
-cells["o"]=cell{actor={"ac-whiteball-small",{player=0}},floor={"fl-sahara"}}
+ti[" "] = {"fl_sahara"}
+ti["+"] = {"fl_dark"}
+ti["x"] = {"fl_red"}
+ti["-"] = {"fl_dark"}
+ti["X"] = ti{"it_meditation_hollow"} .. ti{"fl_dark"}
+ti["o"] = ti{"#ac_pearl_white"} .. ti{"fl_sahara"}
 
 -- LANDSCAPE MAP --
-level = {
+w, h = wo(ti, " ", {
 "                                                   ",
 "                                                   ",
 "                                                   ",
@@ -88,12 +92,8 @@ level = {
 "                                                   ",
 "                                                   ",
 "                                                   "
-}
+})
 
--- GENERAL --
-enigma.ConserveLevel=FALSE
-create_world_by_map(level)
-display.SetFollowMode(display.FOLLOW_SMOOTH)
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

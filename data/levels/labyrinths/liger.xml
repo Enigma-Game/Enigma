@@ -7,50 +7,56 @@
       <el:identity el:title="Liger" 
         el:subtitle="A Labyrinth by M. Liger"
         el:id="20060717lab006"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de"
         el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
-      </el:compatibility>
+      <el:compatibility el:enigma="1.20"/>
       <el:modes el:easy="true" el:single="true" el:network="false" el:control="force"
         el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:code>API 2 conversion by Andreas in September 2025</el:code>
+      </el:comments>
       <el:score el:easy="00:30" el:difficult="00:42"/>
     </el:info>
     <el:luamain><![CDATA[
 
--- CELLS --
-cells={}
+-- GENERAL --
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
 
--- DIFFICULTY --
-if (not difficult) then -- easy
-   cells["w"]=cell{floor="fl-water",stone="st-invisible"}
-   enigma.SlopeForce = 50
+-- TILES --
+if not wo["IsDifficult"] then
+   ti["w"] = ti{"fl_water"} .. ti{"st_invisible"}
+   wo["SlopeStrength"] = 50
 else
-   cells["w"]=cell{floor="fl-water"}
-   enigma.SlopeForce = 5
+   ti["w"] = {"fl_water"}
+   wo["SlopeStrength"] = 5
 end
 
-cells[" "]=cell{floor="fl-leaves"}
-cells["s"]=cell{floor="fl-sand"}
-cells["X"]=cell{stone="st-oxyd"}
-cells["1"]=cell{floor={"fl-gradient1"}}
-cells["2"]=cell{floor={"fl-gradient2"}}
-cells["3"]=cell{floor={"fl-gradient3"}}
-cells["4"]=cell{floor={"fl-gradient4"}}
-cells["5"]=cell{floor={"fl-gradient5"}}
-cells["6"]=cell{floor={"fl-gradient6"}}
-cells["7"]=cell{floor={"fl-gradient7"}}
-cells["8"]=cell{floor={"fl-gradient8"}}
-cells["9"]=cell{floor={"fl-gradient9"}}
-cells["z"]=cell{floor={"fl-gradient10"}}
-cells["e"]=cell{floor={"fl-gradient11"}}
-cells["t"]=cell{floor={"fl-gradient12"}}
+ti[" "] = {"fl_lawn"}
+ti["s"] = {"fl_sand"}
+ti["X"] = {"st_oxyd_a"}
+ti["o"] = {"#ac_pearl_white"}
+
+ti["1"] = {"fl_slope_ps"}
+ti["2"] = {"fl_slope_pn"}
+ti["3"] = {"fl_slope_pe"}
+ti["4"] = {"fl_slope_pw"}
+ti["5"] = {"fl_slope_ose"}
+ti["6"] = {"fl_slope_osw"}
+ti["7"] = {"fl_slope_one"}
+ti["8"] = {"fl_slope_onw"}
+ti["9"] = {"fl_slope_ise"}
+ti["z"] = {"fl_slope_ine"}
+ti["e"] = {"fl_slope_isw"}
+ti["t"] = {"fl_slope_inw"}
 
 -- LANDSCAPE MAP --
-level = {
+w, h = wo(ti, " ", {
    "                                                            ",
    "                                                            ",
    "                                                            ",
@@ -96,14 +102,7 @@ level = {
    "                                                            ",
    "                                                            ",
    "                                                            "
-}
-
--- GENERAL --
-enigma.ConserveLevel=TRUE
-oxyd_default_flavor = "a"
-set_default_parent(cells[" "])
-create_world_by_map(level)
-display.SetFollowMode(display.FOLLOW_SMOOTH)
+})
 
     ]]></el:luamain>
     <el:i18n>
