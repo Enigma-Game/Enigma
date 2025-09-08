@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
+
+  <info enigma="1.20" group="Miscellaneous" location="69100" network="false" owner="Enigma Team" release="1" revision="1" title="Labyrinths"/>
+
+  <attributes/>
+
+  <levels>
+    <level _seq="1" _title="Intro" _xpath="./intro" author="Ulf Stegemann" ctrl="force" easy="true" id="20060712lab001" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Crete" _xpath="./crete" author="Ulf Stegemann" ctrl="force" easy="true" id="20060712lab002" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Roman" _xpath="./roman" author="Ulf Stegemann" ctrl="force" easy="true" id="20060713lab003" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Amiens" _xpath="./amiens" author="Ulf Stegemann" ctrl="force" easy="true" id="20060714lab004" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="Reims" _xpath="./reims" author="Ulf Stegemann" ctrl="force" easy="true" id="20060714lab005" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="Liger" _xpath="./liger" author="Ulf Stegemann" ctrl="force" easy="true" id="20060717lab006" rel="1" rev="0" score="1" target="time" unit="duration"/>
+  </levels>
+
+</index>

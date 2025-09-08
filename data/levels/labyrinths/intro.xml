@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+  xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Intro" 
+        el:subtitle="Introduction Level to the Labyrinth Level Pack"
+        el:id="20060712lab001"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de"
+        el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="0.92">
+        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false" el:control="force"
+        el:scoreunit="duration" el:scoretarget="time"/>
+      <el:score el:easy="00:10" el:difficult="00:10"/>
+    </el:info>
+    <el:luamain><![CDATA[
+levelw = 20
+levelh = 13
+
+create_world( levelw, levelh)
+draw_border("st-wood")
+fill_floor("fl-leavesb", 0,0,levelw,levelh)
+
+oxyd( 4,4)
+oxyd( 14,4)
+
+set_actor("ac-blackball", 4, 11)
+
+-- CELLS --
+cells={}
+cells["X"]=cell{item={"it-hollow",{essential=1}},floor="fl-rough-blue"}
+cells["#"]=cell{stone="st-marble",floor="fl-rough-blue"}
+cells["o"]=cell{actor={"ac-whiteball-small",{player=0}}}
+cells[" "]=cell{stone="st-invisible",floor="fl-abyss_fake"}
+cells["x"]=cell{floor="fl-rough-blue"}
+cells["-"]=cell{floor="fl-rough-blue"}
+
+cells["1"]=cell{item={"it-document",{text="text1"}}}
+cells["2"]=cell{item={"it-document",{text="text2"}}}
+cells["3"]=cell{item={"it-document",{text="text3"}}}
+cells["4"]=cell{item={"it-document",{text="text4"}}}
+cells["5"]=cell{item={"it-document",{text="text5"}}}
+cells["6"]=cell{item={"it-document",{text="text6"}}}
+cells["7"]=cell{item={"it-document",{text="text7"}}}
+cells["8"]=cell{item={"it-document",{text="text8"}}}
+cells["9"]=cell{item={"it-document",{text="text9"}}}
+
+-- LANDSCAPE MAP --
+level = {
+"xx----------------x ",
+"x#-###############x ",
+"x#-#------8------#x ",
+"x#-#-###########-#x ",
+"x#-#-#----5----#-#x ",
+"x#-#-#-#######-#-#x ",
+"x#2#7#6#--3--#4#9#1 ",
+"x#-#-#-#-###-#-#-#x ",
+"x#-#-#-#-#X#-#-#-#x ",
+"x#-#---#-#-#---#-#x ",
+"x#-#####-#-#####-#x ",
+"x#-------#-------#o ",
+"x#################x "
+}
+
+-- GENERAL --
+enigma.ConserveLevel=FALSE
+set_default_parent(cells["-"])
+create_world_by_map(level)
+display.SetFollowMode(display.FOLLOW_SMOOTH)
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Einführungslevel für das Labyrinth Level Paket</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english>Welcome to the Labyrinth Level Pack!</el:english>
+        <el:translation el:lang="de">Willkommen zum Labyrinth Level Paket!</el:translation>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english>Be warned: If you are not into labyrinths, you will find these levels *extremely* boring.</el:english>
+        <el:translation el:lang="de">Warnung: Falls Du Dich nicht für Labyrinthe interessierst, dann wirst Du diese Level *extrem* langweilig finden.</el:translation>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english>The levels in this pack re-build labyrinths *not* mazes.</el:english>
+        <el:translation el:lang="de">Dieses Level Paket bildet Labyrinthe nach, *nicht* Irrgärten.</el:translation>
+      </el:string>
+      <el:string el:key="text4">
+        <el:english>Labyrinths have a single path from the outside to the center while mazes offer choices along the way and often include dead ends.</el:english>
+        <el:translation el:lang="de">Bei Labyrinthen führt ein einzelner Pfad von außen bis zur Mitte, während Irrgärten Abzweigungen und (häufig) Sackgassen enthalten.</el:translation>
+      </el:string>
+      <el:string el:key="text5">
+        <el:english>Consequently, the task to complete these levels is very simple: You just have to follow the path; no traps, no dead ends, no mouse artistics, no puzzles.</el:english>
+        <el:translation el:lang="de">Deshalb ist die Lösung dieser Level sehr einfach: Du mußt einfach dem Weg folgen; keine Fallen, keine Sackgassen, keine Mausakrobatik, keine Rätsel.</el:translation>
+      </el:string>
+      <el:string el:key="text6">
+        <el:english>All levels - excluding this one - differ in easy and in normal mode: While borders/walls are made of harmless stones in easy mode, they are made of deadly stones in normal mode (so you mustn't leave the path to succeed).</el:english>
+        <el:translation el:lang="de">Alle Level - außer diesem hier - unterscheiden sich je nach Modus: Im einfachen Modus begrenzen harmlose Steine die Gänge, im normalen Modus darf der Pfad nicht verlassen werden, sonst wird die Kugel zerstört.</el:translation>
+      </el:string>
+      <el:string el:key="text7">
+        <el:english>This pack offers different types of labyrinths: classical (Crete), roman (Roman), medieval (Amiens, Reims) and other (Liger) ones. The one you are currently in is a classical three circuit labyrinth.</el:english>
+        <el:translation el:lang="de">Dieses Level Paket enthält verschiedene Labyrinth-Typen: klassische (Crete), römische (Roman), mittelalterliche (Amiens, Reims) und sonstige (Liger) Labyrinthe. Derzeit befindest Du Dich in einem klassischen Labyrinth mit drei Umgängen.</el:translation>
+      </el:string>
+      <el:string el:key="text8">
+        <el:english>It is difficult to get an overview over a labyrinth and its symmetry when playing a level. Overall pictures of the levels can be found at http://ulf.zeitform.de/enigma/.</el:english>
+        <el:translation el:lang="de">Es ist nicht einfach, einen Überblick über ein Labyrinth und dessen Symmetrie zu bekommen, wenn Du ein Level spielst. Übersichtsbilder der Labyrinth finden sich auf http://ulf.zeitform.de/enigma/.</el:translation>
+      </el:string>
+      <el:string el:key="text9">
+        <el:english>If you are interested in labyrinths the internet offers a wide range of good sources of information (Google is your friend).</el:english>
+        <el:translation el:lang="de">Wer mehr über Labyrinthe erfahren will, findet im Internet reichlich Quellen (Google is your friend).</el:translation>
+      </el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>
