@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Aztec Temple" el:subtitle="" el:id="zogga01"/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
+      <el:author  el:name="Dominik Lehmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Dominik Lehmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion and minor fixes (missing documents) by /dev/null (Dezember 2025)</el:code>
+      </el:comments>
+      <el:score el:easy="27:11" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+if not wo["IsDifficult"] then
+  wo["SwampSinkTime"] = 2.0
+end
+
+ti["  "] = {"fl_lawn_b"}
+ti[" ."] = {"fl_bright"}
+ti[" _"] = {"fl_water", name = "water#"}
+ti[" ~"] = {"fl_water"}
+ti[" -"] = {"fl_wood_framed"}
+ti[" :"] = {"fl_gravel"}
+ti[" ;"] = {"fl_swamp"}
+ti[" v"] = {"fl_slope_ps"}
+
+ti["# "] = {"st_camouflage"}
+ti["M "] = {"st_camouflage_movable"}
+ti["H "] = {"st_camouflage_hollow"}
+ti["* "] = {"st_bluegray"}
+ti["F "] = {"st_thief"}
+ti["Z "] = {"st_knight"}
+ti["! "] = {"st_death"}
+ti["I "] = {"st_stoneimpulse"}
+ti["p "] = {"st_stoneimpulse_hollow"}
+ti["+ "] = {"st_box_wood"}
+ti["X "] = {"st_grate"}
+ti["G "] = {"st_rawglass"}
+ti["J "] = {"st_lightglass"}
+ti["C "] = {"st_break_oxydc"}
+ti["B "] = {"st_passage_black", flavor = "frame"}
+ti["W "] = {"st_passage_white", flavor = "frame"}
+ti["Q "] = {"st_rotator_ccw", movable = true}
+ti["R "] = {"st_rotator_ccw"}
+ti[" B"] = {"st_boulder_s"}
+ti[" b"] = {"st_blocker"}
+ti["> "] = {"st_oneway_black", orientation = EAST}
+ti["< "] = {"st_oneway_black", orientation = WEST}
+ti["/ "] = {"st_mirror_slab", state = EAST}
+ti["/b"] = ti[" :"] .. {"st_mirror_slab", state = WEST}
+ti["/t"] = ti[" :"] .. {"st_mirror_triangle", state = WEST}
+ti["/m"] = {"st_mirror_slab", state = EAST, movable = true}
+ti["//"] = {"st_mirror_slab", state = WEST, transparent = true}
+ti["P "] = {"st_shogun_sml"}
+ti[" D"] = {"st_floppy", target = "hDoor%1#*"}
+ti["K1"] = ti[" :"] .. {"st_key", code = 1, target = "vDoor%1#*"}
+ti["K2"] = {"st_key", code = 2, target = "laser"}
+ti["L "] = {"st_laser_w", name = "laser"}
+ti["L7"] = {"st_laserswitch", target = "vDoor%7#*"}
+ti["L6"] = {"st_laserswitch", target = "vDoor%6#*"}
+ti["L9"] = {"st_laserswitch", target = "hDoor%9#*"}
+ti["S1"] = {"st_switch_white", target = "aDoor1#*", action = "open"}
+ti["S2"] = {"st_switch_white", target = "vDoor%2#*"}
+ti["S3"] = {"st_switch_white", target = "removeWater"}
+ti["S4"] = {"st_switch_black", target = "switchGrate"}
+ti["S6"] = ti[" ."] .. {"st_switch_black", name = "S6", target = "temple"}
+ti["S7"] = ti[" ."] .. {"st_switch_black", name = "S7", target = "temple"}
+ti["S8"] = ti[" ."] .. {"st_switch_white", name = "S8", target = "temple"}
+ti["S9"] = ti[" ."] .. {"st_switch_white", name = "S9", target = "temple"}
+ti["O "] = {"st_oxyd"}
+if wo["IsDifficult"] then
+  ti["w "] = {"st_nil"}
+  ti["i "] = ti["# "]
+else
+  ti["w "] = {"st_window_w", secure = true}
+  ti["i "] = ti["I "]
+end
+
+ti[" d"] = {"it_floppy"}
+ti["h "] = {"it_hammer"}
+ti[" l"] = {"it_extralife"}
+ti[" m"] = {"it_magicwand"}
+ti[" s"] = {"it_sword"}
+ti[" y"] = {"it_yinyang"}
+ti["k1"] = ti["W "] .. {"it_key", code = 1}
+ti["k2"] = ti[" ;"] .. {"it_key", code = 2}
+ti["Ta"] = {"it_trigger", name = "Ta", target = "hDoor%a#*"}
+ti["Tb"] = {"it_trigger", name = "Tb", target = "hDoor%b#*"}
+ti["Tv"] = {"it_trigger", target = "gosherDoor", action = "signal"}
+ti["Tw"] = {"it_trigger", target = "gosherDoor", action = "signal"}
+ti["Tx"] = {"it_trigger", target = "diamondDoor", action = "signal"}
+ti["Ty"] = {"it_trigger", target = "diamondDoor", action = "signal"}
+ti["T3"] = {"it_trigger", target = "vDoor%3#*"}
+ti["t0"] = ti[" ."] .. {"it_trigger", invisible = true, target = "freeGoshers"}
+ti["t2"] = {"it_trigger", invisible = true, target = "vDoor%2#*"}
+ti["t3"] = {"it_trigger", invisible = true, target = "vDoor%4#*", action = "close"}
+ti["t4"] = {"it_trigger", invisible = true, target = "vDoor%4#*"}
+ti["t8"] = ti{"fl_lawn"} .. {"it_trigger", invisible = true, target = "vDoor%8#*"}
+ti["ta"] = ti[" v"] .. {"it_trigger", invisible = true, target = "vDoor%5#*", action = "open"}
+ti["tb"] = {"it_trigger", invisible = true, target = "vDoor%5#*", action = "close"}
+ti["tc"] = ti{"fl_lawn"} .. {"it_trigger", invisible = true, target = "bridge%c#*"}
+ti["tA"] = ti[" ."] .. {"it_trigger", invisible = true, name = "tA", target = "templeText"}
+ti["tB"] = ti[" ."] .. {"it_trigger", invisible = true, name = "tB", target = "templeText"}
+ti["tC"] = ti[" ."] .. {"it_trigger", invisible = true, name = "tC", target = "templeText"}
+ti["^ "] = {"it_trigger", invisible = true, target = "disableWhiteDoors"} .. ti{"st_oneway", orientation = NORTH}
+ti["Sa"] = {"it_shogun_l", target = "bridge%a#*"}
+ti["Sb"] = {"it_shogun_l", target = "bridge%b#*"}
+
+ti["_1"] = {"st_door_a", name = "aDoor1#"}
+ti["_2"] = ti[" ."] .. {"st_door_a", name = "aDoor2#"}
+ti["hDoors"] = ti[" ."] .. {"st_door_d", name = "hDoor%%#", faces = "ns"}
+ti["vDoors"] = {"st_door_d", name = "vDoor%%#", faces = "ew"}
+ti["bridges"] = {"fl_bridge_bn", name = "bridge%%#"}
+ti["docs"] = {"it_document", text = "doc%%"}
+
+if wo["IsDifficult"] then
+  ti["1 "] = {"#ac_rotor", range = 30, strength = 20}
+  ti["2 "] = {"#ac_rotor"}
+else
+  ti["2 "] = ti["  "]
+  ti["1 "] = {"#ac_rotor", range = 30, strength = 15}  
+end
+ti["0 "] = {"#ac_top", range = 40, strength = 15}
+ti["@0"] = {"#ac_marble_black", name="Me", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ti["@1"] = ti[" :"] .. {"#ac_marble_white", name="Xila", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+
+local resAutotile = res.autotile(ti, {"-", "hDoors"}, {"|", "vDoors"}, {"=", "bridges"}, {"d", "docs"})
+wo(res.composer(resAutotile), "  ", {
+  "# # # # # # # # # # # # # # # # # # # # # # # # # # S2# # # # # # # # # # # # # # ",
+  "#         C B C                      D#           #  d|6|7|8 b            |3>  v# ",
+  "#   @0    C # C                       # X X       # # # # #       +   +   # #  v# ",
+  "#     M # # #                         # Q X X X X  _ _ _ _ _ _ _ _ _ -+- _  #  v# ",
+  "#       da                            #       R X  _ _ _ - - - - - - - - _  #  v# ",
+  "#                                     #       X X  _ _ _X- _ - _X- _ _ - _X #  v# ",
+  "#                                     |2  M  B  dc _ _ _ - -+-+- - _ _ - _T3#  v# ",
+  "#               _1_1_1_1_1db          #       X    - - _ -+- -+-X- _ _ - _X #  v# ",
+  "#               * Z Z Z *             R       X    _ - _ _ _ - _+- _ _+- _  #  v# ",
+  "#     !   !   ! * F Z F * !   !   !   # X X Q X    _ - -+- _ - _ - _ _ - _  #  v# ",
+  "#     # -1# -1# * Z Z Z * # -1# -1# t2#   X X X    _ _ -+- - -X_ - - _ - -S3#  v# ",
+  "#     # 1s# 1l* * F Z F * * 1l# 1 W W # t8 b       _ _ _ _ _ -+- -+- - - -|4<  v# ",
+  "* * * * * * * * * Z Z Z * * * * * * S1# # # # # # # B # H H # #  ~ ~# # # # #  v# ",
+  "*. .*.*.2.*.2.*.*. . . .*.*.2.*.2.*.*.#  : : : : : : :#  ; ;# #  ~ ~# k1 ~Wm#  v# ",
+  "*. . .*.-2*.-2*. . .tA . .*.-2*.-2*. .#  : : : : :+: :L !; ;#  ~ ~ ~#  ~ ~ ~#  v# ",
+  "*. . . . . . . . . . . . . . . . . . .#  : :# # B:B:K2#  ; ;#  ~ ~ ~# B  ~B #  v# ",
+  "*. . . . . . . . . .tB . . . . . . . .#  : :# H # # # #  ;!;#  ~# # # + + + I  v# ",
+  "*. . . . .*. . . . . . . . . .*. . . .#  : :#  ; ; ; ;!; ; ;#  ~ ~ ~ ~+ t4+ I  v# ",
+  "*. . . .*.*.*. . . .tC . . .*.*.*. . .# =c=c#  ; ; ; ; ; ; ;#     # #  ~ ~ ~I  v# ",
+  "*. . . . .*. . . . . . . . . .*. . . .#     # k2 ;!; ; ; ;!;#       #  ~X~ ~#  v# ",
+  "*. . . .*.*.*. . . . . . . .*.*.*. . .#     # # # # # # # # #       #  ~ ~ ~#  v# ",
+  "*. . . . .*. . . . .t0 . . . .*. . . .#           Ta  B         de  I +   + #  v# ",
+  "*. . . . . . . . .*.-0*. . . . . . . .#         df/m  =z            I w +   I  v# ",
+  "*. . . . . . . .Tv*.0.*.Tw . . . . . .# tcdq      Tb  B             i w +   #  v# ",
+  "*.*.*.*.*.*.*.*.*.*.-z*.*.*.*.*.*.*.*.# # G # # # # # # # # # # # # i W I I #  v# ",
+  "*.Tx . . . . . . . . . . . ._2_2_2_2_2# Sa    +   +                   P     |5 v# ",
+  "*. . . . . . . . . . . . . ._2O._2O._2# Sb      +   +                       #  v# ",
+  "*. . .O. . . .O. . . .O. . ._2_2_2_2_2#       +   +   P             dh    M #  v# ",
+  "*. . . . . . . . . . . . . ._2O._2O._2# G G G X  ~X X #:#:#:#:#:#:#:#:#:#:^:#  v# ",
+  "*. . .O. . . .O. . . .O. . ._2_2_2_2_2# G //G +   +   G:|1 : : :G:/bG:/:/tX:L6 v# ",
+  "*. . . . . . . . . . . . . .I.I.I.I.I.# G G G   +     # K1/: : :G:G:G: :/:X:#  v# ",
+  "*. . .O. . . .O. . . .O. . .I.M.p. . .C               #: : : : : : : : : : :#  v# ",
+  "*. . . . . . . . . . . . . .I. .I. . .#               L7 :/t : : :/: : : : :#  v# ",
+  "*. . .O. . . .O. . . .O. . .I. .I. . ~*.-9G.* =a=a=a# #:#:#:#:#:#:#:#:#:#:-b#  v# ",
+  "*. . . . . . . . . . . . . .I. .I. . .*. . .*       #  ~ ~ ~ ~ ~ ~     yJ:-a#  v# ",
+  "*.Ty . . . . . . . . . . . .I. . . . .*.h. .*   di  =b ~ ~ ~ ~#~ ~  dndjJ:@1# ta# ",
+  "*.*.*.*.*.*.*.*.*.*.*.*.*.*.I.I.I.I.I.*.*.L9* # # # I I I I I # # # S4# # # # ! # "
+})
+
+wo:shuffleOxyd()
+wo:add(YANG, {"it_yinyang"})
+wo:add({"ot_counter", "gosherDoor", 
+          target_1 = "hDoor%0#*", action_1 = "close", 
+          target_2 = {"hDoor%0#*", "hDoor%2#*"}, action_2 = {"open", "open"}})
+wo:add({"ot_counter", "diamondDoor", target_2 = "aDoor2#*", action_2 = "open"})
+wo[po["hDoor%a#*"]] = ti[" :"]
+wo[po["hDoor%b#*"]] = ti[" :"]
+wo[po["vDoor%3#*"]] = ti["t3"]
+wo[po["vDoor%4#*"]] = ti["tb"]
+wo[po["hDoor%1#*"]] = ti["  "]
+wo[po(30, 7)] = {"it_document", text = "doc%d"}
+wo[po(23,16)] = {"it_document", text = "doc%p"}
+wo[po(35,23)] = {"it_document", text = "doc%m"}
+wo[po(10, 7)] = {"it_document", text = "doc%t"}
+wo[po(37,32)] = {"it_document", text = "doc%k"}
+wo[po(20,34)] = {"it_document", text = "doc%r"}
+wo[po(15,31)] = {"it_document", text = "doc%s"}
+wo[po(39, 2)] = {"it_document", text = "doc%g"}
+wo[po(37,27)] = {"it_document", text = "doc%l"}
+wo[po(10,24)] = {"it_document", text = "doc%y"}
+
+function openGuard()
+  no["hDoor%2#*"]:open()
+end
+
+function removeWater()
+  wo[no["water#*"]] = ti["  "]
+  wo[po(36,11)] = {"it_document", text = "doc%o"}
+end
+
+function switchGrate(val, src)
+  if val == true then
+    wo[po(36,17)] = ti["X "]
+  else
+    wo[po(36,17)] = {"st_nil"}
+  end
+end
+
+function disableWhiteDoors()
+  no["Ta"]:set({target = ""})
+  no["Tb"]:set({target = ""})
+end
+
+function templeText(val, src)
+  if src == no["tA"] and val == true then
+    wo[po(10,15)] = {"it_document", text = "doc%u"}
+    no["tA"]:kill()
+  end
+  if src == no["tB"] and val == true then
+    wo[po(10,17)] = {"it_document", text = "doc%v"}
+    no["tB"]:kill()
+  end
+  if src == no["tC"] and val == true then
+    wo[po(10,19)] = {"it_document", text = "doc%w"}
+    no["tC"]:kill()
+  end
+end
+
+function freeGoshers()
+  wo[po( 4,18)] = ti["S6"]
+  wo[po(16,20)] = ti["S7"]
+  wo[po( 4,20)] = ti["S8"]
+  wo[po(16,18)] = ti["S9"]
+  if no["tA"] then
+    no["tA"]:kill()
+  end
+  if no["tB"] then
+    no["tB"]:kill()
+  end
+  if no["tC"] then
+    no["tC"]:kill()
+  end
+  wo[po(10,20)] = {"it_document", text = "doc%x"}
+  no["hDoor%0#*"]:open()
+end
+
+tbl = {random(0,1), random(0,1), random(0,1), random(0,1)}
+function temple(val, src)
+  if src == no["S6"] then
+    if no["S6"].state == 1 or no["S6"].state == 0 then
+      tbl[1] = cond(tbl[1] == 0, 1, 0)
+    end
+  end
+  if src == no["S7"] then
+    if no["S7"].state == 1 or no["S7"].state == 0 then
+      tbl[2] = cond(tbl[2] == 0, 1, 0)
+    end
+  end
+  if src == no["S8"] then
+    if no["S8"].state == 1 or no["S8"].state == 0 then
+      tbl[3] = cond(tbl[3] == 0, 1, 0)
+    end
+  end
+  if src == no["S9"] then
+    if no["S9"].state == 1 or no["S9"].state == 0 then
+      tbl[4] = cond(tbl[4] == 0, 1, 0)
+    end
+  end
+  
+  if tbl[1] == 1 and tbl[2] == 1 and tbl[3] == 1 and tbl[4] == 1 then
+    no["hDoor%z#*"]:open()
+    no["hDoor%0#*"]:close()
+    wo[po["S6"]] = ti["* "]
+    wo[po["S7"]] = ti["* "]
+    wo[po["S8"]] = ti["* "]
+    wo[po["S9"]] = ti["* "]
+    wo[po( 9,15)] = ti["+ "]
+    wo[po(11,15)] = ti["+ "]
+  end
+end
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="doc%a">
+        <el:english el:translate="true">Welcome to Mexico! Eight hours ago, your plane arrived at the Airport of "Coatlicue", which is a small village surrounded by unexplored jungle terrain. Now you find yourself in front of an impressive temple, which seems to be a relic of the ancient Aztec empire. But the temple is in surprisingly good condition ...</el:english>
+      </el:string>
+      <el:string el:key="doc%b">
+        <el:english el:translate="true">Next to the giant doors of the temple you see a chrome sign: "Restoration by: G. G. Goshers, A.D. 1998". A smaller sign beneath says: "Property of G. G. Goshers. Trespassing prohibited!". Now you notice the dog kennels built up along the front side of the temple. "Goshers made this ancient relic a fortress", you think, "this cannot be legal, for Goshers received funding from the UK Government. I'll try to call him to account!"</el:english>
+      </el:string>
+      <el:string el:key="doc%c">
+        <el:english el:translate="true">This guard doesn't notice me.</el:english>
+      </el:string>
+      <el:string el:key="doc%d">
+        <el:english el:translate="true">This lake was obviously made by Goshers. I think the correct way is south.</el:english>
+      </el:string>
+      <el:string el:key="doc%e">
+        <el:english el:translate="true">There's an inscription on the old wall, saying in spanish: "Careful! What you touch could be the last thing you touch!"</el:english>
+      </el:string>
+      <el:string el:key="doc%f">
+        <el:english el:translate="true">Chrome sign: "Control of the beast's cage."</el:english>
+      </el:string>
+      <el:string el:key="doc%g">
+        <el:english el:translate="true">Oooh, this slope is steep! Try not to touch the skull!</el:english>
+      </el:string>
+      <el:string el:key="doc%h">
+        <el:english el:translate="true">This building down there looks like a prison. Let's see if I can determine its purpose ... Ah, there's another chrome sign. Goshers seems to favour chrome signs. It says: "Natives' prison".</el:english>
+      </el:string>
+      <el:string el:key="doc%i">
+        <el:english el:translate="true">Getting beyond the prison building was a really good idea. But now you have to cross this lake. Be thrifty with those boxes!</el:english>
+      </el:string>
+      <el:string el:key="doc%j">
+        <el:english el:translate="true">Now, peering through the grilled prison windows, you see a native woman imprisoned there. Obviously Goshers locked up all the natives, who disturbed his "work"; trying to enter the temple and to get rich from the treasures of the Aztecs. It might be helpful to be accompanied by someone, who knows the secrets of the jungle and this temple ...</el:english>
+      </el:string>
+      <el:string el:key="doc%k">
+        <el:english el:translate="true">Since the white man there freed me from the prison, he certainly cannot be as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers and free my people. And even if this is not the case, it's better to be free than imprisoned. I think I should thank him.</el:english>
+      </el:string>
+      <el:string el:key="doc%l">
+        <el:english el:translate="true">You meet the English adventurer in the front of the prison. "Hello, I'm Xila!", you tell him in broken English. After he introduced himself as well, both of you begin to work out a plan against the evil G. G. Goshers.</el:english>
+      </el:string>
+      <el:string el:key="doc%m">
+        <el:english el:translate="true">This is a really hard puzzle. The English man will have to help me, if this enigma is to be solved.</el:english>
+      </el:string>
+      <el:string el:key="doc%n">
+        <el:english el:translate="true">You wonder what this switch could trigger.</el:english>
+      </el:string>
+      <el:string el:key="doc%o">
+        <el:english el:translate="true">Xila knows how to drain the lake!</el:english>
+      </el:string>
+      <el:string el:key="doc%p">
+        <el:english el:translate="true">You were lucky to find this hole. It prevents you from drowning.</el:english>
+      </el:string>
+      <el:string el:key="doc%q">
+        <el:english el:translate="true">This glass stone must fulfill a purpose ...</el:english>
+      </el:string>
+      <el:string el:key="doc%r">
+        <el:english el:translate="true">It's funny that such a temple should have a side entrance.</el:english>
+      </el:string>
+      <el:string el:key="doc%s">
+        <el:english el:translate="true">Be careful! There are sensors in the walls.</el:english>
+      </el:string>
+      <el:string el:key="doc%t">
+        <el:english el:translate="true">After the huge doors of the old temple have opened, you see, that the entrance is protected by 11 knights, armed with spears. These guards are very dangerous. Without a sword you'll never be able to enter. Be careful. There are not only knights, but also thieves.</el:english>
+      </el:string>
+      <el:string el:key="doc%u">
+        <el:english el:translate="true">"Congratulations. You just managed to enter this old Aztec Temple."</el:english>
+      </el:string>
+      <el:string el:key="doc%v">
+        <el:english el:translate="true">"You've been smarter than I expected. But you'll never enter the treasure room nor escape from here!"</el:english>
+      </el:string>
+      <el:string el:key="doc%w">
+        <el:english el:translate="true">"I, Goshers, will certainly be able to rid myself of one of my archenemies by just killing you!"</el:english>
+      </el:string>
+      <el:string el:key="doc%x">
+        <el:english el:translate="true">"Run for your life!"</el:english>
+      </el:string>
+      <el:string el:key="doc%y">
+        <el:english el:translate="true">Xila and you just entered the Diamond Room of the old Aztec Temple. By taking him back to Great Britain and rendering him to the police, you have ended the evil career of Gerald Gregory Goshers. Congratulations on the success of your expedition!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

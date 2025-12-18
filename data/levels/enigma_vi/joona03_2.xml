@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
+          xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="City Life" el:id="20061119joona503"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Joona Laire" el:email="joona.laire@gmail.com"/>
+      <el:copyright>Copyright © 2006 Joona Laire</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+       <el:comments>
+        <el:code>New API converted by /dev/null (June 2025)</el:code>
+      </el:comments>     
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+ti[" "] = {"fl_dark"}
+ti["#"] = {"st_purplegray"}
+ti["="] = {"st_purplemarble"}
+ti["+"] = {"st_darkgray"}
+ti["*"] = {"st_plaster"}
+
+ti["a"] = {"#ac_killer", adhesion = -2.0}
+ti["b"] = {"#ac_killer", adhesion = -1.0}
+ti["c"] = {"#ac_killer", adhesion =  1.0}
+ti["d"] = {"#ac_killer", adhesion =  2.0}
+if wo["IsDifficult"] then
+  ti["e"] = {"#ac_killer", adhesion = -4.0}
+  ti["f"] = {"#ac_killer", adhesion =  0.2}
+  ti["g"] = {"#ac_killer", adhesion =  4.0}
+  ti["h"] = {"#ac_killer", adhesion = 10.0}
+else
+  ti["e"] = {"fl_dark"}
+  ti["f"] = ti["e"]
+  ti["g"] = ti["e"]
+  ti["h"] = ti["e"]
+end
+ti["O"] = {"st_oxyd_b"}
+ti["^"] = {"st_oneway_n"}
+ti[">"] = {"st_oneway_e"}
+ti["v"] = {"st_oneway_s"}
+ti["<"] = {"st_oneway_w"}
+ti["B"] = {"st_passage_black_frame"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+   "##########################################################",
+   "#     >      >        >  d    >       >       <      <   #",
+   "#  *B****  ######  ++B+++  ******  ######  ======  ##### #",
+   "#  *O****  ######  ++O+++  ******  ######  ======  ##### #",
+   "#^^******vv######^^++++++vv******^^######vv======^^###OB #",
+   "#  ******  ######  ++++++  ******  ######  ======  ##### #",
+   "#  ******  ######  ++++++  ******  ######  ======  ##### #",
+   "# g   >      >   a    >      >       <  g    <       <   #",
+   "#     >      >  c     >      >       <       <   e   <   #",
+   "#  ******  ######  ######  ######  ######  ++++++  +++++ #",
+   "#  ******  ######  ######  ######  ######  ++++++  +++++ #",
+   "#^^******vv######^^######vv######^^######vv++++++^^+++++ #",
+   "#  BO****  ######  ######  ##O###  ###### f++++++  +++++ #",
+   "#  ******  ######  ######  ##B###  ######  ++++++  +++++ #",
+   "#     >       <   c   <   @   <      <       >   a   <   #",
+   "#     >   f   <       <       <  b   <   c   >       <   #",
+   "#  ++++++  ******  ======  ######  ******  ######  +++++ #",
+   "#  ++++++  ******  ======  ######  ******  ######  +++++ #",
+   "#^^++++++vv******^^======vv######^^******vv######^^+++++ #",
+   "# d++++++  BO****  ======  ######  ******  ######  +++++d#",
+   "#  ++++++  ******  ======  ######  ******  ######  +++++ #",
+   "#     <       >       >  b    >      >   b   >       <   #",
+   "#     <  a    >       >       >      >       >   f   <   #",
+   "#  ######  ######  ++++++  #B####  ******  ######  ##### #",
+   "#  ######  ######  ++++++  #O####  ******  ######  ##### #",
+   "#^^######vv######^^++++++vv######^^******vv######^^##### #",
+   "#  ######  BO####  ++++++  ######  *O****  ######  BO### #",
+   "#  ######  ######  ++++++  ######  *B****  ######  ##### #",
+   "#c    <       >  h    >       >      <       <     f <   #",
+   "#     <   c   >       >   a   >   e  <       <       <   #",
+   "#  ######  ======  ======  ******  ======  ######  +++++ #",
+   "#  ######  ======  ======  ******  ======  ######  +++++ #",
+   "#^^######vv======^^======vv******^^======vv######^^+++++ #",
+   "#  ####OB  ======  ======  ******  ======  ######  +O+++ #",
+   "#  ######  ======  ======  ******  ======a ######  +B+++ #",
+   "#     <      >        >   d  >       >       >       >   #",
+   "##########################################################"
+})
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
