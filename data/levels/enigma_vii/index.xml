@@ -7,7 +7,7 @@
 
   <levels>
     <level _seq="1" _title="Welcome" _xpath="./welcometopack7_2" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack7" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="Diving" _xpath="./joona13_1" author="Joona Laire" ctrl="force" easy="true" id="20061203joona500" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Diving" _xpath="./joona13_2" author="Joona Laire" ctrl="force" easy="true" id="20061203joona500" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Mirror Sharing" _xpath="./duffy150_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy150" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Map it out II" _xpath="./manuel01_1" author="Manuel Eisentraut" ctrl="force" easy="true" id="manuel01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Caribbean Waters" _xpath="./duffy139_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy139" rel="1" rev="3" score="1" target="time" unit="duration"/>
@@ -39,7 +39,7 @@
     <level _seq="31" _title="Rainbow Adjacencies" _xpath="./ais05_1" author="Alex Smith" ctrl="force" easy="false" id="20090422ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Colored Oxyds" _xpath="./andreas50_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas50" rel="1" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Seasonal Patterns" _xpath="./duffy164_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy164" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="34" _title="Lady in Red" _xpath="./just30_2" author="JuSt" ctrl="force" easy="true" id="just30" rel="2" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="34" _title="Lady in Red" _xpath="./just30_2" author="JuSt" ctrl="force" easy="true" id="just30" rel="2" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Color Maze" _xpath="./pulley16_3" author="Mark Pulley" ctrl="force" easy="false" id="pulley16" rel="3" rev="10" score="3" target="time" unit="duration"/>
     <level _seq="36" _title="Pentachromos" _xpath="./cel2_1" author="J.Dunne, R.Lamprecht, D.Lehmann, M.Pulley, L.Schüller" ctrl="force" easy="false" id="cel2" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Scarlett's Necklace" _xpath="./ral30_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080814ral422" rel="1" rev="191" score="1" target="time" unit="duration"/>
