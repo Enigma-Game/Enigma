@@ -4,11 +4,10 @@
     <el:info el:type="level">
       <el:identity el:title="Stranded" el:subtitle="" el:id="duffy51"/>
       <el:version el:score="2" el:release="3" el:revision="6" el:status="released"/>
-      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.20">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.20"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>New API converted by gorg</el:code>
@@ -16,24 +15,23 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+ti[" "] = {"fl_hay"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_greenbrown"}
+ti["%"] = {"st_actorimpulse"}
+ti["o"] = {"st_oxyd"}
+ti["+"] = {"st_box"}
+ti["b"] = {"st_passage", flavor="frame"}
+ti["A"] = {"st_charge_plus"}
+ti["B"] = {"st_charge_minus"}
+ti["T"] = {"st_scissors"}
+ti["D"] = {"st_door_a", name="doors#"}
+ti["S"] = {"st_switch", target="doors", action="signal"}
+ti["s"] = {"st_switch", target="power", action="signal"}
+ti["z"] = {"ac_marble", name="ac0", 0, 0.5}
+ti["W"] = {"ac_killer", name="ac1", controllers=CTRL_NONE, 0, 0.5}
 
-ti[" "]={"fl_hay"}
-ti["~"]={"fl_water"}
-ti["#"]={"st_greenbrown"}
-ti["%"]={"st_actorimpulse"}
-ti["o"]={"st_oxyd"}
-ti["+"]={"st_box"}
-ti["b"]={"st_passage", flavor="frame"}
-ti["A"]={"st_charge_plus"}
-ti["B"]={"st_charge_minus"}
-ti["T"]={"st_scissors"}
-ti["D"]={"st_door_a", "doors#"}
-ti["S"]={"st_switch", target="doors", action="signal"}
-ti["s"]={"st_switch", target="power", action="signal"}
-ti["z"]={"ac_marble", "ac0", 0.5, 1.0}
-ti["W"]={"ac_killer", "ac1", controllers=CTRL_NONE, 0.5, 1.0}
-
-wo(ti, " ", {
+w, h = wo(ti, " ", {
     "#oB######TT######Bo#",
     "#~                ~#",
     "#         z        #",
@@ -46,25 +44,25 @@ wo(ti, " ", {
     "#  ######DD######  #",
     "#                  #",
     "#~                ~#",
-    "#oB######TT######Bo#"
-})
+    "#oB######TT######Bo#"})
 
-function power0 ()
- wo["ElectricStrength"]=0.0
+function power0()
+    wo["ElectricStrength"] = 0.0
 end
+
 function power1()
- wo["ElectricStrength"]=100.0
+    wo["ElectricStrength"] = 100.0
 end
+
 function power2()
- wo["ElectricStrength"]=200.0
+    wo["ElectricStrength"] = 200.0
 end
 
 wo:add({"ot_rubberband", anchor1="ac0", anchor2="ac1", length=7.0, strength=2.0})
-wo:add({"ot_counter", "doors", state=0, target="doors#*", action_3="close", action_4="open"})
-wo:add({"ot_counter", "power", state=0, target_0="power0", target_1="power1", target_2="power2"})
+wo:add({"ot_counter", name="doors", state=0, target="doors#*", action_3="close", action_4="open"})
+wo:add({"ot_counter", name="power", state=0, target_0="power0", target_1="power1", target_2="power2"})
 wo:shuffleOxyd()
-
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
