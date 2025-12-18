@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Doors forever" el:subtitle="" el:id="just03"/>
-      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="5" el:status="released"/>
       <el:author el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -105,13 +105,13 @@ w, h = wo(res.composer(res.puzzle(resolver, " P")), "  ", {
     "#   #   = = #   n    P P# # # # # # # #  |",
     "#   #     ~ ~ ~ #      P P            #  |",
     "#   # # # z # # # # # # # # # # # bgdg#  |",
-    ". =  _          # # #   # ^ y y ^ >   #  |",
-    "u    _              fk  # y < > ^ >   #  |",
-    "#  _ _  w   fj  # = #   # y > > < <   #  |",
+    ". =    _        # # #   # ^ y y ^ >   #  |",
+    "u      _            fk  # y < > ^ >   #  |",
+    "#  _ _ _w   fj  # = #   # y > > < <   #  |",
     "#       v   O O         t < > > > >   #  |",
     "fiO O         #     #   # # dheh# # # #  |",
-    "# # # #   ~ ~ # T # #   x #m O    #m_7bd |",
-    "m     #             #  Q    # x   #   #- /",
+    "# # # #       # T # #   x #m O    #m_7bd |",
+    "m     #     ~ ~     #  Q    # x   #   #- /",
     "#  yM s #           # # x         #m +#   ",
     "# # # bf# # # # # # # # # #mx #mx # # #   "})
  ]]></el:luamain>
