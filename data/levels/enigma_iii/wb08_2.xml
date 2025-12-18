@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Tough Skyscraper" el:subtitle="" el:id="wb8"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Jon 'WB' Sneyers" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jon 'WB' Sneyers</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null (June 2025)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+wo["GlobalForce"] = po(0.0, 50.0)
+ti[" "] = {"fl_tigris"}
+ti["#"] = {"st_purplegray"}
+ti["+"] = {"st_box_wood"}
+ti["!"] = {"st_break_oxydc"}
+ti["R"] = {"st_rubberband", strength = 40.0}
+ti["I"] = {"st_stoneimpulse"}
+ti["S"] = {"st_scissors"}
+ti["D"] = {"st_door_d", name = "doorA"}
+ti["T"] = {"it_trigger", target = "doorA"}
+ti["v"] = {"st_oneway_s"}
+ti["*"] = cond(wo["IsDifficult"], ti{"st_death"}, ti["#"])
+ti["h"] = {"it_hammer"}
+ti["O"] = {"st_oxyd_c"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+   "####################",
+   "#                  #",
+   "#                  #",
+   "#   #############+##",
+   "#   #              #",
+   "#   #              #",
+   "#   #  #############",
+   "#   #             T#",
+   "#   #######v########",
+   "#   #I!!!!!        #",
+   "#   #I!!!!!####### #",
+   "#   #I!!*!!        #",
+   "#   #IO!*!! ########",
+   "#   #I!!*!!        #",
+   "#   #I!!*!!        #",
+   "#   #IO!*!!####### #",
+   "#   #I!!*!!        #",
+   "#  ##I!!!!!        #",
+   "#   #I!!!!! ########",
+   "#   #I             #",
+   "#   #I             #",
+   "#   #I ########### #",
+   "#   #I #RRRRRRRRR# #",
+   "#   #I #R       R# #",
+   "#   #I #R       R# *",
+   "#   #I #R  #O#  R# #",
+   "#   #I #R  * *  R# #",
+   "#   #I #R  * *  R* #",
+   "#   #I #R  * *  R# #",
+   "#   #I #R  * *  R# #",
+   "#   #I #R  * *  R# *",
+   "##  #I #         # #",
+   "#   #I             #",
+   "#   #I             #",
+   "#   #I  SSSSSSSSS  #",
+   "#   #I             #",
+   "#   #I             #",
+   "#   #I       ****  #",
+   "#   #I             #",
+   "#   #I             #",
+   "#   #I             #",
+   "#   #I   *****     #",
+   "#   #I             #",
+   "#   #I             #",
+   "#   #I             #",
+   "#  ##I       ****  #",
+   "#   #I             #",
+   "#   #I             #",
+   "#   #I  *****      #",
+   "#   #I             #",
+   "#   #I             #",
+   "#   #I             #",
+   "#   #I   *###*###*##",
+   "#   #+             #",
+   "#   #             h#",
+   "#   #D##O#*R*#O*O###",
+   "#   #              #",
+   "#   #            R #",
+   "#   S            R #",
+   "# @ ##O*O*O*O###OR #",
+   "##################O#"
+})
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
