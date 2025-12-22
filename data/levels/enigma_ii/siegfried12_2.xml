@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Push your way" el:subtitle="" el:id="level4b"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -32,9 +32,9 @@ w, h = wo(res.composer(ti), "  ", {
     "x O i     X X X x x x x X X X     i O x ",
     "x   i   X P P P P P P P P P P X   i   x ",
     "x   i x X P P P P P P P P P P X x i   x ",
-    "x x i   X P P Q P Q P Q P P P X   i   x ",
-    "x x i xwX P P P P P Q P P P P X x i   x ",
-    "x x i   X P P P P P P P Q P P X   i   x ",
+    "x x i   X P P Q P Q P Q P P P X   i x x ",
+    "x x i xwX P P P P P Q P P P P X x i x x ",
+    "x x i   X P P P P P P P Q P P X   i x x ",
     "x   i xdX P P P Q P P P P P P X x i   x ",
     "x   i   X P P P P P P P P P P X@  i   x ",
     "x O i i i X X X x x x x X X X     i O x ",
