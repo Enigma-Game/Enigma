@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Joona's Chess" el:id="joona02"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author el:name="Joona Laire" el:email="joona.laire@gmail.com"/>
       <el:copyright>Copyright © 2006 Joona Laire</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -15,10 +15,10 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-ti[" "] = {"fl_white"}
+ti[" "] = {"fl_bright"}
 ti["o"] = {"fl_dark"}
 ti["X"] = {"st_yellow"}
-ti["0"] = {"st_oxyd"}
+ti["0"] = {"st_oxyd_a"}
 ti["H"] = {"st_chess_white"}
 ti["B"] = ti["o"] .. {"st_plop"}
 ti["S"] = ti["o"] .. {"st_plaster_movable"}
