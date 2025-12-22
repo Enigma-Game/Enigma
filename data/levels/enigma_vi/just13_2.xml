@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Magic Triangle" el:subtitle="" el:id="just13"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -40,11 +40,11 @@ ti["N"] = {"st_laser_n", name="laser1#"}
 ti["!"] = {"st_laser_s", name="laser2"}
 ti["?"] = {"st_laser_w", name="laser3", state=ON}
 ti["s"] = {"st_laser_s", name="laser4#"}
-ti["e"] = {"st_laser_e", name="laser4#"}
+ti["e"] = {"st_laser_e", state = ON}
 ti["1"] = {"it_trigger", target={"laser1#*", "laser2", "laser3"}, action={"on", "off", "off"}}
 ti["2"] = {"it_trigger", target={"laser1#*", "laser2", "laser3"}, action={"off", "on", "on"}}
 ti["3"] = {"it_trigger", target={"door1", "all_off"}, action={"toggle", "callback"}}
-ti["4"] = {"it_trigger", target={"door2", "laser4#*"}}
+ti["4"] = {"it_trigger", target={"door2", "laser4#*"}, action = {"open", "on"}}
 ti["5"] = {"it_trigger", target={"finaldoor"}}
 ti["%"] = {"it_spade"}
 ti["f"] = {"it_floppy"}
