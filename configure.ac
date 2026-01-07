@@ -10,6 +10,9 @@ AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS([src/config.h])
 AC_USE_SYSTEM_EXTENSIONS
+# Though we use tinygettext instead of gettext in the app,
+# xgettext is still needed to extract translatable strings.
+AM_GNU_GETTEXT([external])
 
 ALL_LINGUAS="be bs cs da de el es fi fr gd hr hu it ja nl no pl pt ru sk sl sv uk zh"
 AC_SUBST([ALL_LINGUAS])
