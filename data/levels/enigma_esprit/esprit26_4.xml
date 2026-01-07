@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bank-O-Mat" el:subtitle="esprit 26" el:id="ss4"/>
-      <el:version el:score="3" el:release="3" el:revision="4" el:status="released"/>
+      <el:version el:score="4" el:release="4" el:revision="5" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,7 @@ ti["."] = {"it_seed"}
 ti["S"] = {"st_switch_black", target="get_money"}
 ti["G"] = {"st_lightglass"}
 ti["|"] = {"st_door", name="doors#", flavor="c"}
-ti["C"] = {"st_coinslot", interval_m=COIN_IGNORE, target="counter", action="signal"}
+ti["C"] = {"st_coinslot", interval_m=cond(wo["IsDifficult"], 6, 12), target="counter", action="signal"}
 ti["@"] = {"#ac_marble_black"}
 
 wo(ti, " ", {
@@ -38,16 +38,23 @@ wo(ti, " ", {
     "#                  #                  #",
     "#######################################"})
 
-wo:add({"ot_counter", "counter", state=0, target="doors#*", action_8="open"})
+-- trigger: open door when all 8 coinslots have a coin
+wo:add({"ot_counter", "counter", state=0, target={"doors#*", "door_timer"}, action_8={"open", "signal"}})
+-- trigger: close door 6s after opening
+wo:add({"ot_timer", "door_timer", target="doors#*", interval=cond(wo["IsDifficult"], 4, 6), loop=false, state=OFF, action="close"})
 
+-- get up to 8 coins from the automaton in the corner.
 local reserve = 8
 function get_money()
-    if reserve > 0 then
-        reserve = reserve -1
-        wo[po(16,1)] = {"it_coin_m"}
-    else
-        wo[po(16,1)] = {"it_document", text="text1"}
-    end
+        -- make sure you don't lose a coin by accidentally hitting the switch twice
+	if not it(po(16,1)):exists() then
+		if reserve > 0 then
+			reserve = reserve -1
+			wo[po(16,1)] = {"it_coin_m"}
+		else
+			wo[po(16,1)] = {"it_document", text="text1"}
+		end
+	end
 end
  ]]></el:luamain>
     <el:i18n>
