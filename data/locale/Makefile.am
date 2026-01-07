@@ -86,7 +86,8 @@ stamp-po: $(srcdir)/$(PACKAGE).pot
 
 $(PACKAGE).pot-update: $(srcdir)/POTFILES.in remove-potcdate.sed
 	rm -f $(builddir)/level_i18n.cc
-	find $(top_srcdir)/data/levels -name '.svn' -prune -o -name 'enigma_cross' -prune -o -name '*.xml' -type f ! -name 'index.xml' -exec xsltproc --path $(top_srcdir)/data/schemas --encoding UTF-8 $(top_srcdir)/tools/i18n.xsl '{}' \; >> $(builddir)/level_i18n.tmp
+	find $(top_srcdir)/data/levels -name '.svn' -prune -o -name 'enigma_cross' -prune -o -name '*.xml' -type f ! -name 'index.xml' -exec xsltproc --path $(top_srcdir)/data/schemas --encoding UTF-8 $(top_srcdir)/tools/i18n_level.xsl '{}' \; >> $(builddir)/level_i18n.tmp
+	find $(top_srcdir)/data/levels -name '.svn' -prune -o -type f -name 'index.xml' -exec xsltproc --path $(top_srcdir)/data/schemas --encoding UTF-8 $(top_srcdir)/tools/i18n_index.xsl '{}' \; >> $(builddir)/level_i18n.tmp
 	lua $(top_srcdir)/tools/sub_quote_gettext.lua $(builddir)/level_i18n.tmp > $(builddir)/level_i18n.cc
 	rm -f $(builddir)/level_i18n.tmp
 	$(XGETTEXT) --default-domain=$(PACKAGE) --directory=$(top_srcdir) --directory=$(builddir) \

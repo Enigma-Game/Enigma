@@ -239,7 +239,7 @@
         <xs:element name="public" minOccurs="0" maxOccurs="1">
           <xs:annotation>
             <xs:documentation>
-              The pubic section for not validated additions by others. All info
+              The public section for not validated additions by others. All info
               in public is handeled with care by enigma. Translations will be
               suggested to the official translators and only be used if confirmed
               or missing in the translators translations.

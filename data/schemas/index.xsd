@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' version="0.2" xml:lang="en">
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' version="0.3" xml:lang="en">
   <xs:annotation>
     <xs:documentation>
       XML schema definitions for Enigma levelpack index
       Copyright © 2006 Ronald Lamprecht
+      Copyright © 2025 Andreas Lochmann
       GPL2
     </xs:documentation>
   </xs:annotation>
@@ -79,8 +80,14 @@
             <xs:documentation>
               Future Lua index extension. Per levelpack control of level menu
               display, levelpack scoring etc..
-              Possible elements are: luamain-CDATA, i18n
+              Possible elements are: luamain-CDATA, i18n, gui
               Possible attributes are: libpath
+              Possible sub-elements of gui: description, translation, i18n_comment
+              "description" provides a description for Enigma's level pack menu.
+              It should always be in English and will be provided to translators.
+              You may provide a suggestion for translation using a "translation"-
+              element with "lang"-attribute. You may also provide a comment to
+              translators with an "i18n_comment-node".
             </xs:documentation>
           </xs:annotation>
           <xs:complexType>
