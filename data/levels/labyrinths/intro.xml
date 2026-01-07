@@ -10,7 +10,7 @@
       <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de"
         el:homepage="http://ulf.zeitform.de"/>
-      <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
+      <el:copyright>Copyright Â© 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.20"/>
       <el:modes el:easy="false" el:single="true" el:network="false" el:control="force"
@@ -70,7 +70,7 @@ w, h = wo(ti, "-", {
       </el:string>
       <el:string el:key="subtitle">
         <el:english el:translate="true"/>
-        <el:translation el:lang="de">Einführungslevel für das Labyrinth Level Paket</el:translation>
+        <el:translation el:lang="de">EinfÃ¼hrungslevel fÃ¼r das Labyrinth Level Paket</el:translation>
       </el:string>
       <el:string el:key="text1">
         <el:english>Welcome to the Labyrinth Level Pack!</el:english>
@@ -78,35 +78,35 @@ w, h = wo(ti, "-", {
       </el:string>
       <el:string el:key="text2">
         <el:english>Be warned: If you are not into labyrinths, you will find these levels *extremely* boring.</el:english>
-        <el:translation el:lang="de">Warnung: Falls Du Dich nicht für Labyrinthe interessierst, dann wirst Du diese Level *extrem* langweilig finden.</el:translation>
+        <el:translation el:lang="de">Warnung: Falls Du Dich nicht fÃ¼r Labyrinthe interessierst, dann wirst Du diese Level *extrem* langweilig finden.</el:translation>
       </el:string>
       <el:string el:key="text3">
         <el:english>The levels in this pack re-build labyrinths *not* mazes.</el:english>
-        <el:translation el:lang="de">Dieses Level Paket bildet Labyrinthe nach, *nicht* Irrgärten.</el:translation>
+        <el:translation el:lang="de">Dieses Level Paket bildet Labyrinthe nach, *nicht* IrrgÃ¤rten.</el:translation>
       </el:string>
       <el:string el:key="text4">
         <el:english>Labyrinths have a single path from the outside to the center while mazes offer choices along the way and often include dead ends.</el:english>
-        <el:translation el:lang="de">Bei Labyrinthen führt ein einzelner Pfad von außen bis zur Mitte, während Irrgärten Abzweigungen und (häufig) Sackgassen enthalten.</el:translation>
+        <el:translation el:lang="de">Bei Labyrinthen fÃ¼hrt ein einzelner Pfad von auÃŸen bis zur Mitte, wÃ¤hrend IrrgÃ¤rten Abzweigungen und (hÃ¤ufig) Sackgassen enthalten.</el:translation>
       </el:string>
       <el:string el:key="text5">
         <el:english>Consequently, the task to complete these levels is very simple: You just have to follow the path; no traps, no dead ends, no mouse artistics, no puzzles.</el:english>
-        <el:translation el:lang="de">Deshalb ist die Lösung dieser Level sehr einfach: Du mußt einfach dem Weg folgen; keine Fallen, keine Sackgassen, keine Mausakrobatik, keine Rätsel.</el:translation>
+        <el:translation el:lang="de">Deshalb ist die LÃ¶sung dieser Level sehr einfach: Du muÃŸt einfach dem Weg folgen; keine Fallen, keine Sackgassen, keine Mausakrobatik, keine RÃ¤tsel.</el:translation>
       </el:string>
       <el:string el:key="text6">
         <el:english>All levels - excluding this one - differ in easy and in normal mode: While borders/walls are made of harmless stones in easy mode, they are made of deadly stones in normal mode (so you mustn't leave the path to succeed).</el:english>
-        <el:translation el:lang="de">Alle Level - außer diesem hier - unterscheiden sich je nach Modus: Im einfachen Modus begrenzen harmlose Steine die Gänge, im normalen Modus darf der Pfad nicht verlassen werden, sonst wird die Kugel zerstört.</el:translation>
+        <el:translation el:lang="de">Alle Level - auÃŸer diesem hier - unterscheiden sich je nach Modus: Im einfachen Modus begrenzen harmlose Steine die GÃ¤nge, im normalen Modus darf der Pfad nicht verlassen werden, sonst wird die Kugel zerstÃ¶rt.</el:translation>
       </el:string>
       <el:string el:key="text7">
         <el:english>This pack offers different types of labyrinths: classical (Crete), roman (Roman), medieval (Amiens, Reims) and other (Liger) ones. The one you are currently in is a classical three circuit labyrinth.</el:english>
-        <el:translation el:lang="de">Dieses Level Paket enthält verschiedene Labyrinth-Typen: klassische (Crete), römische (Roman), mittelalterliche (Amiens, Reims) und sonstige (Liger) Labyrinthe. Derzeit befindest Du Dich in einem klassischen Labyrinth mit drei Umgängen.</el:translation>
+        <el:translation el:lang="de">Dieses Level Paket enthÃ¤lt verschiedene Labyrinth-Typen: klassische (Crete), rÃ¶mische (Roman), mittelalterliche (Amiens, Reims) und sonstige (Liger) Labyrinthe. Derzeit befindest Du Dich in einem klassischen Labyrinth mit drei UmgÃ¤ngen.</el:translation>
       </el:string>
       <el:string el:key="text8">
         <el:english>It is difficult to get an overview over a labyrinth and its symmetry when playing a level. Overall pictures of the levels can be found at http://ulf.zeitform.de/enigma/.</el:english>
-        <el:translation el:lang="de">Es ist nicht einfach, einen Überblick über ein Labyrinth und dessen Symmetrie zu bekommen, wenn Du ein Level spielst. Übersichtsbilder der Labyrinth finden sich auf http://ulf.zeitform.de/enigma/.</el:translation>
+        <el:translation el:lang="de">Es ist nicht einfach, einen Ãœberblick Ã¼ber ein Labyrinth und dessen Symmetrie zu bekommen, wenn Du ein Level spielst. Ãœbersichtsbilder der Labyrinth finden sich auf http://ulf.zeitform.de/enigma/.</el:translation>
       </el:string>
       <el:string el:key="text9">
         <el:english>If you are interested in labyrinths the internet offers a wide range of good sources of information (Google is your friend).</el:english>
-        <el:translation el:lang="de">Wer mehr über Labyrinthe erfahren will, findet im Internet reichlich Quellen (Google is your friend).</el:translation>
+        <el:translation el:lang="de">Wer mehr Ã¼ber Labyrinthe erfahren will, findet im Internet reichlich Quellen (Google is your friend).</el:translation>
       </el:string>
      </el:i18n>
   </el:protected>

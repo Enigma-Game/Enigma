@@ -10,7 +10,7 @@
       <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de"
         el:homepage="http://ulf.zeitform.de"/>
-      <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
+      <el:copyright>Copyright Â© 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.20"/>
       <el:modes el:easy="true" el:single="true" el:network="false" el:control="force"
@@ -123,11 +123,11 @@ w, h = wo(ti, "-", {
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="true"/>
-        <el:translation el:lang="de">Römisches</el:translation>
+        <el:translation el:lang="de">RÃ¶misches</el:translation>
       </el:string>
       <el:string el:key="subtitle">
         <el:english el:translate="true"/>
-        <el:translation el:lang="de">Ein römisches Labyrinth</el:translation>
+        <el:translation el:lang="de">Ein rÃ¶misches Labyrinth</el:translation>
       </el:string>
      </el:i18n>
   </el:protected>
