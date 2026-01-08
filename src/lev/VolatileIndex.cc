@@ -27,9 +27,9 @@ namespace enigma { namespace lev {
 
     int VolatileIndex::levelCount = 0;
     
-    VolatileIndex::VolatileIndex(std::string anIndexName, std::string aGroupName,
-            const std::vector<std::string> levelpaths, double defaultLocation) : 
-            Index(anIndexName, aGroupName, defaultLocation) {
+    VolatileIndex::VolatileIndex(std::string anIndexName, std::string aDescription,
+            std::string aGroupName, const std::vector<std::string> levelpaths, double defaultLocation) : 
+            Index(anIndexName, aDescription, aGroupName, defaultLocation) {
         for (unsigned i=0; i<levelpaths.size(); i++) {
             Proxy * aProxy = Proxy::registerLevel(levelpaths[i], "#commandline",
                     ecl::strf("_%d",levelCount), ecl::strf("Level %d", i), "unknown",

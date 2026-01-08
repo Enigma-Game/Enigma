@@ -40,7 +40,7 @@ using namespace std;
 /* -------------------- Widget -------------------- */
 
 Widget::Widget(Container *parent)
-: area(), m_parent(parent), m_listener(0)
+: area(), m_parent(parent), m_listener(0), description("")
 {}
 
 void Widget::invalidate() {
@@ -82,6 +82,12 @@ bool Widget::on_event(const SDL_Event &e) {
         mouseButton = e.button.button;
         break;
     }
+    return false;
+}
+
+bool Widget::on_child_activated(Widget *child) {
+    if (get_parent())
+        return get_parent()->on_child_activated(child);
     return false;
 }
 
@@ -616,6 +622,8 @@ void Button::activate()
     sound::EmitSoundEvent ("menuswitch");
     m_activep = true;
     invalidate();
+    if (get_parent())
+        get_parent()->on_child_activated(this);
 }
 
 void Button::deactivate() {

@@ -391,7 +391,10 @@ namespace enigma { namespace gui {
     void LevelPackComposer::maybeInitClipboard() {
         if (clipboard == NULL) {
             std::vector<std::string> dummy;
-            clipboard = new lev::PersistentIndex(" ", false); // mark as incomplete
+            clipboard = new lev::PersistentIndex(" ", false, true, false,
+                INDEX_CLIPBOARD_PACK_LOCATION, INDEX_CLIPBOARD_PACK_NAME,
+                INDEX_STD_FILENAME, INDEX_CLIPBOARD_PACK_DESCRIPTION,
+                INDEX_DEFAULT_GROUP);
         }
     }
 

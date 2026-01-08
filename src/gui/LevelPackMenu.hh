@@ -49,9 +49,10 @@ namespace enigma { namespace gui {
         void manageLevelMenu();
         virtual bool manage();
 
-        bool on_event (const SDL_Event &e);
-        void on_action(Widget *w);
-        void draw_background(ecl::GC &gc);
+        bool on_event (const SDL_Event &e) override;
+        void on_action(Widget *w) override;
+        bool on_child_activated(Widget *child) override;
+        void draw_background(ecl::GC &gc) override;
 
     private:
         static std::map<std::string, std::string> groupLastSelectedIndex;
@@ -78,7 +79,8 @@ namespace enigma { namespace gui {
         Widget      *but_main;
         StaticTextButton  *but_tutorial1;
         StaticTextButton  *but_tutorial2;
-        
+        Label       *lb_index_description;
+
         bool         isLevelMenuSubmenu;
         
         void setupMenu();

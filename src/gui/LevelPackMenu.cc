@@ -66,7 +66,14 @@ namespace enigma { namespace gui {
         but_main = new StaticTextButton(N_("Main Menu"), this);
         but_tutorial1 = NULL;
         but_tutorial2 = NULL;
-        
+
+        // Create label for index description
+        lb_index_description = new Label("");
+        this->add(lb_index_description, Rect(vshrink? 5 : 10,
+                                     vminfo.height-(vshrink ? 50 : 75),
+                                     vminfo.width-(vshrink ? 10 : 20),
+                                     vminfo.height < 320 ? 17 : 35));
+
         commandHList = new HList;
         commandHList->set_spacing(vshrink ? 5 : 10);
         commandHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
@@ -393,7 +400,8 @@ namespace enigma { namespace gui {
                 for (int row = 0; row < numRows; row++) {
                     if (nextPack < packCount) {
                         lev::Index *ind = (*group)[nextPack + packOffset];
-                        TextButton * button = new UntranslatedStaticTextButton(ind->getName(), this);
+                        TextButton *button = new UntranslatedStaticTextButton(ind->getName(), this);
+                        button->set_description(ind->getDescription());
                         packButtons.push_back(button);
                         pl->add_back(button);
                         nextPack++;
@@ -577,7 +585,12 @@ namespace enigma { namespace gui {
             invalidate_all();
         }
     }
-    
+
+    bool LevelPackMenu::on_child_activated(Widget *w) {
+        lb_index_description->set_text(w->get_description());
+        return true;
+    }
+
     void LevelPackMenu::updateHighlight() {
         for (unsigned i = 0; i < packButtons.size(); i++) {
             TextButton * button = packButtons[i];

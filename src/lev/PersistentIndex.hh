@@ -62,18 +62,21 @@ namespace enigma { namespace lev {
          * 
          * thePackPath " " for a new not yet defined path
          */
-        PersistentIndex(std::string thePackPath, bool systemOnly, bool userOwned = true, bool isAuto =false,
+        PersistentIndex(std::string thePackPath, bool systemOnly, bool userOwned = true, bool isAuto = false,
                 double defaultLocation = INDEX_DEFAULT_PACK_LOCATION,
                 std::string anIndexName = "",
                 std::string theIndexFilename = INDEX_STD_FILENAME, 
+                std::string aDescription = "",
                 std::string aGroupName = INDEX_DEFAULT_GROUP);
         /**
          * Legacy 0.92 constructor - called once to convert the index to XML.
          * When the index has been stored as XML this constructor will not be
          * called again.
          */
-        PersistentIndex(std::stringstream &legacyIndex, std::string thePackPath,  bool isZip = false,
-                std::string anIndexName = "", std::string theIndexFilename = INDEX_STD_FILENAME);
+        PersistentIndex(std::stringstream &legacyIndex, std::string thePackPath, bool isZip = false,
+                std::string anIndexName = "",
+                std::string theIndexFilename = INDEX_STD_FILENAME,
+                std::string aDescription = "");
         ~PersistentIndex();
         
         /**
@@ -131,10 +134,11 @@ namespace enigma { namespace lev {
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *levelsElem;
         
 //        static void checkCandidate(PersistentIndex * candidate);
-        static void checkCandidate(std::string thePackPath, bool systemOnly, bool userOwned =true, 
-                bool isAuto =false, bool isSystemCross =false, bool isUserCross =false, 
-                double defaultLocation =INDEX_DEFAULT_PACK_LOCATION, std::string anIndexName ="",
-                std::string theIndexFilename =INDEX_STD_FILENAME, std::string aGroupName =INDEX_DEFAULT_GROUP);
+        static void checkCandidate(std::string thePackPath, bool systemOnly, bool userOwned = true, 
+                bool isAuto = false, bool isSystemCross = false, bool isUserCross = false, 
+                double defaultLocation = INDEX_DEFAULT_PACK_LOCATION, std::string anIndexName = "",
+                std::string theIndexFilename = INDEX_STD_FILENAME, std::string aDescription = "",
+                std::string aGroupName = INDEX_DEFAULT_GROUP);
         // legacy 0.92
         void parsePar(const std::string& par, int& par_value, std::string& par_text);
     };

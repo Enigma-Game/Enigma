@@ -31,8 +31,8 @@ namespace enigma { namespace lev {
         /**
          * Convention: method names *Level() can take int pos or Proxy as arg.
          */
-        VolatileIndex(std::string anIndexName, std::string aGroupName,
-                const std::vector<std::string> levelpaths, 
+        VolatileIndex(std::string anIndexName, std::string aDescription,
+                std::string aGroupName, const std::vector<std::string> levelpaths, 
                 double defaultLocation = INDEX_DEFAULT_PACK_LOCATION);
         ~VolatileIndex();
         virtual void clear();

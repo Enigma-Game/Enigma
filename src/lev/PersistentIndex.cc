@@ -67,7 +67,8 @@ namespace enigma { namespace lev {
 
     void PersistentIndex::checkCandidate(std::string thePackPath, bool systemOnly, bool userOwned,
             bool isAuto, bool isSystemCross, bool isUserCross, double defaultLocation,
-            std::string anIndexName, std::string theIndexFilename, std::string aGroupName) {
+            std::string anIndexName, std::string theIndexFilename,
+            std::string aDescription, std::string aGroupName) {
         int minRevision = 0;
         int systemPackIndex = -1;
         if (!isAuto && !isUserCross) {
@@ -115,7 +116,7 @@ namespace enigma { namespace lev {
             }
         }
         std::shared_ptr<PersistentIndex> candidate = std::make_shared<PersistentIndex>(thePackPath, systemOnly, userOwned, isAuto,
-                defaultLocation, anIndexName, theIndexFilename, aGroupName);
+                defaultLocation, anIndexName, theIndexFilename, aDescription, aGroupName);
         if (candidate->getName().empty() || candidate->getCompatibility() > ENIGMACOMPATIBITLITY) {
             candidate.reset();
 //    Log << "candidate check : " << thePackPath << " -- " << theIndexFilename << " -- deleted\n";
@@ -220,7 +221,8 @@ namespace enigma { namespace lev {
         // register index free auto folder
         // this needs to be done prior history registration to avoid outdated proxies
         PersistentIndex * autoIndex = new PersistentIndex("auto", false, true, true,
-                INDEX_AUTO_PACK_LOCATION, INDEX_AUTO_PACK_NAME);
+                INDEX_AUTO_PACK_LOCATION, INDEX_AUTO_PACK_NAME, INDEX_STD_FILENAME,
+                INDEX_AUTO_PACK_DESCRIPTION);
         autoIndex->isEditable = false;
         Index::registerIndex(autoIndex);
 
@@ -312,7 +314,7 @@ namespace enigma { namespace lev {
             historyIndex = dynamic_cast<PersistentIndex *>(foundHistory);
         } else {
             historyIndex = new PersistentIndex("cross", false, true, false, INDEX_HISTORY_PACK_LOCATION,
-                    INDEX_HISTORY_PACK_NAME, "history.xml");
+                    INDEX_HISTORY_PACK_NAME, "history.xml", INDEX_HISTORY_PACK_DESCRIPTION);
             Index::registerIndex(historyIndex);
         }
         historyIndex->isEditable = false;
@@ -336,11 +338,12 @@ namespace enigma { namespace lev {
 
     PersistentIndex::PersistentIndex(std::string thePackPath, bool loadSystemFS, bool userOwned,
             bool autoLoading, double defaultLocation, std::string anIndexName,
-            std::string theIndexFilename, std::string aGroupName) :
-            Index(anIndexName, aGroupName, defaultLocation), packPath (thePackPath), isModified (false),
-            isUserOwned (userOwned), isEditable (true), isAuto (autoLoading),
-            indexFilename(theIndexFilename), release (1), revision (1),
-            compatibility (1.00), doc(NULL) {
+            std::string theIndexFilename, std::string aDescription, std::string aGroupName) :
+            Index(anIndexName, aDescription, aGroupName, defaultLocation),
+            packPath(thePackPath), isModified(false),
+            isUserOwned(userOwned), isEditable(true), isAuto(autoLoading),
+            indexFilename(theIndexFilename), release(1), revision(1),
+            compatibility(1.00), doc(NULL) {
 //        Log << "PersistentIndex AddLevelPack " << thePackPath << " - " << anIndexName <<  " - " << indexDefaultLocation <<"\n";
         load(loadSystemFS);
     }
@@ -441,6 +444,11 @@ namespace enigma { namespace lev {
                             Utf8ToXML("update").x_str())->item(0));
                     levelsElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
                             Utf8ToXML("levels").x_str())->item(0));
+                    DOMNodeList * descList = doc->getElementsByTagName(Utf8ToXML("description").x_str());
+                    if (descList->getLength() != 0) {
+                        DOMElement *descElem = dynamic_cast<DOMElement *>(descList->item(0));
+                        indexDescription = XMLtoUtf8(descElem->getTextContent()).c_str();
+                    }
                 }
 
                 if (update && Robinson) {
@@ -986,8 +994,8 @@ namespace enigma { namespace lev {
 
     PersistentIndex::PersistentIndex(std::stringstream &legacyIndexStream,
             std::string thePackPath, bool isZip, std::string anIndexName,
-            std::string theIndexFilename) :
-            Index(anIndexName, INDEX_DEFAULT_GROUP, Index::getNextUserLocation()),
+            std::string theIndexFilename, std::string aDescription) :
+            Index(anIndexName, aDescription, INDEX_DEFAULT_GROUP, Index::getNextUserLocation()),
             indexFilename(theIndexFilename), isAuto (false), isModified (false),
             isUserOwned (true), isEditable (true), release (1), revision (1),
             compatibility (1.00), doc(NULL) {

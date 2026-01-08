@@ -37,6 +37,12 @@
 #define INDEX_SEARCH_PACK_NAME    "Search Result"
 #define INDEX_CLIPBOARD_PACK_NAME "Clipboard"
 
+#define INDEX_STARTUP_PACK_DESCRIPTION   "Levels Enigma has been invoked with."
+#define INDEX_AUTO_PACK_DESCRIPTION      "Levels in user's own level folder."
+#define INDEX_HISTORY_PACK_DESCRIPTION   "Recently played levels."
+#define INDEX_SEARCH_PACK_DESCRIPTION    ""
+#define INDEX_CLIPBOARD_PACK_DESCRIPTION ""
+
 #define INDEX_STARTUP_PACK_LOCATION   5100
 #define INDEX_AUTO_PACK_LOCATION      5200
 #define INDEX_HISTORY_PACK_LOCATION   5300 
@@ -97,6 +103,7 @@ namespace enigma { namespace lev {
          * Convention: method names *Level() can take int pos or Proxy as arg.
          */
         Index(std::string anIndexName = "Unnamed Pack", 
+                std::string aDescription = "",
                 std::string aGroupName = INDEX_DEFAULT_GROUP, 
                 double defaultLocation = INDEX_DEFAULT_PACK_LOCATION);
         virtual ~Index();
@@ -104,6 +111,7 @@ namespace enigma { namespace lev {
         std::string getName();
         std::string getGroupName();
         std::string getDefaultGroupName();
+        std::string getDescription();
         double getLocation();
         double getDefaultLocation();
         void setDefaultLocation(double defLocation);
@@ -146,6 +154,7 @@ namespace enigma { namespace lev {
 
     protected:
         std::string indexName;
+        std::string indexDescription;
         std::string indexGroup;
         double indexLocation;
         std::string defaultGroup;

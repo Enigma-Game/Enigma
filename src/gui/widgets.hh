@@ -58,9 +58,10 @@ namespace enigma { namespace gui {
 
         /* ---------- Widget interface ---------- */
         virtual void draw (ecl::GC &gc, const ecl::Rect &r) = 0;
-        virtual void activate() {}
+        virtual void activate() {}  // e.g. mouseover, selected via cursor keys
         virtual void deactivate() {}
-        
+        virtual bool on_child_activated(Widget *child);
+
         virtual void realize (const ecl::Rect &r) {
             set_area (r);
         }
@@ -87,6 +88,9 @@ namespace enigma { namespace gui {
         int get_w() const { return area.w; }
         int get_h() const { return area.h; }
 
+        std::string get_description() const { return description; }
+        void set_description(std::string s) { description = s; }
+
         void set_parent(Container *parent) { m_parent = parent; }
         Container *get_parent() const { return m_parent; }
 
@@ -109,8 +113,9 @@ namespace enigma { namespace gui {
         ecl::Rect        area;
         Container      *m_parent;
         ActionListener *m_listener;
-        Uint16  modifierKeys;
-        Uint8   mouseButton;
+        Uint16          modifierKeys;
+        Uint8           mouseButton;
+        std::string     description;
     };
 
 /* -------------------- AreaManager -------------------- */
