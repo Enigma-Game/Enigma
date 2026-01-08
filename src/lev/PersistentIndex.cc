@@ -31,6 +31,7 @@
 #include "Utf8ToXML.hh"
 #include "XMLtoUtf8.hh"
 #include "ecl_system.hh"
+#include "ecl_font.hh"
 
 #include <fstream>
 #include <iostream>
@@ -448,6 +449,7 @@ namespace enigma { namespace lev {
                     if (descList->getLength() != 0) {
                         DOMElement *descElem = dynamic_cast<DOMElement *>(descList->item(0));
                         indexDescription = XMLtoUtf8(descElem->getTextContent()).c_str();
+                        indexDescription = ecl::normalizeSpaces(indexDescription);
                     }
                 }
 
@@ -581,7 +583,7 @@ namespace enigma { namespace lev {
                     DOMAttr * levelAttr = dynamic_cast<DOMAttr *>(attrMap->item(j));
                     std::string attrName = XMLtoUtf8(levelAttr->getName()).c_str();
                     if (knownAttributes.find(attrName) == knownAttributes.end()) {
-                        Log << "PersistentIndex Load unknown Attribut: " << attrName << "\n";
+                        Log << "PersistentIndex load unknown attribute: " << attrName << "\n";
                         var.extensions[attrName]= XMLtoUtf8(levelAttr->getValue()).c_str();
                     }
 

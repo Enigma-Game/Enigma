@@ -42,6 +42,11 @@ public:
                         int maxwidth = -1) = 0;
 };
 
+/* Remove white-spaces left and right of the string, and replace all
+   occurences by one or more consecutive white-spaces inside the string
+   by spaces. This has to mirror XSL's normalizeSpaces! */
+std::string normalizeSpaces(std::string theString);
+
 std::string::size_type breakString(Font *font, const std::string &theString,
                                    const std::string &breakChars, int targetWidth);
 

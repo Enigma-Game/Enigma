@@ -33,6 +33,22 @@
 using namespace ecl;
 using namespace std;
 
+std::string ecl::normalizeSpaces(std::string theString) {
+    std::string result;
+    int state = 0;
+    // TODO: This might fail for general UTF-8 encoding!
+    for(char &c : theString) {
+        if(std::isspace(c)) {
+            state *= state;
+        } else {
+            result += ((state == 1) ? " " : "");
+            result += c;
+            state = -1;
+        }
+    }
+    return result;
+}
+
 std::string::size_type ecl::breakString(Font *font, const std::string &str,
                                         const std::string &breakChars, int targetWidth) {
     if (font->get_width(str) <= targetWidth)
