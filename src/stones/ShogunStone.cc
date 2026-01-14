@@ -23,7 +23,8 @@
 #include "world.hh"
 
 namespace enigma {
-    ShogunStone::ShogunStone(int holes) : Stone () {
+    ShogunStone::ShogunStone(int holes) :
+            Stone (), subShogun(nullptr), superShogun(nullptr) {
         objFlags |= holes << 24;
     }
 
