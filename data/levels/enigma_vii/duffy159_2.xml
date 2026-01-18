@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Wild Hunt" el:subtitle="" el:id="duffy159"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (January 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_bluegray"}
+ti["^"] = {"fl_slope_pn"}
+ti[">"] = {"fl_slope_pe"}
+ti["v"] = {"fl_slope_ps"}
+ti["<"] = {"fl_slope_pw"}
+ti["b"] = {"fl_bluegray", "a2"}
+ti["c"] = {"fl_bluegray", "a3"}
+ti["f"] = {"fl_bluegray", "b2"}
+ti["g"] = {"fl_bluegray", "b3"}
+ti["h"] = {"fl_bluegray", "b4"}
+ti["j"] = {"fl_bluegray", "c2"}
+ti["k"] = {"fl_bluegray", "c3"}
+ti["l"] = {"fl_bluegray", "c4"}
+ti["#"] = {"st_death"}
+ti["O"] = {"st_oxyd_b"}
+ti["A"] = ti({"fl_bluegray", "a1"}) .. {"#ac_horse", strength = 3, destination = {"a1", "a2", "a3", "a4"}}
+ti["B"] = ti({"fl_bluegray", "b1"}) .. {"#ac_horse", strength = 3, destination = {"b1", "b2", "b3", "b4"}}
+ti["C"] = ti({"fl_bluegray", "c1"}) .. {"#ac_horse", strength = 3, destination = {"c1", "c2", "c3", "c4"}}
+ti["@"] = ti({"fl_bluegray", "a4"}) .. {"#ac_marble_black"}
+    
+wo(ti, " ", {
+  "#O################O#",
+  "#A                b#",
+  "# #######^^####### #",
+  "# Oh            BO #",
+  "# # #O########O# # #",
+  "# # #k        l# # #",
+  "O # < ###OO### > # O",
+  "# # #j        C# # #",
+  "# # #O########O# # #",
+  "# Og            fO #",
+  "# #######vv####### #",
+  "#@                c#",
+  "#O################O#"
+})
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Die Wilde Jagd</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
