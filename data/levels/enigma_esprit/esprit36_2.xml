@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="esprit 36" el:subtitle="esprit 36" el:id="ss_esp36"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_concrete"}
+ti["1"] = {"fl_concrete", name = "d1"}
+ti["2"] = {"fl_concrete", name = "d2"}
+ti["#"] = {"st_redbrown"}
+ti["+"] = {"st_redbrown_movable"}
+ti["H"] = {"st_redbrown_hollow"} .. ti({"#ac_rotor", range = 4, strength = 30})
+ti["c"] = {"it_cherry"}
+ti["a"] = {"it_trigger", invisible = true, name = "ta", target = "s1"}
+ti["A"] = {"it_wormhole", name = "whA", strength = 0, destination ="ta"}
+ti["b"] = {"it_trigger", invisible = true, name = "tb", target = "s2"}
+ti["B"] = {"it_wormhole", name = "whB", strength = 0, destination = "tb"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+  "#######################################",
+  "#####################H###########H#####",
+  "##                                   ##",
+  "## ##################O###########O## ##",
+  "## ################################# ##",
+  "## ################################# ##",
+  "##2##Ba            + c   c @ c  bA##1##",
+  "## ################################# ##",
+  "## ################################# ##",
+  "## ##################O###########O## ##",
+  "##                                   ##",
+  "#####################H###########H#####",
+  "#######################################"
+})
+wo:shuffleOxyd()
+
+function s1()
+  if st(no["ta"]):is("st_redbrown") then 
+    no["whA"].destination = "d1"
+  else
+    no["whA"].destination = "ta"
+  end
+end
+
+function s2()
+  if st(no["tb"]):is("st_redbrown") then 
+    no["whB"].destination = "d2"
+  else
+    no["whB"].destination = "tb"
+  end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
