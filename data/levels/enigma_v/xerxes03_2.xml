@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Trigger Happy" el:subtitle="" el:id="xerxes03"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Xerxes M. Dynatos" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Xerxes M. Dynatos</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (January 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+-- Licensed under GPL v2.0 or above 
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_tigris"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_lightglass"}
+ti["="] = {"st_rawglass"}
+ti["H"] = {"st_lightglass_hollow"}
+ti["+"] = {"st_box_wood"}
+ti["/"] = {"st_mirror_slab_e", transparent = true}
+ti["|"] = {"st_mirror_slab_w", transparent = true}
+ti["-"] = {"st_mirror_slab_s", transparent = true}
+ti["S"] = {"st_switch", target = "laser"}
+ti["1"] = {"st_door_d", faces = "ew", name = "door1"}
+ti["2"] = {"st_door_d", faces = "ew", name = "door2"}
+ti["3"] = {"st_door_d", faces = "ns", name = "door3"}
+ti["4"] = {"st_door_d", faces = "ns", name = "door4"}
+ti["L"] = {"st_laser_w", name = "laser", state = ON}
+ti["X"] = {"st_break_oxydc"}
+ti["C"] = {"st_coinslot", target = "door3"}
+ti["c"] = {"st_laserswitch", target = "door3"}
+ti["s"] = {"st_shogun_s"}
+ti["m"] = {"st_shogun_m"}
+ti["l"] = {"st_shogun_l"}
+ti["%"] = {"st_knight"}
+ti["K"] = ti["%"] .. {"it_key", code = 1}
+ti["B"] = {"st_key", code = 1, target = "door2"}
+ti["k"] = ti["%"] .. {"it_key", code = 2}
+ti["D"] = {"st_key", code = 2, target = "door4"}
+ti["h"] = {"it_hammer"}
+ti["$"] = {"it_coin_s"}
+ti["o"] = {"it_shogun_l", target = "door1"}
+ti["T"] = {"it_trigger", target = "laser"}
+ti["t"] = {"it_trigger", target = "door1", action = "open"}
+ti["O"] = {"st_oxyd_b"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+  "/#########/#############/====L============",
+  "#TTTT##@  #       tt  O =     ~~=D      O=",
+  "# sTTTTTTT#     +       = ++  ~~=   tt   =",
+  "#  m ##   1             =  ++ ~~=        =",
+  "# l  ##S###     t t     = ++  ~~======   =",
+  "#    ##      t   ttt       + X~~~~~~~K t =",
+  "#TTTT##                      X~~~~~~~k t =",
+  "#    ##                $=     ~~======   =",
+  "# o  ## +  tttttttt     =     ~~=        =",
+  "#    ##                 =     ~~=   tt   =",
+  "#TTTT##       ttt       =     ~~=        =",
+  "#   h##ttt            O =     ~~cC      O=",
+  "##################3#####==================",
+  "==================4=======================",
+  "=O 2ttTtttttttttttt ttttttXXttt  tTttttXO=",
+  "|  =       Ttttttt+tttttttXXt tt TtttttX B",
+  "=O =ttt ttttttt tttttTttttXXtttt tt tTtXO=",
+  "|=========================//====-======/=="
+})
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
