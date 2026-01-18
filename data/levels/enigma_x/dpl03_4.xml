@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="4 - 8 - 4" el:id="20070821dpl003"/>
+      <el:version el:score="3" el:release="4" el:revision="6" el:status="stable"/>
+      <el:author  el:name="Dominik Leipold"/>
+      <el:copyright>Copyright © 2008 Dominik Leipold</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">
+          Thanks to Ronald, Taztunes and Moneymaker for testing and great suggestions.
+        </el:credits>
+        <el:code>API2 conversion by /dev/null (January 2026N)</el:code>
+      </el:comments>
+      <el:score el:easy="20:25" el:difficult="34:31"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["CrackSpreading"] = 0
+wo["SlopeStrength"] = cond(wo["IsDifficult"], 15.0, 1.0)
+
+ti["."] = {"fl_abyss"}
+wo(ti, ".", 19 * 5 + 1, 12 * 5 + 1)
+
+pos = { 
+  A = po(1,1), B = po(19,1), C = po(39,1), D = po(58,1), E = po(77,1),
+  F = po(1,12), G = po(77,13),
+  H = po(1,25), I = po(77,25),
+  J = po(1,37), K = po(77,37),
+  L = po(1,48), M = po(20,49), N = po(39,49), O = po(58,49), P = po(77,49),
+  Z = po(19,12)
+}
+
+---------------------------------------- Z
+ ti["Z "] = {"fl_metal_7"}
+ ti["Z."] = {"fl_abyss"}
+ ti["Z:"] = {"fl_thief", friction = 4, adhesion = 2}
+ ti["Z-"] = {"fl_bridge_be", name = "bridgeZ"}
+ ti["Z#"] = {"st_flat"}
+ ti["Z="] = {"st_flat_breakable"}
+ ti["ZB"] = {"st_passage_black_slash"}
+ ti["Z^"] = {"st_oneway", orientation = NORTH}
+ ti["ZK"] = ti({"it_sensor", invisible = true, target = "doorZ6", action = "open"}) .. {"st_break_bug"}
+ ti["Z1"] = {"st_door_d", faces = "ns", name = "doorZ1"}
+ ti["Z2"] = {"st_door_d", faces = "ew", name = "doorZ2"}
+ ti["Z3"] = {"st_door_a", name = "doorZ3#", state = OPEN}
+ ti["Z5"] = {"st_door_c", name = "doorZ5"}
+ ti["Z6"] = {"st_door_b", name = "doorZ6"}
+ ti["ZF"] = {"st_floppy", target = {"doorZ1", "doorZ2"}}
+ ti["Zt"] = {"it_trigger", target = "doorZ5"}
+ ti["Z_"] = ti["Z="] .. {"it_puller_n"}
+ ti["Zd"] = {"it_document", text = "textthief"}
+ if wo["IsDifficult"] then
+  ti["Z+"] = ti["Z#"]
+  ti["ZG"] = ti["Z#"]
+  ti["ZZ"] = ti["Z "] .. {"st_plaster_movable"}
+  ti["Zb"] = ti["ZB"]
+  ti["Z4"] = ti["Z "] .. {"st_door_c", name = "doorZ4#"}
+  ti["ZY"] = ti["Z "] .. {"it_trigger", target = "doorZ4#*"}
+ else
+  ti["Z+"] = ti["Z."]
+  ti["ZG"] = {"st_switch_black", target = "doorZ3#*"}
+  ti["ZZ"] = ti["Z#"]
+  ti["Zb"] = ti["Z."]
+  ti["Z4"] = ti["Z#"]
+  ti["Zy"] = ti["Z#"]
+  ti["ZY"] = ti["Z."]
+ end
+ ti["ZR"] = cond(wo["IsDifficult"], {"#ac_rotor", range = 2, strength = 5}, {"#ac_rotor", -3, 0, range = 2, strength = 5})
+ ti["Z*"] = ti["Zt"] .. {"#ac_top", range = 10, strength = 150}
+
+ map_Z = {
+  "........# #........................# ################1#...",
+  "........# ########################.#                  #...",
+  "........#                        #.# ################ #...",
+  ".....########################### #.# #.........#      #...",
+  ".....===#......................# #.# ########### ##F###...",
+  ".....#==#..............######### #.#             #########",
+  ".....#=_#..............#         #.# ###########         2",
+  "######################## #########.# #.........# #########",
+  "                         #.........# #.........# #........",
+  "######## ########################### #.........# #........",
+  ".......# #                           #.........# #........",
+  ".......# # ###########################.........# #........",
+  ".......#-  #...................................# #........",
+  ".......# ###...................................# #........",
+  ".......# #.....................................# #........",
+  ".......# ####################################### #........",
+  ".......#                                         #........",
+  "##########################      ##########################",
+  "                                                          ",
+  "##########################      ##########################",
+  "..........................#    #..........................",
+  "...........................#  #...........................",
+  "...........................#  #...........................",
+  "...........................#  #...........................",
+  ".......................#####  ###############.............",
+  ".......................#                    #.............",
+  "........###.........#### ################## #.............",
+  "........#.#.........#    #................# ##############",
+  "#########^########### ###########.........#              K",
+  "B            R       B#         #.........##### ######## #",
+  "################4######         #.............# #......# #",
+  ".............+Y+b#       *      #.............# #......# #",
+  ".....#########Z#4#333####G###333#.............# #......# #",
+  ".....#::::::::d                 #.............# #......# #",
+  ".....#:########################B############### ######## #",
+  ".....#B#......................#                          #",
+  ".....#5#......................#### ############6##########",
+ }
+ mapZ = wo:newMap("?", map_Z)
+ wo:drawRect(pos["Z"], mapZ.width, mapZ.height, ti["Z "])
+ wo:drawMap(ti, pos["Z"], "Z" * mapZ)
+
+---------------------------------------- A
+ ti["A "] = {"fl_himalaya"}
+ ti["A#"] = {"st_yellow"}
+ ti["AO"] = {"st_oxyd_d"}
+ if wo["IsDifficult"] then
+   ti["AB"] = {"st_break_oxydc"}
+   ti["AG"] = {"st_ghost_break"}
+   ti["A1"] = {"st_door_d", faces = "ew", name = "doorA1"}
+   ti["AC"] = {"st_coinslot", target = "doorA1", action = "open"}
+   ti["A2"] = {"st_door_d", faces = "ew", name = "doorA2"}
+   ti["AK"] = {"st_key", code = 1, target = "doorA2"}
+   ti["A0"] = {"st_oxyd_d"}
+ else
+   ti["AB"] = ti["A "]
+   ti["AG"] = ti["A "]
+   ti["A1"] = ti["A "]
+   ti["AC"] = ti["A#"]
+   ti["A2"] = ti["A "]
+   ti["AK"] = ti["A#"]
+   ti["A0"] = ti["A "]
+ end
+
+ map_A = {
+   "##################",
+   "#O 1    # # 2 # 0#",
+   "#  #  #  K  #  # #",
+   "# #    #   # #   #",
+   "##      # #   # ##",
+   "#        C     #  ",
+   "#G      # #   #  #",
+   "# #    #   # #  ##",
+   "#  #  #  #  #  # #",
+   "#0  #   # #   B O#",
+   "##################"
+ }
+ mapA = wo:newMap("?", map_A)
+ wo:drawRect(pos["A"], mapA.width, mapA.height, ti["A "])
+ wo:drawMap(ti, pos["A"], "A" * mapA)
+
+---------------------------------------- B
+ ti["B "] = {"fl_pinkbumps"}
+ ti["B."] = {"fl_abyss"}
+ ti["B#"] = {"st_pinkbumps"}
+ ti["B="] = {"st_flat"}
+ ti["B-"] = {"fl_metal_7"}
+ ti["B>"] = {"st_boulder_e"}
+ ti["B<"] = {"st_boulder_w"}
+ ti["B^"] = {"st_puzzle_yellow", connections = "s"}
+ ti["B|"] = {"st_puzzle_yellow", connections = "ns"}
+ ti["BV"] = cond(wo["IsDifficult"], ti["B|"], ti["B "])
+ ti["Bv"] = cond(wo["IsDifficult"], ti["B "], ti["B|"])
+ ti["B_"] = {"st_puzzle_yellow", connections = "ew"}
+ ti["BH"] = cond(wo["IsDifficult"], ti["B_"], ti["B "])
+ ti["Bh"] = cond(wo["IsDifficult"], ti["B "], ti["B_"])
+ ti["B("] = {"st_puzzle_yellow", connections = "es"}
+ ti["B)"] = {"st_puzzle_yellow", connections = "sw"}
+ ti["B["] = {"st_puzzle_yellow", connections = "ne"}
+ ti["B]"] = {"st_puzzle_yellow", connections = "nw"}
+ ti["B1"] = {"st_door_d", faces = "ew", name = "doorB1"}
+ ti["B2"] = {"st_door_d", faces = "ew", name = "doorB2"}
+ ti["BK"] = {"st_key", code = 6, target = "doorB1"}
+ ti["BT"] = {"it_trigger", target = "doorB2"}
+ ti["Bt"] = cond(wo["IsDifficult"], ti["B "], ti["BT"])
+ ti["Bi"] = {"it_hammer"}
+
+ map_B = {
+  ".##################",
+  ".#>^      t T t ^<#",
+  ".##|####    ####|##",
+  ".# |     H)     [)#",
+  "=##      hVv (_) |#",
+  "-1 |     ( ) | | |#",
+  "=# | (_  | | | [_]#",
+  ".# [_]#| | | |    #",
+  ".##### [_] | |#####",
+  ".#K  #     [_]2  i#",
+  ".### #### #########"
+  }
+ mapB = wo:newMap("?", map_B)
+ wo:drawRect(po(20,1), mapB.width-1, mapB.height, ti["B "])
+ wo:drawMap(ti, pos["B"], "B" * mapB)
+ 
+---------------------------------------- C
+ ti["C "] = {"fl_bright"}
+ ti["C#"] = {"st_bluesand", cluster = 1}
+ ti["C^"] = {"st_oneway_black", orientation = NORTH}
+ ti["C>"] = {"st_oneway_black", orientation = EAST}
+ ti["C<"] = {"st_oneway_black", orientation = WEST}
+ ti["CdoorsV"] = {"st_door_d", faces = "ew", name = "doorCV%%"}
+ ti["CdoorsH"] = {"st_door_d", faces = "ns", name = "doorCH%%"}
+ ti["CE"] = {"st_door_d", faces = "ew", name = "doorCE"}
+ ti["Cf4V"] = {"st_floppy", target = "doorCV%%"}
+ ti["Cf4H"] = {"st_floppy", target = "doorCH%%"}
+ ti["CS"] = cond(wo["IsDifficult"], {"st_switch", target = "laserC"}, ti["C#"])
+ ti["CL"] = cond(wo["IsDifficult"], {"st_laser_e", name = "laserC"}, ti["C#"])
+ ti["Ce"] = cond(wo["IsDifficult"], {"st_laserswitch", target = "doorCE"}, {"st_floppy", target = "doorCE"})
+ ti["CI"] = cond(wo["IsDifficult"], {"st_door_d", faces = "ns", name = "doorCI"}, ti["C "])
+ ti["Ci"] = cond(wo["IsDifficult"], {"st_floppy", target = "doorCI"}, ti["C#"])
+ ti["Ck"] = {"it_key", code = 10}
+ ti["C;"] = cond(wo["IsDifficult"], {"it_crack_l"}, {"it_crack_m"})
+ ti["C|"] = {"it_pipe_ns"}
+ ti["C("] = {"it_pipe_es"}
+ ti["Cy"] = {"it_floppy"}
+ ti["Cl"] = {"it_extralife"}
+
+ resolverC = res.autotile(ti, {"Ca", "Cd", "Cf4V"}, {"CA", "CD", "CdoorsV"}, {"Cf", "Ch", "Cf4H"}, {"CF", "CH", "CdoorsH"})
+ map_C = {
+  "####a#############",
+  "# <A      f   g  #",
+  "# ##  #F# B #G## #",
+  "# ####i ### #    #",
+  "# | #   b   ##H#c#",
+  "#I##L  e####yyyy #",
+  "#  l#  C   Sh#d# #",
+  "#  ##  #      (#^#",
+  "#   ############;#",
+  "#   D    |   Ek> #",
+  "################ #"
+ }
+ mapC = wo:newMap("?", map_C)
+ wo:drawRect(po(40,1), mapC.width-1, mapC.height, ti["C "])
+ wo:drawMap(resolverC, pos["C"], "C" * mapC)
+
+---------------------------------------- D
+ ti["D "] = {"fl_plank"}
+ ti["D."] = {"fl_space"}
+ ti["D#"] = {"st_redmarble"}
+ ti["DE"] = {"st_mail", orientation = EAST}
+ ti["DN"] = {"st_mail", orientation = NORTH}
+ ti["D|"] = {"it_pipe_ns"}
+ ti["D_"] = {"it_pipe_ew"}
+ ti["D("] = {"it_pipe_es"}
+ ti["D)"] = {"it_pipe_sw"}
+ ti["D["] = {"it_pipe_ne"}
+ ti["D]"] = {"it_pipe_nw"}
+ ti["D>"] = {"it_pipe_w"}
+ ti["D^"] = {"it_pipe_s"}
+ ti["Dv"] = {"it_pipe_n"}
+ ti["Dl"] = ti["D "] .. ti["D["]
+ ti["D="] = cond(wo["IsDifficult"], ti["D#"], ti["D_"])
+ ti["D+"] = cond(wo["IsDifficult"], ti["D "], ti["D#"])
+ ti["D-"] = cond(wo["IsDifficult"], ti["D "], ti["D_"])
+ ti["DI"] = cond(wo["IsDifficult"], ti["D|"], ti["D "])
+ ti["Di"] = cond(wo["IsDifficult"], ti["D "], ti["D|"])
+ ti["Db"] = {"it_bomb_white"}
+ ti["Dd"] = ti["D "] .. {"it_dynamite"}
+ ti["DG"] = ti["D|"] .. {"st_lightglass"}
+
+ map_D = {
+  "##################",
+  "#  E_)_______)[](#",
+  "#  #|.b|b.).b|b._#",
+  "#  E___>__]_)[)_]#",
+  "# ##(.)b(.|bv.|b|#",
+  "# l#|b|.|b(.^b[.|#",
+  "#  E]_[___|_|]|_)#",
+  "#  #N#N#N#N#N###|#",
+  "##  i  i I   i #|#",
+  "#ddd#  +-=___# #|#",
+  "############## #G#"
+ }
+ mapD = wo:newMap("?", map_D)
+ wo:drawRect(po(62,2),13, 6, ti["D."])
+ wo:drawRect(po(74,8), 1, 4, ti["D."])
+ wo:drawRect(po(59,9),15, 2, ti["D "])
+ wo:drawMap(ti, pos["D"], "D" * mapD)
+
+---------------------------------------- E
+ ti["E "] = {"fl_himalaya"}
+ ti["E."] = {"fl_abyss"}
+ ti["E-"] = {"fl_metal_7"}
+ ti["E#"] = {"st_yellow"}
+ ti["E="] = {"st_flat"}
+ ti["E!"] = {"it_trigger", invisible = true, name = "triggersE#", target = "blockE"}
+ ti["EO"] = {"st_oxyd_d"}
+ if wo["IsDifficult"] then
+   ti["E0"] = {"st_oxyd_d"}
+   ti["EB"] = {"st_break_oxydc"}
+   ti["E1"] = {"st_door_d", faces = "ns", name = "doorE1"}
+   ti["EC"] = {"st_coinslot", target = "doorE1", action = "open"}
+   ti["E2"] = {"st_door_d", faces = "ns", name = "doorE2"}
+   ti["EK"] = {"st_key", code = 1, target = "doorE2"}
+ else
+   ti["E0"] = ti["E "]
+   ti["EB"] = ti["E "]
+   ti["E1"] = ti["E "]
+   ti["EC"] = ti["E#"]
+   ti["E2"] = ti["E "]
+   ti["EK"] = ti["E#"]
+ end
+
+ map_E = {
+  "##################",
+  "#0  ## ####  ## O#",
+  "# ##    ##  ####1#",
+  "#2###        ##  #",
+  "# ##    ##      ##",
+  "#      K  C      #",
+  "##      ##     ###",
+  "### ##        ####",
+  "## B### ##     ###",
+  "#O  ## #### ##  0#",
+  "##############! !#",
+  "..............=-=."
+ }
+ mapE = wo:newMap("?", map_E)
+ wo:drawRect(pos["E"], mapE.width, mapE.height - 1, ti["E "])
+ wo:drawMap(ti, pos["E"], "E" * mapE)
+ function blockE()
+   wo[no["triggersE#*"]] = ti["E#"]
+ end
+
+---------------------------------------- F
+ ti["F  "] = {"fl_rock"}
+ ti["F ."] = {"fl_abyss"}
+ ti["F -"] = {"fl_pinkbumps"}
+ ti["F# "] = {"st_granite"}
+ ti["F+ "] = {"st_box_wood"}
+ ti["FS "] = {"st_spitter"}
+ ti["F_ "] = {"st_puzzle_blue", connections = "ew"}
+ ti["F| "] = {"st_puzzle_blue", connections = "ns"}
+ ti["F( "] = {"st_puzzle_blue", connections = "es"}
+ ti["F) "] = {"st_puzzle_blue", connections = "sw"}
+ ti["F[ "] = {"st_puzzle_blue", connections = "ne"}
+ ti["F] "] = {"st_puzzle_blue", connections = "nw"}
+ ti["F* "] = {"st_puzzle_blue", connections = "nesw", hollow = true}
+ ti["FZ"] = {"st_puzzle_blue", intensity = 0}
+ ti["F l"] = {"it_extralife"}
+ ti["Ftriggers"] = {"it_trigger", target = "bridgeF%%"}
+ ti["Fbridges"] = {"fl_bridge", name = "bridgeF%%"}
+ 
+ r = res.composer(ti)
+ resolverF = res.autotile(res.puzzle(r, "FZ"), {"FT", "Ftriggers"}, {"F-", "Fbridges"})
+ if wo["IsDifficult"] then
+  map_F = {
+   " . . . . . . . . . . . . . . . . . . . . . .-4",
+   "# # # # # # # # # # # # # # # # # #  . . . . .",
+   "#                     | # #       #  . . . .-3",
+   "#   Z2Z2Z2Z2  # # #           _ *    . . . . .",
+   "#     Z1Z1Z1  _ )              lS #  . . .-1-2",
+   "# # # # #       |           (  l l# ",
+   "#  . .T1        *           | # # # ",
+   "#  . . . . . .        #     *     # ",
+   "# T2 . . .T3 .# |     #         ]   ",
+   "#  . . . . . .# [ _ * #     # # # # ",
+   "#  . .T4 . . .# +     #           # ",
+   "# # # # # # # # # # # # # # # # # # "
+  }
+ else
+  map_F = {
+   " . . . . . . . . . . . . . . . . . . . . . . -",
+   "# # # # # # # # # # # # # # # # # #  . . . . .",
+   "#                     | # #       #  . . . .-3",
+   "#   Z2Z2Z2    # # # _ ]              . . . . .",
+   "#     Z1Z1    _ )               # #  . . .-1-2",
+   "# # # # # # #   |              l l# ",
+   "#  . .T1        *           Z1# # # ",
+   "#  . .   .   .        #     Z1    # ",
+   "#  . . . . . .# |     #             ",
+   "# T2 . . .T3 .# [ _ * #     # # # # ",
+   "#  . . . . . .# +     #           # ",
+   "# # # # # # # # # # # # # # # # # # "
+  }
+ end
+ mapF = wo:newMap("??", map_F)
+ wo:drawRect(pos["F"], 18, 11, ti["F  "])
+ wo:drawMap(resolverF, pos["F"], "F" * mapF)
+
+---------------------------------------- G
+ ti["G "] = {"fl_ivory"}
+ ti["G~"] = {"fl_abyss"}
+ ti["G,"] = {"fl_darkgray", friction = 4.5}
+ ti["G#"] = {"st_panel"}
+ ti["GX"] = {"st_grate"}
+ ti["GG"] = {"st_lightglass"}
+ ti["GB"] = {"st_chess_black", name = "knightsG#"}
+ ti["GW"] = {"st_chess_white", name = "knightsG#"}
+ ti["Gw"] = cond(wo["IsDifficult"], ti["GW"], ti["G "])
+ ti["Gx"] = cond(wo["IsDifficult"], ti["GW"], ti["GX"])
+ ti["GC"] = ti["GB"] .. ti({"it_trigger", invisible = true, target = "transformG"}) .. ti({"fl_dark", friction = 4.5})
+ ti["G+"] = {"st_box_wood"}
+ ti["GM"] = {"st_monoflop", target = "knightsG#*", action_1 = "flip", interval = 0.5}
+ ti["G."] = ti["G,"] .. {"it_trigger", invisible = true, target = "fKnightG"}
+ ti["G_"] = {"it_pipe_ew"}
+ ti["G|"] = {"it_pipe_ns"}
+ ti["G1"] = {"it_pipe_ne"}
+ ti["G3"] = {"it_pipe_nw"}
+ ti["G]"] = ti["GX"] .. ti["G3"]
+ ti["G-"] = ti["G_"] .. ti["GG"]
+ ti["G="] = ti["G_"] .. ti["G#"]
+ ti["G("] = ti["GX"] .. {"it_pipe_es"}
+ ti["G)"] = ti["GG"] .. {"it_pipe_sw"}
+ ti["Gp"] = {"it_puller_w"}
+ ti["Gb"] = cond(wo["IsDifficult"], {"it_brush"}, ti["G "])
+ ti["GK"] = {"st_key", code = 10, target = "doorG1"}
+ ti["GD"] = {"st_door_d", faces = "ns", name = "doorG1"}
+ 
+ map_G = {
+  "--=========-)##W##",
+  "#XXMXX#XXXX(].# X#",
+  "#X### ##  #|~+#X##",
+  "#X  #X #  #13## X#",
+  "#X . . .#. X  W X#",
+  "XB # W# # .# #D#X#",
+  "#X##W # # X##  X##",
+  "#X  ##pw     #KbX#",
+  "#X .B ##.#X #  CX#",
+  "#XXXXXX#xXXXXBXXX#",
+  "##################"
+ }
+ mapG = wo:newMap("?", map_G)
+ wo:drawRect(pos["G"], mapG.width, mapG.height, ti["G "])
+ wo:drawMap(ti, pos["G"], "G" * mapG)
+
+ function fKnightG(val, src)
+   if st(src):is("st_chess") then
+     st(src):flip()
+   end
+ end
+
+ function transformG(val, src) 
+   if st(src):is("st_chess") then
+     st(src):kill()
+     wo[po(92,21)] = ti["G#"]
+   end
+ end
+
+---------------------------------------- H
+ ti["H  "] = {"fl_brick"}
+ ti["H ."] = {"fl_abyss"}
+ ti["H# "] = {"st_brick", cluster = 1}
+ ti["HS "] = {"st_switch", target = "bridgeZ"}
+ ti["HX"] = ti["H  "] .. {"st_puzzle_yellow", intensity = 2}
+ ti["HY"] = {"st_puzzle_yellow", algorithm = "marked", intensity = 6}
+ ti["HZ"] = ti["H  "] .. {"st_puzzle_yellow", intensity = 6}
+ ti["H--"] = {"fl_brick", push_directions = "nesw"}
+ ti["H ;"] = ti["H  "] .. {"it_crack_l"}
+ ti["H k"] = ti["H  "] .. {"it_key", code = 6}
+ ti["H d"] = ti["H  "] .. {"it_document", text = "textH"}
+
+ resolverH = res.puzzle(ti, "HZ", "HY", "HX")
+ if wo["IsDifficult"] then
+  map_H = {
+    "# # # # # # # # # # # # # # # # # # ",
+    "#               -- . .Y1 . . .    # ",
+    "# Z1Z1Z1Z1    --Y1Y1Y1Y1 . . .    # ",
+    "#     Z1Z1Z1  --Y1 ; ;Y1 ; ; ;    # ",
+    "# Z1Z1    Z1  --Y1Y1Y1Y1 . . .    # ",
+    "# S Z1  Z1Z1Z1  -- . .Y1 . . .      ",
+    "# Z1Z1    Z1       . . . . . .    # ",
+    "#     Z1Z1Z1       ; ; ; . . .    # ",                                           
+    "# Z1Z1Z1Z1         . . ; . . .    # ",
+    "#                  . . ; ; ; ;    # ",
+    "# # # # # # # # # # # # # # # # # # "
+  }
+ else
+  map_H = {
+    "# # # # # # # # # # # # # # # # # # ",
+    "#                  . . . . . .    # ",
+    "# X1X1X1           . . . . . .    # ",
+    "#     X1X1         . . . . . .    # ",
+    "# X1X1  X1         . . . . . .    # ",
+    "# S X1  X1               . . .      ",
+    "# X1X1  X1         . .   . . .    # ",
+    "#     X1X1         . .            # ",
+    "# X1X1X1           . . . . . .    # ",
+    "#                  . . . . . .    # ",
+    "# # # # # # # # # # # # # # # # # # "
+  }
+ end
+ mapH = wo:newMap("??", map_H)
+ wo:drawMap(resolverH, pos["H"], "H" * mapH)
+ if wo["IsDifficult"] then
+  wo[po( 9,27)] = ti["H d"]
+  wo[po( 9,28)] = ti["H  "]
+  wo[po( 9,29)] = ti["H k"]
+  wo[po(12,28)] = ti["H ;"]
+ else
+  wo[po(2,29)] = ti["H d"]
+  wo[po(2,31)] = ti["H k"]
+ end
+---------------------------------------- I
+ ti["I "] = {"fl_metal"}
+ ti["I#"] = {"st_metal"}
+ ti["IX"] = {"st_grate"}
+ ti["I+"] = {"st_plop"}
+ ti["I="] = cond(wo["IsDifficult"], ti["I+"], ti["I "])
+ ti["I1"] = {"st_door_d", faces = "ew", name = "doorI1"}
+ ti["I2"] = {"st_door_d", faces = "ns", name = "doorI2"}
+ ti["IS"] = {"st_shogun_s"}
+ ti["Ia"] = {"it_shogun_s", target = "doorI1"}
+ ti["Ib"] = {"it_shogun_s", target = "doorI2"}
+ ti["IB"] = {"#ac_bug", name = "bugI"}
+
+ map_I = {
+  "##################",
+  "#a     XX  1  #  #",
+  "# #### ##S### #B #",
+  "# #### ## ### #2##",
+  "# +     #  S     #",
+  "X X ## #X X##### #",
+  "#=#+####  X# + + #",
+  "#X#       # + + +#",
+  "#b  +##### = + + #",
+  "### +X      + + ##",
+  "##################"
+ }
+ mapI = wo:newMap("?", map_I)
+ wo:drawRect(pos["I"], mapI.width, mapI.height, ti["I "])
+ wo:drawMap(ti, pos["I"], "I" * mapI)
+
+---------------------------------------- J
+ ti["J "] = {"fl_lawn_a"}
+ ti["J~"] = {"fl_water"}
+ ti["J#"] = {"st_greenbrown"}
+ ti["J="] = ti["J~"] .. {"st_granite"}
+ ti["Jm"] = {"st_granite_movable"}
+ ti["J+"] = {"st_box_wood"}
+ ti["J1"] = {"st_door_d", faces = "ns", name = "doorJ1"}
+ ti["JK"] = {"st_key", code = 4, target = "doorJ1"}
+ ti["Jc"] = {"it_coin_l"}
+ ti["Jl"] = {"it_extralife"}
+ if wo["IsDifficult"] then
+   ti["JW"] = {"st_passage_white_cross", name = "destJ"} .. ti({"it_key", code = 4})
+   ti["JG"] = ti["J~"]
+   ti["J-"] = ti["J+"]
+   ti["Jw"] = ti["J "]
+   ti["J_"] = ti["J~"]
+   ti["J*"] = ti["J+"] .. ti["Jc"]
+   ti["JM"] = ti["Jm"] .. ti["Jc"]
+   ti["Jd"] = ti["J~"]
+ else
+   ti["JW"] = {"fl_lawn_a", name = "destJ"}
+   ti["JG"] = ti["J="]
+   ti["J-"] = ti["J "]
+   ti["Jw"] = ti["J+"]
+   ti["J_"] = ti["J "]
+   ti["J*"] = ti["J+"]
+   ti["JM"] = ti["J "]
+   ti["Jd"] = {"it_document", text = "textJ"}
+ end
+
+ map_J = {
+  "##################",
+  "#~~ W    -_=~=~~~#",
+  "#~~# +*#~~~~~~~~~#",
+  "#~= ++~~~=~~ + ~ #",
+  "#~~~ ~==~~~+*+    ",
+  "#~=~~=dK=~=#l M~~#",
+  "#~~=~~~~~~~~~~G~ #",
+  "#  +~  ~~=~   #  #",
+  "# # w# ~~~~~~=~~~#",
+  "#       #~~~~~~~~#",
+  "#####1############"
+ }
+ mapJ = wo:newMap("?", map_J)
+ wo:drawRect(pos["J"], mapJ.width, mapJ.height, ti["J "])
+ wo:drawMap(ti, pos["J"], "J" * mapJ)
+
+---------------------------------------- K
+ ti["K "] = {"fl_gravel"}
+ ti["K."] = {"fl_abyss"}
+ ti["K:"] = cond(wo["IsDifficult"], ti["K."], ti["K "])
+ ti["K^"] = {"fl_slope_pn"}
+ ti["K>"] = {"fl_slope_pe"}
+ ti["Kv"] = {"fl_slope_ps"}
+ ti["K<"] = {"fl_slope_pw"}
+ ti["K#"] = {"st_darkgray"}
+ ti["K_"] = cond(wo["IsDifficult"], ti["K#"], ti["K>"])
+ ti["K*"] = cond(wo["IsDifficult"], ti["K#"], ti["K "])
+ ti["KX"] = {"st_passage_black_cross"}
+ ti["KZ"] = {"st_break_bug"}
+ ti["Kz"] = ti["K>"] .. ti["KZ"]
+ ti["Ky"] = cond(wo["IsDifficult"], ti["K>"], ti["K."]) .. {"st_door_d", faces = "ew", name = "doorK1", state = OPEN}
+ ti["KY"] = {"st_door_d", faces = "ew", name = "doorK2"}
+ ti["K+"] = {"st_charge_plus"}
+ ti["K-"] = {"st_charge_minus"}
+ ti["K/"] = {"st_charge_zero"}
+ ti["K%"] = {"st_turnstile_green"}
+ ti["K&"] = {"st_turnstile_red"}
+ ti["K8"] = {"st_turnstilearm_n"}
+ ti["K6"] = {"st_turnstilearm_e"}
+ ti["K2"] = {"st_turnstilearm_s"}
+ ti["K4"] = {"st_turnstilearm_w"}
+ ti["KS"] = cond(wo["IsDifficult"], {"st_switch_black", target = "setSFK"}, ti["K#"])
+ ti["Ks"] = {"st_switch_black", target = "magK"}
+ ti["KT"] = cond(wo["IsDifficult"], ti["Ks"], ti["K#"])
+ ti["Kt"] = cond(wo["IsDifficult"], ti["K#"], ti["Ks"])
+ ti["K="] = ti["K2"] .. {"it_key", code = 11}
+ ti["K7"] = ti["K^"] .. {"it_trigger", target = "rO4#*", action = "signal"}
+ ti["K9"] = ti["K>"] .. {"it_trigger", target = "rO1#*", action = "signal"}
+ ti["K3"] = ti["Kv"] .. {"it_trigger", target = "rO2#*", action = "signal"}
+ ti["K1"] = ti["K<"] .. {"it_trigger", target = "rO3#*", action = "signal"}
+ ti["K0"] = cond(wo["IsDifficult"], {"it_trigger", target = "doorK1"}, ti["K "])
+ ti["K!"] = ti["K>"] .. {"it_sensor", invisible = true, name = "sK", target = "rbK2I"}
+ ti["KU"] = cond(wo["IsDifficult"], {"it_magnet", name ="magK", range = 5}, {"nil"})
+ ti["Ku"] = ti["Kv"] .. cond(wo["IsDifficult"], {"nil"}, {"it_magnet", name ="magK", range = 5})
+ ti["Ktriggers"] = {"it_trigger", target = "mediK%%", action = "flip"}
+ ti["Kmedis"] = {"it_meditation_hollow", name = "mediK%%"}
+ ti["K@"] = ti["K>"] .. {"#ac_bug", name = "bugK"}
+
+ resolverK = res.autotile(ti, {"KA", "KO", "Ktriggers"}, {"Ka", "Ko", "Kmedis"})
+ map_K = {
+  "#-+###############",
+  "#  # : y>z!@abcde#",
+  "#  # 0%#####fghij#",
+  "   #  2    Sklmno#",
+  "#  ###& 4%6####_v#",
+  "/     2 Z=Z  *U#u#",
+  "#######Z #X# ###v#",
+  "#ABCDE# ZX 8.#>9v#",
+  "#FGHIJ#Z &4%6#7#3#",
+  "#KLMNOY Z2 2.#^1<#",
+  "###T#t############"
+ }
+ mapK = wo:newMap("?", map_K)
+ wo:drawRect(pos["K"], mapK.width, mapK.height, ti["K "])
+ wo:drawMap(resolverK, pos["K"], "K" * mapK)
+
+ function setSFK(val,src)
+  wo["SlopeStrength"] = cond(val == false , 15, 0)
+ end
+
+ function rbK2I()
+  wo:add({"ot_rubberband", anchor1 = "bugI", anchor2 = "bugK", strength = 100, length = 1.5})
+  no["doorK2"]:open()
+  if not wo["IsDifficult"] then no["doorK1"]:close() end
+  no["sK"]:kill()
+ end
+
+---------------------------------------- L
+ ti["L."] = {"fl_abyss"}
+ ti["L-"] = {"fl_metal_7"}
+ ti["L="] = {"st_flat"}
+ ti["L "] = {"fl_himalaya"}
+ ti["L#"] = {"st_yellow"}
+ ti["LO"] = {"st_oxyd_d"}
+ if wo["IsDifficult"] then
+   ti["LB"] = {"st_break_oxydc"}
+   ti["LG"] = {"st_ghost_break"}
+   ti["L1"] = {"st_door_d", faces = "ns", name = "doorL1"}
+   ti["LC"] = {"st_coinslot", target = "doorL1", action = "open"}
+   ti["L2"] = {"st_door_d", faces = "ns", name = "doorL2"}
+   ti["LK"] = {"st_key", code = 1, target = "doorL2"}
+   ti["L0"] = {"st_oxyd_d"}
+ else
+   ti["LB"] = ti["L "]
+   ti["LG"] = ti["L "]
+   ti["L1"] = ti["L "]
+   ti["LC"] = ti["L#"]
+   ti["L2"] = ti["L "]
+   ti["LK"] = ti["L#"]
+   ti["L0"] = ti["L "]
+ end
+
+ map_L = {
+  "....=-=...........",
+  "##### ############",
+  "#0 B   #   #   #O#",
+  "#  # # # K # # #1#",
+  "# #  ##  #   #   #",
+  "# # # # # # # # ##",
+  "##  ##  ##  ##  ##",
+  "## # # # # # # # #",
+  "#   #   #  ##  ###",
+  "#G# # # C # #2# ##",
+  "#O#   #   #     0#",
+  "##################"
+ }
+ mapL = wo:newMap("?", map_L)
+ wo:drawRect(pos["L"], mapL.width, mapL.height, ti["L "])
+ wo:drawMap(ti, pos["L"], "L" * mapL)
+
+---------------------------------------- M
+ ti["M "] = {"fl_lawn"}
+ ti["M("] = {"fl_lawn_e1"}
+ ti["M)"] = {"fl_lawn_e3"}
+ ti["M["] = {"fl_lawn_e2"}
+ ti["M]"] = {"fl_lawn_e4"}
+ ti["M~"] = {"fl_water"}
+ ti["M#"] = {"st_greenbrown"}
+ ti["MF"] = {"st_flash"}
+ ti["MB"] = {"st_blocker", name = "blockersM#"}
+ ti["MS"] = {"st_switch_white", target = "vtM"}
+ ti["MW"] = {"st_passage_white_frame"}
+ ti["MY"] = ti({"it_seed"}) .. cond(wo["IsDifficult"], {"st_blur_magic"}, {"st_passage_black_frame"})
+ ti["Md"] = {"it_document", text = "textM"}
+ ti["Mr"] = {"it_ring"}
+ ti["Mx"] = {"it_cross"}
+ ti["Mc"] = cond(wo["IsDifficult"], ti["M "], ti["Mx"])
+ ti["Mp"] = cond(wo["IsDifficult"], {"it_pencil"}, ti["M "])
+ ti["MV"] = ti["MW"] .. {"it_vortex_closed", name = "vortexM", destination = "destJ"}
+ ti["M@"] = ti({"#ac_marble_white"}) .. cond(wo["IsDifficult"], {"it_magicwand"}, {"it_key", code = 4})
+
+ map_M = {
+  "##### ############",
+  "#x    #  #x#c#x  #",
+  "# F ####() # ### #",
+  "#r d#c# []## #p  #",
+  "##### Y #  ~W   W#",
+  "#V#   # #######Y #",
+  "# # # # W #   # ~#",
+  "#~ W# # #   # #S #",
+  "##Y## ####### ##B#",
+  "#     Bc        @#",
+  "##################"
+ }
+ mapM = wo:newMap("?", map_M)
+ wo:drawRect(pos["M"], mapM.width, mapM.height, ti["M "])
+ wo:drawMap(ti, pos["M"], "M" * mapM)
+ 
+ hit = 0
+ function vtM() 
+   if hit == 0 then
+     wo[po(21,56)] = {"it_trigger", name = "tM", invisible = true, target = "removeM"}
+     hit = 1
+   end
+   no["vortexM"]:toggle()
+ end
+ 
+ function removeM()
+   no["blockersM#*"]:open()
+   no["tM"]:kill()
+ end
+ 
+---------------------------------------- N
+ ti["N "] = {"fl_sand"}
+ ti["N~"] = {"fl_water"}
+ ti["Nh"] = {"fl_samba_h"}
+ ti["Nv"] = {"fl_samba_v"}
+ ti["N#"] = {"st_redrock"}
+ ti["N1"] = {"st_boulder_e", name = "bN1"}
+ ti["N2"] = ti["N~"] .. {"st_boulder_n", name = "bN2"}
+ ti["N3"] = ti["N~"] .. {"st_boulder_n", name = "bN3"}
+ ti["N!"] = {"it_seed_volcano"}
+ ti["Nk"] = {"it_cherry"}
+ ti["Nt"] = {"it_drop"}
+ ti["ND"] = {"it_document", text = "textN1"}
+ ti["Nd"] = {"it_document", text = "textN2"}
+ ti["Na"] = {"it_sensor", invisible = true, target = "bN1w"} .. cond(wo["IsDifficult"], ti({"st_nil"}), ti["Nh"]) 
+ ti["NA"] = {"it_sensor", invisible = true, target = "bN1e"} .. cond(wo["IsDifficult"], ti({"st_nil"}), ti["Nv"]) 
+ ti["Nb"] = {"it_sensor", invisible = true, target = "bN2s"}
+ ti["NB"] = {"it_sensor", invisible = true, target = "bN2n"}
+ ti["Nc"] = {"it_sensor", invisible = true, target = "bN3s"} .. cond(wo["IsDifficult"], ti({"st_nil"}), ti["Nh"])
+ ti["NC"] = {"it_sensor", invisible = true, target = "bN3n"} .. cond(wo["IsDifficult"], ti({"st_nil"}), ti["Nv"])
+
+ if wo["IsDifficult"] then
+  map_N = {
+   "##############D###",
+   "#k~~~   ~~~a~ba ~#",
+   "#    1#  ~~ ~cb  #",
+   "#B~~ a~a~~a   ~~~#",
+   "#~~~b~~ ~~  ~ ~b~#",
+   "#bca  c    ~~    #",
+   "#~#~b ~~ ~~A~ ~~##",
+   "#~2~~ ~~c~~c~ ~~3#",
+   "#dC~~     ~    ~~#",
+   "#!    ~~ ~~ ~~  t#",
+   "##################"
+  }
+ else
+  map_N = {
+   "##############D###",
+   "#k~~~   ~~~a~ a ~#",
+   "#    1# C~~ ~c   #",
+   "#k~~ a~a~~a   ~~~#",
+   "#~~~ ~~ ~~  ~ ~ ~#",
+   "#  ac      ~~   A#",
+   "#~~~  ~~ ~~A~ ~~##",
+   "#~C~~ ~~ ~~c~ ~~3#",
+   "#  ~~     ~    ~~#",
+   "#~    ~~ ~~ ~~  t#",
+   "##################"
+  }
+ end
+ mapN = wo:newMap("?", map_N)
+ if wo["IsDifficult"] then
+  for x = 39,56 do
+   for y = 49,59 do
+    if random(1,2) == 1 then
+     wo[po(x,y)] = {"fl_samba"} 
+    else 
+     wo[po(x,y)] = ti["N "]
+    end
+   end
+  end
+ else
+    wo:drawRect(pos["N"], mapN.width, mapM.height, ti["N "])
+ end
+ wo:drawMap(ti, pos["N"], "N" * mapN)
+
+ function bN1w()
+  no["bN1"]:orientate(WEST)
+ end
+ function bN1e()
+  no["bN1"]:orientate(EAST)
+ end
+ function bN2n()
+  no["bN2"]:orientate(NORTH)
+ end
+ function bN2s()
+  no["bN2"]:orientate(SOUTH)
+ end
+ function bN3n()
+  no["bN3"]:orientate(NORTH)
+ end
+ function bN3s()
+  no["bN3"]:orientate(SOUTH)
+ end
+
+---------------------------------------- O
+ rmO = cond(wo["IsDifficult"], 2, 1)         -- rubberband minlength
+ hsO = cond(wo["IsDifficult"], 7, 4)         -- horse strength
+ bsO = cond(wo["IsDifficult"], OPEN, CLOSED) -- bridge state
+ randK = random(1,12)
+
+ ti["O-"] = {"fl_metal_7"}
+ ti["O="] = {"st_flat"}
+ ti["O "] = {"fl_mortar"}
+ ti["O."] = {"fl_abyss"}
+ ti["O,"] = {"fl_bridge_gc", state = CLOSED}
+ ti["O;"] = {"fl_bridge_gc", name = "bridgeO", state = bsO}
+ ti["O#"] = {"st_concrete"}
+ ti["OP"] = {"st_passage_black_cross"} .. ti({"it_document", text = "textO"})
+ ti["OA"] = {"st_disco_dark", name = "rO1#"}
+ ti["OB"] = {"st_disco_dark", name = "rO2#"}
+ ti["OC"] = {"st_disco_dark", name = "rO3#"}
+ ti["OD"] = {"st_disco_dark", name = "rO4#"}
+ ti["OS"] = ti["O."] .. {"st_scissors"}
+ ti["O*"] = ti["O."] .. {"st_portal_horse"}
+ ti["OT"] = ti["O."] .. {"st_monoflop", interval = 2, target = "doorO4"}
+ ti["O1"] = ti["O,"] .. {"st_door_d", faces = "ns", name = "doorO1"}
+ ti["O2"] = ti["O;"] .. {"st_door_d", faces = "ew", name = "doorO2"}
+ ti["O3"] = ti["O,"] .. {"st_door_d", faces = "ew", name = "doorO3"}
+ ti["O4"] = ti["O,"] .. {"st_door_d", faces = "ew", name = "doorO4"}
+ ti["O5"] = ti["O,"] .. {"st_door_d", faces = "ns", name = "doorO5"} .. ti({"it_rubberband", anchor2 = "hO3", strength = 30, length = 3, min = rmO})
+ ti["O6"] = ti["O,"] .. {"st_door_d", faces = "ew", name = "doorO6"}
+ ti["O7"] = {"st_door_d", faces = "ew", name = "doorO7"}
+ ti["O8"] = {"st_door_d", faces = "ew", name = "doorO8"}
+ ti["Ow"] = {"fl_mortar", name = "dO1"} .. ti({"#ac_horse", strength = hsO, destination = {"dO1","dO2","dO3","dO4"}})
+ ti["Ox"] = {"fl_mortar", name = "dO2"}
+ ti["Oy"] = {"fl_mortar", name = "dO3"}
+ ti["Oz"] = {"fl_mortar", name = "dO4"}
+ ti["O~"] = ti["O."] .. cond(wo["IsDifficult"], {"it_trigger", target = "bridgeO"}, {"it_nil"})
+ ti["Ok"] = cond(wo["IsDifficult"], {"it_key", code = 1}, {"it_nil"})
+ ti["Oq"] = {"it_sensor", invisible = true, target = "doorO1", action = "open"}
+ ti["Or"] = ti["O."] .. {"it_trigger", target = "doorO2"}
+ ti["Os"] = ti["O."] .. {"it_trigger", target = "doorO3"}
+ ti["Ot"] = {"it_trigger", target = "doorO5", action = "open"}
+ ti["Ou"] = {"it_sensor", invisible = true, target = "doorO7", action = "open"}
+ ti["Ov"] = ti["O."] .. {"it_trigger", target = "doorO6", action = "open"}
+ ti["Ol"] = {"it_extralife"}
+ ti["Oh"] = {"#ac_horse", name = "hO1"}
+ ti["Oi"] = {"#ac_horse", name = "hO2"}
+ ti["Oj"] = {"#ac_horse", name = "hO3"}
+ 
+ map_O = {
+  "######## #########.",
+  "#q      P7     *S#.",
+  "#1#########5######.",
+  "#    2 l 4u  #   #.",
+  "#h  i#w y#   6   #.",
+  "#  . #z x# **#   #.",
+  "# .r~#...# *v#   #=",
+  "# .s.#.T.# *##   8-",
+  "#  . #...# * #   #=",
+  "#    3  t# *j# k #.",
+  "##################."
+ }
+ mapO = wo:newMap("?", map_O)
+ wo:drawRect(pos["O"], mapK.width, mapK.height, ti["O "])
+ wo:drawRect(po(59,52),4,7, ti["OA"])
+ wo:drawMap(ti, po(64,52), "O_", {"OBOBOB","OBOBOB","OBOBOB","OBO_OB","OBOBOB","OBOBOB","OBOBOB"})
+ wo:drawMap(ti, po(68,52), "O_", {"OCOCOC","OCOCOC","OCO_O_","OCO_OC","OCO_O_","OCO_OC","OCO_OC"})
+ wo:drawMap(ti, po(72,52), "O_", {"O_ODO_","ODODO_","O_ODO_","O_ODO_","O_ODOD","O_ODO_","O_ODO_"})
+ wo:drawMap(ti, pos["O"], "O" * mapO)
+ wo:add({"ot_rubberband", anchor1 = "hO1", anchor2 = "hO2", strength = 50, length = 3})
+ 
+ plO = {
+  po(72,52), po(72,54), po(72,55), po(72,56), po(72,57), po(72,58), 
+  po(74,52), po(74,53), po(74,54), po(74,55), po(74,57), po(74,58)
+ }
+ for i = 1, 12 do
+   if i == randK then
+     wo[plO[i]] = {"st_key", code = 11, target = "doorO8"}
+   else
+     wo[plO[i]] = {"st_key"}
+   end
+ end
+ 
+---------------------------------------- P
+ ti["P "] = {"fl_himalaya"}
+ ti["P#"] = {"st_yellow"}
+ ti["PO"] = {"st_oxyd_d"}
+ if wo["IsDifficult"] then
+   ti["PB"] = {"st_break_oxydc"}
+   ti["PG"] = {"st_ghost_break"}
+   ti["P1"] = {"st_door_d", faces = "ns", name = "doorP1"}
+   ti["PC"] = {"st_coinslot", target = "doorP2", action = "open"}
+   ti["P2"] = {"st_door_d", faces = "ew", name = "doorP2"}
+   ti["PK"] = {"st_key", code = 1, target = "doorP1"}
+   ti["P0"] = {"st_oxyd_d"}
+ else
+   ti["PB"] = ti["P "]
+   ti["PG"] = ti["P "]
+   ti["P1"] = ti["P "]
+   ti["PC"] = ti["P#"]
+   ti["P2"] = ti["P "]
+   ti["PK"] = ti["P#"]
+   ti["P0"] = ti["P "]
+ end
+
+ map_P = {
+  "##################",
+  "#O         #    0#",
+  "#  ####### #1#####",
+  "#  G  #    #    ##",
+  "##### # ####### ##",
+  "#     #    #    ##",
+  "# #######C # K####",
+  "      #    #    ##",
+  "##### # ####### ##",
+  "#0  B #       2 O#",
+  "##################"
+ }
+ mapP = wo:newMap("?", map_P)
+ wo:drawRect(pos["P"], mapP.width, mapP.height, ti["P "])
+ wo:drawMap(ti, pos["P"], "P" * mapP)
+
+---------------------------------------- draw maps
+
+ti["@"] = {"ac_marble_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+if (wo["CreatingPreview"]) then  wo[{76.6, 17.5}] = ti["@"] else wo[{48, 30.5}] = ti["@"] end
+
+wo:shuffleOxyd()
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="textH">
+        <el:english>Start the next explosion at brick 17 (counting from left)!</el:english>
+        <el:translation el:lang="de">Die nächste Explosion bei Stein 17 von links starten!</el:translation>
+      </el:string>
+      <el:string el:key="textJ">
+        <el:english>Hint: The white ball's got the key.</el:english>
+        <el:translation el:lang="de">Tipp: Die weiße Kugel hat den Schlüssel.</el:translation>
+      </el:string>
+      <el:string el:key="textM">
+        <el:english>Use of ring only allowed on marked areas.</el:english>
+        <el:translation el:lang="de">Benutzung des Rings nur auf markierten Flächen erlaubt.</el:translation>
+      </el:string>
+      <el:string el:key="textN1">
+        <el:english>Take your time ...</el:english>
+        <el:translation el:lang="de">Nimm dir Zeit ...</el:translation>
+      </el:string>
+      <el:string el:key="textN2">
+        <el:english>Caution! Don't use for bridge-building!</el:english>
+        <el:translation el:lang="de">Vorsicht! Nicht zum Brückenbau verwenden!</el:translation>
+      </el:string>
+      <el:string el:key="textO">
+        <el:english>Looks pretty dark!</el:english>
+        <el:translation el:lang="de">Sieht ja ziemlich düster aus!</el:translation>
+      </el:string>
+      <el:string el:key="textthief">
+        <el:english>Prevent theft! Don't leave valuables in your inventory!</el:english>
+        <el:translation el:lang="de">Stopp dem Diebstahl! Lassen Sie keine Wertsachen im Inventar!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
