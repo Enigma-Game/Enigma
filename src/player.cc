@@ -182,8 +182,12 @@ void player::AddYinYang() {
 }
 
 void player::LevelLoaded(bool isRestart) {
-    if (server::TwoPlayerGame && server::SingleComputerGame)
+    if (server::TwoPlayerGame && server::SingleComputerGame) {
         AddYinYang();
+    }
+    if (server::ProvideYinYang) {
+        AddYinYang();
+    }
     RedrawInventory();
 }
 
