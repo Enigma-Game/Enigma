@@ -32,9 +32,9 @@ namespace enigma { namespace gui {
         const char **info;
         int          curPage;
         int          numPages;
-        Widget      *but_ok;
-        Widget      *pgup;
-        Widget      *pgdown;
+        Widget      *but_ok = nullptr;
+        Widget      *pgup = nullptr;
+        Widget      *pgdown = nullptr;
         ecl::GC     *current_gc;
 
         int process_infotext(bool render);
