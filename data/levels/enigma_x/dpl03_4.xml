@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="4 - 8 - 4" el:id="20070821dpl003"/>
-      <el:version el:score="3" el:release="4" el:revision="6" el:status="stable"/>
+      <el:version el:score="3" el:release="4" el:revision="7" el:status="stable"/>
       <el:author  el:name="Dominik Leipold"/>
       <el:copyright>Copyright © 2008 Dominik Leipold</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,7 +16,7 @@
         <el:credits el:showinfo="true" el:showstart="false">
           Thanks to Ronald, Taztunes and Moneymaker for testing and great suggestions.
         </el:credits>
-        <el:code>API2 conversion by /dev/null (January 2026N)</el:code>
+        <el:code>API2 conversion by /dev/null (January 2026)</el:code>
       </el:comments>
       <el:score el:easy="20:25" el:difficult="34:31"/>
     </el:info>
@@ -122,21 +122,21 @@ pos = {
  ti["A#"] = {"st_yellow"}
  ti["AO"] = {"st_oxyd_d"}
  if wo["IsDifficult"] then
-   ti["AB"] = {"st_break_oxydc"}
-   ti["AG"] = {"st_ghost_break"}
-   ti["A1"] = {"st_door_d", faces = "ew", name = "doorA1"}
-   ti["AC"] = {"st_coinslot", target = "doorA1", action = "open"}
-   ti["A2"] = {"st_door_d", faces = "ew", name = "doorA2"}
-   ti["AK"] = {"st_key", code = 1, target = "doorA2"}
-   ti["A0"] = {"st_oxyd_d"}
+  ti["AB"] = {"st_break_oxydc"}
+  ti["AG"] = {"st_ghost_break"}
+  ti["A1"] = {"st_door_d", faces = "ew", name = "doorA1"}
+  ti["AC"] = {"st_coinslot", target = "doorA1", action = "open"}
+  ti["A2"] = {"st_door_d", faces = "ew", name = "doorA2"}
+  ti["AK"] = {"st_key", code = 1, target = "doorA2"}
+  ti["A0"] = {"st_oxyd_d"}
  else
-   ti["AB"] = ti["A "]
-   ti["AG"] = ti["A "]
-   ti["A1"] = ti["A "]
-   ti["AC"] = ti["A#"]
-   ti["A2"] = ti["A "]
-   ti["AK"] = ti["A#"]
-   ti["A0"] = ti["A "]
+  ti["AB"] = ti["A "]
+  ti["AG"] = ti["A "]
+  ti["A1"] = ti["A "]
+  ti["AC"] = ti["A#"]
+  ti["A2"] = ti["A "]
+  ti["AK"] = ti["A#"]
+  ti["A0"] = ti["A "]
  end
 
  map_A = {
@@ -194,7 +194,7 @@ pos = {
   ".##### [_] | |#####",
   ".#K  #     [_]2  i#",
   ".### #### #########"
-  }
+ }
  mapB = wo:newMap("?", map_B)
  wo:drawRect(po(20,1), mapB.width-1, mapB.height, ti["B "])
  wo:drawMap(ti, pos["B"], "B" * mapB)
@@ -293,19 +293,19 @@ pos = {
  ti["E!"] = {"it_trigger", invisible = true, name = "triggersE#", target = "blockE"}
  ti["EO"] = {"st_oxyd_d"}
  if wo["IsDifficult"] then
-   ti["E0"] = {"st_oxyd_d"}
-   ti["EB"] = {"st_break_oxydc"}
-   ti["E1"] = {"st_door_d", faces = "ns", name = "doorE1"}
-   ti["EC"] = {"st_coinslot", target = "doorE1", action = "open"}
-   ti["E2"] = {"st_door_d", faces = "ns", name = "doorE2"}
-   ti["EK"] = {"st_key", code = 1, target = "doorE2"}
+  ti["E0"] = {"st_oxyd_d"}
+  ti["EB"] = {"st_break_oxydc"}
+  ti["E1"] = {"st_door_d", faces = "ns", name = "doorE1"}
+  ti["EC"] = {"st_coinslot", target = "doorE1", action = "open"}
+  ti["E2"] = {"st_door_d", faces = "ns", name = "doorE2"}
+  ti["EK"] = {"st_key", code = 1, target = "doorE2"}
  else
-   ti["E0"] = ti["E "]
-   ti["EB"] = ti["E "]
-   ti["E1"] = ti["E "]
-   ti["EC"] = ti["E#"]
-   ti["E2"] = ti["E "]
-   ti["EK"] = ti["E#"]
+  ti["E0"] = ti["E "]
+  ti["EB"] = ti["E "]
+  ti["E1"] = ti["E "]
+  ti["EC"] = ti["E#"]
+  ti["E2"] = ti["E "]
+  ti["EK"] = ti["E#"]
  end
 
  map_E = {
@@ -325,8 +325,9 @@ pos = {
  mapE = wo:newMap("?", map_E)
  wo:drawRect(pos["E"], mapE.width, mapE.height - 1, ti["E "])
  wo:drawMap(ti, pos["E"], "E" * mapE)
+
  function blockE()
-   wo[no["triggersE#*"]] = ti["E#"]
+  wo[no["triggersE#*"]] = ti["E#"]
  end
 
 ---------------------------------------- F
@@ -348,8 +349,8 @@ pos = {
  ti["Ftriggers"] = {"it_trigger", target = "bridgeF%%"}
  ti["Fbridges"] = {"fl_bridge", name = "bridgeF%%"}
  
- r = res.composer(ti)
- resolverF = res.autotile(res.puzzle(r, "FZ"), {"FT", "Ftriggers"}, {"F-", "Fbridges"})
+ rF = res.composer(ti)
+ resolverF = res.autotile(res.puzzle(rF, "FZ"), {"FT", "Ftriggers"}, {"F-", "Fbridges"})
  if wo["IsDifficult"] then
   map_F = {
    " . . . . . . . . . . . . . . . . . . . . . .-4",
@@ -432,16 +433,15 @@ pos = {
  wo:drawMap(ti, pos["G"], "G" * mapG)
 
  function fKnightG(val, src)
-   if st(src):is("st_chess") then
-     st(src):flip()
-   end
+  if st(src):is("st_chess") then
+   st(src):flip()
+  end
  end
-
  function transformG(val, src) 
-   if st(src):is("st_chess") then
-     st(src):kill()
-     wo[po(92,21)] = ti["G#"]
-   end
+  if st(src):is("st_chess") then
+   st(src):kill()
+   wo[po(92,21)] = ti["G#"]
+  end
  end
 
 ---------------------------------------- H
@@ -489,6 +489,7 @@ pos = {
  end
  mapH = wo:newMap("??", map_H)
  wo:drawMap(resolverH, pos["H"], "H" * mapH)
+
  if wo["IsDifficult"] then
   wo[po( 9,27)] = ti["H d"]
   wo[po( 9,28)] = ti["H  "]
@@ -498,6 +499,7 @@ pos = {
   wo[po(2,29)] = ti["H d"]
   wo[po(2,31)] = ti["H k"]
  end
+
 ---------------------------------------- I
  ti["I "] = {"fl_metal"}
  ti["I#"] = {"st_metal"}
@@ -540,23 +542,23 @@ pos = {
  ti["Jc"] = {"it_coin_l"}
  ti["Jl"] = {"it_extralife"}
  if wo["IsDifficult"] then
-   ti["JW"] = {"st_passage_white_cross", name = "destJ"} .. ti({"it_key", code = 4})
-   ti["JG"] = ti["J~"]
-   ti["J-"] = ti["J+"]
-   ti["Jw"] = ti["J "]
-   ti["J_"] = ti["J~"]
-   ti["J*"] = ti["J+"] .. ti["Jc"]
-   ti["JM"] = ti["Jm"] .. ti["Jc"]
-   ti["Jd"] = ti["J~"]
+  ti["JW"] = {"st_passage_white_cross", name = "destJ"} .. ti({"it_key", code = 4})
+  ti["JG"] = ti["J~"]
+  ti["J-"] = ti["J+"]
+  ti["Jw"] = ti["J "]
+  ti["J_"] = ti["J~"]
+  ti["J*"] = ti["J+"] .. ti["Jc"]
+  ti["JM"] = ti["Jm"] .. ti["Jc"]
+  ti["Jd"] = ti["J~"]
  else
-   ti["JW"] = {"fl_lawn_a", name = "destJ"}
-   ti["JG"] = ti["J="]
-   ti["J-"] = ti["J "]
-   ti["Jw"] = ti["J+"]
-   ti["J_"] = ti["J "]
-   ti["J*"] = ti["J+"]
-   ti["JM"] = ti["J "]
-   ti["Jd"] = {"it_document", text = "textJ"}
+  ti["JW"] = {"fl_lawn_a", name = "destJ"}
+  ti["JG"] = ti["J="]
+  ti["J-"] = ti["J "]
+  ti["Jw"] = ti["J+"]
+  ti["J_"] = ti["J "]
+  ti["J*"] = ti["J+"]
+  ti["JM"] = ti["J "]
+  ti["Jd"] = {"it_document", text = "textJ"}
  end
 
  map_J = {
@@ -639,7 +641,6 @@ pos = {
  function setSFK(val,src)
   wo["SlopeStrength"] = cond(val == false , 15, 0)
  end
-
  function rbK2I()
   wo:add({"ot_rubberband", anchor1 = "bugI", anchor2 = "bugK", strength = 100, length = 1.5})
   no["doorK2"]:open()
@@ -655,21 +656,21 @@ pos = {
  ti["L#"] = {"st_yellow"}
  ti["LO"] = {"st_oxyd_d"}
  if wo["IsDifficult"] then
-   ti["LB"] = {"st_break_oxydc"}
-   ti["LG"] = {"st_ghost_break"}
-   ti["L1"] = {"st_door_d", faces = "ns", name = "doorL1"}
-   ti["LC"] = {"st_coinslot", target = "doorL1", action = "open"}
-   ti["L2"] = {"st_door_d", faces = "ns", name = "doorL2"}
-   ti["LK"] = {"st_key", code = 1, target = "doorL2"}
-   ti["L0"] = {"st_oxyd_d"}
+  ti["LB"] = {"st_break_oxydc"}
+  ti["LG"] = {"st_ghost_break"}
+  ti["L1"] = {"st_door_d", faces = "ns", name = "doorL1"}
+  ti["LC"] = {"st_coinslot", target = "doorL1", action = "open"}
+  ti["L2"] = {"st_door_d", faces = "ns", name = "doorL2"}
+  ti["LK"] = {"st_key", code = 1, target = "doorL2"}
+  ti["L0"] = {"st_oxyd_d"}
  else
-   ti["LB"] = ti["L "]
-   ti["LG"] = ti["L "]
-   ti["L1"] = ti["L "]
-   ti["LC"] = ti["L#"]
-   ti["L2"] = ti["L "]
-   ti["LK"] = ti["L#"]
-   ti["L0"] = ti["L "]
+  ti["LB"] = ti["L "]
+  ti["LG"] = ti["L "]
+  ti["L1"] = ti["L "]
+  ti["LC"] = ti["L#"]
+  ti["L2"] = ti["L "]
+  ti["LK"] = ti["L#"]
+  ti["L0"] = ti["L "]
  end
 
  map_L = {
@@ -730,16 +731,15 @@ pos = {
  
  hit = 0
  function vtM() 
-   if hit == 0 then
-     wo[po(21,56)] = {"it_trigger", name = "tM", invisible = true, target = "removeM"}
-     hit = 1
-   end
-   no["vortexM"]:toggle()
+  if hit == 0 then
+   wo[po(21,56)] = {"it_trigger", name = "tM", invisible = true, target = "removeM"}
+   hit = 1
+  end
+  no["vortexM"]:toggle()
  end
- 
  function removeM()
-   no["blockersM#*"]:open()
-   no["tM"]:kill()
+  no["blockersM#*"]:open()
+  no["tM"]:kill()
  end
  
 ---------------------------------------- N
@@ -804,7 +804,7 @@ pos = {
    end
   end
  else
-    wo:drawRect(pos["N"], mapN.width, mapM.height, ti["N "])
+  wo:drawRect(pos["N"], mapN.width, mapM.height, ti["N "])
  end
  wo:drawMap(ti, pos["N"], "N" * mapN)
 
@@ -900,11 +900,11 @@ pos = {
   po(74,52), po(74,53), po(74,54), po(74,55), po(74,57), po(74,58)
  }
  for i = 1, 12 do
-   if i == randK then
-     wo[plO[i]] = {"st_key", code = 11, target = "doorO8"}
-   else
-     wo[plO[i]] = {"st_key"}
-   end
+  if i == randK then
+   wo[plO[i]] = {"st_key", code = 11, target = "doorO8"}
+  else
+   wo[plO[i]] = {"st_key"}
+  end
  end
  
 ---------------------------------------- P
@@ -946,11 +946,9 @@ pos = {
  wo:drawRect(pos["P"], mapP.width, mapP.height, ti["P "])
  wo:drawMap(ti, pos["P"], "P" * mapP)
 
----------------------------------------- draw maps
-
+----------------------------------------
 ti["@"] = {"ac_marble_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
 if (wo["CreatingPreview"]) then  wo[{76.6, 17.5}] = ti["@"] else wo[{48, 30.5}] = ti["@"] end
-
 wo:shuffleOxyd()
 ]]></el:luamain>
     <el:i18n>
@@ -983,7 +981,7 @@ wo:shuffleOxyd()
       </el:string>
       <el:string el:key="textthief">
         <el:english>Prevent theft! Don't leave valuables in your inventory!</el:english>
-        <el:translation el:lang="de">Stopp dem Diebstahl! Lassen Sie keine Wertsachen im Inventar!</el:translation>
+        <el:translation el:lang="de">Stopp dem Diebstahl! Keine Wertsachen im Inventar lassen!</el:translation>
       </el:string>
     </el:i18n>
   </el:protected>
