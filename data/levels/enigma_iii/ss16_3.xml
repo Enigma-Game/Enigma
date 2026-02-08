@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Seven Friends" el:subtitle="" el:id="ss16"/>
+      <el:version el:score="2" el:release="3" el:revision="1" el:status="released"/>
+      <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (January 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_wood"}
+ti["#"] = {"st_brick"}
+ti["="] = {"st_actorimpulse"}
+ti["o"] = {"it_meditation"}
+ti["*"] = {"ac_rotor", name = "rot", range = 10, strength = -20, attacknearest = false}
+ti["+"] = {"ac_top", name = "top", range = 10, strength = -20, attacknearest = false}
+ti["pearls"] = {"ac_pearl_white", name = "p%%", 1, 0}
+ti["@"] = {"#ac_marble_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+
+wo(res.autotile(ti, {"1", "4", "pearls"}), " ", {
+  "#=################=#",
+  "=                  =",
+  "#  o               #",
+  "#                  #",
+  "#                  #",
+  "#        +         #",
+  "# @    o1          #",
+  "#       2          #",
+  "#       3o         #",
+  "#       4          #",
+  "#            o     #",
+  "=        *         =",
+  "#=################=#" 
+})
+wo:add({"ot_rubberband", anchor1 = "top", anchor2 = "p%1", strength = 6, length = 1})
+wo:add({"ot_rubberband", anchor1 = "p%1", anchor2 = "p%2", strength = 6, length = 1})
+wo:add({"ot_rubberband", anchor1 = "p%2", anchor2 = "p%3", strength = 6, length = 1})
+wo:add({"ot_rubberband", anchor1 = "p%3", anchor2 = "p%4", strength = 6, length = 1})
+wo:add({"ot_rubberband", anchor1 = "p%4", anchor2 = "rot", strength = 3, length = 5})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -15,7 +15,7 @@
     <level _seq="7" _title="Deadend" _xpath="./daniel07_2" author="Daniel Heck" ctrl="force" easy="false" id="deadend" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Coloured Doors" _xpath="./luc03_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc03" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Family Business" _xpath="./duffy20_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy20" rel="3" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="10" _title="Seven Friends" _xpath="./ss16_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss16" rel="2" rev="0" score="2" target="time" unit="duration"/>
+    <level _seq="10" _title="Seven Friends" _xpath="./ss16_3" author="Sven Siggelkow" ctrl="force" easy="false" id="ss16" rel="3" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="11" _title="Blocks and Water" _xpath="./duffy99_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy99" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="12" _title="deja-vu" _xpath="./illmind09_2" author="illmind" ctrl="force" easy="false" id="illmind09" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Dependants" _xpath="./ant25_2" author="Petr Machata" ctrl="force" easy="true" id="ant25" rel="2" rev="3" score="2" target="time" unit="duration"/>
@@ -52,7 +52,7 @@
     <level _seq="44" _title="Rush Hour Traffic" _xpath="./duffy62_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy62" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="The Turtle" _xpath="./ant05_1" author="Petr Machata" ctrl="force" easy="false" id="ant05" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Bridgebuilder" _xpath="./siegfried20_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level6b" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Easy Skyscraper" _xpath="./wb07_1" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb7" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Easy Skyscraper" _xpath="./wb07_2" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb7" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Automatic Transmission" _xpath="./duffy60_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy60" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Tough Skyscraper" _xpath="./wb08_2" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb8" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Something Went Wrong" _xpath="./ss17_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss17" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -104,7 +104,7 @@
     <level _seq="96" _title="Space Walk" _xpath="./nat35_2" author="Nat Pryce" ctrl="force" easy="false" id="natmaze4" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="97" _title="Changing Positions" _xpath="./luc27_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc27" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="98" _title="Guardian Angel" _xpath="./duffy102_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy102" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="99" _title="Unfair!" _xpath="./ant33_1" author="Petr Machata" ctrl="force" easy="false" id="ant33" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="99" _title="Unfair!" _xpath="./ant33_2" author="Petr Machata" ctrl="force" easy="false" id="ant33" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="Waterworld" _xpath="./illmind11_2" author="illmind" ctrl="force" easy="true" id="illmind11" rel="2" rev="6" score="2" target="time" unit="duration"/>
   </levels>
 

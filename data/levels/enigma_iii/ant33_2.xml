@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Unfair!" el:subtitle="" el:id="ant33"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (January 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+ti[" "] = {"fl_metal"}
+ti["."] = {"fl_abyss"}
+ti[">"] = {"fl_slope_te"}
+ti["v"] = {"fl_slope_ts"}
+ti["<"] = {"fl_slope_tw"}
+ti["^"] = {"fl_slope_tn"}
+ti["1"] = {"fl_slope_one"}
+ti["2"] = {"fl_slope_pn"}
+ti["3"] = {"fl_slope_onw"}
+ti["6"] = {"fl_slope_pw"}
+ti["9"] = {"fl_slope_osw"}
+ti["8"] = {"fl_slope_ps"}
+ti["7"] = {"fl_slope_ose"}
+ti["4"] = {"fl_slope_pe"}
+ti["#"] = {"st_metal"}
+ti["="] = {"st_rawglass"}
+ti["X"] = {"st_grate"}
+ti["+"] = {"st_box_wood"}
+ti["!"] = {"st_death"}
+ti["S"] = {"st_swap"}
+ti["-"] = {"st_door_d", faces ="ns"}
+ti["*"] = ti[">"] .. ti["+"]
+ti["s"] = {"it_spring_keep"}
+ti["A"] = {"it_trigger", target = "start"}
+ti["B"] = {"st_switch", target = "door1"}
+ti["b"] = {"st_door_d", faces = "ew", name = "door1"}
+ti["trC"] = {"it_trigger", name = "t%%", target = "chkDoor2"}
+ti["_"] = {"st_door_d", faces ="ns", name = "door2"}
+ti["F"] = {"st_switch", target = "door3", action_0 = "close"}
+ti["f"] = {"st_door_d", faces = "ew", name = "door3", state = OPEN}
+ti["z"] = {"it_document", text = "doc1"}
+ti["y"] = {"it_document", text = "doc2"}
+ti["O"] = {"st_oxyd_d"}
+ti["0"] = {"#ac_marble_black", owner = YANG, controllers = CTRL_YANG} .. ti{("fl_slope")}
+ti["@"] = ti["z"] .. {"#ac_marble_black", owner = YIN, controllers = CTRL_YIN, essential = 
+INDISPENSABLE}
+
+wo (res.autotile(ti, {"C", "E", "trC"}), " ", {
+  "...................................................................................................................",
+  "#################......#########################################################################............#######",
+  "#>>>#>>>>>>>>>>>########>>>>>>>>>>>>>>>>>>#>>>>>>>>>>>>>vBvvvvvv><vvv>!>>>>>>>^vvvvvvvvvvv>>>>>##############78889#",
+  "#0>>>>>>>>>>>>>>>>>>>>>*>>>>>>>>>>>>>>>>>>.>>>>>>>>><^vvv#>>>>>>>>>vvvv>>>>>>>>>>>>>>*>>>>>>>>>>>>>>>>>>>.> F4   6#",
+  "#####>>>>>>>>>>>>>>#####>>>>>>>>>>>>>>>>>>#>>>>>>>>>>>>>>b^^>>>>>#-#>>>v^^^^!>^^^^^^^^^^^^>>>>>##############4 O 6#",
+  "....################...###########################################s#############################            #4   6#",
+  "#####              #####                            + + +# +   C #_# ..     #                  #      ======#4 O 6#",
+  "#@  A                  +.                           +  +  + +  D     ..                       +.   S+ =XX   f4 y 6#",
+  "#   #           ########                            + +  # +   E     ..     #                  #      =+    #12223#",
+  "#################......#########################################################################      =     #######",
+  "...............................................................................................##############......",
+})
+
+function start()
+  wo[po(1,3)] = ti[">"]
+end
+
+t1, t2, t3 = 0, 0, 0
+function chkDoor2()
+  t1 = cond(no["t%1"].state == 1, 1, 0)
+  t2 = cond(no["t%2"].state == 1, 1, 0) 
+  t3 = cond(no["t%3"].state == 1, 1, 0)
+  if t1 == 1 and t2 == 1 and t3 == 1 then
+    no["door2"]:open()
+  else
+    no["door2"]: close()
+  end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="doc1">
+        <el:english el:translate="true">I don't believe that you are the Marble. I won't let you pass until you prove me wrong: you have to be faster than my champion!</el:english>
+      </el:string> 
+      <el:string el:key="doc2">
+        <el:english el:translate="true">Congratulations! You may pass!</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>
