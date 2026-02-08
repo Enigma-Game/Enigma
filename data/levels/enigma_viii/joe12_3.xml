@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Underground Temple" el:subtitle="" el:id="joe_12"/>
+      <el:version el:score="2" el:release="3" el:revision="1" el:status="released"/>
+      <el:author  el:name="Joseph Dunne" el:email="josephdunne1993@hotmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (January 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_sahara"}
+wo(ti, " ", 20, 12*8+1)
+pos = {A = po(0,0), B = po(0,60), C = po(0,72)}
+
+----------------------- A
+ ti["A "] = {"fl_sahara"}
+ ti["A~"] = {"fl_water"}
+ ti["A."] = {"fl_sand"}
+ ti["A,"] = {"fl_lawn_a"}
+ ti["Aw"] = {"fl_slope_pn"}
+ ti["Ay"] = {"fl_slope_one"}
+ ti["Ad"] = {"fl_slope_pe"}
+ ti["An"] = {"fl_slope_ose"}
+ ti["Ax"] = {"fl_slope_ps"}
+ ti["Av"] = {"fl_slope_osw"}
+ ti["Aa"] = {"fl_slope_pw"}
+ ti["Ar"] = {"fl_slope_onw"}
+ ti["Ae"] = {"fl_slope_ine"}
+ ti["Ac"] = {"fl_slope_ise"}
+ ti["Az"] = {"fl_slope_isw"}
+ ti["Aq"] = {"fl_slope_inw"}
+ ti["A#"] = {"st_bluesand"}
+ ti["A="] = {"st_yellow"}
+ ti["AM"] = {"st_box_wood"}
+ ti["AP"] = {"st_break_plain"}
+ ti["A>"] = {"st_oneway_e"}
+ ti["A<"] = {"st_oneway_w"}
+ ti["AO"] = {"st_oxyd"}
+ ti["AS"] = {"st_stoneimpulse"}
+ ti["AW"] = {"st_oneway_white_w"}
+ ti["AB"] = {"st_oneway_black_w"}
+ ti["Ab"] = {"st_oneway_black_e"}
+ ti["AR"] = {"st_puzzle_yellow_ns"}
+ ti["AV"] = {"st_puzzle_yellow_ew"}
+ ti["AA"] = {"st_puzzle_yellow_w"}
+ ti["AD"] = {"st_puzzle_yellow_e"}
+ ti["AQ"] = {"st_puzzle_yellow_nw"}
+ ti["AZ"] = {"st_puzzle_yellow_sw"}
+ ti["AC"] = {"st_puzzle_yellow_es"}
+ ti["AE"] = {"st_puzzle_yellow_ne"}
+ ti["AY"] = {"it_yinyang"}
+ ti["Ah"] = {"it_hammer"}
+ ti["A1"] = {"it_vortex", destination = po(6.5, 94.5)}
+ ti["A2"] = {"it_vortex", destination = po(16.5, 70.5)}
+ ti["A3"] = {"it_vortex", destination = po(2.5, 1.5)}
+ ti["A4"] = {"it_vortex", destination = po(2.5, 14.5)}
+ ti["A6"] = {"it_document", text="doc6"}
+ ti["A7"] = {"it_document", text="doc7"}
+ ti["A8"] = {"it_document", text="doc8"}
+ if wo["IsDifficult"] then
+  ti["AI"] = ti["AS"]
+  ti["A-"] = ti["AS"]
+  ti["AX"] = {"st_puzzle_yellow_s"}
+  ti["AF"] = {"st_puzzle_yellow_nsw"}
+  ti["A_"] = ti["AV"]
+  ti["A|"] = ti["AR"]
+  ti["AL"] = ti["AQ"]
+  ti["AK"] = ti["AD"]
+ else       
+  ti["AI"] = ti["A#"]
+  ti["A-"] = ti["A="]
+  ti["AX"] = ti["AV"]
+  ti["AF"] = ti["AR"]
+  ti["A_"] = ti["A "]
+  ti["A|"] = ti["A "]
+  ti["AL"] = ti["AA"]
+  ti["AK"] = ti["AR"]
+ end
+ ti["A@"] = {"#ac_marble_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ ti["A*"] = {"#ac_marble_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+ ti["A+"] = {"#ac_marble_white"}
+ 
+ map_A = {
+  "####################",
+  "#4 # Bnxxxxxxxxxxxv#",
+  "## M Wd           a#",
+  "##   #ywwwwwe     a#",
+  "####~#======d     a#",
+  "#  W b     -d  h  a#",
+  "#  =--  _  -d  8  a#",
+  "#     VQRCV=d     a#",
+  "#     RKLXV=d     a#",
+  "# Y  |VCVQD=d     a#",
+  "#     RZVEV=d     a#",
+  "#     RFEVZbywwwwwr#",
+  "####II##############",
+  "#nxxxxxxxxxxxxxxxxv#",
+  "#d                a#",
+  "#d   qwe          a#",
+  "#d   a1d          a#",
+  "#d   zxc          a#",
+  "#d         qwwwe  a#",
+  "#d         aqwed  a#",
+  "#d    qwe  aa3dd  a#",
+  "#d    a2d  azxcd  a#",
+  "#d    zxc  zxxxc  a#",
+  "#ywwwwwwwe qwwwwwwr#",
+  "##########w#########",
+  ".........#w#........",
+  ".........#w#........",
+  ".........#w#........",
+  ".........#w#........",
+  ".........#w#........",
+  ".........#w#........",
+  ".........#w#........",
+  ".........#w#........",
+  ".........#w#........",
+  ".........#w#........",
+  ".........#w#........",
+  "##########w#########",
+  "#,,,,,,,,,,,,,,,,,,#",
+  "#,,,,,,,,,,,,,,,,,,#",
+  "#,,,,,,,,,...,....,#",
+  "#,,,,,,,...........#",
+  "#,,,,,,...========.#",
+  "#,.,,.,,..>,,,,@+=.#",
+  "#.........<,,7*,6=.#",
+  "#...8.....========.#",
+  "####P#.,,..........#",
+  "#    #..,,..,,...,,#",
+  "#OOOO#..,,,,,,,,,,,#",
+  "####################"  
+ }
+ mapA = wo:newMap("?", map_A)
+ wo:drawMap(ti, pos["A"], "A" * mapA)
+----------------------- B
+ ti["B "] = {"fl_sahara"}
+ ti["B."] = {"fl_abyss"}
+ ti["B~"] = {"fl_water"}
+ ti["B#"] = {"st_yellow"}
+ ti["B+"] = {"st_box_wood"}
+ ti["BW"] = {"st_puzzle_yellow_n"}
+ ti["BR"] = {"st_puzzle_yellow_ns"}
+ ti["BV"] = {"st_puzzle_yellow_ew"}
+ ti["BA"] = {"st_puzzle_yellow_w"}
+ ti["BX"] = {"st_puzzle_yellow_s"}
+ ti["BD"] = {"st_puzzle_yellow_e"}
+ ti["BQ"] = {"st_puzzle_yellow_nw"}
+ ti["BZ"] = {"st_puzzle_yellow_sw"}
+ ti["BE"] = {"st_puzzle_yellow_ne"}
+ ti["BF"] = {"st_puzzle_yellow_nsw"}
+ ti["BB"] = {"st_puzzle_yellow_esw"}
+ ti["BH"] = {"st_puzzle_yellow_nes"}
+ ti["BT"] = {"st_puzzle_yellow_new"}
+ ti["BC"] = {"st_puzzle_yellow_es"}
+ ti["BL"] = cond(wo["IsDifficult"], ti["BB"], ti["BZ"])
+ ti["BK"] = cond(wo["IsDifficult"], ti["BA"], ti["BV"])
+ ti["B_"] = cond(wo["IsDifficult"], ti["BV"], ti["B "])
+ ti["Bm"] = {"it_magicwand"}
+ ti["B4"] = {"it_vortex", destination = po(2.5, 14.5)}
+ 
+ map_B = {
+  "....................",
+  "...#############....",
+  "...#      ~    #....",
+  "...# QCRB #    #....",
+  "...# QCFZ #  m #....",
+  "...# WE+E #    #....",
+  "...# EADR #########.",
+  "...# DFZX #VELHC  #.",
+  "...#      ~TB+BH_ #.",
+  "...########TFKFQ  #.",
+  "..........#      4#.",
+  "..........#########.",
+  "....................",   
+ }
+ mapB = wo:newMap("?", map_B)
+ wo:drawMap(ti, pos["B"], "B" * mapB)
+----------------------- C
+ ti["C "] = {"fl_sahara"}
+ ti["C."] = {"fl_abyss"}
+ ti["C~"] = {"fl_water"}
+ ti["C#"] = {"st_metal"}
+ ti["C="] = {"st_yellow"}
+ ti["C+"] = {"st_box_wood"}
+ ti["CI"] = {"st_stoneimpulse"}
+ ti["CB"] = {"st_boulder_e"}
+ ti["CK"] = {"st_blocker"}
+ ti["C<"] = {"st_puzzle_blue_e"}
+ ti["C>"] = {"st_puzzle_blue_w"}
+ ti["C^"] = {"st_puzzle_blue_s"}
+ ti["Cv"] = {"st_puzzle_blue_n"}
+ ti["CR"] = {"st_puzzle_yellow_ns"}
+ ti["CV"] = {"st_puzzle_yellow_ew"}
+ ti["CQ"] = {"st_puzzle_yellow_nw"}
+ ti["CZ"] = {"st_puzzle_yellow_sw"}
+ ti["CE"] = {"st_puzzle_yellow_ne"}
+ if wo["IsDifficult"] then
+  ti["CC"] = ti["CV"]
+  ti["CD"] = {"st_puzzle_yellow_e"}
+  ti["CH"] = {"st_puzzle_yellow_nes"}
+  ti["C_"] = ti["CV"]
+  ti["C|"] = ti["CQ"]
+  ti["C-"] = ti["CZ"]
+ else       
+  ti["CC"] = {"st_puzzle_yellow_es"}
+  ti["CD"] = ti["CQ"]
+  ti["CH"] = ti["CV"]
+  ti["C_"] = ti["C "]
+  ti["C|"] = ti["C "]
+  ti["C-"] = ti["CV"]
+ end
+ ti["Cy"] = {"it_yinyang"}
+ ti["C4"] = {"it_vortex", destination = po(2.5, 14.5)}
+ 
+ map_C = {
+  ".....................",
+  ".....................",
+  ".....................",
+  ".....................",
+  "..=======............",
+  "..= _   =............",
+  "..= CDR =............",
+  "..= RyH =............",
+  "..=|-ZE =............",
+  "..=     =............",
+  "..=== ===............",
+  "....= =..............",
+  "....=~=..............",
+  "...==~=###########...",
+  "...=KKK         B#...",
+  "...== #########~~#...",
+  "....#~#########~~#...",
+  "....# ~  ######~~#...",
+  "....#~+<>#   ^ ~ ##..",
+  "....I ~~ #I+ v~~+I#..",
+  "....I  <> +#   I+ #..",
+  "....#<>^   I ~~#  #..",
+  "....#4 v     ~~   #..",
+  "....##II##III######..",
+  "....................."   
+ }
+ mapC = wo:newMap("?", map_C)
+ wo:drawMap(ti, pos["C"], "C" * mapC)
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="doc6">
+        <el:english el:translate="true">So have you found anything yet?</el:english>
+      </el:string>
+      <el:string el:key="doc7">
+        <el:english el:translate="true">We are outside a recently discovered temple underneath the Simpson Desert</el:english>
+      </el:string>
+      <el:string el:key="doc8">
+        <el:english el:translate="true">:All Delicate Objects Inside Here:</el:english>
+      </el:string>
+      <el:string el:key="doc9">
+        <el:english el:translate="true">It appears that we have found a magic hammer of some kind, i say we report back to camp</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Mountain Climbing" el:subtitle="" el:id="joe10"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Joseph Dunne" el:email="josephdunne1993@hotmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (January 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="1:45" el:difficult="2:30"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_sahara"}
+ti["."] = {"fl_space"}
+ti["~"] = {"fl_abyss"}
+ti["-"] = {"fl_red"}
+ti["w"] = {"fl_slope_pn"}
+ti["y"] = {"fl_slope_one"}
+ti["d"] = {"fl_slope_pe"}
+ti["n"] = {"fl_slope_ose"}
+ti["x"] = {"fl_slope_ps"}
+ti["v"] = {"fl_slope_osw"}
+ti["a"] = {"fl_slope_pw"}
+ti["r"] = {"fl_slope_onw"}
+ti["e"] = {"fl_slope_ine"}
+ti["c"] = {"fl_slope_ise"}
+ti["z"] = {"fl_slope_isw"}
+ti["q"] = {"fl_slope_inw"}
+ti["#"] = {"st_bluesand"}
+ti["="] = {"st_yellow"}
+ti["+"] = {"st_box_wood"}
+ti["I"] = {"st_actorimpulse"}
+ti["B"] = {"st_break_plain"}
+ti["8"] = {"st_puzzle_blue_n"}
+ti["2"] = {"st_puzzle_blue_s"}
+ti["H"] = {"it_hammer"}
+ti["O"] = {"it_meditation"}
+ti["*"] = {"#ac_top"}
+ti["@"] = {"#ac_pearl_white", essential = INDISPENSABLE}
+
+if wo["IsDifficult"] then
+  wo(ti, " ", {
+    "................................................................................................",
+    "................................................................................................",
+    "...............................................................................-..-.-.--.---....",
+    "...............................................................................--.-.-.-..-......",
+    "...............................................................................-.--.-.-..---....",
+    "...............................................................................-..-.-.-..-......",
+    "...............................................................................-..-.-.--.---....",
+    "................................................................................................",
+    "................................................................................................",
+    "...................................................................................#####........",
+    "...................................................................................#O O#........",
+    "...................................................................................## ##........",
+    "##################################################################################### ##########",
+    "#nxxxxxxxxv d d * qwwwr=e     qwe    a#dqwe   qr=dqwwwe*qwe    a=nv=nv=nv=nv#~~~------------~~~#",
+    "#d        zxc d  *a#   =d     a=d    a#da=d   a==da===d a#d    zxczxczxczxca#xxxxxxxxxxxxxxxxxx#",
+    "#d    qwwe    d   a#   =d     a=d   *a#da=dqwwr=nca=nxc a#d   qwe qwwwwwwwwr#xxxxxxxxxxxxxxxxxx#",
+    "#d    a==d    ywwwa#   =d  qwwr=ywwe a#da=da====d a=d   a#d   a=d aqwwwwwwww#xxxxxxxxxxxxxxxxxx#",
+    "#d    a  d        a# * =d  a=======d a#da=dzxxxxc a=dqwwr#ywwezxc aa        #xxxxxxxxxxxxxxxxxx#",
+    "#d    a==d qwe    a#    d  zxxv=nxxc a#da=d qwwwe a=da===#   d    aa qwwwwww#xxxx==============#",
+    "#d    zxxc a=d    a#nxxxc     a=d qwea#da=d a===yea=dzxxv#   d    aa a     *#xxx~=~xxxxxxxxxxxx#",
+    "#ywwe      zxc    a#d   qwwe* a=d a=da#da=d a====dzxc   a#nxxc    aa a qwwww#xxxx=xxxxxxxxxx~xx#",
+    "#   d             a#d   a==d  zxc a=da#da=d zv=nxcqwwwwea#d    qweaa a a   *#xxxx=xxxxxxxxxxxxx#",
+    "#@  d             a#d   a==d      a=da#da=d  a=d  a====da#d    a=daa~a~a~qww#xxxx=xxx=xxxxxxxxx#",
+    "# @ ywwwwwwwwwwwwwr#d   zxxc      a=dzxca=d  zxc  zxxxxca#ywwwwr=yra~a~a~a--#xxxx=xxx=xxxxxxxxx#",
+    "###########################################################################-#xxxx=xxx=xxxxxxxxx#",
+    "#==================#nxxxxxxxxxxxxxxc   *   ==            #nxxxv==d  qwwea---#xxxx=xxx=xxxxxxxxx#",
+    "#=nxxxxxxxxxxxxxxv=#d nxxxxxxxv      q# nxx==xxxxxxxxxxv #d   zv=d  a==da---#~xxx=xxx=xxxxxxxxx#",
+    "#=dnxxxxxxxxxxxxva=#d d~~~~~~~a qwe  a# d q==enxxvqwwe a #d qwezxc  a==dzxxx#xxxx=xxx=xxxxx~xxx#",
+    "#=ddnxxxxxxxxxxvaa=#d ywwwwwwwr a d  a# d a==dd~~aa==d a #d a=ywwe  a==ywwwe#xxxx=xxx=~xxxxxxxx#",
+    "#=ddd~~~~~~~~~~aaa=#dnxvqwwwwe  zxc  a#=d zxxcywwrzxxc a #d a====d* a======d#xxxx=x~x=xxxxxxxxx#",
+    "#=ddd~~~~~~~~~~aaa=#dd~aa====d* qwwwwr# d nxxvqwweqwwe a=#d zxxxxc  a======d#xxxx=xxx=xxx~xxxxx#",
+    "#=ddd~~~~~~~~~~aaa=#dd~aa=..=ywwr=====# d d~~aa==da==d a #d qeqwwwe zxv=nxxv#xxxx=xxx=xxxxxxxxx#",
+    "#=ddywwww==wwwwraa=#dd~aa=..======...=# d d~~aa==da==d a #d =da===ywwea=dqwr#xxxx=xx~=xxxxxxxxx#",
+    "#=dywwwww==wwwwwra=#dd~aa====nxxv=====# d ywwrz==czxxc a #d zczxv====da=da==#xx~xxxxx=xxxxxxxxx#",
+    "#=ywwwwww==wwwww=zx#cywrzxxxxc  zxxxxv# ywwwwww==wwwwwwr #d*qwe zxxxxczxczxv#xxxxxxxx=xxxxxxxxx#",
+    "#        ========     qwwwwwwwwwwwwwwr#        ==         ywr=ywwwwwwwwwwwwr#xxxxx~xx=xxxxxxxxx#",
+    "# ###########################################################################=========xxxxxxxxx#",
+    "#   dnxv===dnxxxxxv#........=-----------zxxxxxxxxxxxxxxxv#nxxxxxxxxxxxxxxxxvnxxxxxxxv=x~xxxxxxx#",
+    "### dd~a   ddnxxxva#........=---------#eqwwwwwwwwwwwwwwea#dqwwwwwwwwwwwwwwwryenxxxxva=xxxxxxxxx#",
+    "#xxxcd~a   dddnxvaa#........=---......#da==============da#da================#ddnxxvaa=xxxxxx~xx#",
+    "#nxvnc~a   dddd~aaa#..---...====......#da=nxxxxc~zxxxv=da#da=nxxxxxxxxxxxxxv#===~~aaa=xxxxxxxxx#",
+    "#d~ad  a  =====~aaa#..---.............#da=d nxvqwenxvz=da#da=ywwwwwwwwwwwwea#ddd~~aaa=xxxxxxxxx#",
+    "#ywrywwr  =dddd~aaa#..................#da=dHd~aa dd~a  da#da===== ~ ======da#dddqeaaa=xx~xxxxxx#",
+    "#==========dddywraa#...........---....#da=d ywrzxcywrq=da#dzxxxxxxxxxxxxv=da#dddzcaaa=xxxxxxxxx#",
+    "#=zxxxxxxxvddywwwra#==   =.....---....#da=ywwwwe~qwwwr=da#ywwwwwwwwwwwwwr=da#ddd~~====xxxxxxxxv#",
+    "#eqwwwwwwwrcywwwwwr#     =.....---....#da==============da#================da#ddywwrzxxxxxxxxxva#",
+    "#dz================#   ===............#dzxxxxxxxxxxxxxxcz#nxxxxxxxxxxxxxxxca#dywwwwwwwwwwwwwwra#",
+    "#ywwwwwwwwwwwwwwr      ===............#ywwwwwwwwwwwwwwwe Bywwwwwwwwwwwwwwwwr#ywwwwwwwwwwwwwwwwr#",
+    "################################################################################################",
+  })
+else
+  wo(ti, " ", {
+    "................................................................................................",
+    "................................................................................................",
+    "...............................................................................=..=.=.==.===....",
+    "...............................................................................==.=.=.=..=......",
+    "...............................................................................=.==.=.=..===....",
+    "...............................................................................=..=.=.=..=......",
+    "...............................................................................=..=.=.==.===....",
+    "................................................................................................",
+    "....................................................................................###.........",
+    "...................................................................................##O##........",
+    "...................................................................................#   #........",
+    "...................................................................................## ##........",
+    "##################################################################################### ##########",
+    "#nxxxxxxxxv*d     qwwwwwe     qwe    a#dqwe   qr=dqwwwe qwe    a=nv=nv=nv=nv#------------------#",
+    "#d        zxc     a#    d     a=d    a#da=d   a==da===d a#d    zxczxczxczxca#xxxxxxxxxxxxxxxxxx#",
+    "#d    qwwe        a#    d     a=d   *a#da=dqwwr=nca=nxc a#d   qwe qwwwwwwwwr#xxxxxxxxxxxxxxxxxx#",
+    "#d    a  d        a#    d  qwwr=ywwe a#da=da====d a=d * a#d   a=d aqwwwwwwww#xxxxxxxxxxxxxxxxxx#",
+    "#d    a  d        a#    d  a=======d a#da=dzxxxxc a=dqwwr#ywwezxc aa        #xxxxxxxxxxxxxxxxxx#",
+    "#d    a  d qwe    a#    d  zxxv=nxxc a#da=d qwwwe a=da===#   d    aa qwwwwww#xxxxxxxxxxxxxxxxxx#",
+    "#d    zxxc a*d    a#nxxxc     a=d qwea#da=d a===yea=dzxxv#   d    aa a*     #xxxxxxxxxxxxxxxxxx#",
+    "#ywwe      zxc    a#d   qwwe  a=d a=da#da=d a====dzxc   a#nxxc    aa a qwwww#xxxxxxxxxxxxxxxxxx#",
+    "#   d             a#d   a==d  zxc a=da#da=d zv=nxcqwwwwea#d    qweaa a a*   #xxxxxxxxxxxxxxxxxx#",
+    "#   d             a#d   a==d      a=da#da=d  a=d  a====da#d    a=daa a a qww#xxxxxxxxxxxxxxxxxx#",
+    "#@  ywwwwwwwwwwwwwr#d   zxxc *    a=dzxca=d  zxc  zxxxxca#ywwwwr=yra a a a--#xxxxxxxxxxxxxxxxxx#",
+    "###########################################################################-#xxxxxxxxxxxxxxxxxx#",
+    "#==================#nxxxxxxxxxxxxxxc   *      =          #nxxxv==d  qwwea---#xxxxxxxxxxxxxxxxxx#",
+    "#=nxxxxxxxxxxxxxxv=#d nxxxxxxxv      q# nxxxxxxxxxxxxxxv #d   zv=d  a==da---#xxxxxxxxxxxxxxxxxx#",
+    "#=dnxxxxxxxxxxxxva=#d d~~~~~~~a qwe  a# d qwwenxxvqwwe a #d qwezxc  a==dzxxx#xxxxxxxxxxxxxx~xxx#",
+    "#=ddnxxxxxxxxxxvaa=#d ywwwwwwwr a d  a# d a==dd~~aa==d a #d a=ywwe  a==ywwwe#xxxxxxxxx~xxxxxxxx#",
+    "#=dddnxxxxxxxxvaaa=#dnxvqwwwwe  zxc  a#=d zxxcywwrzxxc a #d a====d* a======d#xxxxxx~xxxxxxxxxxx#",
+    "#=dddd~~~~~~~~aaaa=#dd~aa====d* qwwwwr# d qwweqwweqwwe a=#d zxxxxc  a======d#xxxxxxxxxxxxxxxxxx#",
+    "#=dddywww==wwwraaa=#dd~aa=..=dqea=====# d a==da==da==d a #ywweqwwwe zxv=nxxv#xxxxxxxxxxxxxxxxxx#",
+    "#=ddywwww==wwwwraa=#dd~aa=..=dada=...=# d a==da==da==d a #===da===ywwea=dqwr#xxxxxxxxxxxxxxxxxx#",
+    "#=dywwwww==wwwwwra=#dd~aa====dzca=====# d zxxczxxczxxc a #nxxczxv====da=da==#xxxxxxxxxxxxxxxxxx#",
+    "#=ywwwwww==wwwww=zx#cywrzxxxxc  zxxxxv# ywwwwwwwwwwwwwwr #d qwe zxxxxczxczxv#xxxxxxxxxxxxxxxxxx#",
+    "#        ========     qwwwwwwwwwwwwwwr#          =        ywr=ywwwwwwwwwwwwr#xxxxxxxxxxxxxxxxxx#",
+    "# ###########################################################################=========xxxxxxxxx#",
+    "#   dnxv===dnxxxxxv#.........-----------zxxxxxxxxxxxxxxxv#nxxxxxxxxxxxxxxxxvnxxxxxxxv=x~xxxxxxx#",
+    "#   dd~a   dd~~~~~a#.........---------#eqwwwwwwwwwwwwwwea#dqwwwwwwwwwwwwwwwryenxxxxva=xxxxxxxxx#",
+    "#xxxcd~a   dd~===~a#.........---......#da==============da#da================#ddnxxvaa=xxxxxx~xx#",
+    "#nxvnc~a   dd~=.=~a#..---.............#da=nxxxxxxxxxxv=da#da=nxxxxxxxxxxxxxv#ddd~~aaa=xxxxxxxxx#",
+    "#d ad~~a   dd~=.=~a#..---.............#da=d    nxvnxvz=da#da=ywwwwwwwwwwwwea#ddd~~aaa=xxxxxxxxx#",
+    "#ywrywwr   dd~=.=~a#..................#da=d H  d~ad~a  da#da===== = ======da#ddd~~aaa=xx~xxxxxx#",
+    "#=         dd~===~a#......--...---....#da=d    ywrywrq=da#dzxxxxxxxxxxxxv=da#ddd~~aaa=xxxxxxxxx#",
+    "#=         dd~~~~~a#==  ..--...---....#da=ywwwwwwwwwwr=da#ywwwwwwwwwwwwwr=da#ddd~~aazxxxxxxxxxv#",
+    "#xxxxxxxxxxcd~~~qwr#    .......---....#da==============da#================da#ddywwrzxxxxxxxxxva#",
+    "#nxxxxxxxxxxcqwea  #   =..............#dzxxxxxxxxxxxxxxcz#nxxxxxxxxxxxxxxxca#dywwwwwwwwwwwwwwra#",
+    "#ywwwwwwwwwwwwwwr      =..............#ywwwwwwwwwwwwwwwe Bywwwwwwwwwwwwwwwwr#ywwwwwwwwwwwwwwwwr#",
+    "################################################################################################",
+  })
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
