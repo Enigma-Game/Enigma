@@ -20,6 +20,7 @@
 #define ECL_VIDEO_HH_INCLUDED
 
 #include "ecl_geom.hh"
+#include <memory>
 
 #include "SDL.h"
 
@@ -248,7 +249,7 @@ public:
     /* ---------- Accessors ---------- */
 
     SDL_Window *window() const { return m_window; }
-    Surface *get_surface() const { return m_surface; }
+    Surface *get_surface() const { return m_surface.get(); }
 
     Rect size() const;
     int width() const;
@@ -267,7 +268,7 @@ private:
     static Screen *m_instance;
 
     SDL_Window *m_window;
-    Surface *m_surface;
+    std::unique_ptr<Surface> m_surface;
     SDL_Surface *m_sdlsurface;
     RectList m_dirtyrects;
     bool update_all_p;
@@ -275,7 +276,7 @@ private:
     Screen(const Screen &);
     Screen &operator=(const Screen &);
 
-    Scaler *m_scaler;
+    std::unique_ptr<Scaler> m_scaler;
 };
 
 /* -------------------- Graphics primitives -------------------- */
