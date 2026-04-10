@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Road to Eden" el:subtitle="" el:id="alain22"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (March 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="1:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+wo["ConserveLevel"] = false
+ti[" "] = {"fl_lawn"}
+ti["."] = {"fl_sand"}
+ti["~"] = {"fl_water"}
+ti["#"] = ti["."] .. {"st_greenbrown"}
+ti["0"] = {"st_fake_quake"}
+ti["C"] = {"st_chameleon"}
+ti["-"] = ti["."] .. ti["C"]
+ti["="] = ti["~"] .. ti["C"]
+ti["+"] = {"st_box_wood_v"}
+ti["t"] = ti["."] .. {"it_trigger", invisible = true, target = "addRotor"}
+ti["1"] = ti["-"] .. {"it_wormhole", range = 0, strength = 0, destination = po(12.5, 30.5)}
+ti["2"] = ti["-"] .. {"it_wormhole", range = 0, strength = 0, destination = po(30.5,11.5)}
+ti["O"] = ti["."] .. {"st_oxyd"}
+ti["@"] = ti["."] .. {"#ac_marble"}
+
+wo(ti, " ", {
+  "####################  ####################",
+  "#..........#---#...#  #..........#...#...#",
+  "#.########.#-#.#.#.#  #.########.#.#.#.#.#",
+  "#........#.#-#.#.#.#  #........#.#.#.#.#.#",
+  "########.#.#1#.#.#.#  ########.#.#.#.#.#.#",
+  "#........#.#0#...#.#  #........#.#O#...#.#",
+  "#.########.#######.#  #.########.#######.#",
+  "#........#.#.......#  #........#.#.......#",
+  "########.#.#.#######  ########.#.#.#######",
+  "#........#.#.......#  #........#.#.......#",
+  "#.########.#######.#  #.########.#######.#",
+  "#t......@#.........#  #........#.........#",
+  "##########################################",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "===================~-.-.-.-.-.-.-.-.-.-.-.",
+  "===================~.-.-.-.-.-.-.-.-.-.-.-",
+  "===================~---.-.-.-.---.-.-.-2--",
+  "===================~--.-.-.-.-.-.-.-.-.---",
+  "===================~----------------------",
+  "++++++++++++++++++++++++++++++++++++++++++",
+  "                               .          ",
+  "  ...                 ~~~~~~~ .0. ~~~~~~  ",
+  "  .O.                 ~        .       ~  ",
+  "  ...                 ~ ~~~~~~  ~~~~~~ ~  ",
+  "                      ~                ~  ",
+  "                      ~~~~~~~    ~~~~~~~  ",
+  "                               O          ",
+  "   .........          ~~~~~~~    ~~~~~~~  ",
+  "   .~~~~~~~.          ~                ~  ",
+  "   .~~~0~~~.          ~ ~~~~~~  ~~~~~~ ~  ",
+  "   .~~~~~~~.          ~        .       ~  ",
+  "   .........          ~~~~~~~ .O. ~~~~~~  ",
+  "                               .          ",
+  "                                          ",
+})
+wo:shuffleOxyd()
+
+rotors = 0
+function addRotor()
+  if rotors < 6 then
+    wo[po(8.5,11.5)] = {"#ac_rotor", range = 40, strength = 20, gohome = false}
+  end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true" el:comment="this level has been inspired by the labyrinth of Chartres cathedral, which represents the difficult road that leads to wisdom"/>
+        <el:translation el:lang="fr">En route vers le Paradis</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

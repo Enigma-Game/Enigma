@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Basement" el:subtitle="" el:id="level9c"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (February 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal_7"}
+ti["."] = {"fl_metal"}
+ti[","] = {"fl_ice"}
+ti["-"] = ti["."] .. {"st_grate"}
+ti["_"] = ti["."] .. {"st_grate_framed"}
+ti["~"] = {"fl_abyss"}
+ti["1"] = {"fl_slope_ose"}
+ti["3"] = {"fl_slope_osw"}
+ti["7"] = {"fl_slope_one"}
+ti["9"] = {"fl_slope_onw"}
+ti["v"] = {"fl_slope_ps"}
+ti["^"] = {"fl_slope_pn"}
+ti[">"] = {"fl_slope_pe"}
+ti["<"] = {"fl_slope_pw"}
+ti["q"] = {"fl_slope_inw"}
+ti["w"] = {"fl_slope_ine"}
+ti["s"] = {"fl_slope_ise"}
+ti["a"] = {"fl_slope_isw"}
+ti["="] = ti["~"] .. {"st_greenbrown"}
+ti["H"] = {"st_greenbrown_hollow"}
+ti["#"] = {"st_purplegray"}
+ti["I"] = {"st_actorimpulse"}
+ti["E"] = {"st_oneway_e"}
+ti["S"] = {"st_oneway_s"}
+ti["W"] = {"st_oneway_w"}
+ti["O"] = {"st_oxyd_d"}
+ti["z"] = {"it_spring_drop"}
+ti["@"] = ti["9"] .. {"#ac_marble"}
+wo(ti, " ", {
+  "==========================================================",
+  "=~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=",
+  "=~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                   ~=",
+  "=~~~~1vvv3~~~~~~~~q^^^^^^^w~~~~~~~~~~                   ~=",
+  "=~~~~>   <........<,,,,,,,>..........                   ~=",
+  "=~~~~> O <E.......<,,,,,,,>..........z ~~~~~~~~~~~~     ~=",
+  "=~~~~>   <........<,,,,,,,>..........  ~~~~z~~~~~~~     ~=",
+  "=~~~~7^^^9~~   ~~~avvvvvvvs~~~~~~~~~~~~~~~~ ~~~~~~~     ~=",
+  "=~~~~~...~~1vvv3~~~~~~~~~~~~~~~~~~~~~~##### #####~~HHHHH~=",
+  "=~~~~~...~~>   <~~~~~~~~~~~~~~~~~~~~~~#.........#~~HHHHH~=",
+  "=~~~~~...~~> O <~~~~~~~~~~~~~~~~~~~~~~#.###.###.#~~HHHHH~=",
+  "=~~~~~...~~>   <~~~~~~~~~~~~~~~~~~~~~~#.#.....#.#~~HHHHH~=",
+  "=~~~~~...~~7^^^9~~~~1vvvvvvvv3~~~~~~~~#.#.#.#.#.#~~HHHHH~=",
+  "=~~~~~...~~~#S#~~~~~>        <~~~~~~~~#.#.#.#.#.#~~HHHHH~=",
+  "=~~~~~...~~~#S#~~~~~> O    O <~~~~~~~~#.#.#.#.#.#~~HHHHH~=",
+  "=~................~~>   II   <~~~~~~~~#.#.#.#.#.#~~HHHHH~=",
+  "=~................_ >   II   <~~~~~~~~#S#S#S#S#S#~~HHHHH~=",
+  "=~................~~> O    O <~~~~~~~~#.#.#.#.#.#~~HHHHH~=",
+  "=~..~~~~~~~~~~~~~~~~>        <~~~~~~~~#.#.#.#.#.#~~HHHHH~=",
+  "=~..~~~~~~~~~~~~~~~~7^^^^^^^^9~~~~~~~~#.#.#.#.#.#~~HHHHH~=",
+  "=~..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#.#.#.#.#.#~~HHHHH~=",
+  "=~..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#.#.#.#.#.#~~     ~=",
+  "=~..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#.#.#.#.#.#~~     ~=",
+  "=~..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#.#.....#.#~~     ~=",
+  "=~..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#.###.###.#~~     ~=",
+  "=~..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#.........#~~     ~=",
+  "=~..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#####.#####~~~~S~~~=",
+  "=~..~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#-#~~~~~~~~ ~~~=",
+  "=~..~1vvv3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#-#~~~~~~1vvv3~=",
+  "=~..~>   <        ~~~~~~~~~      ##########-#######>   <~=",
+  "=~.. > O < ......................-----------------W> O <~=",
+  "=~~~~>   <        ~~~~~~~~~      ##################>   <~=",
+  "=~~~~7^^^9~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~7^^^@~=",
+  "=~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=",
+  "=~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=",
+  "=~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=",
+  "=========================================================="
+})
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="false"> </el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

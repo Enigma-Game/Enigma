@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Light Barriers" el:subtitle="" el:id="qq1"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Andrzej Szombierski" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © Andrzej Szombierski</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (March 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+pv = cond(wo["CreatingPreview"], OPEN, CLOSED)
+ti[" "] = {"fl_lawn"}
+ti["#"] = {"st_rawglass"}
+ti["="] = {"st_magic_brick"}
+ti["X"] = {"st_grate"}
+ti["+"] = {"st_brownie"}
+ti["L"] = {"st_laser_e", state = ON}
+ti["/"] = {"st_mirror_slab_w", transparent = true}
+ti["M"] = {"st_mirror_triangle_n", movable = true}
+ti["Z"] = {"st_door_d", faces = "ns", name = "doorStart", state = pv}
+ti["doors"] = {"st_door_d", faces = "ns", name = "door%%"}
+ti["doorsL"] = {"st_door_d", faces = "ns", name = "doorL%%", state = pv}
+ti["triggers"] = {"it_trigger", target = "door%%"}
+ti["triggersL"] = {"it_trigger", target = "doorL%%", action = "open"}
+ti["T"] = {"it_trigger", target = "closeAll"}
+ti["m"] = {"it_magicwand"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble"}
+wo(res.autotile(ti, {"A", "D", "doors"}, {"a", "d", "triggers"}, {"E", "J", "doorsL"}, {"e", "j", "triggersL"}), " ", {
+  "L#####/#/#/#/#/#/###",
+  "#m#  #E#F#G#H#I#J#T#",
+  "#A#              #D#",
+  "#B#              #@#",
+  "#C#              #Z#",
+  "#                  #",
+  "#                  #",
+  "#a                 #",
+  "#b                 #",
+  "#c                 #",
+  "#                  #",
+  "#    e f g h i j  d#",
+  "#################  #",
+  "#   =  X           #",
+  "#   =  X           #",
+  "# O =  X        M  #",
+  "#   =  X   +       #",
+  "# O =  X      M    #",
+  "#   =  X           #",
+  "# O =  X    M      #",
+  "#   =  X           #",
+  "# O =  X  M        #",
+  "#   =  X           #",
+  "#   ===============#",
+  "##########O#O#O#O###"
+})
+wo:shuffleOxyd()
+no["doorStart"]:open()
+for i = 1,6 do
+  no["doorL%"..i]:open()
+end
+
+function closeAll()
+ for i = 1,6 do
+  no["doorL%"..i]:close()
+ end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

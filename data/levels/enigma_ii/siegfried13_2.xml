@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pharaoh's Tomb" el:subtitle="" el:id="level4d"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (March 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_wood"}
+ti["-"] = {"fl_swamp"} .. ti({"st_invisible"})
+ti["#"] = {"st_greenbrown"}
+ti["+"] = {"st_greenbrown_movable"}
+ti["."] = {"st_greenbrown_hollow"}
+ti["1"] = {"it_document", text = "doc1"}
+ti["2"] = {"it_document", text = "doc2"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble", 0.5}
+wo(ti, " ", {
+  "--------------------",
+  "-..................-",
+  "-#################.-",
+  "-.. #          # #.-",
+  "-.#+ #        + +..-",
+  "-.# + #      #2+ #.-",
+  "-.## +O# @1 +O+ +#.-",
+  "-.# # #      + + #.-",
+  "-.## #        + +#.-",
+  "-.# #            #.-",
+  "-.################.-",
+  "-..................-",
+  "--------------------"
+})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="doc1">
+        <el:english el:translate="true">Some stones are movable.</el:english>
+      </el:string>
+      <el:string el:key="doc2">
+        <el:english el:translate="true">You lost!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Meditation -" el:subtitle="" el:id="meditation14"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Siegfried Fennig</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (February 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_inverse"}
+ti["."] = {"fl_space"}
+ti["1"] = {"fl_slope_ose"}
+ti["3"] = {"fl_slope_osw"}
+ti["7"] = {"fl_slope_one"}
+ti["9"] = {"fl_slope_onw"}
+ti["v"] = {"fl_slope_ps"}
+ti["^"] = {"fl_slope_pn"}
+ti[">"] = {"fl_slope_pe"}
+ti["<"] = {"fl_slope_pw"}
+ti["s"] = ti["."] .. {"it_shogun_s"}
+ti["m"] = ti["."] .. {"it_shogun_m"}
+ti["l"] = ti["."] .. {"it_shogun_l"}
+ti["o"] = ti[" "] .. {"it_meditation"}
+ti["0"] = {"#ac_pearl_white", essential = INDISPENSABLE}
+ti["@"] = ti["0"] .. {"ac_pearl_white", 0, 0.5, essential = INDISPENSABLE}
+wo(ti, " ", {
+  "....................",
+  "................l...",
+  ".1vvvvvvvvvvvvvvvv3.",
+  ".>m..          ...<.",
+  ".>.o.          .o.<.",
+  ".>...          ...<.",
+  ".>       @@       <.",
+  "s>...          ...<.",
+  ".>.o.          so.<.",
+  ".>...          ...<.",
+  ".7^^^^^^^^^^^^^^^^9.",
+  ".....l..............",
+  "...................."
+})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

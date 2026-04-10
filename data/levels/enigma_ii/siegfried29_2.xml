@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Corridors" el:subtitle="" el:id="level9f"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (March 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+wo["WormholeRange"] = 1
+wo["WormholeStrength"] = 10
+ti["#"] = {"st_purplegray"}
+ti["X"] = {"st_grate"}
+ti[" "] = {"fl_metal_7"}
+ti["~"] = {"fl_abyss"}
+ti["r"] = {"fl_rough"}
+ti["1"] = {"fl_slope_ose"}
+ti["2"] = {"fl_slope_ps"}
+ti["3"] = {"fl_slope_osw"}
+ti["4"] = {"fl_slope_pe"}
+ti["6"] = {"fl_slope_pw"}
+ti["7"] = {"fl_slope_one"}
+ti["8"] = {"fl_slope_pn"}
+ti["9"] = {"fl_slope_onw"}
+ti[";"] = {"fl_slope_ise"}
+ti[":"] = {"fl_slope_isw"}
+ti["."] = {"fl_slope_ine"}
+ti[","] = {"fl_slope_inw"}
+ti["e"] = ti["X"] .. {"fl_slope_te"}
+ti["n"] = ti["X"] .. {"fl_slope_tn"}
+ti["x"] = ti["r"] .. ti["X"]
+ti["^"] = ti["r"] .. {"st_oneway_n"}
+ti[">"] = ti["r"] .. {"st_oneway_e"}
+ti["v"] = ti["r"] .. {"st_oneway_s"}
+ti["<"] = ti["r"] .. {"st_oneway_w"}
+ti["-"] = {"st_door_d", faces = "ns", "door1"}
+ti["="] = {"st_door_d", faces = "ns", "door2"}
+ti["S"] = {"st_coinslot", target = "door1", action = "open"}
+ti["K"] = {"st_key", target = "door2"}
+ti["k"] = ti["x"] .. {"it_key"}
+ti["s"] = {"it_coin_s"}
+ti["A"] = ti["x"] .. {"it_wormhole", destination = po(56.5, 3.5)}
+ti["B"] = ti["x"] .. {"it_wormhole", destination = po(29  ,18.5)}
+ti["C"] = ti["x"] .. {"it_wormhole", destination = po( 2.5, 2.5)}
+ti["D"] = {"it_wormhole", destination = po( 2.5, 2.5)}
+ti["E"] = {"it_wormhole", destination = po( 2.5, 2.5)}
+ti["F"] = {"it_wormhole", destination = po(29  ,18.5)}
+ti["G"] = {"it_wormhole", destination = po(44.5, 7.5)}
+ti["H"] = {"it_wormhole", destination = po( 2.5, 2.5)}
+ti["I"] = {"it_wormhole", destination = po( 2.5, 2.5)}
+ti["O"] = {"st_oxyd_d"}
+ti["@"] = {"#ac_marble", 0.5}
+wo(ti, " ", {
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~######~~~~~~~~~~~~~~~~~~~~~#####",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~#    #~~~~#######~~~~~~~~~~#  S#",
+  "~~x<x<x<x<x>x>x>x<x>x>A<x~# ## #~~~~#12223#~~~~~~~~~~#   #",
+  "~~v~^~v~v~v~^~v~v~v~^~v~^~# ## #~~~~#4  O6#####~~~~~~#   #",
+  "~~x<x>B>x<k<x<x>x<x>x<x<x~#s## #~~###4   :2223#~~~~~~##-##",
+  "~~v~^~^~v~v~v~^~v~^~^~^~v~# ## #~~#13;,888. E6#~~~~~~#F G#",
+  "~~x<x>x<x>x>x>x<x>x>x<x<x~#D##=#~~#4  6###4  6#~~~~~~#####",
+  "~~v~^~v~^~v~v~^~^~^~v~^~^~# #K #~~#4O 6# #7889#~~~~~~~~~~~",
+  "~~x<x>C<x>x>x>x<x<x>x>x<x~# ## #~~#7889# ######~~~~~~~~~~~",
+  "~~v~^~^~v~v~v~^~v~^~^n^~v~# ## #~~######~~~~~~~~~~~~~~~~~~",
+  "~~x<x>x<x>x>x>x<x>x>x<x<x~# ## #~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~v~^~v~^~^~^~^~v~v~^~^~^~#^##^#~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~x>x>x>x<x<x>x<x>x>x<x>x~# ## #~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~# ## #~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~# ## #~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "########################### ## ###########################",
+  "#O                         1223                         O#",
+  "###########################4H 6###########################",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~#4@ 6#~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "###########################4 I6###########################",
+  "#O                         7889                         O#",
+  "############################  ############################",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~#  #~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "#################~~~~~~~~~~#  ##########~##########~~~~~~~",
+  "#               #~~~~~~~~~~#           #~#        #~~~~~~~",
+  "# ############# #~#######~~#  ######## #~# ###### #~~~~~~~",
+  "# #~~~~~~~~~~~# #~#     #~~#  #~~~~~~# #~# #~~~~# #~~~~~~~",
+  "# #~~~~~~~~~~~# #~# ### #~~#  #~~~~~~# #~# #~~~~# #~~~~~~~",
+  "# #~~~~~~~~~~~# #~# #~#n#~~#  #~~~~~~# #~# #~~~~# #~~~~~~~",
+  "# #~~~~~~~~~~~# #~# #~#n#~~#  #~~~~~~# #~# #~~~~# #~~~~~~~",
+  "# #~~~~~~~~~~~# #~# #~#n#~~#  #~###### #~# #~~~~# #~~~~~~~",
+  "# ####~~~~~~~~# #~# #~#n#~~#  #~#      #~# #~~~~# ########",
+  "#1223#~~~~~~~~# #~# #~#n#~~#  #~# ######~# #~~~~#    1223#",
+  "#4  6#~~~~~~~~# #~# #~#n#~~#  #~# #~~~~~~# #~~~~#####4  6#",
+  "#4 O6#~~~~~~~~# ### #~# ####  #~# ######## #~~~~~~~~#4 O6#",
+  "#7889#~~~~~~~~#     #~#       #~#  eeeeee  #~~~~~~~~#7889#",
+  "######~~~~~~~~#######~#########~############~~~~~~~~######"
+})
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

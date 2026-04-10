@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Space Travels" el:subtitle="" el:id="level10b"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 conversion by /dev/null (February 2026)</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+wo["WormholeStrength"] = 10
+wo["WormholeRange"] = 1
+ti["."] = {"fl_space"}
+wo(ti, ".", 19 * 8 + 1, 12 * 5 + 1)
+ti["-"] = {"fl_metal_7"}
+ti[" "] = {"fl_metal"}
+ti["1"] = {"fl_slope_ose"}
+ti["3"] = {"fl_slope_osw"}
+ti["7"] = {"fl_slope_one"}
+ti["9"] = {"fl_slope_onw"}
+ti["v"] = {"fl_slope_ps"}
+ti["^"] = {"fl_slope_pn"}
+ti[">"] = {"fl_slope_pe"}
+ti["<"] = {"fl_slope_pw"}
+ti["#"] = {"st_tigris"}
+ti["o"] = ti["-"] .. {"it_meditation"}
+ti["O"] = ti["-"] .. {"st_oxyd"}
+ti["@"] = {"#ac_marble"}
+map_S = {
+  "########",
+  "#1vvvv3#",
+  "#>O-o-<#",
+  "#7^^^^9#",
+  "########"
+}
+for i = 0,7 do
+  maps = wo:newMap("?", map_S)
+  wo:drawMap(ti, po(19*i+6, 4), "" * maps)
+end
+for i = 0,7 do
+  maps = wo:newMap("?", map_S)
+  wo:drawMap(ti, po(19*i+6, 16), "" * maps)
+end
+
+mapBase = {
+  "####################",
+  "#                  #",
+  "#1vvvvvvvvvvvvvvvv3#",
+  "#>----------------<#",
+  "#7^^^^^^^^^^^^^^^^9#",
+  "#                  #",
+  "#         o        #",
+  "##                 #",
+  "####################"
+}
+mapBase1 = wo:newMap("?", mapBase)
+wo:drawMap(ti, po(38, 50), "" * mapBase1)
+wo[po(48,56)] = ti["@"]
+
+mapBase2 = wo:newMap("?", mapBase)
+wo:drawMap(ti, po(95, 50), "" * mapBase2)
+wo[po(97,57)] = ti["#"]
+
+wo[po( 11, 6)] = {"it_wormhole", destination = po(48.5, 56.5)}
+wo[po( 30, 6)] = {"it_wormhole", destination = po(48.5, 56.5)}
+wo[po( 49, 6)] = {"it_wormhole", destination = po(105.5, 56.5)}
+wo[po( 68, 6)] = {"it_wormhole", destination = po(105.5, 56.5)}
+wo[po( 87, 6)] = {"it_wormhole", destination = po(48.5, 56.5)}
+wo[po(106, 6)] = {"it_wormhole", destination = po(48.5, 56.5)}
+wo[po(125, 6)] = {"it_wormhole", destination = po(105.5, 56.5)}
+wo[po(144, 6)] = {"it_wormhole", destination = po(105.5, 56.5)}
+wo[po( 11,18)] = {"it_wormhole", destination = po(48.5, 56.5)}
+wo[po( 30,18)] = {"it_wormhole", destination = po(48.5, 56.5)}
+wo[po( 49,18)] = {"it_wormhole", destination = po(105.5, 56.5)}
+wo[po( 68,18)] = {"it_wormhole", destination = po(105.5, 56.5)}
+wo[po( 87,18)] = {"it_wormhole", destination = po(48.5, 56.5)}
+wo[po(106,18)] = {"it_wormhole", destination = po(48.5, 56.5)}
+wo[po(125,18)] = {"it_wormhole", destination = po(105.5, 56.5)}
+wo[po(144,18)] = {"it_wormhole", destination = po(105.5, 56.5)}
+wo[po( 40,53)] = {"it_wormhole", destination = po(10.5, 6.5)}
+wo[po( 41,53)] = {"it_wormhole", destination = po(29.5, 6.5)}
+wo[po( 42,53)] = {"it_wormhole", destination = po(48.5, 6.5)}
+wo[po( 43,53)] = {"it_wormhole", destination = po(67.5, 6.5)}
+wo[po( 44,53)] = {"it_wormhole", destination = po(86.5, 6.5)}
+wo[po( 45,53)] = {"it_wormhole", destination = po(105.5, 6.5)}
+wo[po( 46,53)] = {"it_wormhole", destination = po(124.5, 6.5)}
+wo[po( 47,53)] = {"it_wormhole", destination = po(143.5, 6.5)}
+wo[po( 48,53)] = {"it_wormhole", destination = po(10.5, 18.5)}
+wo[po( 49,53)] = {"it_wormhole", destination = po(29.5, 18.5)}
+wo[po( 50,53)] = {"it_wormhole", destination = po(48.5, 18.5)}
+wo[po( 51,53)] = {"it_wormhole", destination = po(67.5, 18.5)}
+wo[po( 52,53)] = {"it_wormhole", destination = po(86.5, 18.5)}
+wo[po( 53,53)] = {"it_wormhole", destination = po(105.5, 18.5)}
+wo[po( 54,53)] = {"it_wormhole", destination = po(124.5, 18.5)}
+wo[po( 55,53)] = {"it_wormhole", destination = po(143.5, 18.5)}
+wo[po( 97,53)] = {"it_wormhole", destination = po(10.5, 18.5)}
+wo[po( 98,53)] = {"it_wormhole", destination = po(29.5, 18.5)}
+wo[po( 99,53)] = {"it_wormhole", destination = po(48.5, 18.5)}
+wo[po(100,53)] = {"it_wormhole", destination = po(67.5, 18.5)}
+wo[po(101,53)] = {"it_wormhole", destination = po(86.5, 18.5)}
+wo[po(102,53)] = {"it_wormhole", destination = po(105.5, 18.5)}
+wo[po(103,53)] = {"it_wormhole", destination = po(124.5, 18.5)}
+wo[po(104,53)] = {"it_wormhole", destination = po(143.5, 18.5)}
+wo[po(105,53)] = {"it_wormhole", destination = po(10.5, 6.5)}
+wo[po(106,53)] = {"it_wormhole", destination = po(29.5, 6.5)}
+wo[po(107,53)] = {"it_wormhole", destination = po(48.5, 6.5)}
+wo[po(108,53)] = {"it_wormhole", destination = po(67.5, 6.5)}
+wo[po(109,53)] = {"it_wormhole", destination = po(86.5, 6.5)}
+wo[po(110,53)] = {"it_wormhole", destination = po(105.5, 6.5)}
+wo[po(111,53)] = {"it_wormhole", destination = po(124.5, 6.5)}
+wo[po(112,53)] = {"it_wormhole", destination = po(143.5, 6.5)}
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
