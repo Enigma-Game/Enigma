@@ -65,6 +65,7 @@ namespace enigma { namespace lev {
 
     PersistentIndex * PersistentIndex::historyIndex = NULL;
     std::vector<std::shared_ptr<PersistentIndex> > PersistentIndex::indexCandidates;
+    std::vector<std::unique_ptr<PersistentIndex> > PersistentIndex::persistentIndices;
 
     void PersistentIndex::checkCandidate(std::string thePackPath, bool systemOnly, bool userOwned,
             bool isAuto, bool isSystemCross, bool isUserCross, double defaultLocation,
@@ -151,6 +152,11 @@ namespace enigma { namespace lev {
         }
     }
 
+    void PersistentIndex::registerIndex(std::unique_ptr<PersistentIndex> index) {
+        Index::registerIndex(index.get());
+        persistentIndices.push_back(std::move(index));
+    }
+
     void PersistentIndex::registerPersistentIndices(bool onlySystemIndices) {
         DirIter * dirIter;
         DirEntry dirEntry;
@@ -221,20 +227,18 @@ namespace enigma { namespace lev {
 
         // register index free auto folder
         // this needs to be done prior history registration to avoid outdated proxies
-        PersistentIndex * autoIndex = new PersistentIndex("auto", false, true, true,
+        std::unique_ptr<PersistentIndex> autoIndex = std::make_unique<PersistentIndex>("auto", false, true, true,
                 INDEX_AUTO_PACK_LOCATION, INDEX_AUTO_PACK_NAME, INDEX_STD_FILENAME,
                 INDEX_AUTO_PACK_DESCRIPTION);
         autoIndex->isEditable = false;
-        Index::registerIndex(autoIndex);
+        PersistentIndex::registerIndex(std::move(autoIndex));
 
         // register team auto not yet registered new files
-        PersistentIndex * teamautoIndex = new PersistentIndex("team_test_new_api", false, true, true,
+        std::unique_ptr<PersistentIndex> teamautoIndex = std::make_unique<PersistentIndex>("team_test_new_api", false, true, true,
                 75000, "test_new_api");
         if (teamautoIndex->size() > 0) {
             teamautoIndex->isEditable = false;
-            Index::registerIndex(teamautoIndex);
-        } else {
-            delete teamautoIndex;
+            PersistentIndex::registerIndex(std::move(teamautoIndex));
         }
 
         // UserPath: register dirs and zips with xml-indices excl auto
@@ -601,6 +605,7 @@ namespace enigma { namespace lev {
     // Must be called before XMLPlatformUtils::terminate
     void PersistentIndex::shutdown() {
         indexCandidates.clear();
+        persistentIndices.clear();
     }
 
     std::string PersistentIndex::getPackPath() {
@@ -1210,7 +1215,7 @@ namespace enigma { namespace lev {
                     std::string indexString;
                     is >> indexString;
                     std::stringstream indexStream(indexString);
-                    Index::registerIndex(new PersistentIndex(indexStream, dir, false, indexName));
+                    PersistentIndex::registerIndex(std::make_unique<PersistentIndex>(indexStream, dir, false, indexName));
                 } catch (const XLevelPackInit &e) {
                     Log << e.get_string() << "\n";
                 }
@@ -1246,7 +1251,8 @@ namespace enigma { namespace lev {
                     indexName = line;
 
                     // check if already loaded
-                    Index::registerIndex(new PersistentIndex(inflatedContent, dir, true, indexName));
+                    PersistentIndex::registerIndex(std::make_unique<PersistentIndex>(
+                            inflatedContent, dir, true, indexName));
                 } else {
                     throw XLevelPackInit ("Invalid level pack: " + indexName);
                 }

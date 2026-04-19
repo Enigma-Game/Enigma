@@ -51,6 +51,7 @@ namespace enigma { namespace lev {
     class PersistentIndex : public Index  {
     public:
         static void registerPersistentIndices(bool onlySystemIndices);
+        static void registerIndex(std::unique_ptr<PersistentIndex> index);
         static PersistentIndex * historyIndex;
         static void addCurrentToHistory();
         static void shutdown();
@@ -127,6 +128,7 @@ namespace enigma { namespace lev {
         std::string indexUrl;
     private:
         static std::vector<std::shared_ptr<PersistentIndex> > indexCandidates;
+        static std::vector<std::unique_ptr<PersistentIndex> > persistentIndices;
         std::string absIndexPath;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;
