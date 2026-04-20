@@ -21,5 +21,5 @@ tolua_CFLAGS = -I$(top_srcdir)/lib-src/lua $(AM_CFLAGS)
 tolua_LDADD = $(top_builddir)/lib-src/lua/liblua.a $(AM_LDADD)
 
 if CXXLUA
-tolua_CFLAGS += -x c++ $(AM_CXXFLAGS) $(CXXFLAGS)
+tolua_CFLAGS = -I$(top_srcdir)/lib-src/lua -x c++ $(AM_CXXFLAGS) $(CXXFLAGS)
 endif
