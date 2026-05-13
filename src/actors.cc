@@ -19,6 +19,7 @@
  */
 
 #include "errors.hh"
+#include "client.hh"
 #include "enigma.hh"
 #include "player.hh"
 #include "Inventory.hh"
@@ -312,6 +313,7 @@ void Actor::move_screen() {
 
 void Actor::set_model(const std::string &name) {
     m_sprite.replace_model(display::MakeModel(name));
+    client::NotifyActorSpriteChanged(getId(), name);
 }
 
 void Actor::animcb() {

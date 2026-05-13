@@ -18,7 +18,10 @@
 #ifndef CLIENT_HH_INCLUDED
 #define CLIENT_HH_INCLUDED
 
+#include "ecl_math.hh"
 #include "lev/Index.hh"
+
+#include <string>
 
 namespace enigma {
 namespace client {
@@ -35,6 +38,46 @@ void Tick(double dtime);
 bool AbortGameP();
 
 void Stop();
+
+/* -------------------- Outbound event sink --------------------
+
+  Every cross-cutting server→client effect (Msg_* below, plus the
+  Notify* hooks at engine mutation choke-points) is pushed to any
+  registered EventSink in addition to taking its normal local effect.
+  Used as a tap for an outbound network stream; default no-op so
+  subclasses override only what they care about.
+*/
+
+class EventSink {
+public:
+    virtual ~EventSink() = default;
+
+    virtual void OnCommand(const std::string &cmd) {}
+    virtual void OnAdvanceLevel(lev::LevelAdvanceMode mode) {}
+    virtual void OnJumpBack() {}
+    virtual void OnLevelLoaded(bool isRestart) {}
+    virtual void OnPlayerPosition(unsigned iplayer, const ecl::V2 &pos) {}
+    virtual void OnSparkle(const ecl::V2 &pos) {}
+    virtual void OnShowText(const std::string &text, bool scrolling, double duration) {}
+    virtual void OnShowDocument(const std::string &text, bool scrolling, double duration) {}
+    virtual void OnFinishedText() {}
+    virtual void OnTeatime(bool onoff) {}
+    virtual void OnPlaySound(const std::string &soundname, const ecl::V2 &pos,
+                             double relative_volume) {}
+    virtual void OnPlaySoundRelative(const std::string &soundname, double relative_volume) {}
+    virtual void OnError(const std::string &text) {}
+
+    virtual void OnActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel) {}
+    virtual void OnActorSpriteChanged(int actor_id, const std::string &model_name) {}
+};
+
+void RegisterEventSink(EventSink *sink);
+void UnregisterEventSink(EventSink *sink);
+
+// Notify hooks for engine mutation points that don't pass through
+// a Msg_* function. No local side effect; purely a tap for sinks.
+void NotifyActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel);
+void NotifyActorSpriteChanged(int actor_id, const std::string &model_name);
 
 /* -------------------- Server->Client messages -------------------- */
 

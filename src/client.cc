@@ -47,8 +47,10 @@
 #include "enet/enet.h"
 #include "enet_ver.hh"
 
+#include <algorithm>
 #include <cctype>
 #include <cstring>
+#include <vector>
 
 #include "client_internal.hh"
 
@@ -100,7 +102,28 @@ namespace {
 Client client_instance;
 const char HSEP = '^';  // history separator (use character that user cannot use)
 
+std::vector<EventSink *> event_sinks;
+
 }  // namespace
+
+void RegisterEventSink(EventSink *sink) {
+    if (sink && std::find(event_sinks.begin(), event_sinks.end(), sink) == event_sinks.end())
+        event_sinks.push_back(sink);
+}
+
+void UnregisterEventSink(EventSink *sink) {
+    auto it = std::find(event_sinks.begin(), event_sinks.end(), sink);
+    if (it != event_sinks.end())
+        event_sinks.erase(it);
+}
+
+void NotifyActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel) {
+    for (auto *s : event_sinks) s->OnActorMoved(actor_id, pos, vel);
+}
+
+void NotifyActorSpriteChanged(int actor_id, const std::string &model_name) {
+    for (auto *s : event_sinks) s->OnActorSpriteChanged(actor_id, model_name);
+}
 
 /* -------------------- Client class -------------------- */
 
@@ -960,6 +983,7 @@ bool NetworkStart() {
 
 void Msg_LevelLoaded(bool isRestart) {
     client_instance.level_loaded(isRestart);
+    for (auto *s : event_sinks) s->OnLevelLoaded(isRestart);
 }
 
 void Tick(double dtime) {
@@ -972,6 +996,7 @@ void Stop() {
 }
 
 void Msg_AdvanceLevel(lev::LevelAdvanceMode mode) {
+    for (auto *s : event_sinks) s->OnAdvanceLevel(mode);
     lev::Index *level_index = lev::Index::getCurrentIndex();
     // log last played level
     lev::PersistentIndex::addCurrentToHistory();
@@ -984,6 +1009,7 @@ void Msg_AdvanceLevel(lev::LevelAdvanceMode mode) {
 }
 
 void Msg_JumpBack() {
+    for (auto *s : event_sinks) s->OnJumpBack();
     // log last played level
     lev::PersistentIndex::addCurrentToHistory();
     server::Msg_JumpBack();
@@ -994,6 +1020,7 @@ bool AbortGameP() {
 }
 
 void Msg_Command(const std::string &cmd) {
+    for (auto *s : event_sinks) s->OnCommand(cmd);
     if (cmd == "abort") {
         client_instance.abort();
     } else if (cmd == "level_finished") {
@@ -1009,6 +1036,7 @@ void Msg_Command(const std::string &cmd) {
 }
 
 void Msg_PlayerPosition(unsigned iplayer, const ecl::V2 &pos) {
+    for (auto *s : event_sinks) s->OnPlayerPosition(iplayer, pos);
     if (iplayer == (unsigned)player::CurrentPlayer()) {
         sound::SetListenerPosition(pos);
         display::SetReferencePoint(pos);
@@ -1016,31 +1044,40 @@ void Msg_PlayerPosition(unsigned iplayer, const ecl::V2 &pos) {
 }
 
 void Msg_PlaySound(const std::string &wavfile, const ecl::V2 &pos, double relative_volume) {
+    for (auto *s : event_sinks) s->OnPlaySound(wavfile, pos, relative_volume);
     sound::EmitSoundEvent(wavfile.c_str(), pos, relative_volume);
 }
 
 void Msg_PlaySound(const std::string &wavfile, double relative_volume) {
+    for (auto *s : event_sinks) s->OnPlaySoundRelative(wavfile, relative_volume);
     sound::EmitSoundEvent(wavfile.c_str(), ecl::V2(), relative_volume);
 }
 
 void Msg_Sparkle(const ecl::V2 &pos) {
+    for (auto *s : event_sinks) s->OnSparkle(pos);
     display::AddEffect(pos, "ring-anim", true);
 }
 
 void Msg_ShowText(const std::string &text, bool scrolling, double duration) {
+    for (auto *s : event_sinks) s->OnShowText(text, scrolling, duration);
     display::GetStatusBar()->show_text(text, scrolling, duration);
 }
 
 void Msg_ShowDocument(const std::string &text, bool scrolling, double duration) {
+    for (auto *s : event_sinks) s->OnShowDocument(text, scrolling, duration);
     client_instance.registerDocument(text);
-    Msg_ShowText(text, scrolling, duration);
+    // Don't call Msg_ShowText: that would re-fire OnShowText for the same
+    // payload.
+    display::GetStatusBar()->show_text(text, scrolling, duration);
 }
 
 void Msg_FinishedText() {
+    for (auto *s : event_sinks) s->OnFinishedText();
     client_instance.finishedText();
 }
 
 void Msg_Teatime(bool onoff) {
+    for (auto *s : event_sinks) s->OnTeatime(onoff);
     if (onoff)
         Msg_ShowText(_("Teatime!"), false, 0.1);
     // Note that client's time does not tick during teatime,
@@ -1049,6 +1086,7 @@ void Msg_Teatime(bool onoff) {
 }
 
 void Msg_Error(const std::string &text) {
+    for (auto *s : event_sinks) s->OnError(text);
     client_instance.error(text);
 }
 

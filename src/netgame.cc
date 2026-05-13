@@ -77,8 +77,8 @@ void handle_client_packet(ecl::Buffer &b, int player_no) {
             float dx, dy;
             if (b >> dx >> dy) {
                 printf("-- yei!\n");
-                // TODO(phase-3): protocol should carry the player index
-                // explicitly per peer. The stub hard-codes player 0.
+                // TODO: protocol should carry the player index per peer;
+                // hard-coded to 0 until the wire format is fleshed out.
                 server::Msg_MouseForce(0, ecl::V2(dx, dy));
             }
             break;

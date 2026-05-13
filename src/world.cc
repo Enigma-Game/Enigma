@@ -1432,6 +1432,12 @@ void World::move_actors(double dtime) {
 
         rest_time -= dt;
     }
+
+    for (unsigned i = 0; i < nactors; ++i) {
+        Actor *a = actorlist[i];
+        const ActorInfo &ai = *a->get_actorinfo();
+        client::NotifyActorMoved(a->getId(), ai.pos, ai.vel);
+    }
 }
 
 /* This function performs one step in the numerical integration of an
