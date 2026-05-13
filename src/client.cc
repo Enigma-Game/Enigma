@@ -208,7 +208,8 @@ void Client::handle_events() {
             if (abs(e.motion.xrel) > 300 || abs(e.motion.yrel) > 300) {
                 fprintf(stderr, "mouse event with %i, %i\n", e.motion.xrel, e.motion.yrel);
             } else
-                server::Msg_MouseForce(options::GetDouble("MouseSpeed") *
+                server::Msg_MouseForce(player::CurrentPlayer(),
+                        options::GetDouble("MouseSpeed") *
                         ecl::V2(e.motion.xrel, e.motion.yrel));
             break;
         case SDL_MOUSEBUTTONDOWN:

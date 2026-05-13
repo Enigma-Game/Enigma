@@ -86,6 +86,7 @@ Actor *GetMainActor(unsigned iplayer);
 bool AllActorsDead();
 
 void InhibitPickup(bool yesno);
+void InhibitPickup(int iplayer, bool yesno);
 void PickupItem(Actor *a, enigma::GridPos p);
 bool PickupAsItem(Actor *a, GridObject *obj, std::string kind);
 void RotateInventory(int dir = 1);

@@ -1743,8 +1743,12 @@ bool WorldInitLevel() {
     return true;
 }
 
-void SetMouseForce(V2 f) {
-    level->m_mouseforce.add_force(f);
+void SetMouseForce(int player, V2 f) {
+    level->m_mouseforce.add_force(player, f);
+}
+
+V2 GetMouseForceForPlayer(Actor *a, int player) {
+    return level->m_mouseforce.get_force_for_player(a, player);
 }
 
 void NameObject(Object *obj, const std::string &name) {

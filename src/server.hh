@@ -207,7 +207,7 @@ void Msg_Teatime(bool onoff);
 
 void Msg_Panic(bool onoff);
 
-void Msg_MouseForce(const ecl::V2 &f);
+void Msg_MouseForce(int player, const ecl::V2 &f);
 
 void Msg_ActivateItem();
 

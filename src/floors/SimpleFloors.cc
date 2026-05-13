@@ -165,11 +165,14 @@ namespace enigma {
                 objFlags & OBJBIT_INVISIBLE ? "_invisible" : "");
     }
     
-    ecl::V2 YinyangFloor::process_mouseforce (Actor *a, ecl::V2 force) {
-        if (player::CurrentPlayer() == state)
-            return getAdhesion() * force;
-        else
-            return ecl::V2();
+    ecl::V2 YinyangFloor::process_mouseforce (Actor *a, ecl::V2 /*force*/) {
+        // A yinyang floor passes through only the input from the player
+        // matching the floor's color (state 0 = yin/black, 1 = yang/white),
+        // applied to whichever marble is on the floor — same as the
+        // original single-player semantics. The `force` argument is the
+        // per-actor sum and would mask out cross-color cases, so we
+        // query the per-player force directly instead.
+        return getAdhesion() * GetMouseForceForPlayer(a, state);
     }
     
     BOOT_REGISTER_START
