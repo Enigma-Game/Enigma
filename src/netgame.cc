@@ -17,11 +17,13 @@
  *
  */
 #include "errors.hh"
+#include "actors.hh"
 #include "client.hh"
 #include "main.hh"
 #include "netgame.hh"
 #include "network.hh"
 #include "options.hh"
+#include "player.hh"
 #include "server.hh"
 
 #include "enet/enet.h"
@@ -35,64 +37,262 @@ using namespace enigma;
 #include "client_internal.hh"
 
 //======================================================================
-// SERVER
+// Wire protocol
 //======================================================================
 
-namespace enigma {
-namespace server {
+namespace {
 
-enum ServerMessageTypes {
-    SVMSG_NOOP,
-    SVMSG_LOADLEVEL,
-    SVMSG_MOUSEFORCE,
-    SVMSG_ACTIVATEITEM,
+// Packet tags. Client -> host inputs live in the 0x10–0x7F band, host
+// -> client events in 0x80+. The bands are separate so a malformed
+// peer cannot confuse one for the other.
+enum ProtoTag : Uint8 {
+    // Client -> host (inputs)
+    CL_MOUSE_FORCE       = 0x10,
+    CL_ACTIVATE_ITEM     = 0x11,
+    CL_ROTATE_INVENTORY  = 0x12,
+    CL_COMMAND           = 0x13,
+    CL_INHIBIT_PICKUP    = 0x14,
+
+    // Host -> client (outbound EventSink stream)
+    SV_COMMAND           = 0x80,
+    SV_ADVANCE_LEVEL     = 0x81,
+    SV_JUMP_BACK         = 0x82,
+    SV_LEVEL_LOADED      = 0x83,
+    SV_PLAYER_POSITION   = 0x84,
+    SV_SPARKLE           = 0x85,
+    SV_PLAY_SOUND        = 0x86,
+    SV_PLAY_SOUND_REL    = 0x87,
+    SV_SHOW_TEXT         = 0x88,
+    SV_SHOW_DOCUMENT     = 0x89,
+    SV_FINISHED_TEXT     = 0x8A,
+    SV_TEATIME           = 0x8B,
+    SV_ERROR             = 0x8C,
+    SV_ACTOR_MOVED       = 0x8D,
+    SV_ACTOR_SPRITE      = 0x8E,
 };
 
-} // namespace server
-} // namespace enigma
+constexpr int CHANNEL_UNRELIABLE = 0;
+constexpr int CHANNEL_RELIABLE   = 1;
 
-void handle_client_packet(ecl::Buffer &b, int player_no) {
-    Uint8 code;
-    while (b >> code) {
-        switch (code) {
-        case server::SVMSG_NOOP:
-            break;  // no nothing
+// Batches outbound EventSink calls into a reliable and an unreliable
+// buffer; flush() ships both. Position-style updates that arrive every
+// tick go unreliable; everything else is reliable.
+class NetworkSink : public client::EventSink {
+public:
+    explicit NetworkSink(Peer *peer) : m_peer(peer) {}
 
-        // not yet used -- rewrite to index/proxy usage
-        //        case SVMSG_LOADLEVEL: {
-        //            Uint16 levelno;
-        //            string levelpack;
-        //            if (b >> levelno >> levelpack) {
-        //                printf ("SV: Loading level %d from levelpack %s\n", int(levelno),
-        //                        levelpack.c_str());
-        //                server::Msg_SetLevelPack (levelpack);
-        //                server::Msg_LoadLevel (levelno);
-        //            }
-        //
-        //            break;
-        //        }
+    void OnCommand(const std::string &cmd) override {
+        m_reliable << Uint8(SV_COMMAND) << cmd;
+    }
+    void OnAdvanceLevel(lev::LevelAdvanceMode mode) override {
+        m_reliable << Uint8(SV_ADVANCE_LEVEL) << Uint8(mode);
+    }
+    void OnJumpBack() override {
+        m_reliable << Uint8(SV_JUMP_BACK);
+    }
+    void OnLevelLoaded(bool isRestart) override {
+        m_reliable << Uint8(SV_LEVEL_LOADED) << Uint8(isRestart ? 1 : 0);
+    }
+    void OnPlayerPosition(unsigned iplayer, const ecl::V2 &pos) override {
+        m_unreliable << Uint8(SV_PLAYER_POSITION) << Uint8(iplayer)
+                     << float(pos[0]) << float(pos[1]);
+    }
+    void OnSparkle(const ecl::V2 &pos) override {
+        m_reliable << Uint8(SV_SPARKLE) << float(pos[0]) << float(pos[1]);
+    }
+    void OnShowText(const std::string &text, bool scrolling, double duration) override {
+        m_reliable << Uint8(SV_SHOW_TEXT) << text
+                   << Uint8(scrolling ? 1 : 0) << double(duration);
+    }
+    void OnShowDocument(const std::string &text, bool scrolling, double duration) override {
+        m_reliable << Uint8(SV_SHOW_DOCUMENT) << text
+                   << Uint8(scrolling ? 1 : 0) << double(duration);
+    }
+    void OnFinishedText() override {
+        m_reliable << Uint8(SV_FINISHED_TEXT);
+    }
+    void OnTeatime(bool onoff) override {
+        m_reliable << Uint8(SV_TEATIME) << Uint8(onoff ? 1 : 0);
+    }
+    void OnPlaySound(const std::string &soundname, const ecl::V2 &pos,
+                     double relative_volume) override {
+        m_reliable << Uint8(SV_PLAY_SOUND) << soundname
+                   << float(pos[0]) << float(pos[1]) << double(relative_volume);
+    }
+    void OnPlaySoundRelative(const std::string &soundname,
+                             double relative_volume) override {
+        m_reliable << Uint8(SV_PLAY_SOUND_REL) << soundname << double(relative_volume);
+    }
+    void OnError(const std::string &text) override {
+        m_reliable << Uint8(SV_ERROR) << text;
+    }
+    void OnActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel) override {
+        m_unreliable << Uint8(SV_ACTOR_MOVED) << Uint32(actor_id)
+                     << float(pos[0]) << float(pos[1])
+                     << float(vel[0]) << float(vel[1]);
+    }
+    void OnActorSpriteChanged(int actor_id, const std::string &model_name) override {
+        m_reliable << Uint8(SV_ACTOR_SPRITE) << Uint32(actor_id) << model_name;
+    }
 
-        case server::SVMSG_MOUSEFORCE: {
-            printf("mouse force\n");
+    void flush() {
+        if (m_reliable.size() > 0) {
+            m_peer->send_reliable(m_reliable, CHANNEL_RELIABLE);
+            m_reliable.clear();
+        }
+        if (m_unreliable.size() > 0) {
+            m_peer->send_message(m_unreliable, CHANNEL_UNRELIABLE);
+            m_unreliable.clear();
+        }
+    }
+
+private:
+    Peer *m_peer;
+    ecl::Buffer m_reliable;
+    ecl::Buffer m_unreliable;
+};
+
+// Parse a packet that arrived on the host. `player` is the index
+// assigned to that connection (0 or 1); inputs are tagged with it on
+// the server side so the simulation knows whose marble to drive.
+void dispatch_input_from_client(ecl::Buffer &b, int player) {
+    Uint8 tag;
+    while (b >> tag) {
+        switch (tag) {
+        case CL_MOUSE_FORCE: {
             float dx, dy;
-            if (b >> dx >> dy) {
-                printf("-- yei!\n");
-                // TODO: protocol should carry the player index per peer;
-                // hard-coded to 0 until the wire format is fleshed out.
-                server::Msg_MouseForce(0, ecl::V2(dx, dy));
-            }
+            if (b >> dx >> dy)
+                server::Msg_MouseForce(player, ecl::V2(dx, dy));
             break;
         }
-
-        case server::SVMSG_ACTIVATEITEM: {
+        case CL_ACTIVATE_ITEM:
             server::Msg_ActivateItem();
             break;
+        case CL_ROTATE_INVENTORY: {
+            Uint8 dir;
+            if (b >> dir)
+                player::RotateInventory(int(Sint8(dir)));
+            break;
         }
-
-        default: enigma::Log << "SV: received undefined packet: " << int(code) << "\n";
+        case CL_COMMAND: {
+            std::string cmd;
+            if (b >> cmd)
+                server::Msg_Command(cmd);
+            break;
+        }
+        case CL_INHIBIT_PICKUP: {
+            Uint8 onoff;
+            if (b >> onoff)
+                player::InhibitPickup(player, onoff != 0);
+            break;
+        }
+        default:
+            enigma::Log << "netgame: unknown CL tag 0x" << std::hex << int(tag) << "\n";
+            return;
         }
     }
 }
+
+// Parse a packet that arrived on a remote client and apply it to the
+// local state. Goes through the existing client::Msg_* and engine
+// APIs; since no NetworkSink is registered on the remote, this does
+// not re-broadcast.
+void dispatch_event_from_server(ecl::Buffer &b) {
+    Uint8 tag;
+    while (b >> tag) {
+        switch (tag) {
+        case SV_COMMAND: {
+            std::string cmd;
+            if (b >> cmd) client::Msg_Command(cmd);
+            break;
+        }
+        case SV_ADVANCE_LEVEL: {
+            Uint8 mode;
+            if (b >> mode) client::Msg_AdvanceLevel(lev::LevelAdvanceMode(mode));
+            break;
+        }
+        case SV_JUMP_BACK:
+            client::Msg_JumpBack();
+            break;
+        case SV_LEVEL_LOADED: {
+            Uint8 restart;
+            if (b >> restart) client::Msg_LevelLoaded(restart != 0);
+            break;
+        }
+        case SV_PLAYER_POSITION: {
+            Uint8 ip; float x, y;
+            if (b >> ip >> x >> y) client::Msg_PlayerPosition(ip, ecl::V2(x, y));
+            break;
+        }
+        case SV_SPARKLE: {
+            float x, y;
+            if (b >> x >> y) client::Msg_Sparkle(ecl::V2(x, y));
+            break;
+        }
+        case SV_PLAY_SOUND: {
+            std::string sn; float x, y; double v;
+            if (b >> sn >> x >> y >> v)
+                client::Msg_PlaySound(sn, ecl::V2(x, y), v);
+            break;
+        }
+        case SV_PLAY_SOUND_REL: {
+            std::string sn; double v;
+            if (b >> sn >> v) client::Msg_PlaySound(sn, v);
+            break;
+        }
+        case SV_SHOW_TEXT: {
+            std::string text; Uint8 scr; double dur;
+            if (b >> text >> scr >> dur)
+                client::Msg_ShowText(text, scr != 0, dur);
+            break;
+        }
+        case SV_SHOW_DOCUMENT: {
+            std::string text; Uint8 scr; double dur;
+            if (b >> text >> scr >> dur)
+                client::Msg_ShowDocument(text, scr != 0, dur);
+            break;
+        }
+        case SV_FINISHED_TEXT:
+            client::Msg_FinishedText();
+            break;
+        case SV_TEATIME: {
+            Uint8 on;
+            if (b >> on) client::Msg_Teatime(on != 0);
+            break;
+        }
+        case SV_ERROR: {
+            std::string text;
+            if (b >> text) client::Msg_Error(text);
+            break;
+        }
+        case SV_ACTOR_MOVED: {
+            Uint32 id; float px, py, vx, vy;
+            if (b >> id >> px >> py >> vx >> vy) {
+                if (Actor *a = dynamic_cast<Actor *>(Object::getObject(int(id)))) {
+                    ActorInfo *ai = a->get_actorinfo();
+                    ai->pos = ecl::V2(px, py);
+                    ai->vel = ecl::V2(vx, vy);
+                    a->move_screen();
+                }
+            }
+            break;
+        }
+        case SV_ACTOR_SPRITE: {
+            Uint32 id; std::string model;
+            if (b >> id >> model) {
+                if (Actor *a = dynamic_cast<Actor *>(Object::getObject(int(id))))
+                    a->set_model(model);
+            }
+            break;
+        }
+        default:
+            enigma::Log << "netgame: unknown SV tag 0x" << std::hex << int(tag) << "\n";
+            return;
+        }
+    }
+}
+
+}  // anonymous namespace
 
 namespace {
 
@@ -103,9 +303,10 @@ Uint32 last_tick_time;
 void server_loop(Peer *m_peer) {
     printf("SV: Entered server loop\n");
     server::InitNewGame();
-    ecl::Buffer buf;
-    buf << client::Cl_LevelLoaded();
-    m_peer->send_reliable(buf, 1);
+
+    // The remote is assigned player 1; the host drives player 0.
+    NetworkSink sink(m_peer);
+    client::RegisterEventSink(&sink);
 
     double dtime = 0;
     while (!client::AbortGameP() && m_peer->is_connected()) {
@@ -128,9 +329,10 @@ void server_loop(Peer *m_peer) {
         ecl::Buffer buf;
         int player_no;
         while (m_peer->poll_message(buf, player_no)) {
-            printf("SV: Received message from client %d\n", player_no);
-            handle_client_packet(buf, player_no);
+            dispatch_input_from_client(buf, player_no);
         }
+
+        sink.flush();
 
         int sleeptime = 10 - (SDL_GetTicks() - last_tick_time);
         if (sleeptime >= 3)  // only sleep if relatively idle
@@ -147,6 +349,7 @@ void server_loop(Peer *m_peer) {
     }
 
 done:
+    client::UnregisterEventSink(&sink);
     return;
 }
 
@@ -216,22 +419,6 @@ Peer *server_peer;
 
 }  // namespace
 
-void handle_server_packet(ecl::Buffer &buf) {
-    if (buf.size() > 0) {
-        Uint8 code;
-        buf >> code;
-        switch (code) {
-        case client::CLMSG_LEVEL_LOADED: printf("cl_level_loaded\n"); break;
-        }
-    }
-
-    ecl::Buffer obuf;
-    obuf << Uint8(server::SVMSG_LOADLEVEL);
-    obuf << Uint16(84);
-    obuf << std::string("Enigma");
-    server_peer->send_reliable(obuf, 1);
-    printf("CL: sending message %u\n", (unsigned)obuf.size());
-}
 
 void netgame::Join(std::string hostname, int port) {
     printf("CL: trying to join remote game\n");
@@ -283,24 +470,28 @@ void netgame::Join(std::string hostname, int port) {
     } else
         return;
 
+    ecl::Buffer out_unreliable;
     while (server_peer->is_connected()) {
         SDL_Event e;
         while (SDL_PollEvent(&e)) {
             if (e.type && e.key.keysym.sym == SDLK_ESCAPE)
                 goto done;
             else if (e.type == SDL_MOUSEMOTION) {
-                ecl::Buffer buf;
                 float mouseforce = options::GetDouble("MouseSpeed");
-                buf << Uint8(server::SVMSG_MOUSEFORCE) << float(e.motion.xrel * mouseforce)
-                    << float(e.motion.yrel * mouseforce);
-                server_peer->send_reliable(buf, 1);
+                out_unreliable << Uint8(CL_MOUSE_FORCE)
+                               << float(e.motion.xrel * mouseforce)
+                               << float(e.motion.yrel * mouseforce);
             }
+        }
+        if (out_unreliable.size() > 0) {
+            server_peer->send_message(out_unreliable, CHANNEL_UNRELIABLE);
+            out_unreliable.clear();
         }
 
         ecl::Buffer buf;
         int peerno;
         while (server_peer->poll_message(buf, peerno)) {
-            handle_server_packet(buf);
+            dispatch_event_from_server(buf);
         }
         SDL_Delay(10);
     }
