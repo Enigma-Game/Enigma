@@ -39,6 +39,7 @@
 #include "lev/Proxy.hh"
 #include "lev/RatingManager.hh"
 #include "lev/ScoreManager.hh"
+#include "netgame.hh"
 
 #include "ecl_font.hh"
 #include "ecl_sdl.hh"
@@ -47,8 +48,10 @@
 #include "enet/enet.h"
 #include "enet_ver.hh"
 
+#include <algorithm>
 #include <cctype>
 #include <cstring>
+#include <vector>
 
 #include "client_internal.hh"
 
@@ -100,7 +103,78 @@ namespace {
 Client client_instance;
 const char HSEP = '^';  // history separator (use character that user cannot use)
 
+std::vector<EventSink *> event_sinks;
+
 }  // namespace
+
+void RegisterEventSink(EventSink *sink) {
+    if (sink && std::find(event_sinks.begin(), event_sinks.end(), sink) == event_sinks.end())
+        event_sinks.push_back(sink);
+}
+
+void UnregisterEventSink(EventSink *sink) {
+    auto it = std::find(event_sinks.begin(), event_sinks.end(), sink);
+    if (it != event_sinks.end())
+        event_sinks.erase(it);
+}
+
+void NotifyActorMoved(int object_id, const ecl::V2 &pos, const ecl::V2 &vel) {
+    for (auto *s : event_sinks) s->OnActorMoved(object_id, pos, vel);
+}
+
+void NotifyActorSpriteChanged(int object_id, const std::string &model_name) {
+    for (auto *s : event_sinks) s->OnActorSpriteChanged(object_id, model_name);
+}
+
+void NotifyActorAdded(int object_id, const std::string &kind,
+                      const ecl::V2 &pos, const ecl::V2 &vel,
+                      int owner_player) {
+    for (auto *s : event_sinks)
+        s->OnActorAdded(object_id, kind, pos, vel, owner_player);
+}
+
+void NotifyActorKilled(int object_id) {
+    for (auto *s : event_sinks) s->OnActorKilled(object_id);
+}
+
+void NotifyGridSpriteChanged(int layer, int x, int y, const std::string &model_name) {
+    for (auto *s : event_sinks)
+        s->OnGridSpriteChanged(layer, x, y, model_name);
+}
+
+void NotifyGridSpriteCleared(int layer, int x, int y) {
+    for (auto *s : event_sinks)
+        s->OnGridSpriteCleared(layer, x, y);
+}
+
+void NotifySound(const std::string &soundname, const ecl::V2 &pos,
+                 double volume, bool global) {
+    for (auto *s : event_sinks)
+        s->OnSound(soundname, pos, volume, global);
+}
+
+void NotifyInventoryChanged(int player_index,
+                            const std::vector<std::string> &model_names) {
+    for (auto *s : event_sinks)
+        s->OnInventoryChanged(player_index, model_names);
+}
+
+void NotifyMoveCounter(int value) {
+    for (auto *s : event_sinks)
+        s->OnMoveCounter(value);
+}
+
+void NotifyPause(bool onoff) {
+    for (auto *s : event_sinks) s->OnPause(onoff);
+}
+
+void NotifyReload(int level_idx) {
+    for (auto *s : event_sinks) s->OnReload(level_idx);
+}
+
+void NotifyResize(int w, int h) {
+    for (auto *s : event_sinks) s->OnResize(w, h);
+}
 
 /* -------------------- Client class -------------------- */
 
@@ -207,9 +281,14 @@ void Client::handle_events() {
                 break;
             if (abs(e.motion.xrel) > 300 || abs(e.motion.yrel) > 300) {
                 fprintf(stderr, "mouse event with %i, %i\n", e.motion.xrel, e.motion.yrel);
-            } else
-                server::Msg_MouseForce(options::GetDouble("MouseSpeed") *
-                        ecl::V2(e.motion.xrel, e.motion.yrel));
+            } else {
+                ecl::V2 f = options::GetDouble("MouseSpeed") *
+                            ecl::V2(e.motion.xrel, e.motion.yrel);
+                if (netgame::IsClient())
+                    netgame::SendInputMouseForce(f);
+                else
+                    server::Msg_MouseForce(player::CurrentPlayer(), f);
+            }
             break;
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP: on_mousebutton(e); break;
@@ -222,9 +301,11 @@ void Client::handle_events() {
         case SDL_WINDOWEVENT: {
             update_mouse_button_state();
             if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                // TODO(SDL2): is this sthe right event? The old code had
-                // !video::IsFullScreen() as an additional check - necessary?
-                show_menu(false);
+                // Don't auto-pause in a network game: the other peer
+                // keeps simulating, so popping a local menu just blocks
+                // input on this side and looks like a freeze.
+                if (!netgame::IsActive())
+                    show_menu(false);
             } else if (e.window.event == SDL_WINDOWEVENT_EXPOSED) {
                 display::RedrawAll(video_engine->GetScreen());
             }
@@ -253,9 +334,11 @@ void Client::handle_events_teatime() {
         case SDL_WINDOWEVENT: {
             update_mouse_button_state();
             if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                // TODO(SDL2): is this sthe right event? The old code had
-                // !video::IsFullScreen() as an additional check - necessary?
-                show_menu(false);
+                // Don't auto-pause in a network game: the other peer
+                // keeps simulating, so popping a local menu just blocks
+                // input on this side and looks like a freeze.
+                if (!netgame::IsActive())
+                    show_menu(false);
             } else if (e.window.event == SDL_WINDOWEVENT_EXPOSED) {
                 display::RedrawAll(video_engine->GetScreen());
             }
@@ -271,14 +354,21 @@ void Client::handle_events_teatime() {
 
 void Client::update_mouse_button_state() {
     int b = SDL_GetMouseState(0, 0);
-    player::InhibitPickup((b & SDL_BUTTON_LMASK) || (b & SDL_BUTTON_RMASK));
+    bool inhibit = (b & SDL_BUTTON_LMASK) || (b & SDL_BUTTON_RMASK);
+    if (netgame::IsClient())
+        netgame::SendInputInhibitPickup(inhibit);
+    else
+        player::InhibitPickup(inhibit);
 }
 
 void Client::on_mousebutton(SDL_Event &e) {
     if (e.button.state == SDL_PRESSED) {
         if (e.button.button == SDL_BUTTON_LEFT) {
             // left mousebutton -> activate first item in inventory
-            server::Msg_ActivateItem();
+            if (netgame::IsClient())
+                netgame::SendInputActivateItem();
+            else
+                server::Msg_ActivateItem(player::CurrentPlayer());
         } else if (e.button.button == SDL_BUTTON_RIGHT) {
             // right mousebutton -> rotate inventory
             rotate_inventory(+1);
@@ -323,7 +413,10 @@ void Client::on_mousebutton(SDL_Event &e) {
 void Client::rotate_inventory(int direction) {
     m_user_input = "";
     display::GetStatusBar()->hide_text();
-    player::RotateInventory(direction);
+    if (netgame::IsClient())
+        netgame::SendInputRotateInventory(direction);
+    else
+        player::RotateInventory(direction);
 }
 
 /* -------------------- Console related -------------------- */
@@ -448,14 +541,25 @@ void Client::on_keydown(SDL_Event &e) {
     SDL_Keycode keysym = e.key.keysym.sym;
     Uint16 keymod = e.key.keysym.mod;
 
+    // For commands that act on a specific player (e.g. "suicide"),
+    // local invocations target the current player. The remote
+    // forwards the command and the host substitutes the connection's
+    // player index when dispatching.
+    auto send_command = [](const std::string &cmd) {
+        if (netgame::IsClient())
+            netgame::SendInputCommand(cmd);
+        else
+            server::Msg_Command(cmd, player::CurrentPlayer());
+    };
+
     if (keymod & KMOD_CTRL) {
         switch (keysym) {
-        case SDLK_a: server::Msg_Command("restart"); break;
+        case SDLK_a: send_command("restart"); break;
         case SDLK_F3:
             if (keymod & KMOD_SHIFT) {
                 // force a reload from file
                 lev::Proxy::releaseCache();
-                server::Msg_Command("restart");
+                send_command("restart");
             }
         default: break;
         };
@@ -509,14 +613,29 @@ void Client::on_keydown(SDL_Event &e) {
             break;
         case SDLK_F3:
             if (keymod & KMOD_SHIFT)
-                server::Msg_Command("restart");
+                send_command("restart");
             else
-                server::Msg_Command("suicide");
+                send_command("suicide");
             break;
 
-        case SDLK_F4: Msg_AdvanceLevel(lev::ADVANCE_STRICTLY); break;
-        case SDLK_F5: Msg_AdvanceLevel(lev::ADVANCE_UNSOLVED); break;
-        case SDLK_F6: Msg_JumpBack(); break;
+        case SDLK_F4:
+            if (netgame::IsClient())
+                netgame::SendInputCommand("advance_strict");
+            else
+                Msg_AdvanceLevel(lev::ADVANCE_STRICTLY);
+            break;
+        case SDLK_F5:
+            if (netgame::IsClient())
+                netgame::SendInputCommand("advance_unsolved");
+            else
+                Msg_AdvanceLevel(lev::ADVANCE_UNSOLVED);
+            break;
+        case SDLK_F6:
+            if (netgame::IsClient())
+                netgame::SendInputCommand("jumpback");
+            else
+                Msg_JumpBack();
+            break;
 
         case SDLK_F10: {
             video_engine->Screenshot(server::LoadedProxy->getNextScreenshotPath());
@@ -698,6 +817,12 @@ void Client::tick(double dtime) {
             m_timeaccu = 0;
             m_total_game_time = 0;
             sdl::FlushEvents();
+            // The level transition has just finished and the screen
+            // looks completely different from when the cursor last
+            // saved its underlying pixels. Refresh that snapshot so
+            // the next mouse move doesn't paint stale menu pixels
+            // into the game view.
+            video_engine->RecaptureMouseBackground();
         }
         break;
     }
@@ -959,6 +1084,7 @@ bool NetworkStart() {
 
 void Msg_LevelLoaded(bool isRestart) {
     client_instance.level_loaded(isRestart);
+    for (auto *s : event_sinks) s->OnLevelLoaded(isRestart);
 }
 
 void Tick(double dtime) {
@@ -971,21 +1097,43 @@ void Stop() {
 }
 
 void Msg_AdvanceLevel(lev::LevelAdvanceMode mode) {
+    for (auto *s : event_sinks) s->OnAdvanceLevel(mode);
     lev::Index *level_index = lev::Index::getCurrentIndex();
     // log last played level
     lev::PersistentIndex::addCurrentToHistory();
 
-    if (level_index->advanceLevel(mode)) {
-        // now we may advance
-        server::Msg_LoadLevel(level_index->getCurrent(), false);
+    bool ok = level_index->advanceLevel(mode);
+    // In a LAN session, keep advancing until we hit a level that the
+    // pack marks as network-playable; landing on a single-player-only
+    // level mid-session would silently switch off two-player mode.
+    while (ok && netgame::IsActive()) {
+        lev::Proxy *p = level_index->getCurrent();
+        bool is_network = false;
+        if (p) {
+            try { p->loadMetadata(true); } catch (...) {}
+            is_network = p->hasNetworkMode();
+        }
+        if (is_network) break;
+        ok = level_index->advanceLevel(mode);
+    }
+
+    if (ok) {
+        // The remote doesn't run levels itself — the host streams the
+        // new world state. We just advance the index for the caption.
+        if (!netgame::IsClient())
+            server::Msg_LoadLevel(level_index->getCurrent(), false);
     } else
         client::Msg_Command("abort");
 }
 
 void Msg_JumpBack() {
+    for (auto *s : event_sinks) s->OnJumpBack();
     // log last played level
     lev::PersistentIndex::addCurrentToHistory();
-    server::Msg_JumpBack();
+    // On the remote, the host runs the actual jumpback and streams
+    // the new world state; we skip the local load.
+    if (!netgame::IsClient())
+        server::Msg_JumpBack();
 }
 
 bool AbortGameP() {
@@ -993,6 +1141,7 @@ bool AbortGameP() {
 }
 
 void Msg_Command(const std::string &cmd) {
+    for (auto *s : event_sinks) s->OnCommand(cmd);
     if (cmd == "abort") {
         client_instance.abort();
     } else if (cmd == "level_finished") {
@@ -1008,6 +1157,7 @@ void Msg_Command(const std::string &cmd) {
 }
 
 void Msg_PlayerPosition(unsigned iplayer, const ecl::V2 &pos) {
+    for (auto *s : event_sinks) s->OnPlayerPosition(iplayer, pos);
     if (iplayer == (unsigned)player::CurrentPlayer()) {
         sound::SetListenerPosition(pos);
         display::SetReferencePoint(pos);
@@ -1015,6 +1165,7 @@ void Msg_PlayerPosition(unsigned iplayer, const ecl::V2 &pos) {
 }
 
 void Msg_PlaySound(const std::string &wavfile, const ecl::V2 &pos, double relative_volume) {
+    // Broadcast happens via the tap inside sound::EmitSoundEvent.
     sound::EmitSoundEvent(wavfile.c_str(), pos, relative_volume);
 }
 
@@ -1023,23 +1174,30 @@ void Msg_PlaySound(const std::string &wavfile, double relative_volume) {
 }
 
 void Msg_Sparkle(const ecl::V2 &pos) {
+    for (auto *s : event_sinks) s->OnSparkle(pos);
     display::AddEffect(pos, "ring-anim", true);
 }
 
 void Msg_ShowText(const std::string &text, bool scrolling, double duration) {
+    for (auto *s : event_sinks) s->OnShowText(text, scrolling, duration);
     display::GetStatusBar()->show_text(text, scrolling, duration);
 }
 
 void Msg_ShowDocument(const std::string &text, bool scrolling, double duration) {
+    for (auto *s : event_sinks) s->OnShowDocument(text, scrolling, duration);
     client_instance.registerDocument(text);
-    Msg_ShowText(text, scrolling, duration);
+    // Don't call Msg_ShowText: that would re-fire OnShowText for the same
+    // payload.
+    display::GetStatusBar()->show_text(text, scrolling, duration);
 }
 
 void Msg_FinishedText() {
+    for (auto *s : event_sinks) s->OnFinishedText();
     client_instance.finishedText();
 }
 
 void Msg_Teatime(bool onoff) {
+    for (auto *s : event_sinks) s->OnTeatime(onoff);
     if (onoff)
         Msg_ShowText(_("Teatime!"), false, 0.1);
     // Note that client's time does not tick during teatime,
@@ -1048,6 +1206,7 @@ void Msg_Teatime(bool onoff) {
 }
 
 void Msg_Error(const std::string &text) {
+    for (auto *s : event_sinks) s->OnError(text);
     client_instance.error(text);
 }
 

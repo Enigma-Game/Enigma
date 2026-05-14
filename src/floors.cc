@@ -73,10 +73,10 @@ Value Floor::message(const Message &m) {
 }
 
 ecl::V2 Floor::process_mouseforce(Actor *a, ecl::V2 force) {
-    if (a->controlled_by(player::CurrentPlayer()))
-        return getAdhesion() * force;
-    else
-        return ecl::V2();
+    // The per-actor sum in MouseForce::get_force already zeros the
+    // force for actors not controlled by any active-input player,
+    // so we just scale by the floor's adhesion here.
+    return getAdhesion() * force;
 }
 
 void Floor::setAttr(const string &key, const Value &val) {

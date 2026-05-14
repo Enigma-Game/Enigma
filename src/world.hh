@@ -178,7 +178,8 @@ PositionList GetNamedPositionList(const std::string &templ, Object *reference = 
 
 void AddForceField(ForceField *ff);
 void RemoveForceField(ForceField *ff);
-void SetMouseForce(ecl::V2 f);
+void SetMouseForce(int player, ecl::V2 f);
+ecl::V2 GetMouseForceForPlayer(Actor *a, int player);
 
 void SetGlobalForce(ecl::V2 force);
 ecl::V2 GetGlobalForce();

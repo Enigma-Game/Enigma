@@ -142,7 +142,7 @@ bool TextField::on_event(const SDL_Event &e) {
             //strcat(text, e.text.text);
             std::string newText(e.text.text);
             int totalLength = textPreCursor.length() + newText.length() + textPostCursor.length();
-            if (   (maxChars >= 0 && totalLength >= maxChars)
+            if (   (maxChars >= 0 && totalLength > maxChars)
                 || (newText.length() == 1 && invalidChars.find((char)(newText[0])) != std::string::npos)) {
                 // string too long or invalid char
                 sound::EmitSoundEvent ("menustop");

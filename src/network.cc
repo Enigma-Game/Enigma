@@ -45,9 +45,10 @@ Peer_Enet::Peer_Enet (ENetHost *host, ENetPeer *peer, int playerno)
 }
 
 
-Peer_Enet::~Peer_Enet() 
+Peer_Enet::~Peer_Enet()
 {
-    disconnect(0);
+    if (m_connected)
+        disconnect(0);
 }
 
 

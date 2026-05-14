@@ -156,7 +156,7 @@ namespace enigma { namespace lev {
     
     protected:
         std::string title;
-        
+
         Proxy(bool proxyIsLibrary, pathType thePathType, std::string theNormLevelPath,
                 std::string levelId, std::string levelTitle, std::string levelAuthor,
                 int levelScoreVersion, int levelRelease, bool levelHasEasymode,

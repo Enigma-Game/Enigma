@@ -21,6 +21,7 @@
 #include "Inventory.hh"
 #include "display.hh"
 #include "errors.hh"
+#include "netgame.hh"
 #include "SoundEffectManager.hh"
 #include "client.hh"
 #include "server.hh"
@@ -169,6 +170,14 @@ void player::NewGame() {
             inv->add_item(MakeItem("it_extralife"));
     }
 
+    // Broadcast every player's initial inventory. The local status bar
+    // for the current player is refreshed by LevelLoaded below; the
+    // explicit notify here makes sure a LAN peer that holds the *other*
+    // player also receives their starting items (extralives in
+    // particular).
+    for (int i = 0; i < nplayers; ++i)
+        RedrawInventory(GetInventory(i));
+
     unassignedActors.clear();
     leveldat.reset();
 }
@@ -182,7 +191,10 @@ void player::AddYinYang() {
 }
 
 void player::LevelLoaded(bool isRestart) {
-    if (server::TwoPlayerGame && server::SingleComputerGame)
+    // The yin-yang item lets one user swap between black and white on
+    // a single computer. In a LAN session each peer is locked to its
+    // colour, so the swap mechanic doesn't apply.
+    if (server::TwoPlayerGame && server::SingleComputerGame && !netgame::IsActive())
         AddYinYang();
     RedrawInventory();
 }
@@ -293,6 +305,14 @@ void player::Suicide() {
         for (auto &actor : player.actors) {
             SendMessage(actor, "_suicide");
         }
+    }
+}
+
+void player::Suicide(int iplayer) {
+    if ((unsigned)iplayer >= players.size())
+        return;
+    for (auto &actor : players[iplayer].actors) {
+        SendMessage(actor, "_suicide");
     }
 }
 
@@ -495,6 +515,11 @@ void player::InhibitPickup(bool flag) {
     players[icurrent_player].inhibit_pickup = flag;
 }
 
+void player::InhibitPickup(int iplayer, bool flag) {
+    if ((unsigned)iplayer < players.size())
+        players[iplayer].inhibit_pickup = flag;
+}
+
 /*! Return pointer to inventory if actor may pick up items, 0
    otherwise. */
 Inventory *player::MayPickup(Actor *a, Item *it, bool allowFlying) {
@@ -539,8 +564,10 @@ bool player::PickupAsItem(Actor *a, GridObject *obj, std::string kind) {
     return false;
 }
 
-void player::ActivateFirstItem() {
-    Inventory &inv = players[icurrent_player].inventory;
+void player::ActivateFirstItem(int iplayer) {
+    if ((unsigned)iplayer >= players.size())
+        return;
+    Inventory &inv = players[iplayer].inventory;
 
     if (inv.size() > 0) {
         Item *it = inv.get_item(0);
@@ -548,8 +575,8 @@ void player::ActivateFirstItem() {
         GridPos p;
         bool can_drop_item = false;
         std::vector<Actor *>::iterator itr;
-        for (itr = players[icurrent_player].actors.begin();
-             itr != players[icurrent_player].actors.end() && ac == nullptr; itr++) {
+        for (itr = players[iplayer].actors.begin();
+             itr != players[iplayer].actors.end() && ac == nullptr; itr++) {
             if (!(*itr)->is_dead()) {
                 ac = *itr;
                 p = GridPos(ac->get_pos());
@@ -578,8 +605,14 @@ void player::ActivateFirstItem() {
 }
 
 void player::RotateInventory(int dir) {
+    RotateInventory(CurrentPlayer(), dir);
+}
+
+void player::RotateInventory(int iplayer, int dir) {
+    if ((unsigned)iplayer >= players.size())
+        return;
     sound::EmitSoundEvent("invrotate", ecl::V2());
-    Inventory &inv = players[icurrent_player].inventory;
+    Inventory &inv = players[iplayer].inventory;
     if (dir == 1)
         inv.rotate_left();
     else
@@ -589,8 +622,17 @@ void player::RotateInventory(int dir) {
 
 /** Update the specified inventory on the screen, provided it is the
     inventory of the current player.  For all other inventories, this
-    function does nothing. */
+    function does nothing locally -- but the per-player model list is
+    still announced via client::NotifyInventoryChanged so a remote peer
+    that holds the *other* player can refresh its own status bar. */
 void player::RedrawInventory(Inventory *inv) {
+    int owner = inv->getOwner();
+    if (owner >= 0) {
+        std::vector<std::string> modelnames;
+        for (size_t i = 0; i < inv->size(); ++i)
+            modelnames.push_back(inv->get_item(i)->get_inventory_model());
+        client::NotifyInventoryChanged(owner, modelnames);
+    }
     if (inv == GetInventory(CurrentPlayer()))
         RedrawInventory();
 }

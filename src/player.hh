@@ -76,6 +76,7 @@ Inventory *GetInventory(Actor *a);
 bool WieldedItemIs(Actor *a, const std::string &kind);
 
 void Suicide();
+void Suicide(int iplayer);
 
 void AddActor(unsigned iplayer, Actor *a);
 void AddUnassignedActor(Actor *a);  // actors not assigned to a player
@@ -86,11 +87,13 @@ Actor *GetMainActor(unsigned iplayer);
 bool AllActorsDead();
 
 void InhibitPickup(bool yesno);
+void InhibitPickup(int iplayer, bool yesno);
 void PickupItem(Actor *a, enigma::GridPos p);
 bool PickupAsItem(Actor *a, GridObject *obj, std::string kind);
 void RotateInventory(int dir = 1);
 
-void ActivateFirstItem();
+void ActivateFirstItem(int iplayer);
+void RotateInventory(int iplayer, int dir);
 ItemAction ActivateItem(Item *it);
 
 void Tick(double dtime);

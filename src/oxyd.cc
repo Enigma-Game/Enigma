@@ -231,7 +231,7 @@ void OxydLoader::load ()
 {
     // Prepare Enigma game engine
     Resize (level.getWidth(), level.getHeight());
-    if (config.twoplayers) 
+    if (config.twoplayers)
         server::TwoPlayerGame = true;
     display::ResizeGameArea (20, 11);
     if (level.getScrolling())
@@ -239,7 +239,7 @@ void OxydLoader::load ()
     else
         SetFollowMode (display::FOLLOW_SCREEN);
 
-    // Populate Enigma game 
+    // Populate Enigma game
     load_floor ();
     load_items ();
     load_stones ();

@@ -44,23 +44,50 @@ typedef std::vector<Signal> SignalList;
 /*! This class implements the "force field" that accelerates
   objects when the mouse is moved.  Only objects that have the
   "mouseforce" and the "controllers" attributes set are affected
-  by this force field. */
+  by this force field.
+
+  Each player (0 = black/yin, 1 = white/yang) has their own
+  independent force vector, so two simultaneous inputs (LAN
+  multiplayer, future split-input local 2P) can each push their
+  own marble. In single-player mode only one slot is non-zero
+  per tick, so the sum collapses to the previous behavior. */
 class MouseForce {
 public:
-    void set_force(ecl::V2 f) { force = f; }
-    void add_force(ecl::V2 f) { force += f; }
+    static constexpr int kNumPlayers = 2;
 
-    ecl::V2 get_force(Actor *a) {
+    void set_force(int player, ecl::V2 f) { forces[player] = f; }
+    void add_force(int player, ecl::V2 f) { forces[player] += f; }
+
+    /*! Sum of forces from every player that controls this actor,
+      scaled by the actor's adhesion. Used by ordinary floors. */
+    ecl::V2 get_force(Actor *a) const {
         if (a->is_flying() || a->is_dead())
             return ecl::V2();
-        else
-            return force * a->get_mouseforce();
+        ecl::V2 result;
+        for (int p = 0; p < kNumPlayers; ++p) {
+            if (a->controlled_by(p))
+                result += forces[p];
+        }
+        return result * a->get_mouseforce();
     }
 
-    void tick(double /*dtime*/) { force = ecl::V2(); }
+    /*! Raw per-player force scaled by the actor's adhesion,
+      ignoring the actor's controllers mask. Used by YinyangFloor,
+      where the floor color (not the marble color) selects which
+      player's input is in effect. */
+    ecl::V2 get_force_for_player(Actor *a, int player) const {
+        if (a->is_flying() || a->is_dead())
+            return ecl::V2();
+        return forces[player] * a->get_mouseforce();
+    }
+
+    void tick(double /*dtime*/) {
+        for (int p = 0; p < kNumPlayers; ++p)
+            forces[p] = ecl::V2();
+    }
 
 private:
-    ecl::V2 force;
+    ecl::V2 forces[kNumPlayers];
 };
 
 /* -------------------- Scramble -------------------- */

@@ -417,6 +417,15 @@ void World::add_actor(Actor *a, const V2 &pos) {
         // if game is already running, call on_creation() from here
         a->on_creation(pos);
     }
+    // Tell the remote about every actor (load-time and mid-game), so
+    // it can mirror them on its side with a matching Object id. The
+    // remote doesn't run the level's Lua and otherwise wouldn't know.
+    int owner = -1;
+    if (Value v = a->getAttr("owner"))
+        owner = (int)v;
+    client::NotifyActorAdded(a->getId(), a->get_traits().name,
+                             a->m_actorinfo.pos, a->m_actorinfo.vel,
+                             owner);
 
     if (get_id(a) == ac_pearl_white || get_id(a) == ac_pearl_black)
         ChangeMeditation(+1, 0, 0, 0);
@@ -425,6 +434,10 @@ void World::add_actor(Actor *a, const V2 &pos) {
 Actor *World::yield_actor(Actor *a) {
     auto i = find(actorlist.begin(), actorlist.end(), a);
     if (i != actorlist.end()) {
+        // Tell the remote before erasing so its dispatcher can find
+        // the actor by id (the id outlives the actor briefly).
+        if (!preparing_level)
+            client::NotifyActorKilled(a->getId());
         actorlist.erase(i);
 
         if (a->left == nullptr)
@@ -1432,6 +1445,15 @@ void World::move_actors(double dtime) {
 
         rest_time -= dt;
     }
+
+    // Re-read actorlist size here: physics callbacks (Lua, Drop.cc,
+    // cannons) can add/yield actors, and using the original `nactors`
+    // would read past the end or miss new entries. Identity is the
+    // actor's Object id, which is stable across yield+append.
+    for (Actor *a : actorlist) {
+        const ActorInfo &ai = *a->get_actorinfo();
+        client::NotifyActorMoved(a->getId(), ai.pos, ai.vel);
+    }
 }
 
 /* This function performs one step in the numerical integration of an
@@ -1663,6 +1685,10 @@ void Resize(int w, int h) {
     display::NewWorld(w, h);
     server::WorldSized = true;
     player::NewGame();
+    // Tell the remote so it can mirror the resize and rebuild its
+    // (empty) world to match. Subsequent SV_GRID_SPRITE and
+    // SV_ACTOR_ADDED events from the host repopulate the cells.
+    client::NotifyResize(w, h);
 }
 
 int Width() {
@@ -1743,9 +1769,14 @@ bool WorldInitLevel() {
     return true;
 }
 
-void SetMouseForce(V2 f) {
-    level->m_mouseforce.add_force(f);
+void SetMouseForce(int player, V2 f) {
+    level->m_mouseforce.add_force(player, f);
 }
+
+V2 GetMouseForceForPlayer(Actor *a, int player) {
+    return level->m_mouseforce.get_force_for_player(a, player);
+}
+
 
 void NameObject(Object *obj, const std::string &name) {
     string oldname;

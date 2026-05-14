@@ -199,7 +199,9 @@ void Msg_StartGame();
 
 void Msg_RestartGame();
 
-void Msg_Command(const std::string &command);
+// `iplayer` is the index of the originating player when meaningful
+// (currently only the "suicide" command uses it; -1 means "global").
+void Msg_Command(const std::string &command, int iplayer = -1);
 
 void Msg_Pause(bool onoff);
 
@@ -207,9 +209,9 @@ void Msg_Teatime(bool onoff);
 
 void Msg_Panic(bool onoff);
 
-void Msg_MouseForce(const ecl::V2 &f);
+void Msg_MouseForce(int player, const ecl::V2 &f);
 
-void Msg_ActivateItem();
+void Msg_ActivateItem(int iplayer);
 
 }  // namespace server
 }  // namespace enigma

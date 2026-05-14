@@ -366,6 +366,7 @@ public:
     void SetMouseCursor(ecl::Surface *s, int hotx, int hoty) override;
     void HideMouse() override;
     void ShowMouse() override;
+    void RecaptureMouseBackground() override;
     int Mousex() override { return cursor->get_x(); }
     int Mousey() override { return cursor->get_y(); }
 
@@ -753,6 +754,10 @@ void VideoEngineImpl::HideMouse() {
 void VideoEngineImpl::ShowMouse() {
     cursor->show();
     cursor->redraw();
+}
+
+void VideoEngineImpl::RecaptureMouseBackground() {
+    cursor->recapture_background();
 }
 
 bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {

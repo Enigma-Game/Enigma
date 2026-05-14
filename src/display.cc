@@ -134,6 +134,7 @@ void StatusBarImpl::set_counter(int new_counter) {
     if (m_showcounter_p && new_counter != m_counter) {
         m_changedp = true;
         m_counter = new_counter;
+        client::NotifyMoveCounter(new_counter);
     }
 }
 
@@ -1941,10 +1942,12 @@ Model *display::SetModel(const GridLoc &l, Model *m) {
 }
 
 Model *display::SetModel(const GridLoc &l, const string &modelname) {
+    client::NotifyGridSpriteChanged(int(l.layer), l.pos.x, l.pos.y, modelname);
     return SetModel(l, MakeModel(modelname));
 }
 
 void display::KillModel(const GridLoc &l) {
+    client::NotifyGridSpriteCleared(int(l.layer), l.pos.x, l.pos.y);
     delete YieldModel(l);
 }
 

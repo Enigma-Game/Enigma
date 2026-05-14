@@ -155,6 +155,7 @@ public:
     virtual void move_screen();
     void warp(const ecl::V2 &newpos);
     bool sound_event(const char *name, double vol = 1.0);
+    void set_model(const std::string &modelname);
 
     void respawn();
     void set_respawnpos(const ecl::V2 &p);
@@ -196,7 +197,6 @@ protected:
     virtual Object::ObjectType getObjectType() const override { return Object::ACTOR; }
 
     Actor(const ActorTraits &tr);
-    void set_model(const std::string &modelname);
     void set_anim(const std::string &modelname);
 
     display::SpriteHandle &get_sprite() { return m_sprite; }

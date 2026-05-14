@@ -38,6 +38,11 @@ public:
     void draw();    // Draw cursor if visible
     void show();
     void hide();
+    // Re-capture the screen pixels under the cursor without first
+    // restoring the (possibly stale) saved copy. Use this after a
+    // screen-wide repaint (e.g. menu->game transition) so the next
+    // cursor move doesn't restore stale pixels.
+    void recapture_background();
     ecl::Rect get_rect() const;
     ecl::Rect get_oldrect() const;
 

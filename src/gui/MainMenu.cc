@@ -18,6 +18,7 @@
 
 #include "gui/MainMenu.hh"
 #include "gui/LevelMenu.hh"
+#include "gui/LevelWidget.hh"
 #include "gui/SearchMenu.hh"
 #include "gui/OptionsMenu.hh"
 #include "gui/InfoMenu.hh"
@@ -27,6 +28,9 @@
 #include "display.hh"
 #include "ecl_font.hh"
 #include "ecl_system.hh"
+#include "ecl_util.hh"
+#include "lev/Index.hh"
+#include "lev/Proxy.hh"
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"
@@ -47,10 +51,10 @@ namespace enigma { namespace gui {
     {
         const VMInfo *vminfo = video_engine->GetInfo();
 
-        BuildVList b(this, Rect((vminfo->width - 150)/2,150,150,40), 5);
-        startgame = b.add(new StaticTextButton(N_("Start Game"), this));
+        BuildVList b(this, Rect((vminfo->width - 200)/2, 200, 200, 40), 10);
+        m_hostgame = b.add(new StaticTextButton(N_("Host Game"), this));
         m_joingame = b.add(new StaticTextButton(N_("Join Game"), this));
-        m_back = b.add(new StaticTextButton(N_("Back"), this));
+        m_back     = b.add(new StaticTextButton(N_("Back"), this));
     }
 
     NetworkMenu::~NetworkMenu ()
@@ -64,14 +68,17 @@ namespace enigma { namespace gui {
 
     void NetworkMenu::on_action(gui::Widget *w)
     {
-        if (w == startgame) {
-            netgame::Start();
-        }
-        else if (w == m_joingame) {
-            netgame::Join("localhost", 12345);
-        }
-        if (w == m_back)
+        if (w == m_hostgame) {
+            HostLobbyMenu m;
+            m.manage();
+            invalidate_all();
+        } else if (w == m_joingame) {
+            JoinLobbyMenu m;
+            m.manage();
+            invalidate_all();
+        } else if (w == m_back) {
             Menu::quit();
+        }
     }
 
     void NetworkMenu::draw_background(ecl::GC &gc)
@@ -82,6 +89,361 @@ namespace enigma { namespace gui {
 
     void NetworkMenu::tick(double dtime)
     {
+    }
+
+    /* -------------------- Lobby helpers -------------------- */
+
+    namespace {
+        bool proxy_is_network_mode(lev::Proxy *p) {
+            if (!p) return false;
+            try {
+                p->loadMetadata(true);
+            } catch (...) {
+                return false;
+            }
+            return p->hasNetworkMode();
+        }
+    }
+
+    /* -------------------- HostLobbyMenu -------------------- */
+
+    HostLobbyMenu::HostLobbyMenu()
+    : lbl_code(new Label("", HALIGN_LEFT)),
+      lbl_port(new Label("", HALIGN_RIGHT)),
+      lbl_pack(new Label("", HALIGN_LEFT)),
+      lbl_level(new Label("", HALIGN_LEFT)),
+      lbl_status(new Label("", HALIGN_LEFT)),
+      lbl_failed(new Label("", HALIGN_LEFT)),
+      levelwidget(new LevelWidget(/*withScoreIcons=*/true,
+                                  /*withEditBorder=*/false)),
+      game_started(false),
+      armed(false),
+      armed_pos(0)
+    {
+        const VMInfo *vminfo = video_engine->GetInfo();
+        int w = vminfo->width;
+        int h = vminfo->height;
+        int margin = 20;
+        int label_h = 26;
+
+        // Top row: code on the left, port on the right.
+        int top_y = 50;
+        this->add(lbl_code, Rect(margin,             top_y, (w-2*margin)/2, label_h));
+        this->add(lbl_port, Rect(w/2,                top_y, (w-2*margin)/2, label_h));
+
+        // Pack row with prev/next buttons.
+        int pack_y = top_y + label_h + 8;
+        int btn_w = 80;
+        int btn_h = label_h;
+        but_prev_pack = new StaticTextButton(N_("< Pack"), this);
+        but_next_pack = new StaticTextButton(N_("Pack >"), this);
+        int pack_label_x = margin;
+        int pack_label_w = w - 2*margin - 2*(btn_w + 6);
+        this->add(lbl_pack,      Rect(pack_label_x, pack_y, pack_label_w, btn_h));
+        this->add(but_prev_pack, Rect(pack_label_x + pack_label_w + 6,
+                                      pack_y, btn_w, btn_h));
+        this->add(but_next_pack, Rect(pack_label_x + pack_label_w + 6 + btn_w + 6,
+                                      pack_y, btn_w, btn_h));
+
+        // Level grid: takes the bulk of the remaining vertical space.
+        int grid_y = pack_y + btn_h + 8;
+        int bottom_block_h = 3 * (label_h + 6) + 40 + margin;
+        int grid_h = std::max(120, h - grid_y - bottom_block_h);
+        Rect grid_area(margin, grid_y, w - 2*margin, grid_h);
+        levelwidget->set_listener(this);
+        levelwidget->realize(grid_area);
+        levelwidget->set_area(grid_area);
+        this->add(levelwidget);
+
+        // Below the grid: selected-level label, then status + failed,
+        // then Start/Cancel buttons.
+        int info_y = grid_y + grid_h + 6;
+        this->add(lbl_level,  Rect(margin, info_y,                       w - 2*margin, label_h));
+        this->add(lbl_status, Rect(margin, info_y + label_h + 4,         w - 2*margin, label_h));
+        this->add(lbl_failed, Rect(margin, info_y + 2*(label_h + 4),     w - 2*margin, label_h));
+
+        int sb_w = 140;
+        int sb_h = 36;
+        int sb_y = h - sb_h - margin;
+        but_cancel = new StaticTextButton(N_("Cancel"), this);
+        this->add(but_cancel, Rect((w - sb_w) / 2, sb_y, sb_w, sb_h));
+
+        // Open the listener. If it fails (port in use), put the error
+        // into the status label; user can hit Cancel.
+        int port = 12345;
+        if (!netgame::OpenHostLobby(port)) {
+            lbl_status->set_text(_("Could not open listening port."));
+        }
+
+        levelwidget->syncFromIndexMgr();
+        update_level_label();
+        update_status();
+    }
+
+    HostLobbyMenu::~HostLobbyMenu() {
+        if (!game_started)
+            netgame::CloseHostLobby();
+    }
+
+    bool HostLobbyMenu::current_level_is_network() {
+        lev::Index *ind = lev::Index::getCurrentIndex();
+        if (!ind) return false;
+        return proxy_is_network_mode(ind->getProxy(ind->getCurrentPosition()));
+    }
+
+    void HostLobbyMenu::update_level_label() {
+        lev::Index *ind = lev::Index::getCurrentIndex();
+        if (!ind || ind->size() == 0) {
+            lbl_pack->set_text(_("Level pack: (none)"));
+            lbl_level->set_text(_("Level: (none)"));
+        } else {
+            int pos = ind->getCurrentPosition();
+            lev::Proxy *p = ind->getProxy(pos);
+            std::string title = p ? p->getTitle() : "?";
+            lbl_pack->set_text(ecl::strf(_("Level pack: %s"),
+                                         ind->getName().c_str()));
+            std::string suffix = current_level_is_network()
+                                     ? _(" [network]")
+                                     : _(" [single-player — may not work]");
+            lbl_level->set_text(ecl::strf(_("Level: #%d - %s"),
+                                          pos + 1, title.c_str()) + suffix);
+        }
+    }
+
+    void HostLobbyMenu::update_status() {
+        lbl_code->set_text(ecl::strf(_("Access code: %s"),
+                                      netgame::LobbyCode().c_str()));
+        lbl_port->set_text(ecl::strf(_("Listening on 0.0.0.0:%d"),
+                                      netgame::LobbyPort()));
+        bool ready   = netgame::LobbyHasReadyClient();
+        bool pending = netgame::LobbyHasPendingClient();
+        std::string armed_title;
+        if (armed) {
+            if (lev::Index *ai = lev::Index::findIndex(armed_pack)) {
+                if (armed_pos >= 0 && armed_pos < ai->size()) {
+                    if (lev::Proxy *p = ai->getProxy(armed_pos))
+                        armed_title = ecl::strf("#%d - %s",
+                            armed_pos + 1, p->getTitle().c_str());
+                }
+            }
+        }
+        if (ready && armed) {
+            lbl_status->set_text(_("Starting..."));
+        } else if (ready) {
+            lbl_status->set_text(_("Client connected — click a level to play."));
+        } else if (armed) {
+            lbl_status->set_text(ecl::strf(
+                _("Will play %s — waiting for client..."),
+                armed_title.c_str()));
+        } else if (pending) {
+            lbl_status->set_text(_("Client connecting — waiting for code..."));
+        } else if (netgame::LobbyPort() != 0) {
+            lbl_status->set_text(_("Waiting for client; click a level when ready."));
+        }
+        int n = netgame::LobbyFailedAttempts();
+        if (n == 0) {
+            lbl_failed->set_text(_("Failed attempts: 0"));
+        } else {
+            lbl_failed->set_text(
+                ecl::strf(_("Failed attempts: %d (last: %s)"),
+                          n, netgame::LobbyLastFailReason().c_str()));
+        }
+    }
+
+    bool HostLobbyMenu::on_event(const SDL_Event &e) {
+        return false;
+    }
+
+    void HostLobbyMenu::on_action(gui::Widget *w) {
+        if (w == but_cancel) {
+            Menu::quit();
+            return;
+        }
+        if (w == but_prev_pack || w == but_next_pack) {
+            lev::Index *cur = lev::Index::getCurrentIndex();
+            if (!cur) return;
+            lev::Index *target = (w == but_next_pack)
+                ? lev::Index::nextGroupIndex()
+                : lev::Index::previousGroupIndex();
+            if (target && target != cur)
+                lev::Index::setCurrentIndex(target->getName());
+            levelwidget->syncFromIndexMgr();
+            update_level_label();
+            invalidate_all();
+            return;
+        }
+        if (w == levelwidget) {
+            // The user clicked (or hit Enter on) a level: arm it. The
+            // game launches as soon as a client has authenticated, or
+            // immediately if one already has. Re-clicking before the
+            // client arrives replaces the armed level with the new one.
+            lev::Index *ind = lev::Index::getCurrentIndex();
+            if (ind && ind->size() > 0) {
+                armed       = true;
+                armed_pack  = ind->getName();
+                armed_pos   = ind->getCurrentPosition();
+            }
+            update_level_label();
+            invalidate_all();
+            return;
+        }
+    }
+
+    void HostLobbyMenu::draw_background(ecl::GC &gc) {
+        set_caption(_("Enigma - Host Lobby"));
+        const VMInfo *vminfo = video_engine->GetInfo();
+        blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety,
+             enigma::GetImage("menu_bg", ".jpg"));
+        Font *f = enigma::GetFont("menufontsel");
+        std::string title = _("Host Lobby");
+        int tw = f->get_width(title.c_str());
+        f->render(gc, (vminfo->width - tw) / 2, 40, title.c_str());
+    }
+
+    void HostLobbyMenu::tick(double dtime) {
+        if (game_started) return;
+        levelwidget->tick(dtime);
+        netgame::ServiceHostLobby();
+
+        // Launch the game once both ingredients are present: an armed
+        // level (user has clicked or pressed Enter) and an
+        // authenticated client. StartHostedGame runs the whole game
+        // synchronously and returns when it ends.
+        if (armed && netgame::LobbyHasReadyClient()) {
+            game_started = true;
+            netgame::StartHostedGame(armed_pack, armed_pos);
+            Menu::quit();
+            return;
+        }
+
+        static double accu = 0;
+        accu += 0.01;
+        if (accu >= 0.2) {
+            accu = 0;
+            // Cursor on the LevelWidget changes via mouse motion or
+            // arrow keys, neither of which routes through on_action.
+            // Refresh the label so the selection display stays
+            // in sync.
+            update_level_label();
+            update_status();
+            invalidate_all();
+        }
+    }
+
+    /* -------------------- JoinLobbyMenu -------------------- */
+
+    JoinLobbyMenu::JoinLobbyMenu()
+    : tf_host(new TextField(
+          app.state->getString("NetGameJoinHost").empty()
+              ? std::string("localhost")
+              : app.state->getString("NetGameJoinHost"))),
+      tf_port(new TextField("12345")),
+      tf_code(new TextField("")),
+      lbl_status(new Label("", HALIGN_LEFT))
+    {
+        const VMInfo *vminfo = video_engine->GetInfo();
+        int w = vminfo->width;
+
+        int label_w = 90;
+        int field_w = 260;
+        int row_w = label_w + 10 + field_w;
+        int row_x = (w - row_w) / 2;
+        int y = 130;
+        int row_h = 36;
+        int row_gap = 14;
+
+        auto add_field = [&](const char *labeltext, TextField *tf) {
+            Label *l = new Label(labeltext, HALIGN_RIGHT);
+            this->add(l,  Rect(row_x, y, label_w, row_h));
+            this->add(tf, Rect(row_x + label_w + 10, y, field_w, row_h));
+            y += row_h + row_gap;
+        };
+        add_field(N_("Host:"), tf_host);
+        add_field(N_("Port:"), tf_port);
+        add_field(N_("Code:"), tf_code);
+
+        tf_port->setInvalidChars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?");
+        tf_port->setMaxChars(5);
+        tf_code->setMaxChars(6);
+        tf_code->setInvalidChars("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?@./:");
+
+        y += 6;
+        this->add(lbl_status, Rect(row_x, y, row_w, row_h));
+        y += row_h + 16;
+
+        int sb_w = 140;
+        int sb_h = 36;
+        int sb_gap = 20;
+        int sb_total = sb_w * 2 + sb_gap;
+        int sb_x = (w - sb_total) / 2;
+        but_connect = new StaticTextButton(N_("Connect"), this);
+        but_back    = new StaticTextButton(N_("Back"), this);
+        this->add(but_connect, Rect(sb_x,                 y, sb_w, sb_h));
+        this->add(but_back,    Rect(sb_x + sb_w + sb_gap, y, sb_w, sb_h));
+
+        std::string last_err = netgame::LastJoinError();
+        if (!last_err.empty())
+            lbl_status->set_text(_("Last error: ") + last_err);
+    }
+
+    JoinLobbyMenu::~JoinLobbyMenu() {
+    }
+
+    bool JoinLobbyMenu::on_event(const SDL_Event &e) {
+        return false;
+    }
+
+    void JoinLobbyMenu::do_connect() {
+        std::string host = tf_host->getText();
+        std::string portstr = tf_port->getText();
+        std::string code = tf_code->getText();
+        int port = std::atoi(portstr.c_str());
+        if (host.empty()) {
+            lbl_status->set_text(_("Please enter a host name."));
+            invalidate_all();
+            return;
+        }
+        if (code.size() != 6) {
+            lbl_status->set_text(_("Code must be 6 digits."));
+            invalidate_all();
+            return;
+        }
+        lbl_status->set_text(_("Connecting..."));
+        draw_all();
+        refresh();
+        netgame::Join(host, port, code);
+        std::string err = netgame::LastJoinError();
+        if (err.empty()) {
+            // Game ran to completion; remember the host for next
+            // time and close this menu.
+            app.state->setProperty("NetGameJoinHost", host);
+            Menu::quit();
+        } else {
+            lbl_status->set_text(err);
+            invalidate_all();
+        }
+    }
+
+    void JoinLobbyMenu::on_action(gui::Widget *w) {
+        if (w == but_connect) {
+            do_connect();
+        } else if (w == but_back) {
+            Menu::quit();
+        }
+    }
+
+    void JoinLobbyMenu::draw_background(ecl::GC &gc) {
+        set_caption(_("Enigma - Join Game"));
+        const VMInfo *vminfo = video_engine->GetInfo();
+        blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety,
+             enigma::GetImage("menu_bg", ".jpg"));
+        Font *f = enigma::GetFont("menufontsel");
+        std::string title = _("Join Game");
+        int tw = f->get_width(title.c_str());
+        f->render(gc, (vminfo->width - tw) / 2, 40, title.c_str());
+    }
+
+    void JoinLobbyMenu::tick(double /*dtime*/) {
     }
 
 
@@ -450,9 +812,7 @@ namespace enigma { namespace gui {
         BuildVList *brp = vsmall ? &br : &b;
         startgame = b.add(new StaticTextButton(N_("Start Game"), this));
         levelpack = b.add(new StaticTextButton(N_("Level Pack"), this));
-#ifdef ENABLE_EXPERIMENTAL
         m_netgame   = b.add(new StaticTextButton(N_("Network Game"), this));
-#endif
         search      = b.add(new StaticTextButton(N_("Search"), this));
         options     = brp->add(new StaticTextButton(N_("Options"), this));
 #if 0
@@ -552,10 +912,8 @@ namespace enigma { namespace gui {
             MainHelpMenu m;
             m.manage();
 
-    #ifdef ENABLE_EXPERIMENTAL
         } else if (w == m_netgame) {
             ShowNetworkMenu();
-    #endif
         } else if (w == quit) {
             Menu::quit();
         } else if (w == languagemenu) {

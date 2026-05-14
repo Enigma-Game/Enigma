@@ -33,6 +33,7 @@ public:
     void clear() {
         sz = 0;
         rpos = wpos = buf;
+        iostate = GOODBIT;
     }
 
     void assign(char* data, size_t size);

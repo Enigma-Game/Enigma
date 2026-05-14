@@ -20,6 +20,7 @@
 #include "gui/Menu.hh"
 #include "SoundEffectManager.hh"
 #include "MusicManager.hh"
+#include "netgame.hh"
 #include "video.hh"
 #include "options.hh"
 #include "main.hh"
@@ -101,6 +102,10 @@ Menu::Menu()
             if(key_focus_widget && (key_focus_widget != active_widget)) key_focus_widget->tick(0.01);
             tick(0.01);
             sound::MusicTick(0.01);
+            // Keep the LAN session alive while this modal is open and
+            // forward the host's SV_PAUSE state to the remote. No-op
+            // when no session is active.
+            netgame::Service();
             refresh();
         }
         sound::EmitSoundEvent ("menuexit");

@@ -33,6 +33,7 @@
 #include "StateManager.hh"
 #include "world.hh"
 #include "MusicManager.hh"
+#include "netgame.hh"
 
 #include "enet/enet.h"
 
@@ -356,6 +357,13 @@ void Tick(double dtime) {
         current_state_dtime += dtime;
         if (current_state_dtime >= 1.0) {
             lev::Index *ind = lev::Index::getCurrentIndex();
+            // In a network session, tell the remote a reload is
+            // imminent so it can drop its current world. The host's
+            // re-run of load_level then fires SV_RESIZE +
+            // SV_GRID_SPRITE + SV_ACTOR_ADDED events that rebuild
+            // the remote's world state.
+            if (netgame::IsActive() && !netgame::IsClient())
+                client::NotifyReload(ind->getCurrentPosition());
             load_level(ind->getCurrent(), (state == sv_restart_level));
         } else {
             gametick(dtime);
@@ -483,7 +491,7 @@ void Msg_Command_find(const string &text) {
     }
 }
 
-void Msg_Command(const string &cmd) {
+void Msg_Command(const string &cmd, int iplayer) {
     lev::Index *ind = lev::Index::getCurrentIndex();
     lev::Proxy *curProxy = ind->getCurrent();
 
@@ -491,7 +499,10 @@ void Msg_Command(const string &cmd) {
     if (cmd == "invrotate") {
         player::RotateInventory();
     } else if (cmd == "suicide") {
-        player::Suicide();
+        if (iplayer >= 0)
+            player::Suicide(iplayer);
+        else
+            player::Suicide();
         if (!AllowSuicide)
             Msg_RestartGame();
     } else if (cmd == "restart") {
@@ -499,6 +510,12 @@ void Msg_Command(const string &cmd) {
         Msg_RestartGame();
     } else if (cmd == "abort") {
         client::Msg_Command(cmd);
+    } else if (cmd == "jumpback") {
+        Msg_JumpBack();
+    } else if (cmd == "advance_strict") {
+        client::Msg_AdvanceLevel(lev::ADVANCE_STRICTLY);
+    } else if (cmd == "advance_unsolved") {
+        client::Msg_AdvanceLevel(lev::ADVANCE_UNSOLVED);
     }
 
     // ------------------------------ cheats
@@ -581,12 +598,15 @@ void Msg_Command(const string &cmd) {
 }
 
 void Msg_Pause(bool onoff) {
+    ServerState before = state;
     if (onoff && state == sv_running)
         state = sv_paused;
     else if (onoff && state == sv_teatime)
         state = sv_paused;
     else if (!onoff && state == sv_paused)
         state = sv_running;
+    if (state != before)
+        client::NotifyPause(onoff);
 }
 
 void Msg_Teatime(bool onoff) {
@@ -604,8 +624,8 @@ void Msg_Panic(bool onoff) {
         state = sv_running;
 }
 
-void Msg_MouseForce(const ecl::V2 &f) {
-    SetMouseForce(f);
+void Msg_MouseForce(int player, const ecl::V2 &f) {
+    SetMouseForce(player, f);
 }
 
 void SetCompatibility(const char *version) {
@@ -656,8 +676,8 @@ int GetMoveCounter() {
     return move_counter;
 }
 
-void Msg_ActivateItem() {
-    player::ActivateFirstItem();
+void Msg_ActivateItem(int iplayer) {
+    player::ActivateFirstItem(iplayer);
 }
 
 }  // namespace server
