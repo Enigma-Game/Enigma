@@ -18,6 +18,7 @@
 
 #include "gui/MainMenu.hh"
 #include "gui/LevelMenu.hh"
+#include "gui/LevelWidget.hh"
 #include "gui/SearchMenu.hh"
 #include "gui/OptionsMenu.hh"
 #include "gui/InfoMenu.hh"
@@ -93,27 +94,6 @@ namespace enigma { namespace gui {
     /* -------------------- Lobby helpers -------------------- */
 
     namespace {
-        // Walk the current index to find the next (or previous) level
-        // whose proxy reports network mode. Returns the index of the
-        // found level, or -1 if there is none in the requested
-        // direction. dir = +1 for next, -1 for previous.
-        int find_network_level(lev::Index *ind, int start, int dir) {
-            if (!ind) return -1;
-            int sz = ind->size();
-            for (int i = start; i >= 0 && i < sz; i += dir) {
-                lev::Proxy *p = ind->getProxy(i);
-                if (p == nullptr) continue;
-                try {
-                    p->loadMetadata(true);
-                } catch (...) {
-                    continue;
-                }
-                if (p->hasNetworkMode())
-                    return i;
-            }
-            return -1;
-        }
-
         bool proxy_is_network_mode(lev::Proxy *p) {
             if (!p) return false;
             try {
@@ -129,78 +109,67 @@ namespace enigma { namespace gui {
 
     HostLobbyMenu::HostLobbyMenu()
     : lbl_code(new Label("", HALIGN_LEFT)),
-      lbl_port(new Label("", HALIGN_LEFT)),
+      lbl_port(new Label("", HALIGN_RIGHT)),
       lbl_pack(new Label("", HALIGN_LEFT)),
       lbl_level(new Label("", HALIGN_LEFT)),
       lbl_status(new Label("", HALIGN_LEFT)),
       lbl_failed(new Label("", HALIGN_LEFT)),
-      only_network_levels(true),
+      levelwidget(new LevelWidget(/*withScoreIcons=*/true,
+                                  /*withEditBorder=*/false)),
       game_started(false)
     {
         const VMInfo *vminfo = video_engine->GetInfo();
         int w = vminfo->width;
-        int label_w = std::min(w - 80, 500);
-        int x0 = (w - label_w) / 2;
-        int y  = 90;
-        int dy = 32;
+        int h = vminfo->height;
+        int margin = 20;
+        int label_h = 26;
 
-        auto add_label = [&](Label *l) {
-            this->add(l, Rect(x0, y, label_w, 26));
-            y += dy;
-        };
+        // Top row: code on the left, port on the right.
+        int top_y = 50;
+        this->add(lbl_code, Rect(margin,             top_y, (w-2*margin)/2, label_h));
+        this->add(lbl_port, Rect(w/2,                top_y, (w-2*margin)/2, label_h));
 
-        add_label(lbl_code);
-        add_label(lbl_port);
-        y += 8;
-        add_label(lbl_pack);
-        add_label(lbl_level);
+        // Pack row with prev/next buttons.
+        int pack_y = top_y + label_h + 8;
+        int btn_w = 80;
+        int btn_h = label_h;
+        but_prev_pack = new StaticTextButton(N_("< Pack"), this);
+        but_next_pack = new StaticTextButton(N_("Pack >"), this);
+        int pack_label_x = margin;
+        int pack_label_w = w - 2*margin - 2*(btn_w + 6);
+        this->add(lbl_pack,      Rect(pack_label_x, pack_y, pack_label_w, btn_h));
+        this->add(but_prev_pack, Rect(pack_label_x + pack_label_w + 6,
+                                      pack_y, btn_w, btn_h));
+        this->add(but_next_pack, Rect(pack_label_x + pack_label_w + 6 + btn_w + 6,
+                                      pack_y, btn_w, btn_h));
 
-        // Pack and level navigation.
-        int btn_y = y;
-        int btn_w = 90;
-        int btn_h = 28;
-        int gap = 8;
-        int row_w = btn_w * 5 + gap * 4;
-        int row_x = (w - row_w) / 2;
-        but_prev_pack    = new StaticTextButton(N_("< Pack"), this);
-        but_next_pack    = new StaticTextButton(N_("Pack >"), this);
-        but_prev_level   = new StaticTextButton(N_("< Level"), this);
-        but_next_level   = new StaticTextButton(N_("Level >"), this);
-        but_only_network = new StaticTextButton("", this);
-        this->add(but_prev_pack,    Rect(row_x + 0*(btn_w+gap), btn_y, btn_w, btn_h));
-        this->add(but_next_pack,    Rect(row_x + 1*(btn_w+gap), btn_y, btn_w, btn_h));
-        this->add(but_prev_level,   Rect(row_x + 2*(btn_w+gap), btn_y, btn_w, btn_h));
-        this->add(but_next_level,   Rect(row_x + 3*(btn_w+gap), btn_y, btn_w, btn_h));
-        this->add(but_only_network, Rect(row_x + 4*(btn_w+gap), btn_y, btn_w, btn_h));
-        y = btn_y + btn_h + 16;
+        // Level grid: takes the bulk of the remaining vertical space.
+        int grid_y = pack_y + btn_h + 8;
+        int bottom_block_h = 3 * (label_h + 6) + 40 + margin;
+        int grid_h = std::max(120, h - grid_y - bottom_block_h);
+        Rect grid_area(margin, grid_y, w - 2*margin, grid_h);
+        levelwidget->set_listener(this);
+        levelwidget->realize(grid_area);
+        levelwidget->set_area(grid_area);
+        this->add(levelwidget);
 
-        add_label(lbl_status);
-        add_label(lbl_failed);
-        y += 12;
+        // Below the grid: selected-level label, then status + failed,
+        // then Start/Cancel buttons.
+        int info_y = grid_y + grid_h + 6;
+        this->add(lbl_level,  Rect(margin, info_y,                       w - 2*margin, label_h));
+        this->add(lbl_status, Rect(margin, info_y + label_h + 4,         w - 2*margin, label_h));
+        this->add(lbl_failed, Rect(margin, info_y + 2*(label_h + 4),     w - 2*margin, label_h));
 
         int sb_w = 140;
         int sb_h = 36;
         int sb_gap = 20;
+        int sb_y = h - sb_h - margin;
         int sb_total = sb_w * 2 + sb_gap;
         int sb_x = (w - sb_total) / 2;
         but_start  = new StaticTextButton(N_("Start Game"), this);
         but_cancel = new StaticTextButton(N_("Cancel"), this);
-        this->add(but_start,  Rect(sb_x,                  y, sb_w, sb_h));
-        this->add(but_cancel, Rect(sb_x + sb_w + sb_gap,  y, sb_w, sb_h));
-
-        // If the current selection isn't a network level and the
-        // filter is on, advance to the first network level.
-        if (only_network_levels) {
-            lev::Index *ind = lev::Index::getCurrentIndex();
-            if (ind) {
-                int pos = ind->getCurrentPosition();
-                lev::Proxy *p = ind->getProxy(pos);
-                if (!proxy_is_network_mode(p)) {
-                    int nxt = find_network_level(ind, 0, +1);
-                    if (nxt >= 0) ind->setCurrentPosition(nxt);
-                }
-            }
-        }
+        this->add(but_start,  Rect(sb_x,                 sb_y, sb_w, sb_h));
+        this->add(but_cancel, Rect(sb_x + sb_w + sb_gap, sb_y, sb_w, sb_h));
 
         // Open the listener. If it fails (port in use), put the error
         // into the status label; user can hit Cancel.
@@ -209,6 +178,7 @@ namespace enigma { namespace gui {
             lbl_status->set_text(_("Could not open listening port."));
         }
 
+        levelwidget->syncFromIndexMgr();
         update_level_label();
         update_status();
     }
@@ -237,13 +207,10 @@ namespace enigma { namespace gui {
                                          ind->getName().c_str()));
             std::string suffix = current_level_is_network()
                                      ? _(" [network]")
-                                     : _(" [single-player]");
+                                     : _(" [single-player — may not work]");
             lbl_level->set_text(ecl::strf(_("Level: #%d - %s"),
                                           pos + 1, title.c_str()) + suffix);
         }
-        static_cast<StaticTextButton *>(but_only_network)
-            ->set_text(only_network_levels ? _("Net only: on")
-                                            : _("Net only: off"));
     }
 
     void HostLobbyMenu::update_status() {
@@ -307,47 +274,16 @@ namespace enigma { namespace gui {
                 : lev::Index::previousGroupIndex();
             if (target && target != cur)
                 lev::Index::setCurrentIndex(target->getName());
-            // If filter is on, snap to first network-mode level in the
-            // new pack.
-            if (only_network_levels) {
-                lev::Index *ind = lev::Index::getCurrentIndex();
-                int nxt = find_network_level(ind, 0, +1);
-                if (nxt >= 0)
-                    ind->setCurrentPosition(nxt);
-            }
+            levelwidget->syncFromIndexMgr();
             update_level_label();
             invalidate_all();
             return;
         }
-        if (w == but_prev_level || w == but_next_level) {
-            lev::Index *ind = lev::Index::getCurrentIndex();
-            if (!ind || ind->size() == 0) return;
-            int dir = (w == but_next_level) ? +1 : -1;
-            int sz = ind->size();
-            int pos = ind->getCurrentPosition();
-            int start = pos + dir;
-            if (start < 0) start = 0;
-            if (start >= sz) start = sz - 1;
-            int found;
-            if (only_network_levels) {
-                found = find_network_level(ind, start, dir);
-            } else {
-                found = (start >= 0 && start < sz) ? start : -1;
-            }
-            if (found >= 0) {
-                ind->setCurrentPosition(found);
-                update_level_label();
-                invalidate_all();
-            }
-            return;
-        }
-        if (w == but_only_network) {
-            only_network_levels = !only_network_levels;
-            if (only_network_levels && !current_level_is_network()) {
-                lev::Index *ind = lev::Index::getCurrentIndex();
-                int nxt = find_network_level(ind, 0, +1);
-                if (nxt >= 0) ind->setCurrentPosition(nxt);
-            }
+        if (w == levelwidget) {
+            // LevelWidget fired a "selected" action (click or Enter).
+            // In the regular menu this launches the game; here we just
+            // adopt the chosen level and update the label. The actual
+            // game start waits for the Start Game button.
             update_level_label();
             invalidate_all();
             return;
@@ -365,13 +301,19 @@ namespace enigma { namespace gui {
         f->render(gc, (vminfo->width - tw) / 2, 40, title.c_str());
     }
 
-    void HostLobbyMenu::tick(double /*dtime*/) {
+    void HostLobbyMenu::tick(double dtime) {
         if (game_started) return;
+        levelwidget->tick(dtime);
         netgame::ServiceHostLobby();
         static double accu = 0;
         accu += 0.01;
         if (accu >= 0.2) {
             accu = 0;
+            // Cursor on the LevelWidget changes via mouse motion or
+            // arrow keys, neither of which routes through on_action.
+            // Refresh the label so the selection display stays
+            // in sync.
+            update_level_label();
             update_status();
             invalidate_all();
         }

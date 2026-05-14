@@ -111,6 +111,8 @@ namespace enigma { namespace gui {
 
 /* -------------------- HostLobbyMenu -------------------- */
 
+    class LevelWidget;
+
     class HostLobbyMenu : public gui::Menu {
     public:
         HostLobbyMenu();
@@ -133,13 +135,10 @@ namespace enigma { namespace gui {
         gui::Label *lbl_failed;
         gui::Widget *but_prev_pack;
         gui::Widget *but_next_pack;
-        gui::Widget *but_prev_level;
-        gui::Widget *but_next_level;
-        gui::Widget *but_only_network;
         gui::Widget *but_start;
         gui::Widget *but_cancel;
+        LevelWidget *levelwidget;
 
-        bool only_network_levels;
         bool game_started;
     };
 
