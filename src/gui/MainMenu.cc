@@ -116,7 +116,9 @@ namespace enigma { namespace gui {
       lbl_failed(new Label("", HALIGN_LEFT)),
       levelwidget(new LevelWidget(/*withScoreIcons=*/true,
                                   /*withEditBorder=*/false)),
-      game_started(false)
+      game_started(false),
+      armed(false),
+      armed_pos(0)
     {
         const VMInfo *vminfo = video_engine->GetInfo();
         int w = vminfo->width;
@@ -162,14 +164,9 @@ namespace enigma { namespace gui {
 
         int sb_w = 140;
         int sb_h = 36;
-        int sb_gap = 20;
         int sb_y = h - sb_h - margin;
-        int sb_total = sb_w * 2 + sb_gap;
-        int sb_x = (w - sb_total) / 2;
-        but_start  = new StaticTextButton(N_("Start Game"), this);
         but_cancel = new StaticTextButton(N_("Cancel"), this);
-        this->add(but_start,  Rect(sb_x,                 sb_y, sb_w, sb_h));
-        this->add(but_cancel, Rect(sb_x + sb_w + sb_gap, sb_y, sb_w, sb_h));
+        this->add(but_cancel, Rect((w - sb_w) / 2, sb_y, sb_w, sb_h));
 
         // Open the listener. If it fails (port in use), put the error
         // into the status label; user can hit Cancel.
@@ -216,14 +213,32 @@ namespace enigma { namespace gui {
     void HostLobbyMenu::update_status() {
         lbl_code->set_text(ecl::strf(_("Access code: %s"),
                                       netgame::LobbyCode().c_str()));
-        lbl_port->set_text(ecl::strf(_("Listening on port %d"),
+        lbl_port->set_text(ecl::strf(_("Listening on 0.0.0.0:%d"),
                                       netgame::LobbyPort()));
-        if (netgame::LobbyHasReadyClient()) {
-            lbl_status->set_text(_("Client connected — press Start Game."));
-        } else if (netgame::LobbyHasPendingClient()) {
+        bool ready   = netgame::LobbyHasReadyClient();
+        bool pending = netgame::LobbyHasPendingClient();
+        std::string armed_title;
+        if (armed) {
+            if (lev::Index *ai = lev::Index::findIndex(armed_pack)) {
+                if (armed_pos >= 0 && armed_pos < ai->size()) {
+                    if (lev::Proxy *p = ai->getProxy(armed_pos))
+                        armed_title = ecl::strf("#%d - %s",
+                            armed_pos + 1, p->getTitle().c_str());
+                }
+            }
+        }
+        if (ready && armed) {
+            lbl_status->set_text(_("Starting..."));
+        } else if (ready) {
+            lbl_status->set_text(_("Client connected — click a level to play."));
+        } else if (armed) {
+            lbl_status->set_text(ecl::strf(
+                _("Will play %s — waiting for client..."),
+                armed_title.c_str()));
+        } else if (pending) {
             lbl_status->set_text(_("Client connecting — waiting for code..."));
         } else if (netgame::LobbyPort() != 0) {
-            lbl_status->set_text(_("Waiting for client..."));
+            lbl_status->set_text(_("Waiting for client; click a level when ready."));
         }
         int n = netgame::LobbyFailedAttempts();
         if (n == 0) {
@@ -244,28 +259,6 @@ namespace enigma { namespace gui {
             Menu::quit();
             return;
         }
-        if (w == but_start) {
-            if (!netgame::LobbyHasReadyClient()) {
-                lbl_status->set_text(_("No client connected yet."));
-                invalidate_all();
-                return;
-            }
-            lev::Index *ind = lev::Index::getCurrentIndex();
-            if (!ind || ind->size() == 0) {
-                lbl_status->set_text(_("No level selected."));
-                invalidate_all();
-                return;
-            }
-            game_started = true;
-            std::string pack = ind->getName();
-            int pos = ind->getCurrentPosition();
-            // StartHostedGame takes over the listener and runs the
-            // whole game synchronously. When it returns, the lobby is
-            // already closed.
-            netgame::StartHostedGame(pack, pos);
-            Menu::quit();
-            return;
-        }
         if (w == but_prev_pack || w == but_next_pack) {
             lev::Index *cur = lev::Index::getCurrentIndex();
             if (!cur) return;
@@ -280,10 +273,16 @@ namespace enigma { namespace gui {
             return;
         }
         if (w == levelwidget) {
-            // LevelWidget fired a "selected" action (click or Enter).
-            // In the regular menu this launches the game; here we just
-            // adopt the chosen level and update the label. The actual
-            // game start waits for the Start Game button.
+            // The user clicked (or hit Enter on) a level: arm it. The
+            // game launches as soon as a client has authenticated, or
+            // immediately if one already has. Re-clicking before the
+            // client arrives replaces the armed level with the new one.
+            lev::Index *ind = lev::Index::getCurrentIndex();
+            if (ind && ind->size() > 0) {
+                armed       = true;
+                armed_pack  = ind->getName();
+                armed_pos   = ind->getCurrentPosition();
+            }
             update_level_label();
             invalidate_all();
             return;
@@ -305,6 +304,18 @@ namespace enigma { namespace gui {
         if (game_started) return;
         levelwidget->tick(dtime);
         netgame::ServiceHostLobby();
+
+        // Launch the game once both ingredients are present: an armed
+        // level (user has clicked or pressed Enter) and an
+        // authenticated client. StartHostedGame runs the whole game
+        // synchronously and returns when it ends.
+        if (armed && netgame::LobbyHasReadyClient()) {
+            game_started = true;
+            netgame::StartHostedGame(armed_pack, armed_pos);
+            Menu::quit();
+            return;
+        }
+
         static double accu = 0;
         accu += 0.01;
         if (accu >= 0.2) {
@@ -322,7 +333,10 @@ namespace enigma { namespace gui {
     /* -------------------- JoinLobbyMenu -------------------- */
 
     JoinLobbyMenu::JoinLobbyMenu()
-    : tf_host(new TextField("localhost")),
+    : tf_host(new TextField(
+          app.state->getString("NetGameJoinHost").empty()
+              ? std::string("localhost")
+              : app.state->getString("NetGameJoinHost"))),
       tf_port(new TextField("12345")),
       tf_code(new TextField("")),
       lbl_status(new Label("", HALIGN_LEFT))
@@ -400,7 +414,9 @@ namespace enigma { namespace gui {
         netgame::Join(host, port, code);
         std::string err = netgame::LastJoinError();
         if (err.empty()) {
-            // Game ran to completion; close this menu.
+            // Game ran to completion; remember the host for next
+            // time and close this menu.
+            app.state->setProperty("NetGameJoinHost", host);
             Menu::quit();
         } else {
             lbl_status->set_text(err);

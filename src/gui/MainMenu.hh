@@ -135,11 +135,13 @@ namespace enigma { namespace gui {
         gui::Label *lbl_failed;
         gui::Widget *but_prev_pack;
         gui::Widget *but_next_pack;
-        gui::Widget *but_start;
         gui::Widget *but_cancel;
         LevelWidget *levelwidget;
 
         bool game_started;
+        bool armed;            // user has picked a level and wants to play
+        std::string armed_pack;
+        int         armed_pos;
     };
 
 /* -------------------- JoinLobbyMenu -------------------- */
