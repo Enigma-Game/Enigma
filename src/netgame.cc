@@ -40,6 +40,7 @@
 
 #include "SDL.h"
 #include <cstdint>
+#include <random>
 #include <set>
 #include <string>
 
@@ -53,7 +54,7 @@ using namespace enigma;
 
 namespace {
 
-constexpr Uint16 PROTO_VERSION = 3;
+constexpr Uint16 PROTO_VERSION = 4;
 constexpr int    NET_PORT      = 12345;
 
 // Packet tags. Client -> host inputs live in the 0x10–0x7F band, host
@@ -62,6 +63,7 @@ constexpr int    NET_PORT      = 12345;
 enum ProtoTag : Uint8 {
     // Client -> host (inputs)
     CL_HELLO             = 0x01,
+    CL_AUTH              = 0x02,
     CL_MOUSE_FORCE       = 0x10,
     CL_ACTIVATE_ITEM     = 0x11,
     CL_ROTATE_INVENTORY  = 0x12,
@@ -69,6 +71,8 @@ enum ProtoTag : Uint8 {
     CL_INHIBIT_PICKUP    = 0x14,
 
     // Host -> client (outbound EventSink stream)
+    SV_AUTH_OK           = 0x7D,
+    SV_AUTH_FAIL         = 0x7E,
     SV_HELLO             = 0x7F,
     SV_COMMAND           = 0x80,
     SV_ADVANCE_LEVEL     = 0x81,
@@ -691,65 +695,292 @@ void remote_main_loop(Peer *peer) {
 
 }  // anonymous namespace
 
-void netgame::Start() {
-    // Host plays whatever level the user has currently selected in the
-    // level browser. A proper lobby (host/port/level/color picker) is
-    // still missing.
-    lev::Index *ind = lev::Index::getCurrentIndex();
-    if (ind == nullptr) {
-        fprintf(stderr, "SV: no current level pack selected.\n");
-        return;
+//======================================================================
+// Host lobby (pre-game, holds the connection while the host is in the
+// lobby UI, runs the access-code handshake)
+//======================================================================
+
+namespace {
+
+struct LobbyState {
+    ENetHost   *enet_host = nullptr;
+    int         port = 0;
+    std::string code;          // 6 digits, generated on OpenHostLobby
+
+    // Pending: ENet-connected but not yet authenticated. Held until
+    // CL_AUTH arrives or the auth timeout expires.
+    ENetPeer   *pending_peer = nullptr;
+    Uint32      pending_since_ms = 0;
+
+    // Authenticated client, parked until the host clicks Start. Wrapped
+    // as a Peer so the existing game code can use it unchanged.
+    Peer       *ready_peer = nullptr;
+    ENetPeer   *ready_raw  = nullptr;
+
+    int         failed_attempts = 0;
+    std::string last_fail_reason;
+};
+
+LobbyState s_lobby;
+std::string s_last_join_error;
+
+std::string format_addr(const ENetAddress &a) {
+    return ecl::strf("%u.%u.%u.%u:%u",
+        unsigned( a.host        & 0xff),
+        unsigned((a.host >> 8)  & 0xff),
+        unsigned((a.host >> 16) & 0xff),
+        unsigned((a.host >> 24) & 0xff),
+        unsigned(a.port));
+}
+
+std::string generate_code() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> d(0, 999999);
+    char buf[8];
+    snprintf(buf, sizeof(buf), "%06d", d(gen));
+    return std::string(buf);
+}
+
+// Send a one-packet message to an ENet peer that we are about to
+// disconnect, then schedule the disconnect with a short timeout so the
+// packet has a chance to reach the client.
+void send_and_disconnect(ENetPeer *peer, const ecl::Buffer &buf) {
+    ENetPacket *pkt = enet_packet_create(buf.data(), buf.size(),
+                                         ENET_PACKET_FLAG_RELIABLE);
+    enet_peer_send(peer, CHANNEL_RELIABLE, pkt);
+    enet_host_flush(s_lobby.enet_host);
+    enet_peer_disconnect(peer, 0);
+}
+
+void record_failed_attempt(ENetPeer *peer, const std::string &reason) {
+    s_lobby.failed_attempts++;
+    s_lobby.last_fail_reason =
+        ecl::strf("%s from %s",
+                  reason.c_str(),
+                  format_addr(peer->address).c_str());
+    fprintf(stderr, "SV: rejected auth attempt (#%d): %s\n",
+            s_lobby.failed_attempts,
+            s_lobby.last_fail_reason.c_str());
+}
+
+void drop_pending(const std::string &reason) {
+    if (!s_lobby.pending_peer) return;
+    record_failed_attempt(s_lobby.pending_peer, reason);
+    ecl::Buffer fail;
+    fail << Uint8(SV_AUTH_FAIL) << reason;
+    send_and_disconnect(s_lobby.pending_peer, fail);
+    s_lobby.pending_peer = nullptr;
+    s_lobby.pending_since_ms = 0;
+}
+
+}  // anonymous namespace
+
+bool netgame::OpenHostLobby(int port) {
+    if (s_lobby.enet_host != nullptr) {
+        fprintf(stderr, "SV: lobby already open.\n");
+        return false;
     }
-    int level_pos = ind->getCurrentPosition();
-    lev::Proxy *proxy = ind->getProxy(level_pos);
-    if (proxy == nullptr) {
-        fprintf(stderr, "SV: no current level selected.\n");
-        return;
-    }
-    printf("SV: hosting level pack '%s' level %d (%s)\n",
-           ind->getName().c_str(), level_pos + 1,
-           proxy->getTitle().c_str());
+    if (port <= 0) port = NET_PORT;
 
     ENetAddress network_address;
     network_address.host = ENET_HOST_ANY;
-    network_address.port = NET_PORT;
+    network_address.port = port;
 
-    ENetHost *network_host =
+    ENetHost *h =
 #ifdef ENET_VER_EQ_GT_13
         enet_host_create(&network_address, 1, 2, 0, 0);
 #else
         enet_host_create(&network_address, 1, 0, 0);
 #endif
-    if (network_host == nullptr) {
-        fprintf(stderr, "SV: failed to create an ENet host on port %d.\n", NET_PORT);
+    if (h == nullptr) {
+        fprintf(stderr, "SV: failed to create ENet host on port %d.\n", port);
+        return false;
+    }
+    s_lobby = LobbyState{};
+    s_lobby.enet_host = h;
+    s_lobby.port = port;
+    s_lobby.code = generate_code();
+    printf("SV: lobby open on port %d, access code %s\n",
+           port, s_lobby.code.c_str());
+    return true;
+}
+
+void netgame::CloseHostLobby() {
+    if (s_lobby.enet_host == nullptr) return;
+    if (s_lobby.pending_peer) {
+        enet_peer_disconnect(s_lobby.pending_peer, 0);
+        s_lobby.pending_peer = nullptr;
+    }
+    if (s_lobby.ready_peer) {
+        s_lobby.ready_peer->disconnect();
+        delete s_lobby.ready_peer;
+        s_lobby.ready_peer = nullptr;
+        s_lobby.ready_raw  = nullptr;
+    }
+    // Pump one final round so disconnect packets get out.
+    ENetEvent ev;
+    Uint32 deadline = SDL_GetTicks() + 200;
+    while (SDL_GetTicks() < deadline &&
+           enet_host_service(s_lobby.enet_host, &ev, 10) > 0) {
+        if (ev.type == ENET_EVENT_TYPE_RECEIVE)
+            enet_packet_destroy(ev.packet);
+    }
+    enet_host_destroy(s_lobby.enet_host);
+    s_lobby = LobbyState{};
+}
+
+void netgame::ServiceHostLobby() {
+    if (s_lobby.enet_host == nullptr) return;
+
+    // Drop pending peers that take too long to send their CL_AUTH.
+    if (s_lobby.pending_peer &&
+        SDL_GetTicks() - s_lobby.pending_since_ms > 5000) {
+        drop_pending("auth timeout");
+    }
+
+    ENetEvent ev;
+    while (enet_host_service(s_lobby.enet_host, &ev, 0) > 0) {
+        switch (ev.type) {
+        case ENET_EVENT_TYPE_CONNECT:
+            if (s_lobby.ready_peer || s_lobby.pending_peer) {
+                // Already have someone — reject this one immediately.
+                fprintf(stderr, "SV: refused extra connection from %s\n",
+                        format_addr(ev.peer->address).c_str());
+                ecl::Buffer fail;
+                fail << Uint8(SV_AUTH_FAIL) << std::string("lobby busy");
+                send_and_disconnect(ev.peer, fail);
+                break;
+            }
+            s_lobby.pending_peer = ev.peer;
+            s_lobby.pending_since_ms = SDL_GetTicks();
+            printf("SV: connection from %s, awaiting code...\n",
+                   format_addr(ev.peer->address).c_str());
+            break;
+
+        case ENET_EVENT_TYPE_RECEIVE: {
+            ecl::Buffer b;
+            b.assign(reinterpret_cast<char *>(ev.packet->data),
+                     ev.packet->dataLength);
+            enet_packet_destroy(ev.packet);
+
+            if (ev.peer == s_lobby.pending_peer) {
+                Uint8 tag = 0;
+                Uint16 proto = 0;
+                std::string supplied_code;
+                b >> tag >> proto >> supplied_code;
+                if (tag != CL_AUTH) {
+                    drop_pending("malformed auth");
+                    break;
+                }
+                if (proto != PROTO_VERSION) {
+                    drop_pending(ecl::strf("protocol mismatch (got %d, want %d)",
+                                           int(proto), int(PROTO_VERSION)));
+                    break;
+                }
+                if (supplied_code != s_lobby.code) {
+                    drop_pending("wrong code");
+                    break;
+                }
+                // Auth OK.
+                ecl::Buffer ok;
+                ok << Uint8(SV_AUTH_OK);
+                ENetPacket *pkt = enet_packet_create(
+                    ok.data(), ok.size(), ENET_PACKET_FLAG_RELIABLE);
+                enet_peer_send(s_lobby.pending_peer,
+                               CHANNEL_RELIABLE, pkt);
+                enet_host_flush(s_lobby.enet_host);
+
+                s_lobby.ready_raw  = s_lobby.pending_peer;
+                s_lobby.ready_peer = new Peer_Enet(s_lobby.enet_host,
+                                                   s_lobby.pending_peer, 2);
+                printf("SV: client authenticated from %s\n",
+                       format_addr(s_lobby.pending_peer->address).c_str());
+                s_lobby.pending_peer = nullptr;
+                s_lobby.pending_since_ms = 0;
+            }
+            // Stray traffic from the ready peer before game-start is
+            // ignored. They won't have a sink to receive yet.
+            break;
+        }
+
+        case ENET_EVENT_TYPE_DISCONNECT:
+            if (ev.peer == s_lobby.pending_peer) {
+                s_lobby.pending_peer = nullptr;
+                s_lobby.pending_since_ms = 0;
+            } else if (ev.peer == s_lobby.ready_raw) {
+                fprintf(stderr, "SV: authenticated client disconnected before game start.\n");
+                delete s_lobby.ready_peer;
+                s_lobby.ready_peer = nullptr;
+                s_lobby.ready_raw  = nullptr;
+            }
+            break;
+
+        default:
+            break;
+        }
+    }
+}
+
+int         netgame::LobbyPort()              { return s_lobby.port; }
+std::string netgame::LobbyCode()              { return s_lobby.code; }
+bool        netgame::LobbyHasReadyClient()    { return s_lobby.ready_peer != nullptr; }
+bool        netgame::LobbyHasPendingClient()  { return s_lobby.pending_peer != nullptr; }
+int         netgame::LobbyFailedAttempts()    { return s_lobby.failed_attempts; }
+std::string netgame::LobbyLastFailReason()    { return s_lobby.last_fail_reason; }
+
+//======================================================================
+// Game start (host) — promote the lobbied peer to a running session
+//======================================================================
+
+void netgame::StartHostedGame(const std::string &level_pack, int level_pos) {
+    if (s_lobby.enet_host == nullptr || s_lobby.ready_peer == nullptr) {
+        fprintf(stderr, "SV: StartHostedGame called without a ready client.\n");
         return;
     }
 
-    Peer *peer = nullptr;
-    printf("SV: waiting for client on port %d (press ESC to cancel)...\n", NET_PORT);
-    while (peer == nullptr) {
-        SDL_Event e;
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) {
-                enet_host_destroy(network_host);
-                return;
-            }
-        }
-        ENetEvent event;
-        while (enet_host_service(network_host, &event, 0) > 0) {
-            if (event.type == ENET_EVENT_TYPE_CONNECT) {
-                printf("SV: client connected.\n");
-                peer = new Peer_Enet(network_host, event.peer, 2);
-            }
-        }
-        SDL_Delay(10);
+    // Transfer ownership of the ENet host and peer out of the lobby so
+    // CloseHostLobby() doesn't touch them after we return.
+    ENetHost *network_host = s_lobby.enet_host;
+    Peer     *peer         = s_lobby.ready_peer;
+    s_lobby.enet_host = nullptr;
+    s_lobby.ready_peer = nullptr;
+    s_lobby.ready_raw  = nullptr;
+    int failed_during_lobby = s_lobby.failed_attempts;
+    s_lobby = LobbyState{};
+
+    if (!lev::Index::setCurrentIndex(level_pack)) {
+        fprintf(stderr, "SV: missing level pack '%s'.\n", level_pack.c_str());
+        peer->disconnect();
+        delete peer;
+        enet_host_destroy(network_host);
+        return;
     }
+    lev::Index *ind = lev::Index::getCurrentIndex();
+    if (level_pos < 0 || level_pos >= ind->size()) {
+        fprintf(stderr, "SV: invalid level position %d in pack '%s'.\n",
+                level_pos, level_pack.c_str());
+        peer->disconnect();
+        delete peer;
+        enet_host_destroy(network_host);
+        return;
+    }
+    ind->setCurrentPosition(level_pos);
+    lev::Proxy *proxy = ind->getProxy(level_pos);
+    if (proxy == nullptr) {
+        fprintf(stderr, "SV: no current level selected.\n");
+        peer->disconnect();
+        delete peer;
+        enet_host_destroy(network_host);
+        return;
+    }
+    printf("SV: hosting level pack '%s' level %d (%s); %d failed auth attempts during lobby\n",
+           ind->getName().c_str(), level_pos + 1,
+           proxy->getTitle().c_str(), failed_during_lobby);
 
     Uint32 seed = Uint32(SDL_GetTicks()) ^ Uint32(uintptr_t(peer));
     const int remote_player = 1;
 
-    // Mark the session as active *before* loading so per-load logic
-    // (like AddYinYang) can suppress single-computer behaviour.
     s_in_session = true;
     SessionGuard guard(/*client=*/false);
 
@@ -789,19 +1020,11 @@ void netgame::Start() {
         }
     }
 
-    // Register the sink BEFORE the initial load so every event fired
-    // during load — SV_RESIZE, SV_GRID_SPRITE, SV_ACTOR_ADDED,
-    // SV_INVENTORY, SV_LEVEL_LOADED — reaches the remote. The remote
-    // builds its world entirely from this event stream.
     SinkGuard sink_guard(&sink);
 
-    ind->setCurrentPosition(level_pos);
     server::RandomState = Sint32(seed);
     server::Msg_LoadLevel(proxy, false);
 
-    // Grab the mouse and hide the cursor like single-player. Pass
-    // --nograb to keep both visible when debugging two peers on the
-    // same machine.
     video_engine->HideMouse();
     ScopedInputGrab grab(not enigma::Nograb);
 
@@ -817,9 +1040,38 @@ void netgame::Start() {
     enet_host_destroy(network_host);
 }
 
-void netgame::Join(std::string hostname, int port) {
-    if (port <= 0)
-        port = NET_PORT;
+//======================================================================
+// Client join
+//======================================================================
+
+std::string netgame::LastJoinError() {
+    return s_last_join_error;
+}
+
+namespace {
+
+// Helper to bail out of Join with cleanup and a stored error reason.
+struct JoinAbort {
+    Peer     **peer;
+    ENetHost  *host;
+    JoinAbort(Peer **p, ENetHost *h) : peer(p), host(h) {}
+    void operator()(const std::string &reason) {
+        s_last_join_error = reason;
+        fprintf(stderr, "CL: %s\n", reason.c_str());
+        if (*peer) {
+            (*peer)->disconnect();
+            delete *peer;
+            *peer = nullptr;
+        }
+        if (host) enet_host_destroy(host);
+    }
+};
+
+}  // namespace
+
+void netgame::Join(std::string hostname, int port, std::string code) {
+    if (port <= 0) port = NET_PORT;
+    s_last_join_error.clear();
     printf("CL: connecting to %s:%d...\n", hostname.c_str(), port);
 
     ENetHost *network_host = enet_host_create(nullptr, 1,
@@ -828,12 +1080,18 @@ void netgame::Join(std::string hostname, int port) {
 #endif
                                               0, 0);
     if (network_host == nullptr) {
-        fprintf(stderr, "CL: failed to create ENet client host.\n");
+        s_last_join_error = "failed to create ENet client host";
+        fprintf(stderr, "CL: %s\n", s_last_join_error.c_str());
         return;
     }
 
     ENetAddress sv_address;
-    enet_address_set_host(&sv_address, hostname.c_str());
+    if (enet_address_set_host(&sv_address, hostname.c_str()) != 0) {
+        s_last_join_error = "could not resolve host '" + hostname + "'";
+        fprintf(stderr, "CL: %s\n", s_last_join_error.c_str());
+        enet_host_destroy(network_host);
+        return;
+    }
     sv_address.port = port;
 
     ENetPeer *raw_peer =
@@ -843,7 +1101,8 @@ void netgame::Join(std::string hostname, int port) {
         enet_host_connect(network_host, &sv_address, 2);
 #endif
     if (raw_peer == nullptr) {
-        fprintf(stderr, "CL: no available peers for connection.\n");
+        s_last_join_error = "no available peers for connection";
+        fprintf(stderr, "CL: %s\n", s_last_join_error.c_str());
         enet_host_destroy(network_host);
         return;
     }
@@ -851,20 +1110,50 @@ void netgame::Join(std::string hostname, int port) {
     ENetEvent event;
     if (enet_host_service(network_host, &event, 5000) <= 0 ||
         event.type != ENET_EVENT_TYPE_CONNECT) {
-        fprintf(stderr, "CL: connection to %s:%d failed.\n", hostname.c_str(), port);
+        s_last_join_error = ecl::strf("could not connect to %s:%d",
+                                      hostname.c_str(), port);
+        fprintf(stderr, "CL: %s\n", s_last_join_error.c_str());
         enet_peer_reset(raw_peer);
         enet_host_destroy(network_host);
         return;
     }
     Peer *peer = new Peer_Enet(network_host, raw_peer, 0);
+    JoinAbort abort(&peer, network_host);
 
-    // Receive SV_HELLO and parse.
+    // Send our access code right away. The host validates it before
+    // anything else and will reply SV_AUTH_OK or SV_AUTH_FAIL.
+    {
+        ecl::Buffer auth;
+        auth << Uint8(CL_AUTH) << PROTO_VERSION << code;
+        peer->send_reliable(auth, CHANNEL_RELIABLE);
+    }
+
+    ecl::Buffer auth_reply;
+    if (!wait_for_packet(peer, auth_reply, /*timeout_ms=*/10000)) {
+        abort("auth response timed out");
+        return;
+    }
+    {
+        Uint8 atag = 0;
+        auth_reply >> atag;
+        if (atag == SV_AUTH_FAIL) {
+            std::string reason;
+            auth_reply >> reason;
+            abort("rejected by host: " + reason);
+            return;
+        }
+        if (atag != SV_AUTH_OK) {
+            abort(ecl::strf("unexpected auth tag 0x%x", int(atag)));
+            return;
+        }
+    }
+    printf("CL: code accepted, waiting for host to start the game...\n");
+
+    // Now wait for SV_HELLO. This may take a while — the host is
+    // sitting in their lobby until they click Start. Use a long timeout.
     ecl::Buffer hello;
-    if (!wait_for_packet(peer, hello, /*timeout_ms=*/10000)) {
-        fprintf(stderr, "CL: handshake timed out.\n");
-        peer->disconnect();
-        delete peer;
-        enet_host_destroy(network_host);
+    if (!wait_for_packet(peer, hello, /*timeout_ms=*/120000)) {
+        abort("host did not start the game in time");
         return;
     }
     Uint8 tag = 0;
@@ -875,11 +1164,8 @@ void netgame::Join(std::string hostname, int port) {
     Uint8 assigned_player = 1;
     hello >> tag >> proto >> level_pack >> level_idx >> seed >> assigned_player;
     if (tag != SV_HELLO || proto != PROTO_VERSION) {
-        fprintf(stderr, "CL: bad SV_HELLO (tag=0x%x proto=%d, expected %d).\n",
-                tag, int(proto), int(PROTO_VERSION));
-        peer->disconnect();
-        delete peer;
-        enet_host_destroy(network_host);
+        abort(ecl::strf("bad SV_HELLO (tag=0x%x proto=%d, expected %d)",
+                        tag, int(proto), int(PROTO_VERSION)));
         return;
     }
     printf("CL: host wants level pack '%s' level %d, seed=0x%x, "
@@ -887,23 +1173,14 @@ void netgame::Join(std::string hostname, int port) {
            level_pack.c_str(), int(level_idx) + 1, unsigned(seed),
            int(assigned_player));
 
-    // The remote needs the level pack present only to read level
-    // titles for the window caption — it does not load the level
-    // itself, the host streams the populated world.
     if (!lev::Index::setCurrentIndex(level_pack)) {
-        fprintf(stderr, "CL: missing level pack '%s'.\n", level_pack.c_str());
-        peer->disconnect();
-        delete peer;
-        enet_host_destroy(network_host);
+        abort("missing level pack '" + level_pack + "'");
         return;
     }
     lev::Index *ind = lev::Index::getCurrentIndex();
     if (int(level_idx) >= ind->size()) {
-        fprintf(stderr, "CL: level pack only has %d levels, host asked for %d.\n",
-                ind->size(), int(level_idx));
-        peer->disconnect();
-        delete peer;
-        enet_host_destroy(network_host);
+        abort(ecl::strf("level pack only has %d levels, host asked for %d",
+                        ind->size(), int(level_idx)));
         return;
     }
 
@@ -913,23 +1190,16 @@ void netgame::Join(std::string hostname, int port) {
     SessionGuard guard(/*client=*/true);
 
     server::RandomState = Sint32(seed);
-    // Reset client state from any prior game (cls_abort etc.) so the
-    // remote_main_loop's AbortGameP() check doesn't trip on startup.
-    // SV_LEVEL_LOADED will move us to cls_preparing_game shortly.
     client::Stop();
     apply_reload(int(level_idx));
     player::SetCurrentPlayer(assigned_player);
 
-    // Acknowledge.
     {
         ecl::Buffer ack;
         ack << Uint8(CL_HELLO) << PROTO_VERSION;
         peer->send_reliable(ack, CHANNEL_RELIABLE);
     }
 
-    // Grab the mouse and hide the cursor like single-player. Pass
-    // --nograb to keep both visible when debugging two peers on the
-    // same machine.
     video_engine->HideMouse();
     ScopedInputGrab grab(not enigma::Nograb);
 
