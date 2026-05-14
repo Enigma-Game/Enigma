@@ -62,8 +62,8 @@ char* Buffer::get_rspace(size_t len) {
 int Buffer::read() {
     if (good() && rpos < buf + sz)
         return *rpos++;
-    else
-        return -1;
+    iostate = State(iostate | FAILBIT | EOFBIT);
+    return -1;
 }
 
 Buffer& Buffer::write(char c) {
