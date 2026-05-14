@@ -210,7 +210,7 @@ void dispatch_input_from_client(ecl::Buffer &b, int player) {
         case CL_COMMAND: {
             std::string cmd;
             if (b >> cmd)
-                server::Msg_Command(cmd);
+                server::Msg_Command(cmd, player);
             break;
         }
         case CL_INHIBIT_PICKUP: {
@@ -625,6 +625,10 @@ void netgame::Start() {
         }
     }
 
+    // Mark the session as active *before* loading so per-load logic
+    // (like AddYinYang) can suppress single-computer behaviour.
+    s_in_session = true;
+
     // Host loads the level locally with the agreed seed. Re-pin the
     // index position too in case it slipped between snapshot and now.
     ind->setCurrentPosition(level_pos);
@@ -635,7 +639,6 @@ void netgame::Start() {
     // Cursor stays visible and mouse stays ungrabbed in network mode
     // so the user can move between two windows on the same machine
     // for testing. This may change once we have a real lobby UX.
-    s_in_session = true;
     host_main_loop(peer);
     s_in_session = false;
     fprintf(stderr, "SV: host loop exited (connected=%d, abort=%d)\n",
@@ -735,6 +738,12 @@ void netgame::Join(std::string hostname, int port) {
     }
     ind->setCurrentPosition(int(level_idx));
 
+    // Mark the session as active *before* loading so per-load logic
+    // (like AddYinYang) can suppress single-computer behaviour.
+    s_in_session = true;
+    s_in_client_session = true;
+    s_client_peer = peer;
+
     server::RandomState = Sint32(seed);
     Object::setNextId(int(next_id_snapshot));
     server::Msg_LoadLevel(ind->getProxy(int(level_idx)), false);
@@ -747,10 +756,6 @@ void netgame::Join(std::string hostname, int port) {
         ack << Uint8(CL_HELLO) << PROTO_VERSION;
         peer->send_reliable(ack, CHANNEL_RELIABLE);
     }
-
-    s_in_session = true;
-    s_in_client_session = true;
-    s_client_peer = peer;
 
     remote_main_loop(peer);
     fprintf(stderr, "CL: remote loop exited (connected=%d, abort=%d)\n",

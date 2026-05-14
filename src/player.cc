@@ -21,6 +21,7 @@
 #include "Inventory.hh"
 #include "display.hh"
 #include "errors.hh"
+#include "netgame.hh"
 #include "SoundEffectManager.hh"
 #include "client.hh"
 #include "server.hh"
@@ -182,7 +183,10 @@ void player::AddYinYang() {
 }
 
 void player::LevelLoaded(bool isRestart) {
-    if (server::TwoPlayerGame && server::SingleComputerGame)
+    // The yin-yang item lets one user swap between black and white on
+    // a single computer. In a LAN session each peer is locked to its
+    // colour, so the swap mechanic doesn't apply.
+    if (server::TwoPlayerGame && server::SingleComputerGame && !netgame::IsActive())
         AddYinYang();
     RedrawInventory();
 }
@@ -293,6 +297,14 @@ void player::Suicide() {
         for (auto &actor : player.actors) {
             SendMessage(actor, "_suicide");
         }
+    }
+}
+
+void player::Suicide(int iplayer) {
+    if ((unsigned)iplayer >= players.size())
+        return;
+    for (auto &actor : players[iplayer].actors) {
+        SendMessage(actor, "_suicide");
     }
 }
 

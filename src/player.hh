@@ -76,6 +76,7 @@ Inventory *GetInventory(Actor *a);
 bool WieldedItemIs(Actor *a, const std::string &kind);
 
 void Suicide();
+void Suicide(int iplayer);
 
 void AddActor(unsigned iplayer, Actor *a);
 void AddUnassignedActor(Actor *a);  // actors not assigned to a player

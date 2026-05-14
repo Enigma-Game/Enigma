@@ -483,7 +483,7 @@ void Msg_Command_find(const string &text) {
     }
 }
 
-void Msg_Command(const string &cmd) {
+void Msg_Command(const string &cmd, int iplayer) {
     lev::Index *ind = lev::Index::getCurrentIndex();
     lev::Proxy *curProxy = ind->getCurrent();
 
@@ -491,7 +491,10 @@ void Msg_Command(const string &cmd) {
     if (cmd == "invrotate") {
         player::RotateInventory();
     } else if (cmd == "suicide") {
-        player::Suicide();
+        if (iplayer >= 0)
+            player::Suicide(iplayer);
+        else
+            player::Suicide();
         if (!AllowSuicide)
             Msg_RestartGame();
     } else if (cmd == "restart") {

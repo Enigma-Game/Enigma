@@ -518,11 +518,15 @@ void Client::on_keydown(SDL_Event &e) {
     SDL_Keycode keysym = e.key.keysym.sym;
     Uint16 keymod = e.key.keysym.mod;
 
+    // For commands that act on a specific player (e.g. "suicide"),
+    // local invocations target the current player. The remote
+    // forwards the command and the host substitutes the connection's
+    // player index when dispatching.
     auto send_command = [](const std::string &cmd) {
         if (netgame::IsClient())
             netgame::SendInputCommand(cmd);
         else
-            server::Msg_Command(cmd);
+            server::Msg_Command(cmd, player::CurrentPlayer());
     };
 
     if (keymod & KMOD_CTRL) {
