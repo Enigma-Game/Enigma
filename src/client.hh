@@ -21,6 +21,7 @@
 #include "ecl_math.hh"
 #include "lev/Index.hh"
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -81,12 +82,43 @@ public:
     // The status bar's stone-move counter (sokoban-style score).
     virtual void OnMoveCounter(int value) {}
 
-    virtual void OnActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel) {}
-    virtual void OnActorSpriteChanged(int actor_id, const std::string &model_name) {}
+    // Per-tick state, keyed by the actor's Object::getId(). Same id on
+    // both peers because the handshake aligns Object::next_id and the
+    // level load is deterministic from the shared seed.
+    virtual void OnActorMoved(int object_id, const ecl::V2 &pos, const ecl::V2 &vel) {}
+    virtual void OnActorSpriteChanged(int object_id, const std::string &model_name) {}
+
+    // Actor lifecycle: fired when an actor is added to or yielded from
+    // the live actor list mid-game (Drop.cc rotor swap, cannons, Lua
+    // spawns, etc.). The remote mirrors the call so the actor exists
+    // on its side too, with a matching Object id.
+    virtual void OnActorAdded(int object_id, const std::string &kind,
+                              const ecl::V2 &pos, const ecl::V2 &vel,
+                              int owner_player) {}
+    virtual void OnActorKilled(int object_id) {}
+
     // layer is GRID_FLOOR / GRID_ITEMS / GRID_STONES.
     virtual void OnGridSpriteChanged(int layer, int x, int y,
                                      const std::string &model_name) {}
     virtual void OnGridSpriteCleared(int layer, int x, int y) {}
+
+    // Server-side pause state. The host fires this when its menu /
+    // help screen opens or closes; the remote uses it to display a
+    // "paused by host" overlay.
+    virtual void OnPause(bool onoff) {}
+
+    // Host has loaded a level. Used for the in-session level
+    // transitions (restart, advance) — the remote uses this as the
+    // signal to drop its current world state before applying the
+    // grid/actor events that follow.
+    virtual void OnReload(int level_idx) {}
+
+    // Host's world was resized. Fires from World::Resize, twice per
+    // load (initial 20x13 from PrepareLevel, then the actual size
+    // from the level's createWorld). The remote calls Resize(w, h)
+    // locally; the empty world is then populated by subsequent
+    // SV_GRID_SPRITE and SV_ACTOR_ADDED events.
+    virtual void OnResize(int w, int h) {}
 };
 
 void RegisterEventSink(EventSink *sink);
@@ -94,8 +126,12 @@ void UnregisterEventSink(EventSink *sink);
 
 // Notify hooks for engine mutation points that don't pass through
 // a Msg_* function. No local side effect; purely a tap for sinks.
-void NotifyActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel);
-void NotifyActorSpriteChanged(int actor_id, const std::string &model_name);
+void NotifyActorMoved(int object_id, const ecl::V2 &pos, const ecl::V2 &vel);
+void NotifyActorSpriteChanged(int object_id, const std::string &model_name);
+void NotifyActorAdded(int object_id, const std::string &kind,
+                      const ecl::V2 &pos, const ecl::V2 &vel,
+                      int owner_player);
+void NotifyActorKilled(int object_id);
 void NotifyGridSpriteChanged(int layer, int x, int y, const std::string &model_name);
 void NotifyGridSpriteCleared(int layer, int x, int y);
 void NotifySound(const std::string &soundname, const ecl::V2 &pos,
@@ -103,6 +139,9 @@ void NotifySound(const std::string &soundname, const ecl::V2 &pos,
 void NotifyInventoryChanged(int player_index,
                             const std::vector<std::string> &model_names);
 void NotifyMoveCounter(int value);
+void NotifyPause(bool onoff);
+void NotifyReload(int level_idx);
+void NotifyResize(int w, int h);
 
 /* -------------------- Server->Client messages -------------------- */
 

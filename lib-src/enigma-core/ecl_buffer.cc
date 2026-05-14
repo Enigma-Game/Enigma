@@ -16,6 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 #include "ecl_buffer.hh"
+#include <cstring>
 #include <iostream>
 
 using namespace ecl;
@@ -225,56 +226,37 @@ Buffer& ecl::write(Buffer& buf, Uint64 lvar) {
 */
 
 /* NOTE: we reinterpret floats and doubles as Uint32/Uint64,
-** and byte-swap them like integers.
-** This is how quake does it, too (except they only use floats).
-** I couldn't believe that this worked, so I checked it out
-** (PPC <-> x86), and it does. The upside (over multiplying
-** with 2048 and converting to int, as it was before) is that
-** we have the same rep on both machines, possibly leading to
-** less desynchronisation in network games.
+** and byte-swap them like integers, so we have the same wire rep
+** on both machines. memcpy is the idiomatic spelling — the optimizer
+** turns it into a register move — and avoids the type-pun-via-union
+** UB.
 */
 
 Buffer& ecl::read(Buffer& buf, float& dvar) {
-    union {
-        float f;
-        Uint32 a;
-    } t;
-    if (buf >> t.a)
-        dvar = t.f;
+    Uint32 a;
+    if (buf >> a)
+        std::memcpy(&dvar, &a, sizeof dvar);
     return buf;
 }
 
 Buffer& ecl::write(Buffer& buf, float dvar) {
-    union {
-        float f;
-        Uint32 a;
-    } t;
-    t.f = dvar;
-    write(buf, t.a);
+    Uint32 a;
+    std::memcpy(&a, &dvar, sizeof dvar);
+    write(buf, a);
     return buf;
 }
 
-/*
- ** === Read and write doubles ===
- */
-
 Buffer& ecl::read(Buffer& buf, double& dvar) {
-    union {
-        double d;
-        Uint64 a;
-    } t;
-    if (buf >> t.a)
-        dvar = t.d;
+    Uint64 a;
+    if (buf >> a)
+        std::memcpy(&dvar, &a, sizeof dvar);
     return buf;
 }
 
 Buffer& ecl::write(Buffer& buf, double dvar) {
-    union {
-        double d;
-        Uint64 a;
-    } t;
-    t.d = dvar;
-    write(buf, t.a);
+    Uint64 a;
+    std::memcpy(&a, &dvar, sizeof dvar);
+    write(buf, a);
     return buf;
 }
 

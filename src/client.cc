@@ -118,12 +118,23 @@ void UnregisterEventSink(EventSink *sink) {
         event_sinks.erase(it);
 }
 
-void NotifyActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel) {
-    for (auto *s : event_sinks) s->OnActorMoved(actor_id, pos, vel);
+void NotifyActorMoved(int object_id, const ecl::V2 &pos, const ecl::V2 &vel) {
+    for (auto *s : event_sinks) s->OnActorMoved(object_id, pos, vel);
 }
 
-void NotifyActorSpriteChanged(int actor_id, const std::string &model_name) {
-    for (auto *s : event_sinks) s->OnActorSpriteChanged(actor_id, model_name);
+void NotifyActorSpriteChanged(int object_id, const std::string &model_name) {
+    for (auto *s : event_sinks) s->OnActorSpriteChanged(object_id, model_name);
+}
+
+void NotifyActorAdded(int object_id, const std::string &kind,
+                      const ecl::V2 &pos, const ecl::V2 &vel,
+                      int owner_player) {
+    for (auto *s : event_sinks)
+        s->OnActorAdded(object_id, kind, pos, vel, owner_player);
+}
+
+void NotifyActorKilled(int object_id) {
+    for (auto *s : event_sinks) s->OnActorKilled(object_id);
 }
 
 void NotifyGridSpriteChanged(int layer, int x, int y, const std::string &model_name) {
@@ -151,6 +162,18 @@ void NotifyInventoryChanged(int player_index,
 void NotifyMoveCounter(int value) {
     for (auto *s : event_sinks)
         s->OnMoveCounter(value);
+}
+
+void NotifyPause(bool onoff) {
+    for (auto *s : event_sinks) s->OnPause(onoff);
+}
+
+void NotifyReload(int level_idx) {
+    for (auto *s : event_sinks) s->OnReload(level_idx);
+}
+
+void NotifyResize(int w, int h) {
+    for (auto *s : event_sinks) s->OnResize(w, h);
 }
 
 /* -------------------- Client class -------------------- */
@@ -1080,8 +1103,10 @@ void Msg_AdvanceLevel(lev::LevelAdvanceMode mode) {
     lev::PersistentIndex::addCurrentToHistory();
 
     if (level_index->advanceLevel(mode)) {
-        // now we may advance
-        server::Msg_LoadLevel(level_index->getCurrent(), false);
+        // The remote doesn't run levels itself — the host streams the
+        // new world state. We just advance the index for the caption.
+        if (!netgame::IsClient())
+            server::Msg_LoadLevel(level_index->getCurrent(), false);
     } else
         client::Msg_Command("abort");
 }
@@ -1090,7 +1115,10 @@ void Msg_JumpBack() {
     for (auto *s : event_sinks) s->OnJumpBack();
     // log last played level
     lev::PersistentIndex::addCurrentToHistory();
-    server::Msg_JumpBack();
+    // On the remote, the host runs the actual jumpback and streams
+    // the new world state; we skip the local load.
+    if (!netgame::IsClient())
+        server::Msg_JumpBack();
 }
 
 bool AbortGameP() {

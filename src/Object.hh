@@ -94,8 +94,9 @@ public:
     static Object *getObject(int id);
     int getId() const;
 
-    // Snapshot/restore the global id counter. Used to keep two ENet
-    // peers' object ids in lock-step across a network level load.
+    // Snapshot/restore the global id counter. Used by the LAN
+    // protocol's SV_ACTOR_ADDED dispatcher to land each new actor on
+    // the host's id, so subsequent SV_ACTOR_MOVED packets resolve.
     static int  getNextIdSnapshot();
     static void setNextId(int v);
 

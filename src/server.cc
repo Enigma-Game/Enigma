@@ -33,6 +33,7 @@
 #include "StateManager.hh"
 #include "world.hh"
 #include "MusicManager.hh"
+#include "netgame.hh"
 
 #include "enet/enet.h"
 
@@ -356,6 +357,13 @@ void Tick(double dtime) {
         current_state_dtime += dtime;
         if (current_state_dtime >= 1.0) {
             lev::Index *ind = lev::Index::getCurrentIndex();
+            // In a network session, tell the remote a reload is
+            // imminent so it can drop its current world. The host's
+            // re-run of load_level then fires SV_RESIZE +
+            // SV_GRID_SPRITE + SV_ACTOR_ADDED events that rebuild
+            // the remote's world state.
+            if (netgame::IsActive() && !netgame::IsClient())
+                client::NotifyReload(ind->getCurrentPosition());
             load_level(ind->getCurrent(), (state == sv_restart_level));
         } else {
             gametick(dtime);
@@ -590,12 +598,15 @@ void Msg_Command(const string &cmd, int iplayer) {
 }
 
 void Msg_Pause(bool onoff) {
+    ServerState before = state;
     if (onoff && state == sv_running)
         state = sv_paused;
     else if (onoff && state == sv_teatime)
         state = sv_paused;
     else if (!onoff && state == sv_paused)
         state = sv_running;
+    if (state != before)
+        client::NotifyPause(onoff);
 }
 
 void Msg_Teatime(bool onoff) {

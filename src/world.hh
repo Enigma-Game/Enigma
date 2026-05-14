@@ -251,13 +251,6 @@ unsigned CountActorsOfKind(ActorID id);
   false if none were found. */
 bool GetActorsInRange(ecl::V2 center, double range, std::vector<Actor *> &actors);
 
-/*! Position of `a` in the world's actor list, or -1 if not present.
-  Stable for the duration of a level (actors are appended on creation
-  and never reordered), and used as the network identity for actor
-  updates so two peers don't need matching Object ids. */
-int FindActorIndex(Actor *a);
-Actor *GetActorByIndex(int idx);
-
 /*! Find all actors that are inside 'pos'.  Returns false if none
   were found. */
 bool GetActorsInsideField(const GridPos &pos, std::vector<Actor *> &actors);

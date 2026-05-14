@@ -36,7 +36,7 @@ typedef std::vector<Item*> ItemList;
 unsigned const Inventory::max_items = 12;
 
 
-Inventory::Inventory() : m_items () {
+Inventory::Inventory() : m_items(), ownerId(-1) {
 }
 
 

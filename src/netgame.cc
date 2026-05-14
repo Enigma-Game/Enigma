@@ -24,6 +24,7 @@
 #include "main.hh"
 #include "netgame.hh"
 #include "network.hh"
+#include "Object.hh"
 #include "options.hh"
 #include "player.hh"
 #include "server.hh"
@@ -39,6 +40,7 @@
 
 #include "SDL.h"
 #include <cstdint>
+#include <set>
 #include <string>
 
 using namespace enigma;
@@ -51,7 +53,7 @@ using namespace enigma;
 
 namespace {
 
-constexpr Uint16 PROTO_VERSION = 1;
+constexpr Uint16 PROTO_VERSION = 3;
 constexpr int    NET_PORT      = 12345;
 
 // Packet tags. Client -> host inputs live in the 0x10–0x7F band, host
@@ -86,10 +88,22 @@ enum ProtoTag : Uint8 {
     SV_GRID_KILL         = 0x90,
     SV_INVENTORY         = 0x91,
     SV_MOVE_COUNTER      = 0x92,
+    SV_ACTOR_ADDED       = 0x93,
+    SV_ACTOR_KILLED      = 0x94,
+    SV_PAUSE             = 0x95,
+    SV_RELOAD            = 0x96,
+    SV_RESIZE            = 0x97,
 };
 
 constexpr int CHANNEL_UNRELIABLE = 0;
 constexpr int CHANNEL_RELIABLE   = 1;
+
+// Commands the remote is allowed to forward to the host. Anything else
+// is dropped — LAN trust model, but the door doesn't need to be open
+// to cheats and arbitrary jumpto/find traffic.
+const std::set<std::string> kAllowedClientCommands = {
+    "suicide", "restart", "advance_strict", "advance_unsolved", "jumpback",
+};
 
 // Batches outbound EventSink calls into a reliable and an unreliable
 // buffer; flush() ships both. Position-style updates that arrive every
@@ -112,10 +126,10 @@ public:
     }
     void OnPlayerPosition(unsigned iplayer, const ecl::V2 &pos) override {
         m_unreliable << Uint8(SV_PLAYER_POSITION) << Uint8(iplayer)
-                     << float(pos[0]) << float(pos[1]);
+                     << double(pos[0]) << double(pos[1]);
     }
     void OnSparkle(const ecl::V2 &pos) override {
-        m_reliable << Uint8(SV_SPARKLE) << float(pos[0]) << float(pos[1]);
+        m_reliable << Uint8(SV_SPARKLE) << double(pos[0]) << double(pos[1]);
     }
     void OnShowText(const std::string &text, bool scrolling, double duration) override {
         m_reliable << Uint8(SV_SHOW_TEXT) << text
@@ -137,7 +151,7 @@ public:
     void OnSound(const std::string &soundname, const ecl::V2 &pos,
                  double volume, bool global) override {
         m_reliable << Uint8(SV_SOUND) << soundname
-                   << float(pos[0]) << float(pos[1])
+                   << double(pos[0]) << double(pos[1])
                    << double(volume) << Uint8(global ? 1 : 0);
     }
     void OnInventoryChanged(int player_index,
@@ -150,13 +164,25 @@ public:
     void OnMoveCounter(int value) override {
         m_reliable << Uint8(SV_MOVE_COUNTER) << Uint32(value);
     }
-    void OnActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel) override {
-        m_unreliable << Uint8(SV_ACTOR_MOVED) << Uint32(actor_id)
-                     << float(pos[0]) << float(pos[1])
-                     << float(vel[0]) << float(vel[1]);
+    void OnActorMoved(int object_id, const ecl::V2 &pos, const ecl::V2 &vel) override {
+        m_unreliable << Uint8(SV_ACTOR_MOVED) << Uint32(object_id)
+                     << double(pos[0]) << double(pos[1])
+                     << double(vel[0]) << double(vel[1]);
     }
-    void OnActorSpriteChanged(int actor_id, const std::string &model_name) override {
-        m_reliable << Uint8(SV_ACTOR_SPRITE) << Uint32(actor_id) << model_name;
+    void OnActorSpriteChanged(int object_id, const std::string &model_name) override {
+        m_reliable << Uint8(SV_ACTOR_SPRITE) << Uint32(object_id) << model_name;
+    }
+    void OnActorAdded(int object_id, const std::string &kind,
+                      const ecl::V2 &pos, const ecl::V2 &vel,
+                      int owner_player) override {
+        // owner: -1 → 0xFF, else 0..1. Decoded via Sint8 round-trip.
+        m_reliable << Uint8(SV_ACTOR_ADDED) << Uint32(object_id) << kind
+                   << double(pos[0]) << double(pos[1])
+                   << double(vel[0]) << double(vel[1])
+                   << Uint8(Sint8(owner_player));
+    }
+    void OnActorKilled(int object_id) override {
+        m_reliable << Uint8(SV_ACTOR_KILLED) << Uint32(object_id);
     }
     void OnGridSpriteChanged(int layer, int x, int y,
                              const std::string &model_name) override {
@@ -166,6 +192,15 @@ public:
     void OnGridSpriteCleared(int layer, int x, int y) override {
         m_reliable << Uint8(SV_GRID_KILL) << Uint8(layer)
                    << Uint16(x) << Uint16(y);
+    }
+    void OnPause(bool onoff) override {
+        m_reliable << Uint8(SV_PAUSE) << Uint8(onoff ? 1 : 0);
+    }
+    void OnReload(int level_idx) override {
+        m_reliable << Uint8(SV_RELOAD) << Uint32(level_idx);
+    }
+    void OnResize(int w, int h) override {
+        m_reliable << Uint8(SV_RESIZE) << Uint16(w) << Uint16(h);
     }
 
     void flush() {
@@ -185,6 +220,12 @@ private:
     ecl::Buffer m_unreliable;
 };
 
+// Look up an Actor by its host-side Object id. Returns nullptr if no
+// such object exists locally or the id resolves to a non-actor.
+Actor *find_actor_by_id(Uint32 id) {
+    return dynamic_cast<Actor *>(Object::getObject(int(id)));
+}
+
 // Parse a packet that arrived on the host. `player` is the index
 // assigned to that connection (0 or 1); inputs are tagged with it on
 // the server side so the simulation knows whose marble to drive.
@@ -193,7 +234,7 @@ void dispatch_input_from_client(ecl::Buffer &b, int player) {
     while (b >> tag) {
         switch (tag) {
         case CL_MOUSE_FORCE: {
-            float dx, dy;
+            double dx, dy;
             if (b >> dx >> dy)
                 server::Msg_MouseForce(player, ecl::V2(dx, dy));
             break;
@@ -209,8 +250,12 @@ void dispatch_input_from_client(ecl::Buffer &b, int player) {
         }
         case CL_COMMAND: {
             std::string cmd;
-            if (b >> cmd)
-                server::Msg_Command(cmd, player);
+            if (b >> cmd) {
+                if (kAllowedClientCommands.count(cmd))
+                    server::Msg_Command(cmd, player);
+                else
+                    enigma::Log << "netgame: rejected client command '" << cmd << "'\n";
+            }
             break;
         }
         case CL_INHIBIT_PICKUP: {
@@ -230,6 +275,121 @@ void dispatch_input_from_client(ecl::Buffer &b, int player) {
 // local state. Goes through the existing client::Msg_* and engine
 // APIs; since no NetworkSink is registered on the remote, this does
 // not re-broadcast.
+void dispatch_event_from_server(ecl::Buffer &b);
+
+}  // anonymous namespace
+
+//======================================================================
+// Client-session state and input helpers
+//======================================================================
+
+namespace {
+
+bool  s_in_session        = false;  // host or client
+bool  s_in_client_session = false;  // client only
+bool  s_paused_by_host    = false;  // remote: host has its menu open
+Peer *s_client_peer       = nullptr;
+ecl::Buffer s_client_out_unreliable;
+ecl::Buffer s_client_out_reliable;
+
+// Per-connection state on the host. Set by Start() before its main
+// loop and read both by the dispatcher (to tag inputs with the
+// correct player index) and by Service() (to flush its sink).
+struct HostState {
+    Peer       *peer        = nullptr;
+    NetworkSink *sink       = nullptr;
+    int         remote_player = 1;
+};
+HostState s_host;
+
+void flush_client_outbox() {
+    if (s_client_out_unreliable.size() > 0 && s_client_peer) {
+        s_client_peer->send_message(s_client_out_unreliable, CHANNEL_UNRELIABLE);
+        s_client_out_unreliable.clear();
+    }
+    if (s_client_out_reliable.size() > 0 && s_client_peer) {
+        s_client_peer->send_reliable(s_client_out_reliable, CHANNEL_RELIABLE);
+        s_client_out_reliable.clear();
+    }
+}
+
+// Apply the host's level-reload event on the remote. We do NOT run
+// the level's Lua here — the host runs the simulation and streams
+// the resulting world state via SV_RESIZE + SV_GRID_SPRITE +
+// SV_ACTOR_ADDED events. We make sure a (default-sized) world
+// exists locally so subsequent code that walks it (Glasses,
+// SetCurrentPlayer, etc.) doesn't dereference a null `level`. The
+// real size arrives in the host's SV_RESIZE.
+void apply_reload(int level_idx) {
+    lev::Index *ind = lev::Index::getCurrentIndex();
+    if (ind && level_idx >= 0 && level_idx < ind->size())
+        ind->setCurrentPosition(level_idx);
+    Resize(20, 13);
+}
+
+}  // namespace
+
+bool netgame::IsClient() {
+    return s_in_client_session;
+}
+
+bool netgame::IsActive() {
+    return s_in_session;
+}
+
+void netgame::SendInputMouseForce(const ecl::V2 &f) {
+    if (!s_in_client_session) return;
+    s_client_out_unreliable << Uint8(CL_MOUSE_FORCE) << double(f[0]) << double(f[1]);
+}
+
+void netgame::SendInputActivateItem() {
+    if (!s_in_client_session) return;
+    s_client_out_reliable << Uint8(CL_ACTIVATE_ITEM);
+}
+
+void netgame::SendInputRotateInventory(int dir) {
+    if (!s_in_client_session) return;
+    s_client_out_reliable << Uint8(CL_ROTATE_INVENTORY) << Uint8(Sint8(dir));
+}
+
+void netgame::SendInputCommand(const std::string &cmd) {
+    if (!s_in_client_session) return;
+    s_client_out_reliable << Uint8(CL_COMMAND) << cmd;
+}
+
+void netgame::SendInputInhibitPickup(bool onoff) {
+    if (!s_in_client_session) return;
+    s_client_out_reliable << Uint8(CL_INHIBIT_PICKUP) << Uint8(onoff ? 1 : 0);
+}
+
+// Service the network connection once: drain inbound packets and flush
+// outbound. Called from inside modal GUI loops (game menu, help) so a
+// host whose menu is open keeps the ENet connection alive and forwards
+// pause state. Called by both host and remote.
+void netgame::Service() {
+    if (!s_in_session) return;
+    if (s_in_client_session) {
+        if (s_client_peer && s_client_peer->is_connected()) {
+            ecl::Buffer buf;
+            int dummy;
+            while (s_client_peer->poll_message(buf, dummy))
+                dispatch_event_from_server(buf);
+            flush_client_outbox();
+        }
+    } else {
+        if (s_host.peer && s_host.peer->is_connected()) {
+            ecl::Buffer buf;
+            int dummy;
+            while (s_host.peer->poll_message(buf, dummy))
+                dispatch_input_from_client(buf, s_host.remote_player);
+            if (s_host.sink)
+                s_host.sink->flush();
+        }
+    }
+}
+
+namespace {
+
 void dispatch_event_from_server(ecl::Buffer &b) {
     Uint8 tag;
     while (b >> tag) {
@@ -253,17 +413,17 @@ void dispatch_event_from_server(ecl::Buffer &b) {
             break;
         }
         case SV_PLAYER_POSITION: {
-            Uint8 ip; float x, y;
+            Uint8 ip; double x, y;
             if (b >> ip >> x >> y) client::Msg_PlayerPosition(ip, ecl::V2(x, y));
             break;
         }
         case SV_SPARKLE: {
-            float x, y;
+            double x, y;
             if (b >> x >> y) client::Msg_Sparkle(ecl::V2(x, y));
             break;
         }
         case SV_SOUND: {
-            std::string sn; float x, y; double v; Uint8 global;
+            std::string sn; double x, y, v; Uint8 global;
             if (b >> sn >> x >> y >> v >> global)
                 sound::EmitSoundEvent(sn, ecl::V2(x, y), v, global != 0);
             break;
@@ -317,9 +477,9 @@ void dispatch_event_from_server(ecl::Buffer &b) {
             break;
         }
         case SV_ACTOR_MOVED: {
-            Uint32 idx; float px, py, vx, vy;
-            if (b >> idx >> px >> py >> vx >> vy) {
-                if (Actor *a = GetActorByIndex(int(idx))) {
+            Uint32 id; double px, py, vx, vy;
+            if (b >> id >> px >> py >> vx >> vy) {
+                if (Actor *a = find_actor_by_id(id)) {
                     ActorInfo *ai = a->get_actorinfo();
                     ai->pos = ecl::V2(px, py);
                     ai->vel = ecl::V2(vx, vy);
@@ -327,17 +487,48 @@ void dispatch_event_from_server(ecl::Buffer &b) {
                 } else {
                     static int miss_count = 0;
                     if (++miss_count <= 5)
-                        fprintf(stderr, "CL: SV_ACTOR_MOVED for unknown index %u\n",
-                                unsigned(idx));
+                        fprintf(stderr, "CL: SV_ACTOR_MOVED for unknown id %u\n",
+                                unsigned(id));
                 }
             }
             break;
         }
         case SV_ACTOR_SPRITE: {
-            Uint32 idx; std::string model;
-            if (b >> idx >> model) {
-                if (Actor *a = GetActorByIndex(int(idx)))
+            Uint32 id; std::string model;
+            if (b >> id >> model) {
+                if (Actor *a = find_actor_by_id(id))
                     a->set_model(model);
+            }
+            break;
+        }
+        case SV_ACTOR_ADDED: {
+            Uint32 id; std::string kind;
+            double px, py, vx, vy; Uint8 owner_byte;
+            if (b >> id >> kind >> px >> py >> vx >> vy >> owner_byte) {
+                int owner = int(Sint8(owner_byte));
+                // Force the new Object to land on the host's id by
+                // pinning next_id, creating, then restoring if the
+                // remote was already past that point.
+                int saved = Object::getNextIdSnapshot();
+                Object::setNextId(int(id));
+                Actor *a = MakeActor(kind.c_str());
+                if (a) {
+                    if (owner >= 0)
+                        a->setAttr("owner", Value(int(owner)));
+                    AddActor(px, py, a);
+                    ActorInfo *ai = a->get_actorinfo();
+                    ai->vel = ecl::V2(vx, vy);
+                }
+                if (saved > int(id) + 1)
+                    Object::setNextId(saved);
+            }
+            break;
+        }
+        case SV_ACTOR_KILLED: {
+            Uint32 id;
+            if (b >> id) {
+                if (Actor *a = find_actor_by_id(id))
+                    KillActor(a);
             }
             break;
         }
@@ -354,6 +545,28 @@ void dispatch_event_from_server(ecl::Buffer &b) {
                 display::KillModel(GridLoc(GridLayer(layer), GridPos(int(x), int(y))));
             break;
         }
+        case SV_PAUSE: {
+            Uint8 on;
+            if (b >> on) {
+                s_paused_by_host = (on != 0);
+                client::Msg_ShowText(
+                    s_paused_by_host ? "Paused by host..." : "Resumed.",
+                    false, s_paused_by_host ? 1e9 : 1.0);
+            }
+            break;
+        }
+        case SV_RELOAD: {
+            Uint32 idx;
+            if (b >> idx)
+                apply_reload(int(idx));
+            break;
+        }
+        case SV_RESIZE: {
+            Uint16 w, h;
+            if (b >> w >> h)
+                Resize(int(w), int(h));
+            break;
+        }
         default:
             enigma::Log << "netgame: unknown SV tag 0x" << std::hex << int(tag) << "\n";
             return;
@@ -364,90 +577,52 @@ void dispatch_event_from_server(ecl::Buffer &b) {
 }  // anonymous namespace
 
 //======================================================================
-// Client-session state and input helpers
-//======================================================================
-
-namespace {
-
-bool  s_in_session        = false;  // host or client
-bool  s_in_client_session = false;  // client only
-Peer *s_client_peer       = nullptr;
-ecl::Buffer s_client_out_unreliable;
-ecl::Buffer s_client_out_reliable;
-
-void flush_client_outbox() {
-    if (s_client_out_unreliable.size() > 0 && s_client_peer) {
-        s_client_peer->send_message(s_client_out_unreliable, CHANNEL_UNRELIABLE);
-        s_client_out_unreliable.clear();
-    }
-    if (s_client_out_reliable.size() > 0 && s_client_peer) {
-        s_client_peer->send_reliable(s_client_out_reliable, CHANNEL_RELIABLE);
-        s_client_out_reliable.clear();
-    }
-}
-
-}  // namespace
-
-bool netgame::IsClient() {
-    return s_in_client_session;
-}
-
-bool netgame::IsActive() {
-    return s_in_session;
-}
-
-void netgame::SendInputMouseForce(const ecl::V2 &f) {
-    if (!s_in_client_session) return;
-    s_client_out_unreliable << Uint8(CL_MOUSE_FORCE) << float(f[0]) << float(f[1]);
-}
-
-void netgame::SendInputActivateItem() {
-    if (!s_in_client_session) return;
-    s_client_out_reliable << Uint8(CL_ACTIVATE_ITEM);
-}
-
-void netgame::SendInputRotateInventory(int dir) {
-    if (!s_in_client_session) return;
-    s_client_out_reliable << Uint8(CL_ROTATE_INVENTORY) << Uint8(Sint8(dir));
-}
-
-void netgame::SendInputCommand(const std::string &cmd) {
-    if (!s_in_client_session) return;
-    s_client_out_reliable << Uint8(CL_COMMAND) << cmd;
-}
-
-void netgame::SendInputInhibitPickup(bool onoff) {
-    if (!s_in_client_session) return;
-    s_client_out_reliable << Uint8(CL_INHIBIT_PICKUP) << Uint8(onoff ? 1 : 0);
-}
-
-//======================================================================
 // Handshake and main loops
 //======================================================================
 
 namespace {
 
-void log_player_actor_ids(const char *who) {
-    for (unsigned p = 0; p < 2; ++p) {
-        Actor *a = player::GetMainActor(p);
-        if (a)
-            fprintf(stderr, "%s: player %u main actor id=%d index=%d\n",
-                    who, p, a->getId(), FindActorIndex(a));
-        else
-            fprintf(stderr, "%s: player %u has no main actor\n", who, p);
+// RAII guard: clears the session flags on scope exit so any thrown
+// exception leaves the netgame state coherent.
+struct SessionGuard {
+    bool clear_client;
+    SessionGuard(bool client) : clear_client(client) {}
+    ~SessionGuard() {
+        if (clear_client) {
+            flush_client_outbox();
+            s_in_client_session = false;
+            s_client_peer = nullptr;
+            s_paused_by_host = false;
+        } else {
+            s_host = HostState{};
+        }
+        s_in_session = false;
     }
-}
+};
 
-// Wait up to `timeout_ms` for a single packet to arrive. Returns true
-// on success (with the packet's bytes in `out`), false on timeout or
-// disconnect.
+// Pair an EventSink's lifetime with the registry. Ensures a thrown
+// exception inside the loop doesn't leave a freed sink pointer in
+// `event_sinks`.
+struct SinkGuard {
+    client::EventSink *sink;
+    explicit SinkGuard(client::EventSink *s) : sink(s) {
+        client::RegisterEventSink(sink);
+    }
+    ~SinkGuard() { client::UnregisterEventSink(sink); }
+};
+
+// Wait up to `timeout_ms` for a single packet to arrive. Uses
+// enet_host_service's own timeout so we don't busy-poll. Returns
+// true with the packet's bytes in `out` on success, false on
+// timeout or disconnect.
 bool wait_for_packet(Peer *peer, ecl::Buffer &out, int timeout_ms) {
     Uint32 start = SDL_GetTicks();
     while (peer->is_connected()) {
         int dummy;
         if (peer->poll_message(out, dummy))
             return true;
-        if ((Uint32)(SDL_GetTicks() - start) >= (Uint32)timeout_ms)
+        Uint32 elapsed = SDL_GetTicks() - start;
+        if (elapsed >= (Uint32)timeout_ms)
             return false;
         SDL_Delay(5);
     }
@@ -457,9 +632,6 @@ bool wait_for_packet(Peer *peer, ecl::Buffer &out, int timeout_ms) {
 // Run the host's main loop: full simulation, plus broadcast every
 // EventSink hit and consume the remote's inputs each tick.
 void host_main_loop(Peer *peer) {
-    NetworkSink sink(peer);
-    client::RegisterEventSink(&sink);
-
     Uint32 last_tick_time = SDL_GetTicks();
     double dtime = 0;
     while (!client::AbortGameP() && peer->is_connected() && !app.bossKeyPressed) {
@@ -473,14 +645,9 @@ void host_main_loop(Peer *peer) {
             server::Msg_Panic(true);
         }
 
-        ecl::Buffer buf;
-        int dummy;
-        while (peer->poll_message(buf, dummy))
-            dispatch_input_from_client(buf, /*player=*/1);
+        netgame::Service();
 
-        sink.flush();
-
-        int sleeptime = 10 - (SDL_GetTicks() - last_tick_time);
+        int sleeptime = 10 - int(SDL_GetTicks() - last_tick_time);
         if (sleeptime >= 3)
             SDL_Delay(sleeptime);
         Uint32 now = SDL_GetTicks();
@@ -490,8 +657,6 @@ void host_main_loop(Peer *peer) {
         if (dtime > 500.0)
             dtime = 0.0;
     }
-
-    client::UnregisterEventSink(&sink);
 }
 
 // Run the remote's main loop: no physics, just consume state from the
@@ -510,14 +675,9 @@ void remote_main_loop(Peer *peer) {
             break;
         }
 
-        ecl::Buffer buf;
-        int dummy;
-        while (peer->poll_message(buf, dummy))
-            dispatch_event_from_server(buf);
+        netgame::Service();
 
-        flush_client_outbox();
-
-        int sleeptime = 10 - (SDL_GetTicks() - last_tick_time);
+        int sleeptime = 10 - int(SDL_GetTicks() - last_tick_time);
         if (sleeptime >= 3)
             SDL_Delay(sleeptime);
         Uint32 now = SDL_GetTicks();
@@ -540,9 +700,6 @@ void netgame::Start() {
         fprintf(stderr, "SV: no current level pack selected.\n");
         return;
     }
-    // Snapshot position once so the proxy we load and the level number
-    // we ship to the remote stay consistent even if something else
-    // would otherwise advance the index in between.
     int level_pos = ind->getCurrentPosition();
     lev::Proxy *proxy = ind->getProxy(level_pos);
     if (proxy == nullptr) {
@@ -588,11 +745,19 @@ void netgame::Start() {
         SDL_Delay(10);
     }
 
-    // Handshake. Pick a fresh RNG seed and ship the level coordinates,
-    // plus the host's current Object::next_id snapshot so the remote
-    // can sync its id allocator and end up with matching actor ids.
     Uint32 seed = Uint32(SDL_GetTicks()) ^ Uint32(uintptr_t(peer));
-    Uint32 next_id_snapshot = Uint32(Object::getNextIdSnapshot());
+    const int remote_player = 1;
+
+    // Mark the session as active *before* loading so per-load logic
+    // (like AddYinYang) can suppress single-computer behaviour.
+    s_in_session = true;
+    SessionGuard guard(/*client=*/false);
+
+    NetworkSink sink(peer);
+    s_host.peer = peer;
+    s_host.sink = &sink;
+    s_host.remote_player = remote_player;
+
     {
         ecl::Buffer hello;
         hello << Uint8(SV_HELLO)
@@ -600,8 +765,7 @@ void netgame::Start() {
               << ind->getName()
               << Uint32(level_pos)
               << seed
-              << next_id_snapshot
-              << Uint8(1);  // remote is player 1
+              << Uint8(remote_player);
         peer->send_reliable(hello, CHANNEL_RELIABLE);
     }
     ecl::Buffer reply;
@@ -625,22 +789,26 @@ void netgame::Start() {
         }
     }
 
-    // Mark the session as active *before* loading so per-load logic
-    // (like AddYinYang) can suppress single-computer behaviour.
-    s_in_session = true;
+    // Register the sink BEFORE the initial load so every event fired
+    // during load — SV_RESIZE, SV_GRID_SPRITE, SV_ACTOR_ADDED,
+    // SV_INVENTORY, SV_LEVEL_LOADED — reaches the remote. The remote
+    // builds its world entirely from this event stream.
+    SinkGuard sink_guard(&sink);
 
-    // Host loads the level locally with the agreed seed. Re-pin the
-    // index position too in case it slipped between snapshot and now.
     ind->setCurrentPosition(level_pos);
     server::RandomState = Sint32(seed);
     server::Msg_LoadLevel(proxy, false);
-    log_player_actor_ids("SV");
 
-    // Cursor stays visible and mouse stays ungrabbed in network mode
-    // so the user can move between two windows on the same machine
-    // for testing. This may change once we have a real lobby UX.
+    // Grab the mouse and hide the cursor like single-player. Pass
+    // --nograb to keep both visible when debugging two peers on the
+    // same machine.
+    video_engine->HideMouse();
+    ScopedInputGrab grab(not enigma::Nograb);
+
     host_main_loop(peer);
-    s_in_session = false;
+
+    video_engine->ShowMouse();
+
     fprintf(stderr, "SV: host loop exited (connected=%d, abort=%d)\n",
             int(peer->is_connected()), int(client::AbortGameP()));
 
@@ -704,22 +872,24 @@ void netgame::Join(std::string hostname, int port) {
     std::string level_pack;
     Uint32 level_idx = 0;
     Uint32 seed = 0;
-    Uint32 next_id_snapshot = 0;
     Uint8 assigned_player = 1;
-    hello >> tag >> proto >> level_pack >> level_idx >> seed >> next_id_snapshot
-          >> assigned_player;
+    hello >> tag >> proto >> level_pack >> level_idx >> seed >> assigned_player;
     if (tag != SV_HELLO || proto != PROTO_VERSION) {
-        fprintf(stderr, "CL: bad SV_HELLO (tag=0x%x proto=%d).\n", tag, int(proto));
+        fprintf(stderr, "CL: bad SV_HELLO (tag=0x%x proto=%d, expected %d).\n",
+                tag, int(proto), int(PROTO_VERSION));
         peer->disconnect();
         delete peer;
         enet_host_destroy(network_host);
         return;
     }
-    printf("CL: host wants level pack '%s' level %d, seed=0x%x, next_id=%u, "
+    printf("CL: host wants level pack '%s' level %d, seed=0x%x, "
            "assigned player=%d\n",
            level_pack.c_str(), int(level_idx) + 1, unsigned(seed),
-           unsigned(next_id_snapshot), int(assigned_player));
+           int(assigned_player));
 
+    // The remote needs the level pack present only to read level
+    // titles for the window caption — it does not load the level
+    // itself, the host streams the populated world.
     if (!lev::Index::setCurrentIndex(level_pack)) {
         fprintf(stderr, "CL: missing level pack '%s'.\n", level_pack.c_str());
         peer->disconnect();
@@ -736,19 +906,19 @@ void netgame::Join(std::string hostname, int port) {
         enet_host_destroy(network_host);
         return;
     }
-    ind->setCurrentPosition(int(level_idx));
 
-    // Mark the session as active *before* loading so per-load logic
-    // (like AddYinYang) can suppress single-computer behaviour.
     s_in_session = true;
     s_in_client_session = true;
     s_client_peer = peer;
+    SessionGuard guard(/*client=*/true);
 
     server::RandomState = Sint32(seed);
-    Object::setNextId(int(next_id_snapshot));
-    server::Msg_LoadLevel(ind->getProxy(int(level_idx)), false);
+    // Reset client state from any prior game (cls_abort etc.) so the
+    // remote_main_loop's AbortGameP() check doesn't trip on startup.
+    // SV_LEVEL_LOADED will move us to cls_preparing_game shortly.
+    client::Stop();
+    apply_reload(int(level_idx));
     player::SetCurrentPlayer(assigned_player);
-    log_player_actor_ids("CL");
 
     // Acknowledge.
     {
@@ -757,16 +927,23 @@ void netgame::Join(std::string hostname, int port) {
         peer->send_reliable(ack, CHANNEL_RELIABLE);
     }
 
+    // Grab the mouse and hide the cursor like single-player. Pass
+    // --nograb to keep both visible when debugging two peers on the
+    // same machine.
+    video_engine->HideMouse();
+    ScopedInputGrab grab(not enigma::Nograb);
+
     remote_main_loop(peer);
     fprintf(stderr, "CL: remote loop exited (connected=%d, abort=%d)\n",
             int(peer->is_connected()), int(client::AbortGameP()));
 
-    flush_client_outbox();
-    s_in_client_session = false;
-    s_in_session = false;
-    s_client_peer = nullptr;
+    video_engine->ShowMouse();
 
     peer->disconnect();
     delete peer;
     enet_host_destroy(network_host);
+}
+
+bool netgame::IsPausedByHost() {
+    return s_paused_by_host;
 }
