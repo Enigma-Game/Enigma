@@ -189,6 +189,7 @@ public:
     virtual void SetMouseCursor(ecl::Surface *s, int hotx, int hoty) = 0;
     virtual void HideMouse() = 0;
     virtual void ShowMouse() = 0;
+    virtual void RecaptureMouseBackground() = 0;
     virtual int Mousex() = 0;
     virtual int Mousey() = 0;
 

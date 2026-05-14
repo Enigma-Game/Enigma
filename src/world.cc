@@ -1436,7 +1436,7 @@ void World::move_actors(double dtime) {
     for (unsigned i = 0; i < nactors; ++i) {
         Actor *a = actorlist[i];
         const ActorInfo &ai = *a->get_actorinfo();
-        client::NotifyActorMoved(a->getId(), ai.pos, ai.vel);
+        client::NotifyActorMoved(int(i), ai.pos, ai.vel);
     }
 }
 
@@ -1755,6 +1755,20 @@ void SetMouseForce(int player, V2 f) {
 
 V2 GetMouseForceForPlayer(Actor *a, int player) {
     return level->m_mouseforce.get_force_for_player(a, player);
+}
+
+int FindActorIndex(Actor *a) {
+    if (!level) return -1;
+    for (size_t i = 0; i < level->actorlist.size(); ++i)
+        if (level->actorlist[i] == a)
+            return int(i);
+    return -1;
+}
+
+Actor *GetActorByIndex(int idx) {
+    if (!level || idx < 0 || size_t(idx) >= level->actorlist.size())
+        return nullptr;
+    return level->actorlist[idx];
 }
 
 void NameObject(Object *obj, const std::string &name) {

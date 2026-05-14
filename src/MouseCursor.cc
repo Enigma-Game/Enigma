@@ -74,6 +74,16 @@ void MouseCursor::hide() {
     }
 }
 
+void MouseCursor::recapture_background() {
+    if (visible > 0) {
+        if (!background)
+            init_bg();
+        else
+            grab_bg();
+        changed = true;
+    }
+}
+
 Rect MouseCursor::get_rect() const {
     return Rect(x - hotx, y - hoty, cursor->width(), cursor->height());
 }

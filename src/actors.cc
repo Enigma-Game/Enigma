@@ -313,7 +313,9 @@ void Actor::move_screen() {
 
 void Actor::set_model(const std::string &name) {
     m_sprite.replace_model(display::MakeModel(name));
-    client::NotifyActorSpriteChanged(getId(), name);
+    int idx = FindActorIndex(this);
+    if (idx >= 0)
+        client::NotifyActorSpriteChanged(idx, name);
 }
 
 void Actor::animcb() {

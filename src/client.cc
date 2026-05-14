@@ -39,6 +39,7 @@
 #include "lev/Proxy.hh"
 #include "lev/RatingManager.hh"
 #include "lev/ScoreManager.hh"
+#include "netgame.hh"
 
 #include "ecl_font.hh"
 #include "ecl_sdl.hh"
@@ -123,6 +124,16 @@ void NotifyActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel) {
 
 void NotifyActorSpriteChanged(int actor_id, const std::string &model_name) {
     for (auto *s : event_sinks) s->OnActorSpriteChanged(actor_id, model_name);
+}
+
+void NotifyGridSpriteChanged(int layer, int x, int y, const std::string &model_name) {
+    for (auto *s : event_sinks)
+        s->OnGridSpriteChanged(layer, x, y, model_name);
+}
+
+void NotifyGridSpriteCleared(int layer, int x, int y) {
+    for (auto *s : event_sinks)
+        s->OnGridSpriteCleared(layer, x, y);
 }
 
 /* -------------------- Client class -------------------- */
@@ -230,10 +241,14 @@ void Client::handle_events() {
                 break;
             if (abs(e.motion.xrel) > 300 || abs(e.motion.yrel) > 300) {
                 fprintf(stderr, "mouse event with %i, %i\n", e.motion.xrel, e.motion.yrel);
-            } else
-                server::Msg_MouseForce(player::CurrentPlayer(),
-                        options::GetDouble("MouseSpeed") *
-                        ecl::V2(e.motion.xrel, e.motion.yrel));
+            } else {
+                ecl::V2 f = options::GetDouble("MouseSpeed") *
+                            ecl::V2(e.motion.xrel, e.motion.yrel);
+                if (netgame::IsClient())
+                    netgame::SendInputMouseForce(f);
+                else
+                    server::Msg_MouseForce(player::CurrentPlayer(), f);
+            }
             break;
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP: on_mousebutton(e); break;
@@ -246,9 +261,11 @@ void Client::handle_events() {
         case SDL_WINDOWEVENT: {
             update_mouse_button_state();
             if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                // TODO(SDL2): is this sthe right event? The old code had
-                // !video::IsFullScreen() as an additional check - necessary?
-                show_menu(false);
+                // Don't auto-pause in a network game: the other peer
+                // keeps simulating, so popping a local menu just blocks
+                // input on this side and looks like a freeze.
+                if (!netgame::IsActive())
+                    show_menu(false);
             } else if (e.window.event == SDL_WINDOWEVENT_EXPOSED) {
                 display::RedrawAll(video_engine->GetScreen());
             }
@@ -277,9 +294,11 @@ void Client::handle_events_teatime() {
         case SDL_WINDOWEVENT: {
             update_mouse_button_state();
             if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                // TODO(SDL2): is this sthe right event? The old code had
-                // !video::IsFullScreen() as an additional check - necessary?
-                show_menu(false);
+                // Don't auto-pause in a network game: the other peer
+                // keeps simulating, so popping a local menu just blocks
+                // input on this side and looks like a freeze.
+                if (!netgame::IsActive())
+                    show_menu(false);
             } else if (e.window.event == SDL_WINDOWEVENT_EXPOSED) {
                 display::RedrawAll(video_engine->GetScreen());
             }
@@ -295,14 +314,21 @@ void Client::handle_events_teatime() {
 
 void Client::update_mouse_button_state() {
     int b = SDL_GetMouseState(0, 0);
-    player::InhibitPickup((b & SDL_BUTTON_LMASK) || (b & SDL_BUTTON_RMASK));
+    bool inhibit = (b & SDL_BUTTON_LMASK) || (b & SDL_BUTTON_RMASK);
+    if (netgame::IsClient())
+        netgame::SendInputInhibitPickup(inhibit);
+    else
+        player::InhibitPickup(inhibit);
 }
 
 void Client::on_mousebutton(SDL_Event &e) {
     if (e.button.state == SDL_PRESSED) {
         if (e.button.button == SDL_BUTTON_LEFT) {
             // left mousebutton -> activate first item in inventory
-            server::Msg_ActivateItem();
+            if (netgame::IsClient())
+                netgame::SendInputActivateItem();
+            else
+                server::Msg_ActivateItem();
         } else if (e.button.button == SDL_BUTTON_RIGHT) {
             // right mousebutton -> rotate inventory
             rotate_inventory(+1);
@@ -347,7 +373,10 @@ void Client::on_mousebutton(SDL_Event &e) {
 void Client::rotate_inventory(int direction) {
     m_user_input = "";
     display::GetStatusBar()->hide_text();
-    player::RotateInventory(direction);
+    if (netgame::IsClient())
+        netgame::SendInputRotateInventory(direction);
+    else
+        player::RotateInventory(direction);
 }
 
 /* -------------------- Console related -------------------- */
@@ -722,6 +751,12 @@ void Client::tick(double dtime) {
             m_timeaccu = 0;
             m_total_game_time = 0;
             sdl::FlushEvents();
+            // The level transition has just finished and the screen
+            // looks completely different from when the cursor last
+            // saved its underlying pixels. Refresh that snapshot so
+            // the next mouse move doesn't paint stale menu pixels
+            // into the game view.
+            video_engine->RecaptureMouseBackground();
         }
         break;
     }

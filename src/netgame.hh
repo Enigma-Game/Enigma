@@ -19,12 +19,31 @@
 #ifndef NETGAME_HH_INCLUDED
 #define NETGAME_HH_INCLUDED
 
+#include "ecl_math.hh"
+
 #include <string>
 
 namespace netgame {
 
 void Start();
 void Join(std::string hostname, int port);
+
+// True while inside a Join() session (we are a remote client of some
+// host). False during Start() and during ordinary single-player play.
+bool IsClient();
+
+// True while either Start() or Join() is in flight. Used by UI code
+// that wants to suppress single-player-only behaviour (mouse grab,
+// auto-pause on focus loss, hide cursor) during LAN play.
+bool IsActive();
+
+// Send-input helpers used by the local UI layer to forward the player's
+// inputs to the host. No-ops outside a client session.
+void SendInputMouseForce(const ecl::V2 &f);
+void SendInputActivateItem();
+void SendInputRotateInventory(int dir);
+void SendInputCommand(const std::string &cmd);
+void SendInputInhibitPickup(bool onoff);
 
 }  // namespace netgame
 

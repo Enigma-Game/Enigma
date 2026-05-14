@@ -450,9 +450,7 @@ namespace enigma { namespace gui {
         BuildVList *brp = vsmall ? &br : &b;
         startgame = b.add(new StaticTextButton(N_("Start Game"), this));
         levelpack = b.add(new StaticTextButton(N_("Level Pack"), this));
-#ifdef ENABLE_EXPERIMENTAL
         m_netgame   = b.add(new StaticTextButton(N_("Network Game"), this));
-#endif
         search      = b.add(new StaticTextButton(N_("Search"), this));
         options     = brp->add(new StaticTextButton(N_("Options"), this));
 #if 0
@@ -552,10 +550,8 @@ namespace enigma { namespace gui {
             MainHelpMenu m;
             m.manage();
 
-    #ifdef ENABLE_EXPERIMENTAL
         } else if (w == m_netgame) {
             ShowNetworkMenu();
-    #endif
         } else if (w == quit) {
             Menu::quit();
         } else if (w == languagemenu) {

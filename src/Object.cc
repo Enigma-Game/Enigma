@@ -98,6 +98,14 @@ int Object::getId() const {
     return id;
 }
 
+int Object::getNextIdSnapshot() {
+    return next_id;
+}
+
+void Object::setNextId(int v) {
+    next_id = v;
+}
+
 std::string Object::getKind() const {
     return ObjectValidator::instance()->getKind(this);
 }

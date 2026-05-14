@@ -69,6 +69,10 @@ public:
 
     virtual void OnActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel) {}
     virtual void OnActorSpriteChanged(int actor_id, const std::string &model_name) {}
+    // layer is GRID_FLOOR / GRID_ITEMS / GRID_STONES.
+    virtual void OnGridSpriteChanged(int layer, int x, int y,
+                                     const std::string &model_name) {}
+    virtual void OnGridSpriteCleared(int layer, int x, int y) {}
 };
 
 void RegisterEventSink(EventSink *sink);
@@ -78,6 +82,8 @@ void UnregisterEventSink(EventSink *sink);
 // a Msg_* function. No local side effect; purely a tap for sinks.
 void NotifyActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel);
 void NotifyActorSpriteChanged(int actor_id, const std::string &model_name);
+void NotifyGridSpriteChanged(int layer, int x, int y, const std::string &model_name);
+void NotifyGridSpriteCleared(int layer, int x, int y);
 
 /* -------------------- Server->Client messages -------------------- */
 

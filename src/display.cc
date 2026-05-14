@@ -1941,10 +1941,12 @@ Model *display::SetModel(const GridLoc &l, Model *m) {
 }
 
 Model *display::SetModel(const GridLoc &l, const string &modelname) {
+    client::NotifyGridSpriteChanged(int(l.layer), l.pos.x, l.pos.y, modelname);
     return SetModel(l, MakeModel(modelname));
 }
 
 void display::KillModel(const GridLoc &l) {
+    client::NotifyGridSpriteCleared(int(l.layer), l.pos.x, l.pos.y);
     delete YieldModel(l);
 }
 

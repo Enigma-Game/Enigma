@@ -94,6 +94,11 @@ public:
     static Object *getObject(int id);
     int getId() const;
 
+    // Snapshot/restore the global id counter. Used to keep two ENet
+    // peers' object ids in lock-step across a network level load.
+    static int  getNextIdSnapshot();
+    static void setNextId(int v);
+
     /* ---------- depreceated methods ---------- */
 
     const AttribMap &get_attribs() const {
