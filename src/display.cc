@@ -134,6 +134,7 @@ void StatusBarImpl::set_counter(int new_counter) {
     if (m_showcounter_p && new_counter != m_counter) {
         m_changedp = true;
         m_counter = new_counter;
+        client::NotifyMoveCounter(new_counter);
     }
 }
 

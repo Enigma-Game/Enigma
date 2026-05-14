@@ -77,11 +77,13 @@ void sound::DefineSoundEffect(std::string soundset_key, std::string name, std::s
 bool sound::EmitSoundEvent (const std::string &eventname, const ecl::V2 &pos,
                             double volume, bool force_global)
 {
+    enigma::client::NotifySound(eventname, pos, volume, force_global);
     return SoundEffectManager::instance()->emitSoundEvent(eventname, pos, volume, force_global);
 }
 
 bool sound::EmitSoundEventGlobal (const std::string &eventname, double volume)
 {
+    enigma::client::NotifySound(eventname, ecl::V2(), volume, true);
     return SoundEffectManager::instance()->emitSoundEvent(eventname, ecl::V2(), volume, true);
 }
 

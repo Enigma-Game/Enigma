@@ -91,7 +91,8 @@ void PickupItem(Actor *a, enigma::GridPos p);
 bool PickupAsItem(Actor *a, GridObject *obj, std::string kind);
 void RotateInventory(int dir = 1);
 
-void ActivateFirstItem();
+void ActivateFirstItem(int iplayer);
+void RotateInventory(int iplayer, int dir);
 ItemAction ActivateItem(Item *it);
 
 void Tick(double dtime);

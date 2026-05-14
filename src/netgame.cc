@@ -20,12 +20,14 @@
 #include "actors.hh"
 #include "client.hh"
 #include "display.hh"
+#include "enigma.hh"
 #include "main.hh"
 #include "netgame.hh"
 #include "network.hh"
 #include "options.hh"
 #include "player.hh"
 #include "server.hh"
+#include "SoundEffectManager.hh"
 #include "video.hh"
 #include "world.hh"
 
@@ -72,8 +74,7 @@ enum ProtoTag : Uint8 {
     SV_LEVEL_LOADED      = 0x83,
     SV_PLAYER_POSITION   = 0x84,
     SV_SPARKLE           = 0x85,
-    SV_PLAY_SOUND        = 0x86,
-    SV_PLAY_SOUND_REL    = 0x87,
+    SV_SOUND             = 0x86,
     SV_SHOW_TEXT         = 0x88,
     SV_SHOW_DOCUMENT     = 0x89,
     SV_FINISHED_TEXT     = 0x8A,
@@ -83,6 +84,8 @@ enum ProtoTag : Uint8 {
     SV_ACTOR_SPRITE      = 0x8E,
     SV_GRID_SPRITE       = 0x8F,
     SV_GRID_KILL         = 0x90,
+    SV_INVENTORY         = 0x91,
+    SV_MOVE_COUNTER      = 0x92,
 };
 
 constexpr int CHANNEL_UNRELIABLE = 0;
@@ -128,17 +131,24 @@ public:
     void OnTeatime(bool onoff) override {
         m_reliable << Uint8(SV_TEATIME) << Uint8(onoff ? 1 : 0);
     }
-    void OnPlaySound(const std::string &soundname, const ecl::V2 &pos,
-                     double relative_volume) override {
-        m_reliable << Uint8(SV_PLAY_SOUND) << soundname
-                   << float(pos[0]) << float(pos[1]) << double(relative_volume);
-    }
-    void OnPlaySoundRelative(const std::string &soundname,
-                             double relative_volume) override {
-        m_reliable << Uint8(SV_PLAY_SOUND_REL) << soundname << double(relative_volume);
-    }
     void OnError(const std::string &text) override {
         m_reliable << Uint8(SV_ERROR) << text;
+    }
+    void OnSound(const std::string &soundname, const ecl::V2 &pos,
+                 double volume, bool global) override {
+        m_reliable << Uint8(SV_SOUND) << soundname
+                   << float(pos[0]) << float(pos[1])
+                   << double(volume) << Uint8(global ? 1 : 0);
+    }
+    void OnInventoryChanged(int player_index,
+                            const std::vector<std::string> &model_names) override {
+        m_reliable << Uint8(SV_INVENTORY) << Uint8(player_index)
+                   << Uint16(model_names.size());
+        for (auto const &m : model_names)
+            m_reliable << m;
+    }
+    void OnMoveCounter(int value) override {
+        m_reliable << Uint8(SV_MOVE_COUNTER) << Uint32(value);
     }
     void OnActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel) override {
         m_unreliable << Uint8(SV_ACTOR_MOVED) << Uint32(actor_id)
@@ -189,12 +199,12 @@ void dispatch_input_from_client(ecl::Buffer &b, int player) {
             break;
         }
         case CL_ACTIVATE_ITEM:
-            server::Msg_ActivateItem();
+            server::Msg_ActivateItem(player);
             break;
         case CL_ROTATE_INVENTORY: {
             Uint8 dir;
             if (b >> dir)
-                player::RotateInventory(int(Sint8(dir)));
+                player::RotateInventory(player, int(Sint8(dir)));
             break;
         }
         case CL_COMMAND: {
@@ -252,15 +262,33 @@ void dispatch_event_from_server(ecl::Buffer &b) {
             if (b >> x >> y) client::Msg_Sparkle(ecl::V2(x, y));
             break;
         }
-        case SV_PLAY_SOUND: {
-            std::string sn; float x, y; double v;
-            if (b >> sn >> x >> y >> v)
-                client::Msg_PlaySound(sn, ecl::V2(x, y), v);
+        case SV_SOUND: {
+            std::string sn; float x, y; double v; Uint8 global;
+            if (b >> sn >> x >> y >> v >> global)
+                sound::EmitSoundEvent(sn, ecl::V2(x, y), v, global != 0);
             break;
         }
-        case SV_PLAY_SOUND_REL: {
-            std::string sn; double v;
-            if (b >> sn >> v) client::Msg_PlaySound(sn, v);
+        case SV_INVENTORY: {
+            Uint8 player_index; Uint16 count;
+            if (b >> player_index >> count) {
+                std::vector<std::string> models;
+                models.reserve(count);
+                bool ok = true;
+                for (Uint16 i = 0; i < count && ok; ++i) {
+                    std::string m;
+                    if (b >> m) models.push_back(std::move(m));
+                    else ok = false;
+                }
+                if (ok && int(player_index) == player::CurrentPlayer())
+                    display::GetStatusBar()->set_inventory(
+                        player_index == 0 ? YIN : YANG, models);
+            }
+            break;
+        }
+        case SV_MOVE_COUNTER: {
+            Uint32 v;
+            if (b >> v)
+                display::GetStatusBar()->set_counter(int(v));
             break;
         }
         case SV_SHOW_TEXT: {
@@ -512,11 +540,18 @@ void netgame::Start() {
         fprintf(stderr, "SV: no current level pack selected.\n");
         return;
     }
-    lev::Proxy *proxy = ind->getCurrent();
+    // Snapshot position once so the proxy we load and the level number
+    // we ship to the remote stay consistent even if something else
+    // would otherwise advance the index in between.
+    int level_pos = ind->getCurrentPosition();
+    lev::Proxy *proxy = ind->getProxy(level_pos);
     if (proxy == nullptr) {
         fprintf(stderr, "SV: no current level selected.\n");
         return;
     }
+    printf("SV: hosting level pack '%s' level %d (%s)\n",
+           ind->getName().c_str(), level_pos + 1,
+           proxy->getTitle().c_str());
 
     ENetAddress network_address;
     network_address.host = ENET_HOST_ANY;
@@ -563,7 +598,7 @@ void netgame::Start() {
         hello << Uint8(SV_HELLO)
               << PROTO_VERSION
               << ind->getName()
-              << Uint32(ind->getCurrentPosition())
+              << Uint32(level_pos)
               << seed
               << next_id_snapshot
               << Uint8(1);  // remote is player 1
@@ -590,7 +625,9 @@ void netgame::Start() {
         }
     }
 
-    // Host loads the level locally with the agreed seed.
+    // Host loads the level locally with the agreed seed. Re-pin the
+    // index position too in case it slipped between snapshot and now.
+    ind->setCurrentPosition(level_pos);
     server::RandomState = Sint32(seed);
     server::Msg_LoadLevel(proxy, false);
     log_player_actor_ids("SV");
@@ -675,9 +712,9 @@ void netgame::Join(std::string hostname, int port) {
         enet_host_destroy(network_host);
         return;
     }
-    printf("CL: host wants level pack '%s' #%d, seed=0x%x, next_id=%u, "
+    printf("CL: host wants level pack '%s' level %d, seed=0x%x, next_id=%u, "
            "assigned player=%d\n",
-           level_pack.c_str(), int(level_idx), unsigned(seed),
+           level_pack.c_str(), int(level_idx) + 1, unsigned(seed),
            unsigned(next_id_snapshot), int(assigned_player));
 
     if (!lev::Index::setCurrentIndex(level_pack)) {

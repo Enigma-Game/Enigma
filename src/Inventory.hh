@@ -50,6 +50,7 @@ namespace enigma
         // ---------- Methods ----------
 
         void assignOwner(int playerId);
+        int getOwner() const { return ownerId; }
         
         //! The number of items currently in the inventory
         size_t size() const;

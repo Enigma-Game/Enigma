@@ -136,6 +136,23 @@ void NotifyGridSpriteCleared(int layer, int x, int y) {
         s->OnGridSpriteCleared(layer, x, y);
 }
 
+void NotifySound(const std::string &soundname, const ecl::V2 &pos,
+                 double volume, bool global) {
+    for (auto *s : event_sinks)
+        s->OnSound(soundname, pos, volume, global);
+}
+
+void NotifyInventoryChanged(int player_index,
+                            const std::vector<std::string> &model_names) {
+    for (auto *s : event_sinks)
+        s->OnInventoryChanged(player_index, model_names);
+}
+
+void NotifyMoveCounter(int value) {
+    for (auto *s : event_sinks)
+        s->OnMoveCounter(value);
+}
+
 /* -------------------- Client class -------------------- */
 
 Client::Client()
@@ -328,7 +345,7 @@ void Client::on_mousebutton(SDL_Event &e) {
             if (netgame::IsClient())
                 netgame::SendInputActivateItem();
             else
-                server::Msg_ActivateItem();
+                server::Msg_ActivateItem(player::CurrentPlayer());
         } else if (e.button.button == SDL_BUTTON_RIGHT) {
             // right mousebutton -> rotate inventory
             rotate_inventory(+1);
@@ -501,14 +518,21 @@ void Client::on_keydown(SDL_Event &e) {
     SDL_Keycode keysym = e.key.keysym.sym;
     Uint16 keymod = e.key.keysym.mod;
 
+    auto send_command = [](const std::string &cmd) {
+        if (netgame::IsClient())
+            netgame::SendInputCommand(cmd);
+        else
+            server::Msg_Command(cmd);
+    };
+
     if (keymod & KMOD_CTRL) {
         switch (keysym) {
-        case SDLK_a: server::Msg_Command("restart"); break;
+        case SDLK_a: send_command("restart"); break;
         case SDLK_F3:
             if (keymod & KMOD_SHIFT) {
                 // force a reload from file
                 lev::Proxy::releaseCache();
-                server::Msg_Command("restart");
+                send_command("restart");
             }
         default: break;
         };
@@ -562,14 +586,29 @@ void Client::on_keydown(SDL_Event &e) {
             break;
         case SDLK_F3:
             if (keymod & KMOD_SHIFT)
-                server::Msg_Command("restart");
+                send_command("restart");
             else
-                server::Msg_Command("suicide");
+                send_command("suicide");
             break;
 
-        case SDLK_F4: Msg_AdvanceLevel(lev::ADVANCE_STRICTLY); break;
-        case SDLK_F5: Msg_AdvanceLevel(lev::ADVANCE_UNSOLVED); break;
-        case SDLK_F6: Msg_JumpBack(); break;
+        case SDLK_F4:
+            if (netgame::IsClient())
+                netgame::SendInputCommand("advance_strict");
+            else
+                Msg_AdvanceLevel(lev::ADVANCE_STRICTLY);
+            break;
+        case SDLK_F5:
+            if (netgame::IsClient())
+                netgame::SendInputCommand("advance_unsolved");
+            else
+                Msg_AdvanceLevel(lev::ADVANCE_UNSOLVED);
+            break;
+        case SDLK_F6:
+            if (netgame::IsClient())
+                netgame::SendInputCommand("jumpback");
+            else
+                Msg_JumpBack();
+            break;
 
         case SDLK_F10: {
             video_engine->Screenshot(server::LoadedProxy->getNextScreenshotPath());
@@ -1079,12 +1118,11 @@ void Msg_PlayerPosition(unsigned iplayer, const ecl::V2 &pos) {
 }
 
 void Msg_PlaySound(const std::string &wavfile, const ecl::V2 &pos, double relative_volume) {
-    for (auto *s : event_sinks) s->OnPlaySound(wavfile, pos, relative_volume);
+    // Broadcast happens via the tap inside sound::EmitSoundEvent.
     sound::EmitSoundEvent(wavfile.c_str(), pos, relative_volume);
 }
 
 void Msg_PlaySound(const std::string &wavfile, double relative_volume) {
-    for (auto *s : event_sinks) s->OnPlaySoundRelative(wavfile, relative_volume);
     sound::EmitSoundEvent(wavfile.c_str(), ecl::V2(), relative_volume);
 }
 

@@ -22,6 +22,7 @@
 #include "lev/Index.hh"
 
 #include <string>
+#include <vector>
 
 namespace enigma {
 namespace client {
@@ -62,10 +63,23 @@ public:
     virtual void OnShowDocument(const std::string &text, bool scrolling, double duration) {}
     virtual void OnFinishedText() {}
     virtual void OnTeatime(bool onoff) {}
-    virtual void OnPlaySound(const std::string &soundname, const ecl::V2 &pos,
-                             double relative_volume) {}
-    virtual void OnPlaySoundRelative(const std::string &soundname, double relative_volume) {}
     virtual void OnError(const std::string &text) {}
+
+    // Every sound::EmitSoundEvent on the host. global=true means the
+    // sound is positionless; the client should play it without spatial
+    // attenuation. Replaces the older OnPlaySound* hooks.
+    virtual void OnSound(const std::string &soundname, const ecl::V2 &pos,
+                         double volume, bool global) {}
+
+    // The status bar's per-player inventory contents. Fired whenever
+    // any player's inventory changes (additions, removals, reorders).
+    // The host fires this for both players; each peer renders the
+    // side that matches its local CurrentPlayer.
+    virtual void OnInventoryChanged(int player_index,
+                                    const std::vector<std::string> &model_names) {}
+
+    // The status bar's stone-move counter (sokoban-style score).
+    virtual void OnMoveCounter(int value) {}
 
     virtual void OnActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel) {}
     virtual void OnActorSpriteChanged(int actor_id, const std::string &model_name) {}
@@ -84,6 +98,11 @@ void NotifyActorMoved(int actor_id, const ecl::V2 &pos, const ecl::V2 &vel);
 void NotifyActorSpriteChanged(int actor_id, const std::string &model_name);
 void NotifyGridSpriteChanged(int layer, int x, int y, const std::string &model_name);
 void NotifyGridSpriteCleared(int layer, int x, int y);
+void NotifySound(const std::string &soundname, const ecl::V2 &pos,
+                 double volume, bool global);
+void NotifyInventoryChanged(int player_index,
+                            const std::vector<std::string> &model_names);
+void NotifyMoveCounter(int value);
 
 /* -------------------- Server->Client messages -------------------- */
 

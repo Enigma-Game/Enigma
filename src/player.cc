@@ -544,8 +544,10 @@ bool player::PickupAsItem(Actor *a, GridObject *obj, std::string kind) {
     return false;
 }
 
-void player::ActivateFirstItem() {
-    Inventory &inv = players[icurrent_player].inventory;
+void player::ActivateFirstItem(int iplayer) {
+    if ((unsigned)iplayer >= players.size())
+        return;
+    Inventory &inv = players[iplayer].inventory;
 
     if (inv.size() > 0) {
         Item *it = inv.get_item(0);
@@ -553,8 +555,8 @@ void player::ActivateFirstItem() {
         GridPos p;
         bool can_drop_item = false;
         std::vector<Actor *>::iterator itr;
-        for (itr = players[icurrent_player].actors.begin();
-             itr != players[icurrent_player].actors.end() && ac == nullptr; itr++) {
+        for (itr = players[iplayer].actors.begin();
+             itr != players[iplayer].actors.end() && ac == nullptr; itr++) {
             if (!(*itr)->is_dead()) {
                 ac = *itr;
                 p = GridPos(ac->get_pos());
@@ -583,8 +585,14 @@ void player::ActivateFirstItem() {
 }
 
 void player::RotateInventory(int dir) {
+    RotateInventory(CurrentPlayer(), dir);
+}
+
+void player::RotateInventory(int iplayer, int dir) {
+    if ((unsigned)iplayer >= players.size())
+        return;
     sound::EmitSoundEvent("invrotate", ecl::V2());
-    Inventory &inv = players[icurrent_player].inventory;
+    Inventory &inv = players[iplayer].inventory;
     if (dir == 1)
         inv.rotate_left();
     else
@@ -594,8 +602,17 @@ void player::RotateInventory(int dir) {
 
 /** Update the specified inventory on the screen, provided it is the
     inventory of the current player.  For all other inventories, this
-    function does nothing. */
+    function does nothing locally -- but the per-player model list is
+    still announced via client::NotifyInventoryChanged so a remote peer
+    that holds the *other* player can refresh its own status bar. */
 void player::RedrawInventory(Inventory *inv) {
+    int owner = inv->getOwner();
+    if (owner >= 0) {
+        std::vector<std::string> modelnames;
+        for (size_t i = 0; i < inv->size(); ++i)
+            modelnames.push_back(inv->get_item(i)->get_inventory_model());
+        client::NotifyInventoryChanged(owner, modelnames);
+    }
     if (inv == GetInventory(CurrentPlayer()))
         RedrawInventory();
 }

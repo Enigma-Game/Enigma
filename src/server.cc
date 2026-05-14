@@ -499,6 +499,12 @@ void Msg_Command(const string &cmd) {
         Msg_RestartGame();
     } else if (cmd == "abort") {
         client::Msg_Command(cmd);
+    } else if (cmd == "jumpback") {
+        Msg_JumpBack();
+    } else if (cmd == "advance_strict") {
+        client::Msg_AdvanceLevel(lev::ADVANCE_STRICTLY);
+    } else if (cmd == "advance_unsolved") {
+        client::Msg_AdvanceLevel(lev::ADVANCE_UNSOLVED);
     }
 
     // ------------------------------ cheats
@@ -656,8 +662,8 @@ int GetMoveCounter() {
     return move_counter;
 }
 
-void Msg_ActivateItem() {
-    player::ActivateFirstItem();
+void Msg_ActivateItem(int iplayer) {
+    player::ActivateFirstItem(iplayer);
 }
 
 }  // namespace server
