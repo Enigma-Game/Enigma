@@ -170,6 +170,14 @@ void player::NewGame() {
             inv->add_item(MakeItem("it_extralife"));
     }
 
+    // Broadcast every player's initial inventory. The local status bar
+    // for the current player is refreshed by LevelLoaded below; the
+    // explicit notify here makes sure a LAN peer that holds the *other*
+    // player also receives their starting items (extralives in
+    // particular).
+    for (int i = 0; i < nplayers; ++i)
+        RedrawInventory(GetInventory(i));
+
     unassignedActors.clear();
     leveldat.reset();
 }

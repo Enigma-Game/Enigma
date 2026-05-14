@@ -1102,7 +1102,22 @@ void Msg_AdvanceLevel(lev::LevelAdvanceMode mode) {
     // log last played level
     lev::PersistentIndex::addCurrentToHistory();
 
-    if (level_index->advanceLevel(mode)) {
+    bool ok = level_index->advanceLevel(mode);
+    // In a LAN session, keep advancing until we hit a level that the
+    // pack marks as network-playable; landing on a single-player-only
+    // level mid-session would silently switch off two-player mode.
+    while (ok && netgame::IsActive()) {
+        lev::Proxy *p = level_index->getCurrent();
+        bool is_network = false;
+        if (p) {
+            try { p->loadMetadata(true); } catch (...) {}
+            is_network = p->hasNetworkMode();
+        }
+        if (is_network) break;
+        ok = level_index->advanceLevel(mode);
+    }
+
+    if (ok) {
         // The remote doesn't run levels itself — the host streams the
         // new world state. We just advance the index for the caption.
         if (!netgame::IsClient())
