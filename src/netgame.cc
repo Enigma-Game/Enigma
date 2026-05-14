@@ -39,6 +39,7 @@
 #include "enet_ver.hh"
 
 #include "SDL.h"
+#include <climits>
 #include <cstdint>
 #include <random>
 #include <set>
@@ -754,7 +755,8 @@ void send_and_disconnect(ENetPeer *peer, const ecl::Buffer &buf) {
 }
 
 void record_failed_attempt(ENetPeer *peer, const std::string &reason) {
-    s_lobby.failed_attempts++;
+    if (s_lobby.failed_attempts < INT_MAX)
+        s_lobby.failed_attempts++;
     s_lobby.last_fail_reason =
         ecl::strf("%s from %s",
                   reason.c_str(),
@@ -978,7 +980,11 @@ void netgame::StartHostedGame(const std::string &level_pack, int level_pos) {
            ind->getName().c_str(), level_pos + 1,
            proxy->getTitle().c_str(), failed_during_lobby);
 
-    Uint32 seed = Uint32(SDL_GetTicks()) ^ Uint32(uintptr_t(peer));
+    // The seed travels to the remote in SV_HELLO; mixing in a heap
+    // pointer would leak ASLR information. Use std::random_device so
+    // there's nothing the remote can learn about the host's address
+    // space.
+    Uint32 seed = std::random_device{}();
     const int remote_player = 1;
 
     s_in_session = true;
