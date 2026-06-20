@@ -27,6 +27,7 @@
 #include "video.hh"
 
 #include <cstdio>
+#include <cstring>
 #include <iostream>
 
 #ifndef CXXLUA

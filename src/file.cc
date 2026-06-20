@@ -33,6 +33,7 @@
 #include <fstream>
 #include <ios>
 #include <sstream>
+#include <cstring>
 
 using namespace ecl;
 

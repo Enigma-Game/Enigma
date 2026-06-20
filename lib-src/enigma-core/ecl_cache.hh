@@ -20,6 +20,7 @@
 #define ECL_CACHE_HH
 
 #include <unordered_map>
+#include <memory>
 
 namespace ecl {
 

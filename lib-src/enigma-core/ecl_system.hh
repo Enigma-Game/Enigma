@@ -21,6 +21,7 @@
 
 #include <string>
 #include <set>
+#include <ctime>
 
 namespace ecl {
 

@@ -20,6 +20,7 @@
 #define ECL_VIDEO_HH_INCLUDED
 
 #include "ecl_geom.hh"
+#include <memory>
 
 #include "SDL.h"
 

@@ -21,6 +21,7 @@
 
 #include "main.hh"
 
+#include <cstring>
 #include <xercesc/util/TransService.hpp>
 #include <xercesc/util/XMLString.hpp>
 

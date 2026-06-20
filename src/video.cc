@@ -490,7 +490,7 @@ void VideoEngineImpl::Init() {
     UpdateBrightness();
 // Mac icon is set via Makefile
 #ifndef MACOSX
-    if (Surface *icon = enigma::GetImage("enigma_marble")) {
+    if (ecl::Surface *icon = enigma::GetImage("enigma_marble")) {
         SDL_SetWindowIcon(window, icon->get_surface());
     }
 #endif
