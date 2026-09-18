@@ -11,9 +11,9 @@ pixmap_DATA = enigma.png
 desktopdir = $(prefix)/share/applications
 desktop_DATA = enigma.desktop
 
-# Install AppData file
-appdatadir = $(prefix)/share/appdata
-dist_appdata_DATA = enigma.appdata.xml
+# Install metainfo file
+metainfodir = $(prefix)/share/metainfo
+dist_metainfo_DATA = enigma.metainfo.xml
 # endif !MINGW32
 
 EXTRA_DIST = \
@@ -29,7 +29,7 @@ EXTRA_DIST = \
 	mxe-dist.sh \
 	nlcvt.pl \
 	enigma.desktop \
-	enigma.appdata.xml \
+	enigma.metainfo.xml \
 	enigma.png \
 	Info.plist \
 	enigma.icns \
