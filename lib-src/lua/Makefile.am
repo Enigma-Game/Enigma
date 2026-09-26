@@ -25,5 +25,5 @@ liblua_a_CFLAGS += -DLUA_USE_LINUX
 endif
 
 if CXXLUA
-liblua_a_CFLAGS += -x c++ $(AM_CXXFLAGS) $(CXXFLAGS)
+liblua_a_CFLAGS = -x c++ $(AM_CXXFLAGS) $(CXXFLAGS)
 endif
