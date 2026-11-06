@@ -23,7 +23,7 @@
 
 #include "ecl_geom.hh"
 #include "ecl_video.hh"
-#include "SDL.h"
+#include <SDL3/SDL.h>
 
 #include <memory>
 

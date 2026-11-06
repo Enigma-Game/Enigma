@@ -32,4 +32,4 @@ add_library(enigma-core
 )
 target_include_directories(enigma-core PUBLIC . )
 target_link_libraries(enigma-core
-    SDL2::Core)
+    SDL3::SDL3)

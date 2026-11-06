@@ -153,8 +153,8 @@ namespace enigma { namespace gui {
         bool handled=levelwidget->on_event(e);
 
         if (!handled) {
-            if (e.type == SDL_KEYDOWN) {
-                switch (e.key.keysym.sym) {
+            if (e.type == SDL_EVENT_KEY_DOWN) {
+                switch (e.key.key) {
                 case SDLK_DELETE:
                     if (SDL_GetModState() & KMOD_SHIFT) {
                         // delete clipboard

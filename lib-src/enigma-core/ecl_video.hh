@@ -22,7 +22,7 @@
 #include "ecl_geom.hh"
 #include <memory>
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 
 #define WITH_ALPHA true
 #define NO_ALPHA false
@@ -172,8 +172,8 @@ public:
     void lock();
     void unlock();
 
-    int bypp() const { return m_surface->format->BytesPerPixel; }
-    int bipp() const { return m_surface->format->BitsPerPixel; }
+    int bypp() const { return SDL_GetPixelFormatDetails(m_surface->format)->bytes_per_pixel; }
+    int bipp() const { return SDL_GetPixelFormatDetails(m_surface->format)->bits_per_pixel; }
     Uint32 pitch() const { return m_surface->pitch; }
 
     inline void *scanline_pointer(int y) { return (Uint8 *)m_surface->pixels + y * pitch(); }
@@ -210,7 +210,7 @@ protected:
     SDL_Surface *m_surface;
 
 private:
-    SDL_PixelFormat *pixel_format;
+    SDL_PixelFormat pixel_format;
     bool hasAlpha;
 };
 
@@ -381,7 +381,7 @@ Surface *DisplayFormat(Surface *s);
 
 // Load an image using SDL_image and convert it to an optimized format.
 std::unique_ptr<Surface> LoadImage(const char *filename);
-std::unique_ptr<Surface> LoadImage(SDL_RWops *src, int freesrc);
+std::unique_ptr<Surface> LoadImage(SDL_IOStream *src, bool freesrc = true);
 
 // Overlay a rectangle `rect' in `s' with a transparent colored box.
 void TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);

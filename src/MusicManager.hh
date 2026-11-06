@@ -20,7 +20,7 @@
 #ifndef MUSICMGR_HH_INCLUDED
 #define MUSICMGR_HH_INCLUDED
 
-#include "SDL_mixer.h"
+#include <SDL3_mixer/SDL_mixer.h>
 
 #include <string>
 #include <vector>

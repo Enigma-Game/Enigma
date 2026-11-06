@@ -35,7 +35,7 @@
  * For a list of command line options, call `ttf2bmf --help'.
  */
 
-#include "SDL_ttf.h"
+#include <SDL3_ttf/SDL_ttf.h>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -107,13 +107,12 @@ start_conversion (TTF_Font* font)
         int c = chars_to_render[i];
         int w,h;
         str[0]=c;
-        TTF_SizeText(font, str, &w, &h);
+        TTF_GetStringSize(font, str, 0, &w, &h);
 	width += w;
     }
-    height = TTF_FontHeight(font);
-    SDL_Surface *glyphs = SDL_CreateRGBSurface(SDL_SWSURFACE,
-                                               width, height, 32, 0,0,0,0);
-    SDL_FillRect(glyphs, 0, SDL_MapRGB(glyphs->format,0xff,0,0xff));
+    height = TTF_GetFontHeight(font);
+    SDL_Surface *glyphs = SDL_CreateSurface(width, height, SDL_PIXELFORMAT_ARGB8888);
+    SDL_FillSurfaceRect(glyphs, NULL, SDL_MapRGB(SDL_GetPixelFormatDetails(glyphs->format), NULL, 0xff, 0, 0xff));
 
     // Render the glyphs
     int xoff=0;
@@ -124,15 +123,15 @@ start_conversion (TTF_Font* font)
 	SDL_Surface *glyph = 0;
         str[0] = c;
         if (antialias_p) {
-            glyph = TTF_RenderText_Shaded(font, str, fgcolor, bgcolor);
-            SDL_SetColorKey(glyph, SDL_SRCCOLORKEY,0);
+            glyph = TTF_RenderText_Shaded(font, str, 0, fgcolor, bgcolor);
+            SDL_SetSurfaceColorKey(glyph, true, 0);
         }
         else
-            glyph = TTF_RenderText_Solid(font, str, fgcolor);
+            glyph = TTF_RenderText_Solid(font, str, 0, fgcolor);
         assert(glyph);
 
 	int minx, maxx, miny, maxy, advance;
-	TTF_GlyphMetrics(font, c, &minx, &maxx, &miny, &maxy, &advance);
+	TTF_GetGlyphMetrics(font, c, &minx, &maxx, &miny, &maxy, &advance);
 
         SDL_Rect dr;
         dr.x = xoff;
@@ -141,7 +140,7 @@ start_conversion (TTF_Font* font)
         dr.h = glyph->h;
 
 	SDL_BlitSurface(glyph, NULL, glyphs, &dr);
-        SDL_FreeSurface(glyph);
+        SDL_DestroySurface(glyph);
 
         fontinfo << c << " "<<xoff<<" "<<glyph->w<<" " <<advance<<endl;
 	xoff += glyph->w;
@@ -209,7 +208,7 @@ main (int argc, char **argv)
     }
 
     // Initialize True Type library & open font
-    if (TTF_Init() < 0) {
+    if (!TTF_Init()) {
 	cerr << "cannot initialize SDL_ttf: " << TTF_GetError() << endl;
 	return 1;
     }

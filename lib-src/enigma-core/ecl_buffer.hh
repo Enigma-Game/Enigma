@@ -18,7 +18,7 @@
 #ifndef ECL_BUFFER_HH
 #define ECL_BUFFER_HH
 
-#include "SDL_types.h"
+#include <SDL3/SDL_stdinc.h>
 #include <iosfwd>
 #include <cstddef>
 #include <string>

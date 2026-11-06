@@ -22,8 +22,7 @@
 #include "ecl_sdl.hh"
 #include "ecl_util.hh"
 
-#include "SDL_image.h"
-#include "SDL_syswm.h"
+#include <SDL3_image/SDL_image.h>
 #include "SDL_gfxPrimitives.h"
 
 #include <cassert>
@@ -212,13 +211,13 @@ namespace {
         void set_pixel(const GS &gs, int x, int y) override {
             if (NOCLIP(gs) || clip_pixel(gs, x, y)) {
                 Uint8 *p = static_cast<Uint8 *>(pixel_pointer(x, y));
-                SDL_GetRGB(gs.pcolor, m_surface->format, p, p + 1, p + 2);
+                SDL_GetRGB(gs.pcolor, SDL_GetPixelFormatDetails(m_surface->format), nullptr, p, p + 1, p + 2);
             }
         }
 
         Uint32 get_pixel(int x, int y) override {
             Uint8 *p = static_cast<Uint8 *>(pixel_pointer(x, y));
-            return SDL_MapRGB(m_surface->format, p[0], p[1], p[2]);
+            return SDL_MapRGB(SDL_GetPixelFormatDetails(m_surface->format), nullptr, p[0], p[1], p[2]);
         }
     };
 
@@ -228,23 +227,14 @@ namespace {
 
 Surface::Surface(SDL_Surface *surface, bool _has_alpha) {
     static std::string lastErrorMessage;
-    // If you change the pixel format, remember to replace Surface32
-    // for another SurfaceXY in Surface::make_surface.
     hasAlpha = _has_alpha;
-    if (hasAlpha) {
-        pixel_format = SDL_AllocFormat(SDL_PIXELFORMAT_ARGB8888);
-    } else {
-        pixel_format = SDL_AllocFormat(SDL_PIXELFORMAT_RGB888);
-    }
+    pixel_format = hasAlpha ? SDL_PIXELFORMAT_ARGB8888 : SDL_PIXELFORMAT_RGB888;
     if (!surface)
         throw XGeneric("Error: Tried to convert null surface.");
-    m_surface = SDL_ConvertSurface(surface, pixel_format, 0);
-    SDL_FreeSurface(surface);
+    m_surface = SDL_ConvertSurface(surface, pixel_format);
+    SDL_DestroySurface(surface);
     if (!m_surface) {
         if (lastErrorMessage.empty()) {
-            // Try to throw an error via SDL, i.e. graphical output.
-            // However, it might come back! To prevent us from entering
-            // an infinite loop, throw an XSDLError only once.
             lastErrorMessage = std::string("SDL_ConvertSurface failed: ") + SDL_GetError();
             throw XSDLError(lastErrorMessage);
         } else {
@@ -255,8 +245,7 @@ Surface::Surface(SDL_Surface *surface, bool _has_alpha) {
 
 
 Surface::~Surface() {
-    SDL_FreeSurface(m_surface);
-    SDL_FreeFormat(pixel_format);
+    SDL_DestroySurface(m_surface);
 }
 
 void Surface::lock() {
@@ -270,11 +259,11 @@ void Surface::unlock() {
 }
 
 PackedColor Surface::map_color(int r, int g, int b) {
-    return SDL_MapRGB(m_surface->format, r, g, b);
+    return SDL_MapRGB(SDL_GetPixelFormatDetails(m_surface->format), nullptr, r, g, b);
 }
 
 PackedColor Surface::map_color(int r, int g, int b, int a) {
-    return SDL_MapRGBA(m_surface->format, r, g, b, a);
+    return SDL_MapRGBA(SDL_GetPixelFormatDetails(m_surface->format), nullptr, r, g, b, a);
 }
 
 void Surface::box(const GS &gs, int x, int y, int w, int h) {
@@ -292,7 +281,7 @@ void Surface::line(const GS &gs, int x1, int y1, int x2, int y2) {
     SDL_SetClipRect(m_surface, &s);
 
     Uint8 r, g, b, a;
-    SDL_GetRGBA(gs.pcolor, m_surface->format, &r, &g, &b, &a);
+    SDL_GetRGBA(gs.pcolor, SDL_GetPixelFormatDetails(m_surface->format), nullptr, &r, &g, &b, &a);
 
     if (has_flags(gs.flags, GS_ANTIALIAS))
         aalineRGBA(m_surface, x1, y1, x2, y2, r, g, b, a);
@@ -322,8 +311,8 @@ void Surface::blit(const GS &gs, int x, int y, const Surface *surface) {
 
 void Surface::set_color_key(int r, int g, int b) {
     Uint32 color = map_color(r, g, b);
-    SDL_SetColorKey(get_surface(), SDL_TRUE, color);
-    SDL_SetSurfaceRLE(get_surface(), SDL_TRUE);
+    SDL_SetSurfaceColorKey(get_surface(), true, color);
+    SDL_SetSurfaceRLE(get_surface(), true);
 }
 
 void Surface::set_alpha(int a) {
@@ -371,7 +360,7 @@ Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
     : m_window(window),
       updateAll(false) {
     m_surface = Surface::make_surface(
-            SDL_CreateRGBSurface(0, surface_w, surface_h, 32, 0xff0000, 0xff00, 0xff, 0xff000000),
+            SDL_CreateSurface(surface_w, surface_h, SDL_PIXELFORMAT_ARGB8888),
             NO_ALPHA);
     m_sdlsurface = m_surface->get_surface();
     assert(m_window);
@@ -481,7 +470,8 @@ void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst)
     say = nullptr;
 
     // Change mode if src/dst are not 32bit depth.
-    if ((src->format->BytesPerPixel != 4) || (dst->format->BytesPerPixel != 4)) {
+    if ((SDL_GetPixelFormatDetails(src->format)->bytes_per_pixel != 4) ||
+        (SDL_GetPixelFormatDetails(dst->format)->bytes_per_pixel != 4)) {
         mode = SC_SDL;
         return;
     }
@@ -554,7 +544,7 @@ void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst)
 void Scaler::blit_scaled(
         SDL_Surface* src, const SDL_Rect* srcRect, SDL_Surface* dst, SDL_Rect* dstRect) {
     if (mode == SC_SDL) {
-        SDL_BlitScaled(src, srcRect, dst, dstRect);
+        SDL_BlitSurfaceScaled(src, srcRect, dst, dstRect);
         return;
     }
 
@@ -667,7 +657,7 @@ void Scaler::blit_scaled(
 std::unique_ptr<Surface> Duplicate(const Surface *s) {
     assert(s);
     SDL_Surface *sdls = s->get_surface();
-    SDL_Surface *copy = SDL_ConvertSurface(sdls, sdls->format, sdls->flags);
+    SDL_Surface *copy = SDL_DuplicateSurface(sdls);
     return std::unique_ptr<Surface>(Surface::make_surface(copy));
 }
 
@@ -687,13 +677,8 @@ void TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
     }
 }
 
-static SDL_Surface* CropSurface(
-        SDL_Surface* surface, SDL_Rect rect, const SDL_PixelFormat* format, Uint32 flags) {
-    assert(format->palette == nullptr);
-
-    SDL_Surface *cropped =
-        SDL_CreateRGBSurface(flags, rect.w, rect.h, format->BitsPerPixel, format->Rmask,
-                             format->Gmask, format->Bmask, format->Amask);
+static SDL_Surface* CropSurface(SDL_Surface* surface, SDL_Rect rect) {
+    SDL_Surface *cropped = SDL_CreateSurface(rect.w, rect.h, surface->format);
     if (cropped == nullptr)
         return nullptr;
 
@@ -702,7 +687,7 @@ static SDL_Surface* CropSurface(
     bounds.y = 0;
     bounds.w = rect.w;
     bounds.h = rect.h;
-    SDL_LowerBlit(surface, &rect, cropped, &bounds);
+    SDL_BlitSurface(surface, &rect, cropped, &bounds);
 
     return cropped;
 }
@@ -718,7 +703,7 @@ std::unique_ptr<Surface> Grab(const Surface *s, Rect &r) {
     SDL_Rect rect;
     sdl::copy_rect(rect, r);
     SDL_Surface *sdls = s->get_surface();
-    SDL_Surface *copy = CropSurface(sdls, rect, sdls->format, sdls->flags);
+    SDL_Surface *copy = CropSurface(sdls, rect);
     return Surface::make_surface(copy);
 }
 
@@ -729,13 +714,13 @@ std::unique_ptr<Surface> LoadImage(const char *filename) {
     return Surface::make_surface(IMG_Load(filename));
 }
 
-std::unique_ptr<Surface> LoadImage(SDL_RWops *src, int freesrc) {
-    return Surface::make_surface(IMG_Load_RW(src, freesrc));
+std::unique_ptr<Surface> LoadImage(SDL_IOStream *src, bool freesrc) {
+    return Surface::make_surface(IMG_Load_IO(src, freesrc));
 }
 
 std::unique_ptr<Surface> MakeSurface(int w, int h) {
     SDL_Surface *surface =
-        SDL_CreateRGBSurface(0, w, h, 32, 0xff0000, 0xff00, 0xff, 0xff000000);
+        SDL_CreateSurface(w, h, SDL_PIXELFORMAT_ARGB8888);
     if (surface == nullptr)
         return nullptr;
     return Surface::make_surface(surface);
@@ -743,8 +728,9 @@ std::unique_ptr<Surface> MakeSurface(int w, int h) {
 
 std::unique_ptr<Surface> MakeSurface(void *data, int w, int h, int bipp, int pitch,
                                           const RGBA_Mask &mask) {
+    SDL_PixelFormat format = SDL_GetPixelFormatForMasks(bipp, mask.r, mask.g, mask.b, mask.a);
     SDL_Surface *surface =
-        SDL_CreateRGBSurfaceFrom(data, w, h, bipp, pitch, mask.r, mask.g, mask.b, mask.a);
+        SDL_CreateSurfaceFrom(w, h, format, data, pitch);
     if (surface == nullptr)
         return nullptr;
     return Surface::make_surface(surface);

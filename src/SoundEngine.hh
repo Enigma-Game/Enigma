@@ -25,8 +25,8 @@
 
 #include "SoundEffectManager.hh"
 #include "MusicManager.hh"
-#include "SDL_mixer.h"
-#include "SDL_mutex.h"
+#include <SDL3_mixer/SDL_mixer.h>
+#include <SDL3/SDL_mutex.h>
 
 #include <string>
 #include <vector>
@@ -173,7 +173,7 @@ namespace sound
         ecl::Dict<Mix_Chunk*> wav_cache;
         std::vector<SoundEvent> m_channelinfo;
         ecl::V2      m_listenerpos;
-        SDL_mutex  *m_mutex;
+        SDL_Mutex  *m_mutex;
         static SoundEngine_SDL *m_instance;
     };
 }

@@ -227,7 +227,7 @@ o "horse"
 . odometer
 . background behind floors: water/abyss/space/swamp
 . animation for falling st-wood, st-block
-. "Exit Program" in game menu / on SDL_QUIT
+. "Exit Program" in game menu / on SDL_EVENT_QUIT
 . clean up Lua interface
 o network/internet game
 - Editor

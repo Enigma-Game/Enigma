@@ -43,7 +43,7 @@ TextField::TextField(const std::string &t, ActionListener *al) : cursorTime(0),
         maxChars(-1), isLastActionReturn (false) {
     menufont = enigma::GetFont("menufont");
     
-    SDL_StartTextInput();
+    SDL_StartTextInput(video_engine->GetScreen()->window());
     set_listener(al);
     textPreCursor = t;
     ecl::utf8CharSizes(textPreCursor, charSizesPreCursor);
@@ -51,7 +51,7 @@ TextField::TextField(const std::string &t, ActionListener *al) : cursorTime(0),
 }
 
 TextField::~TextField() {
-    SDL_StopTextInput();
+    SDL_StopTextInput(video_engine->GetScreen()->window());
 }
 
 void TextField::activate() {
@@ -134,10 +134,10 @@ bool TextField::on_event(const SDL_Event &e) {
     bool modified = false;
     
     switch (e.type) {
-        case SDL_MOUSEBUTTONDOWN:
+        case SDL_EVENT_MOUSE_BUTTON_DOWN:
             // set cursor
             break;
-        case SDL_TEXTINPUT: {
+        case SDL_EVENT_TEXT_INPUT: {
             /* Add new text onto the end of our text */
             //strcat(text, e.text.text);
             std::string newText(e.text.text);
@@ -172,8 +172,8 @@ bool TextField::on_event(const SDL_Event &e) {
             handled = true;
             break;
         } */
-        case SDL_KEYDOWN:
-            switch (e.key.keysym.sym) {
+        case SDL_EVENT_KEY_DOWN:
+            switch (e.key.key) {
                 case SDLK_RETURN:
                 case SDLK_KP_ENTER:
                     handled = true;

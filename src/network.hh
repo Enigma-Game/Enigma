@@ -20,7 +20,7 @@
 #ifndef NETWORK_HH_INCLUDED
 #define NETWORK_HH_INCLUDED
 
-#include "SDL_types.h"
+#include <cstdint>
 #include "ecl_buffer.hh"
 #include "enet/enet.h"
 #include <list>

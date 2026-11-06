@@ -26,7 +26,7 @@
 #include "video.hh"
 #include "lev/Proxy.hh"
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 #include <fstream>
 #include <sstream>
 
@@ -94,8 +94,8 @@ Surface *LevelPreviewCache::getPreview(lev::Proxy *levelProxy, const ThumbnailIn
             basic_ifstream<char> ifs(absLevelPath.c_str(), ios::binary | ios::in);
             Readfile(ifs, imageData);
         }
-        SDL_RWops *imageHandle = SDL_RWFromMem(&(imageData[0]), imageData.size());
-        std::unique_ptr<Surface> newSurface = ecl::LoadImage(imageHandle, 1);
+        SDL_IOStream *imageHandle = SDL_IOFromMem(&(imageData[0]), imageData.size());
+        std::unique_ptr<Surface> newSurface = ecl::LoadImage(imageHandle, true);
         surface = imgCache.store(previewSubPath, std::move(newSurface));  // insert in imgCache
     }
 

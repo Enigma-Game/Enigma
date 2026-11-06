@@ -443,10 +443,10 @@ target_include_directories(enigma
 
 target_link_libraries(enigma
     ${Intl_LIBRARIES}
-    SDL2::Core
-    SDL2::Image
-    SDL2::Mixer
-    SDL2::TTF
+    SDL3::SDL3
+    SDL3_image::SDL3_image
+    SDL3_mixer::SDL3_mixer
+    SDL3_ttf::SDL3_ttf
     ZLIB::ZLIB
     XercesC::XercesC
     CURL::libcurl

@@ -366,7 +366,7 @@ public:
     int Mousex() override { return cursor->get_x(); }
     int Mousey() override { return cursor->get_y(); }
 
-    bool GetInputGrab() override { return SDL_GetWindowGrab(window) == SDL_TRUE; }
+    bool GetInputGrab() override { return SDL_GetWindowMouseGrab(window); }
     bool SetInputGrab(bool enabled) override;
 
 private:
@@ -505,7 +505,6 @@ void VideoEngineImpl::UpdateBrightness() {
     // gamma is a float between 0.2 and 2.0, with 1.0 meaning: normal.
     // We renormalize it to 0.6 to 1.5:
     gamma = gamma/2.0 + 0.5;
-    SDL_SetWindowBrightness(window, gamma);
 }
 
 void VideoEngineImpl::SetCaption(const std::string &text) {
@@ -518,13 +517,12 @@ const std::string &VideoEngineImpl::GetCaption() {
 }
 
 std::vector<FullscreenMode> VideoEngineImpl::EnumerateFullscreenModes() {
-    std::vector<FullscreenMode> modes;
-    const int display = 0;
-    const int num_modes = SDL_GetNumDisplayModes(display);
-    for (int i = 0; i < num_modes; ++i) {
-        SDL_DisplayMode mode;
-        if (SDL_GetDisplayMode(display, i, &mode) == 0) {
-            WindowSize new_mode = {mode.w, mode.h};
+    SDL_DisplayID display = SDL_GetPrimaryDisplay();
+    int num_modes = 0;
+    SDL_DisplayMode** modes = SDL_GetFullscreenDisplayModes(display, &num_modes);
+    if (modes) {
+        for (int i = 0; i < num_modes; ++i) {
+            WindowSize new_mode = {modes[i]->w, modes[i]->h};
             FullscreenMode fmode = FindFullscreenMode(new_mode);
             if (   (fmode != VM_NONE)
                 && (video_modes[fmode].f_available)
@@ -535,6 +533,7 @@ std::vector<FullscreenMode> VideoEngineImpl::EnumerateFullscreenModes() {
                 modes.push_back(fmode);
             }
         }
+        SDL_free(modes);
     }
     return modes;
 }
@@ -703,7 +702,7 @@ bool VideoEngineImpl::SetFullscreen(bool enabled) {
     if (!IsFullscreen())
         SaveWindowSizePreferences();
 
-    SDL_SetWindowFullscreen(window, enabled ? SDL_WINDOW_FULLSCREEN : 0);
+    SDL_SetWindowFullscreen(window, enabled);
     return IsFullscreen();
 }
 
@@ -758,8 +757,8 @@ bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
     // Try to initialize video mode, return error code on failure
     Log << "Opening in " << (fullscreen?"fullscreen":"window") << " mode, "
         << width << "x" << height << ".\n";
-    window = SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,
-                              flags);
+    window = SDL_CreateWindow("", width, height, (fullscreen ? SDL_WINDOW_FULLSCREEN : 0) | SDL_WINDOW_RESIZABLE);
+
     if (!window)
         return false;
 
@@ -776,12 +775,15 @@ bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
     SDL_RenderSetLogicalSize(renderer, vminfo->width, vminfo->height);
 
     cursor = std::make_unique<MouseCursor>(screen);
-    int x, y;
-    SDL_GetMouseState(&x, &y);
+    float fx, fy;
+    SDL_GetMouseState(&fx, &fy);
+    //convert back to int to be used in legacy
+    int x = static_cast<int>(fx);
+    int y = static_cast<int>(fy);
     cursor->move(x, y);
     cursor->set_image(enigma::LoadImage("cur-magic"), 4, 4);
     video_engine->ShowMouse();
-    SDL_ShowCursor(0);
+    SDL_HideCursor();
 
     return true;
 }
@@ -876,8 +878,8 @@ bool VideoEngineImpl::SetInputGrab(bool enabled) {
     // but only SDL_GetWindowGrab to retrieve the current state. When
     // Enigma starts using several windows, this needs to be adapted.
     bool old_state = nominal_inputgrab_status;
-    SDL_SetWindowGrab(window, enabled ? SDL_TRUE : SDL_FALSE);
-    SDL_SetRelativeMouseMode(enabled ? SDL_TRUE : SDL_FALSE);
+    SDL_SetWindowMouseGrab(window, enabled);
+    SDL_SetWindowRelativeMouseMode(window, enabled);
     nominal_inputgrab_status = enabled;
     // We are not returning the actual state (this would be GetInputGrab()),
     // but what we expected should have been set: A loss of window focus

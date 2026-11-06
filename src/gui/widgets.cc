@@ -73,11 +73,11 @@ void Widget::resize (int w, int h) {
 
 bool Widget::on_event(const SDL_Event &e) {
     switch (e.type) {
-    case SDL_KEYDOWN:
-        modifierKeys = e.key.keysym.mod;
+    case SDL_EVENT_KEY_DOWN:
+        modifierKeys = e.key.mod;
         mouseButton = SDL_BUTTON_LEFT;
         break;
-    case SDL_MOUSEBUTTONDOWN:
+    case SDL_EVENT_MOUSE_BUTTON_DOWN:
         modifierKeys = SDL_GetModState();
         mouseButton = e.button.button;
         break;
@@ -719,27 +719,27 @@ bool PushButton::on_event(const SDL_Event &e) {
     bool handled = false;
 
     switch (e.type) {
-        case SDL_KEYDOWN:
-            if (e.key.keysym.sym != SDLK_RETURN) break;
+        case SDL_EVENT_KEY_DOWN:
+            if (e.key.key != SDLK_RETURN) break;
             // fall-through
-        case SDL_MOUSEBUTTONDOWN:
+        case SDL_EVENT_MOUSE_BUTTON_DOWN:
             m_pressedp = true;
             handled = true;
             break;
-        case SDL_KEYUP:
-            if (e.key.keysym.sym != SDLK_RETURN) break;
-            lastUpSym = e.key.keysym.sym;
+        case SDL_EVENT_KEY_UP:
+            if (e.key.key != SDLK_RETURN) break;
+            lastUpSym = e.key.key;
             lastUpButton = 0;
             m_pressedp = false;
             handled = true;
             break;
-        case SDL_MOUSEBUTTONUP:
+        case SDL_EVENT_MOUSE_BUTTON_UP:
             lastUpSym = SDLK_UNKNOWN;
             lastUpButton = e.button.button;
             m_pressedp = false;
             handled = true;
             break;
-        case SDL_MOUSEWHEEL:
+        case SDL_EVENT_MOUSE_WHEEL:
             // Mousewheel is interpreted as left and right
             // mouse button clicks.
             lastUpSym = SDLK_UNKNOWN;
@@ -755,7 +755,7 @@ bool PushButton::on_event(const SDL_Event &e) {
     }
 
     bool changed =    (was_pressed != m_pressedp)
-                   || (e.type == SDL_MOUSEWHEEL);
+                   || (e.type == SDL_EVENT_MOUSE_WHEEL);
     if (changed) {
         invalidate();
         if (!m_pressedp) {

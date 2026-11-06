@@ -402,7 +402,7 @@ namespace enigma { namespace gui {
         int mouse_y = 0;
     
         switch (e.type) {
-            case SDL_MOUSEMOTION:
+            case SDL_EVENT_MOUSE_MOTION:
                 mouse_x = (int)((double) (e.motion.x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
                 mouse_y = (int)((double) (e.motion.y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
                 if (get_area().contains(mouse_x, mouse_y)) {
@@ -417,13 +417,13 @@ namespace enigma { namespace gui {
                     handled = true;
                 }
                 break;
-            case SDL_MOUSEBUTTONDOWN:
+            case SDL_EVENT_MOUSE_BUTTON_DOWN:
                 mouse_x = (int)((double) (e.button.x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
                 mouse_y = (int)((double) (e.button.y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
                 if (get_area().contains(mouse_x, mouse_y))
                     handled = handle_mousedown (&e);
                 break;
-            case SDL_MOUSEWHEEL:
+            case SDL_EVENT_MOUSE_WHEEL:
                 if (e.wheel.y < 0) {
                     scroll_up(1);
                     handled = true;
@@ -433,7 +433,7 @@ namespace enigma { namespace gui {
                     handled = true;
                 }
                 break;
-            case SDL_KEYDOWN:
+            case SDL_EVENT_KEY_DOWN:
                 handled = handle_keydown (&e);
                 break;
         }
@@ -482,7 +482,7 @@ namespace enigma { namespace gui {
     }
     
     bool LevelWidget::handle_keydown(const SDL_Event *e) {
-        switch (e->key.keysym.sym) {
+        switch (e->key.key) {
             case SDLK_t:
                 // Generate new level preview for current level
                 preview_cache->updatePreview(curIndex->getProxy(iselected),

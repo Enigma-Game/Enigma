@@ -21,7 +21,7 @@
 
 #include "gui/widgets.hh"
 #include "ecl_geom.hh"
-#include "SDL.h"
+#include <SDL3/SDL.h>
 #include <cmath>
 #include <vector>
 

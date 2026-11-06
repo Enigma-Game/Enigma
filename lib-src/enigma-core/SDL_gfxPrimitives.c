@@ -11,7 +11,26 @@
 #include <math.h>
 #include <string.h>
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
+
+static inline SDL_Rect GFX_GetClipRect(SDL_Surface *s) {
+    SDL_Rect r = {0, 0, s ? s->w : 0, s ? s->h : 0};
+    if (s) SDL_GetSurfaceClipRect(s, &r);
+    return r;
+}
+#define GFX_FORMAT_DETAILS(s) SDL_GetPixelFormatDetails((s)->format)
+static inline SDL_Surface* GFX_CreateRGBSurface(Uint32 flags, int w, int h, int d, Uint32 rm, Uint32 gm, Uint32 bm, Uint32 am) {
+    SDL_PixelFormat fmt = SDL_GetPixelFormatForMasks(d, rm, gm, bm, am);
+    return SDL_CreateSurface(w, h, fmt);
+}
+#define SDL_CreateRGBSurface GFX_CreateRGBSurface
+#define SDL_FreeSurface SDL_DestroySurface
+#define SDL_FillRect SDL_FillSurfaceRect
+#define SDL_SetAlpha(s, flag, a) SDL_SetSurfaceAlphaMod((s), (a))
+#define SDL_SWSURFACE 0
+#define SDL_HWSURFACE 0
+#define SDL_SRCALPHA 0
+
 
 #include "SDL_gfxPrimitives.h"
 #include "SDL_gfxPrimitives_font.h"
@@ -25,10 +44,10 @@
 
 /* ----- Defines for pixel clipping tests */
 
-#define clip_xmin(surface) surface->clip_rect.x
-#define clip_xmax(surface) surface->clip_rect.x+surface->clip_rect.w-1
-#define clip_ymin(surface) surface->clip_rect.y
-#define clip_ymax(surface) surface->clip_rect.y+surface->clip_rect.h-1
+#define clip_xmin(surface) GFX_GetClipRect(surface).x
+#define clip_xmax(surface) (GFX_GetClipRect(surface).x+GFX_GetClipRect(surface).w-1)
+#define clip_ymin(surface) GFX_GetClipRect(surface).y
+#define clip_ymax(surface) (GFX_GetClipRect(surface).y+GFX_GetClipRect(surface).h-1)
 
 /* ----- Pixel - fast, no blending, no locking, clipping */
 
@@ -45,7 +64,7 @@ int fastPixelColorNolock(SDL_Surface * dst, Sint16 x, Sint16 y, Uint32 color)
         /*
          * Get destination format 
          */
-        bpp = dst->format->BytesPerPixel;
+        bpp = GFX_FORMAT_DETAILS(dst)->bytes_per_pixel;
         p = (Uint8 *) dst->pixels + y * dst->pitch + x * bpp;
         switch (bpp) {
             case 1:
@@ -88,7 +107,7 @@ int fastPixelColorNolockNoclip(SDL_Surface * dst, Sint16 x, Sint16 y, Uint32 col
     /*
      * Get destination format 
      */
-    bpp = dst->format->BytesPerPixel;
+    bpp = GFX_FORMAT_DETAILS(dst)->bytes_per_pixel;
     p = (Uint8 *) dst->pixels + y * dst->pitch + x * bpp;
     switch (bpp) {
         case 1:
@@ -152,7 +171,7 @@ int fastPixelRGBA(SDL_Surface * dst, Sint16 x, Sint16 y, Uint8 r, Uint8 g, Uint8
     /*
      * Setup color 
      */
-    color = SDL_MapRGBA(dst->format, r, g, b, a);
+    color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, r, g, b, a);
     
     /*
      * Draw 
@@ -170,7 +189,7 @@ int fastPixelRGBANolock(SDL_Surface * dst, Sint16 x, Sint16 y, Uint8 r, Uint8 g,
     /*
      * Setup color 
      */
-    color = SDL_MapRGBA(dst->format, r, g, b, a);
+    color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, r, g, b, a);
     
     /*
      * Draw 
@@ -238,32 +257,32 @@ int pixelColor(SDL_Surface * dst, Sint16 x, Sint16 y, Uint32 color)
 
 int _putPixelAlpha(SDL_Surface * surface, Sint16 x, Sint16 y, Uint32 color, Uint8 alpha)
 {
-    Uint32 Rmask = surface->format->Rmask, Gmask =
-	surface->format->Gmask, Bmask = surface->format->Bmask, Amask = surface->format->Amask;
+    Uint32 Rmask = GFX_FORMAT_DETAILS(surface)->Rmask, Gmask =
+	GFX_FORMAT_DETAILS(surface)->Gmask, Bmask = GFX_FORMAT_DETAILS(surface)->Bmask, Amask = GFX_FORMAT_DETAILS(surface)->Amask;
     Uint32 R, G, B, A = 0;
     
     if (x >= clip_xmin(surface) && x <= clip_xmax(surface)
         && y >= clip_ymin(surface) && y <= clip_ymax(surface)) {
         
-        switch (surface->format->BytesPerPixel) {
+        switch (GFX_FORMAT_DETAILS(surface)->bytes_per_pixel) {
             case 1:{		/* Assuming 8-bpp */
                 if (alpha == 255) {
                     *((Uint8 *) surface->pixels + y * surface->pitch + x) = color;
                 } else {
                     Uint8 *pixel = (Uint8 *) surface->pixels + y * surface->pitch + x;
                     
-                    Uint8 dR = surface->format->palette->colors[*pixel].r;
-                    Uint8 dG = surface->format->palette->colors[*pixel].g;
-                    Uint8 dB = surface->format->palette->colors[*pixel].b;
-                    Uint8 sR = surface->format->palette->colors[color].r;
-                    Uint8 sG = surface->format->palette->colors[color].g;
-                    Uint8 sB = surface->format->palette->colors[color].b;
+                    Uint8 dR = SDL_GetSurfacePalette(surface)->colors[*pixel].r;
+                    Uint8 dG = SDL_GetSurfacePalette(surface)->colors[*pixel].g;
+                    Uint8 dB = SDL_GetSurfacePalette(surface)->colors[*pixel].b;
+                    Uint8 sR = SDL_GetSurfacePalette(surface)->colors[color].r;
+                    Uint8 sG = SDL_GetSurfacePalette(surface)->colors[color].g;
+                    Uint8 sB = SDL_GetSurfacePalette(surface)->colors[color].b;
                     
                     dR = dR + ((sR - dR) * alpha >> 8);
                     dG = dG + ((sG - dG) * alpha >> 8);
                     dB = dB + ((sB - dB) * alpha >> 8);
                     
-                    *pixel = SDL_MapRGB(surface->format, dR, dG, dB);
+                    *pixel = SDL_MapRGB(GFX_FORMAT_DETAILS(surface), NULL, dR, dG, dB);
                 }
             }
                 break;
@@ -288,17 +307,17 @@ int _putPixelAlpha(SDL_Surface * surface, Sint16 x, Sint16 y, Uint32 color, Uint
                 
             case 3:{		/* Slow 24-bpp mode, usually not used */
                 Uint8 *pix = (Uint8 *) surface->pixels + y * surface->pitch + x * 3;
-                Uint8 rshift8 = surface->format->Rshift / 8;
-                Uint8 gshift8 = surface->format->Gshift / 8;
-                Uint8 bshift8 = surface->format->Bshift / 8;
-                Uint8 ashift8 = surface->format->Ashift / 8;
+                Uint8 rshift8 = GFX_FORMAT_DETAILS(surface)->Rshift / 8;
+                Uint8 gshift8 = GFX_FORMAT_DETAILS(surface)->Gshift / 8;
+                Uint8 bshift8 = GFX_FORMAT_DETAILS(surface)->Bshift / 8;
+                Uint8 ashift8 = GFX_FORMAT_DETAILS(surface)->Ashift / 8;
                 
                 
                 if (alpha == 255) {
-                    *(pix + rshift8) = color >> surface->format->Rshift;
-                    *(pix + gshift8) = color >> surface->format->Gshift;
-                    *(pix + bshift8) = color >> surface->format->Bshift;
-                    *(pix + ashift8) = color >> surface->format->Ashift;
+                    *(pix + rshift8) = color >> GFX_FORMAT_DETAILS(surface)->Rshift;
+                    *(pix + gshift8) = color >> GFX_FORMAT_DETAILS(surface)->Gshift;
+                    *(pix + bshift8) = color >> GFX_FORMAT_DETAILS(surface)->Bshift;
+                    *(pix + ashift8) = color >> GFX_FORMAT_DETAILS(surface)->Ashift;
                 } else {
                     Uint8 dR, dG, dB, dA = 0;
                     Uint8 sR, sG, sB, sA = 0;
@@ -310,10 +329,10 @@ int _putPixelAlpha(SDL_Surface * surface, Sint16 x, Sint16 y, Uint32 color, Uint
                     dB = *((pix) + bshift8);
                     dA = *((pix) + ashift8);
                     
-                    sR = (color >> surface->format->Rshift) & 0xff;
-                    sG = (color >> surface->format->Gshift) & 0xff;
-                    sB = (color >> surface->format->Bshift) & 0xff;
-                    sA = (color >> surface->format->Ashift) & 0xff;
+                    sR = (color >> GFX_FORMAT_DETAILS(surface)->Rshift) & 0xff;
+                    sG = (color >> GFX_FORMAT_DETAILS(surface)->Gshift) & 0xff;
+                    sB = (color >> GFX_FORMAT_DETAILS(surface)->Bshift) & 0xff;
+                    sA = (color >> GFX_FORMAT_DETAILS(surface)->Ashift) & 0xff;
                     
                     dR = dR + ((sR - dR) * alpha >> 8);
                     dG = dG + ((sG - dG) * alpha >> 8);
@@ -373,7 +392,7 @@ int pixelColor(SDL_Surface * dst, Sint16 x, Sint16 y, Uint32 color)
      */
     alpha = color & 0x000000ff;
     mcolor =
-	SDL_MapRGBA(dst->format, (color & 0xff000000) >> 24,
+	SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, (color & 0xff000000) >> 24,
                 (color & 0x00ff0000) >> 16, (color & 0x0000ff00) >> 8, alpha);
     
     /*
@@ -402,7 +421,7 @@ int pixelColorNolock(SDL_Surface * dst, Sint16 x, Sint16 y, Uint32 color)
      */
     alpha = color & 0x000000ff;
     mcolor =
-	SDL_MapRGBA(dst->format, (color & 0xff000000) >> 24,
+	SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, (color & 0xff000000) >> 24,
                 (color & 0x00ff0000) >> 16, (color & 0x0000ff00) >> 8, alpha);
     
     /*
@@ -418,34 +437,34 @@ int pixelColorNolock(SDL_Surface * dst, Sint16 x, Sint16 y, Uint32 color)
 
 int _filledRectAlpha(SDL_Surface * surface, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint32 color, Uint8 alpha)
 {
-    Uint32 Rmask = surface->format->Rmask, Gmask =
-	surface->format->Gmask, Bmask = surface->format->Bmask, Amask = surface->format->Amask;
+    Uint32 Rmask = GFX_FORMAT_DETAILS(surface)->Rmask, Gmask =
+	GFX_FORMAT_DETAILS(surface)->Gmask, Bmask = GFX_FORMAT_DETAILS(surface)->Bmask, Amask = GFX_FORMAT_DETAILS(surface)->Amask;
     Uint32 R, G, B, A = 0;
     Sint16 x, y;
     
-    switch (surface->format->BytesPerPixel) {
+    switch (GFX_FORMAT_DETAILS(surface)->bytes_per_pixel) {
         case 1:{			/* Assuming 8-bpp */
             Uint8 *row, *pixel;
             Uint8 dR, dG, dB;
             
-            Uint8 sR = surface->format->palette->colors[color].r;
-            Uint8 sG = surface->format->palette->colors[color].g;
-            Uint8 sB = surface->format->palette->colors[color].b;
+            Uint8 sR = SDL_GetSurfacePalette(surface)->colors[color].r;
+            Uint8 sG = SDL_GetSurfacePalette(surface)->colors[color].g;
+            Uint8 sB = SDL_GetSurfacePalette(surface)->colors[color].b;
             
             for (y = y1; y <= y2; y++) {
                 row = (Uint8 *) surface->pixels + y * surface->pitch;
                 for (x = x1; x <= x2; x++) {
                     pixel = row + x;
                     
-                    dR = surface->format->palette->colors[*pixel].r;
-                    dG = surface->format->palette->colors[*pixel].g;
-                    dB = surface->format->palette->colors[*pixel].b;
+                    dR = SDL_GetSurfacePalette(surface)->colors[*pixel].r;
+                    dG = SDL_GetSurfacePalette(surface)->colors[*pixel].g;
+                    dB = SDL_GetSurfacePalette(surface)->colors[*pixel].b;
                     
                     dR = dR + ((sR - dR) * alpha >> 8);
                     dG = dG + ((sG - dG) * alpha >> 8);
                     dB = dB + ((sB - dB) * alpha >> 8);
                     
-                    *pixel = SDL_MapRGB(surface->format, dR, dG, dB);
+                    *pixel = SDL_MapRGB(GFX_FORMAT_DETAILS(surface), NULL, dR, dG, dB);
                 }
             }
         }
@@ -475,15 +494,15 @@ int _filledRectAlpha(SDL_Surface * surface, Sint16 x1, Sint16 y1, Sint16 x2, Sin
         case 3:{			/* Slow 24-bpp mode, usually not used */
             Uint8 *row, *pix;
             Uint8 dR, dG, dB, dA;
-            Uint8 rshift8 = surface->format->Rshift / 8;
-            Uint8 gshift8 = surface->format->Gshift / 8;
-            Uint8 bshift8 = surface->format->Bshift / 8;
-            Uint8 ashift8 = surface->format->Ashift / 8;
+            Uint8 rshift8 = GFX_FORMAT_DETAILS(surface)->Rshift / 8;
+            Uint8 gshift8 = GFX_FORMAT_DETAILS(surface)->Gshift / 8;
+            Uint8 bshift8 = GFX_FORMAT_DETAILS(surface)->Bshift / 8;
+            Uint8 ashift8 = GFX_FORMAT_DETAILS(surface)->Ashift / 8;
             
-            Uint8 sR = (color >> surface->format->Rshift) & 0xff;
-            Uint8 sG = (color >> surface->format->Gshift) & 0xff;
-            Uint8 sB = (color >> surface->format->Bshift) & 0xff;
-            Uint8 sA = (color >> surface->format->Ashift) & 0xff;
+            Uint8 sR = (color >> GFX_FORMAT_DETAILS(surface)->Rshift) & 0xff;
+            Uint8 sG = (color >> GFX_FORMAT_DETAILS(surface)->Gshift) & 0xff;
+            Uint8 sB = (color >> GFX_FORMAT_DETAILS(surface)->Bshift) & 0xff;
+            Uint8 sA = (color >> GFX_FORMAT_DETAILS(surface)->Ashift) & 0xff;
             
             for (y = y1; y <= y2; y++) {
                 row = (Uint8 *) surface->pixels + y * surface->pitch;
@@ -557,7 +576,7 @@ int filledRectAlpha(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y
      */
     alpha = color & 0x000000ff;
     mcolor =
-	SDL_MapRGBA(dst->format, (color & 0xff000000) >> 24,
+	SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, (color & 0xff000000) >> 24,
                 (color & 0x00ff0000) >> 16, (color & 0x0000ff00) >> 8, alpha);
     
     /*
@@ -645,7 +664,7 @@ int pixelRGBA(SDL_Surface * dst, Sint16 x, Sint16 y, Uint8 r, Uint8 g, Uint8 b, 
         /*
          * Setup color 
          */
-        color = SDL_MapRGBA(dst->format, r, g, b, a);
+        color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, r, g, b, a);
         /*
          * Draw 
          */
@@ -744,9 +763,9 @@ int hlineColor(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uint32 color)
          */
         colorptr = (Uint8 *) & color;
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
-            color = SDL_MapRGBA(dst->format, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
         } else {
-            color = SDL_MapRGBA(dst->format, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
         }
         
         /*
@@ -758,14 +777,14 @@ int hlineColor(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uint32 color)
          * More variable setup 
          */
         dx = w;
-        pixx = dst->format->BytesPerPixel;
+        pixx = GFX_FORMAT_DETAILS(dst)->bytes_per_pixel;
         pixy = dst->pitch;
         pixel = ((Uint8 *) dst->pixels) + pixx * (int) x1 + pixy * (int) y;
         
         /*
          * Draw 
          */
-        switch (dst->format->BytesPerPixel) {
+        switch (GFX_FORMAT_DETAILS(dst)->bytes_per_pixel) {
             case 1:
                 memset(pixel, color, dx);
                 break;
@@ -980,9 +999,9 @@ int vlineColor(SDL_Surface * dst, Sint16 x, Sint16 y1, Sint16 y2, Uint32 color)
          */
         colorptr = (Uint8 *) & color;
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
-            color = SDL_MapRGBA(dst->format, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
         } else {
-            color = SDL_MapRGBA(dst->format, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
         }
         
         /*
@@ -994,7 +1013,7 @@ int vlineColor(SDL_Surface * dst, Sint16 x, Sint16 y1, Sint16 y2, Uint32 color)
          * More variable setup 
          */
         dy = h;
-        pixx = dst->format->BytesPerPixel;
+        pixx = GFX_FORMAT_DETAILS(dst)->bytes_per_pixel;
         pixy = dst->pitch;
         pixel = ((Uint8 *) dst->pixels) + pixx * (int) x + pixy * (int) y1;
         pixellast = pixel + pixy * dy;
@@ -1002,7 +1021,7 @@ int vlineColor(SDL_Surface * dst, Sint16 x, Sint16 y1, Sint16 y2, Uint32 color)
         /*
          * Draw 
          */
-        switch (dst->format->BytesPerPixel) {
+        switch (GFX_FORMAT_DETAILS(dst)->bytes_per_pixel) {
             case 1:
                 for (; pixel <= pixellast; pixel += pixy) {
                     *(Uint8 *) pixel = color;
@@ -1385,9 +1404,9 @@ int boxColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint
          */
         colorptr = (Uint8 *) & color;
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
-            color = SDL_MapRGBA(dst->format, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
         } else {
-            color = SDL_MapRGBA(dst->format, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
         }
         
         /*
@@ -1400,7 +1419,7 @@ int boxColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint
          */
         dx = w;
         dy = h;
-        pixx = dst->format->BytesPerPixel;
+        pixx = GFX_FORMAT_DETAILS(dst)->bytes_per_pixel;
         pixy = dst->pitch;
         pixel = ((Uint8 *) dst->pixels) + pixx * (int) x1 + pixy * (int) y1;
         pixellast = pixel + pixx * dx + pixy * dy;
@@ -1408,7 +1427,7 @@ int boxColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint
         /*
          * Draw 
          */
-        switch (dst->format->BytesPerPixel) {
+        switch (GFX_FORMAT_DETAILS(dst)->bytes_per_pixel) {
             case 1:
                 for (; pixel <= pixellast; pixel += pixy) {
                     memset(pixel, (Uint8) color, dx);
@@ -1614,9 +1633,9 @@ int lineColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uin
          */
         colorptr = (Uint8 *) & color;
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
-            color = SDL_MapRGBA(dst->format, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
         } else {
-            color = SDL_MapRGBA(dst->format, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
         }
         
         /*
@@ -1624,7 +1643,7 @@ int lineColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uin
          */
         dx = sx * dx + 1;
         dy = sy * dy + 1;
-        pixx = dst->format->BytesPerPixel;
+        pixx = GFX_FORMAT_DETAILS(dst)->bytes_per_pixel;
         pixy = dst->pitch;
         pixel = ((Uint8 *) dst->pixels) + pixx * (int) x1 + pixy * (int) y1;
         pixx *= sx;
@@ -1643,7 +1662,7 @@ int lineColor(SDL_Surface * dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uin
          */
         x = 0;
         y = 0;
-        switch (dst->format->BytesPerPixel) {
+        switch (GFX_FORMAT_DETAILS(dst)->bytes_per_pixel) {
             case 1:
                 for (; x < dx; x++, pixel += pixx) {
                     *pixel = color;
@@ -2044,9 +2063,9 @@ int circleColor(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 r, Uint32 color)
          */
         colorptr = (Uint8 *) & color;
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
-            color = SDL_MapRGBA(dst->format, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
         } else {
-            color = SDL_MapRGBA(dst->format, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
         }
         
         /*
@@ -2384,9 +2403,9 @@ int ellipseColor(SDL_Surface * dst, Sint16 x, Sint16 y, Sint16 rx, Sint16 ry, Ui
          */
         colorptr = (Uint8 *) & color;
         if (SDL_BYTEORDER == SDL_BIG_ENDIAN) {
-            color = SDL_MapRGBA(dst->format, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[0], colorptr[1], colorptr[2], colorptr[3]);
         } else {
-            color = SDL_MapRGBA(dst->format, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
+            color = SDL_MapRGBA(GFX_FORMAT_DETAILS(dst), NULL, colorptr[3], colorptr[2], colorptr[1], colorptr[0]);
         }
         
         

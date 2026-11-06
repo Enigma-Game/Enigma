@@ -473,8 +473,8 @@ namespace enigma { namespace gui {
     
     bool LevelPackMenu::on_event (const SDL_Event &e) {
         switch (e.type) {
-            case SDL_KEYDOWN:
-                SDL_Keycode keysym = e.key.keysym.sym;
+            case SDL_EVENT_KEY_DOWN:
+                SDL_Keycode keysym = e.key.key;
                 switch (keysym) {
                 case SDLK_F1:     
                     displayHelp(helptext, 200);

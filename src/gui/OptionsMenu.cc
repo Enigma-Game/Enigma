@@ -1057,15 +1057,15 @@ private:
     bool OptionsMenu::on_event (const SDL_Event &e)
     {
         bool handled = false;
-        if (e.type == SDL_KEYUP) {
-            if ((e.key.keysym.sym == SDLK_RETURN) &&
-                (e.key.keysym.mod & KMOD_ALT))
+        if (e.type == SDL_EVENT_KEY_UP) {
+            if ((e.key.key == SDLK_RETURN) &&
+                (e.key.mod & KMOD_ALT))
             {
                 // update state of FullscreenButton :
                 fullscreen->invalidate();
                 handled = true;
             }
-            if (e.key.keysym.sym == SDLK_F1) {
+            if (e.key.key == SDLK_F1) {
                 handled = true;
                 switch (currentPage) {
                 case OPTIONS_MAIN: {

@@ -13,7 +13,7 @@
 /* Exported function */
 TOLUA_API int  tolua_px_open (lua_State* tolua_S);
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 #include "ecl_font.hh"
 #include "ecl_geom.hh"
 #include "ecl_math.hh"

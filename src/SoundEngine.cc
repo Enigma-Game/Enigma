@@ -22,9 +22,9 @@
 #include "SoundEngine.hh"
 #include "main.hh"
 
-#include "SDL.h"
-#include "SDL_mixer.h"
-#include "SDL_mutex.h"
+#include <SDL3/SDL.h>
+#include <SDL3_mixer/SDL_mixer.h>
+#include <SDL3/SDL_mutex.h>
 
 #include <string>
 #include <cassert>
@@ -193,15 +193,15 @@ SoundEngine::SoundEngine()
 
 class MutexLock {
 public:
-    MutexLock (SDL_mutex *m) {
+    MutexLock (SDL_Mutex *m) {
         mutex = m;
-        SDL_mutexP (mutex);
+        SDL_LockMutex (mutex);
     }
     ~MutexLock () {
-        SDL_mutexV (mutex);
+        SDL_UnlockMutex (mutex);
     };
 private:
-    SDL_mutex *mutex;
+    SDL_Mutex *mutex;
 };
 
 SoundEngine_SDL *SoundEngine_SDL::m_instance = 0;
@@ -234,7 +234,7 @@ bool SoundEngine_SDL::init()
             return false;
         }
         
-        const SDL_version* vi = Mix_Linked_Version();
+        const SDL_version* vi = Mix_Version();
         Log <<  ecl::strf("SDL_mixer Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
 #ifdef SDL_MIX_INIT
         int mix_flags = MIX_INIT_OGG | MIX_INIT_MOD;
@@ -245,7 +245,8 @@ bool SoundEngine_SDL::init()
 #endif
 
         // Initialize SDL_mixer lib
-        if (Mix_OpenAudio(m_freq, m_format, m_channels, 1024) < 0) {
+        SDL_AudioSpec spec = {static_cast<SDL_AudioFormat>(m_format), m_channels, m_freq};
+        if (!Mix_OpenAudio(0, &spec)) { 
             fprintf(stderr, "Couldn't open mixer: %s\n", Mix_GetError());
             return false;
         }
@@ -543,27 +544,16 @@ Mix_Chunk* SoundEngine_SDL::ChunkFromRaw (const Uint8 *buf, Uint32 len,
     Uint16 dformat;
     Mix_QuerySpec (&dfreq, &dformat, &dchannels);
 
-    // Resample
-    Uint32 newlen=0;
-    Uint8 *newbuf = (Uint8*)resample((const Sint8*)buf, len, sfreq, dfreq, &newlen);
-
     // Convert audio data
-    SDL_AudioCVT cvt;
-    if (!SDL_BuildAudioCVT (&cvt, sformat, schannels, dfreq,
-                    dformat, dchannels, dfreq)) {
-        free(newbuf);
-        return 0;
+    SDL_AudioSpec src_spec = {static_cast<SDL_AudioFormat>(sformat), schannels, sfreq};
+    SDL_AudioSpec dst_spec = {static_cast<SDL_AudioFormat>(dformat), dchannels, dfreq};
+    Uint8* dst_data = nullptr;
+    int dst_len = 0;
+    if (SDL_ConvertAudioSamples(&src_spec, buf, len, &dst_spec, &dst_data, &dst_len)) {
+        Mix_Chunk* chunk = Mix_QuickLoad_RAW(dst_data, dst_len);
+        chunk->allocated = 1;
+        return chunk;
     }
-
-    cvt.buf = (Uint8*) malloc(newlen * cvt.len_mult);
-    cvt.len = newlen;
-    memcpy(cvt.buf, newbuf, newlen);
-    free(newbuf);
-
-    SDL_ConvertAudio(&cvt);
-
-    Mix_Chunk *chunk = Mix_QuickLoad_RAW(cvt.buf, cvt.len_cvt);
-    chunk->allocated = 1;
-    return chunk;
+    return nullptr;
 }
 

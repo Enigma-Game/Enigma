@@ -60,9 +60,9 @@
 #include <xercesc/framework/XMLRecognizer.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
-#include "SDL_main.h"
-#include <SDL_image.h>
-#include <SDL_ttf.h>
+#include <SDL3/SDL_main.h>
+#include <SDL3_image/SDL_image.h>
+#include <SDL3_ttf/SDL_ttf.h>
 
 #ifdef MACOSX
 // for search paths
@@ -385,31 +385,30 @@ void Application::init(int argc, char **argv)
 //    SDL_putenv("SDL_VIDEODRIVER=directx");  //needed for SDL 1.2.12 that crashes on SetGamma on default GDI driver
 #endif
     int sdl_flags = SDL_INIT_VIDEO;
-    if (enigma::WizardMode)
-        sdl_flags |= SDL_INIT_NOPARACHUTE;
-    if (SDL_Init(sdl_flags) < 0) {
+    if (!SDL_Init(sdl_flags)) {
         fprintf(stderr, "Couldn't initialize SDL: %s\n", SDL_GetError());
         exit(1);
     }
     std::atexit(SDL_Quit);
 
-    SDL_version sdl_version;
-    SDL_GetVersion(&sdl_version);
-    Log << ecl::strf("SDL Version: %u.%u.%u\n", sdl_version.major, sdl_version.minor,
-                     sdl_version.patch);
+    int sdl_version = SDL_GetVersion();
+    Log << ecl::strf("SDL Version: %u.%u.%u\n", SDL_VERSIONNUM_MAJOR(sdl_version),
+                     SDL_VERSIONNUM_MINOR(sdl_version), SDL_VERSIONNUM_MICRO(sdl_version));
 
-    const SDL_version* vi = TTF_Linked_Version();
-    Log <<  ecl::strf("SDL_ttf Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
-    if(TTF_Init() == -1) {
+    int ttf_version = TTF_Version();
+    Log <<  ecl::strf("SDL_ttf Version: %u.%u.%u\n", SDL_VERSIONNUM_MAJOR(ttf_version),
+                      SDL_VERSIONNUM_MINOR(ttf_version), SDL_VERSIONNUM_MICRO(ttf_version));
+    if(!TTF_Init()) {
         fprintf(stderr, "Couldn't initialize SDL_ttf: %s\n", TTF_GetError());
         exit(1);
     }
 
-    vi = IMG_Linked_Version();
-    Log <<  ecl::strf("SDL_image Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
+    int img_version = IMG_Version();
+    Log <<  ecl::strf("SDL_image Version: %u.%u.%u\n", SDL_VERSIONNUM_MAJOR(img_version),
+                      SDL_VERSIONNUM_MINOR(img_version), SDL_VERSIONNUM_MICRO(img_version));
 #ifdef SDL_IMG_INIT
     int img_flags = IMG_INIT_PNG | IMG_INIT_JPG;
-    if ((IMG_Init(img_flags) & img_flags) != img_flags) {
+    if (!IMG_Init(img_flags)) {
         fprintf(stderr, "Couldn't initialize SDL_image: %s\n", IMG_GetError());
         exit(1);
     }

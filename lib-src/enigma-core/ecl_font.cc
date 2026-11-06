@@ -21,7 +21,7 @@
 #include "ecl_geom.hh"
 #include "ecl_utf.hh"
 #include "ecl_video.hh"
-#include "SDL_ttf.h"
+#include <SDL3_ttf/SDL_ttf.h>
 
 #include <cstdio>
 #include <iostream>
@@ -247,7 +247,7 @@ namespace {
         void render(const GC &gc, int x, int y, const std::string& text, Font *altFont = nullptr, int maxWidth = -1) override;
 
     private:
-        SDL_PixelFormat *pixel_format;
+        SDL_PixelFormat pixel_format;
     };
 
 }  // namespace
@@ -256,24 +256,23 @@ TrueTypeFont::TrueTypeFont(TTF_Font *font_, int r, int g, int b) : font(font_) {
     fgcolor.r = r;
     fgcolor.g = g;
     fgcolor.b = b;
-    pixel_format = SDL_AllocFormat(SDL_PIXELFORMAT_RGB888);
+    pixel_format = SDL_PIXELFORMAT_RGB888;
 }
 
 TrueTypeFont::~TrueTypeFont() {
-    SDL_FreeFormat(pixel_format);
     TTF_CloseFont(font);
 }
 
 int TrueTypeFont::get_lineskip() {
-    return TTF_FontLineSkip(font);
+    return TTF_GetFontLineSkip(font);
 }
 int TrueTypeFont::get_height() {
-    return TTF_FontHeight(font);
+    return TTF_GetFontHeight(font);
 }
 
 int TrueTypeFont::get_width(char c) {
     int minx, maxx, miny, maxy, advance;
-    TTF_GlyphMetrics(font, c, &minx, &maxx, &miny, &maxy, &advance);
+    TTF_GetGlyphMetrics(font, c, &minx, &maxx, &miny, &maxy, &advance);
     return advance;
 }
 
@@ -282,11 +281,11 @@ std::unique_ptr<Surface> TrueTypeFont::render(
     // Note: altFont is only used by BitmapFont.
     // TODO: Implement maxWidth. (Not actually used right now.)
     SDL_Color bgcolor = {0, 0, 0, 0};
-    SDL_Surface *si = TTF_RenderUTF8_Shaded(font, text.c_str(), fgcolor, bgcolor);
+    SDL_Surface *si = TTF_RenderText_Shaded(font, text.c_str(), 0, fgcolor, bgcolor);
     if (si) {
-        SDL_Surface *s = SDL_ConvertSurface(si, pixel_format, 0);
-        SDL_FreeSurface(si);
-        SDL_SetColorKey(s, SDL_TRUE, 0);
+        SDL_Surface *s = SDL_ConvertSurface(si, pixel_format);
+        SDL_DestroySurface(si);
+        SDL_SetSurfaceColorKey(s, true, 0);
         return Surface::make_surface(s);
     }
     return MakeSurface(0, get_height());
@@ -300,12 +299,12 @@ void TrueTypeFont::render(const GC &gc, int x, int y, const std::string& text, F
 
 int TrueTypeFont::get_width(const std::string& text, Font *altFont) {
     int width, height;
-    TTF_SizeUTF8(font, text.c_str(), &width, &height);
+    TTF_GetStringSize(font, text.c_str(), 0, &width, &height);
     return width;
 }
 
 std::unique_ptr<Font> LoadTTF(const char *filename, int ptSize, int r, int g, int b) {
-    if (!TTF_WasInit() && TTF_Init() == -1) {
+    if (!TTF_WasInit() && !TTF_Init()) {
         fprintf(stderr, "Couldn't initialize SDL_ttf: %s\n", SDL_GetError());
         exit(1);
     }

@@ -213,9 +213,9 @@ namespace enigma { namespace gui {
         bool handled=levelwidget->on_event(e);
     
         if (!handled) {
-            if (e.type == SDL_KEYDOWN) {
+            if (e.type == SDL_EVENT_KEY_DOWN) {
                 handled=true;
-                switch (e.key.keysym.sym) {
+                switch (e.key.key) {
                 case SDLK_SPACE: next_levelpack(); break;
                 case SDLK_BACKSPACE: previous_levelpack(); break;
                 case SDLK_F1:

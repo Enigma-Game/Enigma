@@ -148,13 +148,13 @@ namespace enigma { namespace gui {
 
     bool GameMenu::on_event (const SDL_Event &e) 
     {
-        if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_RIGHT) {
+        if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_RIGHT) {
             Menu::quit();
             return true;
         }
-        if (e.type == SDL_KEYDOWN) {
-            Uint16 keymod = e.key.keysym.mod;
-            SDL_Keycode keysym = e.key.keysym.sym;
+        if (e.type == SDL_EVENT_KEY_DOWN) {
+            Uint16 keymod = e.key.mod;
+            SDL_Keycode keysym = e.key.key;
             switch (keysym) {
             case SDLK_F3: {
                 lev::Index *ind = lev::Index::getCurrentIndex();
