@@ -537,7 +537,7 @@ namespace enigma { namespace gui {
         } else if (w->get_parent() == groupsVList){
             lev::Index::setCurrentGroup(dynamic_cast<TextButton *>(w)->get_text());
             if ((w->lastMouseButton() == SDL_BUTTON_RIGHT ||
-                     w->lastModifierKeys() & KMOD_CTRL) &&
+                     w->lastModifierKeys() & SDL_KMOD_CTRL) &&
                      dynamic_cast<TextButton *>(w)->get_text() != INDEX_ALL_PACKS) {
                 // configure group
                 // INDEX_ALL_PACKS cannot be renamed, deleted, no packs can be created
@@ -554,7 +554,7 @@ namespace enigma { namespace gui {
                    || (w == but_tutorial2)) {
             lev::Index::setCurrentIndex(dynamic_cast<TextButton *>(w)->get_text());
             if (w->lastMouseButton() == SDL_BUTTON_RIGHT ||
-                     w->lastModifierKeys() & KMOD_CTRL) {
+                     w->lastModifierKeys() & SDL_KMOD_CTRL) {
                 // configure levelpack index
                 LevelPackConfig m(dynamic_cast<TextButton *>(w)->get_text());
                 m.manage();

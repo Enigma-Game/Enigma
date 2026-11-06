@@ -399,7 +399,7 @@ void Application::init(int argc, char **argv)
     Log <<  ecl::strf("SDL_ttf Version: %u.%u.%u\n", SDL_VERSIONNUM_MAJOR(ttf_version),
                       SDL_VERSIONNUM_MINOR(ttf_version), SDL_VERSIONNUM_MICRO(ttf_version));
     if(!TTF_Init()) {
-        fprintf(stderr, "Couldn't initialize SDL_ttf: %s\n", TTF_GetError());
+        fprintf(stderr, "Couldn't initialize SDL_ttf: %s\n", SDL_GetError());
         exit(1);
     }
 
@@ -514,12 +514,12 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     bool haveHome = (getenv("HOME") != nullptr);
 
 
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
     // Locate standard user-specific application data directory
     std::string winAppDataPath = ecl::ApplicationDataPath() + "/Enigma";
 #endif
 
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
     bool progDirExists = ecl::split_path(progCallPath, &progDir, &progName);
     if (!progDirExists) {
         // filename only -- working dir should be on enigma as enigma
@@ -529,6 +529,14 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         // a call from elsewhere -- the absolute or relative path does not matter.
         // this enables calls from a commandline.
         systemAppDataPath = progDir + "/data";
+        if (!ecl::FolderExists(systemAppDataPath)) {
+            if (ecl::FolderExists(progDir + "/../../data"))
+                systemAppDataPath = progDir + "/../../data";
+            else if (ecl::FolderExists(progDir + "/../data"))
+                systemAppDataPath = progDir + "/../data";
+            else if (ecl::FolderExists("./data"))
+                systemAppDataPath = "./data";
+        }
     }
 #elif MACOSX
     // Mac OS X applications are self-contained bundles,
@@ -557,7 +565,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
 
     // docPath
     docPath = DOCDIR;    // defined in src/Makefile.am
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
     if (progDirExists) {
         docPath = progDir;
     }
@@ -592,7 +600,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         userStdPath = prefPath + "/.enigma";
 #endif
         prefPath = prefPath + ecl::PathSeparator + "." + prefFilename;
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
     } else if (!winAppDataPath.empty()) {
         if (!ecl::FolderExists(winAppDataPath))
             // may happen on Windows
@@ -824,10 +832,10 @@ void Application::init_i18n()
         app.prefs->getProperty("LocalizationPath", l10nPath);
         if (l10nPath.empty()) {
             l10nPath = systemAppDataPath + ecl::PathSeparator + "locale";
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
             std::string progDir;          // directory path part of args[0]
             std::string progName;         // filename part of args[0]
-            bool progDirExists = split_path(progCallPath, &progDir, &progName);
+            bool progDirExists = ecl::split_path(progCallPath, &progDir, &progName);
             if (progDirExists) {
                 l10nPath = progDir + ecl::PathSeparator + "data" + ecl::PathSeparator + "locale";
             }

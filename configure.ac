@@ -112,9 +112,23 @@ CFLAGS_NOSDL="$CFLAGS"
 CXXFLAGS_NOSDL="$CXXFLAGS"
 LIBS_NOSDL="$LIBS"
 
-AM_PATH_SDL2(2.0.0)
-AC_SUBST([SDL_LIBS])
+dnl ----------------------------------------
+dnl Check for SDL3 and support libraries
+dnl ----------------------------------------
+PKG_CHECK_MODULES([SDL3], [sdl3 >= 3.0.0],,
+        [AC_MSG_ERROR([SDL3 is required to compile Enigma])])
+PKG_CHECK_MODULES([SDL3_IMAGE], [sdl3-image >= 3.0.0],,
+        [AC_MSG_ERROR([SDL3_image is required to compile Enigma])])
+PKG_CHECK_MODULES([SDL3_MIXER], [sdl3-mixer >= 3.0.0],,
+        [AC_MSG_ERROR([SDL3_mixer is required to compile Enigma])])
+PKG_CHECK_MODULES([SDL3_TTF], [sdl3-ttf >= 3.0.0], [have_sdl3ttf=yes],
+        [have_sdl3ttf=no; AC_MSG_ERROR([SDL3_ttf is required to compile Enigma])])
+
+SDL_CFLAGS="$SDL3_CFLAGS $SDL3_IMAGE_CFLAGS $SDL3_MIXER_CFLAGS $SDL3_TTF_CFLAGS"
+SDL_LIBS="$SDL3_LIBS $SDL3_IMAGE_LIBS $SDL3_MIXER_LIBS $SDL3_TTF_LIBS"
 AC_SUBST([SDL_CFLAGS])
+AC_SUBST([SDL_LIBS])
+
 dnl The flags are now substituted inside the Makefile, but not used for the
 dnl rest of the script. So we manually put them in. This is necessary if
 dnl SDL has not been installed in the canonical locations.
@@ -123,23 +137,8 @@ CFLAGS="$CFLAGS $SDL_CFLAGS"
 CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
 LIBS="$LIBS $SDL_LIBS"
 
-dnl ----------------------------------------
-dnl Check for SDL support libraries
-dnl ----------------------------------------
-AC_CHECK_LIB([SDL2_image], [main],,
-        [AC_MSG_ERROR([SDL2_image is required to compile Enigma])])
-SDL_LIBS="$SDL_LIBS -lSDL2_image"
-AC_CHECK_LIB([SDL2_mixer], [main],,
-        [AC_MSG_ERROR([SDL2_mixer is required to compile Enigma])])
-SDL_LIBS="$SDL_LIBS -lSDL2_mixer"
-AC_CHECK_LIB([SDL2_ttf], [main],,
-        [AC_MSG_ERROR([SDL2_ttf is required to compile Enigma])])
-SDL_LIBS="$SDL_LIBS -lSDL2_ttf"
-
 if test "x$MACOSX" = xyes; then
-   SDL2_PREFIX=`$SDL2_CONFIG $sdl2_config_args --variable=libdir`
-   SDL_LIBS="-Wl,-rpath,@loader_path/../lib -framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf $SDL2_PREFIX/libSDL2main.a"
-   AC_SUBST([SDL2_PREFIX])
+   SDL_LIBS="-Wl,-rpath,@loader_path/../lib -framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL -lSDL3 -lSDL3_mixer -lSDL3_image -lSDL3_ttf"
 fi
 
 dnl ---------------------------------------
@@ -209,7 +208,7 @@ AC_ARG_ENABLE([tools],
    [enable_tools=no])
 
 AM_CONDITIONAL([BUILDTOOLS], [test "$enable_tools" = yes])
-AM_CONDITIONAL([BUILDTTF2BMF], [test "$have_sdl2ttf" = yes -a "$enable_tools" = yes])
+AM_CONDITIONAL([BUILDTTF2BMF], [test "$have_sdl3ttf" = yes -a "$enable_tools" = yes])
 
 dnl ----------------------------------------
 dnl Include experimental features?

@@ -230,7 +230,7 @@ namespace enigma { namespace gui {
             blit (gc, x - borderWidth, y - borderWidth, displayEditBorder ? img_editborder : img_border);
             blit (gc, x, y, img);
         } else {
-            // With SDL2, set_alpha doesn't work properly anymore. We are therefore
+            // In SDL2/SDL3, set_alpha doesn't work properly anymore. We are therefore
             // using set_brightness instead.
             // TODO: Revert to set_alpha, once it's repaired.
             img->set_brightness(170);
@@ -452,7 +452,7 @@ namespace enigma { namespace gui {
                         sound::EmitSoundEvent ("menuok");
                         iselected = ifirst+i;
                         syncToIndexMgr();
-                        if (SDL_GetModState() & KMOD_CTRL && !(SDL_GetModState() & KMOD_SHIFT)) {
+                        if (SDL_GetModState() & SDL_KMOD_CTRL && !(SDL_GetModState() & SDL_KMOD_SHIFT)) {
                             // control key pressed - level inspector
                             LevelInspector m(curIndex->getProxy(iselected), true);
                             m.manage();
@@ -483,7 +483,7 @@ namespace enigma { namespace gui {
     
     bool LevelWidget::handle_keydown(const SDL_Event *e) {
         switch (e->key.key) {
-            case SDLK_t:
+            case SDLK_T:
                 // Generate new level preview for current level
                 preview_cache->updatePreview(curIndex->getProxy(iselected),
                                              video_engine->GetInfo()->thumb);
@@ -491,13 +491,13 @@ namespace enigma { namespace gui {
                 break;
             
             case SDLK_LEFT:  
-                if (!(SDL_GetModState() & KMOD_ALT)) {
+                if (!(SDL_GetModState() & SDL_KMOD_ALT)) {
                     set_current (iselected>1 ? iselected-1 : 0); 
                     break;
                 } else
                     return false;
             case SDLK_RIGHT:
-                if (!(SDL_GetModState() & KMOD_ALT)) {
+                if (!(SDL_GetModState() & SDL_KMOD_ALT)) {
                      set_current (iselected+1);
                      break;
                 } else

@@ -256,7 +256,7 @@ TrueTypeFont::TrueTypeFont(TTF_Font *font_, int r, int g, int b) : font(font_) {
     fgcolor.r = r;
     fgcolor.g = g;
     fgcolor.b = b;
-    pixel_format = SDL_PIXELFORMAT_RGB888;
+    pixel_format = SDL_PIXELFORMAT_XRGB8888;
 }
 
 TrueTypeFont::~TrueTypeFont() {

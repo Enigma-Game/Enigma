@@ -246,13 +246,13 @@ namespace enigma { namespace gui {
                     lev::Index::getCurrentIndex()->updateFromProxies();
                     draw_all();
                     break;
-                case SDLK_u: {
+                case SDLK_U: {
                     lev::ScoreManager::instance()->markUnsolved(lev::Index::getCurrentProxy(), 
                             app.state->getInt("Difficulty"));
                     invalidate_all(); 
                     break;    
                 }      
-                case SDLK_s:
+                case SDLK_S:
                     lev::ScoreManager::instance()->markSolved(lev::Index::getCurrentProxy(), 
                             app.state->getInt("Difficulty"));
                     invalidate_all();
@@ -271,7 +271,7 @@ namespace enigma { namespace gui {
         if (w==levelwidget) {
             lev::Index *ind = lev::Index::getCurrentIndex();
             int ilevel = ind->getCurrentPosition();
-            if (w->lastModifierKeys() & KMOD_CTRL && w->lastModifierKeys() & KMOD_SHIFT) {
+            if (w->lastModifierKeys() & SDL_KMOD_CTRL && w->lastModifierKeys() & SDL_KMOD_SHIFT) {
                 // force a reload from file
                 lev::Proxy::releaseCache();
             }

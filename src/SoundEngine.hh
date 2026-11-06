@@ -148,32 +148,31 @@ namespace sound
 
         Sint8* resample (const Sint8 *data, Uint32 len, int oldfreq,
                          int newfreq, Uint32 *newlen_);
-        Mix_Chunk *ChunkFromRaw (const Uint8 *buf, Uint32 len,
+        MIX_Audio *ChunkFromRaw (const Uint8 *buf, Uint32 len,
                                  int freq, int format, int channels);
 
     private:
         // ---------- Private methods ----------
-        Mix_Chunk *cache_sound(const std::string &name);
+        MIX_Audio *cache_sound(const std::string &name);
 
         void update_channel (int channel);
         int already_playing (const SoundEvent &s);
 
-
-        static void channel_finished (int channel);
-
+        static void SDLCALL channel_finished (void *userdata, MIX_Track *track);
 
         // ---------- Variables ----------
-        bool       m_initialized;
-        int        m_soundvolume;
-        int        m_musicvolume;
-        Mix_Music *m_current_music;
-        int        m_freq;
-        Uint16     m_format;
-        int        m_channels;
-        ecl::Dict<Mix_Chunk*> wav_cache;
+        bool                    m_initialized;
+        double                  m_soundvolume;
+        double                  m_musicvolume;
+        MIX_Mixer              *m_mixer;
+        MIX_Audio              *m_current_music;
+        MIX_Track              *m_music_track;
+        int                     m_channels;
+        std::vector<MIX_Track*> m_tracks;
+        ecl::Dict<MIX_Audio*>   wav_cache;
         std::vector<SoundEvent> m_channelinfo;
-        ecl::V2      m_listenerpos;
-        SDL_Mutex  *m_mutex;
+        ecl::V2                 m_listenerpos;
+        SDL_Mutex              *m_mutex;
         static SoundEngine_SDL *m_instance;
     };
 }

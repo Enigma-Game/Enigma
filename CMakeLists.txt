@@ -1,8 +1,26 @@
 cmake_minimum_required(VERSION 3.14)
 
+# Automatically locate vcpkg toolchain if not explicitly provided
+if (NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+    if (EXISTS "$ENV{USERPROFILE}/.vcpkg-clion/vcpkg/scripts/buildsystems/vcpkg.cmake")
+        set(CMAKE_TOOLCHAIN_FILE "$ENV{USERPROFILE}/.vcpkg-clion/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE FILEPATH "vcpkg toolchain")
+    elseif (DEFINED ENV{VCPKG_ROOT} AND EXISTS "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
+        set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE FILEPATH "vcpkg toolchain")
+    elseif (EXISTS "C:/vcpkg/scripts/buildsystems/vcpkg.cmake")
+        set(CMAKE_TOOLCHAIN_FILE "C:/vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE FILEPATH "vcpkg toolchain")
+    endif()
+endif()
+if (DEFINED CMAKE_TOOLCHAIN_FILE AND NOT _VCPKG_TOOLCHAIN)
+    include("${CMAKE_TOOLCHAIN_FILE}")
+endif()
+
 project(Enigma VERSION 1.3)
 
 set(CMAKE_CXX_STANDARD 17)
+if (MSVC)
+    add_compile_options(/permissive-)
+    add_link_options(/MAP)
+endif()
 
 # Search for additional cmake modules in cmake/
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
@@ -22,12 +40,15 @@ add_compile_definitions(SYSTEM_DATA_DIR="")
 add_compile_definitions(DOCDIR="")
 add_compile_definitions(LOCALEDIR="")
 add_compile_definitions(ENABLE_NLS="")
+add_compile_definitions(NOMINMAX)
 add_compile_definitions(PACKAGE_NAME="Enigma")
 #add_compile_definitions(CXXLUA=1)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     add_compile_definitions(MACOSX=1)
 endif()
+
+set(HAVE_SDL ON CACHE BOOL "Use SDL_iconv instead of system iconv" FORCE)
 
 add_subdirectory(lib-src)
 add_subdirectory(data)

@@ -706,10 +706,10 @@ int hlineColor(SDL_Surface * dst, Sint16 x1, Sint16 x2, Sint16 y, Uint32 color)
     /*
      * Get clipping boundary 
      */
-    left = dst->clip_rect.x;
-    right = dst->clip_rect.x + dst->clip_rect.w - 1;
-    top = dst->clip_rect.y;
-    bottom = dst->clip_rect.y + dst->clip_rect.h - 1;
+    left = GFX_GetClipRect(dst).x;
+    right = GFX_GetClipRect(dst).x + GFX_GetClipRect(dst).w - 1;
+    top = GFX_GetClipRect(dst).y;
+    bottom = GFX_GetClipRect(dst).y + GFX_GetClipRect(dst).h - 1;
     
     /*
      * Swap x1, x2 if required 
@@ -942,10 +942,10 @@ int vlineColor(SDL_Surface * dst, Sint16 x, Sint16 y1, Sint16 y2, Uint32 color)
     /*
      * Get clipping boundary 
      */
-    left = dst->clip_rect.x;
-    right = dst->clip_rect.x + dst->clip_rect.w - 1;
-    top = dst->clip_rect.y;
-    bottom = dst->clip_rect.y + dst->clip_rect.h - 1;
+    left = GFX_GetClipRect(dst).x;
+    right = GFX_GetClipRect(dst).x + GFX_GetClipRect(dst).w - 1;
+    top = GFX_GetClipRect(dst).y;
+    bottom = GFX_GetClipRect(dst).y + GFX_GetClipRect(dst).h - 1;
     
     /*
      * Swap y1, y2 if required 
@@ -1269,10 +1269,10 @@ static int clipLine(SDL_Surface * dst, Sint16 * x1, Sint16 * y1, Sint16 * x2, Si
     /*
      * Get clipping boundary 
      */
-    left = dst->clip_rect.x;
-    right = dst->clip_rect.x + dst->clip_rect.w - 1;
-    top = dst->clip_rect.y;
-    bottom = dst->clip_rect.y + dst->clip_rect.h - 1;
+    left = GFX_GetClipRect(dst).x;
+    right = GFX_GetClipRect(dst).x + GFX_GetClipRect(dst).w - 1;
+    top = GFX_GetClipRect(dst).y;
+    bottom = GFX_GetClipRect(dst).y + GFX_GetClipRect(dst).h - 1;
     
     while (1) {
         code1 = clipEncode(*x1, *y1, left, top, right, bottom);

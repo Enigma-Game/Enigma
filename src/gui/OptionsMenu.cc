@@ -618,7 +618,7 @@ private:
     {
         options::SetOption ("Language", nls::languages[value].localename);
 
-        if (not inInit) {
+        if (!inInit) {
             // change language only on user action
             app.setLanguage(nls::languages[value].localename);
             secondaryListener->on_action(this);
@@ -1059,10 +1059,11 @@ private:
         bool handled = false;
         if (e.type == SDL_EVENT_KEY_UP) {
             if ((e.key.key == SDLK_RETURN) &&
-                (e.key.mod & KMOD_ALT))
+                (e.key.mod & SDL_KMOD_ALT))
             {
                 // update state of FullscreenButton :
-                fullscreen->invalidate();
+                if (fullscreen)
+                    fullscreen->invalidate();
                 handled = true;
             }
             if (e.key.key == SDLK_F1) {
@@ -1115,7 +1116,7 @@ private:
         else if (w == fullscreen) {
             // switch the fullscreen button and option
             fullscreen->on_action(fullscreen);
-            // TODO(sdl2): implement fullscreen toggling
+            // TODO: implement fullscreen toggling
             // app.selectedVideoMode = video::GetBestUserMode(app.prefs->getBool("FullScreen"));
             // update the video mode button to the modes available
             // videomode->reinit();

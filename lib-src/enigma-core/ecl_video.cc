@@ -228,7 +228,7 @@ namespace {
 Surface::Surface(SDL_Surface *surface, bool _has_alpha) {
     static std::string lastErrorMessage;
     hasAlpha = _has_alpha;
-    pixel_format = hasAlpha ? SDL_PIXELFORMAT_ARGB8888 : SDL_PIXELFORMAT_RGB888;
+    pixel_format = hasAlpha ? SDL_PIXELFORMAT_ARGB8888 : SDL_PIXELFORMAT_XRGB8888;
     if (!surface)
         throw XGeneric("Error: Tried to convert null surface.");
     m_surface = SDL_ConvertSurface(surface, pixel_format);
@@ -271,14 +271,14 @@ void Surface::box(const GS &gs, int x, int y, int w, int h) {
     if (NOCLIP(gs) || clip_rect(gs, r)) {
         SDL_Rect dr;
         sdl::copy_rect(dr, r);
-        SDL_FillRect(m_surface, &dr, gs.pcolor);
+        SDL_FillSurfaceRect(m_surface, &dr, gs.pcolor);
     }
 }
 
 void Surface::line(const GS &gs, int x1, int y1, int x2, int y2) {
     SDL_Rect s;
     sdl::copy_rect(s, gs.clipRect);
-    SDL_SetClipRect(m_surface, &s);
+    SDL_SetSurfaceClipRect(m_surface, &s);
 
     Uint8 r, g, b, a;
     SDL_GetRGBA(gs.pcolor, SDL_GetPixelFormatDetails(m_surface->format), nullptr, &r, &g, &b, &a);
@@ -288,7 +288,7 @@ void Surface::line(const GS &gs, int x1, int y1, int x2, int y2) {
     else
         lineRGBA(m_surface, x1, y1, x2, y2, r, g, b, a);
 
-    SDL_SetClipRect(m_surface, nullptr);
+    SDL_SetSurfaceClipRect(m_surface, nullptr);
 }
 
 void Surface::blit(const GS &gs, int x, int y, const Surface *s, const Rect &r_) {
@@ -358,7 +358,9 @@ Screen *Screen::get_instance() {
 
 Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
     : m_window(window),
-      updateAll(false) {
+      updateAll(false),
+      last_window_w(0),
+      last_window_h(0) {
     m_surface = Surface::make_surface(
             SDL_CreateSurface(surface_w, surface_h, SDL_PIXELFORMAT_ARGB8888),
             NO_ALPHA);
@@ -367,7 +369,14 @@ Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
     assert(m_surface);
     assert(m_instance == nullptr);
     m_instance = this;
-    m_scaler = std::make_unique<Scaler>(m_surface->get_surface(), nullptr, SDL_GetWindowSurface(m_window));
+    SDL_Surface *ws = SDL_GetWindowSurface(m_window);
+    if (ws) {
+        last_window_w = ws->w;
+        last_window_h = ws->h;
+        m_scaler = std::make_unique<Scaler>(m_surface->get_surface(), nullptr, ws);
+    } else {
+        m_scaler = std::make_unique<Scaler>(m_surface->get_surface(), nullptr, nullptr);
+    }
 }
 
 Screen::~Screen() {
@@ -386,23 +395,39 @@ void Screen::update_rect(const Rect &r) {
 }
 
 void Screen::flush_updates() {
+    SDL_Surface* window = SDL_GetWindowSurface(m_window);
+    if (!window)
+        return;
+
+    if (window->w != last_window_w || window->h != last_window_h) {
+        last_window_w = window->w;
+        last_window_h = window->h;
+        updateAll = true;
+        reinitScaler();
+    }
+
     if (updateAll) {
-        m_scaler->blit_scaled(m_sdlsurface, nullptr, SDL_GetWindowSurface(m_window), nullptr);
+        m_scaler->blit_scaled(m_sdlsurface, nullptr, window, nullptr);
         SDL_UpdateWindowSurface(m_window);
         updateAll = false;
     } else if (!dirtyRects.empty()) {
+        int sw = width();
+        int sh = height();
+        if (sw <= 0 || sh <= 0) {
+            dirtyRects.clear();
+            return;
+        }
         dirtyRects.intersect(size());
         std::vector<SDL_Rect> rects(dirtyRects.size());
         auto j = dirtyRects.begin();
-        SDL_Surface* window = SDL_GetWindowSurface(m_window);
         for (unsigned i = 0; i < rects.size(); ++i, ++j)
         {
             SDL_Rect srcRect;
             sdl::copy_rect(srcRect, *j);
-            int nx = (int)((double) (j->x * window_size().w) / size().w - 0.5);
-            int ny = (int)((double) (j->y * window_size().h) / size().h - 0.5);
-            int nw = (int)((double) (j->w * window_size().w) / size().w + 3.0);
-            int nh = (int)((double) (j->h * window_size().h) / size().h + 3.0);
+            int nx = (int)((double) (j->x * window->w) / sw - 0.5);
+            int ny = (int)((double) (j->y * window->h) / sh - 0.5);
+            int nw = (int)((double) (j->w * window->w) / sw + 3.0);
+            int nh = (int)((double) (j->h * window->h) / sh + 3.0);
             nx = Clamp(nx, 0, window->w);
             ny = Clamp(ny, 0, window->h);
             nw = Clamp(nw, 0, window->w - nx);
@@ -417,7 +442,10 @@ void Screen::flush_updates() {
 }
 
 void Screen::reinitScaler() {
-    m_scaler->precalculate(m_surface->get_surface(), nullptr, SDL_GetWindowSurface(m_window));
+    SDL_Surface* window = SDL_GetWindowSurface(m_window);
+    if (window && m_surface && m_scaler) {
+        m_scaler->precalculate(m_surface->get_surface(), nullptr, window);
+    }
 }
 
 Rect Screen::size() const {
@@ -425,11 +453,11 @@ Rect Screen::size() const {
 }
 
 int Screen::width() const {
-    return m_sdlsurface->w;
+    return m_sdlsurface ? m_sdlsurface->w : 0;
 }
 
 int Screen::height() const {
-    return m_sdlsurface->h;
+    return m_sdlsurface ? m_sdlsurface->h : 0;
 }
 
 Rect Screen::window_size() const {
@@ -437,11 +465,13 @@ Rect Screen::window_size() const {
 }
 
 int Screen::window_width() const {
-    return SDL_GetWindowSurface(m_window)->w;
+    SDL_Surface *s = SDL_GetWindowSurface(m_window);
+    return s ? s->w : 0;
 }
 
 int Screen::window_height() const {
-    return SDL_GetWindowSurface(m_window)->h;
+    SDL_Surface *s = SDL_GetWindowSurface(m_window);
+    return s ? s->h : 0;
 }
 
 /* -------------------- Scaler -------------------- */
@@ -449,17 +479,21 @@ int Screen::window_height() const {
 // Code originally by Andreas Schiffler (SDL2_rotozoom), heavily adapted to our use case.
 
 Scaler::Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, ScalerMode _mode) {
-    assert(_src);
-    assert(_dst);
     mode = _mode;
     sax = nullptr;
     say = nullptr;
-    precalculate(_src, _srccrop, _dst);
+    dst_w = dst_h = src_w = src_h = 0;
+    spixelgap = spixelw = spixelh = dgap = 0;
+    if (_src && _dst) {
+        precalculate(_src, _srccrop, _dst);
+    }
 }
 
 Scaler::~Scaler() {
     free(sax);
     free(say);
+    sax = nullptr;
+    say = nullptr;
 }
 
 void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst) {
@@ -468,6 +502,17 @@ void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst)
     free(say);
     sax = nullptr;
     say = nullptr;
+    dst_w = dst_h = src_w = src_h = 0;
+
+    if (!src || !dst)
+        return;
+    if (dst->w <= 1 || dst->h <= 1 || src->w <= 1 || src->h <= 1)
+        return;
+
+    dst_w = dst->w;
+    dst_h = dst->h;
+    src_w = src->w;
+    src_h = src->h;
 
     // Change mode if src/dst are not 32bit depth.
     if ((SDL_GetPixelFormatDetails(src->format)->bytes_per_pixel != 4) ||
@@ -503,6 +548,9 @@ void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst)
         cropw = src->w;
         croph = src->h;
     }
+
+    if (cropw <= 1 || croph <= 1)
+        return;
 
     // Precalculate row increments
     spixelw = (cropw - 1);
@@ -543,9 +591,22 @@ void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst)
 
 void Scaler::blit_scaled(
         SDL_Surface* src, const SDL_Rect* srcRect, SDL_Surface* dst, SDL_Rect* dstRect) {
-    if (mode == SC_SDL) {
-        SDL_BlitSurfaceScaled(src, srcRect, dst, dstRect);
+    if (!src || !dst)
         return;
+
+    if (mode == SC_SDL) {
+        SDL_BlitSurfaceScaled(src, srcRect, dst, dstRect, SDL_SCALEMODE_NEAREST);
+        return;
+    }
+
+    if (sax == nullptr || say == nullptr || dst->w != dst_w || dst->h != dst_h || src->w != src_w || src->h != src_h) {
+        precalculate(src, nullptr, dst);
+        if (mode == SC_SDL) {
+            SDL_BlitSurfaceScaled(src, srcRect, dst, dstRect, SDL_SCALEMODE_NEAREST);
+            return;
+        }
+        if (sax == nullptr || say == nullptr)
+            return;
     }
 
     // Note: srcrect is ignored in SC_bytewise mode.
@@ -561,11 +622,6 @@ void Scaler::blit_scaled(
     int* salast;
     int sstep;
 
-    if ((sax == nullptr) || (say == nullptr)) {
-        fprintf(stderr, "ecl_video::BlitScaled: Precalculations missing. (Error allocating memory?)\n");
-        return;
-    }
-
     if (dstRect) {
         dstrx = Clamp(dstRect->x, 0, dst->w);
         dstry = Clamp(dstRect->y, 0, dst->h);
@@ -578,8 +634,13 @@ void Scaler::blit_scaled(
         dstrh = dst->h;
     }
 
+    if (dstrw <= 0 || dstrh <= 0)
+        return;
+
     tColorRGBA* sp = (tColorRGBA*)src->pixels;
     tColorRGBA* dp = (tColorRGBA*)dst->pixels;
+    if (!sp || !dp)
+        return;
 
     // Advance source pointer y to the beginning of the first line to copy
     int* csay = say + dstry;
@@ -635,10 +696,6 @@ void Scaler::blit_scaled(
             // Advance destination pointer x
             dp++;
         }
-        // Advance source pointer x
-        salast = csax;
-        csax += dst->w + dstrw - dstrx;
-        sp += (*csax >> 16) - (*salast >> 16);
         // Advance source pointer y
         salast = csay;
         csay++;

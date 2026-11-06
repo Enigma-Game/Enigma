@@ -74,7 +74,7 @@ void nls::tinygettext_error_callback(const std::string& str) {
 // apostrophe.
 std::string nls::replaceApostrophe(std::string text) {
     std::string s = text;
-    if (not nls::languages[GetCurrentLocaleNr()].replaceApostrophe)
+    if (!nls::languages[GetCurrentLocaleNr()].replaceApostrophe)
         return s;
     while(s.find("’") != string::npos) {
         s.replace(s.find("’"), 3, "'");

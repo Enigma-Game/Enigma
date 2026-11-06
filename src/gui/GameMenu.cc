@@ -158,11 +158,11 @@ namespace enigma { namespace gui {
             switch (keysym) {
             case SDLK_F3: {
                 lev::Index *ind = lev::Index::getCurrentIndex();
-                if (keymod & KMOD_SHIFT & KMOD_CTRL) {
+                if (keymod & SDL_KMOD_SHIFT & SDL_KMOD_CTRL) {
                     lev::Proxy::releaseCache();
                     client::Stop ();
                     server::Msg_LoadLevel(ind->getCurrent(), false);
-                } else if (keymod & KMOD_SHIFT) {
+                } else if (keymod & SDL_KMOD_SHIFT) {
                     client::Stop ();
                     server::Msg_LoadLevel(ind->getCurrent(), false);
                 } else {
@@ -191,7 +191,7 @@ namespace enigma { namespace gui {
             Menu::quit();
         }
         else if (w == restart) {
-            if (w->lastModifierKeys() & KMOD_CTRL && w->lastModifierKeys() & KMOD_SHIFT) {
+            if (w->lastModifierKeys() & SDL_KMOD_CTRL && w->lastModifierKeys() & SDL_KMOD_SHIFT) {
                 // force a reload from file
                 lev::Proxy::releaseCache();
             }

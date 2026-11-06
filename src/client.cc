@@ -227,6 +227,12 @@ void Client::handle_events() {
             update_mouse_button_state();
             display::RedrawAll(video_engine->GetScreen());
             break;
+        case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
+        case SDL_EVENT_WINDOW_RESIZED:
+            video_engine->Resize(e.window.data1, e.window.data2);
+            update_mouse_button_state();
+            display::RedrawAll(video_engine->GetScreen());
+            break;
         case SDL_EVENT_QUIT:
             client::Msg_Command("abort");
             app.bossKeyPressed = true;
@@ -269,7 +275,7 @@ void Client::update_mouse_button_state() {
 }
 
 void Client::on_mousebutton(SDL_Event &e) {
-    if (e.button.state == SDL_PRESSED) {
+    if (e.button.down) {
         if (e.button.button == SDL_BUTTON_LEFT) {
             // left mousebutton -> activate first item in inventory
             server::Msg_ActivateItem();
@@ -442,43 +448,41 @@ void Client::on_keydown(SDL_Event &e) {
     SDL_Keycode keysym = e.key.key;
     Uint16 keymod = e.key.mod;
 
-    if (keymod & KMOD_CTRL) {
+    if (keymod & SDL_KMOD_CTRL) {
         switch (keysym) {
-        case SDLK_a: server::Msg_Command("restart"); break;
+        case SDLK_A: server::Msg_Command("restart"); break;
         case SDLK_F3:
-            if (keymod & KMOD_SHIFT) {
+            if (keymod & SDL_KMOD_SHIFT) {
                 // force a reload from file
                 lev::Proxy::releaseCache();
                 server::Msg_Command("restart");
             }
         default: break;
         };
-    } else if (keymod & KMOD_ALT) {
+    } else if (keymod & SDL_KMOD_ALT) {
         switch (keysym) {
-        case SDLK_x: abort(); break;
-        case SDLK_t:
+        case SDLK_X: abort(); break;
+        case SDLK_T:
             if (enigma::WizardMode) {
                 ecl::Screen *scr = video_engine->GetScreen();
                 ecl::TintRect(scr->get_surface(), display::GetGameArea(), 100, 100, 100, 0);
                 scr->update_all();
             }
             break;
-        case SDLK_s:
+        case SDLK_S:
             if (enigma::WizardMode) {
                 server::Msg_Command("god");
             }
             break;
         case SDLK_RETURN: {
-            // Deactivated due to crashes, at least on Windows.
-            //ScopedInputGrab(false);
-            //video_engine->ToggleFullscreen();
-            //sdl::FlushEvents();
+            video_engine->ToggleFullscreen();
+            display::RedrawAll(video_engine->GetScreen());
         } break;
         default: break;
         };
-    } else if (keymod & (KMOD_LGUI | KMOD_RGUI)) {
+    } else if (keymod & (SDL_KMOD_LGUI | SDL_KMOD_RGUI)) {
         switch (keysym) {
-        case SDLK_q:  // Mac OS X application quit sequence
+        case SDLK_Q:  // Mac OS X application quit sequence
             app.bossKeyPressed = true;
             abort();
             break;
@@ -487,7 +491,7 @@ void Client::on_keydown(SDL_Event &e) {
     } else {
         switch (keysym) {
         case SDLK_ESCAPE:
-            if (keymod & KMOD_SHIFT) {
+            if (keymod & SDL_KMOD_SHIFT) {
                 app.bossKeyPressed = true;
                 abort();
             } else {
@@ -502,7 +506,7 @@ void Client::on_keydown(SDL_Event &e) {
             // display hint
             break;
         case SDLK_F3:
-            if (keymod & KMOD_SHIFT)
+            if (keymod & SDL_KMOD_SHIFT)
                 server::Msg_Command("restart");
             else
                 server::Msg_Command("suicide");
@@ -522,15 +526,15 @@ void Client::on_keydown(SDL_Event &e) {
         case SDLK_DOWN: user_input_next(); break;
         case SDLK_SPACE: user_input_append(' '); break;
         default: {
-            // SDL2's GetKeyName only returns uppercase keys.
+            // SDL's GetKeyName only returns uppercase keys.
             const char *key = SDL_GetKeyName(e.key.key);
             const bool is_ascii = strlen(key) == 1 && ((key[0] & 0x7f) == key[0]);
-            const bool capslock = keymod & KMOD_CAPS;
+            const bool capslock = keymod & SDL_KMOD_CAPS;
             if (is_ascii) {
                 char ascii = key[0];
                 if (isalnum(ascii) || strchr(" .-!\"$%&/()=?{[]}\\#'+*~_,;.:<>|",
                                              ascii)) { // don't add '^' or change history code
-                    if (keymod & (KMOD_LSHIFT | KMOD_RSHIFT)) {
+                    if (keymod & (SDL_KMOD_LSHIFT | SDL_KMOD_RSHIFT)) {
                         user_input_append(capslock ? std::tolower(ascii) : ascii);
                     } else {
                         user_input_append(capslock ? ascii : std::tolower(ascii));

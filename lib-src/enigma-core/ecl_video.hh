@@ -91,6 +91,8 @@ private:
     int *sax, *say;
     // Some constants describing aspects of src and dst.
     int spixelgap, spixelw, spixelh, dgap;
+    int dst_w, dst_h;
+    int src_w, src_h;
 };
 
 /* -------------------- Graphics State (GS) -------------------- */
@@ -272,6 +274,8 @@ private:
     SDL_Surface *m_sdlsurface;
     RectList dirtyRects;
     bool updateAll;
+    int last_window_w;
+    int last_window_h;
 
     Screen(const Screen &);
     Screen &operator=(const Screen &);

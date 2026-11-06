@@ -41,7 +41,7 @@ extern "C" {
 #include <lauxlib.h>
 #endif 
 
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
 #       include <windows.h>
 #endif
 
@@ -209,7 +209,7 @@ System_ConfigurationFileName()
     return app.systemFS->findFile ("enigma_conf.lua");
 }
 
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
 
 static std::string
 Windows_ConfigurationFileName()
@@ -254,7 +254,7 @@ bool Load ()
     fname = System_ConfigurationFileName();
     success &= load_options (fname);
 
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
     fname  = Windows_ConfigurationFileName();
     success &= load_options (fname);
 #endif

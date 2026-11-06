@@ -13,7 +13,7 @@ noinst_PROGRAMS = tolua $(TTFTOOL)
 
 ttf2bmf_SOURCES = ttf2bmf.cc getopt.c getopt1.c getopt.h
 ttf2bmf_CXXFLAGS = @SDL_CFLAGS@ $(AM_CXXFLAGS)
-ttf2bmf_LDADD = -lSDL_ttf $(AM_LDADD)
+ttf2bmf_LDADD = @SDL_LIBS@ $(AM_LDADD)
 
 tolua_SOURCES = tolua.c toluabind.c toluabind.h dummy.cc 
 

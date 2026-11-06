@@ -444,7 +444,7 @@ datadir = @datadir@
 
 if MINGW32
 
-  mingw_ldadd := enigma_ico.o -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lharfbuzz -lopusfile -lopus -ltiff -llzma -ljpeg -lpng16 -lwebp -lmikmod -lmpg123 -lsmpeg2 -lvorbisfile -lvorbis -logg -lcurl -lws2_32 -lidn -lidn2 -lnghttp2 -ladvapi32 -lcrypt32 -lzstd -lpsl -lunistring -lpthread -lcharset -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lbcrypt -lgcrypt -lgpg-error -lws2_32 -lfreetype -lbz2 -lbrotlidec -lbrotlienc -lbrotlicommon -lintl -liconv -lpathcch -lshlwapi
+  mingw_ldadd := enigma_ico.o -lSDL3 -lSDL3_image -lSDL3_mixer -lSDL3_ttf -lharfbuzz -lopusfile -lopus -ltiff -llzma -ljpeg -lpng16 -lwebp -lmikmod -lmpg123 -lsmpeg2 -lvorbisfile -lvorbis -logg -lcurl -lws2_32 -lidn -lidn2 -lnghttp2 -ladvapi32 -lcrypt32 -lzstd -lpsl -lunistring -lpthread -lcharset -lwldap32 -lgnutls -lhogweed -lgmp -lz -lnettle -lssh2 -lbcrypt -lgcrypt -lgpg-error -lws2_32 -lfreetype -lbz2 -lbrotlidec -lbrotlienc -lbrotlicommon -lintl -liconv -lpathcch -lshlwapi
 
   enigma_LDFLAGS := -mwindows -pthread
   enigma_ico.o: enigma.rc enigma.ico

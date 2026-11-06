@@ -18,6 +18,7 @@
  */
 
 #include "gui/ErrorMenu.hh"
+#include <iterator>
 #include "ecl_font.hh"
 #include "ecl_video.hh"
 #include "resource_cache.hh"

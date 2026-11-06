@@ -1450,7 +1450,7 @@ void DL_Shadows::draw(GC &gc, int xpos, int ypos, int x, int y) {
                 buffer->lock();
                 SDL_Surface *ss = shadowSurface->get_surface();
                 SDL_Surface *bs = buffer->get_surface();
-                memcpy(bs->pixels, ss->pixels, ss->w * ss->h * ss->format->BytesPerPixel);
+                memcpy(bs->pixels, ss->pixels, ss->w * ss->h * SDL_GetPixelFormatDetails(ss->format)->bytes_per_pixel);
                 buffer->unlock();
                 shadowSurface->unlock();
             } else {

@@ -156,7 +156,7 @@ namespace enigma { namespace gui {
             if (e.type == SDL_EVENT_KEY_DOWN) {
                 switch (e.key.key) {
                 case SDLK_DELETE:
-                    if (SDL_GetModState() & KMOD_SHIFT) {
+                    if (SDL_GetModState() & SDL_KMOD_SHIFT) {
                         // delete clipboard
                         clipboard->clear();
                         handled=true;
@@ -228,7 +228,7 @@ namespace enigma { namespace gui {
                     }
                     break;
                 case SDLK_LEFT:
-                    if (isEditable && (SDL_GetModState() & KMOD_ALT)) {
+                    if (isEditable && (SDL_GetModState() & SDL_KMOD_ALT)) {
                         int pos = curIndex->getCurrentPosition();
                         if (pos > 0) {
                             curIndex->exchange(pos, pos-1);
@@ -240,7 +240,7 @@ namespace enigma { namespace gui {
                     }
                     break;
                 case SDLK_RIGHT:
-                    if (isEditable && (SDL_GetModState() & KMOD_ALT)) {
+                    if (isEditable && (SDL_GetModState() & SDL_KMOD_ALT)) {
                         int pos = curIndex->getCurrentPosition();
                         if (pos < curIndex->size() - 1) {
                             curIndex->exchange(pos, pos+1);
@@ -276,7 +276,7 @@ namespace enigma { namespace gui {
 
      void LevelPackComposer::on_action(Widget *w) {
         if (w==levelwidget) {
-            if (w->lastModifierKeys() & KMOD_SHIFT) {
+            if (w->lastModifierKeys() & SDL_KMOD_SHIFT) {
                 lev::Variation var;
                 lev::Proxy * curProxy = lev::Index::getCurrentProxy();
                 if (curProxy->getNormPathType() != lev::Proxy::pt_absolute) {

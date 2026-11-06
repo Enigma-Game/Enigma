@@ -1,3 +1,5 @@
+include(CheckIncludeFile)
+check_include_file(dirent.h HAVE_DIRENT_H)
 configure_file(config.h.cmake.in config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 

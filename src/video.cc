@@ -371,11 +371,11 @@ public:
 
 private:
     bool OpenWindow(int width, int height, bool fullscreen);
+    bool ChangeWindowMode(int width, int height, bool fullscreen);
     void CloseWindow();
 
     ecl::Screen *screen;
     SDL_Window *window;
-    SDL_Renderer *renderer;
     std::unique_ptr<ecl::Surface> back_buffer;
     std::unique_ptr<MouseCursor> cursor;
     std::string window_caption;
@@ -388,7 +388,6 @@ private:
 VideoEngineImpl::VideoEngineImpl() :
     screen(nullptr),
     window(nullptr),
-    renderer(nullptr),
     video_tileset(nullptr),
     video_tileset_id(VTS_NONE),
     nominal_inputgrab_status(false)
@@ -517,25 +516,26 @@ const std::string &VideoEngineImpl::GetCaption() {
 }
 
 std::vector<FullscreenMode> VideoEngineImpl::EnumerateFullscreenModes() {
+    std::vector<FullscreenMode> result;
     SDL_DisplayID display = SDL_GetPrimaryDisplay();
     int num_modes = 0;
-    SDL_DisplayMode** modes = SDL_GetFullscreenDisplayModes(display, &num_modes);
-    if (modes) {
+    SDL_DisplayMode** display_modes = SDL_GetFullscreenDisplayModes(display, &num_modes);
+    if (display_modes) {
         for (int i = 0; i < num_modes; ++i) {
-            WindowSize new_mode = {modes[i]->w, modes[i]->h};
+            WindowSize new_mode = {display_modes[i]->w, display_modes[i]->h};
             FullscreenMode fmode = FindFullscreenMode(new_mode);
             if (   (fmode != VM_NONE)
                 && (video_modes[fmode].f_available)
-                && (std::find(modes.begin(), modes.end(), fmode) == modes.end()))
+                && (std::find(result.begin(), result.end(), fmode) == result.end()))
             {
                 Log << "Found fullscreen mode: " << new_mode.width
                     << "x" << new_mode.height << "\n";
-                modes.push_back(fmode);
+                result.push_back(fmode);
             }
         }
-        SDL_free(modes);
+        SDL_free(display_modes);
     }
-    return modes;
+    return result;
 }
 
 std::vector<VideoTilesetId> VideoEngineImpl::EnumerateAllTilesets() {
@@ -578,34 +578,11 @@ void VideoEngineImpl::SetVideoTileset(VideoTileset* vts) {
 }
 
 void VideoEngineImpl::SetDisplayMode(const WindowSize &display_mode, bool fullscreen, VideoTilesetId vtsid) {
-    // Save old configuration in case the new one fails.
-    bool old_fs = IsFullscreen();
-    WindowSize old_mode = ActiveDisplayMode();
     VideoTileset* vts = VideoTilesetById(vtsid);
-    VideoTileset* old_vts = GetTileset();
-    // Close old window, then try new config.
-    CloseWindow();
+    if (!vts)
+        return;
     SetVideoTileset(vts);
-    if (OpenWindow(display_mode.width, display_mode.height, fullscreen))
-        return;
-    // Something went wrong with the new configuration -- try old config.
-    SetVideoTileset(old_vts);
-    if (OpenWindow(old_mode.width, old_mode.height, old_fs))
-        return;
-    // Try old config with window.
-    SetVideoTileset(old_vts);
-    if (OpenWindow(old_mode.width, old_mode.height, false))
-        return;
-    // Try two fallback solutions: 640x480, then 320x240, in windowed mode.
-    SetVideoTileset(StandardTileset(VTS_32));
-    if (OpenWindow(640, 480, false))
-        return;
-    SetVideoTileset(StandardTileset(VTS_16));
-    if (OpenWindow(320, 240, false))
-        return;
-    // Give up.
-    fprintf(stderr, "Could not find a working display mode, sorry.");
-    exit(1);
+    ChangeWindowMode(display_mode.width, display_mode.height, fullscreen);
 }
 
 WindowSize VideoEngineImpl::SelectedWindowSize() {
@@ -677,9 +654,11 @@ void VideoEngineImpl::SaveWindowSizePreferences() {
 }
 
 void VideoEngineImpl::Resize(Sint32 width, Sint32 height) {
-    SDL_SetWindowSize(window, width, height);
-    SDL_RenderSetLogicalSize(renderer, width, height);
-    screen->reinitScaler();
+    back_buffer.reset();
+    if (screen) {
+        screen->reinitScaler();
+        screen->update_all();
+    }
 }
 
 const VMInfo *VideoEngineImpl::GetInfo() {
@@ -698,16 +677,25 @@ VideoTilesetId VideoEngineImpl::GetTilesetId() {
 }
 
 bool VideoEngineImpl::SetFullscreen(bool enabled) {
-    // TODO(sdl2): change display mode if necessary
     if (!IsFullscreen())
         SaveWindowSizePreferences();
 
     SDL_SetWindowFullscreen(window, enabled);
+    SDL_SyncWindow(window);
+
+    back_buffer.reset();
+    if (screen) {
+        screen->reinitScaler();
+        screen->update_all();
+    }
+    app.prefs->setProperty("FullScreen", IsFullscreen());
     return IsFullscreen();
 }
 
 bool VideoEngineImpl::IsFullscreen() {
-    Uint32 flags = SDL_GetWindowFlags(window);
+    if (!window)
+        return false;
+    SDL_WindowFlags flags = SDL_GetWindowFlags(window);
     return (flags & SDL_WINDOW_FULLSCREEN) != 0;
 }
 
@@ -750,34 +738,65 @@ void VideoEngineImpl::ShowMouse() {
 }
 
 bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
-    Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE;
-    if (fullscreen)
-        flags |= SDL_WINDOW_FULLSCREEN;
-
     // Try to initialize video mode, return error code on failure
     Log << "Opening in " << (fullscreen?"fullscreen":"window") << " mode, "
         << width << "x" << height << ".\n";
-    window = SDL_CreateWindow("", width, height, (fullscreen ? SDL_WINDOW_FULLSCREEN : 0) | SDL_WINDOW_RESIZABLE);
+    window = SDL_CreateWindow(window_caption.c_str(), width, height,
+                              (fullscreen ? SDL_WINDOW_FULLSCREEN : 0) | SDL_WINDOW_RESIZABLE);
 
     if (!window)
         return false;
+
+    SDL_SyncWindow(window);
 
     assert(GetTileset());
     int tilesize = GetTileset()->tilesize;
     screen = new ecl::Screen(window, tilesize * 20, tilesize * 15);
 
-    renderer = SDL_CreateSoftwareRenderer(SDL_GetWindowSurface(window));
-    if (!renderer)
-        return false;
+    cursor = std::make_unique<MouseCursor>(screen);
+    float fx = 0.0f, fy = 0.0f;
+    SDL_GetMouseState(&fx, &fy);
+    int x = static_cast<int>(fx);
+    int y = static_cast<int>(fy);
+    cursor->move(x, y);
+    cursor->set_image(enigma::LoadImage("cur-magic"), 4, 4);
+    video_engine->ShowMouse();
+    SDL_HideCursor();
 
-    FullscreenMode video_mode = FindClosestFullscreenMode({width, height});
-    const VMInfo *vminfo = GetInfo(video_mode);
-    SDL_RenderSetLogicalSize(renderer, vminfo->width, vminfo->height);
+#ifndef MACOSX
+    if (ecl::Surface *icon = enigma::GetImage("enigma_marble")) {
+        SDL_SetWindowIcon(window, icon->get_surface());
+    }
+#endif
+
+    return true;
+}
+
+bool VideoEngineImpl::ChangeWindowMode(int width, int height, bool fullscreen) {
+    if (!window)
+        return OpenWindow(width, height, fullscreen);
+
+    SetInputGrab(false);
+    cursor = nullptr;
+    back_buffer = nullptr;
+    delete screen;
+    screen = nullptr;
+
+    if (fullscreen != IsFullscreen()) {
+        SDL_SetWindowFullscreen(window, fullscreen);
+    }
+    if (!fullscreen) {
+        SDL_SetWindowSize(window, width, height);
+    }
+    SDL_SyncWindow(window);
+
+    assert(GetTileset());
+    int tilesize = GetTileset()->tilesize;
+    screen = new ecl::Screen(window, tilesize * 20, tilesize * 15);
 
     cursor = std::make_unique<MouseCursor>(screen);
-    float fx, fy;
+    float fx = 0.0f, fy = 0.0f;
     SDL_GetMouseState(&fx, &fy);
-    //convert back to int to be used in legacy
     int x = static_cast<int>(fx);
     int y = static_cast<int>(fy);
     cursor->move(x, y);
@@ -789,16 +808,16 @@ bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
 }
 
 void VideoEngineImpl::CloseWindow() {
-    assert(window);
-    assert(renderer);
-
-    SetInputGrab(false);
-    cursor = nullptr;
-    back_buffer = nullptr;
-    video_tileset = nullptr;
-    delete screen;
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
+    if (window) {
+        SetInputGrab(false);
+        cursor = nullptr;
+        back_buffer = nullptr;
+        video_tileset = nullptr;
+        delete screen;
+        screen = nullptr;
+        SDL_DestroyWindow(window);
+        window = nullptr;
+    }
 }
 
 
