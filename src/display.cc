@@ -1704,7 +1704,7 @@ void GameDisplay::redrawAll(Screen *scr) {
 
 void GameDisplay::redraw(ecl::Screen *screen) {
     GC gc(screen->get_surface());
-    if (SDL_GetTicks() - lastFrameTime > 10) {
+    if (redrawEverything || SDL_GetTicks() - lastFrameTime >= 10) {
         CommonDisplay::redraw();
 
         if (ShowFPS) {

@@ -358,9 +358,12 @@ Screen *Screen::get_instance() {
 
 Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
     : m_window(window),
-      updateAll(false),
+      m_renderer(nullptr),
+      m_texture(nullptr),
+      updateAll(true),
       last_window_w(0),
-      last_window_h(0) {
+      last_window_h(0),
+      last_present_ticks(0) {
     m_surface = Surface::make_surface(
             SDL_CreateSurface(surface_w, surface_h, SDL_PIXELFORMAT_ARGB8888),
             NO_ALPHA);
@@ -369,17 +372,36 @@ Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
     assert(m_surface);
     assert(m_instance == nullptr);
     m_instance = this;
-    SDL_Surface *ws = SDL_GetWindowSurface(m_window);
-    if (ws) {
-        last_window_w = ws->w;
-        last_window_h = ws->h;
-        m_scaler = std::make_unique<Scaler>(m_surface->get_surface(), nullptr, ws);
+
+    m_renderer = SDL_CreateRenderer(m_window, nullptr);
+    if (m_renderer) {
+        SDL_SetRenderVSync(m_renderer, 0);
+        m_texture = SDL_CreateTexture(m_renderer, m_sdlsurface->format,
+                                      SDL_TEXTUREACCESS_STREAMING, surface_w, surface_h);
+        if (m_texture) {
+            SDL_SetTextureScaleMode(m_texture, SDL_SCALEMODE_LINEAR);
+        } else {
+            fprintf(stderr, "ecl::Screen: SDL_CreateTexture failed: %s\n", SDL_GetError());
+        }
     } else {
-        m_scaler = std::make_unique<Scaler>(m_surface->get_surface(), nullptr, nullptr);
+        fprintf(stderr, "ecl::Screen: SDL_CreateRenderer failed: %s\n", SDL_GetError());
     }
+
+    int ww = 0, wh = 0;
+    SDL_GetWindowSizeInPixels(m_window, &ww, &wh);
+    last_window_w = ww;
+    last_window_h = wh;
 }
 
 Screen::~Screen() {
+    if (m_texture) {
+        SDL_DestroyTexture(m_texture);
+        m_texture = nullptr;
+    }
+    if (m_renderer) {
+        SDL_DestroyRenderer(m_renderer);
+        m_renderer = nullptr;
+    }
     m_instance = nullptr;
 }
 
@@ -395,57 +417,120 @@ void Screen::update_rect(const Rect &r) {
 }
 
 void Screen::flush_updates() {
-    SDL_Surface* window = SDL_GetWindowSurface(m_window);
-    if (!window)
+    if (!m_renderer || !m_texture || !m_sdlsurface)
         return;
 
-    if (window->w != last_window_w || window->h != last_window_h) {
-        last_window_w = window->w;
-        last_window_h = window->h;
+    int sw = width();
+    int sh = height();
+    if (sw <= 0 || sh <= 0)
+        return;
+
+    int ww = 0, wh = 0;
+    SDL_GetWindowSizeInPixels(m_window, &ww, &wh);
+    if (ww <= 0 || wh <= 0)
+        return;
+
+    if (ww != last_window_w || wh != last_window_h) {
+        last_window_w = ww;
+        last_window_h = wh;
         updateAll = true;
-        reinitScaler();
     }
 
-    if (updateAll) {
-        m_scaler->blit_scaled(m_sdlsurface, nullptr, window, nullptr);
-        SDL_UpdateWindowSurface(m_window);
+    bool has_new_content = updateAll || !dirtyRects.empty();
+    if (has_new_content) {
+        void *pixels = nullptr;
+        int pitch = 0;
+        if (SDL_LockTexture(m_texture, nullptr, &pixels, &pitch)) {
+            if (pitch == m_sdlsurface->pitch) {
+                memcpy(pixels, m_sdlsurface->pixels, (size_t)sh * m_sdlsurface->pitch);
+            } else {
+                int rowBytes = std::min(pitch, m_sdlsurface->pitch);
+                const Uint8 *src = (const Uint8 *)m_sdlsurface->pixels;
+                Uint8 *dst = (Uint8 *)pixels;
+                for (int y = 0; y < sh; ++y) {
+                    memcpy(dst, src, rowBytes);
+                    src += m_sdlsurface->pitch;
+                    dst += pitch;
+                }
+            }
+            SDL_UnlockTexture(m_texture);
+        }
+        dirtyRects.clear();
         updateAll = false;
-    } else if (!dirtyRects.empty()) {
-        int sw = width();
-        int sh = height();
-        if (sw <= 0 || sh <= 0) {
-            dirtyRects.clear();
-            return;
-        }
-        dirtyRects.intersect(size());
-        std::vector<SDL_Rect> rects(dirtyRects.size());
-        auto j = dirtyRects.begin();
-        for (unsigned i = 0; i < rects.size(); ++i, ++j)
-        {
-            SDL_Rect srcRect;
-            sdl::copy_rect(srcRect, *j);
-            int nx = (int)((double) (j->x * window->w) / sw - 0.5);
-            int ny = (int)((double) (j->y * window->h) / sh - 0.5);
-            int nw = (int)((double) (j->w * window->w) / sw + 3.0);
-            int nh = (int)((double) (j->h * window->h) / sh + 3.0);
-            nx = Clamp(nx, 0, window->w);
-            ny = Clamp(ny, 0, window->h);
-            nw = Clamp(nw, 0, window->w - nx);
-            nh = Clamp(nh, 0, window->h - ny);
-            Rect scaledRect = Rect(nx, ny, nw, nh);
-            sdl::copy_rect(rects[i], scaledRect);
-            m_scaler->blit_scaled(m_sdlsurface, &srcRect, window, &rects[i]);
-        }
-        SDL_UpdateWindowSurfaceRects(m_window, &rects[0], rects.size());
     }
-    dirtyRects.clear();
+
+    Uint64 now = SDL_GetTicks();
+    if (!has_new_content && (now - last_present_ticks < 10)) {
+        return;
+    }
+    last_present_ticks = now;
+
+    SDL_Rect vp = get_viewport();
+    if (vp.w > 0 && vp.h > 0) {
+        SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+        SDL_RenderClear(m_renderer);
+        SDL_FRect fvp = { (float)vp.x, (float)vp.y, (float)vp.w, (float)vp.h };
+        SDL_RenderTexture(m_renderer, m_texture, nullptr, &fvp);
+        SDL_RenderPresent(m_renderer);
+    }
 }
 
 void Screen::reinitScaler() {
-    SDL_Surface* window = SDL_GetWindowSurface(m_window);
-    if (window && m_surface && m_scaler) {
-        m_scaler->precalculate(m_surface->get_surface(), nullptr, window);
+    updateAll = true;
+}
+
+SDL_Rect Screen::get_viewport() const {
+    int ww = 0, wh = 0;
+    SDL_GetWindowSizeInPixels(m_window, &ww, &wh);
+    int sw = width();
+    int sh = height();
+    if (ww <= 0 || wh <= 0 || sw <= 0 || sh <= 0)
+        return SDL_Rect{0, 0, 0, 0};
+
+    SDL_Rect vp;
+    int64_t cross_w = (int64_t)ww * sh;
+    int64_t cross_h = (int64_t)wh * sw;
+
+    if (cross_w > cross_h) {
+        // Window is wider than source: pillarbox (black bars on left/right)
+        vp.h = wh;
+        vp.w = (int)((double)wh * sw / sh + 0.5);
+        vp.x = (ww - vp.w) / 2;
+        vp.y = 0;
+    } else if (cross_w < cross_h) {
+        // Window is taller than source: letterbox (black bars on top/bottom)
+        vp.w = ww;
+        vp.h = (int)((double)ww * sh / sw + 0.5);
+        vp.x = 0;
+        vp.y = (wh - vp.h) / 2;
+    } else {
+        vp.x = 0;
+        vp.y = 0;
+        vp.w = ww;
+        vp.h = wh;
     }
+    return vp;
+}
+
+void Screen::window_to_screen(float wx, float wy, int &sx, int &sy) const {
+    SDL_Rect vp = get_viewport();
+    int sw = width();
+    int sh = height();
+    if (vp.w <= 0 || vp.h <= 0 || sw <= 0 || sh <= 0) {
+        sx = 0;
+        sy = 0;
+        return;
+    }
+    float rel_x = wx - (float)vp.x;
+    float rel_y = wy - (float)vp.y;
+    sx = (int)((double)(rel_x * sw) / (double)vp.w + 0.5);
+    sy = (int)((double)(rel_y * sh) / (double)vp.h + 0.5);
+    sx = Clamp(sx, 0, sw - 1);
+    sy = Clamp(sy, 0, sh - 1);
+}
+
+void Screen::window_to_screen(int wx, int wy, int &sx, int &sy) const {
+    window_to_screen((float)wx, (float)wy, sx, sy);
 }
 
 Rect Screen::size() const {
@@ -465,27 +550,34 @@ Rect Screen::window_size() const {
 }
 
 int Screen::window_width() const {
-    SDL_Surface *s = SDL_GetWindowSurface(m_window);
-    return s ? s->w : 0;
+    int w = 0, h = 0;
+    SDL_GetWindowSizeInPixels(m_window, &w, &h);
+    return w;
 }
 
 int Screen::window_height() const {
-    SDL_Surface *s = SDL_GetWindowSurface(m_window);
-    return s ? s->h : 0;
+    int w = 0, h = 0;
+    SDL_GetWindowSizeInPixels(m_window, &w, &h);
+    return h;
 }
 
 /* -------------------- Scaler -------------------- */
 
 // Code originally by Andreas Schiffler (SDL2_rotozoom), heavily adapted to our use case.
 
-Scaler::Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, ScalerMode _mode) {
+Scaler::Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, ScalerMode _mode)
+    : Scaler(_src, _srccrop, _dst, nullptr, _mode) {}
+
+Scaler::Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, const SDL_Rect* _dstcrop, ScalerMode _mode) {
     mode = _mode;
     sax = nullptr;
     say = nullptr;
     dst_w = dst_h = src_w = src_h = 0;
     spixelgap = spixelw = spixelh = dgap = 0;
+    m_dstcrop = SDL_Rect{0, 0, 0, 0};
+    has_dstcrop = false;
     if (_src && _dst) {
-        precalculate(_src, _srccrop, _dst);
+        precalculate(_src, _srccrop, _dst, _dstcrop, _mode);
     }
 }
 
@@ -496,13 +588,19 @@ Scaler::~Scaler() {
     say = nullptr;
 }
 
-void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst) {
+void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst, ScalerMode _mode) {
+    precalculate(src, srccrop, dst, nullptr, _mode);
+}
+
+void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst, const SDL_Rect* dstcrop, ScalerMode _mode) {
+    mode = _mode;
     // Free prior allocations.
     free(sax);
     free(say);
     sax = nullptr;
     say = nullptr;
     dst_w = dst_h = src_w = src_h = 0;
+    has_dstcrop = false;
 
     if (!src || !dst)
         return;
@@ -513,6 +611,19 @@ void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst)
     dst_h = dst->h;
     src_w = src->w;
     src_h = src->h;
+
+    int vx = 0, vy = 0, vw = dst->w, vh = dst->h;
+    if (dstcrop) {
+        vx = Clamp(dstcrop->x, 0, dst->w);
+        vy = Clamp(dstcrop->y, 0, dst->h);
+        vw = Clamp(dstcrop->w, 1, dst->w - vx);
+        vh = Clamp(dstcrop->h, 1, dst->h - vy);
+        m_dstcrop = SDL_Rect{vx, vy, vw, vh};
+        has_dstcrop = true;
+    }
+
+    if (vw <= 1 || vh <= 1)
+        return;
 
     // Change mode if src/dst are not 32bit depth.
     if ((SDL_GetPixelFormatDetails(src->format)->bytes_per_pixel != 4) ||
@@ -555,37 +666,39 @@ void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst)
     // Precalculate row increments
     spixelw = (cropw - 1);
     spixelh = (croph - 1);
-    spixelgap = src->pitch/4;
+    spixelgap = src->pitch / 4;
     dgap = dst->pitch - dst->w * 4;
-    int sx = (int)(65536.0 * (float)spixelw / (float)(dst->w - 1));
-    int sy = (int)(65536.0 * (float)spixelh / (float)(dst->h - 1));
+    int sx = (int)(65536.0 * (float)spixelw / (float)(vw - 1));
+    int sy = (int)(65536.0 * (float)spixelh / (float)(vh - 1));
 
     // Maximum scaled source size
     int ssx = (cropw << 16) - 1;
     int ssy = (croph << 16) - 1;
 
     // Precalculate horizontal row increments
+    for (int x = 0; x < vx; x++) {
+        sax[x] = cropx;
+    }
     int csx = cropx;
-    int* csax = sax;
-    for (int x = 0; x <= dst->w; x++) {
-        *csax = csx;
-        csax++;
+    for (int x = vx; x <= vx + vw && x <= dst->w; x++) {
+        sax[x] = (csx > ssx) ? ssx : csx;
         csx += sx;
-        // Guard from overflows
-        if (csx > ssx)
-            csx = ssx;
+    }
+    for (int x = vx + vw + 1; x <= dst->w; x++) {
+        sax[x] = ssx;
     }
 
     // Precalculate vertical row increments
-    int csy = cropy * spixelgap;
-    int* csay = say;
-    for (int y = 0; y <= dst->h; y++) {
-        *csay = csy;
-        csay++;
+    for (int y = 0; y < vy; y++) {
+        say[y] = cropy;
+    }
+    int csy = cropy;
+    for (int y = vy; y <= vy + vh && y <= dst->h; y++) {
+        say[y] = (csy > ssy) ? ssy : csy;
         csy += sy;
-        // Guard from overflows
-        if (csy > ssy)
-            csy = ssy;
+    }
+    for (int y = vy + vh + 1; y <= dst->h; y++) {
+        say[y] = ssy;
     }
 }
 
@@ -600,7 +713,7 @@ void Scaler::blit_scaled(
     }
 
     if (sax == nullptr || say == nullptr || dst->w != dst_w || dst->h != dst_h || src->w != src_w || src->h != src_h) {
-        precalculate(src, nullptr, dst);
+        precalculate(src, nullptr, dst, has_dstcrop ? &m_dstcrop : nullptr, mode);
         if (mode == SC_SDL) {
             SDL_BlitSurfaceScaled(src, srcRect, dst, dstRect, SDL_SCALEMODE_NEAREST);
             return;
@@ -627,6 +740,11 @@ void Scaler::blit_scaled(
         dstry = Clamp(dstRect->y, 0, dst->h);
         dstrw = Clamp(dstRect->w, 0, dst->w - dstrx);
         dstrh = Clamp(dstRect->h, 0, dst->h - dstry);
+    } else if (has_dstcrop) {
+        dstrx = Clamp(m_dstcrop.x, 0, dst->w);
+        dstry = Clamp(m_dstcrop.y, 0, dst->h);
+        dstrw = Clamp(m_dstcrop.w, 0, dst->w - dstrx);
+        dstrh = Clamp(m_dstcrop.h, 0, dst->h - dstry);
     } else {
         dstrx = 0;
         dstry = 0;
@@ -794,8 +912,7 @@ std::unique_ptr<Surface> MakeSurface(void *data, int w, int h, int bipp, int pit
 }
 
 void BlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect, ScalerMode mode) {
-    Scaler scaler{src, srcrect, dst, mode};
-    scaler.blit_scaled(src, srcrect, dst, dstrect);
+    SDL_BlitSurfaceScaled(src, srcrect, dst, dstrect, (mode == SC_SDL) ? SDL_SCALEMODE_NEAREST : SDL_SCALEMODE_LINEAR);
 }
 
 } // namespace ecl

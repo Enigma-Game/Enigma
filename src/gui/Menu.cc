@@ -140,10 +140,11 @@ Menu::Menu()
     
     void Menu::handle_event(const SDL_Event &e) {
         
-        // Alt && Return for Fullscreen Toggle on Linux only
-        if (e.type == SDL_EVENT_KEY_DOWN &&  e.key.key == SDLK_RETURN && 
-                e.key.mod & SDL_KMOD_ALT) {
+        // Alt && Return for Fullscreen Toggle
+        if (e.type == SDL_EVENT_KEY_DOWN && (e.key.key == SDLK_RETURN || e.key.key == SDLK_KP_ENTER) && 
+                (e.key.mod & SDL_KMOD_ALT)) {
             video_engine->ToggleFullscreen();
+            invalidate_all();
             return;
         }
         
@@ -232,11 +233,8 @@ Menu::Menu()
     }
     
     void Menu::track_active_widget( int window_x, int window_y ) {
-        int ww = SCREEN->window_width();
-        int wh = SCREEN->window_height();
-        if (ww <= 0 || wh <= 0) return;
-        int x = (int)((double) (window_x * SCREEN->size().w) / ww + 0.5);
-        int y = (int)((double) (window_y * SCREEN->size().h) / wh + 0.5);
+        int x = 0, y = 0;
+        SCREEN->window_to_screen(window_x, window_y, x, y);
         switch_active_widget(find_widget(x, y));
     }
 

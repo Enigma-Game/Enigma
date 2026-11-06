@@ -319,8 +319,6 @@ void SoundEngine_SDL::set_sound_volume (double soundvol)
         return;
 
     m_soundvolume = ecl::Clamp(soundvol, 0.0, 1.0);
-    if (m_mixer)
-        MIX_SetMixerGain(m_mixer, static_cast<float>(m_soundvolume));
 }
 
 void SoundEngine_SDL::set_music_volume (double musicvol) 
@@ -352,7 +350,7 @@ bool SoundEngine_SDL::play_music (const std::string &filename, double position)
             MIX_DestroyAudio(m_current_music);
         m_current_music = music;
         MIX_SetTrackAudio(m_music_track, m_current_music);
-        MIX_SetTrackLoops(m_music_track, -1);
+        MIX_SetTrackLoops(m_music_track, 0);
         MIX_SetTrackGain(m_music_track, static_cast<float>(m_musicvolume));
         if (!MIX_PlayTrack(m_music_track, 0))
             Log << "MIX_PlayTrack: " << SDL_GetError() << "\n";

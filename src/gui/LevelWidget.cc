@@ -44,7 +44,9 @@ namespace enigma { namespace gui {
     LevelWidget::LevelWidget(bool withScoreIcons, bool withEditBorder) : 
             displayScoreIcons (withScoreIcons), displayEditBorder (withEditBorder),
             listener(0), width (0), height (0), m_areas(), 
-            isInvalidateUptodate (true), lastUpdate (0)
+            isInvalidateUptodate (true), lastUpdate (0),
+            last_user_activity(0), last_gen_time(0),
+            allow_next_generation(false)
     {
         const VMInfo &vminfo = *video_engine->GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
@@ -107,6 +109,7 @@ namespace enigma { namespace gui {
         
     void LevelWidget::scroll_up(int nlines) 
     {
+        last_user_activity = SDL_GetTicks();
         int newFirst = ifirst;
         int newSelected = iselected;
         for (; nlines; --nlines) {
@@ -121,6 +124,7 @@ namespace enigma { namespace gui {
     
     void LevelWidget::scroll_down(int nlines) 
     {
+        last_user_activity = SDL_GetTicks();
         int newFirst = ifirst;
         int newSelected = iselected;
         for (; nlines; --nlines) {
@@ -192,6 +196,9 @@ namespace enigma { namespace gui {
         if (newfirst != ifirst) {
             ifirst    = newfirst;
             iselected = newsel;
+            last_user_activity = SDL_GetTicks();
+            allow_next_generation = false;
+            std::fill(pending_redraws.begin(), pending_redraws.end(), false);
     
             if (!m_areas.empty()) {
                 sound::EmitSoundEvent ("menumove");
@@ -205,8 +212,10 @@ namespace enigma { namespace gui {
     
             if (!m_areas.empty()) {
                 sound::EmitSoundEvent ("menuswitch");
-                invalidate_area(m_areas[oldsel-ifirst]); // old selection
-                invalidate_area(m_areas[iselected-ifirst]); // new selection
+                if (oldsel >= (size_t)ifirst && (oldsel - ifirst) < m_areas.size())
+                    invalidate_area(m_areas[oldsel - ifirst]); // old selection
+                if (iselected >= ifirst && (size_t)(iselected - ifirst) < m_areas.size())
+                    invalidate_area(m_areas[iselected - ifirst]); // new selection
             }
         }
     }
@@ -223,8 +232,10 @@ namespace enigma { namespace gui {
         const VMInfo *vminfo = video_engine->GetInfo();
         Surface *img =
             preview_cache->getPreview(proxy, vminfo->thumb, allowGeneration, didGenerate);
-        if (img == nullptr)
+        if (img == nullptr) {
+            blit(gc, x - borderWidth, y - borderWidth, displayEditBorder ? img_editborder : img_border);
             return false;
+        }
    
         if (selected) {
             blit (gc, x - borderWidth, y - borderWidth, displayEditBorder ? img_editborder : img_border);
@@ -310,7 +321,6 @@ namespace enigma { namespace gui {
         const int vgap = Max(0, (get_h() - height*buttonh)/ (height-1));
     
         unsigned i=ifirst;          // level index
-        bool allowGeneration = true;
     
         for (int y=0; y<height; y++) {
             for (int x=0; x<width; x++, i++) {
@@ -321,15 +331,18 @@ namespace enigma { namespace gui {
                 int ypos = get_y() + y*(buttonh + vgap);
     
                 Rect buttonarea(xpos, ypos, buttonw, buttonh);
+                size_t idx = i - ifirst;
+                if (idx >= m_areas.size()) {
+                    m_areas.resize(idx + 1);
+                }
+                if (idx >= pending_redraws.size()) {
+                    pending_redraws.resize(idx + 1, false);
+                }
+                m_areas[idx] = buttonarea;
+
                 if (!(r.overlaps(buttonarea) || r.w == 0))
                     continue;       // r.w==0 if repainting whole screen
     
-                if( (i-ifirst) >= m_areas.size()) {
-                    m_areas.push_back(buttonarea);
-                    pending_redraws.push_back(false);
-                } else {
-                    m_areas[(i-ifirst)] = buttonarea;
-                }
                 // Draw level preview
                 lev::Proxy *levelProxy = curIndex->getProxy(i);
                 int imgx = xpos + (buttonw-imgw)/2;
@@ -339,18 +352,16 @@ namespace enigma { namespace gui {
                     bool didDraw = draw_level_preview(gc, imgx, imgy, bwidth, levelProxy, 
                             (int) i == iselected, !curIndex->isSource(levelProxy), 
                             !curIndex->mayPlayLevel(i+1),
-                            allowGeneration, didGenerate);
+                            allow_next_generation, didGenerate);
                     if (didGenerate) {
-                        // do not generate more than 1 preview from level source
-                        // per draw call
-                        allowGeneration = false;
+                        allow_next_generation = false;
                     }
                     if (didDraw) {
-                        pending_redraws[(i-ifirst)] = false;
+                        pending_redraws[idx] = false;
                     } else {
                         // the button is not drawn - mark it to be drawn on
                         // a future tick
-                        pending_redraws[(i-ifirst)] = true;
+                        pending_redraws[idx] = true;
                         isInvalidateUptodate = false;
                     }
                     // Draw level name
@@ -373,25 +384,48 @@ namespace enigma { namespace gui {
             }
         }
         done_painting:
-        m_areas.resize(i-ifirst); // Remove unused areas (if any) from the list
+        m_areas.resize(i - ifirst); // Remove unused areas (if any) from the list
+        pending_redraws.resize(i - ifirst, false);
         return;
     }
     
     void LevelWidget::tick(double time) {
         if (!isInvalidateUptodate) {
-            // invalidate just 1 button for redraw
-            bool isFirst = true;
-            for (unsigned i = 0; i < pending_redraws.size(); i++) {
-                if (pending_redraws[i] == true) {
-                    if (isFirst) {
-                        invalidate_area(m_areas[i]);
-                        isInvalidateUptodate = true;
-                        isFirst = false;
-                    } else {
-                        isInvalidateUptodate = false;
-                        return;
+            Uint64 now = SDL_GetTicks();
+            // Rate limit preview generation (at least 10ms between frames to keep mouse 100Hz smooth)
+            if (now - last_gen_time < 10)
+                return;
+
+            size_t count = std::min(pending_redraws.size(), m_areas.size());
+            // Prioritize currently selected/hovered button if its preview is still pending
+            int target = -1;
+            int selIdx = iselected - ifirst;
+            if (selIdx >= 0 && (size_t)selIdx < count && pending_redraws[selIdx]) {
+                target = selIdx;
+            } else {
+                for (size_t i = 0; i < count; i++) {
+                    if (pending_redraws[i]) {
+                        target = (int)i;
+                        break;
                     }
                 }
+            }
+
+            if (target >= 0) {
+                allow_next_generation = true;
+                invalidate_area(m_areas[target]);
+                last_gen_time = now;
+
+                bool anyOtherLeft = false;
+                for (unsigned i = 0; i < pending_redraws.size(); i++) {
+                    if ((int)i != target && pending_redraws[i]) {
+                        anyOtherLeft = true;
+                        break;
+                    }
+                }
+                isInvalidateUptodate = !anyOtherLeft;
+            } else {
+                isInvalidateUptodate = true;
             }
         }
     }
@@ -403,8 +437,7 @@ namespace enigma { namespace gui {
     
         switch (e.type) {
             case SDL_EVENT_MOUSE_MOTION:
-                mouse_x = (int)((double) (e.motion.x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
-                mouse_y = (int)((double) (e.motion.y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
+                SCREEN->window_to_screen(e.motion.x, e.motion.y, mouse_x, mouse_y);
                 if (get_area().contains(mouse_x, mouse_y)) {
                     int newsel=iselected;
                     for (unsigned i=0; i<m_areas.size(); ++i)
@@ -418,8 +451,7 @@ namespace enigma { namespace gui {
                 }
                 break;
             case SDL_EVENT_MOUSE_BUTTON_DOWN:
-                mouse_x = (int)((double) (e.button.x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
-                mouse_y = (int)((double) (e.button.y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
+                SCREEN->window_to_screen(e.button.x, e.button.y, mouse_x, mouse_y);
                 if (get_area().contains(mouse_x, mouse_y))
                     handled = handle_mousedown (&e);
                 break;
@@ -442,8 +474,8 @@ namespace enigma { namespace gui {
     }
     
     bool LevelWidget::handle_mousedown(const SDL_Event *e) {
-        int mouse_x = (int)((double) (e->button.x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
-        int mouse_y = (int)((double) (e->button.y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
+        int mouse_x = 0, mouse_y = 0;
+        SCREEN->window_to_screen(e->button.x, e->button.y, mouse_x, mouse_y);
         switch (e->button.button) {
             case SDL_BUTTON_LEFT:
                 for (unsigned i=0; i<m_areas.size(); ++i)

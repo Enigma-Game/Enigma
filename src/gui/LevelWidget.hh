@@ -92,6 +92,9 @@ namespace enigma { namespace gui {
         std::vector<bool> pending_redraws;
         bool isInvalidateUptodate;
         double lastUpdate;
+        Uint64 last_user_activity;
+        Uint64 last_gen_time;
+        bool allow_next_generation;
 
         // some image pointers for efficiency
         ecl::Surface *img_link;

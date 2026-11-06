@@ -80,9 +80,11 @@ enum ScalerMode {
 class Scaler {
 public:
     Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, ScalerMode _mode = SC_bytewise);
+    Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, const SDL_Rect* _dstcrop, ScalerMode _mode = SC_bytewise);
     ~Scaler();
 
-    void precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst);
+    void precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst, ScalerMode _mode = SC_bytewise);
+    void precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst, const SDL_Rect* dstcrop, ScalerMode _mode = SC_bytewise);
     void blit_scaled(SDL_Surface* src, const SDL_Rect* srcRect, SDL_Surface* dst, SDL_Rect* dstRect);
 
 private:
@@ -93,6 +95,8 @@ private:
     int spixelgap, spixelw, spixelh, dgap;
     int dst_w, dst_h;
     int src_w, src_h;
+    SDL_Rect m_dstcrop;
+    bool has_dstcrop;
 };
 
 /* -------------------- Graphics State (GS) -------------------- */
@@ -261,6 +265,10 @@ public:
     int window_width() const;
     int window_height() const;
 
+    SDL_Rect get_viewport() const;
+    void window_to_screen(float wx, float wy, int &sx, int &sy) const;
+    void window_to_screen(int wx, int wy, int &sx, int &sy) const;
+
     /* ---------- Static methods ---------- */
 
     static Screen *get_instance();
@@ -270,17 +278,18 @@ private:
     static Screen *m_instance;
 
     SDL_Window *m_window;
+    SDL_Renderer *m_renderer;
+    SDL_Texture *m_texture;
     std::unique_ptr<Surface> m_surface;
     SDL_Surface *m_sdlsurface;
     RectList dirtyRects;
     bool updateAll;
     int last_window_w;
     int last_window_h;
+    Uint64 last_present_ticks;
 
     Screen(const Screen &);
     Screen &operator=(const Screen &);
-
-    std::unique_ptr<Scaler> m_scaler;
 };
 
 /* -------------------- Graphics primitives -------------------- */

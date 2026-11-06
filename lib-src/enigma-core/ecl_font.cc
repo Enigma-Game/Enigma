@@ -256,6 +256,7 @@ TrueTypeFont::TrueTypeFont(TTF_Font *font_, int r, int g, int b) : font(font_) {
     fgcolor.r = r;
     fgcolor.g = g;
     fgcolor.b = b;
+    fgcolor.a = 255;
     pixel_format = SDL_PIXELFORMAT_XRGB8888;
 }
 
@@ -280,7 +281,7 @@ std::unique_ptr<Surface> TrueTypeFont::render(
         const std::string& text, Font *altFont, int maxWidth) {
     // Note: altFont is only used by BitmapFont.
     // TODO: Implement maxWidth. (Not actually used right now.)
-    SDL_Color bgcolor = {0, 0, 0, 0};
+    SDL_Color bgcolor = {0, 0, 0, 255};
     SDL_Surface *si = TTF_RenderText_Shaded(font, text.c_str(), 0, fgcolor, bgcolor);
     if (si) {
         SDL_Surface *s = SDL_ConvertSurface(si, pixel_format);

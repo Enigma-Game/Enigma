@@ -69,6 +69,18 @@ void RectList::intersect(const Rect& rect) {
 }
 
 void RectList::add(const Rect& r) {
+    if (r.empty())
+        return;
+    // Remove any existing rectangles that are completely covered by r
+    // so adding a parent container's rect doesn't shatter into strips around child rects.
+    for (iterator i = m_rectangles.begin(); i != m_rectangles.end(); ) {
+        if (i->x >= r.x && i->y >= r.y &&
+            i->x + i->w <= r.x + r.w && i->y + i->h <= r.y + r.h) {
+            i = m_rectangles.erase(i);
+        } else {
+            ++i;
+        }
+    }
     RectList rl;
     rl.push_back(r);
     for (iterator i = begin(); i != end(); ++i)

@@ -51,7 +51,7 @@ private:
     static bool event_filter(void *data, SDL_Event *e) {
         MouseCursor *cursor = static_cast<MouseCursor *>(data);
         if (e->type == SDL_EVENT_MOUSE_MOTION) {
-            cursor->move(e->motion.x, e->motion.y);
+            cursor->move((int)e->motion.x, (int)e->motion.y);
             cursor->redraw();
         }
         return 1;

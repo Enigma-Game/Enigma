@@ -409,7 +409,10 @@ private:
         tilesets = video_engine->EnumerateFittingTilesets(app.selectedFullscreenMode);
         setMaxValue(tilesets.size() - 1);
         selectedSet = 0;
-        app.selectedFullscreenTilesetId = (VideoTilesetId) tilesets[selectedSet];
+        VideoTilesetId vtsid = (VideoTilesetId) tilesets[selectedSet];
+        app.selectedFullscreenTilesetId = vtsid;
+        app.prefs->setProperty("FullscreenTileset", VideoTilesetPrefName(vtsid));
+        invalidate();
     }
 
     int FullscreenTilesetButton::get_value() const {
@@ -1037,33 +1040,29 @@ private:
         pageAfterVideoCheck = OPTIONS_MAIN;
         currentPage = OPTIONS_MAIN;
         showVideoCheck = false;
-        if (videoSettingsTouched && !gameIsOngoing)
-            showVideoCheck = video_engine->ApplySettings();
-        videoSettingsTouched = false;
-        // If settings were changed, change the background as well.
-        if (showVideoCheck)
-            background = enigma::GetImage("menu_bg", ".jpg");
     }
 
     void OptionsMenu::quit() {
         close_page();
-        // Show the video check button if necessary.
-        if (showVideoCheck)
-            open_page(OPTIONS_VIDEOCHECK);
-        else
-            Menu::quit();
+        bool fsChanged = (options::GetBool("FullScreen") != video_engine->IsFullscreen());
+        if ((videoSettingsTouched || fsChanged) && !gameIsOngoing) {
+            video_engine->ApplySettings();
+            videoSettingsTouched = false;
+        }
+        Menu::quit();
     }
 
     bool OptionsMenu::on_event (const SDL_Event &e)
     {
         bool handled = false;
         if (e.type == SDL_EVENT_KEY_UP) {
-            if ((e.key.key == SDLK_RETURN) &&
+            if ((e.key.key == SDLK_RETURN || e.key.key == SDLK_KP_ENTER) &&
                 (e.key.mod & SDL_KMOD_ALT))
             {
                 // update state of FullscreenButton :
                 if (fullscreen)
                     fullscreen->invalidate();
+                invalidate_all();
                 handled = true;
             }
             if (e.key.key == SDLK_F1) {
@@ -1114,12 +1113,7 @@ private:
             // language changed - retranslate and redraw everything
             invalidate_all();
         else if (w == fullscreen) {
-            // switch the fullscreen button and option
             fullscreen->on_action(fullscreen);
-            // TODO: implement fullscreen toggling
-            // app.selectedVideoMode = video::GetBestUserMode(app.prefs->getBool("FullScreen"));
-            // update the video mode button to the modes available
-            // videomode->reinit();
             invalidate_all();
         } else if (w == but_main_options) {
             close_page();
