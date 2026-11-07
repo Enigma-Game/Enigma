@@ -392,12 +392,12 @@ namespace enigma { namespace gui {
     void LevelWidget::tick(double time) {
         if (!isInvalidateUptodate) {
             Uint64 now = SDL_GetTicks();
-            // Rate limit preview generation (at least 10ms between frames to keep mouse 100Hz smooth)
+            // Rate limit preview generation
             if (now - last_gen_time < 10)
                 return;
 
             size_t count = std::min(pending_redraws.size(), m_areas.size());
-            // Prioritize currently selected/hovered button if its preview is still pending
+            // Prioritize currently hovered level if its preview is still pending
             int target = -1;
             int selIdx = iselected - ifirst;
             if (selIdx >= 0 && (size_t)selIdx < count && pending_redraws[selIdx]) {
