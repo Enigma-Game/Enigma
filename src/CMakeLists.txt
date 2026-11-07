@@ -218,6 +218,7 @@ add_executable(enigma
     stones/GreenBrownStone.hh
     stones/IceBlock.cc
     stones/IceBlock.hh
+    stones/InkwellStone.cc
     stones/InkwellStone.hh
     stones/JambStone.cc
     stones/JambStone.hh

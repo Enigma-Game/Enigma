@@ -530,7 +530,9 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         // this enables calls from a commandline.
         systemAppDataPath = progDir + "/data";
         if (!ecl::FolderExists(systemAppDataPath)) {
-            if (ecl::FolderExists(progDir + "/../../data"))
+            if (!systemPath.empty() && ecl::FolderExists(systemPath))
+                systemAppDataPath = systemPath;
+            else if (ecl::FolderExists(progDir + "/../../data"))
                 systemAppDataPath = progDir + "/../../data";
             else if (ecl::FolderExists(progDir + "/../data"))
                 systemAppDataPath = progDir + "/../data";
@@ -837,9 +839,14 @@ void Application::init_i18n()
             std::string progName;         // filename part of args[0]
             bool progDirExists = ecl::split_path(progCallPath, &progDir, &progName);
             if (progDirExists) {
-                l10nPath = progDir + ecl::PathSeparator + "data" + ecl::PathSeparator + "locale";
+                std::string localL10n = progDir + ecl::PathSeparator + "data" + ecl::PathSeparator + "locale";
+                if (ecl::FolderExists(localL10n))
+                    l10nPath = localL10n;
             }
 #endif
+            if (!ecl::FolderExists(l10nPath) && std::string(LOCALEDIR).size() > 0 && ecl::FolderExists(LOCALEDIR)) {
+                l10nPath = LOCALEDIR;
+            }
         }
     }
     Log << "l10nPath = \"" << l10nPath << "\"\n";
