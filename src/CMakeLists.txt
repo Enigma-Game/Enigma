@@ -3,7 +3,7 @@ check_include_file(dirent.h HAVE_DIRENT_H)
 configure_file(config.h.cmake.in config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_executable(enigma
+add_executable(enigma WIN32
     actors/Balls.cc
     actors/Balls.hh
     actors/BugActor.cc
