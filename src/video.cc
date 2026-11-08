@@ -584,7 +584,9 @@ void VideoEngineImpl::UpdateBrightness() {
     float gamma = static_cast<float> (options::GetDouble("Gamma"));
     // gamma is a float between 0.2 and 2.0, with 1.0 meaning: normal.
     // We renormalize it to 0.6 to 1.5:
-    gamma = gamma/2.0 + 0.5;
+    gamma = gamma/2.0f + 0.5f;
+    if (screen)
+        screen->set_brightness_scale(gamma);
 }
 
 void VideoEngineImpl::SetCaption(const std::string &text) {
@@ -901,6 +903,7 @@ bool VideoEngineImpl::OpenWindow(int width, int height, bool fullscreen) {
     cursor->set_image(enigma::LoadImage("cur-magic"), 4, 4);
     video_engine->ShowMouse();
     SDL_HideCursor();
+    UpdateBrightness();
 
 #ifndef MACOSX
     if (ecl::Surface *icon = enigma::GetImage("enigma_marble")) {
@@ -943,6 +946,7 @@ bool VideoEngineImpl::ChangeWindowMode(int width, int height, bool fullscreen) {
     cursor->set_image(enigma::LoadImage("cur-magic"), 4, 4);
     video_engine->ShowMouse();
     SDL_HideCursor();
+    UpdateBrightness();
 
     return true;
 }

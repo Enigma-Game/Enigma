@@ -251,6 +251,8 @@ public:
     void update_rect(const Rect &r);
     void flush_updates();
     void reinitScaler();
+    void set_brightness_scale(float b);
+    float get_brightness_scale() const { return m_brightness; }
 
     /* ---------- Accessors ---------- */
 
@@ -287,6 +289,7 @@ private:
     int last_window_w;
     int last_window_h;
     Uint64 last_present_ticks;
+    float m_brightness;
 
     Screen(const Screen &);
     Screen &operator=(const Screen &);

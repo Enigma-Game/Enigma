@@ -363,7 +363,8 @@ Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
       updateAll(true),
       last_window_w(0),
       last_window_h(0),
-      last_present_ticks(0) {
+      last_present_ticks(0),
+      m_brightness(1.0f) {
     m_surface = Surface::make_surface(
             SDL_CreateSurface(surface_w, surface_h, SDL_PIXELFORMAT_ARGB8888),
             NO_ALPHA);
@@ -467,12 +468,31 @@ void Screen::flush_updates() {
 
     SDL_Rect vp = get_viewport();
     if (vp.w > 0 && vp.h > 0) {
+        SDL_SetRenderColorScale(m_renderer, 1.0f);
         SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
         SDL_RenderClear(m_renderer);
         SDL_FRect fvp = { (float)vp.x, (float)vp.y, (float)vp.w, (float)vp.h };
+        bool scaled = SDL_SetRenderColorScale(m_renderer, m_brightness);
+        if (!scaled) {
+            float clamped = std::min(m_brightness, 1.0f);
+            Uint8 c = (Uint8)(clamped * 255.0f + 0.5f);
+            SDL_SetTextureColorMod(m_texture, c, c, c);
+        } else {
+            SDL_SetTextureColorMod(m_texture, 255, 255, 255);
+        }
         SDL_RenderTexture(m_renderer, m_texture, nullptr, &fvp);
+        if (scaled) {
+            SDL_SetRenderColorScale(m_renderer, 1.0f);
+        }
         SDL_RenderPresent(m_renderer);
     }
+}
+
+void Screen::set_brightness_scale(float b) {
+    if (b < 0.0f) b = 0.0f;
+    m_brightness = b;
+    updateAll = true;
+    flush_updates();
 }
 
 void Screen::reinitScaler() {
