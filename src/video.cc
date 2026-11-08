@@ -80,24 +80,6 @@ VMInfo video_modes[] = {
      "-0-"                         // fallback modes fullscreen
     },
     {
-     VM_640x512, 1, 640, 512,      // id, preffilenr, w, h
-     32, VTS_32,                   // tilesize, tiletype
-     "640x512", "640x512", "5:4",  // name, fsname, fs only
-     Rect(0, 0, 640, 480),         // display area
-     0, 0,                         // menu background image offsets
-     {120, 78, 4, "-120x78"},      // thumbnail size/extension
-     Rect(0, 0, 640, 416),         // game area
-     Rect(0, 416, 640, 64),        // statusbar area
-     Rect(15, 420, 110, 40),       // time area
-     Rect(100, 420, 31, 40),       // modes area
-     Rect(100, 420, 30, 40),       // moves area
-     Rect(200, 433, 490, 52),      // inventory area
-     Rect(150, 434, 475, 35),      // text area
-     0,                            // statusbar coffsety
-     false,                        // available fullscreen: 640x512 is deprecated!
-     "-0-"                         // fallback modes fullscreen
-    },
-    {
      VM_800x600, 2, 800, 600,      // id, preffilenr, w, h
      40, VTS_40,                   // tilesize, tiletype
      "800x600", "SVGA", "4:3",     // name, fsname, fs only
@@ -137,163 +119,235 @@ VMInfo video_modes[] = {
      VM_1024x768, 3, 1024, 768,    // id, preffilenr, w, h
      48, VTS_48,                   // tilesize, tiletype
      "1024x768", "XGA", "4:3",     // name, fsname, fs only
-     Rect(32, 0, 960, 720),        // display area
-     -128, -96,                    // menu background image offsets
+     Rect(0, 0, 960, 720),         // display area
+     -192, -144,                   // menu background image offsets
      {120, 78, 4, "-120x78"},      // thumbnail size/extension
-     Rect(32, 0, 960, 624),        // game area
-     Rect(32, 624, 960, 96),       // statusbar area
-     Rect(50, 640, 170, 60),       // time area
-     Rect(198, 634, 34, 60),       // modes area
-     Rect(185, 640, 30, 60),       // moves area
-     Rect(314, 650, 710, 46),      // inventory area
-     Rect(302, 655, 666, 40),      // text area
+     Rect(0, 0, 960, 624),         // game area
+     Rect(0, 624, 960, 96),        // statusbar area
+     Rect(18, 640, 170, 60),       // time area
+     Rect(166, 636, 34, 60),       // modes area
+     Rect(153, 640, 30, 60),       // moves area
+     Rect(282, 650, 710, 46),      // inventory area
+     Rect(270, 656, 666, 40),      // text area
      0,                            // statusbar coffsety
-     false,                        // available fullscreen
-     "-3-2-0-"                     // fallback modes fullscreen
+     true,                         // available fullscreen
+     "-3-4-2-0-"                   // fallback modes fullscreen
     },
     {
-     VM_1280x720, 5, 1280, 720,    // id, preffilenr, w, h
+     VM_1152x864, 5, 1152, 864,    // id, preffilenr, w, h
      48, VTS_48,                   // tilesize, tiletype
-     "1280x720", "HD720", "16:10", // name, fsname, fs only
-     Rect(160, 0, 960, 720),       // display area
-     -192, -96,                    // menu background image offsets
+     "1152x864", "XGA+", "4:3",    // name, fsname, fs only
+     Rect(0, 0, 960, 720),         // display area
+     -192, -144,                   // menu background image offsets
      {120, 78, 4, "-120x78"},      // thumbnail size/extension
-     Rect(160, 0, 960, 624),       // game area
-     Rect(160, 624, 960, 96),      // statusbar area
-     Rect(178, 640, 170, 60),      // time area
-     Rect(313, 640, 30, 60),       // modes area
-     Rect(313, 640, 30, 60),       // moves area
-     Rect(400, 650, 710, 46),      // inventory area
-     Rect(388, 654, 710, 40),      // text area
+     Rect(0, 0, 960, 624),         // game area
+     Rect(0, 624, 960, 96),        // statusbar area
+     Rect(18, 640, 170, 60),       // time area
+     Rect(166, 636, 34, 60),       // modes area
+     Rect(153, 640, 30, 60),       // moves area
+     Rect(282, 650, 710, 46),      // inventory area
+     Rect(270, 656, 666, 40),      // text area
      0,                            // statusbar coffsety
-     false,                        // available fullscreen
-     "-5-0-"                       // fallback modes fullscreen
+     true,                         // available fullscreen
+     "-5-4-2-0-"                   // fallback modes fullscreen
     },
     {
      VM_1280x960, 6, 1280, 960,     // id, preffilenr, w, h
      64, VTS_64,                    // tilesize, tiletype
-     "1280x960", "1280x960", "4:3", // name, fsname, fs only
+     "1280x960", "SXGA-", "4:3",    // name, fsname, fs only
      Rect(0, 0, 1280, 960),         // display area
      -400, -90,                     // menu background image offsets
      {160, 104, 5, "-160x104"},     // thumbnail size/extension
      Rect(0, 0, 1280, 832),         // game area
      Rect(0, 832, 1280, 128),       // statusbar area
-     Rect(24, 857, 227, 80),        // time area //TODO
-     Rect(204, 853, 40, 80),        // modes area //TODO
-     Rect(204, 853, 40, 80),        // moves area //TODO
-     Rect(376, 867, 947, 61),       // inventory area //TODO
-     Rect(360, 884, 888, 53),       // text area //TODO
+     Rect(24, 857, 227, 80),        // time area
+     Rect(204, 853, 40, 80),        // modes area
+     Rect(204, 853, 40, 80),        // moves area
+     Rect(376, 867, 947, 61),       // inventory area
+     Rect(360, 884, 888, 53),       // text area
      1,                             // statusbar coffsety
      true,                          // available fullscreen
      "-6-4-2-0-"                    // fallback modes fullscreen
     },
     {
-     VM_1280x1024, 8, 1280, 1024,   // id, preffilenr, w, h
+     VM_1400x1050, 7, 1400, 1050,   // id, preffilenr, w, h
      64, VTS_64,                    // tilesize, tiletype
-     "1280x1024", "SXGA", "5:4",    // name, fsname, fs only
+     "1400x1050", "SXGA+", "4:3",   // name, fsname, fs only
      Rect(0, 0, 1280, 960),         // display area
-     -400, -26,                     // menu background image offsets
-     {160, 104, 5, "-160x104"},     // thumbnail size/extension
-     Rect(0, 0, 1280, 832),         // game area
-     Rect(0, 832, 1280, 128),       // statusbar area
-     Rect(18, 640, 170, 60),        // time area //TODO
-     Rect(153, 640, 30, 60),        // modes area //TODO
-     Rect(153, 640, 30, 60),        // moves area //TODO
-     Rect(324, 650, 710, 46),       // inventory area //TODO
-     Rect(360, 655, 888, 40),       // text area //TODO
-     0,                             // statusbar coffsety
-     false,                         // available fullscreen
-     "-8-0-"                        // fallback modes fullscreen
-    },
-    {
-     VM_1440x960, 7, 1440, 960,     // id, preffilenr, w, h
-     64, VTS_64,                    // tilesize, tiletype
-     "1440x960", "1440x960", "3:2", // name, fsname, fs only
-     Rect(80, 0, 1280, 960),        // display area
-     -400, -90,                     // menu background image offsets
-     {160, 104, 5, "-160x104"},     // thumbnail size/extension
-     Rect(80, 0, 1280, 832),        // game area
-     Rect(80, 832, 1280, 128),      // statusbar area
-     Rect(104, 853, 227, 80),       // time area //TODO
-     Rect(284, 853, 40, 80),        // modes area //TODO
-     Rect(284, 853, 40, 80),        // moves area //TODO
-     Rect(480, 867, 947, 61),       // inventory area //TODO
-     Rect(384, 873, 947, 53),       // text area //TODO
-     0,                             // statusbar coffsety
-     false,                         // available fullscreen
-     "-7-0-"                        // fallback modes fullscreen
-    },
-    {
-     VM_1680x1050, 9, 1680, 1050,   // id, preffilenr, w, h
-     64, VTS_64,                    // tilesize, tiletype
-     "1680x1050", "WSXGA+", "16:10",// name, fsname, fs only
-     Rect(200, 0, 1280, 960),       // display area
-     -0, -0,                        // menu background image offsets
-     {160, 104, 5, "-160x104"},     // thumbnail size/extension
-     Rect(200, 0, 1280, 832),       // game area
-     Rect(200, 832, 1280, 128),     // statusbar area
-     Rect(224, 853, 227, 80),       // time area //TODO
-     Rect(404, 853, 40, 80),        // modes area //TODO
-     Rect(404, 853, 40, 80),        // moves area //TODO
-     Rect(600, 867, 947, 61),       // inventory area //TODO
-     Rect(504, 873, 947, 53),       // text area //TODO
-     0,                             // statusbar coffsety
-     false,                         // available fullscreen
-     "-9-0-"                        // fallback modes fullscreen
-    },
-    {
-     VM_1920x1080, 11, 1920, 1080,  // id, preffilenr, w, h
-     64, VTS_64,                    // tilesize, tiletype
-     "1920x1080", "FHD", "16:9",    // name, fsname, fs only
-     Rect(0, 0, 1920, 1080),        // display area
      -400, -90,                     // menu background image offsets
      {160, 104, 5, "-160x104"},     // thumbnail size/extension
      Rect(0, 0, 1280, 832),         // game area
      Rect(0, 832, 1280, 128),       // statusbar area
-     Rect(24, 857, 227, 80),        // time area //TODO
-     Rect(204, 853, 40, 80),        // modes area //TODO
-     Rect(204, 853, 40, 80),        // moves area //TODO
-     Rect(376, 867, 947, 61),       // inventory area //TODO
-     Rect(360, 884, 888, 53),       // text area //TODO
+     Rect(24, 857, 227, 80),        // time area
+     Rect(204, 853, 40, 80),        // modes area
+     Rect(204, 853, 40, 80),        // moves area
+     Rect(376, 867, 947, 61),       // inventory area
+     Rect(360, 884, 888, 53),       // text area
+     1,                             // statusbar coffsety
+     true,                          // available fullscreen
+     "-7-6-4-2-0-"                  // fallback modes fullscreen
+    },
+    {
+     VM_1440x1080, 8, 1440, 1080,   // id, preffilenr, w, h
+     64, VTS_64,                    // tilesize, tiletype
+     "1440x1080", "HDV", "4:3",     // name, fsname, fs only
+     Rect(0, 0, 1280, 960),         // display area
+     -400, -90,                     // menu background image offsets
+     {160, 104, 5, "-160x104"},     // thumbnail size/extension
+     Rect(0, 0, 1280, 832),         // game area
+     Rect(0, 832, 1280, 128),       // statusbar area
+     Rect(24, 857, 227, 80),        // time area
+     Rect(204, 853, 40, 80),        // modes area
+     Rect(204, 853, 40, 80),        // moves area
+     Rect(376, 867, 947, 61),       // inventory area
+     Rect(360, 884, 888, 53),       // text area
+     1,                             // statusbar coffsety
+     true,                          // available fullscreen
+     "-8-6-4-2-0-"                  // fallback modes fullscreen
+    },
+    {
+     VM_1600x1200, 9, 1600, 1200,   // id, preffilenr, w, h
+     64, VTS_64,                    // tilesize, tiletype
+     "1600x1200", "UXGA", "4:3",    // name, fsname, fs only
+     Rect(0, 0, 1280, 960),         // display area
+     -400, -90,                     // menu background image offsets
+     {160, 104, 5, "-160x104"},     // thumbnail size/extension
+     Rect(0, 0, 1280, 832),         // game area
+     Rect(0, 832, 1280, 128),       // statusbar area
+     Rect(24, 857, 227, 80),        // time area
+     Rect(204, 853, 40, 80),        // modes area
+     Rect(204, 853, 40, 80),        // moves area
+     Rect(376, 867, 947, 61),       // inventory area
+     Rect(360, 884, 888, 53),       // text area
+     1,                             // statusbar coffsety
+     true,                          // available fullscreen
+     "-9-6-4-2-0-"                  // fallback modes fullscreen
+    },
+    {
+     VM_1920x1440, 11, 1920, 1440,  // id, preffilenr, w, h
+     64, VTS_64,                    // tilesize, tiletype
+     "1920x1440", "1920x1440", "4:3", // name, fsname, fs only
+     Rect(0, 0, 1280, 960),         // display area
+     -400, -90,                     // menu background image offsets
+     {160, 104, 5, "-160x104"},     // thumbnail size/extension
+     Rect(0, 0, 1280, 832),         // game area
+     Rect(0, 832, 1280, 128),       // statusbar area
+     Rect(24, 857, 227, 80),        // time area
+     Rect(204, 853, 40, 80),        // modes area
+     Rect(204, 853, 40, 80),        // moves area
+     Rect(376, 867, 947, 61),       // inventory area
+     Rect(360, 884, 888, 53),       // text area
      1,                             // statusbar coffsety
      true,                          // available fullscreen
      "-11-6-4-2-0-"                 // fallback modes fullscreen
     },
     {
-     VM_2560x1440, 12, 2560, 1440,  // id, preffilenr, w, h
+     VM_2048x1536, 12, 2048, 1536,  // id, preffilenr, w, h
      64, VTS_64,                    // tilesize, tiletype
-     "2560x1440", "WQHD", "16:9",   // name, fsname, fs only
-     Rect(0, 0, 2560, 1440),        // display area
+     "2048x1536", "QXGA", "4:3",    // name, fsname, fs only
+     Rect(0, 0, 1280, 960),         // display area
      -400, -90,                     // menu background image offsets
      {160, 104, 5, "-160x104"},     // thumbnail size/extension
      Rect(0, 0, 1280, 832),         // game area
      Rect(0, 832, 1280, 128),       // statusbar area
-     Rect(24, 857, 227, 80),        // time area //TODO
-     Rect(204, 853, 40, 80),        // modes area //TODO
-     Rect(204, 853, 40, 80),        // moves area //TODO
-     Rect(376, 867, 947, 61),       // inventory area //TODO
-     Rect(360, 884, 888, 53),       // text area //TODO
+     Rect(24, 857, 227, 80),        // time area
+     Rect(204, 853, 40, 80),        // modes area
+     Rect(204, 853, 40, 80),        // moves area
+     Rect(376, 867, 947, 61),       // inventory area
+     Rect(360, 884, 888, 53),       // text area
      1,                             // statusbar coffsety
      true,                          // available fullscreen
      "-12-6-4-2-0-"                 // fallback modes fullscreen
     },
     {
-     VM_3840x2160, 13, 3840, 2160,  // id, preffilenr, w, h
+     VM_2560x1920, 13, 2560, 1920,  // id, preffilenr, w, h
      64, VTS_64,                    // tilesize, tiletype
-     "3840x2160", "UHD", "16:9",    // name, fsname, fs only
-     Rect(0, 0, 3840, 2160),        // display area
+     "2560x1920", "2560x1920", "4:3", // name, fsname, fs only
+     Rect(0, 0, 1280, 960),         // display area
      -400, -90,                     // menu background image offsets
      {160, 104, 5, "-160x104"},     // thumbnail size/extension
      Rect(0, 0, 1280, 832),         // game area
      Rect(0, 832, 1280, 128),       // statusbar area
-     Rect(24, 857, 227, 80),        // time area //TODO
-     Rect(204, 853, 40, 80),        // modes area //TODO
-     Rect(204, 853, 40, 80),        // moves area //TODO
-     Rect(376, 867, 947, 61),       // inventory area //TODO
-     Rect(360, 884, 888, 53),       // text area //TODO
+     Rect(24, 857, 227, 80),        // time area
+     Rect(204, 853, 40, 80),        // modes area
+     Rect(204, 853, 40, 80),        // moves area
+     Rect(376, 867, 947, 61),       // inventory area
+     Rect(360, 884, 888, 53),       // text area
      1,                             // statusbar coffsety
      true,                          // available fullscreen
      "-13-6-4-2-0-"                 // fallback modes fullscreen
+    },
+    {
+     VM_2880x2160, 14, 2880, 2160,  // id, preffilenr, w, h
+     64, VTS_64,                    // tilesize, tiletype
+     "2880x2160", "4K UHD", "4:3",  // name, fsname, fs only
+     Rect(0, 0, 1280, 960),         // display area
+     -400, -90,                     // menu background image offsets
+     {160, 104, 5, "-160x104"},     // thumbnail size/extension
+     Rect(0, 0, 1280, 832),         // game area
+     Rect(0, 832, 1280, 128),       // statusbar area
+     Rect(24, 857, 227, 80),        // time area
+     Rect(204, 853, 40, 80),        // modes area
+     Rect(204, 853, 40, 80),        // moves area
+     Rect(376, 867, 947, 61),       // inventory area
+     Rect(360, 884, 888, 53),       // text area
+     1,                             // statusbar coffsety
+     true,                          // available fullscreen
+     "-14-6-4-2-0-"                 // fallback modes fullscreen
+    },
+    {
+     VM_3200x2400, 15, 3200, 2400,  // id, preffilenr, w, h
+     64, VTS_64,                    // tilesize, tiletype
+     "3200x2400", "QUXGA", "4:3",   // name, fsname, fs only
+     Rect(0, 0, 1280, 960),         // display area
+     -400, -90,                     // menu background image offsets
+     {160, 104, 5, "-160x104"},     // thumbnail size/extension
+     Rect(0, 0, 1280, 832),         // game area
+     Rect(0, 832, 1280, 128),       // statusbar area
+     Rect(24, 857, 227, 80),        // time area
+     Rect(204, 853, 40, 80),        // modes area
+     Rect(204, 853, 40, 80),        // moves area
+     Rect(376, 867, 947, 61),       // inventory area
+     Rect(360, 884, 888, 53),       // text area
+     1,                             // statusbar coffsety
+     true,                          // available fullscreen
+     "-15-6-4-2-0-"                 // fallback modes fullscreen
+    },
+    {
+     VM_3840x2880, 16, 3840, 2880,  // id, preffilenr, w, h
+     64, VTS_64,                    // tilesize, tiletype
+     "3840x2880", "4K", "4:3",      // name, fsname, fs only
+     Rect(0, 0, 1280, 960),         // display area
+     -400, -90,                     // menu background image offsets
+     {160, 104, 5, "-160x104"},     // thumbnail size/extension
+     Rect(0, 0, 1280, 832),         // game area
+     Rect(0, 832, 1280, 128),       // statusbar area
+     Rect(24, 857, 227, 80),        // time area
+     Rect(204, 853, 40, 80),        // modes area
+     Rect(204, 853, 40, 80),        // moves area
+     Rect(376, 867, 947, 61),       // inventory area
+     Rect(360, 884, 888, 53),       // text area
+     1,                             // statusbar coffsety
+     true,                          // available fullscreen
+     "-16-6-4-2-0-"                 // fallback modes fullscreen
+    },
+    {
+     VM_4096x3072, 17, 4096, 3072,  // id, preffilenr, w, h
+     64, VTS_64,                    // tilesize, tiletype
+     "4096x3072", "4K DCI", "4:3",  // name, fsname, fs only
+     Rect(0, 0, 1280, 960),         // display area
+     -400, -90,                     // menu background image offsets
+     {160, 104, 5, "-160x104"},     // thumbnail size/extension
+     Rect(0, 0, 1280, 832),         // game area
+     Rect(0, 832, 1280, 128),       // statusbar area
+     Rect(24, 857, 227, 80),        // time area
+     Rect(204, 853, 40, 80),        // modes area
+     Rect(204, 853, 40, 80),        // moves area
+     Rect(376, 867, 947, 61),       // inventory area
+     Rect(360, 884, 888, 53),       // text area
+     1,                             // statusbar coffsety
+     true,                          // available fullscreen
+     "-17-6-4-2-0-"                 // fallback modes fullscreen
     }
 };
 
@@ -503,9 +557,11 @@ void VideoEngineImpl::Init() {
     }
     // Save the de-facto modes (just in "app", not as preference).    
     if (video_engine->IsFullscreen()) {
-        FullscreenMode activeMode = FindFullscreenMode(ActiveDisplayMode());
-        if (activeMode != VM_NONE)
-            app.selectedFullscreenMode = activeMode;
+        if (app.selectedFullscreenMode == VM_NONE) {
+            FullscreenMode activeMode = FindFullscreenMode(ActiveDisplayMode());
+            if (activeMode != VM_NONE)
+                app.selectedFullscreenMode = activeMode;
+        }
         app.selectedFullscreenTilesetId = GetTilesetId();
     } else {
         app.selectedWindowTilesetId = GetTilesetId();
@@ -547,23 +603,10 @@ std::vector<FullscreenMode> VideoEngineImpl::EnumerateFullscreenModes() {
         return fullscreen_modes_cache;
     }
     std::vector<FullscreenMode> result;
-    SDL_DisplayID display = SDL_GetPrimaryDisplay();
-    int num_modes = 0;
-    SDL_DisplayMode** display_modes = SDL_GetFullscreenDisplayModes(display, &num_modes);
-    if (display_modes) {
-        for (int i = 0; i < num_modes; ++i) {
-            WindowSize new_mode = {display_modes[i]->w, display_modes[i]->h};
-            FullscreenMode fmode = FindFullscreenMode(new_mode);
-            if (   (fmode != VM_NONE)
-                && (video_modes[fmode].f_available)
-                && (std::find(result.begin(), result.end(), fmode) == result.end()))
-            {
-                Log << "Found fullscreen mode: " << new_mode.width
-                    << "x" << new_mode.height << "\n";
-                result.push_back(fmode);
-            }
+    for (int i = VM_FIRST; i <= VM_LAST; ++i) {
+        if (video_modes[i].f_available) {
+            result.push_back(video_modes[i].mode);
         }
-        SDL_free(display_modes);
     }
     fullscreen_modes_cache = result;
     return fullscreen_modes_cache;
@@ -680,9 +723,11 @@ bool VideoEngineImpl::ApplySettings() {
     // The display might have been set to different settings. Save these.
     app.prefs->setProperty("FullScreen", IsFullscreen());
     if (IsFullscreen()) {
-        FullscreenMode activeMode = FindFullscreenMode(ActiveDisplayMode());
-        if (activeMode != VM_NONE)
-            app.selectedFullscreenMode = activeMode;
+        if (app.selectedFullscreenMode == VM_NONE) {
+            FullscreenMode activeMode = FindFullscreenMode(ActiveDisplayMode());
+            if (activeMode != VM_NONE)
+                app.selectedFullscreenMode = activeMode;
+        }
     } else {
         SaveWindowSizePreferences();
     }

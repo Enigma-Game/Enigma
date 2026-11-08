@@ -32,22 +32,25 @@ namespace enigma {
 enum FullscreenMode {
     VM_NONE = -1,
     VM_FIRST = 0,
-    VM_320x240 = 0,    ///< 16x16 basic    -  4:3  - CGA
+    VM_320x240 = 0,    ///< 16x16 basic    -  4:3  - CGA / QVGA
     VM_640x480 = 1,    ///< 32x32 basic    -  4:3  - VGA
-    VM_640x512 = 2,    ///< 32x32 embedded -  5:4  - none
-    VM_800x600 = 3,    ///< 40x40 basic    -  4:3  - SVGA
-    VM_960x720 = 4,    ///< 48x48 basic    -  4:3  - none
-    VM_1024x768 = 5,   ///< 48x48 embedded -  4:3  - XGA
-    VM_1280x720 = 6,   ///< 48x48 embedded - 16:9  - HD720
-    VM_1280x960 = 7,   ///< 64x64 basic    -  4:3  - none
-    VM_1280x1024 = 8,  ///< 64x64 embedded -  5:4  - SXGA
-    VM_1440x960 = 9,   ///< 64x64 embedded -  3:2  - none
-    VM_1680x1050 = 10, ///< 64x64 embedded - 16:10 - WSXGA+
-    VM_1920x1080 = 11, ///< 64x64 embedded - 16:9  - FHD
-    VM_2560x1440 = 12, ///< 64x64 embedded - 16:9  - WQHD
-    VM_3840x2160 = 13, ///< 64x64 embedded - 16:9  - UHD
-    VM_LAST = 13,
-    VM_COUNT = 14
+    VM_800x600 = 2,    ///< 40x40 basic    -  4:3  - SVGA
+    VM_960x720 = 3,    ///< 48x48 basic    -  4:3  - 960x720
+    VM_1024x768 = 4,   ///< 48x48 scaled   -  4:3  - XGA
+    VM_1152x864 = 5,   ///< 48x48 scaled   -  4:3  - XGA+
+    VM_1280x960 = 6,   ///< 64x64 basic    -  4:3  - SXGA- / Quad-VGA
+    VM_1400x1050 = 7,  ///< 64x64 scaled   -  4:3  - SXGA+
+    VM_1440x1080 = 8,  ///< 64x64 scaled   -  4:3  - HDV / 1080p
+    VM_1600x1200 = 9,  ///< 64x64 scaled   -  4:3  - UXGA
+    VM_1920x1440 = 10, ///< 64x64 scaled   -  4:3  - 1440p
+    VM_2048x1536 = 11, ///< 64x64 scaled   -  4:3  - QXGA
+    VM_2560x1920 = 12, ///< 64x64 scaled   -  4:3  - 1920p
+    VM_2880x2160 = 13, ///< 64x64 scaled   -  4:3  - 4K UHD
+    VM_3200x2400 = 14, ///< 64x64 scaled   -  4:3  - QUXGA
+    VM_3840x2880 = 15, ///< 64x64 scaled   -  4:3  - 4K UHD
+    VM_4096x3072 = 16, ///< 64x64 scaled   -  4:3  - 4K DCI
+    VM_LAST = 16,
+    VM_COUNT = 17
 };
 
 struct WindowSize {
