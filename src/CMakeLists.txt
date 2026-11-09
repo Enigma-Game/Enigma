@@ -1,7 +1,9 @@
+include(CheckIncludeFile)
+check_include_file(dirent.h HAVE_DIRENT_H)
 configure_file(config.h.cmake.in config.h)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_executable(enigma
+add_executable(enigma WIN32
     actors/Balls.cc
     actors/Balls.hh
     actors/BugActor.cc
@@ -216,6 +218,7 @@ add_executable(enigma
     stones/GreenBrownStone.hh
     stones/IceBlock.cc
     stones/IceBlock.hh
+    stones/InkwellStone.cc
     stones/InkwellStone.hh
     stones/JambStone.cc
     stones/JambStone.hh
@@ -443,10 +446,10 @@ target_include_directories(enigma
 
 target_link_libraries(enigma
     ${Intl_LIBRARIES}
-    SDL2::Core
-    SDL2::Image
-    SDL2::Mixer
-    SDL2::TTF
+    SDL3::SDL3
+    SDL3_image::SDL3_image
+    SDL3_mixer::SDL3_mixer
+    SDL3_ttf::SDL3_ttf
     ZLIB::ZLIB
     XercesC::XercesC
     CURL::libcurl

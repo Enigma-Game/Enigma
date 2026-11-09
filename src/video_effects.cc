@@ -46,6 +46,7 @@ void FX_Fade(FadeMode mode) {
         screen->update_all();
         screen->flush_updates();
 
+        SDL_Delay(10);
         double dt = (SDL_GetTicks() - otime) / 1000.0;
         if ((mode == FADEIN && (a += v * dt) > 255) || (mode == FADEOUT && (a -= v * dt) < 0))
             break;
@@ -82,6 +83,7 @@ void FX_Fly(ecl::Surface *newscr, int originx, int originy) {
         scr->update_rect(r);
         scr->flush_updates();
 
+        SDL_Delay(10);
         double dt = (SDL_GetTicks() - otime) / 1000.0;
         if (dt > rest_time)
             dt = rest_time;

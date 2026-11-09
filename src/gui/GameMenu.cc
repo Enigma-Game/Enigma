@@ -148,21 +148,21 @@ namespace enigma { namespace gui {
 
     bool GameMenu::on_event (const SDL_Event &e) 
     {
-        if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_RIGHT) {
+        if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_RIGHT) {
             Menu::quit();
             return true;
         }
-        if (e.type == SDL_KEYDOWN) {
-            Uint16 keymod = e.key.keysym.mod;
-            SDL_Keycode keysym = e.key.keysym.sym;
+        if (e.type == SDL_EVENT_KEY_DOWN) {
+            Uint16 keymod = e.key.mod;
+            SDL_Keycode keysym = e.key.key;
             switch (keysym) {
             case SDLK_F3: {
                 lev::Index *ind = lev::Index::getCurrentIndex();
-                if (keymod & KMOD_SHIFT & KMOD_CTRL) {
+                if (keymod & SDL_KMOD_SHIFT & SDL_KMOD_CTRL) {
                     lev::Proxy::releaseCache();
                     client::Stop ();
                     server::Msg_LoadLevel(ind->getCurrent(), false);
-                } else if (keymod & KMOD_SHIFT) {
+                } else if (keymod & SDL_KMOD_SHIFT) {
                     client::Stop ();
                     server::Msg_LoadLevel(ind->getCurrent(), false);
                 } else {
@@ -191,7 +191,7 @@ namespace enigma { namespace gui {
             Menu::quit();
         }
         else if (w == restart) {
-            if (w->lastModifierKeys() & KMOD_CTRL && w->lastModifierKeys() & KMOD_SHIFT) {
+            if (w->lastModifierKeys() & SDL_KMOD_CTRL && w->lastModifierKeys() & SDL_KMOD_SHIFT) {
                 // force a reload from file
                 lev::Proxy::releaseCache();
             }

@@ -473,8 +473,8 @@ namespace enigma { namespace gui {
     
     bool LevelPackMenu::on_event (const SDL_Event &e) {
         switch (e.type) {
-            case SDL_KEYDOWN:
-                SDL_Keycode keysym = e.key.keysym.sym;
+            case SDL_EVENT_KEY_DOWN:
+                SDL_Keycode keysym = e.key.key;
                 switch (keysym) {
                 case SDLK_F1:     
                     displayHelp(helptext, 200);
@@ -537,7 +537,7 @@ namespace enigma { namespace gui {
         } else if (w->get_parent() == groupsVList){
             lev::Index::setCurrentGroup(dynamic_cast<TextButton *>(w)->get_text());
             if ((w->lastMouseButton() == SDL_BUTTON_RIGHT ||
-                     w->lastModifierKeys() & KMOD_CTRL) &&
+                     w->lastModifierKeys() & SDL_KMOD_CTRL) &&
                      dynamic_cast<TextButton *>(w)->get_text() != INDEX_ALL_PACKS) {
                 // configure group
                 // INDEX_ALL_PACKS cannot be renamed, deleted, no packs can be created
@@ -554,7 +554,7 @@ namespace enigma { namespace gui {
                    || (w == but_tutorial2)) {
             lev::Index::setCurrentIndex(dynamic_cast<TextButton *>(w)->get_text());
             if (w->lastMouseButton() == SDL_BUTTON_RIGHT ||
-                     w->lastModifierKeys() & KMOD_CTRL) {
+                     w->lastModifierKeys() & SDL_KMOD_CTRL) {
                 // configure levelpack index
                 LevelPackConfig m(dynamic_cast<TextButton *>(w)->get_text());
                 m.manage();

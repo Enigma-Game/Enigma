@@ -140,17 +140,18 @@ Menu::Menu()
     
     void Menu::handle_event(const SDL_Event &e) {
         
-        // Alt && Return for Fullscreen Toggle on Linux only
-        if (e.type == SDL_KEYDOWN &&  e.key.keysym.sym == SDLK_RETURN && 
-                e.key.keysym.mod & KMOD_ALT) {
+        // Alt && Return for Fullscreen Toggle
+        if (e.type == SDL_EVENT_KEY_DOWN && (e.key.key == SDLK_RETURN || e.key.key == SDLK_KP_ENTER) && 
+                (e.key.mod & SDL_KMOD_ALT)) {
             video_engine->ToggleFullscreen();
+            invalidate_all();
             return;
         }
         
         // Boss quit key Shift && ESC or Mac OS X application quit sequence
-        if (e.type == SDL_KEYDOWN && ((e.key.keysym.sym == SDLK_ESCAPE && 
-                (e.key.keysym.mod & KMOD_SHIFT)) || (e.key.keysym.sym == SDLK_q && 
-                        (e.key.keysym.mod & (KMOD_LGUI | KMOD_RGUI))))) {
+        if (e.type == SDL_EVENT_KEY_DOWN && ((e.key.key == SDLK_ESCAPE && 
+                (e.key.mod & SDL_KMOD_SHIFT)) || (e.key.key == SDLK_Q && 
+                        (e.key.mod & (SDL_KMOD_LGUI | SDL_KMOD_RGUI))))) {
             abort();
             app.bossKeyPressed = true;
             return;
@@ -158,10 +159,10 @@ Menu::Menu()
 
         // Cycle through languages in wizard mode on Shift+Page-Up/Down
         if (   enigma::WizardMode
-            && e.type == SDL_KEYDOWN
-            && (e.key.keysym.sym == SDLK_PAGEUP || e.key.keysym.sym == SDLK_PAGEDOWN)
-            && (e.key.keysym.mod & KMOD_SHIFT)) {
-            nls::CycleLocale(e.key.keysym.sym == SDLK_PAGEUP);
+            && e.type == SDL_EVENT_KEY_DOWN
+            && (e.key.key == SDLK_PAGEUP || e.key.key == SDLK_PAGEDOWN)
+            && (e.key.mod & SDL_KMOD_SHIFT)) {
+            nls::CycleLocale(e.key.key == SDLK_PAGEUP);
             invalidate_all();
         }
 
@@ -174,21 +175,21 @@ Menu::Menu()
             return;
         
         // menu subclass with special handling
-        if (on_event(e) && e.type != SDL_MOUSEMOTION)   // track active widgets (LevelWidget)
+        if (on_event(e) && e.type != SDL_EVENT_MOUSE_MOTION)   // track active widgets (LevelWidget)
             return;
     
         switch (e.type) {
-            case SDL_QUIT:
+            case SDL_EVENT_QUIT:
                 abort();
                 app.bossKeyPressed = true;
                 break;
-            case SDL_MOUSEMOTION:
+            case SDL_EVENT_MOUSE_MOTION:
                 track_active_widget( e.motion.x, e.motion.y );
                 break;
-            case SDL_KEYDOWN:
+            case SDL_EVENT_KEY_DOWN:
                 if (!active_widget || !active_widget->on_event(e)) {
                     // if not handled by active_widget
-                    switch (e.key.keysym.sym) {
+                    switch (e.key.key) {
                     case SDLK_ESCAPE:
                         abort();
                         break;
@@ -202,22 +203,19 @@ Menu::Menu()
                     }
                 }
                 break;
-            case SDL_MOUSEBUTTONDOWN:
-            case SDL_MOUSEBUTTONUP:
+            case SDL_EVENT_MOUSE_BUTTON_DOWN:
+            case SDL_EVENT_MOUSE_BUTTON_UP:
                 track_active_widget( e.button.x, e.button.y );
                 if (active_widget) active_widget->on_event(e);
                 break;
-            case SDL_WINDOWEVENT:
-                switch (e.window.event) {
-                case SDL_WINDOWEVENT_EXPOSED:
-                    draw_all();
-                    break;
-                case SDL_WINDOWEVENT_RESIZED:
-                    video_engine->Resize(e.window.data1, e.window.data2);
-                    // Drawing will be done by tick.
-                    draw_all();
-                    break;
-                }
+            case SDL_EVENT_WINDOW_EXPOSED:
+                draw_all();
+                break;
+            case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
+            case SDL_EVENT_WINDOW_RESIZED:
+                video_engine->Resize(e.window.data1, e.window.data2);
+                // Drawing will be done by tick.
+                draw_all();
                 break;
             default:
                 if (active_widget) active_widget->on_event(e);
@@ -235,8 +233,8 @@ Menu::Menu()
     }
     
     void Menu::track_active_widget( int window_x, int window_y ) {
-        int x = (int)((double) (window_x * SCREEN->size().w) / SCREEN->window_size().w + 0.5);
-        int y = (int)((double) (window_y * SCREEN->size().h) / SCREEN->window_size().h + 0.5);
+        int x = 0, y = 0;
+        SCREEN->window_to_screen(window_x, window_y, x, y);
         switch_active_widget(find_widget(x, y));
     }
 

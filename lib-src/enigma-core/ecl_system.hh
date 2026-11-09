@@ -41,9 +41,9 @@ bool FolderCreate(const std::string &fname);
 bool BrowseUrl(const std::string& url);
 bool ExploreFolder(const std::string& path);
 
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
 std::string ApplicationDataPath();
-void ToLowerCase(std::string &filename);
+std::string ToLowerCase(const std::string &filename);
 std::set<std::string> UniqueFilenameSet(const std::set<std::string>& inSet);
 #endif
 

@@ -78,10 +78,10 @@ cp -R --force /usr/local/share/enigma/levels data/
 #   libvorbis-0.dll
 #   libvorbisfile-3.dll
 #   mikmod.dll
-#   SDL.dll
-#   SDL_image.dll
-#   SDL_mixer.dll
-#   SDL_ttf.dll
+#   SDL3.dll
+#   SDL3_image.dll
+#   SDL3_mixer.dll
+#   SDL3_ttf.dll
 #   zlib1.dll
 cd etc
 ./mingw32-dist.sh

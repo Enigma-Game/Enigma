@@ -556,7 +556,7 @@
 				(to avoid never-ending impulse)
 	* src/objects.cc: - warning uses fprintf again (cerr is far too slow)
 	* src/objects.hh: - added is_removable() [tells whether it's allowed to kill or yield a stone]
-	* src/menus.cc: - SDL_Event.motion.?? is only valid if event type is SDL_MOUSEMOTION
+	* src/menus.cc: - SDL_Event.motion.?? is only valid if event type is SDL_EVENT_MOUSE_MOTION
 
 2003-07-17  Ralf Westram  <amgine@reallysoft.de>
 

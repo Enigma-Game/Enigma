@@ -200,9 +200,9 @@ void Client::handle_events() {
     while (SDL_PollEvent(&e)) {
         switch (e.type) {
         // TODO: If we want umlauts and other special characters ingame,
-        //       we need to add SDL_TEXTINPUT and SDL_TEXTEDITING here.
-        case SDL_KEYDOWN: on_keydown(e); break;
-        case SDL_MOUSEMOTION:
+        //       we need to add SDL_EVENT_TEXT_INPUT and SDL_TEXTEDITING here.
+        case SDL_EVENT_KEY_DOWN: on_keydown(e); break;
+        case SDL_EVENT_MOUSE_MOTION:
             if (m_ignore_mouse_movement)
                 break;
             if (abs(e.motion.xrel) > 300 || abs(e.motion.yrel) > 300) {
@@ -211,26 +211,29 @@ void Client::handle_events() {
                 server::Msg_MouseForce(options::GetDouble("MouseSpeed") *
                         ecl::V2(e.motion.xrel, e.motion.yrel));
             break;
-        case SDL_MOUSEBUTTONDOWN:
-        case SDL_MOUSEBUTTONUP: on_mousebutton(e); break;
-        case SDL_MOUSEWHEEL:
+        case SDL_EVENT_MOUSE_BUTTON_DOWN:
+        case SDL_EVENT_MOUSE_BUTTON_UP: on_mousebutton(e); break;
+        case SDL_EVENT_MOUSE_WHEEL:
             if (e.wheel.y < 0) // mousewheel down: rotate inventory
                 rotate_inventory(-1);
             if (e.wheel.y > 0) // mousewheel up: inverse rotate inventory
                 rotate_inventory(+1);
             break;
-        case SDL_WINDOWEVENT: {
+        case SDL_EVENT_WINDOW_FOCUS_LOST:
             update_mouse_button_state();
-            if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                // TODO(SDL2): is this sthe right event? The old code had
-                // !video::IsFullScreen() as an additional check - necessary?
-                show_menu(false);
-            } else if (e.window.event == SDL_WINDOWEVENT_EXPOSED) {
-                display::RedrawAll(video_engine->GetScreen());
-            }
+            show_menu(false);
             break;
-        }
-        case SDL_QUIT:
+        case SDL_EVENT_WINDOW_EXPOSED:
+            update_mouse_button_state();
+            display::RedrawAll(video_engine->GetScreen());
+            break;
+        case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
+        case SDL_EVENT_WINDOW_RESIZED:
+            video_engine->Resize(e.window.data1, e.window.data2);
+            update_mouse_button_state();
+            display::RedrawAll(video_engine->GetScreen());
+            break;
+        case SDL_EVENT_QUIT:
             client::Msg_Command("abort");
             app.bossKeyPressed = true;
             break;
@@ -242,26 +245,23 @@ void Client::handle_events_teatime() {
     SDL_Event e;
     while (SDL_PollEvent(&e)) {
         switch (e.type) {
-        case SDL_KEYDOWN:
-        case SDL_MOUSEBUTTONDOWN: {
+        case SDL_EVENT_KEY_DOWN:
+        case SDL_EVENT_MOUSE_BUTTON_DOWN: {
             client::Msg_Teatime(false);
             server::Msg_Teatime(false);
             display::Redraw(video_engine->GetScreen());
             update_mouse_button_state();
             break;
         }
-        case SDL_WINDOWEVENT: {
+        case SDL_EVENT_WINDOW_FOCUS_LOST:
             update_mouse_button_state();
-            if (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST) {
-                // TODO(SDL2): is this sthe right event? The old code had
-                // !video::IsFullScreen() as an additional check - necessary?
-                show_menu(false);
-            } else if (e.window.event == SDL_WINDOWEVENT_EXPOSED) {
-                display::RedrawAll(video_engine->GetScreen());
-            }
+            show_menu(false);
             break;
-        }
-        case SDL_QUIT:
+        case SDL_EVENT_WINDOW_EXPOSED:
+            update_mouse_button_state();
+            display::RedrawAll(video_engine->GetScreen());
+            break;
+        case SDL_EVENT_QUIT:
             client::Msg_Command("abort");
             app.bossKeyPressed = true;
             break;
@@ -275,7 +275,7 @@ void Client::update_mouse_button_state() {
 }
 
 void Client::on_mousebutton(SDL_Event &e) {
-    if (e.button.state == SDL_PRESSED) {
+    if (e.button.down) {
         if (e.button.button == SDL_BUTTON_LEFT) {
             // left mousebutton -> activate first item in inventory
             server::Msg_ActivateItem();
@@ -310,7 +310,7 @@ void Client::on_mousebutton(SDL_Event &e) {
             }}
         }
     }
-    if (e.type == SDL_MOUSEBUTTONUP) {
+    if (e.type == SDL_EVENT_MOUSE_BUTTON_UP) {
         if (e.button.button == SDL_BUTTON_MIDDLE) {
             if (options::GetInt("MiddleMouseButtonMode") == options::MIDDLEMOUSEBUTTON_IgnoreMovement) {
                 m_ignore_mouse_movement = false;
@@ -445,46 +445,44 @@ void Client::user_input_next() {
 }
 
 void Client::on_keydown(SDL_Event &e) {
-    SDL_Keycode keysym = e.key.keysym.sym;
-    Uint16 keymod = e.key.keysym.mod;
+    SDL_Keycode keysym = e.key.key;
+    Uint16 keymod = e.key.mod;
 
-    if (keymod & KMOD_CTRL) {
+    if (keymod & SDL_KMOD_CTRL) {
         switch (keysym) {
-        case SDLK_a: server::Msg_Command("restart"); break;
+        case SDLK_A: server::Msg_Command("restart"); break;
         case SDLK_F3:
-            if (keymod & KMOD_SHIFT) {
+            if (keymod & SDL_KMOD_SHIFT) {
                 // force a reload from file
                 lev::Proxy::releaseCache();
                 server::Msg_Command("restart");
             }
         default: break;
         };
-    } else if (keymod & KMOD_ALT) {
+    } else if (keymod & SDL_KMOD_ALT) {
         switch (keysym) {
-        case SDLK_x: abort(); break;
-        case SDLK_t:
+        case SDLK_X: abort(); break;
+        case SDLK_T:
             if (enigma::WizardMode) {
                 ecl::Screen *scr = video_engine->GetScreen();
                 ecl::TintRect(scr->get_surface(), display::GetGameArea(), 100, 100, 100, 0);
                 scr->update_all();
             }
             break;
-        case SDLK_s:
+        case SDLK_S:
             if (enigma::WizardMode) {
                 server::Msg_Command("god");
             }
             break;
         case SDLK_RETURN: {
-            // Deactivated due to crashes, at least on Windows.
-            //ScopedInputGrab(false);
-            //video_engine->ToggleFullscreen();
-            //sdl::FlushEvents();
+            video_engine->ToggleFullscreen();
+            display::RedrawAll(video_engine->GetScreen());
         } break;
         default: break;
         };
-    } else if (keymod & (KMOD_LGUI | KMOD_RGUI)) {
+    } else if (keymod & (SDL_KMOD_LGUI | SDL_KMOD_RGUI)) {
         switch (keysym) {
-        case SDLK_q:  // Mac OS X application quit sequence
+        case SDLK_Q:  // Mac OS X application quit sequence
             app.bossKeyPressed = true;
             abort();
             break;
@@ -493,7 +491,7 @@ void Client::on_keydown(SDL_Event &e) {
     } else {
         switch (keysym) {
         case SDLK_ESCAPE:
-            if (keymod & KMOD_SHIFT) {
+            if (keymod & SDL_KMOD_SHIFT) {
                 app.bossKeyPressed = true;
                 abort();
             } else {
@@ -508,7 +506,7 @@ void Client::on_keydown(SDL_Event &e) {
             // display hint
             break;
         case SDLK_F3:
-            if (keymod & KMOD_SHIFT)
+            if (keymod & SDL_KMOD_SHIFT)
                 server::Msg_Command("restart");
             else
                 server::Msg_Command("suicide");
@@ -528,15 +526,15 @@ void Client::on_keydown(SDL_Event &e) {
         case SDLK_DOWN: user_input_next(); break;
         case SDLK_SPACE: user_input_append(' '); break;
         default: {
-            // SDL2's GetKeyName only returns uppercase keys.
-            const char *key = SDL_GetKeyName(e.key.keysym.sym);
+            // SDL's GetKeyName only returns uppercase keys.
+            const char *key = SDL_GetKeyName(e.key.key);
             const bool is_ascii = strlen(key) == 1 && ((key[0] & 0x7f) == key[0]);
-            const bool capslock = keymod & KMOD_CAPS;
+            const bool capslock = keymod & SDL_KMOD_CAPS;
             if (is_ascii) {
                 char ascii = key[0];
                 if (isalnum(ascii) || strchr(" .-!\"$%&/()=?{[]}\\#'+*~_,;.:<>|",
                                              ascii)) { // don't add '^' or change history code
-                    if (keymod & (KMOD_LSHIFT | KMOD_RSHIFT)) {
+                    if (keymod & (SDL_KMOD_LSHIFT | SDL_KMOD_RSHIFT)) {
                         user_input_append(capslock ? std::tolower(ascii) : ascii);
                     } else {
                         user_input_append(capslock ? ascii : std::tolower(ascii));
@@ -765,10 +763,10 @@ void Client::tick(double dtime) {
         SDL_Event e;
         while (SDL_PollEvent(&e)) {
             switch (e.type) {
-            case SDL_QUIT:
+            case SDL_EVENT_QUIT:
                 app.bossKeyPressed = true;
             // fall through
-            case SDL_KEYDOWN: client::Msg_Command("abort"); break;
+            case SDL_EVENT_KEY_DOWN: client::Msg_Command("abort"); break;
             }
         }
     } break;

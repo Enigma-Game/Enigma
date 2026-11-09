@@ -27,7 +27,7 @@
 #include <string>
 #include <cstdio>
 
-#include "SDL_types.h"
+#include <cstdint>
 
 
 using namespace std;

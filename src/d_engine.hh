@@ -24,7 +24,7 @@
 #include "ecl_array2.hh"
 #include "ecl_geom.hh"
 #include "ecl_math.hh"
-#include "SDL.h"
+#include <SDL3/SDL.h>
 
 namespace enigma::display {
 

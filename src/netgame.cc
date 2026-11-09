@@ -27,7 +27,7 @@
 #include "enet/enet.h"
 #include "enet_ver.hh"
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 #include <string>
 
 using namespace enigma;
@@ -111,7 +111,7 @@ void server_loop(Peer *m_peer) {
 
         SDL_Event e;
         while (SDL_PollEvent(&e)) {
-            if (e.type && e.key.keysym.sym == SDLK_ESCAPE)
+            if (e.type && e.key.key == SDLK_ESCAPE)
                 goto done;
         }
 
@@ -175,7 +175,7 @@ void netgame::Start() {
     while (!m_peer) {
         SDL_Event e;
         while (SDL_PollEvent(&e)) {
-            if (e.type && e.key.keysym.sym == SDLK_ESCAPE)
+            if (e.type && e.key.key == SDLK_ESCAPE)
                 return;
         }
 
@@ -284,9 +284,9 @@ void netgame::Join(std::string hostname, int port) {
     while (server_peer->is_connected()) {
         SDL_Event e;
         while (SDL_PollEvent(&e)) {
-            if (e.type && e.key.keysym.sym == SDLK_ESCAPE)
+            if (e.type && e.key.key == SDLK_ESCAPE)
                 goto done;
-            else if (e.type == SDL_MOUSEMOTION) {
+            else if (e.type == SDL_EVENT_MOUSE_MOTION) {
                 ecl::Buffer buf;
                 float mouseforce = options::GetDouble("MouseSpeed");
                 buf << Uint8(server::SVMSG_MOUSEFORCE) << float(e.motion.xrel * mouseforce)

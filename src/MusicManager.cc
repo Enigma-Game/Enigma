@@ -25,8 +25,8 @@
 #include "lev/RatingManager.hh"
 #include "lev/Index.hh"
 
-#include "SDL.h"
-#include "SDL_mixer.h"
+#include <SDL3/SDL.h>
+#include <SDL3_mixer/SDL_mixer.h>
 
 #include <string>
 #include <cassert>

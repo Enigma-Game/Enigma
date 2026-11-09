@@ -4,7 +4,7 @@
 export CC="i686-w64-mingw32.static-gcc"
 export CXX="i686-w64-mingw32.static-g++"
 export CXXFLAGS="-g0 -DCURL_STATICLIB"
-export SDL_CFLAGS="-D_REENTRANT -I/opt/mxe/usr/i686-w64-mingw32.static/include/SDL2"
+export SDL_CFLAGS="-D_REENTRANT -I/opt/mxe/usr/i686-w64-mingw32.static/include/SDL3"
 export RANLIB=i686-w64-mingw32.static-ranlib
 export AR=i686-w64-mingw32.static-ar
 export WINDRES=i686-w64-mingw32.static-windres

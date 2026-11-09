@@ -22,8 +22,7 @@
 #include "ecl_sdl.hh"
 #include "ecl_util.hh"
 
-#include "SDL_image.h"
-#include "SDL_syswm.h"
+#include <SDL3_image/SDL_image.h>
 #include "SDL_gfxPrimitives.h"
 
 #include <cassert>
@@ -212,13 +211,13 @@ namespace {
         void set_pixel(const GS &gs, int x, int y) override {
             if (NOCLIP(gs) || clip_pixel(gs, x, y)) {
                 Uint8 *p = static_cast<Uint8 *>(pixel_pointer(x, y));
-                SDL_GetRGB(gs.pcolor, m_surface->format, p, p + 1, p + 2);
+                SDL_GetRGB(gs.pcolor, SDL_GetPixelFormatDetails(m_surface->format), nullptr, p, p + 1, p + 2);
             }
         }
 
         Uint32 get_pixel(int x, int y) override {
             Uint8 *p = static_cast<Uint8 *>(pixel_pointer(x, y));
-            return SDL_MapRGB(m_surface->format, p[0], p[1], p[2]);
+            return SDL_MapRGB(SDL_GetPixelFormatDetails(m_surface->format), nullptr, p[0], p[1], p[2]);
         }
     };
 
@@ -228,23 +227,14 @@ namespace {
 
 Surface::Surface(SDL_Surface *surface, bool _has_alpha) {
     static std::string lastErrorMessage;
-    // If you change the pixel format, remember to replace Surface32
-    // for another SurfaceXY in Surface::make_surface.
     hasAlpha = _has_alpha;
-    if (hasAlpha) {
-        pixel_format = SDL_AllocFormat(SDL_PIXELFORMAT_ARGB8888);
-    } else {
-        pixel_format = SDL_AllocFormat(SDL_PIXELFORMAT_RGB888);
-    }
+    pixel_format = hasAlpha ? SDL_PIXELFORMAT_ARGB8888 : SDL_PIXELFORMAT_XRGB8888;
     if (!surface)
         throw XGeneric("Error: Tried to convert null surface.");
-    m_surface = SDL_ConvertSurface(surface, pixel_format, 0);
-    SDL_FreeSurface(surface);
+    m_surface = SDL_ConvertSurface(surface, pixel_format);
+    SDL_DestroySurface(surface);
     if (!m_surface) {
         if (lastErrorMessage.empty()) {
-            // Try to throw an error via SDL, i.e. graphical output.
-            // However, it might come back! To prevent us from entering
-            // an infinite loop, throw an XSDLError only once.
             lastErrorMessage = std::string("SDL_ConvertSurface failed: ") + SDL_GetError();
             throw XSDLError(lastErrorMessage);
         } else {
@@ -255,8 +245,7 @@ Surface::Surface(SDL_Surface *surface, bool _has_alpha) {
 
 
 Surface::~Surface() {
-    SDL_FreeSurface(m_surface);
-    SDL_FreeFormat(pixel_format);
+    SDL_DestroySurface(m_surface);
 }
 
 void Surface::lock() {
@@ -270,11 +259,11 @@ void Surface::unlock() {
 }
 
 PackedColor Surface::map_color(int r, int g, int b) {
-    return SDL_MapRGB(m_surface->format, r, g, b);
+    return SDL_MapRGB(SDL_GetPixelFormatDetails(m_surface->format), nullptr, r, g, b);
 }
 
 PackedColor Surface::map_color(int r, int g, int b, int a) {
-    return SDL_MapRGBA(m_surface->format, r, g, b, a);
+    return SDL_MapRGBA(SDL_GetPixelFormatDetails(m_surface->format), nullptr, r, g, b, a);
 }
 
 void Surface::box(const GS &gs, int x, int y, int w, int h) {
@@ -282,24 +271,24 @@ void Surface::box(const GS &gs, int x, int y, int w, int h) {
     if (NOCLIP(gs) || clip_rect(gs, r)) {
         SDL_Rect dr;
         sdl::copy_rect(dr, r);
-        SDL_FillRect(m_surface, &dr, gs.pcolor);
+        SDL_FillSurfaceRect(m_surface, &dr, gs.pcolor);
     }
 }
 
 void Surface::line(const GS &gs, int x1, int y1, int x2, int y2) {
     SDL_Rect s;
     sdl::copy_rect(s, gs.clipRect);
-    SDL_SetClipRect(m_surface, &s);
+    SDL_SetSurfaceClipRect(m_surface, &s);
 
     Uint8 r, g, b, a;
-    SDL_GetRGBA(gs.pcolor, m_surface->format, &r, &g, &b, &a);
+    SDL_GetRGBA(gs.pcolor, SDL_GetPixelFormatDetails(m_surface->format), nullptr, &r, &g, &b, &a);
 
     if (has_flags(gs.flags, GS_ANTIALIAS))
         aalineRGBA(m_surface, x1, y1, x2, y2, r, g, b, a);
     else
         lineRGBA(m_surface, x1, y1, x2, y2, r, g, b, a);
 
-    SDL_SetClipRect(m_surface, nullptr);
+    SDL_SetSurfaceClipRect(m_surface, nullptr);
 }
 
 void Surface::blit(const GS &gs, int x, int y, const Surface *s, const Rect &r_) {
@@ -322,8 +311,8 @@ void Surface::blit(const GS &gs, int x, int y, const Surface *surface) {
 
 void Surface::set_color_key(int r, int g, int b) {
     Uint32 color = map_color(r, g, b);
-    SDL_SetColorKey(get_surface(), SDL_TRUE, color);
-    SDL_SetSurfaceRLE(get_surface(), SDL_TRUE);
+    SDL_SetSurfaceColorKey(get_surface(), true, color);
+    SDL_SetSurfaceRLE(get_surface(), true);
 }
 
 void Surface::set_alpha(int a) {
@@ -369,19 +358,51 @@ Screen *Screen::get_instance() {
 
 Screen::Screen(SDL_Window *window, int surface_w, int surface_h)
     : m_window(window),
-      updateAll(false) {
+      m_renderer(nullptr),
+      m_texture(nullptr),
+      updateAll(true),
+      last_window_w(0),
+      last_window_h(0),
+      last_present_ticks(0),
+      m_brightness(1.0f) {
     m_surface = Surface::make_surface(
-            SDL_CreateRGBSurface(0, surface_w, surface_h, 32, 0xff0000, 0xff00, 0xff, 0xff000000),
+            SDL_CreateSurface(surface_w, surface_h, SDL_PIXELFORMAT_ARGB8888),
             NO_ALPHA);
     m_sdlsurface = m_surface->get_surface();
     assert(m_window);
     assert(m_surface);
     assert(m_instance == nullptr);
     m_instance = this;
-    m_scaler = std::make_unique<Scaler>(m_surface->get_surface(), nullptr, SDL_GetWindowSurface(m_window));
+
+    m_renderer = SDL_CreateRenderer(m_window, nullptr);
+    if (m_renderer) {
+        SDL_SetRenderVSync(m_renderer, 0);
+        m_texture = SDL_CreateTexture(m_renderer, m_sdlsurface->format,
+                                      SDL_TEXTUREACCESS_STREAMING, surface_w, surface_h);
+        if (m_texture) {
+            SDL_SetTextureScaleMode(m_texture, SDL_SCALEMODE_LINEAR);
+        } else {
+            fprintf(stderr, "ecl::Screen: SDL_CreateTexture failed: %s\n", SDL_GetError());
+        }
+    } else {
+        fprintf(stderr, "ecl::Screen: SDL_CreateRenderer failed: %s\n", SDL_GetError());
+    }
+
+    int ww = 0, wh = 0;
+    SDL_GetWindowSizeInPixels(m_window, &ww, &wh);
+    last_window_w = ww;
+    last_window_h = wh;
 }
 
 Screen::~Screen() {
+    if (m_texture) {
+        SDL_DestroyTexture(m_texture);
+        m_texture = nullptr;
+    }
+    if (m_renderer) {
+        SDL_DestroyRenderer(m_renderer);
+        m_renderer = nullptr;
+    }
     m_instance = nullptr;
 }
 
@@ -397,38 +418,139 @@ void Screen::update_rect(const Rect &r) {
 }
 
 void Screen::flush_updates() {
-    if (updateAll) {
-        m_scaler->blit_scaled(m_sdlsurface, nullptr, SDL_GetWindowSurface(m_window), nullptr);
-        SDL_UpdateWindowSurface(m_window);
-        updateAll = false;
-    } else if (!dirtyRects.empty()) {
-        dirtyRects.intersect(size());
-        std::vector<SDL_Rect> rects(dirtyRects.size());
-        auto j = dirtyRects.begin();
-        SDL_Surface* window = SDL_GetWindowSurface(m_window);
-        for (unsigned i = 0; i < rects.size(); ++i, ++j)
-        {
-            SDL_Rect srcRect;
-            sdl::copy_rect(srcRect, *j);
-            int nx = (int)((double) (j->x * window_size().w) / size().w - 0.5);
-            int ny = (int)((double) (j->y * window_size().h) / size().h - 0.5);
-            int nw = (int)((double) (j->w * window_size().w) / size().w + 3.0);
-            int nh = (int)((double) (j->h * window_size().h) / size().h + 3.0);
-            nx = Clamp(nx, 0, window->w);
-            ny = Clamp(ny, 0, window->h);
-            nw = Clamp(nw, 0, window->w - nx);
-            nh = Clamp(nh, 0, window->h - ny);
-            Rect scaledRect = Rect(nx, ny, nw, nh);
-            sdl::copy_rect(rects[i], scaledRect);
-            m_scaler->blit_scaled(m_sdlsurface, &srcRect, window, &rects[i]);
-        }
-        SDL_UpdateWindowSurfaceRects(m_window, &rects[0], rects.size());
+    if (!m_renderer || !m_texture || !m_sdlsurface)
+        return;
+
+    int sw = width();
+    int sh = height();
+    if (sw <= 0 || sh <= 0)
+        return;
+
+    int ww = 0, wh = 0;
+    SDL_GetWindowSizeInPixels(m_window, &ww, &wh);
+    if (ww <= 0 || wh <= 0)
+        return;
+
+    if (ww != last_window_w || wh != last_window_h) {
+        last_window_w = ww;
+        last_window_h = wh;
+        updateAll = true;
     }
-    dirtyRects.clear();
+
+    bool has_new_content = updateAll || !dirtyRects.empty();
+    if (has_new_content) {
+        void *pixels = nullptr;
+        int pitch = 0;
+        if (SDL_LockTexture(m_texture, nullptr, &pixels, &pitch)) {
+            if (pitch == m_sdlsurface->pitch) {
+                memcpy(pixels, m_sdlsurface->pixels, (size_t)sh * m_sdlsurface->pitch);
+            } else {
+                int rowBytes = std::min(pitch, m_sdlsurface->pitch);
+                const Uint8 *src = (const Uint8 *)m_sdlsurface->pixels;
+                Uint8 *dst = (Uint8 *)pixels;
+                for (int y = 0; y < sh; ++y) {
+                    memcpy(dst, src, rowBytes);
+                    src += m_sdlsurface->pitch;
+                    dst += pitch;
+                }
+            }
+            SDL_UnlockTexture(m_texture);
+        }
+        dirtyRects.clear();
+        updateAll = false;
+    }
+
+    Uint64 now = SDL_GetTicks();
+    if (!has_new_content && (now - last_present_ticks < 10)) {
+        return;
+    }
+    last_present_ticks = now;
+
+    SDL_Rect vp = get_viewport();
+    if (vp.w > 0 && vp.h > 0) {
+        SDL_SetRenderColorScale(m_renderer, 1.0f);
+        SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+        SDL_RenderClear(m_renderer);
+        SDL_FRect fvp = { (float)vp.x, (float)vp.y, (float)vp.w, (float)vp.h };
+        bool scaled = SDL_SetRenderColorScale(m_renderer, m_brightness);
+        if (!scaled) {
+            float clamped = std::min(m_brightness, 1.0f);
+            Uint8 c = (Uint8)(clamped * 255.0f + 0.5f);
+            SDL_SetTextureColorMod(m_texture, c, c, c);
+        } else {
+            SDL_SetTextureColorMod(m_texture, 255, 255, 255);
+        }
+        SDL_RenderTexture(m_renderer, m_texture, nullptr, &fvp);
+        if (scaled) {
+            SDL_SetRenderColorScale(m_renderer, 1.0f);
+        }
+        SDL_RenderPresent(m_renderer);
+    }
+}
+
+void Screen::set_brightness_scale(float b) {
+    if (b < 0.0f) b = 0.0f;
+    m_brightness = b;
+    updateAll = true;
+    flush_updates();
 }
 
 void Screen::reinitScaler() {
-    m_scaler->precalculate(m_surface->get_surface(), nullptr, SDL_GetWindowSurface(m_window));
+    updateAll = true;
+}
+
+SDL_Rect Screen::get_viewport() const {
+    int ww = 0, wh = 0;
+    SDL_GetWindowSizeInPixels(m_window, &ww, &wh);
+    int sw = width();
+    int sh = height();
+    if (ww <= 0 || wh <= 0 || sw <= 0 || sh <= 0)
+        return SDL_Rect{0, 0, 0, 0};
+
+    SDL_Rect vp;
+    int64_t cross_w = (int64_t)ww * sh;
+    int64_t cross_h = (int64_t)wh * sw;
+
+    if (cross_w > cross_h) {
+        // Window is wider than source: pillarbox (black bars on left/right)
+        vp.h = wh;
+        vp.w = (int)((double)wh * sw / sh + 0.5);
+        vp.x = (ww - vp.w) / 2;
+        vp.y = 0;
+    } else if (cross_w < cross_h) {
+        // Window is taller than source: letterbox (black bars on top/bottom)
+        vp.w = ww;
+        vp.h = (int)((double)ww * sh / sw + 0.5);
+        vp.x = 0;
+        vp.y = (wh - vp.h) / 2;
+    } else {
+        vp.x = 0;
+        vp.y = 0;
+        vp.w = ww;
+        vp.h = wh;
+    }
+    return vp;
+}
+
+void Screen::window_to_screen(float wx, float wy, int &sx, int &sy) const {
+    SDL_Rect vp = get_viewport();
+    int sw = width();
+    int sh = height();
+    if (vp.w <= 0 || vp.h <= 0 || sw <= 0 || sh <= 0) {
+        sx = 0;
+        sy = 0;
+        return;
+    }
+    float rel_x = wx - (float)vp.x;
+    float rel_y = wy - (float)vp.y;
+    sx = (int)((double)(rel_x * sw) / (double)vp.w + 0.5);
+    sy = (int)((double)(rel_y * sh) / (double)vp.h + 0.5);
+    sx = Clamp(sx, 0, sw - 1);
+    sy = Clamp(sy, 0, sh - 1);
+}
+
+void Screen::window_to_screen(int wx, int wy, int &sx, int &sy) const {
+    window_to_screen((float)wx, (float)wy, sx, sy);
 }
 
 Rect Screen::size() const {
@@ -436,11 +558,11 @@ Rect Screen::size() const {
 }
 
 int Screen::width() const {
-    return m_sdlsurface->w;
+    return m_sdlsurface ? m_sdlsurface->w : 0;
 }
 
 int Screen::height() const {
-    return m_sdlsurface->h;
+    return m_sdlsurface ? m_sdlsurface->h : 0;
 }
 
 Rect Screen::window_size() const {
@@ -448,40 +570,84 @@ Rect Screen::window_size() const {
 }
 
 int Screen::window_width() const {
-    return SDL_GetWindowSurface(m_window)->w;
+    int w = 0, h = 0;
+    SDL_GetWindowSizeInPixels(m_window, &w, &h);
+    return w;
 }
 
 int Screen::window_height() const {
-    return SDL_GetWindowSurface(m_window)->h;
+    int w = 0, h = 0;
+    SDL_GetWindowSizeInPixels(m_window, &w, &h);
+    return h;
 }
 
 /* -------------------- Scaler -------------------- */
 
 // Code originally by Andreas Schiffler (SDL2_rotozoom), heavily adapted to our use case.
 
-Scaler::Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, ScalerMode _mode) {
-    assert(_src);
-    assert(_dst);
+Scaler::Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, ScalerMode _mode)
+    : Scaler(_src, _srccrop, _dst, nullptr, _mode) {}
+
+Scaler::Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, const SDL_Rect* _dstcrop, ScalerMode _mode) {
     mode = _mode;
     sax = nullptr;
     say = nullptr;
-    precalculate(_src, _srccrop, _dst);
+    dst_w = dst_h = src_w = src_h = 0;
+    spixelgap = spixelw = spixelh = dgap = 0;
+    m_dstcrop = SDL_Rect{0, 0, 0, 0};
+    has_dstcrop = false;
+    if (_src && _dst) {
+        precalculate(_src, _srccrop, _dst, _dstcrop, _mode);
+    }
 }
 
 Scaler::~Scaler() {
     free(sax);
     free(say);
+    sax = nullptr;
+    say = nullptr;
 }
 
-void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst) {
+void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst, ScalerMode _mode) {
+    precalculate(src, srccrop, dst, nullptr, _mode);
+}
+
+void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst, const SDL_Rect* dstcrop, ScalerMode _mode) {
+    mode = _mode;
     // Free prior allocations.
     free(sax);
     free(say);
     sax = nullptr;
     say = nullptr;
+    dst_w = dst_h = src_w = src_h = 0;
+    has_dstcrop = false;
+
+    if (!src || !dst)
+        return;
+    if (dst->w <= 1 || dst->h <= 1 || src->w <= 1 || src->h <= 1)
+        return;
+
+    dst_w = dst->w;
+    dst_h = dst->h;
+    src_w = src->w;
+    src_h = src->h;
+
+    int vx = 0, vy = 0, vw = dst->w, vh = dst->h;
+    if (dstcrop) {
+        vx = Clamp(dstcrop->x, 0, dst->w);
+        vy = Clamp(dstcrop->y, 0, dst->h);
+        vw = Clamp(dstcrop->w, 1, dst->w - vx);
+        vh = Clamp(dstcrop->h, 1, dst->h - vy);
+        m_dstcrop = SDL_Rect{vx, vy, vw, vh};
+        has_dstcrop = true;
+    }
+
+    if (vw <= 1 || vh <= 1)
+        return;
 
     // Change mode if src/dst are not 32bit depth.
-    if ((src->format->BytesPerPixel != 4) || (dst->format->BytesPerPixel != 4)) {
+    if ((SDL_GetPixelFormatDetails(src->format)->bytes_per_pixel != 4) ||
+        (SDL_GetPixelFormatDetails(dst->format)->bytes_per_pixel != 4)) {
         mode = SC_SDL;
         return;
     }
@@ -514,48 +680,66 @@ void Scaler::precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst)
         croph = src->h;
     }
 
+    if (cropw <= 1 || croph <= 1)
+        return;
+
     // Precalculate row increments
     spixelw = (cropw - 1);
     spixelh = (croph - 1);
-    spixelgap = src->pitch/4;
+    spixelgap = src->pitch / 4;
     dgap = dst->pitch - dst->w * 4;
-    int sx = (int)(65536.0 * (float)spixelw / (float)(dst->w - 1));
-    int sy = (int)(65536.0 * (float)spixelh / (float)(dst->h - 1));
+    int sx = (int)(65536.0 * (float)spixelw / (float)(vw - 1));
+    int sy = (int)(65536.0 * (float)spixelh / (float)(vh - 1));
 
     // Maximum scaled source size
     int ssx = (cropw << 16) - 1;
     int ssy = (croph << 16) - 1;
 
     // Precalculate horizontal row increments
+    for (int x = 0; x < vx; x++) {
+        sax[x] = cropx;
+    }
     int csx = cropx;
-    int* csax = sax;
-    for (int x = 0; x <= dst->w; x++) {
-        *csax = csx;
-        csax++;
+    for (int x = vx; x <= vx + vw && x <= dst->w; x++) {
+        sax[x] = (csx > ssx) ? ssx : csx;
         csx += sx;
-        // Guard from overflows
-        if (csx > ssx)
-            csx = ssx;
+    }
+    for (int x = vx + vw + 1; x <= dst->w; x++) {
+        sax[x] = ssx;
     }
 
     // Precalculate vertical row increments
-    int csy = cropy * spixelgap;
-    int* csay = say;
-    for (int y = 0; y <= dst->h; y++) {
-        *csay = csy;
-        csay++;
+    for (int y = 0; y < vy; y++) {
+        say[y] = cropy;
+    }
+    int csy = cropy;
+    for (int y = vy; y <= vy + vh && y <= dst->h; y++) {
+        say[y] = (csy > ssy) ? ssy : csy;
         csy += sy;
-        // Guard from overflows
-        if (csy > ssy)
-            csy = ssy;
+    }
+    for (int y = vy + vh + 1; y <= dst->h; y++) {
+        say[y] = ssy;
     }
 }
 
 void Scaler::blit_scaled(
         SDL_Surface* src, const SDL_Rect* srcRect, SDL_Surface* dst, SDL_Rect* dstRect) {
-    if (mode == SC_SDL) {
-        SDL_BlitScaled(src, srcRect, dst, dstRect);
+    if (!src || !dst)
         return;
+
+    if (mode == SC_SDL) {
+        SDL_BlitSurfaceScaled(src, srcRect, dst, dstRect, SDL_SCALEMODE_NEAREST);
+        return;
+    }
+
+    if (sax == nullptr || say == nullptr || dst->w != dst_w || dst->h != dst_h || src->w != src_w || src->h != src_h) {
+        precalculate(src, nullptr, dst, has_dstcrop ? &m_dstcrop : nullptr, mode);
+        if (mode == SC_SDL) {
+            SDL_BlitSurfaceScaled(src, srcRect, dst, dstRect, SDL_SCALEMODE_NEAREST);
+            return;
+        }
+        if (sax == nullptr || say == nullptr)
+            return;
     }
 
     // Note: srcrect is ignored in SC_bytewise mode.
@@ -571,16 +755,16 @@ void Scaler::blit_scaled(
     int* salast;
     int sstep;
 
-    if ((sax == nullptr) || (say == nullptr)) {
-        fprintf(stderr, "ecl_video::BlitScaled: Precalculations missing. (Error allocating memory?)\n");
-        return;
-    }
-
     if (dstRect) {
         dstrx = Clamp(dstRect->x, 0, dst->w);
         dstry = Clamp(dstRect->y, 0, dst->h);
         dstrw = Clamp(dstRect->w, 0, dst->w - dstrx);
         dstrh = Clamp(dstRect->h, 0, dst->h - dstry);
+    } else if (has_dstcrop) {
+        dstrx = Clamp(m_dstcrop.x, 0, dst->w);
+        dstry = Clamp(m_dstcrop.y, 0, dst->h);
+        dstrw = Clamp(m_dstcrop.w, 0, dst->w - dstrx);
+        dstrh = Clamp(m_dstcrop.h, 0, dst->h - dstry);
     } else {
         dstrx = 0;
         dstry = 0;
@@ -588,8 +772,13 @@ void Scaler::blit_scaled(
         dstrh = dst->h;
     }
 
+    if (dstrw <= 0 || dstrh <= 0)
+        return;
+
     tColorRGBA* sp = (tColorRGBA*)src->pixels;
     tColorRGBA* dp = (tColorRGBA*)dst->pixels;
+    if (!sp || !dp)
+        return;
 
     // Advance source pointer y to the beginning of the first line to copy
     int* csay = say + dstry;
@@ -645,10 +834,6 @@ void Scaler::blit_scaled(
             // Advance destination pointer x
             dp++;
         }
-        // Advance source pointer x
-        salast = csax;
-        csax += dst->w + dstrw - dstrx;
-        sp += (*csax >> 16) - (*salast >> 16);
         // Advance source pointer y
         salast = csay;
         csay++;
@@ -667,7 +852,7 @@ void Scaler::blit_scaled(
 std::unique_ptr<Surface> Duplicate(const Surface *s) {
     assert(s);
     SDL_Surface *sdls = s->get_surface();
-    SDL_Surface *copy = SDL_ConvertSurface(sdls, sdls->format, sdls->flags);
+    SDL_Surface *copy = SDL_DuplicateSurface(sdls);
     return std::unique_ptr<Surface>(Surface::make_surface(copy));
 }
 
@@ -687,13 +872,8 @@ void TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
     }
 }
 
-static SDL_Surface* CropSurface(
-        SDL_Surface* surface, SDL_Rect rect, const SDL_PixelFormat* format, Uint32 flags) {
-    assert(format->palette == nullptr);
-
-    SDL_Surface *cropped =
-        SDL_CreateRGBSurface(flags, rect.w, rect.h, format->BitsPerPixel, format->Rmask,
-                             format->Gmask, format->Bmask, format->Amask);
+static SDL_Surface* CropSurface(SDL_Surface* surface, SDL_Rect rect) {
+    SDL_Surface *cropped = SDL_CreateSurface(rect.w, rect.h, surface->format);
     if (cropped == nullptr)
         return nullptr;
 
@@ -702,7 +882,7 @@ static SDL_Surface* CropSurface(
     bounds.y = 0;
     bounds.w = rect.w;
     bounds.h = rect.h;
-    SDL_LowerBlit(surface, &rect, cropped, &bounds);
+    SDL_BlitSurface(surface, &rect, cropped, &bounds);
 
     return cropped;
 }
@@ -718,7 +898,7 @@ std::unique_ptr<Surface> Grab(const Surface *s, Rect &r) {
     SDL_Rect rect;
     sdl::copy_rect(rect, r);
     SDL_Surface *sdls = s->get_surface();
-    SDL_Surface *copy = CropSurface(sdls, rect, sdls->format, sdls->flags);
+    SDL_Surface *copy = CropSurface(sdls, rect);
     return Surface::make_surface(copy);
 }
 
@@ -729,13 +909,13 @@ std::unique_ptr<Surface> LoadImage(const char *filename) {
     return Surface::make_surface(IMG_Load(filename));
 }
 
-std::unique_ptr<Surface> LoadImage(SDL_RWops *src, int freesrc) {
-    return Surface::make_surface(IMG_Load_RW(src, freesrc));
+std::unique_ptr<Surface> LoadImage(SDL_IOStream *src, bool freesrc) {
+    return Surface::make_surface(IMG_Load_IO(src, freesrc));
 }
 
 std::unique_ptr<Surface> MakeSurface(int w, int h) {
     SDL_Surface *surface =
-        SDL_CreateRGBSurface(0, w, h, 32, 0xff0000, 0xff00, 0xff, 0xff000000);
+        SDL_CreateSurface(w, h, SDL_PIXELFORMAT_ARGB8888);
     if (surface == nullptr)
         return nullptr;
     return Surface::make_surface(surface);
@@ -743,16 +923,16 @@ std::unique_ptr<Surface> MakeSurface(int w, int h) {
 
 std::unique_ptr<Surface> MakeSurface(void *data, int w, int h, int bipp, int pitch,
                                           const RGBA_Mask &mask) {
+    SDL_PixelFormat format = SDL_GetPixelFormatForMasks(bipp, mask.r, mask.g, mask.b, mask.a);
     SDL_Surface *surface =
-        SDL_CreateRGBSurfaceFrom(data, w, h, bipp, pitch, mask.r, mask.g, mask.b, mask.a);
+        SDL_CreateSurfaceFrom(w, h, format, data, pitch);
     if (surface == nullptr)
         return nullptr;
     return Surface::make_surface(surface);
 }
 
 void BlitScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect, ScalerMode mode) {
-    Scaler scaler{src, srcrect, dst, mode};
-    scaler.blit_scaled(src, srcrect, dst, dstrect);
+    SDL_BlitSurfaceScaled(src, srcrect, dst, dstrect, (mode == SC_SDL) ? SDL_SCALEMODE_NEAREST : SDL_SCALEMODE_LINEAR);
 }
 
 } // namespace ecl

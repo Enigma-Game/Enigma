@@ -22,7 +22,7 @@
 #define ECL_SDL_HH
 
 #include "ecl_geom.hh"
-#include "SDL.h"
+#include <SDL3/SDL.h>
 
 namespace sdl {
 

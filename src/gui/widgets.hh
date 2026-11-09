@@ -21,7 +21,7 @@
 
 #include "ecl_font.hh"
 #include "ecl_geom.hh"
-#include "SDL.h"
+#include <SDL3/SDL.h>
 
 namespace enigma { namespace gui {
 

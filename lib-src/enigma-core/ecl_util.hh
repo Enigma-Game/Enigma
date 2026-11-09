@@ -21,14 +21,14 @@
 
 #include <string>
 #include <algorithm>
+#include <iterator>
 #include <cstdint>
 
 /* hide GNU extensions for non-gnu compilers: */
-#ifndef __GNU__
-#ifndef __attribute__
-// #  define __attribute__(x)
-// # error wuah
-#endif
+#if !defined(__GNUC__) && !defined(__clang__)
+#  ifndef __attribute__
+#    define __attribute__(x)
+#  endif
 #endif
 
 namespace ecl {

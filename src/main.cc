@@ -60,9 +60,9 @@
 #include <xercesc/framework/XMLRecognizer.hpp>
 #include <xercesc/util/XMLUniDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
-#include "SDL_main.h"
-#include <SDL_image.h>
-#include <SDL_ttf.h>
+#include <SDL3/SDL_main.h>
+#include <SDL3_image/SDL_image.h>
+#include <SDL3_ttf/SDL_ttf.h>
 
 #ifdef MACOSX
 // for search paths
@@ -385,31 +385,30 @@ void Application::init(int argc, char **argv)
 //    SDL_putenv("SDL_VIDEODRIVER=directx");  //needed for SDL 1.2.12 that crashes on SetGamma on default GDI driver
 #endif
     int sdl_flags = SDL_INIT_VIDEO;
-    if (enigma::WizardMode)
-        sdl_flags |= SDL_INIT_NOPARACHUTE;
-    if (SDL_Init(sdl_flags) < 0) {
+    if (!SDL_Init(sdl_flags)) {
         fprintf(stderr, "Couldn't initialize SDL: %s\n", SDL_GetError());
         exit(1);
     }
     std::atexit(SDL_Quit);
 
-    SDL_version sdl_version;
-    SDL_GetVersion(&sdl_version);
-    Log << ecl::strf("SDL Version: %u.%u.%u\n", sdl_version.major, sdl_version.minor,
-                     sdl_version.patch);
+    int sdl_version = SDL_GetVersion();
+    Log << ecl::strf("SDL Version: %u.%u.%u\n", SDL_VERSIONNUM_MAJOR(sdl_version),
+                     SDL_VERSIONNUM_MINOR(sdl_version), SDL_VERSIONNUM_MICRO(sdl_version));
 
-    const SDL_version* vi = TTF_Linked_Version();
-    Log <<  ecl::strf("SDL_ttf Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
-    if(TTF_Init() == -1) {
-        fprintf(stderr, "Couldn't initialize SDL_ttf: %s\n", TTF_GetError());
+    int ttf_version = TTF_Version();
+    Log <<  ecl::strf("SDL_ttf Version: %u.%u.%u\n", SDL_VERSIONNUM_MAJOR(ttf_version),
+                      SDL_VERSIONNUM_MINOR(ttf_version), SDL_VERSIONNUM_MICRO(ttf_version));
+    if(!TTF_Init()) {
+        fprintf(stderr, "Couldn't initialize SDL_ttf: %s\n", SDL_GetError());
         exit(1);
     }
 
-    vi = IMG_Linked_Version();
-    Log <<  ecl::strf("SDL_image Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
+    int img_version = IMG_Version();
+    Log <<  ecl::strf("SDL_image Version: %u.%u.%u\n", SDL_VERSIONNUM_MAJOR(img_version),
+                      SDL_VERSIONNUM_MINOR(img_version), SDL_VERSIONNUM_MICRO(img_version));
 #ifdef SDL_IMG_INIT
     int img_flags = IMG_INIT_PNG | IMG_INIT_JPG;
-    if ((IMG_Init(img_flags) & img_flags) != img_flags) {
+    if (!IMG_Init(img_flags)) {
         fprintf(stderr, "Couldn't initialize SDL_image: %s\n", IMG_GetError());
         exit(1);
     }
@@ -515,12 +514,12 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     bool haveHome = (getenv("HOME") != nullptr);
 
 
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
     // Locate standard user-specific application data directory
     std::string winAppDataPath = ecl::ApplicationDataPath() + "/Enigma";
 #endif
 
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
     bool progDirExists = ecl::split_path(progCallPath, &progDir, &progName);
     if (!progDirExists) {
         // filename only -- working dir should be on enigma as enigma
@@ -530,6 +529,16 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         // a call from elsewhere -- the absolute or relative path does not matter.
         // this enables calls from a commandline.
         systemAppDataPath = progDir + "/data";
+        if (!ecl::FolderExists(systemAppDataPath)) {
+            if (!systemPath.empty() && ecl::FolderExists(systemPath))
+                systemAppDataPath = systemPath;
+            else if (ecl::FolderExists(progDir + "/../../data"))
+                systemAppDataPath = progDir + "/../../data";
+            else if (ecl::FolderExists(progDir + "/../data"))
+                systemAppDataPath = progDir + "/../data";
+            else if (ecl::FolderExists("./data"))
+                systemAppDataPath = "./data";
+        }
     }
 #elif MACOSX
     // Mac OS X applications are self-contained bundles,
@@ -558,7 +567,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
 
     // docPath
     docPath = DOCDIR;    // defined in src/Makefile.am
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
     if (progDirExists) {
         docPath = progDir;
     }
@@ -593,7 +602,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         userStdPath = prefPath + "/.enigma";
 #endif
         prefPath = prefPath + ecl::PathSeparator + "." + prefFilename;
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
     } else if (!winAppDataPath.empty()) {
         if (!ecl::FolderExists(winAppDataPath))
             // may happen on Windows
@@ -825,14 +834,19 @@ void Application::init_i18n()
         app.prefs->getProperty("LocalizationPath", l10nPath);
         if (l10nPath.empty()) {
             l10nPath = systemAppDataPath + ecl::PathSeparator + "locale";
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
             std::string progDir;          // directory path part of args[0]
             std::string progName;         // filename part of args[0]
-            bool progDirExists = split_path(progCallPath, &progDir, &progName);
+            bool progDirExists = ecl::split_path(progCallPath, &progDir, &progName);
             if (progDirExists) {
-                l10nPath = progDir + ecl::PathSeparator + "data" + ecl::PathSeparator + "locale";
+                std::string localL10n = progDir + ecl::PathSeparator + "data" + ecl::PathSeparator + "locale";
+                if (ecl::FolderExists(localL10n))
+                    l10nPath = localL10n;
             }
 #endif
+            if (!ecl::FolderExists(l10nPath) && std::string(LOCALEDIR).size() > 0 && ecl::FolderExists(LOCALEDIR)) {
+                l10nPath = LOCALEDIR;
+            }
         }
     }
     Log << "l10nPath = \"" << l10nPath << "\"\n";

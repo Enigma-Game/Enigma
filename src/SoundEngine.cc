@@ -22,9 +22,9 @@
 #include "SoundEngine.hh"
 #include "main.hh"
 
-#include "SDL.h"
-#include "SDL_mixer.h"
-#include "SDL_mutex.h"
+#include <SDL3/SDL.h>
+#include <SDL3_mixer/SDL_mixer.h>
+#include <SDL3/SDL_mutex.h>
 
 #include <string>
 #include <cassert>
@@ -193,27 +193,29 @@ SoundEngine::SoundEngine()
 
 class MutexLock {
 public:
-    MutexLock (SDL_mutex *m) {
+    MutexLock (SDL_Mutex *m) {
         mutex = m;
-        SDL_mutexP (mutex);
+        SDL_LockMutex (mutex);
     }
     ~MutexLock () {
-        SDL_mutexV (mutex);
+        SDL_UnlockMutex (mutex);
     };
 private:
-    SDL_mutex *mutex;
+    SDL_Mutex *mutex;
 };
 
 SoundEngine_SDL *SoundEngine_SDL::m_instance = 0;
 
 SoundEngine_SDL::SoundEngine_SDL()
 : m_initialized(false),
-  m_soundvolume (MIX_MAX_VOLUME),
-  m_musicvolume (MIX_MAX_VOLUME),
-  m_current_music (0),
-  m_freq (MIX_DEFAULT_FREQUENCY),
-  m_format (MIX_DEFAULT_FORMAT),
-  m_channels (MIX_DEFAULT_CHANNELS)
+  m_soundvolume(1.0),
+  m_musicvolume(1.0),
+  m_mixer(nullptr),
+  m_current_music(nullptr),
+  m_music_track(nullptr),
+  m_channels(32),
+  m_tracks(),
+  m_mutex(nullptr)
 {
     assert (m_instance == 0);
     m_instance = this;
@@ -229,32 +231,42 @@ bool SoundEngine_SDL::init()
 {
     if (!m_initialized) {
         // Initialize SDL audio subsystem
-        if (SDL_InitSubSystem (SDL_INIT_AUDIO) == -1) {
+        if (!SDL_InitSubSystem(SDL_INIT_AUDIO)) {
             fprintf(stderr, "Couldn't open SDL audio subsystem: %s\n", SDL_GetError());
             return false;
         }
         
-        const SDL_version* vi = Mix_Linked_Version();
-        Log <<  ecl::strf("SDL_mixer Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
-#ifdef SDL_MIX_INIT
-        int mix_flags = MIX_INIT_OGG | MIX_INIT_MOD;
-        if ((Mix_Init(mix_flags) & mix_flags) != mix_flags) {
-            Log << ecl::strf( "Couldn't initialize SDL_mixer: %s\n", Mix_GetError());
+        int vi = MIX_Version();
+        Log << ecl::strf("SDL_mixer Version: %u.%u.%u\n",
+                         SDL_VERSIONNUM_MAJOR(vi),
+                         SDL_VERSIONNUM_MINOR(vi),
+                         SDL_VERSIONNUM_MICRO(vi));
+
+        if (!MIX_Init()) {
+            Log << ecl::strf("Couldn't initialize SDL_mixer: %s\n", SDL_GetError());
             return false;
         }
-#endif
 
         // Initialize SDL_mixer lib
-        if (Mix_OpenAudio(m_freq, m_format, m_channels, 1024) < 0) {
-            fprintf(stderr, "Couldn't open mixer: %s\n", Mix_GetError());
+        SDL_AudioSpec spec = {SDL_AUDIO_S16, 2, 44100};
+        m_mixer = MIX_CreateMixerDevice(SDL_AUDIO_DEVICE_DEFAULT_PLAYBACK, &spec);
+        if (!m_mixer) { 
+            fprintf(stderr, "Couldn't open mixer: %s\n", SDL_GetError());
             return false;
         }
 
-        // Update number of available channels
-        m_channels = Mix_GroupCount (-1);
-        m_channelinfo.resize (m_channels);
+        // Initialize channels/tracks
+        m_channels = 32;
+        m_channelinfo.resize(m_channels);
+        m_tracks.resize(m_channels);
 
-        Mix_ChannelFinished (&channel_finished);
+        for (int i = 0; i < m_channels; ++i) {
+            m_tracks[i] = MIX_CreateTrack(m_mixer);
+            MIX_SetTrackStoppedCallback(m_tracks[i], &channel_finished, (void*)(uintptr_t)i);
+        }
+
+        m_music_track = MIX_CreateTrack(m_mixer);
+
         m_mutex = SDL_CreateMutex();
         if (!m_mutex)
             return false;
@@ -267,66 +279,87 @@ bool SoundEngine_SDL::init()
 void SoundEngine_SDL::shutdown() 
 {
     if (m_initialized) {
-	Mix_FreeMusic(m_current_music);
-        Mix_CloseAudio();
+        stop_music();
+        for (int i = 0; i < m_channels; ++i) {
+            if (m_tracks[i]) {
+                MIX_DestroyTrack(m_tracks[i]);
+                m_tracks[i] = nullptr;
+            }
+        }
+        if (m_music_track) {
+            MIX_DestroyTrack(m_music_track);
+            m_music_track = nullptr;
+        }
         clear_cache();
-        SDL_DestroyMutex (m_mutex);
-#ifdef SDL_MIX_INIT
-        Mix_Quit();
-#endif
+        if (m_mixer) {
+            MIX_DestroyMixer(m_mixer);
+            m_mixer = nullptr;
+        }
+        if (m_mutex) {
+            SDL_DestroyMutex(m_mutex);
+            m_mutex = nullptr;
+        }
+        MIX_Quit();
         m_initialized = false;
     }
 }
 
 void SoundEngine_SDL::clear_cache() 
 {
-    for (ecl::Dict<Mix_Chunk*>::iterator it = wav_cache.begin(); it != wav_cache.end(); ++it)
-        Mix_FreeChunk(it->second);
+    for (auto it = wav_cache.begin(); it != wav_cache.end(); ++it) {
+        if (it->second)
+            MIX_DestroyAudio(it->second);
+    }
     wav_cache.clear();
 }
 
 void SoundEngine_SDL::set_sound_volume (double soundvol) 
 {
     if (!m_initialized)
-        return;                 // SDL_mixer crashes without this check
+        return;
 
-    m_soundvolume = ecl::round_down<int>(ecl::Clamp(soundvol, 0.0, 1.0) * MIX_MAX_VOLUME);
-    Mix_Volume (-1, m_soundvolume);
+    m_soundvolume = ecl::Clamp(soundvol, 0.0, 1.0);
 }
 
 void SoundEngine_SDL::set_music_volume (double musicvol) 
 {
     if (!m_initialized)
-        return;                 // SDL_mixer crashes without this check
+        return;
 
-    m_musicvolume = ecl::round_down<int>(ecl::Clamp(musicvol, 0.0, 1.0) * MIX_MAX_VOLUME);
-    Mix_VolumeMusic (m_musicvolume);
-    //Mix_SetPanning(MIX_CHANNEL_POST, m_musicvolume, m_musicvolume);
+    m_musicvolume = ecl::Clamp(musicvol, 0.0, 1.0);
+    if (m_music_track)
+        MIX_SetTrackGain(m_music_track, static_cast<float>(m_musicvolume));
 }
-
 
 void SoundEngine_SDL::stop_music() 
 {
-    Mix_HaltMusic();
-    Mix_FreeMusic(m_current_music);
-    m_current_music = 0;
+    if (m_music_track)
+        MIX_StopTrack(m_music_track, 0);
+    if (m_current_music) {
+        MIX_DestroyAudio(m_current_music);
+        m_current_music = nullptr;
+    }
 }
 
 bool SoundEngine_SDL::play_music (const std::string &filename, double position) 
 {
-    if (Mix_Music *music = Mix_LoadMUS(filename.c_str())) {
+    if (!m_initialized || !m_mixer || !m_music_track)
+        return false;
+    if (MIX_Audio *music = MIX_LoadAudio(m_mixer, filename.c_str(), false)) {
         if (m_current_music)
-            Mix_FreeMusic (m_current_music);
+            MIX_DestroyAudio(m_current_music);
         m_current_music = music;
-        if(Mix_PlayMusic (m_current_music, 1) == -1)
-            Log << "Mix_PlayMusic: " << Mix_GetError() << "\n";
-        if(position > 0) {
+        MIX_SetTrackAudio(m_music_track, m_current_music);
+        MIX_SetTrackLoops(m_music_track, 0);
+        MIX_SetTrackGain(m_music_track, static_cast<float>(m_musicvolume));
+        if (!MIX_PlayTrack(m_music_track, 0))
+            Log << "MIX_PlayTrack: " << SDL_GetError() << "\n";
+        if (position > 0) {
             Log << "Start music at position " << position << "\n";
-            if(Mix_SetMusicPosition(position) == -1)
-                Log << "Mix_SetMusicPosition: " << Mix_GetError() << "\n";
+            Sint64 frames = MIX_TrackMSToFrames(m_music_track, static_cast<Sint64>(position * 1000.0));
+            if (!MIX_SetTrackPlaybackPosition(m_music_track, frames))
+                Log << "MIX_SetTrackPlaybackPosition: " << SDL_GetError() << "\n";
         }
-        Mix_VolumeMusic (m_musicvolume);
-        //Mix_SetPanning(MIX_CHANNEL_POST, m_musicvolume, m_musicvolume);
         return true;
     }
     return false;
@@ -334,56 +367,35 @@ bool SoundEngine_SDL::play_music (const std::string &filename, double position)
 
 void SoundEngine_SDL::fadeout_music(bool blocking)
 {
-    while (Mix_FadingMusic() != MIX_NO_FADING) {
-        if (!blocking)
-            return;
-        SDL_Delay(10);
-    }
+    if (!m_music_track || !MIX_TrackPlaying(m_music_track))
+        return;
 
-    if (Mix_PlayingMusic()) {
-        Mix_FadeOutMusic(500);
-        if (!blocking)
-            return;
-        SDL_Delay(400);
+    Sint64 frames = MIX_TrackMSToFrames(m_music_track, 500);
+    MIX_StopTrack(m_music_track, frames);
+    if (blocking) {
+        while (MIX_TrackPlaying(m_music_track))
+            SDL_Delay(10);
     }
-    while (Mix_PlayingMusic())
-        SDL_Delay(10);
 }
 
 void SoundEngine_SDL::update_channel (int channel)
 {
+    if (channel < 0 || channel >= (int)m_channelinfo.size() || !m_tracks[channel])
+        return;
+
     SoundEvent &se = m_channelinfo[channel];
 
     double volume;
-    //int    left;
-    //int    right;
     if (se.has_position) {
         ecl::V2 distv = se.position - m_listenerpos;
-        //int xdist = int(distv[0] * options::GetDouble("StereoSeparation"));
-        //left  = ecl::Clamp (127 - xdist, 0, 254);
-        //right = ecl::Clamp (127 + xdist, 0, 254);
         volume = se.effectiveVolume(length(distv));
     }
     else
     {
         volume = se.volume;
-        //left = se.left;
-        //right = se.right;
     }
 
-    /* TODO(sdl2): Mix_SetPanning crashes under Linux (e.g. in just23, andreas31, ...)
-       Here is a backtrace:
-    #0  __lll_lock_wait (futex=futex@entry=0x555555c37bd0, private=0) at lowlevellock.c:52
-    #1  ... in __GI___pthread_mutex_lock (mutex=0x555555c37bd0) at ../nptl/pthread_mutex_lock.c:115
-    #2  ... in  () at /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0
-    #3  ... in Mix_SetPanning () at /usr/lib/x86_64-linux-gnu/libSDL2_mixer-2.0.so.0
-    #4  ... in sound::SoundEngine_SDL::update_channel(int) (this=<optimized out>, channel=5)
-       If you repair this, please decomment "xdist", "left" and "right" above. */
-
-    //Mix_SetPanning (channel, left, right);
-
-    int mixvol = ecl::round_down<int>(volume * MIX_MAX_VOLUME);
-    Mix_Volume(channel, ecl::Clamp(mixvol, 0, MIX_MAX_VOLUME));
+    MIX_SetTrackGain(m_tracks[channel], static_cast<float>(ecl::Clamp(volume, 0.0, 1.0)));
 }
 
 int SoundEngine_SDL::already_playing (const SoundEvent &s)
@@ -399,24 +411,24 @@ int SoundEngine_SDL::already_playing (const SoundEvent &s)
     return -1;
 }
 
-Mix_Chunk *SoundEngine_SDL::cache_sound(const std::string &name)
+MIX_Audio *SoundEngine_SDL::cache_sound(const std::string &name)
 {
-    ecl::Dict<Mix_Chunk*>::iterator i=wav_cache.find(name);
+    auto i = wav_cache.find(name);
     if (i == wav_cache.end()) {
-        Mix_Chunk *chunk = nullptr;
+        MIX_Audio *audio = nullptr;
         std::string filename;
-        if (app.resourceFS->findFile("soundsets/" + name + ".wav", filename))
-             chunk = Mix_LoadWAV(filename.c_str());
-        else {
-            // Sounds from other resources should return correct error:
-            Mix_SetError("Sound not found in resources.");
+        if (app.resourceFS->findFile("soundsets/" + name + ".wav", filename)) {
+            if (m_mixer)
+                audio = MIX_LoadAudio(m_mixer, filename.c_str(), true);
+        } else {
+            SDL_SetError("Sound not found in resources.");
         }
-        if (chunk)
-            wav_cache.insert(name, chunk);
+        if (audio)
+            wav_cache.insert(name, audio);
         else
             enigma::Log << "Couldn't load sample '" << name << "': "
-                        << Mix_GetError() << std::endl;
-        return chunk;
+                        << SDL_GetError() << std::endl;
+        return audio;
     }
     return i->second;
 }
@@ -440,10 +452,17 @@ bool SoundEngine_SDL::play_sound (const SoundEvent &s)
         }
     }
     
-    if (Mix_Chunk *chunk = cache_sound(s.name)) {
-        channel = -1; //Mix_GroupOldest(-1);
-
-        channel = Mix_PlayChannel(channel, chunk, 0);
+    if (MIX_Audio *audio = cache_sound(s.name)) {
+        channel = -1;
+        {
+            MutexLock lock(m_instance->m_mutex);
+            for (int i = 0; i < m_channels; ++i) {
+                if (!m_channelinfo[i].active || !MIX_TrackPlaying(m_tracks[i])) {
+                    channel = i;
+                    break;
+                }
+            }
+        }
 
         if (channel != -1) {
             {
@@ -453,7 +472,10 @@ bool SoundEngine_SDL::play_sound (const SoundEvent &s)
                 se.active       = true;
                 se.playing_time = 0.0;
             }
+            MIX_SetTrackAudio(m_tracks[channel], audio);
+            MIX_SetTrackLoops(m_tracks[channel], 0);
             update_channel (channel);
+            MIX_PlayTrack(m_tracks[channel], 0);
         }
         return true; // even if no free channel was found
     }
@@ -461,7 +483,7 @@ bool SoundEngine_SDL::play_sound (const SoundEvent &s)
 }
 
 bool SoundEngine_SDL::is_music_playing() {
-    return Mix_PlayingMusic() || Mix_PausedMusic();
+    return m_music_track && MIX_TrackPlaying(m_music_track);
 }
 
 void SoundEngine_SDL::tick (double dtime)
@@ -479,91 +501,73 @@ void SoundEngine_SDL::define_sound (
     const SoundData &data)
 {
     Uint32 bufsize = static_cast<Uint32> (data.buf.size());
-    Mix_Chunk *ch= ChunkFromRaw (&data.buf[0], bufsize,
-                                 data.freq, AUDIO_S8, data.nchannels);
-    if (ch != 0)
+    MIX_Audio *ch = ChunkFromRaw (&data.buf[0], bufsize,
+                                  data.freq, SDL_AUDIO_S8, data.nchannels);
+    if (ch != nullptr)
         wav_cache.insert(name, ch);
 }
 
-void SoundEngine_SDL::channel_finished (int channel)
+void SDLCALL SoundEngine_SDL::channel_finished (void *userdata, MIX_Track * /*track*/)
 {
-    MutexLock lock(m_instance->m_mutex);
-    SoundEvent &se = m_instance->m_channelinfo[channel];
-    se.active = false;
+    int channel = (int)(uintptr_t)userdata;
+    if (m_instance && channel >= 0 && channel < (int)m_instance->m_channelinfo.size()) {
+        MutexLock lock(m_instance->m_mutex);
+        SoundEvent &se = m_instance->m_channelinfo[channel];
+        se.active = false;
+    }
 }
 
-/*! SDL_ConvertAudio is only capable of changing the sound frequency by
-  integer powers of 2 (i.e., by a factor of ... 1/4 1/2 1 2 ...).
-  The sound files used by Oxyd are sampled at 6kHz which we must
-  convert to roughly 22kHz.  This function resamples between any two
-  frequencies using simple linear interpolation.  It is not capable
-  of changing the sample format or dealing with more than one
-  channel.
-
-  FIXME: We should apply a lowpass filter after reampling to get rid
-  of the artifacts introduced by linear interpolation or use a better
-  interpolator. */
 Sint8* SoundEngine_SDL::resample (const Sint8 *data, Uint32 len, int oldfreq,
                                   int newfreq, Uint32 *newlen_)
-    {
-        assert (data);
-        assert (len>0);
-        assert (oldfreq > 0);
-        assert (newfreq > 0);
-        const int sample_size = 1;    //  8bit sample data
-
-        float ratio = float(oldfreq) / float(newfreq);
-        Uint32 newlen = ecl::round_down<int> (len / ratio);
-        *newlen_ = newlen;
-        Sint8 *newdata = (Sint8*) malloc (sample_size * newlen);
-        if (!newdata)
-            return 0;
-
-        const Sint8 *src = data;
-        Sint8       *dst = newdata;
-
-        float srcinc = float (len-1) / float (newlen); 
-        for (unsigned i=0; i<newlen; ++i) {
-            int srcidx = ecl::round_down <int> (i * srcinc);
-            float a2 = i*srcinc - srcidx;
-            float a1 = 1.0f - a2;
-            dst[i] = static_cast<Sint8> ((a1*src[srcidx] + a2*src[srcidx+1])/2);
-        }
-        return newdata;
-    }
-
-Mix_Chunk* SoundEngine_SDL::ChunkFromRaw (const Uint8 *buf, Uint32 len,
-                                           int sfreq, int sformat, int schannels)
 {
-    if (sound::IsSoundMute() || !buf)
+    assert (data);
+    assert (len>0);
+    assert (oldfreq > 0);
+    assert (newfreq > 0);
+    const int sample_size = 1;    //  8bit sample data
+
+    float ratio = float(oldfreq) / float(newfreq);
+    Uint32 newlen = ecl::round_down<int> (len / ratio);
+    *newlen_ = newlen;
+    Sint8 *newdata = (Sint8*) malloc (sample_size * newlen);
+    if (!newdata)
         return 0;
 
-    // Get destination format
-    int dfreq, dchannels;
-    Uint16 dformat;
-    Mix_QuerySpec (&dfreq, &dformat, &dchannels);
+    const Sint8 *src = data;
+    Sint8       *dst = newdata;
 
-    // Resample
-    Uint32 newlen=0;
-    Uint8 *newbuf = (Uint8*)resample((const Sint8*)buf, len, sfreq, dfreq, &newlen);
-
-    // Convert audio data
-    SDL_AudioCVT cvt;
-    if (!SDL_BuildAudioCVT (&cvt, sformat, schannels, dfreq,
-                    dformat, dchannels, dfreq)) {
-        free(newbuf);
-        return 0;
+    float srcinc = float (len-1) / float (newlen); 
+    for (unsigned i=0; i<newlen; ++i) {
+        int srcidx = ecl::round_down <int> (i * srcinc);
+        float a2 = i*srcinc - srcidx;
+        float a1 = 1.0f - a2;
+        dst[i] = static_cast<Sint8> ((a1*src[srcidx] + a2*src[srcidx+1])/2);
     }
-
-    cvt.buf = (Uint8*) malloc(newlen * cvt.len_mult);
-    cvt.len = newlen;
-    memcpy(cvt.buf, newbuf, newlen);
-    free(newbuf);
-
-    SDL_ConvertAudio(&cvt);
-
-    Mix_Chunk *chunk = Mix_QuickLoad_RAW(cvt.buf, cvt.len_cvt);
-    chunk->allocated = 1;
-    return chunk;
+    return newdata;
 }
 
+MIX_Audio* SoundEngine_SDL::ChunkFromRaw (const Uint8 *buf, Uint32 len,
+                                          int sfreq, int sformat, int schannels)
+{
+    if (sound::IsSoundMute() || !buf || !m_mixer)
+        return nullptr;
+
+    // Get destination format
+    SDL_AudioSpec dst_spec;
+    if (!MIX_GetMixerFormat(m_mixer, &dst_spec)) {
+        dst_spec.freq = 44100;
+        dst_spec.format = SDL_AUDIO_S16;
+        dst_spec.channels = 2;
+    }
+
+    // Convert audio data
+    SDL_AudioSpec src_spec = {static_cast<SDL_AudioFormat>(sformat), schannels, sfreq};
+    Uint8* dst_data = nullptr;
+    int dst_len = 0;
+    if (SDL_ConvertAudioSamples(&src_spec, buf, len, &dst_spec, &dst_data, &dst_len)) {
+        MIX_Audio* audio = MIX_LoadRawAudio(m_mixer, dst_data, dst_len, &dst_spec);
+        SDL_free(dst_data);
+        return audio;
+    }
+    return nullptr;
+}

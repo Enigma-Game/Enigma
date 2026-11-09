@@ -1212,8 +1212,7 @@ namespace {
 
     // Returns a new RGBA surface suitable for drawing shadows.
     SDL_Surface *CreateShadowSurface(int width, int height) {
-        SDL_Surface *ss = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 32,
-                0xff0000, 0xff00, 0xff, 0xff000000);
+        SDL_Surface *ss = SDL_CreateSurface(width, height, SDL_PIXELFORMAT_ARGB8888);
         SDL_SetSurfaceAlphaMod(ss, 128);
         return ss;
     }
@@ -1451,7 +1450,7 @@ void DL_Shadows::draw(GC &gc, int xpos, int ypos, int x, int y) {
                 buffer->lock();
                 SDL_Surface *ss = shadowSurface->get_surface();
                 SDL_Surface *bs = buffer->get_surface();
-                memcpy(bs->pixels, ss->pixels, ss->w * ss->h * ss->format->BytesPerPixel);
+                memcpy(bs->pixels, ss->pixels, ss->w * ss->h * SDL_GetPixelFormatDetails(ss->format)->bytes_per_pixel);
                 buffer->unlock();
                 shadowSurface->unlock();
             } else {
@@ -1705,7 +1704,7 @@ void GameDisplay::redrawAll(Screen *scr) {
 
 void GameDisplay::redraw(ecl::Screen *screen) {
     GC gc(screen->get_surface());
-    if (SDL_GetTicks() - lastFrameTime > 10) {
+    if (redrawEverything || SDL_GetTicks() - lastFrameTime >= 10) {
         CommonDisplay::redraw();
 
         if (ShowFPS) {

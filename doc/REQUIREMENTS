@@ -15,21 +15,17 @@ Source          Address/Info
 
 Libraries:
 ----------
-SDL-devel       1.2.14 - 1.2.9  (no 1.2.10 on Mac, no 1.2.12,1.2.13 on Win!)
-                http://www.libsdl.org/download-1.2.php
-                SDL-devel-1.2.14-mingw32.tar.gz (Mingw32) +  fix r5262
+SDL3-devel      >= 3.0.0
+                https://github.com/libsdl-org/SDL/releases
 
-SDL_ttf-devel   2.0.10 -  2.0.6
-                http://www.libsdl.org/projects/SDL_ttf/
-                SDL_ttf-devel-2.0.9-VC8.zip (W)
+SDL3_ttf-devel  >= 3.0.0
+                https://github.com/libsdl-org/SDL_ttf/releases
 
-SDL_mixer-devel 1.2.11 - 1.2.7
-                http://www.libsdl.org/projects/SDL_mixer/
-                SDL_mixer-devel-1.2.11-VC.zip (W)
+SDL3_mixer-devel >= 3.0.0
+                https://github.com/libsdl-org/SDL_mixer/releases
 
-SDL_image-devel 1.2.10 - 1.2.6
-                http://www.libsdl.org/projects/SDL_image/
-                SDL_image-devel-1.2.10-VC.zip (W)
+SDL3_image-devel >= 3.0.0
+                https://github.com/libsdl-org/SDL_image/releases
 
 Xerces-C        3.1    2.4 - 2.8 (L)   < 2.3 (L); 3.0 < r671894
 Apache          2.7 : http://xml.apache.org/xerces-c/download.cgi

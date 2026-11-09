@@ -88,11 +88,11 @@ target_include_directories(tinygettext PUBLIC include/ ${CMAKE_CURRENT_BINARY_DI
 
 
 ## SDL/iconv usage
-option(HAVE_SDL "Use SDL_iconv instead of system iconv" FALSE)
+option(HAVE_SDL "Use SDL_iconv instead of system iconv" TRUE)
 if(HAVE_SDL)
-set_directory_properties(PROPERTIES COMPILE_DEFINITIONS HAVE_SDL)
-target_include_directories(tinygettext SYSTEM PUBLIC ${SDL2_INCLUDE_DIRS})
-target_link_libraries(tinygettext PUBLIC ${SDL2_LIBRARIES})
+target_compile_definitions(tinygettext PUBLIC HAVE_SDL)
+find_package(SDL3 REQUIRED)
+target_link_libraries(tinygettext PUBLIC SDL3::SDL3)
 
 else(HAVE_SDL)
 

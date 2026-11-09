@@ -18,6 +18,7 @@
  */
 
 #include "gui/ErrorMenu.hh"
+#include <iterator>
 #include "ecl_font.hh"
 #include "ecl_video.hh"
 #include "resource_cache.hh"
@@ -73,7 +74,7 @@ namespace enigma { namespace gui {
     
     bool ErrorMenu::on_event (const SDL_Event &e) 
     {
-        if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_RIGHT) {
+        if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_RIGHT) {
             Menu::quit();
             return true;
         }

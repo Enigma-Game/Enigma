@@ -2529,7 +2529,7 @@ static int createWorld(lua_State *L) {
     // triggered, but can be used more generally as well.
     if (is_table(L, 3)) {
         lua_getfield(L, 3, "defaultkey");
-        if (not lua_isstring(L, -1))
+        if (!lua_isstring(L, -1))
             throwLuaError(L, "World create with false argument types");
         lua_insert(L, 3);
     }

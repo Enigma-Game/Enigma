@@ -28,12 +28,23 @@
 #include <locale.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
 #include <windows.h>
 #include <shellapi.h>
-#elif MACOSX
+#include <direct.h>
+#endif
+#ifndef S_ISREG
+#define S_ISREG(m) (((m) & S_IFMT) == S_IFREG)
+#endif
+#ifndef S_ISDIR
+#define S_ISDIR(m) (((m) & S_IFMT) == S_IFDIR)
+#endif
+
+#if MACOSX
 #include <Carbon/Carbon.h>
 #include <CoreFoundation/CoreFoundation.h>
 #include <CoreServices/CoreServices.h>
@@ -41,7 +52,7 @@
 
 namespace ecl {
 
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
 const char *PathSeparator = "\\";  // for path assembly
 const char *PathsSeparator = ";";  // for listing paths in a string
 #else
@@ -106,8 +117,8 @@ bool FolderCreate(const std::string &fname) {
     }
 
     if (ok) {
-        #ifdef __MINGW32__
-        ok = mkdir(fname.c_str()) == 0;
+        #if defined(_WIN32) || defined(__MINGW32__)
+        ok = _mkdir(fname.c_str()) == 0;
         #else
         ok = mkdir(fname.c_str(), 0777) == 0;
         #endif
@@ -117,8 +128,8 @@ bool FolderCreate(const std::string &fname) {
 
 bool BrowseUrl(const std::string& url) {
     bool result = true;
-    #ifdef __MINGW32__
-    result == ((INT_PTR)ShellExecute(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
+    #if defined(_WIN32) || defined(__MINGW32__)
+    result = ((INT_PTR)ShellExecute(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
     #elif MACOSX
     CFStringRef cfurlStr = CFStringCreateWithCString(NULL, url.c_str(), kCFStringEncodingASCII);
 
@@ -139,8 +150,8 @@ bool BrowseUrl(const std::string& url) {
 
 bool ExploreFolder(const std::string& path) {
     bool result = true;
-    #ifdef __MINGW32__
-    result == ((INT_PTR)ShellExecute(NULL, "explore", path.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
+    #if defined(_WIN32) || defined(__MINGW32__)
+    result = ((INT_PTR)ShellExecute(NULL, "explore", path.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
     #elif MACOSX
     CFStringRef cfurlStr = CFStringCreateWithCString(kCFAllocatorDefault, path.c_str(), kCFStringEncodingUTF8);
 
@@ -159,7 +170,7 @@ bool ExploreFolder(const std::string& path) {
     return result;
 }
 
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
 // should be ecl_system_windows.cc ?
 std::string ApplicationDataPath() {
     typedef HRESULT(WINAPI * SHGETFOLDERPATH)(HWND, int, HANDLE, DWORD, LPTSTR);

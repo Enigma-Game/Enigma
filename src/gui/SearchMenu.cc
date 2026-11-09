@@ -281,8 +281,8 @@ namespace enigma { namespace gui {
 
     bool SearchMenu::on_event(const SDL_Event &e) {
         bool handled = false;
-        if (e.type == SDL_KEYUP) {
-            if (e.key.keysym.sym == SDLK_F1) {
+        if (e.type == SDL_EVENT_KEY_UP) {
+            if (e.key.key == SDLK_F1) {
                 displayInfo(helptext_search);
                 draw_all();
                 handled = true;

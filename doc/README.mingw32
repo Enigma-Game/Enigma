@@ -20,10 +20,10 @@ mailing list.)
 
   - Get and install the appropriate development packages of
 
-      * SDL >= 1.2 (www.libsdl.org)
-      * SDL_mixer >= 1.2.4 (http://www.libsdl.org/projects/SDL_mixer)
-      * SDL_image >= 1.2.0 (http://www.libsdl.org/projects/SDL_image)
-      * SDL_ttf  (http://www.libsdl.org/projects/SDL_ttf)
+      * SDL >= 3.0
+      * SDL_mixer >= 3.0
+      * SDL_image >= 3.0
+      * SDL_ttf >= 3.0
       * zlib
       * libpng
       * Xerces-C

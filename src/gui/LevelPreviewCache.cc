@@ -26,8 +26,10 @@
 #include "video.hh"
 #include "lev/Proxy.hh"
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 #include <fstream>
+#include <mutex>
+#include <thread>
 #include <sstream>
 
 using namespace ecl;
@@ -53,6 +55,7 @@ LevelPreviewCache::LevelPreviewCache() : cachedIndex(nullptr) {
 void LevelPreviewCache::clear() {
     Log << "LevelPreviewCache clear\n";
     cache.clear();
+    missingOnDisk.clear();
     imgCache.clear();
 }
 
@@ -65,25 +68,40 @@ Surface *LevelPreviewCache::getPreview(lev::Proxy *levelProxy, const ThumbnailIn
     if (i != cache.end())
         return i->second;
 
+    if (!allowGeneration && missingOnDisk.find(mapIndex) != missingOnDisk.end())
+        return nullptr;
+
     // we have to cache a new preview - check if we should clear cache first
     if (cachedIndex == nullptr) {
         // remember the index we are caching
         cachedIndex = lev::Index::getCurrentIndex();
     } else if (cachedIndex != lev::Index::getCurrentIndex()) {
-        // the index changed - cache only previews from new index
-        clear();
         cachedIndex = lev::Index::getCurrentIndex();
+        // Keep decoded previews in memory unless cache exceeds reasonable limit (~30MB)
+        if (cache.size() > 500) {
+            clear();
+        }
     }
 
-    const VMInfo &vminfo = *video_engine->GetInfo();
     std::string previewSubPath = makePreviewPath(levelProxy, thumbinfo);
     Surface* surface = nullptr;
 
-    // load preview from file bundled with the level itself
+    // Fast path: check user's generated thumbnail directory directly first
+    std::string userThumbPath = app.userImagePath + "/" + previewSubPath;
+    if (ecl::FileExists(userThumbPath)) {
+        surface = imgCache.get(userThumbPath);
+    }
+
+    // Load preview from stored file in resourceFS if not in userImagePath
+    string previewFullPath;
+    if (!surface && app.resourceFS->findFile(previewSubPath, previewFullPath))
+        surface = imgCache.get(previewFullPath);
+
+    // Load preview from file bundled with the level itself
     std::string absLevelPath;
     std::stringstream imageDataStream;
     ByteVec imageData;
-    if (levelProxy->getNormPathType() == lev::Proxy::pt_resource &&
+    if (!surface && levelProxy->getNormPathType() == lev::Proxy::pt_resource &&
         app.resourceFS->findFile("levels/" + levelProxy->getNormLevelPath() + thumbinfo.suffix + ".png",
                                  absLevelPath, imageDataStream)) {
         if (imageDataStream.rdbuf()->in_avail()) {
@@ -94,26 +112,26 @@ Surface *LevelPreviewCache::getPreview(lev::Proxy *levelProxy, const ThumbnailIn
             basic_ifstream<char> ifs(absLevelPath.c_str(), ios::binary | ios::in);
             Readfile(ifs, imageData);
         }
-        SDL_RWops *imageHandle = SDL_RWFromMem(&(imageData[0]), imageData.size());
-        std::unique_ptr<Surface> newSurface = ecl::LoadImage(imageHandle, 1);
+        SDL_IOStream *imageHandle = SDL_IOFromMem(&(imageData[0]), imageData.size());
+        std::unique_ptr<Surface> newSurface = ecl::LoadImage(imageHandle, true);
         surface = imgCache.store(previewSubPath, std::move(newSurface));  // insert in imgCache
     }
 
-    // load preview from stored file if possible
-    string previewFullPath;
-    if (!surface && app.resourceFS->findFile(previewSubPath, previewFullPath))
-        surface = imgCache.get(previewFullPath);
-
     // generate new preview otherwise
-    if (!surface && allowGeneration) {
-        std::unique_ptr<ecl::Surface> newSurface = newPreview(levelProxy, thumbinfo);
-        if (newSurface) {
-            surface = imgCache.store(previewSubPath, std::move(newSurface));      // insert in imgCache
-            savePreview(levelProxy, thumbinfo, surface);  // save on filesystem
+    if (!surface) {
+        if (allowGeneration) {
+            std::unique_ptr<ecl::Surface> newSurface = newPreview(levelProxy, thumbinfo);
+            if (newSurface) {
+                surface = imgCache.store(previewSubPath, std::move(newSurface));      // insert in imgCache
+                savePreview(levelProxy, thumbinfo, surface);  // save on filesystem
+            } else {
+                surface = enigma::GetImage(("error" + thumbinfo.suffix).c_str());
+            }
+            didGenerate = true;
+            missingOnDisk.erase(mapIndex);
         } else {
-            surface = enigma::GetImage(("error" + thumbinfo.suffix).c_str());
+            missingOnDisk.insert(mapIndex);
         }
-        didGenerate = true;
     }
 
     // update index
@@ -124,12 +142,11 @@ Surface *LevelPreviewCache::getPreview(lev::Proxy *levelProxy, const ThumbnailIn
 
 std::unique_ptr<ecl::Surface> LevelPreviewCache::newPreview(lev::Proxy *levelProxy,
                                                             const ThumbnailInfo &thumbinfo) {
-    const VMInfo &vminfo = *video_engine->GetInfo();
     std::unique_ptr<Surface> surface;
     ecl::GC gc(video_engine->BackBuffer());
     if (game::DrawLevelPreview(gc, levelProxy)) {
-        SDL_Rect r;
-        sdl::copy_rect(r, vminfo.gamearea);
+        int tilesize = video_engine->GetTileset()->tilesize;
+        SDL_Rect r = { 0, 0, tilesize * 20, tilesize * 13 };
         surface = MakeSurface(thumbinfo.width, thumbinfo.height);
         BlitScaled(video_engine->BackBuffer()->get_surface(), &r, surface->get_surface(), nullptr);
     }
@@ -155,14 +172,19 @@ std::string LevelPreviewCache::makePreviewPath(lev::Proxy *levelProxy,
 
 void LevelPreviewCache::savePreview(lev::Proxy *levelProxy, const ThumbnailInfo &thumbinfo,
                                     ecl::Surface *s) {
+    if (!s) return;
     std::string savePath = app.userImagePath + "/" + makePreviewPath(levelProxy, thumbinfo);
     Log << "savePreview to " << savePath << "\n";
-    // auto-create the directory if necessary
-    string directory;
-    if (ecl::split_path(savePath, &directory, 0) && !ecl::FolderExists(directory)) {
-        ecl::FolderCreate(directory);
-    }
-    ecl::SavePNG(s, savePath);
+    std::unique_ptr<ecl::Surface> s_copy(Duplicate(s));
+    std::thread([savePath, copy = std::move(s_copy)]() {
+        static std::mutex save_mutex;
+        std::lock_guard<std::mutex> lock(save_mutex);
+        std::string directory;
+        if (ecl::split_path(savePath, &directory, 0) && !ecl::FolderExists(directory)) {
+            ecl::FolderCreate(directory);
+        }
+        ecl::SavePNG(copy.get(), savePath);
+    }).detach();
 }
 
 void LevelPreviewCache::makeSystemPreview(lev::Proxy *levelProxy, const ThumbnailInfo &thumbinfo,

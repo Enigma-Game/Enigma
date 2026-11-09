@@ -34,7 +34,7 @@ std::string ecl::concat_paths(const std::string& path, const std::string& filena
 bool ecl::split_path(const std::string& path, std::string* dir_part, std::string* filename_part) {
     size_t lslash = path.find_last_of(PathSeparators);
     if (
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
         lslash == 2 && path[1] == ':' && (path[0] >= 'A' && path[0] <= 'Z')
 #else
         lslash == 0

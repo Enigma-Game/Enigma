@@ -4,3 +4,7 @@ add_library(enet
     host.c list.c callbacks.c packet.c peer.c protocol.c unix.c win32.c)
 target_include_directories(enet PUBLIC include)
 
+
+if (WIN32)
+    target_link_libraries(enet PUBLIC ws2_32 winmm)
+endif()

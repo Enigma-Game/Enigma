@@ -25,6 +25,7 @@
 #include "video.hh"
 
 #include <map>
+#include <unordered_set>
 
 namespace enigma { namespace gui {
 
@@ -88,6 +89,7 @@ namespace enigma { namespace gui {
         // ---------- Variables ----------
 
         PreviewMap         cache;       // a second mapping to avoid searched on the filesystem
+        std::unordered_set<std::string> missingOnDisk; // negative cache to avoid repeated disk stats
         enigma::ImageCache imgCache;    // the owner of the preview surfaces -
                                         // cannot be used as mapping as this cache 
                                         // uses the filepath as index and autoloads

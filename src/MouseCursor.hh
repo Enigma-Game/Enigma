@@ -30,7 +30,7 @@ namespace enigma {
 class MouseCursor {
 public:
     MouseCursor(ecl::Screen *screen) : screen(screen) { SDL_AddEventWatch(event_filter, this); }
-    ~MouseCursor() { SDL_DelEventWatch(event_filter, this); }
+    ~MouseCursor() { SDL_RemoveEventWatch(event_filter, this); }
 
     void set_image(std::unique_ptr<ecl::Surface> s, int hotx_, int hoty_);
     void move(int newx, int newy);
@@ -48,10 +48,10 @@ public:
 private:
     // This function is installed as an event watch by the constructor. It
     // tracks mouse events to keep the position of the mouse cursor updated.
-    static int event_filter(void *data, SDL_Event *e) {
+    static bool event_filter(void *data, SDL_Event *e) {
         MouseCursor *cursor = static_cast<MouseCursor *>(data);
-        if (e->type == SDL_MOUSEMOTION) {
-            cursor->move(e->motion.x, e->motion.y);
+        if (e->type == SDL_EVENT_MOUSE_MOTION) {
+            cursor->move((int)e->motion.x, (int)e->motion.y);
             cursor->redraw();
         }
         return 1;

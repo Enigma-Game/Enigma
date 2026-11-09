@@ -22,7 +22,7 @@
 #include "ecl_geom.hh"
 #include <memory>
 
-#include "SDL.h"
+#include <SDL3/SDL.h>
 
 #define WITH_ALPHA true
 #define NO_ALPHA false
@@ -80,9 +80,11 @@ enum ScalerMode {
 class Scaler {
 public:
     Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, ScalerMode _mode = SC_bytewise);
+    Scaler(SDL_Surface* _src, SDL_Rect* _srccrop, SDL_Surface* _dst, const SDL_Rect* _dstcrop, ScalerMode _mode = SC_bytewise);
     ~Scaler();
 
-    void precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst);
+    void precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst, ScalerMode _mode = SC_bytewise);
+    void precalculate(SDL_Surface* src, SDL_Rect* srccrop, SDL_Surface* dst, const SDL_Rect* dstcrop, ScalerMode _mode = SC_bytewise);
     void blit_scaled(SDL_Surface* src, const SDL_Rect* srcRect, SDL_Surface* dst, SDL_Rect* dstRect);
 
 private:
@@ -91,6 +93,10 @@ private:
     int *sax, *say;
     // Some constants describing aspects of src and dst.
     int spixelgap, spixelw, spixelh, dgap;
+    int dst_w, dst_h;
+    int src_w, src_h;
+    SDL_Rect m_dstcrop;
+    bool has_dstcrop;
 };
 
 /* -------------------- Graphics State (GS) -------------------- */
@@ -172,8 +178,8 @@ public:
     void lock();
     void unlock();
 
-    int bypp() const { return m_surface->format->BytesPerPixel; }
-    int bipp() const { return m_surface->format->BitsPerPixel; }
+    int bypp() const { return SDL_GetPixelFormatDetails(m_surface->format)->bytes_per_pixel; }
+    int bipp() const { return SDL_GetPixelFormatDetails(m_surface->format)->bits_per_pixel; }
     Uint32 pitch() const { return m_surface->pitch; }
 
     inline void *scanline_pointer(int y) { return (Uint8 *)m_surface->pixels + y * pitch(); }
@@ -210,7 +216,7 @@ protected:
     SDL_Surface *m_surface;
 
 private:
-    SDL_PixelFormat *pixel_format;
+    SDL_PixelFormat pixel_format;
     bool hasAlpha;
 };
 
@@ -245,6 +251,8 @@ public:
     void update_rect(const Rect &r);
     void flush_updates();
     void reinitScaler();
+    void set_brightness_scale(float b);
+    float get_brightness_scale() const { return m_brightness; }
 
     /* ---------- Accessors ---------- */
 
@@ -259,6 +267,10 @@ public:
     int window_width() const;
     int window_height() const;
 
+    SDL_Rect get_viewport() const;
+    void window_to_screen(float wx, float wy, int &sx, int &sy) const;
+    void window_to_screen(int wx, int wy, int &sx, int &sy) const;
+
     /* ---------- Static methods ---------- */
 
     static Screen *get_instance();
@@ -268,15 +280,19 @@ private:
     static Screen *m_instance;
 
     SDL_Window *m_window;
+    SDL_Renderer *m_renderer;
+    SDL_Texture *m_texture;
     std::unique_ptr<Surface> m_surface;
     SDL_Surface *m_sdlsurface;
     RectList dirtyRects;
     bool updateAll;
+    int last_window_w;
+    int last_window_h;
+    Uint64 last_present_ticks;
+    float m_brightness;
 
     Screen(const Screen &);
     Screen &operator=(const Screen &);
-
-    std::unique_ptr<Scaler> m_scaler;
 };
 
 /* -------------------- Graphics primitives -------------------- */
@@ -381,7 +397,7 @@ Surface *DisplayFormat(Surface *s);
 
 // Load an image using SDL_image and convert it to an optimized format.
 std::unique_ptr<Surface> LoadImage(const char *filename);
-std::unique_ptr<Surface> LoadImage(SDL_RWops *src, int freesrc);
+std::unique_ptr<Surface> LoadImage(SDL_IOStream *src, bool freesrc = true);
 
 // Overlay a rectangle `rect' in `s' with a transparent colored box.
 void TintRect(Surface *s, Rect rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a);

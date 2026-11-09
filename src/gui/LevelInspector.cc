@@ -536,9 +536,9 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool _allowThumbnailGeneratio
     
     bool LevelInspector::on_event (const SDL_Event &e) {
         bool handled = false;
-        if (e.type == SDL_KEYDOWN) {
+        if (e.type == SDL_EVENT_KEY_DOWN) {
             handled=true;
-            switch (e.key.keysym.sym) {
+            switch (e.key.key) {
             case SDLK_F2:
                 if (!isDeveloperMode) {
                     if (!annotation->getText().empty() || 

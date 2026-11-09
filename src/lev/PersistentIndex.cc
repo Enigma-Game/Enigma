@@ -253,7 +253,7 @@ void PersistentIndex::registerPersistentIndices(bool onlySystemIndices) {
     }
 
     candidates2.insert("");
-#ifdef __MINGW32__
+#if defined(_WIN32) || defined(__MINGW32__)
     // eliminate logical duplicates as Windows does not distinguish
     // upper and lower case filenames, but we can have e.g. an uppercase zip
     // and a lower case dir
