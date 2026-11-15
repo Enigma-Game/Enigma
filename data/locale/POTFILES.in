@@ -1,7 +1,9 @@
 src/server.cc
 src/client.cc
 src/main.cc
+src/SoundEffectManager.cc
 src/gui/MainMenu.cc
+src/gui/LanguageMenu.cc
 src/gui/OptionsMenu.cc
 src/gui/LevelMenu.cc
 src/gui/LevelWidget.cc
@@ -16,6 +18,7 @@ src/gui/HelpMenu.cc
 src/gui/GameMenu.cc
 src/lev/Proxy.cc
 src/lev/PersistentIndex.cc
+src/lev/VolatileIndex.cc
 src/lua.cc
 src/d_models.cc
 src/PreferenceManager.cc
