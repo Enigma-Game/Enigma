@@ -26,7 +26,7 @@ subdir = data/locale
 top_builddir = ../..
 
 # These options get passed to xgettext.
-XGETTEXT_OPTIONS = --keyword=_ --keyword=N_
+XGETTEXT_OPTIONS = --keyword=_ --keyword=N_ --keyword=ntranslate:1,2
 
 # This is the copyright holder that gets inserted into the header of the
 # $(PACKAGE).pot file.  Set this to the copyright holder of the surrounding
